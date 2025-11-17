@@ -1,6 +1,6 @@
 "use client"
 import Navigation from "@/components/navigation"
-import Hero from "@/components/hero"
+import { HeroFuturistic } from "@/components/ui/hero-futuristic"
 import TechShapes from "@/components/tech-shapes"
 
 export default function Home() {
@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Navigation />
       <main className="bg-white">
-        <Hero />
+        <HeroFuturistic />
         <TechShapes />
       </main>
     </>

@@ -3,19 +3,39 @@
 import Navigation from "@/components/navigation"
 import ImpactVisualization from "@/components/impact-visualization"
 import Image from "next/image"
+import { ShaderAnimation } from "@/components/ui/shader-animation"
+import { SlideTabs } from "@/components/ui/slide-tabs"
 
 export default function Impact() {
   return (
     <>
       <Navigation />
-      <main className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 animate-slide-in-up">
-            <h1 className="font-display font-bold text-5xl sm:text-6xl text-[#3e1e68] mb-4">Our Impact</h1>
-            <p className="text-xl text-[#656565] max-w-2xl mx-auto">
+      {/* Hero section with shader animation */}
+      <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <ShaderAnimation />
+        </div>
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
+        <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 animate-slide-in-up">
+            <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mb-4 drop-shadow-lg">
+              Our Impact
+            </h1>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-md">
               Transforming teen creativity into real-world impact
             </p>
           </div>
+          <div className="animate-fade-in" style={{ animationDelay: "0.3s" }}>
+            <SlideTabs
+              tabs={["Overview", "Stats", "Events", "Projects", "Community"]}
+              defaultTab={0}
+            />
+          </div>
+        </div>
+      </section>
+
+      <main className="pt-20 pb-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-20">
             {/* Left - Visualization */}

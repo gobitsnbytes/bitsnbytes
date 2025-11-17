@@ -1,7 +1,7 @@
 "use client"
 
 import Navigation from "@/components/navigation"
-import TeamCard from "@/components/team-card"
+import TeamCaseStudy from "@/components/team-case-study"
 
 const aboutContent = {
   title: "About Bits&Bytes",
@@ -35,58 +35,82 @@ const teamMembers = [
   {
     id: 1,
     name: "Yash",
-    role: "Co-Founder & Lead Dev",
+    role: "Founder",
     image: "/portrait-of-young-tech-leader.jpg",
-    bio: "Full-stack developer passionate about AI and web development. Alex started Bits&Bytes to create a space for teen innovation.",
+    bio: "Leads the entire organization, coordinating between all teams, organizing events, setting timelines, and ensuring that work gets executed efficiently.",
+    expertise: ["Leadership", "Event Operations", "Team Coordination"],
   },
   {
     id: 2,
-    name: "Saksham",
-    role: "Co-Founder & Designer",
-    image: "/portrait-of-young-designer.jpg",
-    bio: "Creative UI/UX designer focused on accessible, beautiful digital experiences. Jordan drives the visual identity of our projects.",
+    name: "Aadrika",
+    role: "Co-Founder & Chief Creative Strategist",
+    image: "/portrait-of-young-community-organizer.jpg",
+    bio: "Leads branding, design decisions, idea generation, and promotional campaign planning while handling basic tech work and guiding the overall direction.",
+    expertise: ["Branding", "Creative Strategy", "Campaign Planning"],
   },
   {
     id: 3,
-    name: "Aadrika",
-    role: "Community Lead",
-    image: "/portrait-of-young-community-organizer.jpg",
-    bio: "Enthusiastic about building community and mentoring. Maya ensures every member feels welcomed and supported in their journey.",
+    name: "Akshat",
+    role: "Co-Founder & Technical Lead",
+    image: "/portrait-of-young-project-manager.jpg",
+    bio: "Builds and maintains the website, leads programming projects, evaluates tech stacks, and ensures the technical stability of all projects.",
+    expertise: ["Technical Architecture", "Web Development", "Project Delivery"],
   },
   {
     id: 4,
-    name: "Akshat",
-    role: "Project Manager",
-    image: "/portrait-of-young-project-manager.jpg",
-    bio: "Strategic thinker who loves organizing chaos into beautiful projects. Liam keeps our team on track and motivated.",
+    name: "Devansh",
+    role: "Founding Member, Backend & Outreach Coordinator",
+    image: "/portrait-of-young-developer.jpg",
+    bio: "Manages backend development, collaborates on technical features, and builds relationships with schools, students, and external communities for participation and support.",
+    expertise: ["Backend Development", "Databases", "Community Outreach"],
   },
   {
     id: 5,
-    name: "Devansh",
-    role: "Backend Specialist",
-    image: "/portrait-of-young-developer.jpg",
-    bio: "Database enthusiast and system architect. Sofia builds the powerful engines that power our applications.",
+    name: "Saksham",
+    role: "Ideation & Research Associate",
+    image: "/portrait-of-young-designer.jpg",
+    bio: "Brainstorms new concepts, supports ongoing initiatives with research, and helps refine plans for events and content.",
+    expertise: ["Ideation", "Research", "Concept Development"],
   },
   {
     id: 6,
-    name: "Maryam",
-    role: "Mobile Dev Lead",
-    image: "/portrait-of-young-mobile-developer.jpg",
-    bio: "iOS and Android expert creating seamless mobile experiences. Kai brings apps to life on every device.",
+    name: "Kaustubh",
+    role: "Content & Reels Producer",
+    image: "/portrait-of-young-engineer.jpg",
+    bio: "Creates compelling video content, edits event highlights, and works on storytelling that attracts attention.",
+    expertise: ["Content Production", "Video Editing", "Storytelling"],
   },
   {
     id: 7,
-    name: "Kaustubh",
-    role: "DevOps Engineer",
-    image: "/portrait-of-young-engineer.jpg",
-    bio: "Infrastructure wizard ensuring everything runs smoothly. Emma handles deployment, security, and system reliability.",
+    name: "Oviyaa",
+    role: "Social Media Manager & Promotions Head (flexible role)",
+    image: "/portrait-of-young-community-organizer.jpg",
+    bio: "Oversees all posts, creates promotional strategies, manages audience engagement, and focuses on increasing online reach.",
+    expertise: ["Social Media Strategy", "Promotions", "Community Engagement"],
   },
   {
     id: 8,
+    name: "Maryam",
+    role: "Graphics Designer (flexible role)",
+    image: "/portrait-of-young-mobile-developer.jpg",
+    bio: "Designs visuals for posts, events, and campaigns while maintaining branding consistency, and coordinates closely with the social media and content teams.",
+    expertise: ["Graphic Design", "Brand Consistency", "Visual Communication"],
+  },
+  {
+    id: 9,
     name: "Fatima",
-    role: "Content Creator",
+    role: "Graphics Design Assistant (flexible role)",
     image: "/portrait-of-young-content-creator.jpg",
-    bio: "Passionate educator creating tutorials and resources. Marcus makes coding accessible and fun for everyone.",
+    bio: "Supports the graphics design workflows, helping to craft visuals and streamline the design process.",
+    expertise: ["Design Support", "Workflow Optimization", "Content Design"],
+  },
+  {
+    id: 10,
+    name: "Areeb",
+    role: "Community Outreach & Programming Support (flexible role)",
+    image: "/portrait-of-young-developer.jpg",
+    bio: "Expands reach within student networks, assists in coding tasks, and provides technical support for events.",
+    expertise: ["Community Outreach", "Programming Support", "Event Tech"],
   },
 ]
 
@@ -129,19 +153,16 @@ export default function About() {
           {/* Team Section */}
           <div className="border-t-2 border-[#e45a92]/20 pt-20">
             <div className="text-center mb-16 animate-slide-in-up">
-              <h2 className="font-display font-bold text-5xl sm:text-6xl text-[#3e1e68] mb-4">Meet Our Team</h2>
+              <h2 className="font-display font-bold text-5xl sm:text-6xl text-[#3e1e68] mb-4">Meet the Team</h2>
               <p className="text-xl text-[#656565] max-w-2xl mx-auto">
-                The passionate teens behind Bits&Bytes, building tomorrow's innovation today.
+                The core crew behind Bits&Bytes—leading strategy, tech, community, and creativity to build Lucknow&apos;s coolest teen-led tech movement.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {teamMembers.map((member, index) => (
-                <div key={member.id} style={{ animationDelay: `${index * 0.1}s` }} className="animate-slide-in-up">
-                  <TeamCard member={member} />
-                </div>
-              ))}
-            </div>
+            <TeamCaseStudy members={teamMembers} />
+            <p className="mt-6 text-center text-sm text-[#656565] max-w-2xl mx-auto">
+              *Some roles are flexible and may evolve as our team and community grow.
+            </p>
           </div>
         </div>
       </main>

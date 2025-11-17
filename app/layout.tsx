@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Poppins, Space_Grotesk, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
+import { FloatingAiAssistant } from "@/components/ui/glowing-ai-chat-assistant"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
     <html lang="en" className={`${poppins.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
       <body className="font-sans">
         {children}
+        <FloatingAiAssistant />
         <Analytics />
       </body>
     </html>

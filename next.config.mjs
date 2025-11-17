@@ -1,14 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
   images: {
     unoptimized: true,
   },
-}
+  turbopack: {
+    // Explicitly set the Turbopack root to the project root (where package.json lives)
+    root: '.',
+  },
+};
 
-export default nextConfig
+export default nextConfig;

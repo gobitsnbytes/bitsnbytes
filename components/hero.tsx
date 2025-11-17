@@ -2,6 +2,8 @@
 
 import Link from "next/link"
 import { ArrowRight, Github, Linkedin, Twitter } from "lucide-react"
+import { TextGlitch } from "@/components/ui/text-glitch-effect"
+import { ShaderAnimation } from "@/components/ui/shader-animation"
 
 export default function Hero() {
   return (
@@ -13,13 +15,14 @@ export default function Hero() {
             <div className="inline-block px-4 py-2 bg-[#ffacac]/20 rounded-full mb-6">
               <span className="text-sm font-medium text-[#e45a92]">Welcome to Bits&Bytes</span>
             </div>
-            <h1 className="font-display font-bold text-5xl sm:text-6xl lg:text-7xl leading-tight mb-6">
-              <span className="text-[#3e1e68]">Innovate.</span>
-              <br />
-              <span className="text-[#e45a92]">Collaborate.</span>
-              <br />
-              <span className="text-[#5d2f77]">Hack.</span>
-            </h1>
+            <div className="mb-6">
+              <TextGlitch 
+                text="INNOVATE" 
+                hoverText="BUILD THE FUTURE" 
+                className="!text-[4rem] sm:!text-[5rem] lg:!text-[6rem] !bg-gradient-to-r !from-[#3e1e68] !to-[#5d2f77] !border-b-[#e45a92]/30"
+                delay={0}
+              />
+            </div>
             <p className="text-lg text-[#656565] mb-8 max-w-lg leading-relaxed">
               Join a vibrant community of teen developers building the future. Learn, create, and transform ideas into
               reality through code.
@@ -55,35 +58,41 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Visual */}
-          <div className="relative h-full min-h-[500px] animate-fade-in">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#3e1e68]/20 via-[#e45a92]/10 to-[#ffacac]/20 rounded-3xl blur-3xl"></div>
+          {/* Right Visual: Shader animation + overlayed stats */}
+          <div className="relative h-full min-h-[500px] animate-fade-in rounded-3xl overflow-hidden border border-[#e45a92]/30 bg-black">
+            <ShaderAnimation />
 
-            {/* Floating shapes */}
-            <div className="absolute top-10 right-10 w-20 h-20 bg-[#e45a92] rounded-3xl rotate-45 animate-float opacity-80"></div>
-            <div className="absolute bottom-20 left-10 w-32 h-32 bg-[#5d2f77] rounded-full opacity-20 animate-rotate-slow"></div>
-            <div
-              className="absolute top-40 left-20 w-16 h-16 bg-[#ffacac] rounded-lg animate-float"
-              style={{ animationDelay: "1s" }}
-            ></div>
+            {/* Overlay content */}
+            <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-6 sm:p-8">
+              {/* Top pill */}
+              <div className="inline-flex items-center gap-2 rounded-full bg-black/50 border border-white/10 px-3 py-1 text-[0.7rem] sm:text-xs uppercase tracking-[0.2em] text-white/80 backdrop-blur-md">
+                <span className="w-2 h-2 rounded-full bg-[#e45a92]" />
+                Teen-led hackathons
+              </div>
 
-            {/* Circuit board SVG */}
-            <svg
-              className="absolute inset-0 w-full h-full"
-              viewBox="0 0 400 400"
-              xmlns="http://www.w3.org/2000/svg"
-              opacity="0.3"
-            >
-              <line x1="50" y1="50" x2="350" y2="50" stroke="#e45a92" strokeWidth="2" />
-              <line x1="50" y1="200" x2="350" y2="200" stroke="#3e1e68" strokeWidth="2" />
-              <line x1="50" y1="350" x2="350" y2="350" stroke="#ffacac" strokeWidth="2" />
-              <line x1="50" y1="50" x2="50" y2="350" stroke="#3e1e68" strokeWidth="2" />
-              <line x1="200" y1="50" x2="200" y2="350" stroke="#e45a92" strokeWidth="2" />
-              <line x1="350" y1="50" x2="350" y2="350" stroke="#5d2f77" strokeWidth="2" />
-              <circle cx="50" cy="50" r="6" fill="#e45a92" />
-              <circle cx="200" cy="200" r="6" fill="#3e1e68" />
-              <circle cx="350" cy="350" r="6" fill="#ffacac" />
-            </svg>
+              {/* Bottom stats card */}
+              <div className="self-end w-full max-w-xs sm:max-w-sm">
+                <div className="rounded-2xl bg-black/60 border border-white/10 px-4 py-3 sm:px-5 sm:py-4 backdrop-blur-md text-white pointer-events-auto">
+                  <p className="text-xs sm:text-sm font-medium text-white/70 mb-2">
+                    Bits&Bytes in numbers
+                  </p>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div>
+                      <p className="text-lg sm:text-xl font-bold text-[#ffacac]">80+</p>
+                      <p className="text-[0.65rem] sm:text-xs text-white/60">Members</p>
+                    </div>
+                    <div>
+                      <p className="text-lg sm:text-xl font-bold text-[#e45a92]">50+</p>
+                      <p className="text-[0.65rem] sm:text-xs text-white/60">Projects</p>
+                    </div>
+                    <div>
+                      <p className="text-lg sm:text-xl font-bold text-[#5d2f77]">10</p>
+                      <p className="text-[0.65rem] sm:text-xs text-white/60">Schools</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

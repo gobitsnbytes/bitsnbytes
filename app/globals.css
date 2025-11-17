@@ -42,16 +42,17 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
 }
 
 .dark {
   --background: #0f0f0f;
   --foreground: #ffffff;
-  --card: #1a1a1a;
+  --card: oklch(0.145 0 0);
   --card-foreground: #ffffff;
-  --popover: #0f0f0f;
+  --popover: oklch(0.145 0 0);
   --popover-foreground: #ffffff;
-  --primary: #e45a92;
+  --primary: oklch(0.985 0 0);
   --primary-foreground: #0f0f0f;
   --secondary: #ffacac;
   --secondary-foreground: #0f0f0f;
@@ -59,9 +60,11 @@
   --muted-foreground: #a0a0a0;
   --accent: #ffacac;
   --accent-foreground: #0f0f0f;
-  --border: #2a2a2a;
-  --input: #1a1a1a;
-  --ring: #ffacac;
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -187,6 +190,36 @@
   }
 }
 
+@keyframes loaderAnim {
+  0% {
+    inset: 0 35px 35px 0;
+  }
+  12.5% {
+    inset: 0 35px 0 0;
+  }
+  25% {
+    inset: 35px 35px 0 0;
+  }
+  37.5% {
+    inset: 35px 0 0 0;
+  }
+  50% {
+    inset: 35px 0 0 35px;
+  }
+  62.5% {
+    inset: 0 0 0 35px;
+  }
+  75% {
+    inset: 0 0 35px 35px;
+  }
+  87.5% {
+    inset: 0 0 35px 0;
+  }
+  100% {
+    inset: 0 35px 35px 0;
+  }
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
@@ -209,4 +242,52 @@
 
 .animate-rotate-slow {
   animation: rotate-slow 20s linear infinite;
+}
+
+@keyframes moveBackground {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 0% -1000%;
+  }
+}
+
+@layer utilities {
+  .fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .fade-in-subtitle {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .explore-btn {
+    @apply inline-flex items-center justify-center px-5 py-2 rounded-full bg-primary/80 text-white text-xs md:text-sm font-semibold border border-white/30 shadow-lg shadow-black/30 backdrop-blur-md pointer-events-auto;
+  }
+
+  .explore-arrow {
+    @apply inline-flex items-center justify-center ml-2;
+  }
+
+  .arrow-svg {
+    @apply h-4 w-4 md:h-5 md:w-5 transition-transform duration-300;
+  }
+
+  .explore-btn:hover .arrow-svg,
+  .explore-btn:focus-visible .arrow-svg {
+    transform: translateY(0.15rem);
+  }
+
+  .hero-text-glow {
+    text-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+  }
+
+  .animate-loaderAnim {
+    animation: loaderAnim 2.5s infinite;
+  }
+
+  .animation-delay {
+    animation-delay: -1.25s;
+  }
 }
