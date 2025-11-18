@@ -248,8 +248,7 @@ export async function POST(req: NextRequest) {
         messages,
         tools,
         tool_choice: "auto",
-        temperature: 0.3,
-        max_tokens: 400,
+        max_completion_tokens: 400,
       })
     }
 
@@ -350,8 +349,7 @@ async function streamAssistantResponse(
   const completion = await openai.chat.completions.create({
     model,
     messages,
-    temperature: 0.3,
-    max_tokens: 400,
+    max_completion_tokens: 400,
     stream: true,
   })
 

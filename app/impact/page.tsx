@@ -6,6 +6,7 @@ import ImpactVisualization from "@/components/impact-visualization"
 import { PageSection } from "@/components/page-section"
 import { WebGLShader } from "@/components/ui/web-gl-shader"
 import { LiquidButton, MetalButton } from "@/components/ui/liquid-glass-button"
+import { LiquidGlassBackdrop } from "@/components/ui/liquid-glass-effect"
 
 const highlightStats = [
   { value: "80+", label: "Students active", description: "From across Lucknow" },
@@ -34,16 +35,25 @@ export default function Impact() {
     <>
       <section className="relative min-h-[60vh] overflow-hidden rounded-b-[3rem] text-white">
         <WebGLShader className="absolute inset-0 h-full w-full" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-[#110222]/70 to-[#05020a]" />
-        <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 py-24 text-center sm:px-6">
-          <span className="rounded-full border border-white/30 px-4 py-1 text-xs uppercase tracking-[0.35em]">Impact</span>
-          <h1 className="font-display text-4xl leading-tight md:text-5xl">Our impact hits beyond the venue walls</h1>
-          <p className="max-w-2xl text-base text-white/80 md:text-lg">
-            From first-high-schooler hackathons to squads embedded inside local schools, we design experiences that get teens building—and ship the outcomes publicly.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <LiquidButton className="text-white">See showcase reel</LiquidButton>
-            <MetalButton variant="gold">Book the team</MetalButton>
+        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-transparent to-[#05020a] dark:from-black/90 dark:via-[#110222]/70 dark:to-[#05020a]" />
+        <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 py-24 text-center text-foreground sm:px-6 dark:text-white">
+          <div className="relative isolate w-full rounded-[40px] border border-white/30 bg-white/70 p-10 shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/10">
+            <LiquidGlassBackdrop radiusClassName="rounded-[inherit]" />
+            <div className="relative z-10 flex flex-col items-center gap-4 text-center">
+              <span className="rounded-full border border-white/40 px-4 py-1 text-xs uppercase tracking-[0.35em] text-foreground/70 dark:text-white/70">
+                Impact
+              </span>
+              <h1 className="font-display text-4xl leading-tight text-foreground dark:text-white md:text-5xl">
+                Our impact hits beyond the venue walls
+              </h1>
+              <p className="max-w-2xl text-base text-foreground/80 dark:text-white/80 md:text-lg">
+                From first-high-schooler hackathons to squads embedded inside local schools, we design experiences that get teens building—and ship the outcomes publicly.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <LiquidButton className="text-white">See showcase reel</LiquidButton>
+                <MetalButton variant="gold">Book the team</MetalButton>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -57,18 +67,21 @@ export default function Impact() {
             <div className="order-2 w-full justify-self-center lg:order-1">
               <ImpactVisualization />
             </div>
-            <div className="order-1 space-y-6 rounded-3xl border border-white/10 bg-card/70 p-8 shadow-[var(--shadow-card)] backdrop-blur-3xl dark:bg-white/5 lg:order-2">
-              {highlightStats.map((stat, index) => (
-                <div
-                  key={stat.label}
-                  className="flex flex-col border-b border-white/10 pb-5 last:border-none last:pb-0"
-                  style={{ animationDelay: `${index * 0.08}s` }}
-                >
-                  <span className="text-4xl font-bold text-[var(--brand-pink)]">{stat.value}</span>
-                  <p className="text-lg font-semibold text-foreground">{stat.label}</p>
-                  <p className="text-sm text-muted-foreground">{stat.description}</p>
-                </div>
-              ))}
+            <div className="relative order-1 space-y-6 rounded-3xl border border-white/20 bg-white/70 p-8 text-foreground shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/5 dark:text-white lg:order-2">
+              <LiquidGlassBackdrop radiusClassName="rounded-[inherit]" />
+              <div className="relative z-10 space-y-6">
+                {highlightStats.map((stat, index) => (
+                  <div
+                    key={stat.label}
+                    className="flex flex-col border-b border-white/30 pb-5 last:border-none last:pb-0 dark:border-white/10"
+                    style={{ animationDelay: `${index * 0.08}s` }}
+                  >
+                    <span className="text-4xl font-bold text-[var(--brand-pink)]">{stat.value}</span>
+                    <p className="text-lg font-semibold text-foreground dark:text-white">{stat.label}</p>
+                    <p className="text-sm text-muted-foreground dark:text-white/70">{stat.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </PageSection>
@@ -99,15 +112,18 @@ export default function Impact() {
             ].map((card, idx) => (
               <div
                 key={card.title}
-                className="card-surface overflow-hidden p-0"
+                className="card-surface relative overflow-hidden rounded-3xl border border-white/20 bg-white/70 p-0 text-foreground shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/5 dark:text-white"
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                <div className="relative h-60 w-full">
-                  <Image src={card.image} alt={card.title} fill className="object-cover" />
-                </div>
-                <div className="p-6">
-                  <p className="font-display text-xl text-foreground">{card.title}</p>
-                  <p className="text-sm text-muted-foreground">{card.copy}</p>
+                <LiquidGlassBackdrop radiusClassName="rounded-[inherit]" />
+                <div className="relative z-10">
+                  <div className="relative h-60 w-full overflow-hidden rounded-t-3xl">
+                    <Image src={card.image} alt={card.title} fill className="object-cover" />
+                  </div>
+                  <div className="p-6">
+                    <p className="font-display text-xl text-foreground dark:text-white">{card.title}</p>
+                    <p className="text-sm text-muted-foreground dark:text-white/70">{card.copy}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -124,12 +140,15 @@ export default function Impact() {
             {culturePillars.map((pillar, idx) => (
               <div
                 key={pillar.title}
-                className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/70 to-white/30 p-6 text-left shadow-[var(--shadow-card)] backdrop-blur-2xl dark:from-white/5 dark:to-white/0 animate-slide-in-up"
+                className="relative rounded-3xl border border-white/15 bg-white/70 p-6 text-left text-foreground shadow-2xl backdrop-blur-2xl dark:border-white/10 dark:bg-white/5 dark:text-white animate-slide-in-up"
                 style={{ animationDelay: `${idx * 0.12}s` }}
               >
-                <p className="text-xs uppercase tracking-[0.35em] text-[var(--brand-pink)]">0{idx + 1}</p>
-                <h3 className="mt-3 font-display text-xl text-foreground">{pillar.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{pillar.copy}</p>
+                <LiquidGlassBackdrop radiusClassName="rounded-[inherit]" />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-[0.35em] text-[var(--brand-pink)]">0{idx + 1}</p>
+                  <h3 className="mt-3 font-display text-xl text-foreground dark:text-white">{pillar.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground dark:text-white/70">{pillar.copy}</p>
+                </div>
               </div>
             ))}
           </div>

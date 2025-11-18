@@ -5,6 +5,7 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import { LiquidGlassBackdrop, LiquidGlassFilter } from "@/components/ui/liquid-glass-effect"
 
 const liquidButtonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold transition-[color,box-shadow,transform] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 outline-none focus-visible:ring focus-visible:ring-ring/50",
@@ -41,28 +42,11 @@ export function LiquidButton({ className, variant, size, asChild = false, childr
   const Comp = asChild ? Slot : "button"
 
   return (
-    <Comp data-slot="button" className={cn("relative", liquidButtonVariants({ variant, size, className }))} {...props}>
-      <div className="absolute inset-0 rounded-full shadow-[0_0_20px_rgba(0,0,0,0.2),inset_1px_1px_2px_rgba(255,255,255,0.6),inset_-1px_-1px_2px_rgba(0,0,0,0.3)] transition-all dark:shadow-[0_0_18px_rgba(0,0,0,0.45),inset_1px_1px_2px_rgba(255,255,255,0.15),inset_-1px_-1px_2px_rgba(0,0,0,0.55)]" />
-      <div className="absolute inset-0 -z-10 overflow-hidden rounded-full" style={{ backdropFilter: 'url("#liquid-glass-filter")' }} />
+    <Comp data-slot="button" className={cn("relative isolate", liquidButtonVariants({ variant, size, className }))} {...props}>
+      <LiquidGlassBackdrop radiusClassName="rounded-full" />
       <span className="pointer-events-none z-10">{children}</span>
-      <GlassFilter />
+      <LiquidGlassFilter />
     </Comp>
-  )
-}
-
-function GlassFilter() {
-  return (
-    <svg className="hidden">
-      <defs>
-        <filter id="liquid-glass-filter" x="0%" y="0%" width="100%" height="100%" colorInterpolationFilters="sRGB">
-          <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" seed="1" result="noise" />
-          <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
-          <feDisplacementMap in="SourceGraphic" in2="blurred" scale="60" xChannelSelector="R" yChannelSelector="B" result="displaced" />
-          <feGaussianBlur in="displaced" stdDeviation="3" result="soft" />
-          <feComposite in="soft" in2="soft" operator="over" />
-        </filter>
-      </defs>
-    </svg>
   )
 }
 
