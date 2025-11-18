@@ -1,10 +1,11 @@
 "use client"
 
-import dynamic from "next/dynamic"
 import Image from "next/image"
 
 import ImpactVisualization from "@/components/impact-visualization"
 import { PageSection } from "@/components/page-section"
+import { WebGLShader } from "@/components/ui/web-gl-shader"
+import { LiquidButton, MetalButton } from "@/components/ui/liquid-glass-button"
 
 const highlightStats = [
   { value: "80+", label: "Students active", description: "From across Lucknow" },
@@ -28,28 +29,22 @@ const culturePillars = [
   },
 ]
 
-const NeonScene = dynamic(() => import("@/components/ui/neon-raymarcher").then((mod) => mod.Scene), {
-  ssr: false,
-  loading: () => <div className="h-full w-full animate-pulse rounded-[32px] bg-black/30" />,
-})
-
 export default function Impact() {
   return (
     <>
-      <section className="relative min-h-[60vh] overflow-hidden rounded-b-[3rem]">
-        <div className="absolute inset-0">
-          <NeonScene />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/60 to-[#05020a]" />
-        <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 py-24 text-center text-white sm:px-6">
-          <span className="rounded-full border border-white/30 px-4 py-1 text-xs uppercase tracking-[0.35em]">
-            Impact
-          </span>
+      <section className="relative min-h-[60vh] overflow-hidden rounded-b-[3rem] text-white">
+        <WebGLShader className="absolute inset-0 h-full w-full" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-[#110222]/70 to-[#05020a]" />
+        <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 py-24 text-center sm:px-6">
+          <span className="rounded-full border border-white/30 px-4 py-1 text-xs uppercase tracking-[0.35em]">Impact</span>
           <h1 className="font-display text-4xl leading-tight md:text-5xl">Our impact hits beyond the venue walls</h1>
           <p className="max-w-2xl text-base text-white/80 md:text-lg">
-            From first-high-schooler hackathons to squads embedded inside local schools, we design experiences that get
-            teens building—and ship the outcomes publicly.
+            From first-high-schooler hackathons to squads embedded inside local schools, we design experiences that get teens building—and ship the outcomes publicly.
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <LiquidButton className="text-white">See showcase reel</LiquidButton>
+            <MetalButton variant="gold">Book the team</MetalButton>
+          </div>
         </div>
       </section>
 
