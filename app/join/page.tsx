@@ -1,7 +1,16 @@
 "use client"
 
-import Navigation from "@/components/navigation"
-import { useState } from "react"
+import { useState, FormEvent } from "react"
+import { CheckCircle2, Info, Loader2 } from "lucide-react"
+
+import { PageSection } from "@/components/page-section"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+
+const INTERESTS = ["Web Development", "Mobile Apps", "AI/ML", "Game Dev", "Design"]
+
+const fieldClass =
+  "w-full rounded-2xl border border-white/20 bg-white/70 px-4 py-3 text-base text-foreground shadow-inner shadow-black/5 transition focus:border-[var(--brand-pink)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-pink)]/30 dark:bg-white/5 dark:text-white"
 
 export default function Join() {
   const [formData, setFormData] = useState({
@@ -9,159 +18,199 @@ export default function Join() {
     email: "",
     school: "",
     experience: "beginner",
-    interests: [],
+    interests: [] as string[],
     message: "",
   })
 
-  const handleChange = (e: any) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [status, setStatus] = useState<null | { type: "success" | "error"; message: string }>(null)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleCheckbox = (interest: string) => {
-    if (formData.interests.includes(interest)) {
-      setFormData({
-        ...formData,
-        interests: formData.interests.filter((i) => i !== interest),
+    setFormData((prev) => ({
+      ...prev,
+      interests: prev.interests.includes(interest)
+        ? prev.interests.filter((item) => item !== interest)
+        : [...prev.interests, interest],
+    }))
+  }
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setStatus(null)
+    setIsSubmitting(true)
+
+    try {
+      const res = await fetch("/api/join", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       })
-    } else {
-      setFormData({
-        ...formData,
-        interests: [...formData.interests, interest],
+
+      const data = await res.json()
+
+      if (!res.ok || !data?.success) {
+        throw new Error(data?.error || "Failed to submit join request.")
+      }
+
+      setStatus({
+        type: "success",
+        message: "Application sent! We’ll reach out with next steps.",
       })
+      setFormData({
+        name: "",
+        email: "",
+        school: "",
+        experience: "beginner",
+        interests: [],
+        message: "",
+      })
+    } catch (error) {
+      console.error(error)
+      setStatus({
+        type: "error",
+        message: "Could not submit your application. Please try again or email hello@lucknow.codes.",
+      })
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-    setFormData({
-      name: "",
-      email: "",
-      school: "",
-      experience: "beginner",
-      interests: [],
-      message: "",
-    })
-  }
-
   return (
-    <>
-      <Navigation />
-      <main className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-12 animate-slide-in-up">
-            <h1 className="font-display font-bold text-5xl sm:text-6xl text-[#3e1e68] mb-4">Join Bits&Bytes</h1>
-            <p className="text-xl text-[#656565]">Start your journey of innovation and creativity</p>
-          </div>
+    <main className="bg-transparent">
+      <PageSection
+        align="center"
+        eyebrow="Apply"
+        title="Join the crew"
+        description="Tell us how you want to build with the Bits&Bytes community. We’ll connect you with squads, mentors, and live projects."
+      >
+        <div className="mx-auto w-full max-w-3xl space-y-6">
+          {status && (
+            <div
+              className={cn(
+                "flex items-center gap-3 rounded-2xl border px-4 py-3 text-sm",
+                status.type === "success"
+                  ? "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-500/40 dark:bg-emerald-500/10 dark:text-emerald-100"
+                  : "border-red-200 bg-red-50 text-red-800 dark:border-red-500/40 dark:bg-red-500/10 dark:text-red-100",
+              )}
+            >
+              {status.type === "success" ? <CheckCircle2 className="h-4 w-4" /> : <Info className="h-4 w-4" />}
+              {status.message}
+            </div>
+          )}
 
-          <form
-            onSubmit={handleSubmit}
-            className="bg-white rounded-3xl border-2 border-[#e0e0e0] p-8 sm:p-12 animate-fade-in"
-          >
-            <div className="space-y-6">
-              {/* Name */}
-              <div>
-                <label className="block text-sm font-medium text-[#5d2f77] mb-2">Full Name</label>
+          <form onSubmit={handleSubmit} className="glass-panel space-y-8 p-8 sm:p-12">
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Full Name</label>
                 <input
-                  type="text"
+                  className={fieldClass}
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border-2 border-[#e0e0e0] rounded-xl focus:border-[#e45a92] focus:outline-none transition-colors"
                   placeholder="Your name"
+                  required
                 />
               </div>
-
-              {/* Email */}
-              <div>
-                <label className="block text-sm font-medium text-[#e45a92] mb-2">Email</label>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Email</label>
                 <input
                   type="email"
+                  className={fieldClass}
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  placeholder="you@lucknow.codes"
                   required
-                  className="w-full px-4 py-3 border-2 border-[#e0e0e0] rounded-xl focus:border-[#e45a92] focus:outline-none transition-colors"
-                  placeholder="your@email.com"
                 />
               </div>
-
-              {/* School */}
-              <div>
-                <label className="block text-sm font-medium text-[#5d2f77] mb-2">School</label>
-                <input
-                  type="text"
-                  name="school"
-                  value={formData.school}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-[#e0e0e0] rounded-xl focus:border-[#e45a92] focus:outline-none transition-colors"
-                  placeholder="Your school name"
-                />
-              </div>
-
-              {/* Experience Level */}
-              <div>
-                <label className="block text-sm font-medium text-[#e45a92] mb-2">Experience Level</label>
-                <select
-                  name="experience"
-                  value={formData.experience}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-[#e0e0e0] rounded-xl focus:border-[#e45a92] focus:outline-none transition-colors"
-                >
-                  <option value="beginner">Beginner - Just starting out</option>
-                  <option value="intermediate">Intermediate - Some experience</option>
-                  <option value="advanced">Advanced - Confident coder</option>
-                </select>
-              </div>
-
-              {/* Interests */}
-              <div>
-                <label className="block text-sm font-medium text-[#5d2f77] mb-3">What interests you?</label>
-                <div className="space-y-2">
-                  {["Web Development", "Mobile Apps", "AI/ML", "Game Dev", "Design"].map((interest) => (
-                    <label key={interest} className="flex items-center cursor-pointer group">
-                      <input
-                        type="checkbox"
-                        checked={formData.interests.includes(interest)}
-                        onChange={() => handleCheckbox(interest)}
-                        className="w-4 h-4 accent-[#e45a92]"
-                      />
-                      <span className="ml-3 text-[#656565] group-hover:text-[#e45a92] transition-colors">
-                        {interest}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Message */}
-              <div>
-                <label className="block text-sm font-medium text-[#e45a92] mb-2">Tell us about yourself</label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={4}
-                  className="w-full px-4 py-3 border-2 border-[#e0e0e0] rounded-xl focus:border-[#e45a92] focus:outline-none transition-colors resize-none"
-                  placeholder="What draws you to Bits&Bytes? What are your goals?"
-                />
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full py-3 bg-[#e45a92] text-white font-display font-bold rounded-xl hover:bg-[#d1437a] transition-all hover:shadow-lg hover:shadow-[#e45a92]/30"
-              >
-                Join Our Community
-              </button>
             </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">School</label>
+              <input
+                className={fieldClass}
+                name="school"
+                value={formData.school}
+                onChange={handleChange}
+                placeholder="Your school name"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">Experience Level</label>
+              <select name="experience" value={formData.experience} onChange={handleChange} className={fieldClass}>
+                <option value="beginner">Beginner — just starting</option>
+                <option value="intermediate">Intermediate — have shipped things</option>
+                <option value="advanced">Advanced — lead projects</option>
+              </select>
+            </div>
+
+            <div className="space-y-3">
+              <label className="text-sm font-medium text-foreground">What interests you?</label>
+              <div className="flex flex-wrap gap-2">
+                {INTERESTS.map((interest) => {
+                  const active = formData.interests.includes(interest)
+                  return (
+                    <button
+                      key={interest}
+                      type="button"
+                      onClick={() => handleCheckbox(interest)}
+                      className={cn(
+                        "rounded-full px-4 py-2 text-sm font-medium transition",
+                        active
+                          ? "bg-[var(--brand-pink)]/90 text-white shadow-[var(--glow-soft)]"
+                          : "border border-white/40 bg-white/40 text-foreground hover:border-white/70 dark:bg-white/5 dark:text-white",
+                      )}
+                    >
+                      {interest}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">Tell us about yourself</label>
+              <textarea
+                className={cn(fieldClass, "min-h-[120px] resize-none")}
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="What do you want to build? What do you want to learn?"
+                required
+              />
+            </div>
+
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full rounded-full bg-gradient-to-r from-[var(--brand-pink)] to-[var(--brand-purple)] py-6 text-base font-semibold text-white shadow-[var(--glow-strong)]"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Sending…
+                </>
+              ) : (
+                "Join our community"
+              )}
+            </Button>
+
+            <p className="text-center text-xs text-muted-foreground">
+              We review applications weekly. You can also email{" "}
+              <a href="mailto:hello@lucknow.codes" className="text-[var(--brand-pink)] underline-offset-2 hover:underline">
+                hello@lucknow.codes
+              </a>
+              .
+            </p>
           </form>
         </div>
-      </main>
-    </>
+      </PageSection>
+    </main>
   )
 }

@@ -1,7 +1,7 @@
 "use client"
 
-import Navigation from "@/components/navigation"
 import TeamCaseStudy from "@/components/team-case-study"
+import { PageSection } from "@/components/page-section"
 
 const aboutContent = {
   title: "About Bits&Bytes",
@@ -116,56 +116,38 @@ const teamMembers = [
 
 export default function About() {
   return (
-    <>
-      <Navigation />
-      <main className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          {/* About Section */}
-          <div className="mb-20">
-            <div className="text-center mb-16 animate-slide-in-up">
-              <h1 className="font-display font-bold text-5xl sm:text-6xl text-[#3e1e68] mb-4">{aboutContent.title}</h1>
-              <p className="text-xl text-[#656565] max-w-2xl mx-auto">{aboutContent.description}</p>
+    <main className="bg-transparent">
+      <PageSection
+        eyebrow="About"
+        title={aboutContent.title}
+        description={aboutContent.description}
+        align="center"
+      >
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {aboutContent.sections.map((section, index) => (
+            <div
+              key={section.title}
+              className="card-surface border-white/20 bg-white/80 p-6 text-left dark:border-white/5 dark:bg-white/5"
+              style={{ animationDelay: `${index * 0.05}s` }}
+            >
+              <h3 className="font-display text-2xl font-semibold text-foreground">{section.title}</h3>
+              <p className="mt-3 text-base text-muted-foreground">{section.description}</p>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              {aboutContent.sections.map((section, index) => {
-                const colors = ["bg-[#3e1e68]", "bg-[#e45a92]", "bg-[#5d2f77]", "bg-[#ffacac]"]
-                const textColors = ["text-white", "text-white", "text-white", "text-[#3e1e68]"]
-                return (
-                  <div
-                    key={index}
-                    className={`p-8 ${colors[index % 4]} rounded-2xl ${textColors[index % 4]} animate-slide-in-up`}
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <h3 className="font-display font-bold text-2xl mb-3">{section.title}</h3>
-                    <p
-                      className={textColors[index % 4] === "text-white" ? "text-white/90" : "text-[#3e1e68]/80"}
-                      style={{ opacity: textColors[index % 4] === "text-white" ? 0.9 : 0.8 }}
-                    >
-                      {section.description}
-                    </p>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* Team Section */}
-          <div className="border-t-2 border-[#e45a92]/20 pt-20">
-            <div className="text-center mb-16 animate-slide-in-up">
-              <h2 className="font-display font-bold text-5xl sm:text-6xl text-[#3e1e68] mb-4">Meet the Team</h2>
-              <p className="text-xl text-[#656565] max-w-2xl mx-auto">
-                The core crew behind Bits&Bytes—leading strategy, tech, community, and creativity to build Lucknow&apos;s coolest teen-led tech movement.
-              </p>
-            </div>
-
-            <TeamCaseStudy members={teamMembers} />
-            <p className="mt-6 text-center text-sm text-[#656565] max-w-2xl mx-auto">
-              *Some roles are flexible and may evolve as our team and community grow.
-            </p>
-          </div>
+          ))}
         </div>
-      </main>
-    </>
+      </PageSection>
+
+      <PageSection
+        eyebrow="Team"
+        title="Meet the Agents"
+        description="A tight crew of designers, engineers, community leads, and storytellers powering Lucknow’s teen-led tech movement."
+        align="center"
+      >
+        <TeamCaseStudy members={teamMembers} />
+        <p className="mt-6 text-center text-sm text-muted-foreground">
+          *Roles stay flexible as our team and community grow.
+        </p>
+      </PageSection>
+    </main>
   )
 }
