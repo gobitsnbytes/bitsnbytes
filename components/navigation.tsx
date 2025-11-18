@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -8,6 +9,7 @@ import { ArrowUpRight, Menu, X } from "lucide-react"
 import ThemeToggle from "@/components/theme-toggle"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import logo from "@public/logo.svg"
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -43,7 +45,14 @@ export default function Navigation() {
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="group inline-flex items-center gap-3">
             <div className="relative grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-[var(--brand-pink)] to-[var(--brand-purple)] text-white shadow-[var(--glow-soft)] transition-transform group-hover:scale-105">
-              <span className="font-mono text-lg font-bold">&lt;/&gt;</span>
+              <Image
+                src={logo}
+                alt="Bits&Bytes logo"
+                width={36}
+                height={36}
+                className="h-8 w-8 object-contain transition-transform duration-200 group-hover:scale-105"
+                priority
+              />
               <div className="absolute inset-0 rounded-2xl border border-white/30" />
             </div>
             <div className="hidden sm:flex flex-col leading-tight">

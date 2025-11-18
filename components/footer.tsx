@@ -1,5 +1,7 @@
+import Image from "next/image"
 import Link from "next/link"
 import { Github, Instagram, Linkedin, Mail, MapPin } from "lucide-react"
+import logo from "@public/logo.svg"
 
 const socialLinks = [
   { href: "https://www.linkedin.com/company/gobitsbytes", label: "LinkedIn", icon: Linkedin },
@@ -21,7 +23,14 @@ export function Footer() {
         <div className="space-y-3">
           <div className="inline-flex items-center gap-3 text-foreground">
             <div className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-[var(--brand-pink)]/80 to-[var(--brand-purple)]/80 text-white shadow-[var(--glow-soft)]">
-              <span className="font-mono text-lg font-bold">&lt;/&gt;</span>
+              <Image
+                src={logo}
+                alt="Bits&Bytes logo"
+                width={32}
+                height={32}
+                className="h-8 w-8 object-contain"
+                priority
+              />
             </div>
             <div>
               <p className="font-display text-lg font-semibold">Bits&Bytes</p>

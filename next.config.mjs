@@ -1,3 +1,5 @@
+import path from "path"
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
@@ -8,8 +10,20 @@ const nextConfig = {
   },
   turbopack: {
     // Explicitly set the Turbopack root to the project root (where package.json lives)
-    root: '.',
+    root: ".",
   },
-};
+  webpack(config) {
+    if (!config.resolve) {
+      config.resolve = {}
+    }
 
-export default nextConfig;
+    config.resolve.alias = {
+      ...(config.resolve.alias ?? {}),
+      "@public": path.resolve("./public"),
+    }
+
+    return config
+  },
+}
+
+export default nextConfig
