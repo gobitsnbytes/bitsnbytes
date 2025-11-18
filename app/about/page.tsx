@@ -129,7 +129,7 @@ export default function About() {
               key={section.title}
               className="card-surface border-white/20 bg-white/80 p-6 text-left dark:border-white/5 dark:bg-white/5"
               style={{ animationDelay: `${index * 0.05}s` }}
-            >
+                  >
               <h3 className="font-display text-2xl font-semibold text-foreground">{section.title}</h3>
               <p className="mt-3 text-base text-muted-foreground">{section.description}</p>
             </div>
@@ -148,6 +148,6 @@ export default function About() {
           *Roles stay flexible as our team and community grow.
         </p>
       </PageSection>
-    </main>
+      </main>
   )
 }

@@ -1,9 +1,9 @@
 "use client"
 
-import ImpactVisualization from "@/components/impact-visualization"
+import dynamic from "next/dynamic"
 import Image from "next/image"
-import { ShaderAnimation } from "@/components/ui/shader-animation"
-import { SlideTabs } from "@/components/ui/slide-tabs"
+
+import ImpactVisualization from "@/components/impact-visualization"
 import { PageSection } from "@/components/page-section"
 
 const highlightStats = [
@@ -28,27 +28,28 @@ const culturePillars = [
   },
 ]
 
+const NeonScene = dynamic(() => import("@/components/ui/neon-raymarcher").then((mod) => mod.Scene), {
+  ssr: false,
+  loading: () => <div className="h-full w-full animate-pulse rounded-[32px] bg-black/30" />,
+})
+
 export default function Impact() {
   return (
     <>
-      {/* Hero section with shader animation */}
-      <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <ShaderAnimation />
+      <section className="relative min-h-[60vh] overflow-hidden rounded-b-[3rem]">
+        <div className="absolute inset-0">
+          <NeonScene />
         </div>
-        <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
-        <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 animate-slide-in-up">
-            <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mb-4 drop-shadow-lg">
-              Our Impact
-            </h1>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-md">
-              Transforming teen creativity into real-world impact
-            </p>
-          </div>
-          <div className="animate-fade-in" style={{ animationDelay: "0.3s" }}>
-            <SlideTabs tabs={["Overview", "Stats", "Events", "Projects", "Community"]} defaultTab={0} />
-          </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/60 to-[#05020a]" />
+        <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 py-24 text-center text-white sm:px-6">
+          <span className="rounded-full border border-white/30 px-4 py-1 text-xs uppercase tracking-[0.35em]">
+            Impact
+          </span>
+          <h1 className="font-display text-4xl leading-tight md:text-5xl">Our impact hits beyond the venue walls</h1>
+          <p className="max-w-2xl text-base text-white/80 md:text-lg">
+            From first-high-schooler hackathons to squads embedded inside local schools, we design experiences that get
+            teens building—and ship the outcomes publicly.
+          </p>
         </div>
       </section>
 
@@ -58,12 +59,16 @@ export default function Impact() {
           description="Workshops, hackathons, and labs unlock hands-on practice, industry mentorship, and opportunities to deploy solutions in schools and communities."
         >
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
-            <div className="order-2 w-full max-w-xl justify-self-center lg:order-1">
+            <div className="order-2 w-full justify-self-center lg:order-1">
               <ImpactVisualization />
             </div>
             <div className="order-1 space-y-6 rounded-3xl border border-white/10 bg-card/70 p-8 shadow-[var(--shadow-card)] backdrop-blur-3xl dark:bg-white/5 lg:order-2">
-              {highlightStats.map((stat) => (
-                <div key={stat.label} className="flex flex-col border-b border-white/10 pb-5 last:border-none last:pb-0">
+              {highlightStats.map((stat, index) => (
+                <div
+                  key={stat.label}
+                  className="flex flex-col border-b border-white/10 pb-5 last:border-none last:pb-0"
+                  style={{ animationDelay: `${index * 0.08}s` }}
+                >
                   <span className="text-4xl font-bold text-[var(--brand-pink)]">{stat.value}</span>
                   <p className="text-lg font-semibold text-foreground">{stat.label}</p>
                   <p className="text-sm text-muted-foreground">{stat.description}</p>
@@ -97,7 +102,11 @@ export default function Impact() {
                 copy: "Presenting prototypes to judges and community",
               },
             ].map((card, idx) => (
-              <div key={card.title} className="card-surface overflow-hidden p-0">
+              <div
+                key={card.title}
+                className="card-surface overflow-hidden p-0"
+                style={{ animationDelay: `${idx * 0.1}s` }}
+              >
                 <div className="relative h-60 w-full">
                   <Image src={card.image} alt={card.title} fill className="object-cover" />
                 </div>
@@ -120,7 +129,8 @@ export default function Impact() {
             {culturePillars.map((pillar, idx) => (
               <div
                 key={pillar.title}
-                className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/70 to-white/30 p-6 text-left shadow-[var(--shadow-card)] backdrop-blur-2xl dark:from-white/5 dark:to-white/0"
+                className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/70 to-white/30 p-6 text-left shadow-[var(--shadow-card)] backdrop-blur-2xl dark:from-white/5 dark:to-white/0 animate-slide-in-up"
+                style={{ animationDelay: `${idx * 0.12}s` }}
               >
                 <p className="text-xs uppercase tracking-[0.35em] text-[var(--brand-pink)]">0{idx + 1}</p>
                 <h3 className="mt-3 font-display text-xl text-foreground">{pillar.title}</h3>

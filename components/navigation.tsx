@@ -22,7 +22,7 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
-    const handler = () => setIsScrolled(window.scrollY > 8)
+    const handler = () => setIsScrolled(window.scrollY > 10)
     handler()
     window.addEventListener("scroll", handler, { passive: true })
     return () => window.removeEventListener("scroll", handler)
@@ -33,18 +33,18 @@ export default function Navigation() {
   }, [pathname])
 
   return (
-    <header className="sticky top-0 z-50 flex w-full justify-center px-4 pt-4">
+    <header className="sticky top-0 z-50 flex w-full justify-center px-3 pt-4 sm:px-6">
       <div
         className={cn(
-          "w-full max-w-6xl rounded-3xl border border-white/10 bg-card/70 px-4 py-2 shadow-[var(--shadow-card)] transition-all duration-300 backdrop-blur-xl dark:border-white/5",
-          isScrolled && "bg-card/85 shadow-[var(--glow-soft)]",
+          "w-full max-w-6xl rounded-[28px] border border-white/10 bg-gradient-to-br from-white/70 to-white/40 px-4 py-3 shadow-[var(--shadow-card)] backdrop-blur-2xl transition-all dark:from-white/10 dark:to-white/[0.03]",
+          isScrolled && "border-white/20 bg-white/90 shadow-[var(--glow-soft)] dark:bg-white/[0.08]",
         )}
       >
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="group inline-flex items-center gap-3">
-            <div className="relative grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-[var(--brand-pink)]/90 to-[var(--brand-purple)]/90 text-white shadow-[var(--glow-soft)] transition-transform group-hover:scale-105">
+            <div className="relative grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-[var(--brand-pink)] to-[var(--brand-purple)] text-white shadow-[var(--glow-soft)] transition-transform group-hover:scale-105">
               <span className="font-mono text-lg font-bold">&lt;/&gt;</span>
-              <div className="absolute inset-0 rounded-2xl border border-white/20" />
+              <div className="absolute inset-0 rounded-2xl border border-white/30" />
             </div>
             <div className="hidden sm:flex flex-col leading-tight">
               <span className="font-display text-lg font-semibold text-foreground">Bits&Bytes</span>
@@ -52,7 +52,7 @@ export default function Navigation() {
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/20 px-2 py-1 text-sm font-medium shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-md dark:bg-white/5 md:flex">
+          <nav className="relative hidden items-center gap-1 rounded-full border border-white/30 bg-white/40 px-1 py-1 text-sm font-medium shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] backdrop-blur-md dark:border-white/10 dark:bg-white/10 md:flex">
             {NAV_LINKS.map((item) => {
               const isActive = pathname === item.href
               return (
@@ -60,9 +60,9 @@ export default function Navigation() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "rounded-full px-4 py-2 transition-colors",
+                    "relative rounded-full px-4 py-1.5 transition-all",
                     isActive
-                      ? "bg-white text-primary shadow-sm dark:bg-white/90"
+                      ? "bg-gradient-to-r from-[var(--brand-pink)] to-[var(--brand-purple)] text-white shadow-[var(--glow-soft)]"
                       : "text-muted-foreground hover:text-foreground",
                   )}
                 >
@@ -86,7 +86,7 @@ export default function Navigation() {
             </Link>
             <button
               type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-secondary text-foreground transition hover:border-white/30 md:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/30 bg-white/70 text-foreground transition hover:border-white/50 dark:bg-white/10 md:hidden"
               onClick={() => setMobileOpen((prev) => !prev)}
               aria-label="Toggle navigation menu"
             >
@@ -96,7 +96,7 @@ export default function Navigation() {
         </div>
 
         {mobileOpen && (
-          <div className="mt-3 space-y-2 rounded-2xl border border-white/10 bg-background/95 p-4 shadow-[var(--shadow-card)] md:hidden">
+          <div className="mt-4 space-y-3 rounded-2xl border border-white/10 bg-background/95 p-4 shadow-[var(--shadow-card)] md:hidden">
             {NAV_LINKS.map((item) => {
               const isActive = pathname === item.href
               return (
@@ -104,10 +104,10 @@ export default function Navigation() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "flex items-center justify-between rounded-2xl px-4 py-3 text-base transition-colors",
+                    "flex items-center justify-between rounded-2xl px-4 py-3 text-base transition-all",
                     isActive
-                      ? "bg-secondary text-foreground"
-                      : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground",
+                      ? "bg-gradient-to-r from-[var(--brand-pink)]/90 to-[var(--brand-purple)]/90 text-white"
+                      : "border border-white/10 text-muted-foreground hover:border-white/30 hover:text-foreground",
                   )}
                 >
                   {item.label}

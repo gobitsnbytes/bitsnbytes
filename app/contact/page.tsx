@@ -58,20 +58,16 @@ export default function Contact() {
 
   return (
     <>
-      {/* Hero section with interactive 3D robot */}
-      <section className="relative h-[70vh] min-h-[600px] overflow-hidden">
-        <InteractiveRobotSection />
-        <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/50 via-transparent to-black/60" />
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pointer-events-none">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 drop-shadow-2xl">
-              Get In Touch
-            </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto drop-shadow-lg">
-              Have questions? We'd love to hear from you. Reach out anytime!
+      <section className="relative overflow-hidden rounded-b-[3rem]">
+        <InteractiveRobotSection className="h-[70vh] min-h-[560px]">
+          <div className="space-y-4">
+            <p className="text-xs uppercase tracking-[0.35em] text-white/70">Contact</p>
+            <h1 className="font-display text-4xl leading-tight md:text-5xl">Let’s co-create the next big sprint</h1>
+            <p className="text-white/75">
+              Partner with us on hackathons, workshops, or custom experiences for schools across Lucknow.
             </p>
           </div>
-        </div>
+        </InteractiveRobotSection>
       </section>
 
       <main className="bg-transparent">
@@ -81,8 +77,8 @@ export default function Contact() {
           title="Reach the team"
           description="We love partnering with schools, sponsors, mentors, and students. Drop a note and we’ll get back within a couple days."
         >
-          <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">
-            <form onSubmit={handleSubmit} className="glass-panel space-y-6 p-8 sm:p-12">
+          <div className="mx-auto flex w-full max-w-4xl flex-col gap-8">
+            <form onSubmit={handleSubmit} className="rounded-[32px] border border-white/20 bg-white/80 p-8 shadow-[var(--shadow-card)] backdrop-blur-2xl dark:bg-white/10 sm:p-12">
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">Your Name</label>
@@ -103,7 +99,7 @@ export default function Contact() {
                   name="message"
                   rows={5}
                   placeholder="Tell us what you're thinking…"
-                  className={cn(fieldClass, "min-h-[140px] resize-none")}
+                  className={cn(fieldClass, "min-h-[160px] resize-none")}
                   required
                 />
               </div>
@@ -133,7 +129,7 @@ export default function Contact() {
               )}
             </form>
 
-            <div className="grid gap-4 rounded-3xl border border-white/10 bg-card/60 p-6 shadow-[var(--shadow-card)] backdrop-blur-3xl dark:bg-white/5 md:grid-cols-3">
+            <div className="grid gap-4 rounded-[32px] border border-white/15 bg-white/50 p-6 shadow-[var(--shadow-card)] backdrop-blur-2xl dark:bg-white/5 md:grid-cols-3">
               {[
                 {
                   icon: Mail,
@@ -148,10 +144,14 @@ export default function Contact() {
                 {
                   icon: Clock,
                   title: "From",
-                  copy: "2025 — teen-led",
+                  copy: "Teen-led since 2025",
                 },
-              ].map((item) => (
-                <div key={item.title} className="rounded-2xl border border-white/10 bg-white/70 p-5 text-center dark:bg-white/5">
+              ].map((item, index) => (
+                <div
+                  key={item.title}
+                  className="rounded-2xl border border-white/20 bg-white/80 p-5 text-center dark:bg-white/10"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
                   <div className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-full bg-white/60 dark:bg-white/10">
                     <item.icon className="h-5 w-5 text-[var(--brand-purple)] dark:text-white" />
                   </div>

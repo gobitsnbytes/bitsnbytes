@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Sparkles } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 import { HeroFuturistic } from "@/components/ui/hero-futuristic"
 import TechShapes from "@/components/tech-shapes"
@@ -99,33 +99,40 @@ export default function Home() {
         </div>
       </PageSection>
 
-      <PageSection align="center" eyebrow="Join us">
-        <div className="glass-panel mx-auto flex w-full max-w-4xl flex-col items-center gap-6 p-10 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-1 text-xs uppercase tracking-[0.35em] text-foreground">
-            <Sparkles className="h-3 w-3" />
-            Teen-led & premium
+      <PageSection
+        align="center"
+        eyebrow="Join us"
+        title="Ready to build the next flagship movement?"
+        description="Whether you’re a first-time tinkerer or already leading launches, we’ll plug you into squads, mentors, and events worthy of your ambition."
+      >
+        <div className="mx-auto flex max-w-4xl flex-col gap-5 rounded-[32px] border border-white/20 bg-gradient-to-br from-white/70 to-white/30 p-10 text-center shadow-[var(--shadow-card)] backdrop-blur-3xl dark:from-white/10 dark:to-white/0">
+          <div className="flex flex-wrap justify-center gap-3 text-sm text-muted-foreground">
+            <span className="rounded-full border border-white/30 px-4 py-2 uppercase tracking-[0.35em] text-xs text-foreground">
+              Workshops
+            </span>
+            <span className="rounded-full border border-white/30 px-4 py-2 uppercase tracking-[0.35em] text-xs text-foreground">
+              Hackathons
+            </span>
+            <span className="rounded-full border border-white/30 px-4 py-2 uppercase tracking-[0.35em] text-xs text-foreground">
+              Studio Pods
+            </span>
           </div>
-          <h2 className="font-display text-3xl font-semibold sm:text-4xl">
-            Ready to host, hack, and mentor with us?
-          </h2>
-          <p className="text-base text-muted-foreground sm:text-lg">
-            Apply to join Bits&Bytes, collaborate on design/dev squads, or partner with us to run the next flagship event in Lucknow.
-          </p>
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Button
               asChild
-              className="rounded-full bg-gradient-to-r from-[var(--brand-pink)] to-[var(--brand-purple)] text-base text-white shadow-[var(--glow-strong)]"
+              className="h-12 rounded-full bg-gradient-to-r from-[var(--brand-pink)] to-[var(--brand-purple)] text-base shadow-[var(--glow-strong)]"
             >
               <Link href="/join">
-                Join the Club <ArrowRight className="ml-2 h-4 w-4" />
+                Join the club
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button
               asChild
-              variant="outline"
-              className="rounded-full border-white/30 bg-white/40 text-base text-foreground backdrop-blur-xl dark:bg-white/5"
+              variant="ghost"
+              className="h-12 rounded-full border border-white/30 bg-white/10 text-base text-foreground hover:border-white/50"
             >
-              <Link href="/impact">See the impact</Link>
+              <Link href="/contact">Pitch a partnership</Link>
             </Button>
           </div>
         </div>
