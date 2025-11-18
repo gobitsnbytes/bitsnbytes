@@ -5,8 +5,8 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
-const PRIMARY_MODEL = "gpt-5-nano"
-const FALLBACK_MODEL = "gpt-4.1-mini"
+const PRIMARY_MODEL = "gpt-4o-mini"
+const FALLBACK_MODEL = "gpt-4o-mini-2024-07-18"
 
 const SSE_HEADERS = {
   "Content-Type": "text/event-stream",
@@ -261,8 +261,13 @@ export async function POST(req: NextRequest) {
       const apiError = err as APIError
       const code = (apiError as any)?.code ?? (apiError as any)?.error?.code
       const status = (apiError as any)?.status
+      const shouldFallback =
+        code === "model_not_found" ||
+        code === "unsupported_parameter" ||
+        code === "unsupported_value" ||
+        status === 403
 
-      if (code === "model_not_found" || status === 403) {
+      if (shouldFallback) {
         modelUsed = FALLBACK_MODEL
         completion = await runCompletion(FALLBACK_MODEL, baseMessages)
       } else {

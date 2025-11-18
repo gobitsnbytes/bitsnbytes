@@ -74,7 +74,7 @@ export const HeroFuturistic = () => {
           <div className="relative isolate overflow-hidden rounded-[32px] border border-white/20 bg-white/50 shadow-[var(--glow-soft)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/5">
             <LiquidGlassBackdrop radiusClassName="rounded-[inherit]" />
             <Image
-              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80"
+              src="/images/hero-img.jpeg"
               alt="Teens building together"
               width={900}
               height={1000}
@@ -83,14 +83,14 @@ export const HeroFuturistic = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#05020a]/80 via-transparent to-transparent dark:from-[#05020a]" />
             <div className="relative z-10">
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-4 rounded-2xl border border-white/30 bg-white/20 px-5 py-4 text-sm text-foreground shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-white/10 dark:text-white">
+            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-4 rounded-2xl border border-white/30 bg-white/20 px-5 py-4 text-sm text-foreground shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-white/10 dark:text-white">
                 <LiquidGlassBackdrop radiusClassName="rounded-[inherit]" />
                 <div className="relative z-10">
-                  <p className="text-xs uppercase tracking-[0.32em] text-foreground/70 dark:text-white/70">Next up</p>
-                  <p className="font-semibold text-foreground dark:text-white">Club Studio Sprint · December 2025</p>
+                  <p className="text-xs uppercase tracking-[0.32em] text-foreground/70 dark:text-white/70">Archive highlight</p>
+                  <p className="font-semibold text-foreground dark:text-white">Scrapyard Lucknow · 2024</p>
                 </div>
                 <span className="relative z-10 rounded-full border border-white/30 px-3 py-1 text-xs uppercase tracking-[0.3em] text-foreground/80 dark:text-white/80">
-                  Hybrid
+                  Legacy
                 </span>
               </div>
             </div>

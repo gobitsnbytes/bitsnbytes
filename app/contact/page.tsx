@@ -81,7 +81,7 @@ export default function Contact() {
           <div className="mx-auto flex w-full max-w-4xl flex-col gap-8">
             <form
               onSubmit={handleSubmit}
-              className="relative isolate rounded-[32px] border border-white/30 bg-white/75 p-8 text-foreground shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/10 dark:text-white sm:p-12"
+              className="relative isolate rounded-[40px] border border-white/30 bg-white/50 p-8 text-foreground shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/5 dark:text-white sm:p-12"
             >
               <LiquidGlassBackdrop radiusClassName="rounded-[inherit]" />
               <div className="relative z-10 space-y-6">
@@ -136,9 +136,9 @@ export default function Contact() {
               </div>
             </form>
 
-            <div className="relative isolate rounded-[32px] border border-white/30 bg-white/60 p-6 text-foreground shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/5 dark:text-white md:grid-cols-3 md:p-10">
+            <div className="relative isolate rounded-[40px] border border-white/30 bg-white/50 p-8 text-foreground shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/5 dark:text-white sm:p-10">
               <LiquidGlassBackdrop radiusClassName="rounded-[inherit]" />
-              <div className="relative z-10 grid gap-4 md:grid-cols-3">
+              <div className="relative z-10 grid gap-6 md:grid-cols-3">
                 {[
                   {
                     icon: Mail,
@@ -158,16 +158,14 @@ export default function Contact() {
                 ].map((item, index) => (
                   <div
                     key={item.title}
-                    className="relative isolate rounded-2xl border border-white/40 bg-white/30 p-5 text-center shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-white/5"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    className="flex flex-col items-center gap-3 text-center"
                   >
-                    <LiquidGlassBackdrop radiusClassName="rounded-[inherit]" />
-                    <div className="relative z-10">
-                      <div className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-full bg-white/60 text-[var(--brand-purple)] dark:bg-white/10 dark:text-white">
-                        <item.icon className="h-5 w-5" />
-                      </div>
-                      <p className="font-semibold text-foreground dark:text-white">{item.title}</p>
-                      <p className="text-sm text-muted-foreground dark:text-white/70">{item.copy}</p>
+                    <div className="grid h-14 w-14 place-items-center rounded-full border border-white/30 bg-white/40 text-[var(--brand-purple)] shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-white/10 dark:text-white">
+                      <item.icon className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.1em] text-foreground/70 dark:text-white/70">{item.title}</p>
+                      <p className="mt-1 text-base font-medium text-foreground dark:text-white">{item.copy}</p>
                     </div>
                   </div>
                 ))}

@@ -44,7 +44,7 @@ const FloatingAiAssistant: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   const [voiceError, setVoiceError] = useState<string | null>(null)
   const [isRecording, setIsRecording] = useState(false)
-  const [modelName, setModelName] = useState("gpt-5-nano")
+  const [modelName, setModelName] = useState("gpt-4o-mini")
   const [hasHydrated, setHasHydrated] = useState(false)
 
   const chatRef = useRef<HTMLDivElement | null>(null)

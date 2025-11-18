@@ -4,8 +4,7 @@ import Image from "next/image"
 
 import ImpactVisualization from "@/components/impact-visualization"
 import { PageSection } from "@/components/page-section"
-import { WebGLShader } from "@/components/ui/web-gl-shader"
-import { LiquidButton, MetalButton } from "@/components/ui/liquid-glass-button"
+import { LiquidButton } from "@/components/ui/liquid-glass-button"
 import { LiquidGlassBackdrop } from "@/components/ui/liquid-glass-effect"
 
 const highlightStats = [
@@ -34,24 +33,27 @@ export default function Impact() {
   return (
     <>
       <section className="relative min-h-[60vh] overflow-hidden rounded-b-[3rem] text-white">
-        <WebGLShader className="absolute inset-0 h-full w-full" />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-transparent to-[#05020a] dark:from-black/90 dark:via-[#110222]/70 dark:to-[#05020a]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-[#05020a] dark:from-black/70 dark:via-[#110222]/70 dark:to-[#05020a]" />
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 py-24 text-center text-foreground sm:px-6 dark:text-white">
-          <div className="relative isolate w-full rounded-[40px] border border-white/30 bg-white/70 p-10 shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/10">
+          <div className="relative isolate w-full rounded-[40px] border border-white/30 bg-white/50 p-10 shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/5">
             <LiquidGlassBackdrop radiusClassName="rounded-[inherit]" />
             <div className="relative z-10 flex flex-col items-center gap-4 text-center">
-              <span className="rounded-full border border-white/40 px-4 py-1 text-xs uppercase tracking-[0.35em] text-foreground/70 dark:text-white/70">
+              <span className="rounded-full border border-white/40 px-4 py-1 text-xs uppercase tracking-[0.35em] font-medium text-foreground/90 dark:text-white/90 drop-shadow-sm">
                 Impact
               </span>
-              <h1 className="font-display text-4xl leading-tight text-foreground dark:text-white md:text-5xl">
+              <h1 className="font-display text-4xl leading-tight font-bold text-foreground drop-shadow-md dark:text-white md:text-5xl">
                 Our impact hits beyond the venue walls
               </h1>
-              <p className="max-w-2xl text-base text-foreground/80 dark:text-white/80 md:text-lg">
+              <p className="max-w-2xl text-base font-medium text-foreground/95 dark:text-white/95 drop-shadow-sm md:text-lg">
                 From first-high-schooler hackathons to squads embedded inside local schools, we design experiences that get teens building—and ship the outcomes publicly.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
-                <LiquidButton className="text-white">See showcase reel</LiquidButton>
-                <MetalButton variant="gold">Book the team</MetalButton>
+                <LiquidButton className="bg-gradient-to-r from-[var(--brand-pink)] to-[var(--brand-purple)] text-white shadow-[var(--glow-strong)] hover:scale-105">
+                  See showcase reel
+                </LiquidButton>
+                <LiquidButton className="border-2 border-white/40 bg-white/10 text-foreground backdrop-blur-sm hover:bg-white/20 dark:text-white">
+                  Book the team
+                </LiquidButton>
               </div>
             </div>
           </div>
