@@ -44,16 +44,16 @@ export default function Navigation() {
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
           <Link href="/" className="group inline-flex items-center gap-3">
-            <div className="relative grid h-12 w-12 place-items-center rounded-2xl bg-[var(--brand-purple)] text-white shadow-[var(--glow-soft)] transition-transform group-hover:scale-105">
+            <div className="relative grid h-12 w-12 place-items-center rounded-2xl bg-black text-white shadow-[0_8px_30px_rgba(228,90,146,0.4)] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_12px_40px_rgba(228,90,146,0.6)]">
               <Image
                 src={logo}
                 alt="Bits&Bytes logo"
                 width={32}
                 height={32}
-                className="h-8 w-8 object-contain"
+                className="h-8 w-8 object-contain transition-transform duration-300 group-hover:rotate-12"
                 priority
               />
-              <div className="absolute inset-0 rounded-2xl border border-white/30" />
+              <div className="absolute inset-0 rounded-2xl border-2 border-[var(--brand-pink)]" />
             </div>
             <div className="hidden sm:flex flex-col leading-tight">
               <span className="font-display text-lg font-semibold text-foreground">Bits&Bytes</span>

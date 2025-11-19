@@ -21,7 +21,7 @@ export default function ImpactVisualization() {
       <div className="relative isolate aspect-[4/3] overflow-hidden rounded-[40px] border border-white/30 bg-white/70 shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/10">
         <LiquidGlassBackdrop radiusClassName="rounded-[inherit]" />
         <NeonScene />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-black/10 via-transparent to-transparent opacity-40 dark:opacity-30" />
+        <div className="pointer-events-none absolute inset-0 bg-black/10 opacity-40 dark:opacity-30" />
         <div className="absolute inset-x-6 bottom-6 z-10 flex flex-col gap-3 rounded-2xl border border-white/40 bg-white/80 p-5 text-foreground backdrop-blur-xl shadow-lg dark:border-white/20 dark:bg-white/20 dark:text-white sm:flex-row sm:items-center sm:justify-between">
           {highlights.map((item) => (
             <div key={item.label} className="flex flex-col">

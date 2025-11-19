@@ -14,6 +14,8 @@ interface TeamMember {
   image: string
   expertise?: string[]
   linkedin?: string
+  accentColor?: string
+  isFounder?: boolean
 }
 
 interface TeamCaseStudyProps {
@@ -64,23 +66,33 @@ function TeamCard({ member, bgColor }: { member: TeamMember; bgColor: string }) 
     }
   }
 
+  const cardBg = member.accentColor || (bgColor.includes("purple")
+    ? "var(--brand-purple)"
+    : bgColor.includes("pink")
+      ? "var(--brand-pink)"
+      : "var(--brand-plum)")
+
+  const getBackgroundStyle = () => {
+    if (dominantColor) {
+      return `radial-gradient(circle at 50% 30%, ${dominantColor}33, ${dominantColor}11 50%, transparent 80%), ${cardBg}`
+    }
+    // Apply subtle gradient even without dominant color for consistency
+    if (member.accentColor) {
+      return `radial-gradient(circle at 50% 30%, ${member.accentColor}dd, ${member.accentColor}aa 50%, ${member.accentColor} 80%)`
+    }
+    return undefined
+  }
+
   return (
     <CometCard className="w-full">
       <div
         className={cn(
-          "relative flex h-full cursor-pointer flex-col items-stretch rounded-2xl border border-white/10 p-4 backdrop-blur-xl transition-all duration-700",
-          bgColor
+          "relative flex h-full cursor-pointer flex-col items-stretch rounded-2xl p-4 backdrop-blur-xl transition-all duration-700",
+          member.isFounder ? "border-2 border-[var(--brand-pink)]/50 shadow-[0_0_30px_rgba(228,90,146,0.3)]" : "border border-white/10",
+          !member.accentColor && bgColor
         )}
         style={{
-          background: dominantColor
-            ? `radial-gradient(circle at 50% 30%, ${dominantColor}33, ${dominantColor}11 50%, transparent 80%), ${
-                bgColor.includes("purple")
-                  ? "var(--brand-purple)"
-                  : bgColor.includes("pink")
-                    ? "var(--brand-pink)"
-                    : "var(--brand-plum)"
-              }`
-            : undefined,
+          background: getBackgroundStyle(),
         }}
       >
         <div className="mx-2">

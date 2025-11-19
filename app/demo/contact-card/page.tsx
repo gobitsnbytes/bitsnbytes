@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 
 export default function ContactCardDemo() {
   return (
-    <main className="relative flex size-full min-h-screen w-full items-center justify-center p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-gray-800">
+    <main className="relative flex size-full min-h-screen w-full items-center justify-center p-4 bg-purple-50 dark:bg-gray-900">
       <div className="mx-auto max-w-5xl">
         <ContactCard
           title="Get in touch"

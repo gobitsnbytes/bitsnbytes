@@ -46,24 +46,26 @@ export default function TechShapes({ className }: TechShapesProps) {
   return (
     <div className={cn("grid grid-cols-1 gap-6 md:grid-cols-3", className)}>
       {cards.map((card) => (
-        <div key={card.title} className="group relative cursor-pointer rounded-3xl p-1">
+        <div
+          key={card.title}
+          className="glass-card group relative isolate cursor-pointer overflow-hidden p-8 text-foreground shadow-xl hover:shadow-[var(--glow-strong)] dark:text-white"
+        >
           <div
             className={cn(
-              "relative h-64 overflow-hidden rounded-[26px] p-8 shadow-lg backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[var(--glow-strong)]",
+              "absolute inset-0 opacity-10 transition-opacity duration-300 group-hover:opacity-20",
               card.bg,
             )}
-          >
-            <div className="absolute inset-0 opacity-20">{card.graphic}</div>
-            <div className={cn("relative z-10 flex h-full flex-col justify-between", card.text)}>
-              <div>
-                <div className="font-display text-2xl font-bold">{card.title}</div>
-                <p className="mt-3 text-sm opacity-80">{card.copy}</p>
-              </div>
-              <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em]">
-                Explore
-                <span className="h-px w-6 bg-current" />
-              </span>
+          />
+          <div className="absolute inset-0 opacity-10">{card.graphic}</div>
+          <div className={cn("relative z-10 flex h-64 flex-col justify-between text-foreground dark:text-white")}>
+            <div>
+              <div className="font-display text-2xl font-bold">{card.title}</div>
+              <p className="mt-3 text-sm text-foreground/80 dark:text-white/80">{card.copy}</p>
             </div>
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--brand-pink)]">
+              Explore
+              <span className="h-px w-6 bg-[var(--brand-pink)]" />
+            </span>
           </div>
         </div>
       ))}

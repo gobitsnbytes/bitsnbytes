@@ -160,10 +160,19 @@
   }
 
   .glass-panel {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.65));
-    border: 1px solid rgba(62, 30, 104, 0.12);
-    box-shadow: var(--shadow-card);
-    @apply rounded-3xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/5;
+    background: hsla(0, 0%, 100%, 0.15);
+    backdrop-filter: blur(0.75em);
+    -webkit-backdrop-filter: blur(0.75em);
+    box-shadow: 0 0 0 0.1em hsla(0, 0%, 100%, 0.3) inset;
+    @apply rounded-3xl dark:bg-[hsla(0,0%,100%,0.08)];
+  }
+
+  .glass-card {
+    background: hsla(0, 0%, 100%, 0.15);
+    backdrop-filter: blur(0.75em);
+    -webkit-backdrop-filter: blur(0.75em);
+    box-shadow: 0 0 0 0.1em hsla(0, 0%, 100%, 0.3) inset;
+    @apply rounded-3xl border border-white/20 transition-all duration-300 hover:-translate-y-1 dark:border-white/10 dark:bg-[hsla(0,0%,100%,0.08)];
   }
 
   .card-surface {
@@ -180,7 +189,7 @@
 
   .section-divider::after {
     content: "";
-    @apply block h-px w-full bg-gradient-to-r from-transparent via-border to-transparent;
+    @apply block h-px w-full bg-border;
   }
 
   .bg-grid-faint {
@@ -368,26 +377,24 @@
     animation-delay: -1.25s;
   }
 
-  .text-gradient {
-    background-image: linear-gradient(120deg, var(--brand-coral), var(--brand-pink), var(--brand-purple));
-    -webkit-background-clip: text;
-    color: transparent;
+  .text-brand-purple {
+    color: var(--brand-purple);
   }
 
-  .gradient-border {
-    position: relative;
+  .text-brand-plum {
+    color: var(--brand-plum);
   }
 
-  .gradient-border::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(120deg, rgba(228, 90, 146, 0.8), rgba(93, 47, 119, 0.3));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
+  .text-brand-pink {
+    color: var(--brand-pink);
+  }
+
+  .text-brand-coral {
+    color: var(--brand-coral);
+  }
+
+  .solid-border {
+    border: 2px solid var(--brand-pink);
   }
 }
 

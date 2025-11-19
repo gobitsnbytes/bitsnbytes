@@ -30,7 +30,7 @@ export function ThemeToggle({ className, size = 'md' }: ThemeToggleProps) {
       type="button"
       aria-label="Toggle color theme"
       className={cn(
-        'group relative inline-flex items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-accent/80 to-primary/80 p-0.5 text-white shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background dark:border-white/10',
+        'group relative inline-flex items-center justify-center rounded-full border border-white/20 bg-[var(--brand-pink)] p-0.5 text-white shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background dark:border-white/10',
         sizeClasses[size],
         className,
       )}

@@ -38,7 +38,7 @@ export function InteractiveRobotSection({ children, className }: InteractiveRobo
   return (
     <div className={cn('relative h-screen w-screen overflow-hidden', className)}>
       <InteractiveRobotSpline scene={ROBOT_SCENE_URL} className="absolute inset-0 z-0" />
-      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-white/70 via-transparent to-white/10 dark:from-black/60 dark:via-transparent dark:to-black/80" />
+      <div className="pointer-events-none absolute inset-0 z-10 bg-white/20 dark:bg-black/40" />
       {children && (
         <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center px-4 text-white">
           <div className="w-full max-w-3xl text-center drop-shadow-[0_8px_30px_rgba(0,0,0,0.45)]">

@@ -2,6 +2,7 @@
 
 import TeamCaseStudy from "@/components/team-case-study"
 import { PageSection } from "@/components/page-section"
+import { WebGLShader } from "@/components/ui/web-gl-shader"
 
 const aboutContent = {
   title: "About Bits&Bytes",
@@ -35,98 +36,110 @@ const teamMembers = [
   {
     id: 1,
     name: "Yash",
-    role: "Founder",
+    role: "Co-Founder",
     image: "/team/yash.jpeg",
     bio: "Leads the entire organization, coordinating between all teams, organizing events, setting timelines, and ensuring that work gets executed efficiently.",
-    expertise: ["Leadership", "Event Operations", "Team Coordination"],
+    expertise: ["Leadership", "Event Management", "Team Coordination", "Strategic Planning"],
+    linkedin: "https://www.linkedin.com/in/yash-singh-a41540270/",
+    accentColor: "#3E1E68", // Deep Purple
+    isFounder: true,
   },
   {
     id: 2,
     name: "Aadrika",
     role: "Co-Founder & Chief Creative Strategist",
     image: "/portrait-of-young-community-organizer.jpg",
-    bio: "Leads branding, design decisions, idea generation, and promotional campaign planning while handling basic tech work and guiding the overall direction.",
-    expertise: ["Branding", "Creative Strategy", "Campaign Planning"],
+    bio: "Leads branding, design decisions, idea generation, and promotional campaign planning. Handles basic tech work and guides the overall direction of the organization.",
+    expertise: ["Creative Strategy", "Brand Development", "Campaign Planning", "Design Direction"],
+    linkedin: "https://in.linkedin.com/in/aadrika-maurya",
+    accentColor: "#E45A92", // Vibrant Pink
+    isFounder: true,
   },
   {
     id: 3,
     name: "Akshat",
     role: "Co-Founder & Technical Lead",
     image: "/team/akshat.png",
-    bio: "Problem solver and tech explorer. Builds and maintains the website, leads programming projects, evaluates tech stacks, and ensures the technical stability of all projects.",
-    expertise: ["AI & LLMOps", "Cloud Infrastructure", "Full-Stack Dev"],
+    bio: "Builds and maintains the website, leads programming projects, evaluates tech stacks, and ensures the technical stability of all projects.",
+    expertise: ["AI & LLMOps", "Cloud Infrastructure", "Full-Stack Development"],
     linkedin: "https://www.linkedin.com/in/akshat-singh-kushwaha/",
+    accentColor: "#5D2F77", // Rich Plum
+    isFounder: true,
   },
   {
     id: 4,
     name: "Devansh",
-    role: "Founding Member, Backend & Outreach Coordinator",
+    role: "Founding Member & Backend Lead",
     image: "/team/devaansh.jpeg",
     bio: "Manages backend development, collaborates on technical features, and builds relationships with schools, students, and external communities for participation and support.",
-    expertise: ["Backend Development", "Databases", "Community Outreach"],
+    expertise: ["Backend Development", "Database Architecture", "Community Outreach", "Partnership Building"],
     linkedin: "https://www.linkedin.com/in/devaanshpa/",
   },
   {
     id: 5,
     name: "Saksham",
-    role: "Ideation & Research Associate",
+    role: "Ideation & Research Lead",
     image: "/team/saksham.jpeg",
     bio: "Brainstorms new concepts, supports ongoing initiatives with research, and helps refine plans for events and content.",
-    expertise: ["Ideation", "Research", "Concept Development"],
+    expertise: ["Strategic Ideation", "Research & Analysis", "Concept Development", "Event Planning"],
     linkedin: "https://www.linkedin.com/in/sakshm/",
   },
   {
     id: 6,
     name: "Kaustubh",
-    role: "Content & Reels Producer",
+    role: "Content & Video Producer",
     image: "/portrait-of-young-engineer.jpg",
     bio: "Creates compelling video content, edits event highlights, and works on storytelling that attracts attention.",
-    expertise: ["Content Production", "Video Editing", "Storytelling"],
+    expertise: ["Video Production", "Content Creation", "Video Editing", "Brand Storytelling"],
   },
   {
     id: 7,
     name: "Oviyaa",
-    role: "Social Media Manager & Promotions Head (flexible role)",
+    role: "Social Media & Promotions Head",
     image: "/portrait-of-young-community-organizer.jpg",
-    bio: "Oversees all posts, creates promotional strategies, manages audience engagement, and focuses on increasing online reach.",
-    expertise: ["Social Media Strategy", "Promotions", "Community Engagement"],
+    bio: "Oversees all posts, creates promotional strategies, manages audience engagement, and focuses on increasing online reach across all social platforms.",
+    expertise: ["Social Media Strategy", "Digital Marketing", "Community Engagement", "Growth Strategy"],
+    linkedin: "https://www.linkedin.com/in/oviyaa-singh-3a183a370/",
   },
   {
     id: 8,
     name: "Maryam",
-    role: "Graphics Designer (flexible role)",
+    role: "Lead Graphics Designer",
     image: "/portrait-of-young-mobile-developer.jpg",
-    bio: "Designs visuals for posts, events, and campaigns while maintaining branding consistency, and coordinates closely with the social media and content teams.",
-    expertise: ["Graphic Design", "Brand Consistency", "Visual Communication"],
+    bio: "Designs visuals for posts, events, and campaigns while maintaining branding consistency. Coordinates closely with the social media and content teams.",
+    expertise: ["Graphic Design", "Brand Identity", "Visual Communication", "Design Systems"],
+    linkedin: "https://www.linkedin.com/in/maryam-fatima-9719aa377/",
   },
   {
     id: 9,
     name: "Fatima",
-    role: "Graphics Design Assistant (flexible role)",
+    role: "Graphics Design Associate",
     image: "/portrait-of-young-content-creator.jpg",
-    bio: "Supports the graphics design workflows, helping to craft visuals and streamline the design process.",
-    expertise: ["Design Support", "Workflow Optimization", "Content Design"],
+    bio: "Supports the graphics design workflows, helping to craft visuals and streamline the design process for faster execution.",
+    expertise: ["Design Support", "Visual Assets", "Workflow Optimization", "Creative Collaboration"],
   },
 ]
 
 export default function About() {
   return (
-    <main className="bg-transparent">
-      <PageSection
-        align="center"
-        eyebrow="About"
-        title={aboutContent.title}
-        description={aboutContent.description}
-      >
+    <>
+      <WebGLShader />
+      <main className="relative z-10 bg-transparent">
+        <PageSection
+          align="center"
+          eyebrow="About"
+          title={aboutContent.title}
+          description={aboutContent.description}
+        >
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {aboutContent.sections.map((section, index) => (
             <div
               key={section.title}
-              className="rounded-3xl border border-white/15 bg-card/90 p-6 shadow-[var(--shadow-card)] backdrop-blur-lg transition-transform hover:-translate-y-1 dark:bg-white/5"
+              className="glass-card relative isolate overflow-hidden p-6 text-foreground shadow-xl hover:shadow-[var(--glow-strong)] dark:text-white"
               style={{ animationDelay: `${index * 0.05}s` }}
             >
-              <h3 className="font-display text-2xl font-semibold text-foreground">{section.title}</h3>
-              <p className="mt-3 text-base text-muted-foreground">{section.description}</p>
+              <h3 className="font-display text-xl font-semibold text-foreground dark:text-white sm:text-2xl">{section.title}</h3>
+              <p className="mt-3 text-sm text-foreground/80 dark:text-white/80 sm:text-base">{section.description}</p>
             </div>
           ))}
         </div>
@@ -141,7 +154,8 @@ export default function About() {
         <TeamCaseStudy members={teamMembers} />
         <p className="mt-6 text-center text-sm text-muted-foreground">*Roles stay flexible as our team and community grow.</p>
       </PageSection>
-    </main>
+      </main>
+    </>
   )
 }
 

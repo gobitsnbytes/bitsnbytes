@@ -2,7 +2,7 @@ import { TextGlitch } from "@/components/ui/text-glitch-effect"
 
 export default function TextGlitchDemo() {
   return (
-    <main className="min-h-screen overflow-hidden bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-950 dark:to-neutral-900">
+    <main className="min-h-screen overflow-hidden bg-neutral-50 dark:bg-neutral-950">
       <div className="container mx-auto px-4 py-20">
         <div className="space-y-16">
           {/* Example 1: Basic Text */}
@@ -42,7 +42,7 @@ export default function TextGlitchDemo() {
             <TextGlitch 
               text="COLLABORATE" 
               hoverText="BUILD TOGETHER" 
-              className="!bg-gradient-to-r !from-[#3e1e68] !to-[#e45a92] !border-b-[#ffacac]/50"
+              className="!bg-[var(--brand-purple)] !border-b-[#ffacac]/50"
               delay={0.6} 
             />
           </div>

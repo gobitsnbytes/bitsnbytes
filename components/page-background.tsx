@@ -9,9 +9,8 @@ export function PageBackground({ className }: PageBackgroundProps) {
     <div aria-hidden className={cn('pointer-events-none fixed inset-0 -z-10 overflow-hidden', className)}>
       <div
         className={cn(
-          'absolute inset-0 bg-gradient-to-b transition-colors duration-500',
-          'from-[#fff5fb] via-[#f7f2ff] to-[#fdf7ff]',
-          'dark:from-[#030008] dark:via-[#0e061d] dark:to-[#1a0c2f]',
+          'absolute inset-0 bg-[#f7f2ff] transition-colors duration-500',
+          'dark:bg-[#0e061d]',
         )}
       />
       <div className="absolute inset-0 opacity-60 mix-blend-soft-light bg-grid-faint" />

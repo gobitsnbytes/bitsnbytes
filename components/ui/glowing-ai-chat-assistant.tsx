@@ -392,7 +392,7 @@ const FloatingAiAssistant: React.FC = () => {
       <div className="relative w-full max-w-[420px]">
         {/* Floating AI button */}
         <button
-          className={`floating-ai-button relative ml-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/40 bg-gradient-to-br from-[#3e1e68] to-[#e45a92] shadow-lg shadow-[#e45a92]/40 transition-all duration-300 hover:scale-110 hover:shadow-xl ${
+          className={`floating-ai-button relative ml-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/40 bg-[var(--brand-pink)] shadow-lg shadow-[#e45a92]/40 transition-all duration-300 hover:scale-110 hover:shadow-xl ${
             isChatOpen ? "rotate-90" : "rotate-0"
           }`}
           onClick={handleToggle}
@@ -447,7 +447,7 @@ const FloatingAiAssistant: React.FC = () => {
               </div>
 
               {/* Messages */}
-              <div className="mx-3 mb-2 h-[1px] bg-gradient-to-r from-transparent via-zinc-700/70 to-transparent" />
+              <div className="mx-3 mb-2 h-[1px] bg-zinc-700/70" />
               <div className="flex flex-col gap-3 overflow-y-auto px-4 pb-4 pt-1 text-sm text-zinc-100">
                 {messages.length === 0 && (
                   <>
@@ -526,7 +526,7 @@ const FloatingAiAssistant: React.FC = () => {
                     className="block w-full resize-none bg-transparent px-4 pb-10 pt-3 text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
                     placeholder="Ask about our team, hackathons, impact, or how to join..."
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent" />
+                  <div className="pointer-events-none absolute inset-0 bg-zinc-950/30" />
                 </div>
 
                 {/* Controls */}
@@ -553,7 +553,7 @@ const FloatingAiAssistant: React.FC = () => {
                       type="button"
                       onClick={() => void handleSend()}
                       disabled={!message.trim() || isLoading}
-                      className="relative inline-flex h-9 items-center justify-center rounded-xl bg-gradient-to-r from-[#3e1e68] to-[#e45a92] px-3 text-xs font-semibold text-white shadow-lg shadow-[#e45a92]/30 transition-all hover:shadow-xl hover:shadow-[#e45a92]/40 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="relative inline-flex h-9 items-center justify-center rounded-xl bg-[var(--brand-pink)] px-3 text-xs font-semibold text-white shadow-lg shadow-[#e45a92]/30 transition-all hover:shadow-xl hover:shadow-[#e45a92]/40 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       <Send className="mr-1.5 h-3.5 w-3.5" />
                       Ask
@@ -581,7 +581,7 @@ const FloatingAiAssistant: React.FC = () => {
               </div>
 
               {/* Soft overlay accent */}
-              <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-[#e45a9215] via-transparent to-[#3e1e6815]" />
+              <div className="pointer-events-none absolute inset-0 rounded-3xl bg-[#e45a92]/10" />
             </div>
           </div>
         )}
