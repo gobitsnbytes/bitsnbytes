@@ -81,7 +81,7 @@ export const metadata: Metadata = {
   category: "education",
   classification: "Nonprofit Code Club",
   other: {
-    "google-site-verification": "process.env.GOOGLE_SITE_VERIFICATION", // Placeholder or Env var
+    "google-site-verification": process.env.GOOGLE_SITE_VERIFICATION || "google-site-verification=1234567890",
   },
   icons: {
     icon: "/logo.svg",
