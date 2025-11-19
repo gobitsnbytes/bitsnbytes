@@ -36,10 +36,24 @@ export const metadata: Metadata = {
     template: "%s | Bits&Bytes"
   },
   description: "Innovate. Collaborate. Hack. Join the most creative code club for teens in Lucknow. Build real projects, attend hackathons, and grow as a developer.",
-  keywords: ["bits&bytes", "teen code club", "lucknow hackathons", "student developers", "coding club", "tech events lucknow", "learn coding", "teen programmers"],
-  authors: [{ name: "Bits&Bytes Team" }],
+  keywords: ["bits&bytes", "teen code club", "lucknow hackathons", "student developers", "coding club", "tech events lucknow", "learn coding", "teen programmers", "hackathons in lucknow", "coding classes for teens"],
+  authors: [{ name: "Bits&Bytes Team", url: "https://gobitsnbytes.org" }],
   creator: "Bits&Bytes",
   publisher: "Bits&Bytes",
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     type: "website",
     locale: "en_IN",
@@ -62,22 +76,17 @@ export const metadata: Metadata = {
     description: "Innovate. Collaborate. Hack. Join the most creative code club for teens in Lucknow.",
     images: ["/og-image.png"],
     creator: "@bitsnbytes_lko",
+    site: "@bitsnbytes_lko",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+  category: "education",
+  classification: "Nonprofit Code Club",
+  other: {
+    "google-site-verification": "process.env.GOOGLE_SITE_VERIFICATION", // Placeholder or Env var
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: "/logo.svg",
+    shortcut: "/logo.svg",
+    apple: "/logo.svg",
   },
 }
 
@@ -86,6 +95,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Bits&Bytes",
+    "url": "https://gobitsnbytes.org",
+    "logo": "https://gobitsnbytes.org/logo.svg",
+    "sameAs": [
+      "https://www.linkedin.com/company/gobitsbytes"
+    ],
+    "description": "Innovate. Collaborate. Hack. Join the most creative code club for teens in Lucknow.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lucknow",
+      "addressRegion": "Uttar Pradesh",
+      "addressCountry": "IN"
+    }
+  }
+
   return (
     <html
       lang="en"
@@ -93,6 +120,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="font-sans antialiased bg-background text-foreground selection:bg-accent/30 selection:text-primary">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ThemeProvider>
           <PageBackground />
           <div className="relative flex min-h-screen flex-col">
