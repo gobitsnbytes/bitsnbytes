@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from "three";
 import ThreeGlobe from "three-globe";
 import { useThree, Canvas } from "@react-three/fiber";
@@ -54,8 +54,9 @@ interface WorldProps {
 export function Globe({ globeConfig, data }: WorldProps) {
   const { scene } = useThree();
   const globeRef = useRef<ThreeGlobe | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const defaultProps = {
+  const defaultProps = useMemo(() => ({
     pointSize: 1,
     atmosphereColor: "#ffffff",
     showAtmosphere: true,
@@ -70,42 +71,40 @@ export function Globe({ globeConfig, data }: WorldProps) {
     rings: 1,
     maxRings: 3,
     ...globeConfig,
-  };
+  }), [globeConfig]);
 
+  // Initialize globe once
   useEffect(() => {
-    if (!globeRef.current) {
-      // Initialize globe
-      const globe = new ThreeGlobe({
-        waitForGlobeReady: true,
-        animateIn: true,
-      });
-      
-      globeRef.current = globe;
-      
-      // Set material properties
-      const globeMaterial = globe.globeMaterial() as any;
-      globeMaterial.color = new Color(defaultProps.globeColor);
-      globeMaterial.emissive = new Color(defaultProps.emissive);
-      globeMaterial.emissiveIntensity = defaultProps.emissiveIntensity;
-      globeMaterial.shininess = defaultProps.shininess;
+    if (globeRef.current) return; // Already initialized
 
-      // Add to scene only if not already added
-      if (!globe.parent) {
-        scene.add(globe);
-      }
-    }
+    const globe = new ThreeGlobe({
+      waitForGlobeReady: true,
+      animateIn: true,
+    });
+    
+    globeRef.current = globe;
+    
+    // Set material properties
+    const globeMaterial = globe.globeMaterial() as any;
+    globeMaterial.color = new Color(defaultProps.globeColor);
+    globeMaterial.emissive = new Color(defaultProps.emissive);
+    globeMaterial.emissiveIntensity = defaultProps.emissiveIntensity;
+    globeMaterial.shininess = defaultProps.shininess;
+
+    scene.add(globe);
 
     return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      
       if (globeRef.current) {
-        // Remove from scene if it's a child
-        if (globeRef.current.parent) {
-          globeRef.current.parent.remove(globeRef.current);
-        }
-        // Dispose of globe resources
+        scene.remove(globeRef.current);
         globeRef.current = null;
       }
     };
-  }, [scene, defaultProps]);
+  }, [scene, defaultProps.globeColor, defaultProps.emissive, defaultProps.emissiveIntensity, defaultProps.shininess]);
 
   useEffect(() => {
     if (!globeRef.current || !data) return;
@@ -183,11 +182,17 @@ export function Globe({ globeConfig, data }: WorldProps) {
       );
   }, [data, defaultProps]);
 
+  // Rings animation
   useEffect(() => {
-    if (!globeRef.current || !data) return;
+    if (!globeRef.current || !data || data.length === 0) return;
 
-    const interval = setInterval(() => {
-      if (!globeRef.current) return;
+    // Clear any existing interval
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    intervalRef.current = setInterval(() => {
+      if (!globeRef.current || !data) return;
       
       const newNumbersOfRings = genRandomNumbers(
         0,
@@ -207,7 +212,10 @@ export function Globe({ globeConfig, data }: WorldProps) {
     }, 2000);
 
     return () => {
-      clearInterval(interval);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
     };
   }, [data]);
 
@@ -228,11 +236,22 @@ export function WebGLRendererConfig() {
 
 export function World(props: WorldProps) {
   const { globeConfig } = props;
-  const scene = new Scene();
-  scene.fog = new Fog(0xffffff, 400, 2000);
+  
+  const scene = useMemo(() => {
+    const s = new Scene();
+    s.fog = new Fog(0xffffff, 400, 2000);
+    return s;
+  }, []);
+
+  const camera = useMemo(() => new PerspectiveCamera(50, aspect, 180, 1800), []);
   
   return (
-    <Canvas scene={scene} camera={new PerspectiveCamera(50, aspect, 180, 1800)}>
+    <Canvas 
+      scene={scene} 
+      camera={camera}
+      gl={{ antialias: true, alpha: true }}
+      dpr={[1, 2]}
+    >
       <WebGLRendererConfig />
       <ambientLight color={globeConfig.ambientLight} intensity={0.6} />
       <directionalLight

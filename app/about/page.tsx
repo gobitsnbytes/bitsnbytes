@@ -22,7 +22,7 @@ const aboutContent = {
     {
       title: "Connect & Collaborate",
       description:
-        "We bring together like-minded individuals from different schools, creating a supportive community where teens can learn from each other and build lasting connections.",
+        "We bring together like-minded individuals from different schools, creating a supportive club where teens can learn from each other and build lasting connections.",
     },
     {
       title: "Inspire & Build",
@@ -48,7 +48,7 @@ const teamMembers = [
     id: 2,
     name: "Aadrika",
     role: "Co-Founder & Chief Creative Strategist",
-    image: "/portrait-of-young-community-organizer.jpg",
+    image: "/team/aadrika.png",
     bio: "Leads branding, design decisions, idea generation, and promotional campaign planning. Handles basic tech work and guides the overall direction of the organization.",
     expertise: ["Creative Strategy", "Brand Development", "Campaign Planning", "Design Direction"],
     linkedin: "https://in.linkedin.com/in/aadrika-maurya",
@@ -114,7 +114,7 @@ const teamMembers = [
     id: 9,
     name: "Fatima",
     role: "Graphics Design Associate",
-    image: "/portrait-of-young-content-creator.jpg",
+    image: "/team/fatima.jpeg",
     bio: "Supports the graphics design workflows, helping to craft visuals and streamline the design process for faster execution.",
     expertise: ["Design Support", "Visual Assets", "Workflow Optimization", "Creative Collaboration"],
   },
@@ -149,10 +149,10 @@ export default function About() {
         align="center"
         eyebrow="Team"
         title="Meet the Agents"
-        description="A tight crew of designers, engineers, community leads, and storytellers powering Lucknow’s teen-led tech movement."
+        description="A tight crew of designers, engineers, club leads, and storytellers powering Lucknow's teen-led tech movement."
       >
         <TeamCaseStudy members={teamMembers} />
-        <p className="mt-6 text-center text-sm text-muted-foreground">*Roles stay flexible as our team and community grow.</p>
+        <p className="mt-6 text-center text-sm text-muted-foreground">*Roles stay flexible as our team and club grow.</p>
       </PageSection>
       </main>
     </>

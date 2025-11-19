@@ -21,29 +21,107 @@ const stories = [
     quote:
       "Scrapyard hackathon felt electric—40+ teens building, pitching, and cheering each other on. It proved students can run world-class events.",
     name: "Aadrika",
-    title: "Community Lead",
+    title: "Co-Founder & Chief Creative Strategist",
   },
   {
     quote:
       "We pair first-time coders with experienced mentors, so everyone ships something real. The confidence boost is unreal.",
     name: "Yash",
-    title: "Co-founder & Lead Dev",
+    title: "Co-Founder & Lead Developer",
   },
   {
     quote:
-      "Bits&Bytes gave me my first stage to teach design systems. Now I help younger designers craft bold visuals for events.",
-    name: "Saksham",
-    title: "Design Lead",
+      "Building this platform has been incredible. We're not just coding—we're creating opportunities for the next generation of Lucknow's tech talent.",
+    name: "Akshat",
+    title: "Co-Founder & Technical Lead",
+  },
+  {
+    quote:
+      "The backend work we do here isn't just about databases and APIs—it's about creating a stable foundation that allows every member to build boldly.",
+    name: "Devansh",
+    title: "Founding Member & Backend Lead",
+  },
+  {
+    quote:
+      "From brainstorming wild ideas to seeing them come alive at events, every moment here pushes us to think bigger and execute faster.",
+    name: "Oviyaa",
+    title: "Social Media & Promotions Head",
   },
 ]
 
 const focusAreas = [
-  { icon: <Trophy className="w-full h-full" />, color: "purple", label: "Hackathons" },
-  { icon: <Lightbulb className="w-full h-full" />, color: "orange", label: "Workshops" },
-  { icon: <Code2 className="w-full h-full" />, color: "blue", label: "Projects" },
-  { icon: <Users className="w-full h-full" />, color: "green", label: "Community" },
-  { icon: <Rocket className="w-full h-full" />, color: "red", label: "Innovation" },
-  { icon: <Sparkles className="w-full h-full" />, color: "indigo", label: "Mentorship" },
+  { 
+    icon: <Trophy className="w-full h-full" />, 
+    color: "deep-purple", 
+    label: "Hackathons",
+    description: "Competitive coding events where creativity meets execution",
+    content: [
+      "40+ teens building together at Scrapyard Lucknow, our flagship hackathon",
+      "24-hour sprints turning ideas into working prototypes",
+      "Judging panels with industry mentors and startup founders",
+      "Prizes, networking, and real opportunities for standout projects"
+    ]
+  },
+  { 
+    icon: <Lightbulb className="w-full h-full" />, 
+    color: "vibrant-pink", 
+    label: "Workshops",
+    description: "Hands-on learning sessions covering modern tech stacks",
+    content: [
+      "Weekly workshops on web dev, AI/ML, mobile apps, and design systems",
+      "Beginner-friendly sessions paired with advanced deep-dives",
+      "Live coding, Q&A, and take-home projects",
+      "Led by experienced teen developers and guest industry speakers"
+    ]
+  },
+  { 
+    icon: <Code2 className="w-full h-full" />, 
+    color: "purple-pink", 
+    label: "Projects",
+    description: "Real-world builds that ship to production",
+    content: [
+      "50+ projects launched—from apps to AI tools",
+      "Collaborate with design, dev, and club teams",
+      "Portfolio-ready work with mentorship at every stage",
+      "Open-source contributions and team project squads"
+    ]
+  },
+  { 
+    icon: <Users className="w-full h-full" />, 
+    color: "rich-plum", 
+    label: "Club",
+    description: "A tight-knit crew of ambitious teen builders",
+    content: [
+      "80+ active members across Lucknow schools",
+      "Discord workspace for daily code help and project collabs",
+      "Study groups, pair programming sessions, and code reviews",
+      "Safe, inclusive environment where everyone ships something real"
+    ]
+  },
+  { 
+    icon: <Rocket className="w-full h-full" />, 
+    color: "plum-coral", 
+    label: "Innovation",
+    description: "Experimenting with cutting-edge tech and bold ideas",
+    content: [
+      "AI/ML experiments, blockchain prototypes, and creative tech art",
+      "Pitch nights where anyone can propose their wildest ideas",
+      "Access to beta tools, APIs, and sponsor resources",
+      "Encouragement to fail fast, learn faster, and iterate boldly"
+    ]
+  },
+  { 
+    icon: <Sparkles className="w-full h-full" />, 
+    color: "soft-coral", 
+    label: "Mentorship",
+    description: "Experienced teens guiding first-time builders",
+    content: [
+      "One-on-one pairing with mentors who've shipped projects",
+      "Office hours for technical questions and career guidance",
+      "Portfolio reviews, resume tips, and interview prep",
+      "Alumni network connecting you to internships and opportunities"
+    ]
+  },
 ]
 
 export default function Home() {
@@ -53,8 +131,8 @@ export default function Home() {
 
       <PageSection
         eyebrow="Impact"
-        title="Community-powered learning with real outcomes"
-        description="We’re a teen-led code club where workshops, hackathons, and build nights lead directly to shipped projects and new opportunities."
+        title="Club-powered learning with real outcomes"
+        description="We're a teen-led code club where workshops, hackathons, and build nights lead directly to shipped projects and new opportunities."
       >
         <div className="grid gap-6 md:grid-cols-3">
           {stats.map((stat) => (

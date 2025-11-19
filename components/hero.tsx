@@ -24,7 +24,7 @@ export default function Hero() {
               />
             </div>
             <p className="text-lg text-white/80 mb-8 max-w-lg leading-relaxed">
-              Join a vibrant community of teen developers building the future. Learn, create, and transform ideas into
+              Join a vibrant club of teen developers building the future. Learn, create, and transform ideas into
               reality through code.
             </p>
 

@@ -39,7 +39,7 @@ export function Footer() {
             </div>
           </div>
           <p>
-            Building Lucknow&apos;s coolest hackathons & creative code movements. Teen-led, community-backed, future ready.
+            Building Lucknow&apos;s coolest hackathons & creative code movements. Teen-led, club-backed, future ready.
           </p>
         </div>
 
@@ -59,9 +59,9 @@ export function Footer() {
         <div>
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-foreground">Connect</p>
           <div className="space-y-2">
-            <a className="flex items-center gap-2 transition-colors hover:text-foreground" href="mailto:hello@lucknow.codes">
+            <a className="flex items-center gap-2 transition-colors hover:text-foreground" href="mailto:hello@gobitsnbytes.org">
               <Mail className="h-4 w-4" />
-              hello@lucknow.codes
+              hello@gobitsnbytes.org
             </a>
             <p className="flex items-center gap-2">
               <MapPin className="h-4 w-4" />
@@ -89,7 +89,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10 text-center text-xs py-4">
-        © {new Date().getFullYear()} Bits&Bytes. Built with community love.
+        © {new Date().getFullYear()} Bits&Bytes. Built with club love.
       </div>
     </footer>
   )

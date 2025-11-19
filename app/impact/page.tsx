@@ -23,7 +23,7 @@ const culturePillars = [
     copy: "Every prompt becomes a prototype. We encourage bold experiments and rapid iteration.",
   },
   {
-    title: "Community power",
+    title: "Club power",
     copy: "Mentors, pods, and accountability partners keep everyone shipping and learning.",
   },
   {
@@ -115,7 +115,7 @@ export default function Impact() {
             {[
               {
                 image: "/images/b653f79c-fcc9-49bb-a92a-4fc454659b3a-1-105-c.jpeg",
-                title: "Community United",
+                title: "Club United",
                 copy: "40+ talented developers united for innovation",
               },
               {
@@ -126,7 +126,7 @@ export default function Impact() {
               {
                 image: "/images/4c59e5bb-c1eb-4e4d-9b69-f29faa693002-1-105-c.jpeg",
                 title: "Project Showcase",
-                copy: "Presenting prototypes to judges and community",
+                copy: "Presenting prototypes to judges and club members",
               },
             ].map((card, idx) => (
               <CardContainer key={card.title} className="inter-var w-full" containerClassName="py-4">

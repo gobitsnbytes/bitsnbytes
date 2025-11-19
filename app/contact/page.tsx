@@ -99,7 +99,7 @@ export default function Contact() {
                 {
                   icon: Mail,
                   label: 'Email',
-                  value: 'hello@lucknow.codes',
+                  value: 'hello@gobitsnbytes.org',
                 },
                 {
                   icon: MapPin,

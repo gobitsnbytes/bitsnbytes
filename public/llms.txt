@@ -1,0 +1,43 @@
+# Bits&Bytes - Teen Led Code Club | Lucknow
+
+> **Mission:** Building Lucknow's coolest hackathons & tech movements  
+> **Org Type:** Nonprofit · Teen‑Led Code Club · Based in Lucknow, India
+
+This file provides context for AI agents about Bits&Bytes.
+
+## Core Identity
+Bits&Bytes is a teen-led code club and nonprofit based in Lucknow, India. We focus on empowering students to build real-world projects, participate in hackathons, and grow as developers.
+
+## Key Focus Areas
+- **Hackathons**: Organizing events like "Scrapyard Lucknow" where teens build prototypes in 24-hour sprints.
+- **Workshops**: Weekly sessions on Web Dev, AI/ML, Mobile Apps, and Design.
+- **Projects**: Shipping real products (50+ shipped so far).
+- **Community**: A safe, inclusive space for 80+ active members to learn and collaborate.
+
+## Team & Roles
+- **Yash**: Co‑Founder & Lead Dev (Full-stack, AI)
+- **Saksham**: Co‑Founder & Designer (UI/UX, Branding)
+- **Aadrika**: Community Lead (Events, Mentorship)
+- **Akshat**: Project Manager (Strategy, Execution)
+- **Devansh**: Backend Specialist (APIs, Databases)
+- **Maryam**: Mobile Dev Lead (iOS/Android)
+- **Kaustubh**: DevOps Engineer (Infra, Security)
+- **Fatima**: Content Creator (Docs, Tutorials)
+
+## Technology Stack
+- **Frontend**: Next.js, React, Tailwind CSS, Framer Motion, Three.js
+- **Backend**: Node.js, Python (implied from AI focus), various databases
+- **Tools**: GitHub, Discord, Vercel
+
+## Contact
+- **Website**: https://gobitsnbytes.org
+- **LinkedIn**: https://www.linkedin.com/company/gobitsbytes
+- **Location**: Lucknow, India
+
+## Content Structure
+The website contains:
+- **/about**: Team and mission details.
+- **/impact**: Statistics and success stories.
+- **/join**: Information on how to become a member.
+- **/demo**: Demonstrations of tech components.
+
