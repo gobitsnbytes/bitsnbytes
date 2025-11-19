@@ -5,7 +5,7 @@ import logo from "@public/logo.svg"
 
 const socialLinks = [
   { href: "https://www.linkedin.com/company/gobitsbytes", label: "LinkedIn", icon: Linkedin },
-  { href: "https://github.com/bitsnbytes", label: "GitHub", icon: Github },
+  { href: "https://github.com/gobitsnbytes", label: "GitHub", icon: Github },
   { href: "https://www.instagram.com/bitsnbytes.lko", label: "Instagram", icon: Instagram },
 ]
 
@@ -22,7 +22,7 @@ export function Footer() {
       <div className="section-shell grid gap-10 md:grid-cols-4">
         <div className="space-y-3">
           <div className="inline-flex items-center gap-3 text-foreground">
-            <div className="grid h-11 w-11 place-items-center rounded-2xl bg-[var(--brand-purple)] text-white shadow-[var(--glow-soft)]">
+            <div className="relative grid h-11 w-11 place-items-center rounded-2xl bg-black text-white shadow-[0_8px_30px_rgba(228,90,146,0.4)]">
               <Image
                 src={logo}
                 alt="Bits&Bytes logo"
@@ -31,6 +31,7 @@ export function Footer() {
                 className="h-8 w-8 object-contain"
                 priority
               />
+              <div className="absolute inset-0 rounded-2xl border-2 border-[var(--brand-pink)]" />
             </div>
             <div>
               <p className="font-display text-lg font-semibold">Bits&Bytes</p>

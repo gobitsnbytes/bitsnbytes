@@ -6,6 +6,7 @@ import { CheckCircle2, Info, Loader2 } from "lucide-react"
 import { PageSection } from "@/components/page-section"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { WebGLShader } from "@/components/ui/web-gl-shader"
 
 const INTERESTS = ["Web Development", "Mobile Apps", "AI/ML", "Game Dev", "Design"]
 
@@ -81,13 +82,15 @@ export default function Join() {
   }
 
   return (
-    <main className="bg-transparent">
-      <PageSection
-        align="center"
-        eyebrow="Apply"
-        title="Join the crew"
-        description="Tell us how you want to build with the Bits&Bytes community. We’ll connect you with squads, mentors, and live projects."
-      >
+    <>
+      <WebGLShader />
+      <main className="relative z-10 bg-transparent">
+        <PageSection
+          align="center"
+          eyebrow="Apply"
+          title="Join the crew"
+          description="Tell us how you want to build with the Bits&Bytes community. We'll connect you with squads, mentors, and live projects."
+        >
         <div className="mx-auto w-full max-w-3xl space-y-6">
           {status && (
             <div
@@ -103,7 +106,7 @@ export default function Join() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="glass-panel space-y-8 p-8 sm:p-12">
+          <form onSubmit={handleSubmit} className="glass-card relative isolate overflow-hidden p-8 text-foreground shadow-xl dark:text-white sm:p-12 space-y-8">
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-foreground">Full Name</label>
@@ -189,7 +192,7 @@ export default function Join() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full rounded-full bg-gradient-to-r from-[var(--brand-pink)] to-[var(--brand-purple)] py-6 text-base font-semibold text-white shadow-[var(--glow-strong)]"
+              className="w-full rounded-full bg-[var(--brand-pink)] py-6 text-base font-semibold text-white shadow-[var(--glow-strong)]"
             >
               {isSubmitting ? (
                 <>
@@ -211,6 +214,7 @@ export default function Join() {
           </form>
         </div>
       </PageSection>
-    </main>
+      </main>
+    </>
   )
 }

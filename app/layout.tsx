@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Poppins, Space_Grotesk, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import "./globals.css"
 import { FloatingAiAssistant } from "@/components/ui/glowing-ai-chat-assistant"
@@ -29,8 +30,55 @@ const jetBrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Bits&Bytes - Teen Led Code Club",
-  description: "Innovate. Collaborate. Hack. Join the most creative code club for teens.",
+  metadataBase: new URL('https://lucknow.codes'),
+  title: {
+    default: "Bits&Bytes - Teen Led Code Club | Lucknow",
+    template: "%s | Bits&Bytes"
+  },
+  description: "Innovate. Collaborate. Hack. Join the most creative code club for teens in Lucknow. Build real projects, attend hackathons, and grow as a developer.",
+  keywords: ["bits&bytes", "teen code club", "lucknow hackathons", "student developers", "coding community", "tech events lucknow", "learn coding", "teen programmers"],
+  authors: [{ name: "Bits&Bytes Team" }],
+  creator: "Bits&Bytes",
+  publisher: "Bits&Bytes",
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://lucknow.codes",
+    siteName: "Bits&Bytes",
+    title: "Bits&Bytes - Teen Led Code Club | Lucknow",
+    description: "Innovate. Collaborate. Hack. Join the most creative code club for teens in Lucknow.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Bits&Bytes - Teen Led Code Club",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bits&Bytes - Teen Led Code Club | Lucknow",
+    description: "Innovate. Collaborate. Hack. Join the most creative code club for teens in Lucknow.",
+    images: ["/og-image.png"],
+    creator: "@bitsnbytes_lko",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 }
 
 export default function RootLayout({
@@ -54,6 +102,7 @@ export default function RootLayout({
             <FloatingAiAssistant />
           </div>
           <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>

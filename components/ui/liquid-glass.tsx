@@ -195,7 +195,7 @@ export const Component = () => {
 
   return (
     <div
-      className="min-h-screen h-full flex items-center justify-center font-light relative overflow-hidden w-full bg-gradient-to-b from-[#3e1e68] via-[#5d2f77] to-[#e45a92]"
+      className="min-h-screen h-full flex items-center justify-center font-light relative overflow-hidden w-full bg-[var(--brand-purple)]"
       style={{
         animation: "moveBackground 60s linear infinite",
       }}

@@ -82,7 +82,7 @@ export const InfiniteMovingCards = ({
       >
         {items.map((item, idx) => (
           <li
-            className="relative w-[350px] max-w-full shrink-0 rounded-3xl border border-white/10 bg-card p-6 shadow-[var(--shadow-card)] md:w-[450px]"
+            className="glass-card relative isolate w-[350px] max-w-full shrink-0 p-6 text-foreground shadow-xl dark:text-white md:w-[450px]"
             key={item.name}
           >
             <blockquote>
@@ -109,7 +109,7 @@ export const InfiniteMovingCards = ({
         {/* Duplicate items for infinite scroll */}
         {items.map((item, idx) => (
           <li
-            className="relative w-[350px] max-w-full shrink-0 rounded-3xl border border-white/10 bg-card p-6 shadow-[var(--shadow-card)] md:w-[450px]"
+            className="glass-card relative isolate w-[350px] max-w-full shrink-0 p-6 text-foreground shadow-xl dark:text-white md:w-[450px]"
             key={`${item.name}-duplicate`}
           >
             <blockquote>

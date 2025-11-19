@@ -81,22 +81,31 @@ export function Globe({ globeConfig, data }: WorldProps) {
       });
       
       globeRef.current = globe;
-      scene.add(globe);
-
+      
       // Set material properties
       const globeMaterial = globe.globeMaterial() as any;
       globeMaterial.color = new Color(defaultProps.globeColor);
       globeMaterial.emissive = new Color(defaultProps.emissive);
       globeMaterial.emissiveIntensity = defaultProps.emissiveIntensity;
       globeMaterial.shininess = defaultProps.shininess;
+
+      // Add to scene only if not already added
+      if (!globe.parent) {
+        scene.add(globe);
+      }
     }
 
     return () => {
       if (globeRef.current) {
-        scene.remove(globeRef.current);
+        // Remove from scene if it's a child
+        if (globeRef.current.parent) {
+          globeRef.current.parent.remove(globeRef.current);
+        }
+        // Dispose of globe resources
+        globeRef.current = null;
       }
     };
-  }, [scene]);
+  }, [scene, defaultProps]);
 
   useEffect(() => {
     if (!globeRef.current || !data) return;

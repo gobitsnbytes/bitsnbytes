@@ -3,24 +3,14 @@
 import { useEffect, useRef } from "react"
 import * as THREE from "three"
 
-type WebGLShaderProps = {
-  className?: string
-}
-
-export function WebGLShader({ className }: WebGLShaderProps) {
+export function WebGLShader() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const refs = useRef<{
+  const sceneRef = useRef<{
     scene: THREE.Scene | null
     camera: THREE.OrthographicCamera | null
     renderer: THREE.WebGLRenderer | null
     mesh: THREE.Mesh | null
-    uniforms: {
-      resolution: { value: THREE.Vector2 }
-      time: { value: number }
-      xScale: { value: number }
-      yScale: { value: number }
-      distortion: { value: number }
-    } | null
+    uniforms: any
     animationId: number | null
   }>({
     scene: null,
@@ -32,8 +22,10 @@ export function WebGLShader({ className }: WebGLShaderProps) {
   })
 
   useEffect(() => {
+    if (!canvasRef.current) return
+
     const canvas = canvasRef.current
-    if (!canvas) return
+    const { current: refs } = sceneRef
 
     const vertexShader = `
       attribute vec3 position;
@@ -49,79 +41,88 @@ export function WebGLShader({ className }: WebGLShaderProps) {
       uniform float xScale;
       uniform float yScale;
       uniform float distortion;
+
       void main() {
         vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
+        
         float d = length(p) * distortion;
+        
         float rx = p.x * (1.0 + d);
         float gx = p.x;
         float bx = p.x * (1.0 - d);
-        float r = 0.05 / abs(p.y + sin((rx + time) * xScale) * yScale);
-        float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);
-        float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);
-        gl_FragColor = vec4(r, g, b, 1.0);
+
+        // Brand colors: Deep Purple, Vibrant Pink, Soft Coral
+        vec3 deepPurple = vec3(0.243, 0.118, 0.408);    // #3E1E68
+        vec3 vibrantPink = vec3(0.894, 0.353, 0.573);   // #E45A92
+        vec3 softCoral = vec3(1.0, 0.675, 0.675);       // #FFACAC
+        
+        float wave = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);
+        
+        // Mix brand colors based on wave intensity
+        vec3 color1 = mix(deepPurple, vibrantPink, wave * 0.5);
+        vec3 color2 = mix(vibrantPink, softCoral, wave * 0.3);
+        vec3 finalColor = mix(color1, color2, sin(time * 0.5) * 0.5 + 0.5);
+        
+        gl_FragColor = vec4(finalColor * wave, 1.0);
       }
     `
 
     const initScene = () => {
-      const scene = new THREE.Scene()
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true })
-      renderer.setPixelRatio(window.devicePixelRatio)
-      renderer.setClearColor(new THREE.Color(0x000000), 0)
+      refs.scene = new THREE.Scene()
+      refs.renderer = new THREE.WebGLRenderer({ canvas })
+      refs.renderer.setPixelRatio(window.devicePixelRatio)
+      refs.renderer.setClearColor(new THREE.Color(0x000000))
 
-      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1)
-      const uniforms = {
-        resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-        time: { value: 0 },
-        xScale: { value: 1 },
+      refs.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1)
+
+      refs.uniforms = {
+        resolution: { value: [window.innerWidth, window.innerHeight] },
+        time: { value: 0.0 },
+        xScale: { value: 1.0 },
         yScale: { value: 0.5 },
         distortion: { value: 0.05 },
       }
 
-      const geometry = new THREE.BufferGeometry()
-      const positions = new Float32Array([
+      const position = [
         -1.0, -1.0, 0.0,
-        1.0, -1.0, 0.0,
-        -1.0, 1.0, 0.0,
-        1.0, -1.0, 0.0,
-        -1.0, 1.0, 0.0,
-        1.0, 1.0, 0.0,
-      ])
-      geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3))
+         1.0, -1.0, 0.0,
+        -1.0,  1.0, 0.0,
+         1.0, -1.0, 0.0,
+        -1.0,  1.0, 0.0,
+         1.0,  1.0, 0.0,
+      ]
+
+      const positions = new THREE.BufferAttribute(new Float32Array(position), 3)
+      const geometry = new THREE.BufferGeometry()
+      geometry.setAttribute("position", positions)
 
       const material = new THREE.RawShaderMaterial({
         vertexShader,
         fragmentShader,
-        uniforms,
+        uniforms: refs.uniforms,
         side: THREE.DoubleSide,
       })
 
-      const mesh = new THREE.Mesh(geometry, material)
-      scene.add(mesh)
-
-      refs.current.scene = scene
-      refs.current.renderer = renderer
-      refs.current.camera = camera
-      refs.current.mesh = mesh
-      refs.current.uniforms = uniforms
+      refs.mesh = new THREE.Mesh(geometry, material)
+      refs.scene.add(refs.mesh)
 
       handleResize()
     }
 
     const animate = () => {
-      if (refs.current.uniforms) refs.current.uniforms.time.value += 0.01
-      if (refs.current.renderer && refs.current.scene && refs.current.camera) {
-        refs.current.renderer.render(refs.current.scene, refs.current.camera)
+      if (refs.uniforms) refs.uniforms.time.value += 0.01
+      if (refs.renderer && refs.scene && refs.camera) {
+        refs.renderer.render(refs.scene, refs.camera)
       }
-      refs.current.animationId = requestAnimationFrame(animate)
+      refs.animationId = requestAnimationFrame(animate)
     }
 
     const handleResize = () => {
-      const { renderer, uniforms } = refs.current
-      if (!renderer || !uniforms || !canvas) return
-      const width = canvas.clientWidth || window.innerWidth
-      const height = canvas.clientHeight || window.innerHeight
-      renderer.setSize(width, height, false)
-      uniforms.resolution.value.set(width, height)
+      if (!refs.renderer || !refs.uniforms) return
+      const width = window.innerWidth
+      const height = window.innerHeight
+      refs.renderer.setSize(width, height, false)
+      refs.uniforms.resolution.value = [width, height]
     }
 
     initScene()
@@ -129,24 +130,23 @@ export function WebGLShader({ className }: WebGLShaderProps) {
     window.addEventListener("resize", handleResize)
 
     return () => {
-      const { scene, mesh, renderer, animationId } = refs.current
-      if (animationId) cancelAnimationFrame(animationId)
+      if (refs.animationId) cancelAnimationFrame(refs.animationId)
       window.removeEventListener("resize", handleResize)
-      if (mesh) {
-        scene?.remove(mesh)
-        mesh.geometry.dispose()
-        if (Array.isArray(mesh.material)) {
-          mesh.material.forEach((mat) => mat.dispose())
-        } else {
-          mesh.material.dispose()
+      if (refs.mesh) {
+        refs.scene?.remove(refs.mesh)
+        refs.mesh.geometry.dispose()
+        if (refs.mesh.material instanceof THREE.Material) {
+          refs.mesh.material.dispose()
         }
       }
-      renderer?.dispose()
+      refs.renderer?.dispose()
     }
   }, [])
 
-  return <canvas ref={canvasRef} className={className ?? "absolute inset-0 h-full w-full"} />
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed top-0 left-0 w-full h-full block -z-10"
+    />
+  )
 }
-
-export default WebGLShader
-

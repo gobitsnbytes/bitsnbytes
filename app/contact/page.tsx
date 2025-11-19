@@ -1,8 +1,8 @@
 "use client"
 
-import { Mail, MapPin, Clock, Loader2 } from "lucide-react"
-import { InteractiveRobotSection } from "@/components/ui/interactive-3d-robot"
+import { Mail, MapPin, Clock, Loader2, Github, Linkedin, Instagram } from "lucide-react"
 import { useState, FormEvent } from "react"
+import Link from "next/link"
 
 import { PageSection } from "@/components/page-section"
 import { Button } from "@/components/ui/button"
@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { ContactCard } from "@/components/ui/contact-card"
 import { cn } from "@/lib/utils"
 import { LiquidGlassBackdrop } from "@/components/ui/liquid-glass-effect"
+import { WebGLShader } from "@/components/ui/web-gl-shader"
 
 const fieldClass =
   "w-full rounded-2xl border border-white/20 bg-card/90 px-4 py-3 text-base text-foreground shadow-inner shadow-black/5 transition focus:border-[var(--brand-pink)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-pink)]/30 dark:border-white/15 dark:bg-white/5 dark:text-white"
@@ -63,19 +64,27 @@ export default function Contact() {
 
   return (
     <>
-      <section className="relative overflow-hidden rounded-b-[3rem]">
-        <InteractiveRobotSection className="h-[70vh] min-h-[560px]">
-          <div className="space-y-4">
-            <p className="text-xs uppercase tracking-[0.35em] text-white/70">Contact</p>
-            <h1 className="font-display text-4xl leading-tight md:text-5xl">Let’s co-create the next big sprint</h1>
-            <p className="text-white/75">
-              Partner with us on hackathons, workshops, or custom experiences for schools across Lucknow.
-            </p>
+      <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden text-white">
+        <WebGLShader />
+        <div className="relative z-10 w-full mx-auto max-w-5xl px-4 sm:px-6 py-24">
+          <div className="relative border-2 border-[var(--brand-pink)]/30 rounded-[40px] p-2 backdrop-blur-sm bg-black/10">
+            <div className="relative border-2 border-[var(--brand-pink)]/50 rounded-[36px] py-12 px-6 sm:px-10 overflow-hidden bg-black/40 backdrop-blur-xl">
+              <div className="absolute inset-0 bg-[var(--brand-purple)]/20" />
+              <div className="relative z-10 space-y-4 text-center">
+                <p className="text-xs uppercase tracking-[0.35em] text-white/70">Contact</p>
+                <h1 className="font-display text-4xl md:text-5xl leading-tight font-extrabold text-white">
+                  Let's co-create the next big sprint
+                </h1>
+                <p className="text-lg text-white/80 max-w-2xl mx-auto">
+                  Partner with us on hackathons, workshops, or custom experiences for schools across Lucknow.
+                </p>
+              </div>
+            </div>
           </div>
-        </InteractiveRobotSection>
+        </div>
       </section>
 
-      <main className="bg-transparent">
+      <main className="relative z-10 bg-transparent">
         <PageSection
           align="center"
           eyebrow="Contact"
@@ -153,7 +162,7 @@ export default function Contact() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full rounded-full bg-gradient-to-r from-[var(--brand-pink)] to-[var(--brand-purple)] py-6 text-base font-semibold text-white shadow-[var(--glow-strong)] disabled:opacity-60"
+                  className="w-full rounded-full bg-[var(--brand-pink)] py-6 text-base font-semibold text-white shadow-[var(--glow-strong)] disabled:opacity-60"
                 >
                   {isSubmitting ? (
                     <>
@@ -176,6 +185,42 @@ export default function Contact() {
                 )}
               </form>
             </ContactCard>
+
+            {/* Social Links Section */}
+            <div className="mt-12 text-center">
+              <p className="mb-6 text-lg font-semibold text-foreground dark:text-white">
+                Connect with us on social media
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  href="https://github.com/gobitsnbytes"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-card inline-flex items-center gap-3 px-6 py-3 shadow-lg transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(228,90,146,0.3)]"
+                >
+                  <Github className="h-5 w-5 text-[var(--brand-pink)]" />
+                  <span className="font-medium text-foreground dark:text-white">GitHub</span>
+                </Link>
+                <Link
+                  href="https://www.linkedin.com/company/gobitsbytes"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-card inline-flex items-center gap-3 px-6 py-3 shadow-lg transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(228,90,146,0.3)]"
+                >
+                  <Linkedin className="h-5 w-5 text-[var(--brand-pink)]" />
+                  <span className="font-medium text-foreground dark:text-white">LinkedIn</span>
+                </Link>
+                <Link
+                  href="https://www.instagram.com/bitsnbytes.lko"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-card inline-flex items-center gap-3 px-6 py-3 shadow-lg transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(228,90,146,0.3)]"
+                >
+                  <Instagram className="h-5 w-5 text-[var(--brand-pink)]" />
+                  <span className="font-medium text-foreground dark:text-white">Instagram</span>
+                </Link>
+              </div>
+            </div>
           </div>
         </PageSection>
       </main>

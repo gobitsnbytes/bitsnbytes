@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Sparkles } from 'lucide-react'
 
-import { ShaderAnimation } from '@/components/ui/shader-lines'
+import { WebGLShader } from '@/components/ui/web-gl-shader'
 import { Button } from '@/components/ui/button'
 import { LiquidGlassBackdrop } from '@/components/ui/liquid-glass-effect'
 
@@ -16,11 +16,9 @@ const stats = [
 
 export const HeroFuturistic = () => {
   return (
-    <section className="relative overflow-hidden rounded-b-[3.5rem] bg-[var(--brand-purple)] text-white dark:bg-[var(--brand-plum)]">
-      <div className="absolute inset-0 opacity-50 dark:opacity-80">
-        <ShaderAnimation />
-      </div>
-      <div className="absolute inset-0 bg-[var(--brand-pink)]/10 dark:bg-[var(--brand-plum)]/40" />
+    <section className="relative overflow-hidden rounded-b-[3.5rem] text-white">
+      <WebGLShader />
+      <div className="absolute inset-0 bg-black/30" />
 
       <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-12 px-4 pb-20 pt-28 sm:px-6 lg:flex-row lg:items-stretch lg:gap-16">
         <div className="flex-1">
@@ -80,7 +78,7 @@ export const HeroFuturistic = () => {
               className="h-[420px] w-full object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--brand-purple)]/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-[var(--brand-purple)]/30" />
             <div className="absolute bottom-4 left-4 right-4 z-20 rounded-2xl border border-white/40 bg-white/80 px-5 py-4 shadow-2xl backdrop-blur-2xl dark:border-white/30 dark:bg-white/20">
               <div>
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-[var(--brand-purple)] dark:text-white">Archive highlight</p>

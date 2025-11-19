@@ -1,14 +1,14 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Code2, Users, Rocket, Lightbulb, Trophy, Sparkles } from "lucide-react"
 
 import { HeroFuturistic } from "@/components/ui/hero-futuristic"
-import TechShapes from "@/components/tech-shapes"
 import { PageSection } from "@/components/page-section"
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards"
+import GlassIcons from "@/components/GlassIcons"
 
 const stats = [
   { value: "80+", label: "Active members", detail: "across Lucknow" },
@@ -37,6 +37,15 @@ const stories = [
   },
 ]
 
+const focusAreas = [
+  { icon: <Trophy className="w-full h-full" />, color: "purple", label: "Hackathons" },
+  { icon: <Lightbulb className="w-full h-full" />, color: "orange", label: "Workshops" },
+  { icon: <Code2 className="w-full h-full" />, color: "blue", label: "Projects" },
+  { icon: <Users className="w-full h-full" />, color: "green", label: "Community" },
+  { icon: <Rocket className="w-full h-full" />, color: "red", label: "Innovation" },
+  { icon: <Sparkles className="w-full h-full" />, color: "indigo", label: "Mentorship" },
+]
+
 export default function Home() {
   return (
     <div className="flex flex-col">
@@ -51,12 +60,12 @@ export default function Home() {
           {stats.map((stat) => (
             <Card
               key={stat.label}
-              className="border-white/20 bg-white/70 p-6 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-white/5"
+              className="glass-card relative isolate overflow-hidden p-6 text-foreground shadow-xl hover:shadow-[var(--glow-strong)] dark:text-white"
             >
-              <CardContent className="p-0">
+              <CardContent className="relative z-10 p-0">
                 <p className="text-4xl font-bold text-[var(--brand-pink)]">{stat.value}</p>
-                <CardTitle className="mt-2 text-lg">{stat.label}</CardTitle>
-                <CardDescription className="text-base">{stat.detail}</CardDescription>
+                <CardTitle className="mt-2 text-lg text-foreground dark:text-white">{stat.label}</CardTitle>
+                <CardDescription className="text-base text-foreground/70 dark:text-white/70">{stat.detail}</CardDescription>
               </CardContent>
             </Card>
           ))}
@@ -64,11 +73,14 @@ export default function Home() {
       </PageSection>
 
       <PageSection
-        eyebrow="Ways We Build"
-        title="Learn, collaborate, and hack with us"
-        description="From weekly sessions to multi-day hackathons, we create premium spaces for experimentation, mentorship, and wild ideas."
+        eyebrow="What We Do"
+        title="Our Focus Areas"
+        description="Explore the different ways we help teens build, learn, and grow in tech"
+        align="center"
       >
-        <TechShapes />
+        <div className="relative mx-auto" style={{ height: '500px' }}>
+          <GlassIcons items={focusAreas} className="max-w-4xl" />
+        </div>
       </PageSection>
 
       <PageSection eyebrow="Stories" title="Voices from the crew" align="center">
