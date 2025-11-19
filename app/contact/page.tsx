@@ -1,7 +1,8 @@
 "use client"
 
-import { Mail, MapPin, Clock, Loader2 } from "lucide-react"
+import { Mail, MapPin, Clock, Loader2, Github, Linkedin, Instagram } from "lucide-react"
 import { useState, FormEvent } from "react"
+import Link from "next/link"
 
 import { PageSection } from "@/components/page-section"
 import { Button } from "@/components/ui/button"
@@ -184,6 +185,42 @@ export default function Contact() {
                 )}
               </form>
             </ContactCard>
+
+            {/* Social Links Section */}
+            <div className="mt-12 text-center">
+              <p className="mb-6 text-lg font-semibold text-foreground dark:text-white">
+                Connect with us on social media
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  href="https://github.com/gobitsnbytes"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-card inline-flex items-center gap-3 px-6 py-3 shadow-lg transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(228,90,146,0.3)]"
+                >
+                  <Github className="h-5 w-5 text-[var(--brand-pink)]" />
+                  <span className="font-medium text-foreground dark:text-white">GitHub</span>
+                </Link>
+                <Link
+                  href="https://www.linkedin.com/company/gobitsbytes"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-card inline-flex items-center gap-3 px-6 py-3 shadow-lg transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(228,90,146,0.3)]"
+                >
+                  <Linkedin className="h-5 w-5 text-[var(--brand-pink)]" />
+                  <span className="font-medium text-foreground dark:text-white">LinkedIn</span>
+                </Link>
+                <Link
+                  href="https://www.instagram.com/bitsnbytes.lko"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-card inline-flex items-center gap-3 px-6 py-3 shadow-lg transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(228,90,146,0.3)]"
+                >
+                  <Instagram className="h-5 w-5 text-[var(--brand-pink)]" />
+                  <span className="font-medium text-foreground dark:text-white">Instagram</span>
+                </Link>
+              </div>
+            </div>
           </div>
         </PageSection>
       </main>

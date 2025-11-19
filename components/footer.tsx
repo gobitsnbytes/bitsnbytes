@@ -5,7 +5,7 @@ import logo from "@public/logo.svg"
 
 const socialLinks = [
   { href: "https://www.linkedin.com/company/gobitsbytes", label: "LinkedIn", icon: Linkedin },
-  { href: "https://github.com/bitsnbytes", label: "GitHub", icon: Github },
+  { href: "https://github.com/gobitsnbytes", label: "GitHub", icon: Github },
   { href: "https://www.instagram.com/bitsnbytes.lko", label: "Instagram", icon: Instagram },
 ]
 

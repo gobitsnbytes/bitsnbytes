@@ -46,13 +46,13 @@ export default function Hero() {
             {/* Social Links */}
             <div className="flex items-center gap-6">
               <span className="text-sm text-white/70">Follow us:</span>
-              <a href="#" className="p-2 hover:bg-white/10 rounded-full transition-colors group">
+              <a href="https://github.com/gobitsnbytes" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors group">
                 <Github size={20} className="text-white group-hover:text-[var(--brand-coral)]" />
               </a>
-              <a href="#" className="p-2 hover:bg-white/10 rounded-full transition-colors group">
+              <a href="https://www.linkedin.com/company/gobitsbytes" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors group">
                 <Linkedin size={20} className="text-white group-hover:text-[var(--brand-coral)]" />
               </a>
-              <a href="#" className="p-2 hover:bg-white/10 rounded-full transition-colors group">
+              <a href="https://www.instagram.com/bitsnbytes.lko" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors group">
                 <Twitter size={20} className="text-white group-hover:text-[var(--brand-coral)]" />
               </a>
             </div>

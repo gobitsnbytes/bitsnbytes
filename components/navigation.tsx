@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
-import { ArrowUpRight, Menu, X } from "lucide-react"
+import { ArrowUpRight, Menu, X, Github } from "lucide-react"
 
 import ThemeToggle from "@/components/theme-toggle"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -82,6 +82,15 @@ export default function Navigation() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <Link
+              href="https://github.com/gobitsnbytes"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/70 text-foreground transition hover:border-white/50 hover:text-[var(--brand-pink)] dark:bg-white/10 md:inline-flex"
+              aria-label="GitHub"
+            >
+              <Github className="h-4 w-4" />
+            </Link>
             <ThemeToggle size="sm" />
             <Link
               href="/join"
