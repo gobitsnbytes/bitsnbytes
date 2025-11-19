@@ -72,16 +72,18 @@ export function ShaderAnimation() {
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    const renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: "high-performance", alpha: true });
+    // Optimize for high DPI screens - cap at 1 or 1.5 to save battery/GPU
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     container.appendChild(renderer.domElement);
 
     const onWindowResize = () => {
-      const width = container.clientWidth || window.innerWidth;
-      const height = container.clientHeight || window.innerHeight;
+      if (!container) return;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
       renderer.setSize(width, height);
-      uniforms.resolution.value.x = renderer.domElement.width;
-      uniforms.resolution.value.y = renderer.domElement.height;
+      uniforms.resolution.value.x = width;
+      uniforms.resolution.value.y = height;
     };
 
     onWindowResize();
@@ -89,7 +91,8 @@ export function ShaderAnimation() {
 
     const animate = () => {
       const id = requestAnimationFrame(animate);
-      uniforms.time.value += 0.05;
+      // Slow down animation slightly for better feel
+      uniforms.time.value += 0.02;
       renderer.render(scene, camera);
 
       if (sceneRef.current) {

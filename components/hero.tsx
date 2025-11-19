@@ -31,6 +31,7 @@ export default function Hero() {
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
               <Link
                 href="/join"
+                prefetch={true}
                 className="inline-flex items-center justify-center px-8 py-3 bg-[var(--brand-pink)] text-white rounded-full font-medium hover:bg-[var(--brand-plum)] transition-all hover:shadow-lg hover:shadow-[var(--brand-pink)]/30 group"
               >
                 Join Us Now <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />

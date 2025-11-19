@@ -62,7 +62,7 @@ const stories = [
       "From brainstorming wild ideas to seeing them come alive at events, every moment here pushes us to think bigger and execute faster.",
     name: "Oviyaa",
     title: "Social Media & Promotions Head",
-    image: "/portrait-of-young-community-organizer.jpg",
+    image: "/team/oviyaa.jpeg",
   },
 ]
 

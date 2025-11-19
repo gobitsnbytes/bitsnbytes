@@ -108,7 +108,7 @@ const teamMembers = [
     id: 7,
     name: "Oviyaa",
     role: "Social Media & Promotions Head",
-    image: "/portrait-of-young-community-organizer.jpg",
+    image: "/team/oviyaa.jpeg",
     bio: "Oversees all posts, creates promotional strategies, manages audience engagement, and focuses on increasing online reach across all social platforms.",
     expertise: ["Social Media Strategy", "Digital Marketing", "Community Engagement", "Growth Strategy"],
     linkedin: "https://www.linkedin.com/in/oviyaa-singh-3a183a370/",

@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect } from "react"
 import dynamic from "next/dynamic"
 import { PageSection } from "@/components/page-section"
 import { Button } from "@/components/ui/button"
@@ -12,23 +11,12 @@ const WebGLShader = dynamic(() => import("@/components/ui/web-gl-shader").then(m
   ssr: false
 })
 
+import Script from "next/script"
+
 export default function Join() {
-  useEffect(() => {
-    // Load Tally script for popup
-    const script = document.createElement('script')
-    script.src = 'https://tally.so/widgets/embed.js'
-    script.async = true
-    document.body.appendChild(script)
-
-    return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script)
-      }
-    }
-  }, [])
-
   return (
     <>
+      <Script src="https://tally.so/widgets/embed.js" strategy="lazyOnload" />
       <WebGLShader />
       <main className="relative z-10 bg-transparent">
         <PageSection

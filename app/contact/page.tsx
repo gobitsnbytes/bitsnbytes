@@ -74,18 +74,18 @@ export default function Contact() {
 
   return (
     <>
-      <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden text-white">
+      <section className="relative min-h-[50vh] md:min-h-[65vh] flex items-center justify-center overflow-hidden text-white">
         <WebGLShader />
-        <div className="relative z-10 w-full mx-auto max-w-5xl px-4 sm:px-6 py-24">
-          <div className="relative border-2 border-[var(--brand-pink)]/30 rounded-[40px] p-2 backdrop-blur-sm bg-black/10">
-            <div className="relative border-2 border-[var(--brand-pink)]/50 rounded-[36px] py-12 px-6 sm:px-10 overflow-hidden bg-black/40 backdrop-blur-xl">
+        <div className="relative z-10 w-full mx-auto max-w-5xl px-4 sm:px-6 py-12 md:py-24">
+          <div className="relative border-2 border-[var(--brand-pink)]/30 rounded-[32px] md:rounded-[40px] p-1.5 md:p-2 backdrop-blur-sm bg-black/10">
+            <div className="relative border-2 border-[var(--brand-pink)]/50 rounded-[28px] md:rounded-[36px] py-8 px-4 sm:px-10 overflow-hidden bg-black/40 backdrop-blur-xl">
               <div className="absolute inset-0 bg-[var(--brand-purple)]/20" />
               <div className="relative z-10 space-y-4 text-center">
-                <p className="text-xs uppercase tracking-[0.35em] text-white/70">Contact</p>
-                <h1 className="font-display text-4xl md:text-5xl leading-tight font-extrabold text-white">
+                <p className="text-[10px] md:text-xs uppercase tracking-[0.35em] text-white/70">Contact</p>
+                <h1 className="font-display text-3xl md:text-5xl leading-tight font-extrabold text-white">
                   Let's co-create the next big sprint
                 </h1>
-                <p className="text-lg text-white/80 max-w-2xl mx-auto">
+                <p className="text-base md:text-lg text-white/80 max-w-2xl mx-auto">
                   Partner with us on hackathons, workshops, or custom experiences for schools across Lucknow.
                 </p>
               </div>
@@ -124,7 +124,7 @@ export default function Contact() {
                   className: 'col-span-2',
                 }
               ]}
-              className="rounded-[40px] border-white/30 bg-white/50 shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/5 overflow-hidden"
+              className="rounded-[24px] md:rounded-[40px] border-white/30 bg-white/50 shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-white/5 overflow-hidden"
             >
               <form onSubmit={handleSubmit} className="w-full space-y-4">
                 <div className="flex flex-col gap-2">

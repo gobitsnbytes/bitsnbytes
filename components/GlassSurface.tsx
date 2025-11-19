@@ -162,28 +162,17 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
   useEffect(() => {
     if (!containerRef.current) return;
 
+    let timeoutId: NodeJS.Timeout;
     const resizeObserver = new ResizeObserver(() => {
-      setTimeout(updateDisplacementMap, 0);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(updateDisplacementMap, 100);
     });
 
     resizeObserver.observe(containerRef.current);
 
     return () => {
       resizeObserver.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const resizeObserver = new ResizeObserver(() => {
-      setTimeout(updateDisplacementMap, 0);
-    });
-
-    resizeObserver.observe(containerRef.current);
-
-    return () => {
-      resizeObserver.disconnect();
+      clearTimeout(timeoutId);
     };
   }, []);
 
@@ -194,8 +183,9 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
   const supportsSVGFilters = () => {
     const isWebkit = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
     const isFirefox = /Firefox/.test(navigator.userAgent);
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
 
-    if (isWebkit || isFirefox) {
+    if (isWebkit || isFirefox || isMobile) {
       return false;
     }
 

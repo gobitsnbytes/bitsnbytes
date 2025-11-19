@@ -94,6 +94,7 @@ export default function Navigation() {
             <ThemeToggle size="sm" />
             <Link
               href="/join"
+              prefetch={true}
               className={cn(
                 buttonVariants({ variant: "default", size: "sm" }),
                 "hidden items-center gap-1 rounded-full bg-[var(--brand-pink)] text-white shadow-[var(--glow-strong)] md:inline-flex",
@@ -114,33 +115,37 @@ export default function Navigation() {
         </div>
 
         {mobileOpen && (
-          <div className="mt-4 space-y-3 rounded-2xl border border-white/10 bg-white/95 p-4 shadow-[var(--shadow-card)] dark:bg-[var(--background)] md:hidden">
-            {NAV_LINKS.map((item) => {
-              const isActive = pathname === item.href
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "flex items-center justify-between rounded-2xl px-4 py-3 text-base transition-all",
-                    isActive
-                    ? "rounded-2xl bg-[var(--brand-pink)] text-white"
-                    : "border border-white/10 text-muted-foreground hover:border-white/30 hover:text-foreground",
-                  )}
-                >
-                  {item.label}
-                  <ArrowUpRight className="h-4 w-4" />
+          <div className="absolute top-full left-0 w-full border-t border-white/10 bg-white/95 p-4 shadow-[var(--shadow-card)] backdrop-blur-2xl dark:bg-[#05020a]/95 md:hidden animate-in slide-in-from-top-5 fade-in duration-200">
+            <div className="flex flex-col gap-2">
+              {NAV_LINKS.map((item) => {
+                const isActive = pathname === item.href
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={cn(
+                      "flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium transition-all",
+                      isActive
+                        ? "bg-[var(--brand-pink)]/10 text-[var(--brand-pink)]"
+                        : "text-foreground/80 hover:bg-white/5 hover:text-foreground dark:text-white/80",
+                    )}
+                  >
+                    {item.label}
+                    <ArrowUpRight className={cn("h-4 w-4", isActive ? "text-[var(--brand-pink)]" : "text-muted-foreground")} />
+                  </Link>
+                )
+              })}
+              <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent my-2" />
+              <Button
+                asChild
+                className="w-full rounded-xl bg-[var(--brand-pink)] py-6 text-base font-semibold text-white shadow-[var(--glow-strong)] hover:bg-[var(--brand-plum)]"
+              >
+                <Link href="/join" prefetch={true} onClick={() => setMobileOpen(false)} className="flex items-center justify-center gap-2">
+                  Join the Club <ArrowUpRight className="h-5 w-5" />
                 </Link>
-              )
-            })}
-            <Button
-              asChild
-              className="w-full rounded-2xl bg-[var(--brand-pink)] text-white"
-            >
-              <Link href="/join" className="flex items-center justify-center gap-2">
-                Join the Club <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </Button>
+              </Button>
+            </div>
           </div>
         )}
       </div>
