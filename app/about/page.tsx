@@ -48,7 +48,7 @@ const teamMembers = [
   {
     id: 1,
     name: "Yash",
-    role: "Co-Founder",
+    role: "Founder",
     image: "/team/yash.jpeg",
     bio: "Leads the entire organization, coordinating between all teams, organizing events, setting timelines, and ensuring that work gets executed efficiently.",
     expertise: ["Leadership", "Event Management", "Team Coordination", "Strategic Planning"],
