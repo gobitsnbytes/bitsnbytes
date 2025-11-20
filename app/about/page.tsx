@@ -48,7 +48,7 @@ const teamMembers = [
   {
     id: 1,
     name: "Yash",
-    role: "Co-Founder",
+    role: "Founder",
     image: "/team/yash.jpeg",
     bio: "Leads the entire organization, coordinating between all teams, organizing events, setting timelines, and ensuring that work gets executed efficiently.",
     expertise: ["Leadership", "Event Management", "Team Coordination", "Strategic Planning"],
@@ -107,19 +107,19 @@ const teamMembers = [
   {
     id: 7,
     name: "Oviyaa",
-    role: "Social Media & Promotions Head",
+    role: "Outreach Lead",
     image: "/team/oviyaa.jpeg",
-    bio: "Oversees all posts, creates promotional strategies, manages audience engagement, and focuses on increasing online reach across all social platforms.",
-    expertise: ["Social Media Strategy", "Digital Marketing", "Community Engagement", "Growth Strategy"],
+    bio: "Builds and maintains connections with schools, clubs, local communities, and potential collaborators.",
+    expertise: ["Outreach", "Digital Marketing", "Community Engagement", "Growth Strategy"],
     linkedin: "https://www.linkedin.com/in/oviyaa-singh-3a183a370/",
   },
   {
     id: 8,
     name: "Maryam",
-    role: "Lead Graphics Designer",
+    role: "Social Media & Promotions Head",
     image: "/team/maryam.jpeg",
     bio: "Designs visuals for posts, events, and campaigns while maintaining branding consistency. Coordinates closely with the social media and content teams.",
-    expertise: ["Graphic Design", "Brand Identity", "Visual Communication", "Design Systems"],
+    expertise: ["Social Media", "Brand Identity", "Visual Communication", "Design Systems"],
     linkedin: "https://www.linkedin.com/in/maryam-fatima-9719aa377/",
   },
   {
