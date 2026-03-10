@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { PageSection } from "@/components/page-section";
 import { GlassContainer } from "@/components/ui/glass-container";
 import {
@@ -29,6 +29,8 @@ import {
   ChevronRight,
   Activity,
   Eye,
+  X,
+  AlertTriangle,
 } from "lucide-react";
 
 const WebGLShader = dynamic(
@@ -119,7 +121,7 @@ const programSteps = [
 const faqs = [
   {
     q: "What is India Innovates 2026?",
-    a: "India's Biggest Tech Innovation Summit where Code Meets Constitution. Organized by MCD, DDU, IIT Kharagpur, DTC, NSUT, GGSIPU, THE FISTA, and CBPACS at Bharat Mandapam, New Delhi, with Bits&Bytes as the Executive Partner. It invites India's brightest student innovators to bring working products and breakthrough ideas."
+    a: "India's Biggest Tech Innovation Summit where Code Meets Constitution. Organized by MCD, DDU College, IIT Kharagpur, DTC, NSUT, GGSIPU, THE FISTA, and CBPACS at Bharat Mandapam, New Delhi, with Bits&Bytes as the Executive Partner. It invites India's brightest student innovators to bring working products and breakthrough ideas."
   },
   {
     q: "What is Bits&Bytes' role in the event?",
@@ -164,14 +166,64 @@ const visionMission = [
 
 export default function Events() {
   const [activeEvent, setActiveEvent] = useState<"all" | "copilot" | "india-innovates">("all");
+  const [showBanner, setShowBanner] = useState(true);
+  const bannerRef = useRef<HTMLDivElement>(null);
   const now = useMemo(() => new Date(), []);
   const liveIndexes = useMemo(
     () => new Set(stages.map((s, i) => (now >= s.start && now <= s.end ? i : -1)).filter((i) => i !== -1)),
     [now],
   );
 
+  const dismissBanner = useCallback(() => setShowBanner(false), []);
+
+  useEffect(() => {
+    if (!showBanner) return;
+
+    const handleScroll = () => {
+      if (window.scrollY > 80) {
+        setShowBanner(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [showBanner]);
+
   return (
     <>
+      {/* ── Important Update Banner ────────────────────────────────────────── */}
+      <div
+        ref={bannerRef}
+        className="overflow-hidden transition-all duration-500 ease-in-out"
+        style={{
+          maxHeight: showBanner ? "200px" : "0px",
+          opacity: showBanner ? 1 : 0,
+        }}
+      >
+        <div className="relative bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-amber-500/15 border-b border-amber-500/20 backdrop-blur-md">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 py-3 pr-10">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5 text-amber-400" />
+              <div className="text-xs sm:text-sm text-white/80 leading-relaxed">
+                <span className="font-bold text-amber-400">Important Update — Guinness World Record Attempt:</span>{" "}
+                We are attempting records for the Largest Civic Tech Hackathon and Largest Hackathon Under Roof.
+                To comply with official Guinness guidelines, the Cybersecurity domain has been removed for new registrations and merged under Open Innovation.
+                <span className="block mt-1 text-white/60">
+                  Already registered in Cybersecurity? Your participation, prizes, and evaluation remain fully valid.
+                </span>
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={dismissBanner}
+            className="absolute top-2 right-2 p-1.5 rounded-full text-white/40 hover:text-white hover:bg-white/10 transition-colors"
+            aria-label="Dismiss announcement"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <section className="relative min-h-[72vh] flex items-center justify-center overflow-hidden text-white pt-24 md:pt-32">
         <WebGLShader />
