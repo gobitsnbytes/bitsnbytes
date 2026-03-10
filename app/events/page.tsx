@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { PageSection } from "@/components/page-section";
 import { GlassContainer } from "@/components/ui/glass-container";
 import {
@@ -174,8 +174,6 @@ export default function Events() {
     [now],
   );
 
-  const dismissBanner = useCallback(() => setShowBanner(false), []);
-
   useEffect(() => {
     if (!showBanner) return;
 
@@ -215,7 +213,7 @@ export default function Events() {
             </div>
           </div>
           <button
-            onClick={dismissBanner}
+            onClick={() => setShowBanner(false)}
             className="absolute top-2 right-2 p-1.5 rounded-full text-white/40 hover:text-white hover:bg-white/10 transition-colors"
             aria-label="Dismiss announcement"
           >
