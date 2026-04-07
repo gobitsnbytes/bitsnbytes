@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { GlassContainer } from "@/components/ui/glass-container";
 
 interface AnnouncementBannerProps {
   imageUrl: string;
@@ -19,35 +21,33 @@ export function AnnouncementBanner({
   className,
 }: AnnouncementBannerProps) {
   return (
-    <div 
-      className={cn(
-        "relative w-full overflow-hidden rounded-2xl bg-white/5 backdrop-blur-md border border-white/10",
-        "flex flex-col sm:flex-row items-center justify-between p-4 sm:p-6 gap-4 sm:gap-6",
-        "shadow-lg",
-        className
-      )}
+    <GlassContainer
+      containerClassName={cn("relative w-full shadow-lg", className)}
+      className="relative h-20 w-full p-0 sm:h-24 md:h-28"
+      glowColor="none"
+      animated={false}
     >
-      {/* Image Container - Grows to take available space */}
-      <div className="relative w-full sm:flex-1 h-16 sm:h-20 md:h-24 flex items-center justify-center sm:justify-start">
-        <Image
-          src={imageUrl}
-          alt={imageAlt}
-          fill
-          className="object-contain object-center sm:object-left"
-          priority
-        />
-      </div>
-      
-      {/* CTA Button Container - Shrinks to fit content */}
-      <div className="flex-shrink-0 z-10 w-full sm:w-auto">
-        <Link
-          href={ctaLink}
-          className="flex w-full sm:w-auto items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[var(--brand-pink)] px-6 py-2.5 text-sm font-black text-white transition-all hover:brightness-110 active:scale-95 shadow-md"
+      <Image
+        src={imageUrl}
+        alt={imageAlt}
+        fill
+        className="object-cover object-center"
+        priority
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/15 to-black/40" />
+
+      <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-end p-3 sm:p-4">
+        <Button
+          asChild
+          variant="ghost"
+          className="pointer-events-auto h-10 rounded-full border border-white/35 bg-transparent px-5 text-sm font-black text-white backdrop-blur-md transition-all hover:bg-white/10 hover:text-white"
         >
-          {ctaText}
-          <ArrowRight className="h-4 w-4" />
-        </Link>
+          <Link href={ctaLink} className="inline-flex items-center gap-2">
+            {ctaText}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </Button>
       </div>
-    </div>
+    </GlassContainer>
   );
 }
