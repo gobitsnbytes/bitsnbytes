@@ -18,6 +18,7 @@ const WebGLShader = dynamic(
 );
 import { Button } from "@/components/ui/button";
 import { GlassContainer } from "@/components/ui/glass-container";
+import { AnnouncementBanner } from "@/components/ui/announcement-banner";
 
 const stats = [
   { value: "200+", label: "Active members" },
@@ -68,7 +69,16 @@ export const HeroFuturistic = () => {
       <WebGLShader />
       <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-12 px-4 pb-8 pt-20 sm:px-6 sm:pb-10 sm:pt-20 md:px-6 md:pb-16 md:pt-24 lg:pb-20 lg:pt-28 lg:flex-row lg:items-stretch lg:gap-16 box-border">
+      <div className="relative z-20 mx-auto w-full max-w-7xl px-4 sm:px-6 pt-20 sm:pt-20 lg:pt-24">
+        <AnnouncementBanner
+          imageUrl="/banners/cohorts_banner.png"
+          imageAlt="Introducing Bits&Bytes Cohorts"
+          ctaText="Apply now"
+          ctaLink="https://www.gobitsnbytes.org/join-cohort"
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-12 px-4 pb-8 pt-4 sm:px-6 sm:pb-10 sm:pt-6 md:px-6 md:pb-16 md:pt-8 lg:pb-20 lg:pt-10 lg:flex-row lg:items-stretch lg:gap-16 box-border">
         {/* Left content card */}
         <div className="flex-[1.2] min-w-0">
           <GlassContainer

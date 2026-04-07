@@ -13,7 +13,6 @@ import {
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
-import { AnnouncementBanner } from "@/components/ui/announcement-banner";
 import { HeroFuturistic } from "@/components/ui/hero-futuristic";
 import { PageSection } from "@/components/page-section";
 import { Features } from "@/components/ui/features-8";
@@ -68,16 +67,6 @@ export default function Home() {
     <>
       <WebGLShader />
       <div className="flex flex-col w-full max-w-full overflow-x-hidden">
-        {/* Added Announcement Banner Container */}
-        <div className="relative z-20 mx-auto w-full max-w-7xl px-4 sm:px-6 pt-24 sm:pt-28 pb-0 lg:pt-32 lg:pb-2">
-          <AnnouncementBanner
-            imageUrl="/banners/cohorts_banner.png"
-            imageAlt="Introducing Bits&Bytes Cohorts"
-            ctaText="Join Cohort"
-            ctaLink="https://www.gobitsnbytes.org/join-cohort"
-          />
-        </div>
-
         <HeroFuturistic />
 
         <PageSection
