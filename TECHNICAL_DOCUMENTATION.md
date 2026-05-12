@@ -29,6 +29,12 @@
 │   │   │   ├── feedback/           # Chat feedback collection
 │   │   │   ├── image/              # Image generation trigger
 │   │   │   └── voice/              # Voice input (placeholder)
+│   │   ├── forks/                  # Fork Dashboard API
+│   │   │   ├── route.ts            # GET forks list + leaderboard
+│   │   │   └── [id]/route.ts       # GET single fork details
+│   │   ├── events/route.ts         # Fork events CRUD
+│   │   ├── reports/route.ts        # Fork reports CRUD
+│   │   ├── team/route.ts           # Team members list
 │   │   ├── join/route.ts           # Submit join requests → Supabase
 │   │   ├── contact/                # Contact form submissions
 │   │   └── discord/                # Discord OAuth integration
@@ -55,7 +61,11 @@
 │   ├── sentiment.ts                # Frustration detection regex
 │   ├── team-data.ts                # Team members + role matching logic
 │   ├── theme.ts                    # Theme utilities (dark mode)
-│   └── utils.ts                    # cn() classname merger
+│   ├── utils.ts                    # cn() classname merger
+│   ├── notion.ts                   # Notion API wrapper (Fork Dashboard)
+│   ├── gamification.ts             # Points & levels system (Fork Dashboard)
+│   ├── healthScore.ts              # Health score calculations (Fork Dashboard)
+│   └── onboarding.ts               # Onboarding tracking (Fork Dashboard)
 ├── public/
 │   ├── images/                     # Optimized AVIF/WebP
 │   ├── partners/                   # Sponsor logos
@@ -725,7 +735,128 @@ Next.js 16
 
 ---
 
-## 16. Future Roadmap Notes
+## 16. Fork Dashboard Integration
+
+### 16.1 Overview
+
+The Fork Dashboard is a Notion-powered management system for Bits&Bytes regional chapters (forks). It provides real-time tracking of fork health, events, team members, reports, and gamification through a web dashboard.
+
+**Architecture:** Single database (Notion) shared between Discord bot and website, ensuring real-time sync without additional infrastructure.
+
+### 16.2 Notion Database Schema
+
+| Database | Purpose | Key Properties |
+|----------|---------|----------------|
+| **Forks** | Regional chapters | Name, City, Status, Points, Health Score, Level, Team Size, Events Count |
+| **Events** | Fork events | Name, Fork (relation), Status, Type, Date, Points, Sponsors |
+| **Team Members** | Fork membership | Name, Fork (relation), Role, Discord ID, Status, Onboarding Complete |
+| **Reports** | Weekly/monthly reports | Title, Fork (relation), Type, Status, Content, Late flag |
+| **Users** | Website authentication | Name, Email, Password Hash, Role, Fork (relation) |
+
+### 16.3 Environment Variables
+
+```bash
+# Fork Dashboard (Notion Integration)
+NOTION_API_KEY='secret_your-notion-integration-token'
+NOTION_FORKS_DB_ID='your-forks-database-id'
+NOTION_EVENTS_DB_ID='your-events-database-id'
+NOTION_MEMBERS_DB_ID='your-members-database-id'
+NOTION_REPORTS_DB_ID='your-reports-database-id'
+NOTION_USERS_DB_ID='your-users-database-id'
+```
+
+### 16.4 Library Modules (`lib/`)
+
+| Module | Purpose | Key Functions |
+|--------|---------|---------------|
+| `notion.ts` | Notion API wrapper | `getForks()`, `getFork()`, `getEvents()`, `createEvent()`, `getTeamMembers()`, `getReports()`, `createReport()` |
+| `gamification.ts` | Points & levels | `addPoints()`, `getLevelFromPoints()`, `getLeaderboard()`, `POINTS` constants |
+| `healthScore.ts` | Health calculations | `calculateHealthScore()`, `getHealthStatus()`, `getHealthRecommendations()` |
+| `onboarding.ts` | Onboarding tracking | `calculateOnboardingProgress()`, `getNextStep()`, `ONBOARDING_STEPS` |
+
+### 16.5 API Routes (`app/api/`)
+
+| Route | Methods | Purpose |
+|-------|---------|---------|
+| `/api/forks` | GET | List all forks with health scores and leaderboard |
+| `/api/forks/[id]` | GET | Single fork details with events, members, reports |
+| `/api/events` | GET, POST | List/create events (auto-awards points) |
+| `/api/reports` | GET, POST | List/submit reports (on-time bonus logic) |
+| `/api/team` | GET | List team members by fork |
+
+### 16.6 Gamification System
+
+**Points Allocation:**
+```typescript
+const POINTS = {
+  EVENT_CREATED: 10,
+  EVENT_APPROVED: 20,
+  EVENT_COMPLETED: 50,
+  PER_SPONSOR_SECURED: 10,
+  REPORT_SUBMITTED: 15,
+  WEEKLY_PULSE_UPDATE: 10,
+  ON_TIME_REPORT_BONUS: 10,
+  MISSED_REPORT_DEADLINE: -15,
+  INACTIVE_TWO_WEEKS: -25,
+}
+```
+
+**Level Progression:**
+| Level | Points Range | Badge | Color |
+|-------|--------------|-------|-------|
+| Seed Fork | 0-99 | 🌱 | #81ECEC |
+| Active Fork | 100-299 | 🌿 | #00FF95 |
+| High Impact Fork | 300-699 | 🌳 | #00F2FF |
+| Elite Fork | 700+ | 🏆 | #FFD700 |
+
+### 16.7 Health Score Calculation
+
+**Components (each 0-20 points):**
+1. **Pulse Recency** - Days since last weekly update
+2. **Events Conducted** - Total events count
+3. **Team Completeness** - Team size
+4. **Report Submission** - Regular reporting
+5. **Partnerships** - Sponsor/partner engagement
+
+**Status Thresholds:**
+- Excellent: 80-100 (green)
+- Good: 60-79 (yellow)
+- Fair: 40-59 (orange)
+- At Risk: 0-39 (red)
+
+### 16.8 Dashboard UI (`app/fork/dashboard/`)
+
+**Features:**
+- Fork selector with status badges
+- Stats overview (Total Forks, Active Forks, Events, Members)
+- Health score visualization with progress bar
+- Events/Team/Reports tabs
+- Live leaderboard sidebar
+- Configuration error handling (graceful degradation)
+
+**Access:** `/fork/dashboard`
+
+### 16.9 Error Handling
+
+The dashboard gracefully handles missing Notion configuration:
+- Displays configuration required message with missing env vars
+- Shows actionable instructions for setup
+- Returns 503 status for API calls when not configured
+
+**Example Check:**
+```typescript
+const configStatus = getNotionConfigStatus()
+if (!configStatus.configured) {
+  return NextResponse.json(
+    { error: "Notion integration not configured", missing: configStatus.missing },
+    { status: 503 }
+  )
+}
+```
+
+---
+
+## 17. Future Roadmap Notes
 
 - [ ] Global rate limiter (Redis integration)
 - [ ] Voice input support (Whisper API)
@@ -733,4 +864,6 @@ Next.js 16
 - [ ] Multi-language RAG (Hindi embeddings)
 - [ ] Analytics dashboard (Supabase dashboards)
 - [ ] Email notifications for leads (Resend.dev)
+- [ ] Fork Dashboard authentication (Supabase Auth)
+- [ ] Website-to-Discord sync webhooks
 
