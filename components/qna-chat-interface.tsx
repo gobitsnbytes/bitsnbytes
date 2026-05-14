@@ -313,6 +313,20 @@ export function QnAChatInterface() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleExternalPrompt = (event: Event) => {
+      const customEvent = event as CustomEvent<string>;
+      if (typeof customEvent.detail === "string") {
+        handleQuickPrompt(customEvent.detail);
+      }
+    };
+
+    window.addEventListener("bb:qna-prompt", handleExternalPrompt);
+    return () => {
+      window.removeEventListener("bb:qna-prompt", handleExternalPrompt);
+    };
+  }, []);
+
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     if (value.length > MAX_CHARS) return;
@@ -508,32 +522,32 @@ export function QnAChatInterface() {
 
   return (
     <div
-      className="flex flex-col h-full w-full max-w-4xl mx-auto rounded-none sm:rounded-3xl overflow-hidden border-0 sm:border border-zinc-700/60 bg-zinc-950/70 shadow-2xl backdrop-blur-3xl relative"
+      className="flex flex-col w-full h-[70vh] min-h-[520px] rounded-2xl overflow-hidden border border-white/10 bg-[rgba(13,7,9,0.86)] shadow-[0_30px_80px_rgba(7,3,4,0.75)] backdrop-blur-2xl relative"
       role="region"
       aria-label="Bits and Bytes chat assistant"
     >
-      <div className="flex flex-wrap items-center justify-between gap-3 px-6 pt-5 pb-4 border-b border-zinc-800/80 bg-zinc-900/50 shrink-0">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-6 pt-5 pb-4 border-b border-white/10 bg-[rgba(18,9,12,0.7)] shrink-0">
         <div className="flex items-center gap-3">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-full bg-[var(--brand-pink)] shadow-lg shadow-[var(--brand-pink)/40]">
+          <div className="relative flex items-center justify-center w-10 h-10 rounded-full bg-[var(--brand-pink)] shadow-lg shadow-[rgba(151,25,44,0.4)]">
             <Bot className="w-5 h-5 text-white" />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-lg font-bold text-zinc-100 flex items-center gap-2">
-              Bits&Bytes Assistant{" "}
+            <h1 className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
+              Bits&Bytes QnA
               <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400/70 opacity-70"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
               </span>
             </h1>
-            <span className="text-xs text-zinc-400">
-              Official Code Club QnA Bot
+            <span className="text-xs text-white/60">
+              Verified from public project sources
             </span>
           </div>
         </div>
         <div className="flex items-center gap-3">
           {messages.length > 0 && (
-            <span className="hidden sm:inline-block rounded-full bg-zinc-800/80 px-3 py-1 text-[10px] font-medium text-zinc-300">
-              {modelName}
+            <span className="hidden sm:inline-block rounded-full bg-white/5 px-3 py-1 text-[10px] font-medium text-white/70 border border-white/10">
+              Model: {modelName}
             </span>
           )}
           <button
@@ -543,7 +557,7 @@ export function QnAChatInterface() {
               setMessage("");
               window.localStorage.removeItem(STORAGE_KEY);
             }}
-            className={`flex h-9 items-center justify-center gap-2 rounded-xl bg-zinc-800/60 px-3 text-xs font-medium border transition-transform transition-colors transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-pink)] focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 ${messages.length === 0 ? "opacity-0 invisible" : "text-zinc-400 hover:bg-zinc-800 hover:text-red-400 border-transparent hover:border-red-900/50"}`}
+            className={`flex h-9 items-center justify-center gap-2 rounded-xl bg-white/5 px-3 text-xs font-medium border transition-transform transition-colors transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-pink)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b0608] ${messages.length === 0 ? "opacity-0 invisible" : "text-white/70 hover:bg-white/10 hover:text-red-300 border-white/10 hover:border-red-500/40"}`}
             aria-label="Clear chat session"
             title="Clear chat session"
             disabled={messages.length === 0}
@@ -560,24 +574,23 @@ export function QnAChatInterface() {
         aria-relevant="additions text"
       >
         {messages.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full text-center px-4 max-w-2xl mx-auto space-y-6">
-            <div className="bg-zinc-900/80 p-5 rounded-2xl border border-zinc-800 text-sm text-zinc-300 shadow-lg">
-              <p className="mb-2 font-medium text-white text-base">
-                Hello, I am the Bits&Bytes Assistant.
+          <div className="flex flex-col items-center justify-center h-full text-center px-4 max-w-3xl mx-auto space-y-6">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/75 shadow-[0_16px_40px_rgba(7,3,4,0.45)]">
+              <p className="mb-3 text-base font-semibold text-white">
+                Start with a real question, get a grounded answer.
               </p>
               <p>
-                Ask about verified event details, founder and team information,
-                joining process, partnerships, or page navigation. I only answer
-                from public data available in this project.
+                Ask about events, team, partnerships, or how Bits&Bytes actually
+                runs. Every reply is anchored in public site sources.
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+            <div className="grid w-full gap-3 sm:grid-cols-2">
               {QUICK_PROMPTS.map((prompt) => (
                 <button
                   key={prompt}
                   type="button"
                   onClick={() => handleQuickPrompt(prompt)}
-                  className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-3 text-sm text-zinc-300 text-left transition hover:border-[var(--brand-pink)/60] hover:bg-zinc-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-pink)] focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 group flex items-start gap-3"
+                  className="rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white/75 text-left transition hover:border-[rgba(151,25,44,0.6)] hover:bg-[rgba(151,25,44,0.18)] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-pink)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b0608] group flex items-start gap-3"
                 >
                   <span className="text-[var(--brand-pink)] opacity-70 group-hover:opacity-100 mt-0.5">
                     ↳
@@ -603,7 +616,7 @@ export function QnAChatInterface() {
                 className={`w-fit max-w-[90%] sm:max-w-[85%] md:max-w-[75%] rounded-2xl px-5 py-3.5 text-[0.95rem] leading-relaxed shadow-sm break-words ${
                   m.role === "user"
                     ? "bg-[var(--brand-pink)] text-white rounded-br-sm"
-                    : "border border-zinc-700/60 bg-zinc-900/90 text-zinc-100 rounded-bl-sm prose prose-invert prose-p:my-2 prose-headings:my-3 prose-ul:my-2 prose-li:my-1 max-w-none"
+                    : "border border-white/10 bg-[rgba(18,9,12,0.9)] text-white/90 rounded-bl-sm prose prose-invert prose-p:my-2 prose-headings:my-3 prose-ul:my-2 prose-li:my-1 max-w-none"
                 }`}
               >
                 {m.role === "user" ? (
@@ -965,6 +978,7 @@ export function QnAChatInterface() {
           value={message}
           onChange={handleInputChange}
           onSubmitMessage={(msg: string) => handleSend(msg)}
+          className="bg-[rgba(18,9,12,0.95)] border border-white/10 focus-within:ring-[var(--brand-pink)]"
         />
       </div>
     </div>
