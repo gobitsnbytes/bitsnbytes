@@ -85,7 +85,25 @@ We avoid sharp, opaque borders. Instead, elevation uses a combination of deep, c
 - **Cards:** Semi-transparent backdrops (`var(--card)`) sit above a dark background to catch any moving gradients or star motifs underneath.
 - **Glows:** Two key glow levels—soft burgundy glow and a stronger, wider coral glow—help draw focus to active elements and primary call-to-actions.
 
-## Shapes
+## ShapesI have a Next.js app deployed on Vercel at gobitsnbytes.org. I want to host my logo at a clean, permanent URL: https://gobitsnbytes.org/logo so I can embed it anywhere (markdown, emails, GitHub READMEs, docs) like a hotlinked image.
+
+Do the following:
+
+Place my logo file (e.g. logo.png or logo.svg) inside the public/ directory at the root of the project
+nextjs
+
+Add a rewrite in next.config.js so that visiting /logo serves /logo.png (or whichever extension I use), with no extension needed in the URL
+stackoverflow
+
+Make sure the rewrite does not conflict with any existing middleware matchers
+
+After setup, the image should be embeddable anywhere using:
+
+Markdown: ![logo](https://gobitsnbytes.org/logo)
+
+HTML: <img src="https://gobitsnbytes.org/logo">
+
+Show me the updated next.config.js and confirm where to drop the logo file.
 
 Shapes reflect an approachable but structured geometry.
 

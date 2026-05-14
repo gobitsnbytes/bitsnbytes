@@ -66,6 +66,14 @@ const nextConfig = {
 
     return config
   },
+  async rewrites() {
+    return [
+      {
+        source: '/logo',
+        destination: '/logo.png',
+      },
+    ];
+  },
   async redirects() {
     return [
       {
