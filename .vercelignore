@@ -27,3 +27,11 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
+# Heavy local directories & assets
+comic
+stickers_nobg
+.agents
+.gemini
+tmp
+*.tsbuildinfo
+
