@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
@@ -154,6 +155,7 @@ export default function CodeOfConduct() {
                 key={value.title}
                 className="p-6 md:p-8"
                 glowColor={index % 2 === 0 ? "pink" : "purple"}
+                delay={index * 0.1}
               >
                 <div className="flex items-start gap-4 md:gap-6">
                   <div className="flex h-12 w-12 md:h-14 md:w-14 shrink-0 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-(--brand-pink) shadow-inner">
@@ -184,13 +186,17 @@ export default function CodeOfConduct() {
             <GlassContainer className="p-8 md:p-10" glowColor="purple">
               <ul className="space-y-4 md:space-y-6">
                 {appliesTo.map((item, index) => (
-                  <li
+                  <motion.li
                     key={index}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
                     className="flex items-start gap-4 text-base md:text-lg text-white font-medium"
                   >
                     <span className="mt-2.5 h-2 w-2 shrink-0 rounded-full bg-(--brand-pink) shadow-[0_0_10px_var(--brand-pink)]" />
                     <span>{item}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </GlassContainer>
@@ -219,13 +225,17 @@ export default function CodeOfConduct() {
               </div>
               <ul className="space-y-3 md:space-y-4">
                 {notAllowed.map((item, index) => (
-                  <li
+                  <motion.li
                     key={index}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
                     className="flex items-start gap-3 text-base md:text-lg text-white/80 font-medium"
                   >
                     <span className="text-red-500 font-black shrink-0">✕</span>
                     <span>{item}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </GlassContainer>
@@ -248,6 +258,7 @@ export default function CodeOfConduct() {
                   glowColor={
                     index === 0 ? "none" : index === 1 ? "purple" : "pink"
                   }
+                  delay={index * 0.15}
                 >
                   <div
                     className={cn(

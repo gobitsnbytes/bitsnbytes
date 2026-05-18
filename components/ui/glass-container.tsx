@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -7,6 +8,14 @@ interface GlassContainerProps {
     containerClassName?: string;
     glowColor?: "pink" | "purple" | "both" | "none";
     animated?: boolean;
+    /** Animation delay for staggered reveals */
+    delay?: number;
+    /** Whether to disable the entrance animation */
+    noEntry?: boolean;
+    /** Layout ID for shared layout animations */
+    layoutId?: string;
+    /** Whether to enable layout transitions */
+    layout?: boolean | "position" | "size" | "preserve-aspect";
 }
 
 export function GlassContainer({
@@ -15,15 +24,36 @@ export function GlassContainer({
     containerClassName,
     glowColor = "both",
     animated = true,
+    delay = 0,
+    noEntry = false,
+    layoutId,
+    layout,
 }: GlassContainerProps) {
+    const entryProps = noEntry ? {} : {
+        initial: { opacity: 0, y: 12, filter: "blur(8px)" },
+        whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
+        viewport: { once: true, margin: "-50px" },
+        transition: {
+            type: "spring",
+            duration: 0.6,
+            bounce: 0,
+            delay: delay,
+        }
+    };
+
     return (
-        <div className={cn(
-            "group relative overflow-hidden rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border border-white/10 bg-white/5 p-1.5 sm:p-2 transition-transform transition-colors transition-opacity duration-500 hover:border-white/20 hover:bg-white/10",
-            "md:backdrop-blur-xl", // Only apply blur on larger screens for mobile performance
-            containerClassName
-        )}>
+        <motion.div 
+            {...entryProps}
+            layoutId={layoutId}
+            layout={layout}
+            className={cn(
+                "group relative overflow-hidden rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border border-white/10 bg-white/5 p-1.5 sm:p-2 transition-all duration-300 hover:border-white/20 hover:bg-white/10",
+                "md:backdrop-blur-xl", // Only apply blur on larger screens for mobile performance
+                containerClassName
+            )}
+        >
             {/* Reflective top edge */}
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent z-20" />
 
             <div className={cn(
                 "relative overflow-hidden rounded-xl sm:rounded-2xl md:rounded-[2.25rem] border border-white/10 bg-black/20",
@@ -42,11 +72,11 @@ export function GlassContainer({
 
             {/* Ambient glows */}
             {(glowColor === "pink" || glowColor === "both") && (
-                <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-(--brand-pink)/10 blur-[80px] transition-opacity duration-500 group-hover:opacity-100 opacity-50" />
+                <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-(--brand-pink)/10 blur-[80px] transition-opacity duration-300 group-hover:opacity-100 opacity-50" />
             )}
             {(glowColor === "purple" || glowColor === "both") && (
-                <div className="absolute -bottom-24 -right-24 h-48 w-48 rounded-full bg-(--brand-purple)/10 blur-[80px] transition-opacity duration-500 group-hover:opacity-100 opacity-50" />
+                <div className="absolute -bottom-24 -right-24 h-48 w-48 rounded-full bg-(--brand-purple)/10 blur-[80px] transition-opacity duration-300 group-hover:opacity-100 opacity-50" />
             )}
-        </div>
+        </motion.div>
     );
 }

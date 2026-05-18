@@ -10,6 +10,7 @@ import {
   Instagram,
 } from "lucide-react";
 import { useState, FormEvent, Suspense, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -313,20 +314,25 @@ export default function Contact() {
                       )}
                     </Button>
 
-                    {status && (
-                      <p
-                        role="alert"
-                        aria-live="polite"
-                        className={cn(
-                          "text-sm font-bold text-center p-4 rounded-2xl",
-                          status.type === "success"
-                            ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                            : "bg-red-500/10 text-red-400 border border-red-500/20",
-                        )}
-                      >
-                        {status.message}
-                      </p>
-                    )}
+                    <AnimatePresence>
+                      {status && (
+                        <motion.p
+                          initial={{ opacity: 0, height: 0, filter: "blur(4px)" }}
+                          animate={{ opacity: 1, height: "auto", filter: "blur(0px)" }}
+                          exit={{ opacity: 0, height: 0, filter: "blur(4px)" }}
+                          role="alert"
+                          aria-live="polite"
+                          className={cn(
+                            "text-sm font-bold text-center p-4 rounded-2xl overflow-hidden",
+                            status.type === "success"
+                              ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                              : "bg-red-500/10 text-red-400 border border-red-500/20",
+                          )}
+                        >
+                          {status.message}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
                   </form>
                 </div>
               </div>

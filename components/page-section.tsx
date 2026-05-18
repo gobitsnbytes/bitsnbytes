@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
@@ -35,7 +36,11 @@ export function PageSection({
       )}
     >
       {(eyebrow || title || description) && (
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ type: "spring", duration: 0.8, bounce: 0 }}
           className={cn(
             "mb-6 sm:mb-8 md:mb-10 flex flex-col gap-2 sm:gap-3",
             headingAlignment,
@@ -56,7 +61,7 @@ export function PageSection({
               {description}
             </p>
           )}
-        </div>
+        </motion.div>
       )}
       {children}
     </Component>

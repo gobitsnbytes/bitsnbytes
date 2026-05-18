@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 
@@ -35,14 +36,22 @@ export function GlowingCard({
     borderWidth = 3,
 }: GlowingCardProps) {
     return (
-        <div
+        <motion.div
+            initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{
+                type: "spring",
+                duration: 0.6,
+                bounce: 0,
+                delay: animationDelay,
+            }}
             className={cn(
                 "relative min-h-[14rem] list-none h-full group",
                 className
             )}
-            style={{ animationDelay: `${animationDelay}s` }}
         >
-            <div className="relative h-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/5 p-2 backdrop-blur-2xl transition-transform transition-colors transition-opacity duration-500 hover:border-white/20 hover:bg-white/10">
+            <div className="relative h-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/5 p-2 backdrop-blur-2xl transition-all duration-300 hover:border-white/20 hover:bg-white/10">
                 {/* Reflective top edge */}
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent z-20" />
 
@@ -65,10 +74,10 @@ export function GlowingCard({
                 </div>
 
                 {/* Ambient glows that sync with group hover */}
-                <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-(--brand-pink)/10 blur-[80px] transition-opacity duration-500 group-hover:opacity-100 opacity-50" />
-                <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-(--brand-purple)/10 blur-[80px] transition-opacity duration-500 group-hover:opacity-100 opacity-50" />
+                <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-(--brand-pink)/10 blur-[80px] transition-opacity duration-300 group-hover:opacity-100 opacity-50" />
+                <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-(--brand-purple)/10 blur-[80px] transition-opacity duration-300 group-hover:opacity-100 opacity-50" />
             </div>
-        </div>
+        </motion.div>
     );
 }
 

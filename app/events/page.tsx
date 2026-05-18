@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
@@ -74,7 +75,10 @@ export default function Events() {
 
       <main className="bg-transparent flex flex-col pt-12">
         {/* ── Event Toggle Tabs ────────────────────────────────────────── */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ delay: 0.1 }}
           className="mx-auto flex w-fit max-w-[95vw] flex-wrap items-center justify-center gap-2 rounded-[2rem] border border-white/10 bg-white/5 p-1.5 backdrop-blur-md mb-8"
           role="tablist"
           aria-label="Filter events"
@@ -84,7 +88,7 @@ export default function Events() {
             onClick={() => setActiveEvent("all")}
             aria-selected={activeEvent === "all"}
             role="tab"
-            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-transform transition-colors transition-opacity ${
+            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
               activeEvent === "all"
                 ? "bg-(--brand-pink) text-white shadow-[0_0_20px_rgba(228,90,146,0.3)]"
                 : "text-white/70 hover:text-white hover:bg-white/5"
@@ -97,7 +101,7 @@ export default function Events() {
             onClick={() => setActiveEvent("lucknow-build-guild")}
             aria-selected={activeEvent === "lucknow-build-guild"}
             role="tab"
-            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-transform transition-colors transition-opacity ${
+            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
               activeEvent === "lucknow-build-guild"
                 ? "bg-(--brand-pink) text-white shadow-[0_0_20px_rgba(228,90,146,0.3)]"
                 : "text-white/70 hover:text-white hover:bg-white/5"
@@ -110,7 +114,7 @@ export default function Events() {
             onClick={() => setActiveEvent("copilot")}
             aria-selected={activeEvent === "copilot"}
             role="tab"
-            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-transform transition-colors transition-opacity ${
+            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
               activeEvent === "copilot"
                 ? "bg-(--brand-pink) text-white shadow-[0_0_20px_rgba(228,90,146,0.3)]"
                 : "text-white/70 hover:text-white hover:bg-white/5"
@@ -123,7 +127,7 @@ export default function Events() {
             onClick={() => setActiveEvent("execron")}
             aria-selected={activeEvent === "execron"}
             role="tab"
-            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-transform transition-colors transition-opacity ${
+            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
               activeEvent === "execron"
                 ? "bg-(--brand-pink) text-white shadow-[0_0_20px_rgba(228,90,146,0.3)]"
                 : "text-white/70 hover:text-white hover:bg-white/5"
@@ -136,7 +140,7 @@ export default function Events() {
             onClick={() => setActiveEvent("india-innovates")}
             aria-selected={activeEvent === "india-innovates"}
             role="tab"
-            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-transform transition-colors transition-opacity ${
+            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
               activeEvent === "india-innovates"
                 ? "bg-(--brand-pink) text-white shadow-[0_0_20px_rgba(228,90,146,0.3)]"
                 : "text-white/70 hover:text-white hover:bg-white/5"
@@ -144,33 +148,41 @@ export default function Events() {
           >
             Archived: India Innovates
           </button>
-        </div>
+        </motion.div>
 
-        {/* ── Lucknow Build Guild ───────────────────────────────────────── */}
-        {(activeEvent === "all" || activeEvent === "lucknow-build-guild") && (
-          <PageSection
-            eyebrow="Archived · Apr 19, 2026"
-            title="Lucknow Build Guild"
-            description="Free hardware workshop and meetup in Lucknow."
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeEvent}
+            initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
+            transition={{ type: "spring", duration: 0.5, bounce: 0 }}
           >
-            <GlassContainer
-              glowColor="pink"
-              animated={false}
-              className="overflow-hidden"
-            >
-              {/* ── Banner image header ── */}
-              <div className="relative w-full overflow-hidden rounded-t-[2.25rem] bg-white/5">
-                <Image
-                  src="/images/lko-build-guild.jpg"
-                  alt="Lucknow Build Guild"
-                  width={1920}
-                  height={640}
-                  className="w-full h-auto object-cover"
-                  priority
-                />
-              </div>
-
-              {/* ── Details grid ── */}
+            {/* ── Lucknow Build Guild ───────────────────────────────────────── */}
+            {(activeEvent === "all" || activeEvent === "lucknow-build-guild") && (
+              <PageSection
+                eyebrow="Archived · Apr 19, 2026"
+                title="Lucknow Build Guild"
+                description="Free hardware workshop and meetup in Lucknow."
+              >
+                <GlassContainer
+                  glowColor="pink"
+                  animated={false}
+                  className="overflow-hidden"
+                  noEntry
+                >
+                  {/* ── Banner image header ── */}
+                  <div className="relative w-full overflow-hidden rounded-t-[2.25rem] bg-white/5">
+                    <Image
+                      src="/images/lko-build-guild.jpg"
+                      alt="Lucknow Build Guild"
+                      width={1920}
+                      height={640}
+                      className="w-full h-auto object-cover"
+                      priority
+                    />
+                  </div>
+                  {/* ── Details grid ── */}
               <div className="p-6 sm:p-8 md:p-10">
                 <div className="flex flex-wrap items-center gap-2 mb-6">
                   <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold text-white bg-(--brand-pink)">
@@ -363,6 +375,7 @@ export default function Events() {
               glowColor="pink"
               animated={false}
               className="overflow-hidden"
+              noEntry
             >
               {/* ── Banner image header ── */}
               <div className="relative w-full overflow-hidden rounded-t-[2.25rem] bg-white/5">
@@ -584,6 +597,7 @@ export default function Events() {
               glowColor="pink"
               animated={false}
               className="overflow-hidden"
+              noEntry
             >
               {/* ── Banner image header ── */}
               <div className="relative w-full overflow-hidden rounded-t-[2.25rem] bg-white/5 flex items-center justify-center min-h-[320px] border-b border-white/10">
@@ -816,6 +830,7 @@ export default function Events() {
               glowColor="pink"
               animated={false}
               className="overflow-hidden"
+              noEntry
             >
               {/* ── Banner image header ── */}
               <div className="relative w-full overflow-hidden rounded-t-[2.25rem] bg-white/5">
@@ -1218,6 +1233,8 @@ export default function Events() {
             </GlassContainer>
           </PageSection>
         )}
+          </motion.div>
+        </AnimatePresence>
       </main>
       <Script
         id="luma-checkout"

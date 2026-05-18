@@ -115,7 +115,7 @@ export function MiniNavbar() {
     );
 
     return (
-        <header
+        <header suppressHydrationWarning={true}
             className={cn(
                 "fixed top-6 z-50",
                 "flex flex-col items-center",
@@ -157,11 +157,22 @@ export function MiniNavbar() {
                 </div>
 
                 <button
-                    className="md:hidden flex items-center justify-center w-8 h-8 text-white/70 hover:text-white transition-colors focus:outline-none"
+                    className="md:hidden flex items-center justify-center w-10 h-10 text-white/70 hover:text-white transition-all focus:outline-none active:scale-90 relative overflow-hidden"
                     onClick={toggleMenu}
                     aria-label={isOpen ? "Close Menu" : "Open Menu"}
                 >
-                    {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={isOpen ? "close" : "open"}
+                            initial={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
+                            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                            exit={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
+                            transition={{ duration: 0.15, ease: "easeOut" }}
+                            className="flex items-center justify-center"
+                        >
+                            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                        </motion.div>
+                    </AnimatePresence>
                 </button>
             </div>
 

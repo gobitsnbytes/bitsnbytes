@@ -51,19 +51,22 @@ Quick reference for "who to ping for what".
 
 | Name | Role | Superpowers |
 |-----------|---------------------------|---------------------------------------------------------|
-| **Yash Singh** | Co-Founder & Organisation Lead | Competitive Math, AI Prototyping, Full-Stack Dev, Event Ops |
-| **Aadrika Maurya** | Co-Founder & Chief Creative Strategist | Neuroscience Research (EEG), Brand Strategy, Creative Direction |
-| **Akshat Kushwaha** | Co-Founder & Technical Lead | Production Infrastructure, AI/LLMOps, System Reliability |
-| **Devaansh Pathak** | Founding Member & Backend Lead | Backend Architecture, Partnership Economics |
-| **Maryam Fatima** | Social Media & Promotions Head | Visual Design, Campaign Strategy, Social |
-| **Sristhi Singh** | Operations & Communications Head | Logistics, Internal Comms, Coordination |
+| **Yash Singh** | Chief Executive Officer (CEO) | Competitive Math, AI Prototyping, Full-Stack Dev, Event Ops |
+| **Akshat Kushwaha** | Chief Technology Officer (CTO) | Production Infrastructure, AI/LLMOps, System Reliability |
+| **Aadrika Maurya** | Chief Operating Officer (COO) | Neuroscience Research (EEG), Brand Strategy, Creative Direction |
+| **Devaansh Pathak** | Chief Financial Officer (CFO) | Backend Architecture, Partnership Economics |
+| **Drishti** | Chief Marketing Officer (CMO) | Marketing Strategy, Brand Growth, Campaign Management |
+| **Raghav** | Head of Operations | Operations Management, Process Optimization, Resource Logistics |
+| **Maryam Fatima** | Head of Brand & Media | Visual Design, Campaign Strategy, Social |
+| **Srishti Singh** | Head of Partnerships & Institutional Relations | Logistics, Internal Comms, Coordination |
 
-### Volunteers (Creatives, Tech, Outreach)
+### Volunteers (Operations, Outreach, Creative, Tech)
 
 Bits&Bytes is supported by a volunteer network:
-- **Creatives:** Jaagruti, Kavan, Vareesha, Aishwary, and Shantanu Joshi
+- **Operations:** Shantanu Joshi and Atharva
+- **Outreach:** Adithya and Aanjaneya
+- **Creatives (Graphic + Video Editing):** Jaagruti, Kavan, Vareesha, and Aishwary
 - **Tech:** Hridyansh, Areeb, and Prakhar
-- **Outreach:** Adithya, Atharva, and Aanjaneya
 
 ---
 
@@ -71,7 +74,7 @@ Bits&Bytes is supported by a volunteer network:
 
 ### 3.1 Leadership
 
-#### Yash Singh – Co-Founder & Organisation Lead
+#### Yash Singh – Chief Executive Officer
 - **Expertise:** Mathematics (IOQM), AI Prototyping, Full-Stack Dev, Hardware Experiments
 - **Achievements:**
   - Created **Codiva**, a 5-star rated VS Code extension with thousands of users.
@@ -84,7 +87,7 @@ Bits&Bytes is supported by a volunteer network:
   - GitHub: https://github.com/yashclouded
 - **Owns:** Organizational strategy, event timelines, and outreach. The operator instincts and community connections that make events actually execute.
 
-#### Aadrika Maurya – Co-Founder & Chief Creative Strategist
+#### Aadrika Maurya – Chief Operating Officer
 - **Expertise:** Neuroscience (EEG/Attention modeling), Creative Strategy, Brand Direction
 - **Achievements:**
   - RSI India Alumni who conducted neuroscience research on EEG signals and attention modeling, the kind of work most people don't touch until grad school.
@@ -94,7 +97,7 @@ Bits&Bytes is supported by a volunteer network:
   - GitHub: https://github.com/Aadrika08
 - **Owns:** Creative direction, brand strategy, and the vision for what the network becomes.
 
-#### Akshat Kushwaha – Co-Founder & Technical Lead
+#### Akshat Kushwaha – Chief Technology Officer
 - **Expertise:** AI-Native Engineering, Retrieval Systems, System Reliability, LLMOps
 - **Achievements:**
   - Ex Jr. Research Engineer at jhana.ai at 17, where he built production AI systems including a Steno dictation plugin and AI-era IVRS.
@@ -105,6 +108,27 @@ Bits&Bytes is supported by a volunteer network:
   - Website: https://a3ro.dev
   - GitHub: https://github.com/a3ro-dev
 - **Owns:** The entire tech stack, the infra, and anything that needs to actually work under pressure.
+
+#### Devaansh Pathak – Chief Financial Officer
+- **Expertise:** Backend Architecture, Database Systems, Partnership Economics
+- **Achievements:**
+  - Co-Architected the high-performance backend systems for the Bits&Bytes platform.
+  - Executed partnerships that delivered genuine ROI for sponsors across multiple cities.
+- **Profiles:**
+  - LinkedIn: https://www.linkedin.com/in/devaanshpa/
+- **Owns:** Financial operations, partnership economics, and backend architecture.
+
+#### Drishti – Chief Marketing Officer
+- **Expertise:** Marketing Strategy, Brand Growth, Campaign Management, Audience Development
+- **Profiles:**
+  - LinkedIn: https://www.linkedin.com/in/drish-arora
+- **Owns:** Marketing strategy, brand growth, and audience development across all channels.
+
+#### Raghav – Head of Operations
+- **Expertise:** Operations Management, Process Optimization, Resource Logistics, Team Coordination
+- **Profiles:**
+  - LinkedIn: https://www.linkedin.com/in/raghwender-vasisth/
+- **Owns:** Operational excellence, process optimization, and keeping the organization running at scale.
 
 ---
 

@@ -62,13 +62,14 @@ export default function Home() {
           description="A teen-led code club. Workshops and hackathons that end with something shipped, not just something learned."
         >
           <div className="grid gap-6 md:grid-cols-3">
-            {stats.map((stat) => (
+            {stats.map((stat, idx) => (
               <GlassContainer
                 key={stat.label}
                 className="p-8"
                 glowColor={
                   stat.label === "Projects shipped" ? "pink" : "purple"
                 }
+                delay={idx * 0.15}
               >
                 <div className="space-y-4">
                   <p className="text-5xl font-black text-white tracking-tighter">

@@ -213,7 +213,7 @@ $$;
 
 ### 4.3 Team Data & Role Matching (`lib/team-data.ts` & `app/about/page.tsx`)
 
-**Team Members:** The platform features 6 core leads (Yash Singh, Aadrika Maurya, Akshat Kushwaha, Devaansh Pathak, Maryam Fatima, Sristhi Singh) and 11 active volunteers categorized by Creatives, Tech, and Outreach.
+**Team Members:** The platform features 8 core leads (Yash Singh, Akshat Kushwaha, Aadrika Maurya, Devaansh Pathak, Drishti, Raghav, Maryam Fatima, Srishti Singh) and 11 active contributors categorized by Operations, Outreach, Creative, and Tech.
 
 **Functions:**
 

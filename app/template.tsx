@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useMemo } from "react";
 import { CpuArchitecture } from "@/components/ui/cpu-architecture";
@@ -52,6 +52,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [showIntro, setShowIntro] = useState(false);
   const [quoteIndex, setQuoteIndex] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
 
   const isPosterRoute = pathname === "/fork";
 
@@ -107,7 +108,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
       {!showIntro && (
         <motion.div
           key={pathname}
-          initial={{ opacity: 0, transform: "translateY(12px)" }}
+          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, transform: "translateY(12px)" }}
           animate={{ opacity: 1, transform: "translateY(0)" }}
           transition={{
             duration: 0.25,
@@ -132,9 +133,9 @@ export default function Template({ children }: { children: React.ReactNode }) {
             <CpuArchitecture className="w-80 h-auto" />
             <motion.p
               key={quoteIndex}
-              initial={{ opacity: 0, transform: "translateY(5px)" }}
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, transform: "translateY(5px)" }}
               animate={{ opacity: 1, transform: "translateY(0)" }}
-              exit={{ opacity: 0, transform: "translateY(-5px)" }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, transform: "translateY(-5px)" }}
               transition={{ duration: 0.15 }}
               className="mt-6 font-mono text-sm text-white/60 tracking-wide h-6"
             >

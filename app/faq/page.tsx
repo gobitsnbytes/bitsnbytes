@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ChevronDown, ArrowRight } from "lucide-react";
@@ -143,6 +144,8 @@ export default function FAQ() {
                   className="p-0"
                   glowColor="none"
                   containerClassName="rounded-[2rem]"
+                  delay={index * 0.08}
+                  layout
                 >
                   <button
                     onClick={() => toggleItem(index)}
@@ -161,22 +164,23 @@ export default function FAQ() {
                       <ChevronDown className="h-6 w-6" />
                     </div>
                   </button>
-                  <div
-                    className={cn(
-                      "grid transition-transform transition-colors transition-opacity duration-300 ease",
-                      isOpen
-                        ? "grid-rows-[1fr] opacity-100"
-                        : "grid-rows-[0fr] opacity-0",
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 md:px-8 pb-6 md:pb-8 border-t border-white/5 mt-2 pt-6">
+                          <p className="text-base md:text-lg text-white/70 font-medium leading-relaxed">
+                            {faq.answer}
+                          </p>
+                        </div>
+                      </motion.div>
                     )}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="px-6 md:px-8 pb-6 md:pb-8 border-t border-white/5 mt-2 pt-6">
-                        <p className="text-base md:text-lg text-white/70 font-medium leading-relaxed">
-                          {faq.answer}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                  </AnimatePresence>
                 </GlassContainer>
               );
             })}

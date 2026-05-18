@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import dynamic from "next/dynamic";
 import { heroEvents } from "@/lib/events-data";
@@ -112,15 +113,22 @@ export const HeroFuturistic = () => {
                 animated={false}
               >
                 <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-                  {stats.map((stat) => (
-                    <div key={stat.label} className="text-center sm:text-left">
+                  {stats.map((stat, idx) => (
+                    <motion.div 
+                      key={stat.label} 
+                      className="text-center sm:text-left"
+                      initial={{ opacity: 0, y: 5 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.3 + (idx * 0.1) }}
+                    >
                       <p className="text-lg sm:text-xl md:text-3xl font-black text-white">
                         {stat.value}
                       </p>
                       <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.12em] sm:tracking-[0.18em] text-white/60 font-bold">
                         {stat.label}
                       </p>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </GlassContainer>
@@ -140,29 +148,33 @@ export const HeroFuturistic = () => {
             glowColor="pink"
           >
             <div className="relative h-full w-full overflow-hidden">
-              {heroEvents.map((event, idx) => (
-                <div
-                  key={event.title}
-                  className={`absolute inset-0 bg-[#0a0a0d] transition-opacity duration-700 ease ${idx === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeSlide}
+                  initial={{ opacity: 0, x: 20, filter: "blur(4px)" }}
+                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, x: -20, filter: "blur(4px)" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="absolute inset-0 bg-[#0a0a0d]"
                 >
                   <Image
-                    src={event.image}
-                    alt={event.alt}
+                    src={heroEvents[activeSlide].image}
+                    alt={heroEvents[activeSlide].alt}
                     fill
                     sizes="(max-width: 639px) 0px, (max-width: 1023px) 100vw, 42vw"
-                    className={`hidden sm:block object-cover transition-transform transition-colors transition-opacity duration-700 ${idx === 0 ? "object-center scale-[1.05]" : "object-center"}`}
-                    priority={idx === 0}
+                    className="hidden sm:block object-cover"
+                    priority
                   />
                   <Image
-                    src={event.imageMobile ?? event.image}
-                    alt={event.alt}
+                    src={heroEvents[activeSlide].imageMobile ?? heroEvents[activeSlide].image}
+                    alt={heroEvents[activeSlide].alt}
                     fill
                     sizes="100vw"
-                    className={`block sm:hidden object-cover transition-transform transition-colors transition-opacity duration-700 ${idx === 0 ? "object-center scale-[1.02]" : "object-center"}`}
-                    priority={idx === 0}
+                    className="block sm:hidden object-cover"
+                    priority
                   />
-                </div>
-              ))}
+                </motion.div>
+              </AnimatePresence>
               <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/20 z-20" />
 
               <div className="absolute bottom-8 left-8 right-8 space-y-2 z-30">

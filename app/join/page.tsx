@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { PageSection } from "@/components/page-section";
 import { Button } from "@/components/ui/button";
@@ -172,6 +173,7 @@ export default function Join() {
                 key={benefit.title}
                 className="p-6 md:p-8"
                 glowColor={index % 2 === 0 ? "pink" : "purple"}
+                delay={index * 0.1}
               >
                 <div className="flex items-start gap-4 md:gap-6">
                   <div className="flex h-12 w-12 md:h-14 md:w-14 shrink-0 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-(--brand-pink) shadow-inner">
@@ -202,13 +204,17 @@ export default function Join() {
             <GlassContainer className="p-8 md:p-10" glowColor="purple">
               <ul className="space-y-4 md:space-y-6">
                 {expectations.map((expectation, index) => (
-                  <li
+                  <motion.li
                     key={index}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
                     className="flex items-start gap-4 text-base md:text-lg text-white font-medium"
                   >
                     <CheckCircle2 className="h-6 w-6 shrink-0 text-(--brand-pink) mt-0.5" />
                     <span>{expectation}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </GlassContainer>
@@ -228,6 +234,7 @@ export default function Join() {
                 key={index}
                 className="p-6 md:p-8"
                 glowColor="none"
+                delay={index * 0.1}
               >
                 <h3 className="font-display text-lg md:text-xl font-black text-white">
                   {faq.question}

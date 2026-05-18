@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useState, type CSSProperties } from "react";
 import { CometCard } from "@/components/ui/comet-card";
@@ -10,7 +11,7 @@ export interface CoreTeamMember {
   id: number;
   name: string;
   role: string;
-  bio: string;
+  bio?: string;
   image: string;
   expertise?: string[];
   linkedin?: string;
@@ -27,13 +28,13 @@ export interface CoreTeamMember {
   isFounder?: boolean;
   isFeatured?: boolean;
 }
-
 export interface Volunteer {
   id: number;
   name: string;
   image: string;
   linkedin?: string;
-  section: "Creatives" | "Tech" | "Outreach";
+  section: "Creative" | "Tech" | "Outreach" | "Operations";
+  role?: string;
 }
 
 interface TeamCaseStudyProps {
@@ -41,7 +42,11 @@ interface TeamCaseStudyProps {
   volunteers: Volunteer[];
 }
 
-const brandColors = ["var(--brand-purple)", "var(--brand-pink)", "var(--brand-plum)"];
+const brandColors = [
+  "var(--brand-purple)",
+  "var(--brand-pink)",
+  "var(--brand-plum)",
+];
 
 function TeamCard({
   member,
@@ -54,8 +59,7 @@ function TeamCard({
 
   const imageStyle = {
     "--team-image-position": member.imagePosition ?? "center top",
-    "--team-image-position-mobile":
-      member.mobileImagePosition ?? "center 24%",
+    "--team-image-position-mobile": member.mobileImagePosition ?? "center 24%",
     "--team-image-scale": String(member.imageScale ?? 1),
     "--team-image-scale-mobile": String(member.mobileImageScale ?? 1),
   } as CSSProperties;
@@ -85,114 +89,178 @@ function TeamCard({
   }>;
 
   return (
-    <CometCard className="w-full">
-      <div
-        className={cn(
-          "relative flex cursor-pointer flex-col rounded-xl sm:rounded-2xl p-3 sm:p-4 transition-transform transition-colors transition-opacity duration-700",
-          // Use h-full so CSS grid can ensure equal, content-fitting heights across all cards
-          "h-full",
-          "md:backdrop-blur-lg",
-          // Consistent neutral framing with subtle accent glow
-          "border border-white/14 shadow-[0_20px_44px_rgba(2,6,23,0.45)]",
-          // Founders get extra glow
-          member.isFounder && "border-white/20",
-          // Featured members (Aadrika) pop out even more
-          member.isFeatured && "scale-[1.02] sm:scale-105 z-20 ring-1 ring-white/30",
-        )}
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(15,23,42,0.86) 0%, rgba(10,15,30,0.94) 58%, rgba(7,10,22,0.98) 100%)",
-        }}
+    <motion.div
+      initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ type: "spring", duration: 0.6, bounce: 0 }}
+      className="w-full"
+    >
+      <CometCard 
+        className="w-full" 
+        rotateDepth={member.isFounder ? 20 : 17.5}
+        translateDepth={member.isFounder ? 25 : 20}
       >
         <div
-          className="pointer-events-none absolute inset-0 rounded-xl sm:rounded-2xl opacity-70"
+          className={cn(
+            "relative flex cursor-pointer flex-col rounded-xl sm:rounded-2xl p-3 sm:p-4 transition-all duration-300",
+            "h-full active:scale-[0.98]",
+            "md:backdrop-blur-lg",
+          )}
           style={{
-            background: `radial-gradient(120% 80% at 50% -10%, ${cardAccent}44 0%, ${cardAccent}10 45%, transparent 72%)`,
+            background:
+              "linear-gradient(180deg, rgba(15,23,42,0.86) 0%, rgba(10,15,30,0.94) 58%, rgba(7,10,22,0.98) 100%)",
           }}
-        />
-        {/* Image section - larger for better portraits */}
-        <div className="relative z-10 mx-1 sm:mx-2 h-[280px] sm:h-[280px] md:h-[320px] lg:h-[340px] flex-shrink-0">
-          <div className="relative h-full w-full rounded-xl sm:rounded-2xl overflow-hidden">
-            {/* Ambient glow background */}
-            <div className="absolute inset-0 -z-10 scale-110 opacity-40 blur-2xl sm:blur-3xl">
-              <Image
-                src={member.image}
-                alt=""
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                quality={60}
-                className="object-cover [object-position:var(--team-image-position-mobile)] [transform:scale(var(--team-image-scale-mobile))] sm:[object-position:var(--team-image-position)] sm:[transform:scale(var(--team-image-scale))]"
-                style={imageStyle}
-              />
-            </div>
-            {/* Main image - keep it full-bleed on mobile with tuned focal points per portrait */}
-            <div className="relative h-full w-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/12 bg-black/20">
-              <Image
-                src={member.image}
-                alt={member.name}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                quality={90}
-                className="object-cover [object-position:var(--team-image-position-mobile)] [transform:scale(var(--team-image-scale-mobile))] sm:[object-position:var(--team-image-position)] sm:[transform:scale(var(--team-image-scale))]"
-                style={imageStyle}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Text content section - cleaner without tags */}
-        <div className="relative z-10 flex-1 mt-2 sm:mt-3">
-          <div className="absolute inset-0 -mx-3 -mb-3 sm:-mx-4 sm:-mb-4 rounded-b-xl sm:rounded-b-2xl bg-slate-950/72 backdrop-blur-md border-t border-white/10" />
-
-          <div className="relative flex h-full flex-col p-3 sm:p-4 text-white z-10">
-            {/* Header with role, name, and LinkedIn */}
-            <div className="flex items-start justify-between gap-2 mb-2">
-              <div className="flex-1 min-w-0">
-                <span className="text-[0.6rem] sm:text-[0.7rem] font-black uppercase tracking-[0.1em] mb-1 block leading-normal"
-                  style={{ color: cardAccent }}>
-                  {member.role}
-                </span>
-                <h3 className="font-display text-lg sm:text-xl md:text-2xl font-bold tracking-tight leading-tight">
-                  {member.name}
-                </h3>
+        >
+          <div
+            className={cn(
+              "pointer-events-none absolute inset-0 rounded-xl sm:rounded-2xl transition-opacity duration-500",
+              member.isFounder ? "opacity-90" : "opacity-70"
+            )}
+            style={{
+              background: `radial-gradient(140% 100% at 50% -10%, ${cardAccent}${member.isFounder ? '66' : '44'} 0%, ${cardAccent}15 45%, transparent 80%)`,
+            }}
+          />
+          {/* Image section - larger for better portraits */}
+          <div className="relative z-10 mx-1 sm:mx-2 h-[280px] sm:h-[280px] md:h-[320px] lg:h-[340px] flex-shrink-0">
+            <div className="relative h-full w-full rounded-xl sm:rounded-2xl overflow-hidden">
+              {/* Ambient glow background */}
+              <div className={cn(
+                "absolute inset-0 -z-10 scale-110 blur-2xl sm:blur-3xl transition-opacity duration-500",
+                member.isFounder ? "opacity-60" : "opacity-40"
+              )}>
+                <Image
+                  src={member.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  quality={60}
+                  className="object-cover [object-position:var(--team-image-position-mobile)] [transform:scale(var(--team-image-scale-mobile))] sm:[object-position:var(--team-image-position)] sm:[transform:scale(var(--team-image-scale))]"
+                  style={imageStyle}
+                />
               </div>
-              {socialLinks.length > 0 && (
-                <div className="flex shrink-0 items-center gap-1.5">
-                  {socialLinks.map(({ href, label, icon: Icon }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 transition-transform transition-colors transition-opacity hover:scale-110 hover:bg-white/20"
-                      aria-label={label}
-                      style={{ boxShadow: `0 0 0 1px ${cardAccent}33 inset` }}
-                    >
-                      <Icon className="h-4 w-4 transition-transform group-hover:scale-110" />
-                    </a>
-                  ))}
-                </div>
-              )}
+              {/* Main image - keep it full-bleed on mobile with tuned focal points per portrait */}
+              <div className={cn(
+                "relative h-full w-full overflow-hidden rounded-xl sm:rounded-2xl border bg-black/20 transition-colors duration-500",
+                member.isFounder ? "border-white/20" : "border-white/12"
+              )}>
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  quality={90}
+                  className="object-cover [object-position:var(--team-image-position-mobile)] [transform:scale(var(--team-image-scale-mobile))] sm:[object-position:var(--team-image-position)] sm:[transform:scale(var(--team-image-scale))]"
+                  style={imageStyle}
+                />
+                {/* Founder-specific shimmer/aura effect overlay */}
+                {member.isFounder && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-white/10 pointer-events-none" />
+                )}
+              </div>
             </div>
+          </div>
 
-            {/* Bio - cleaner and more readable */}
-            <p className="text-xs sm:text-sm leading-relaxed text-white/84 font-medium">
-              {member.bio}
-            </p>
+          {/* Text content section - cleaner without tags */}
+          <div className="relative z-10 flex-1 mt-2 sm:mt-3">
+            <div className={cn(
+              "absolute inset-0 -mx-3 -mb-3 sm:-mx-4 sm:-mb-4 rounded-b-xl sm:rounded-b-2xl backdrop-blur-md border-t transition-colors duration-500",
+              member.isFounder ? "bg-slate-950/80 border-white/20" : "bg-slate-950/72 border-white/10"
+            )} />
+
+            <div className="relative flex h-full flex-col p-3 sm:p-4 text-white z-10">
+              {/* Header with role, name, and LinkedIn */}
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <div className="flex-1 min-w-0">
+                  <span
+                    className="text-[0.6rem] sm:text-[0.7rem] font-black uppercase tracking-[0.1em] mb-1 block leading-normal"
+                    style={{ color: cardAccent }}
+                  >
+                    {member.role}
+                  </span>
+                  <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-bold tracking-tight leading-tight">
+                    {member.name}
+                    {member.isFounder && (
+                      <span 
+                        className="ml-2 inline-flex items-center rounded-full px-2 py-0.5 text-[0.55rem] sm:text-[0.6rem] font-bold uppercase tracking-[0.15em] align-middle border shadow-[0_0_10px_rgba(255,255,255,0.1)]"
+                        style={{ 
+                          backgroundColor: `${cardAccent}22`, 
+                          borderColor: `${cardAccent}44`,
+                          color: cardAccent 
+                        }}
+                      >
+                        Founder
+                      </span>
+                    )}
+                  </h3>
+                </div>
+                <AnimatePresence mode="wait">
+                  {socialLinks.length > 0 && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
+                      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
+                      className="flex shrink-0 items-center gap-1.5"
+                    >
+                      {socialLinks.map(({ href, label, icon: Icon }) => (
+                        <a
+                          key={label}
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 transition-all hover:scale-110 hover:bg-white/20"
+                          aria-label={label}
+                          style={{ boxShadow: `0 0 0 1px ${cardAccent}33 inset` }}
+                        >
+                          <Icon className="h-4 w-4 transition-transform group-hover:scale-110" />
+                        </a>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Bio - cleaner and more readable */}
+              <AnimatePresence>
+                {member.bio && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 4, filter: "blur(2px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -4, filter: "blur(2px)" }}
+                    className={cn(
+                      "text-xs sm:text-sm leading-relaxed font-medium transition-colors duration-500",
+                      member.isFounder ? "text-white/95" : "text-white/84"
+                    )}
+                  >
+                    {member.bio}
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
-      </div>
-    </CometCard>
+      </CometCard>
+    </motion.div>
   );
 }
 
-function VolunteerCard({ volunteer }: { volunteer: Volunteer }) {
+function VolunteerCard({ volunteer, index }: { volunteer: Volunteer; index: number }) {
   const [imageError, setImageError] = useState(false);
   const isPlaceholder = volunteer.image.includes("placeholder");
 
   return (
-    <div className="group relative flex flex-col items-center w-24 sm:w-32">
-      <div className="relative mb-2 sm:mb-3">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{
+        type: "spring",
+        duration: 0.5,
+        bounce: 0,
+        delay: (index % 6) * 0.1, // Staggered reveal
+      }}
+      className="group relative flex flex-col items-center w-24 sm:w-32"
+    >      <div className="relative mb-2 sm:mb-3">
         {/* Glow effect */}
         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--brand-purple)] via-[var(--brand-pink)] to-[var(--brand-plum)] opacity-50 blur-lg group-hover:opacity-80 transition-opacity duration-300" />
 
@@ -216,12 +284,12 @@ function VolunteerCard({ volunteer }: { volunteer: Volunteer }) {
         </div>
       </div>
 
-      <div className="flex flex-col items-center gap-1 text-center w-full">
+      <div className="flex flex-col items-center gap-0.5 sm:gap-1 text-center w-full">
         <h4 className="font-semibold text-sm sm:text-base text-white truncate w-full px-1">
           {volunteer.name}
         </h4>
-        <span className="text-[0.6rem] sm:text-xs font-medium uppercase tracking-wider text-[var(--brand-pink)]/80">
-          Contributor
+        <span className="text-[0.6rem] sm:text-xs font-medium uppercase tracking-wider text-[var(--brand-pink)]/80 leading-tight">
+          {volunteer.role || "Contributor"}
         </span>
         {/* Fixed height container for LinkedIn to keep grids aligned */}
         <div className="mt-1 h-7 flex items-center justify-center">
@@ -238,27 +306,82 @@ function VolunteerCard({ volunteer }: { volunteer: Volunteer }) {
           ) : null}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-export default function TeamCaseStudy({ coreTeam, volunteers }: TeamCaseStudyProps) {
-  const sectionOrder: Volunteer["section"][] = ["Creatives", "Tech", "Outreach"];
+export default function TeamCaseStudy({
+  coreTeam,
+  volunteers,
+}: TeamCaseStudyProps) {
+  const sectionOrder: Volunteer["section"][] = [
+    "Operations",
+    "Outreach",
+    "Creative",
+    "Tech",
+  ];
   const sectionLabels: Record<Volunteer["section"], string> = {
-    Creatives: "Creative Contributor",
-    Tech: "Tech Contributor",
-    Outreach: "Outreach Contributor",
+    Operations: "Operations Track",
+    Outreach: "Outreach Track",
+    Creative: "Creative Track",
+    Tech: "Tech Track",
   };
+
+  const founders = coreTeam.filter((m) => m.isFounder);
+  const leadership = coreTeam.filter((m) => !m.isFounder);
 
   return (
     <div className="flex flex-col gap-8 sm:gap-16">
-      {/* Core Team - CSS Grid with explicit 2 rows for equal heights */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
-        {coreTeam.map((member, index) => {
+      {/* Founders Heading */}
+      <div className="relative flex items-center justify-center py-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-white/10" />
+        </div>
+        <div className="relative bg-background px-4 sm:px-6">
+          <span className="text-xs sm:text-sm font-medium uppercase tracking-widest text-[var(--brand-pink)]/70">
+            Co-Founders
+          </span>
+        </div>
+      </div>
+
+      {/* Founders */}
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+        {founders.map((member, index) => {
           const accentColor = brandColors[index % brandColors.length];
 
           return (
-            <div key={member.id} className="h-full">
+            <div
+              key={member.id}
+              className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1.5rem)] max-w-sm"
+            >
+              <TeamCard member={member} accentColor={accentColor} />
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Divider */}
+      <div className="relative flex items-center justify-center py-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-white/10" />
+        </div>
+        <div className="relative bg-background px-4 sm:px-6">
+          <span className="text-xs sm:text-sm font-medium uppercase tracking-widest text-[var(--brand-pink)]/70">
+            Leadership & Department Leads
+          </span>
+        </div>
+      </div>
+
+      {/* Leadership & Department Heads */}
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+        {leadership.map((member, index) => {
+          const accentColor = brandColors[index % brandColors.length];
+
+          return (
+            <div
+              key={member.id}
+              className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1.5rem)] max-w-sm"
+            >
               <TeamCard member={member} accentColor={accentColor} />
             </div>
           );
@@ -292,8 +415,8 @@ export default function TeamCaseStudy({ coreTeam, volunteers }: TeamCaseStudyPro
                 {sectionLabels[section]}
               </h3>
               <div className="flex flex-wrap items-start justify-center gap-6 sm:gap-10 md:gap-14 lg:gap-16">
-                {sectionVolunteers.map((volunteer) => (
-                  <VolunteerCard key={volunteer.id} volunteer={volunteer} />
+                {sectionVolunteers.map((volunteer, index) => (
+                  <VolunteerCard key={volunteer.id} volunteer={volunteer} index={index} />
                 ))}
               </div>
             </section>

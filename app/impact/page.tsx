@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
@@ -130,10 +131,13 @@ export default function Impact() {
               <GlassContainer className="p-8 h-full" glowColor="pink">
                 <div className="space-y-6">
                   {highlightStats.map((stat, index) => (
-                    <div
+                    <motion.div
                       key={stat.label}
+                      initial={{ opacity: 0, x: 10, filter: "blur(4px)" }}
+                      whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1, type: "spring", bounce: 0 }}
                       className="flex flex-col border-b border-white/10 pb-5 last:border-none last:pb-0"
-                      style={{ animationDelay: `${index * 0.08}s` }}
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-4xl font-black text-white">
@@ -149,7 +153,7 @@ export default function Impact() {
                       <p className="text-sm text-white/60 font-medium">
                         {stat.description}
                       </p>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </GlassContainer>
@@ -197,6 +201,7 @@ export default function Impact() {
                   className="flex h-full min-h-[440px] flex-col p-6"
                   containerClassName="h-full"
                   glowColor={idx % 2 === 0 ? "pink" : "purple"}
+                  delay={idx * 0.15}
                 >
                   <CardItem
                     translateZ="100"

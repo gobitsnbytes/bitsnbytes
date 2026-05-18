@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import type { ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
@@ -602,347 +603,356 @@ export function QnAChatInterface() {
           </div>
         )}
         <div className="space-y-6 flex flex-col pb-4">
-          {messages.map((m) => (
-            <div
-              key={m.id}
-              className={`flex w-full ${m.role === "user" ? "justify-end" : "justify-start"}`}
-            >
-              {m.role === "assistant" && (
-                <div className="hidden sm:flex self-end mr-3 mb-1 w-8 h-8 rounded-full bg-zinc-800 items-center justify-center border border-zinc-700/50 flex-shrink-0">
-                  <Bot className="w-4 h-4 text-[var(--brand-pink)]" />
-                </div>
-              )}
-              <div
-                className={`w-fit max-w-[90%] sm:max-w-[85%] md:max-w-[75%] rounded-2xl px-5 py-3.5 text-[0.95rem] leading-relaxed shadow-sm break-words ${
-                  m.role === "user"
-                    ? "bg-[var(--brand-pink)] text-white rounded-br-sm"
-                    : "border border-white/10 bg-[rgba(18,9,12,0.9)] text-white/90 rounded-bl-sm prose prose-invert prose-p:my-2 prose-headings:my-3 prose-ul:my-2 prose-li:my-1 max-w-none"
-                }`}
+          <AnimatePresence initial={false}>
+            {messages.map((m) => (
+              <motion.div
+                key={m.id}
+                initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ type: "spring", duration: 0.4, bounce: 0 }}
+                className={`flex w-full ${m.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                {m.role === "user" ? (
-                  m.content
-                ) : (
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    urlTransform={(value) => value}
-                    components={{
-                      p: ({ children }) => {
-                        const text = Array.isArray(children)
-                          ? children.join("")
-                          : String(children);
-                        if (text.includes("%%GENERATE_LOADER%%")) {
-                          return (
-                            <div className="relative overflow-hidden rounded-xl bg-zinc-800/80 w-full aspect-video border border-zinc-700/50 flex items-center justify-center p-4 my-2">
-                              <div
-                                className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-[#e45a92]/20 to-transparent animate-[scan_2s_ease-in-out_infinite]"
-                                style={{ animationName: "scan" }}
-                              />
-                              <style>{`
-                                                      @keyframes scan {
-                                                        0% { transform: translateX(-100%); }
-                                                        100% { transform: translateX(50%); }
-                                                      }
-                                                    `}</style>
-                              <div className="flex flex-col items-center gap-3 relative z-10">
-                                <div className="flex gap-1.5 justify-center">
-                                  <div
-                                    className="h-2 w-2 rounded-full bg-[var(--brand-pink)] animate-bounce"
-                                    style={{ animationDelay: "0ms" }}
-                                  />
-                                  <div
-                                    className="h-2 w-2 rounded-full bg-[var(--brand-pink)] animate-bounce"
-                                    style={{ animationDelay: "150ms" }}
-                                  />
-                                  <div
-                                    className="h-2 w-2 rounded-full bg-[var(--brand-pink)] animate-bounce"
-                                    style={{ animationDelay: "300ms" }}
-                                  />
+                {m.role === "assistant" && (
+                  <div className="hidden sm:flex self-end mr-3 mb-1 w-8 h-8 rounded-full bg-zinc-800 items-center justify-center border border-zinc-700/50 flex-shrink-0">
+                    <Bot className="w-4 h-4 text-[var(--brand-pink)]" />
+                  </div>
+                )}
+                <div
+                  className={`w-fit max-w-[90%] sm:max-w-[85%] md:max-w-[75%] rounded-2xl px-5 py-3.5 text-[0.95rem] leading-relaxed shadow-sm break-words ${
+                    m.role === "user"
+                      ? "bg-[var(--brand-pink)] text-white rounded-br-sm"
+                      : "border border-white/10 bg-[rgba(18,9,12,0.9)] text-white/90 rounded-bl-sm prose prose-invert prose-p:my-2 prose-headings:my-3 prose-ul:my-2 prose-li:my-1 max-w-none"
+                  }`}
+                >
+                  {m.role === "user" ? (
+                    m.content
+                  ) : (
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      urlTransform={(value) => value}
+                      components={{
+                        p: ({ children }) => {
+                          const text = Array.isArray(children)
+                            ? children.join("")
+                            : String(children);
+                          if (text.includes("%%GENERATE_LOADER%%")) {
+                            return (
+                              <div className="relative overflow-hidden rounded-xl bg-zinc-800/80 w-full aspect-video border border-zinc-700/50 flex items-center justify-center p-4 my-2">
+                                <div
+                                  className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-[#e45a92]/20 to-transparent animate-[scan_2s_ease-in-out_infinite]"
+                                  style={{ animationName: "scan" }}
+                                />
+                                <style>{`
+                                                        @keyframes scan {
+                                                          0% { transform: translateX(-100%); }
+                                                          100% { transform: translateX(50%); }
+                                                        }
+                                                      `}</style>
+                                <div className="flex flex-col items-center gap-3 relative z-10">
+                                  <div className="flex gap-1.5 justify-center">
+                                    <div
+                                      className="h-2 w-2 rounded-full bg-[var(--brand-pink)] animate-bounce"
+                                      style={{ animationDelay: "0ms" }}
+                                    />
+                                    <div
+                                      className="h-2 w-2 rounded-full bg-[var(--brand-pink)] animate-bounce"
+                                      style={{ animationDelay: "150ms" }}
+                                    />
+                                    <div
+                                      className="h-2 w-2 rounded-full bg-[var(--brand-pink)] animate-bounce"
+                                      style={{ animationDelay: "300ms" }}
+                                    />
+                                  </div>
+                                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--brand-pink)] animate-pulse shadow-black drop-shadow-md">
+                                    Synthesizing Pixels
+                                  </span>
                                 </div>
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--brand-pink)] animate-pulse shadow-black drop-shadow-md">
-                                  Synthesizing Pixels
-                                </span>
                               </div>
-                            </div>
-                          );
-                        }
-                        return <p className="leading-relaxed">{children}</p>;
-                      },
-                      img: ({ src, alt }) => (
-                        <img
-                          src={src}
-                          alt={alt}
-                          className="rounded-xl border border-zinc-700/50 shadow-lg shadow-black/20 w-full object-cover my-2 hover:scale-[1.02] transition-transform duration-300"
-                        />
-                      ),
-                      a: ({ href, title, children, ...props }) => {
-                        if (title === "button" || title === "cta") {
+                            );
+                          }
+                          return <p className="leading-relaxed">{children}</p>;
+                        },
+                        img: ({ src, alt }) => (
+                          <img
+                            src={src}
+                            alt={alt}
+                            className="rounded-xl border border-zinc-700/50 shadow-lg shadow-black/20 w-full object-cover my-2 hover:scale-[1.02] transition-transform duration-300"
+                          />
+                        ),
+                        a: ({ href, title, children, ...props }) => {
+                          if (title === "button" || title === "cta") {
+                            return (
+                              <a
+                                href={href}
+                                className="inline-flex my-2 w-full sm:w-auto items-center justify-center rounded-xl bg-[var(--brand-pink)] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#e45a92]/30 transition-transform transition-colors transition-opacity hover:scale-105 hover:shadow-xl hover:shadow-[#e45a92]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                {...props}
+                              >
+                                {children}
+                              </a>
+                            );
+                          }
+                          if (title === "follow-up") {
+                            return (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  const promptText = Array.isArray(children)
+                                    ? children.join("")
+                                    : String(children);
+                                  handleQuickPrompt(promptText);
+                                }}
+                                className="block w-full mt-3 text-left rounded-xl border border-zinc-700/80 bg-zinc-800/60 px-4 py-3 text-sm text-zinc-200 transition-transform transition-colors transition-opacity hover:border-[#e45a92] hover:bg-zinc-800 hover:text-white"
+                              >
+                                ↳ {children}
+                              </button>
+                            );
+                          }
+                          if (href?.startsWith("#")) {
+                            return (
+                              <a
+                                href={href}
+                                className="text-[#e45a92] font-medium hover:underline underline-offset-4"
+                                {...props}
+                              >
+                                {children}
+                              </a>
+                            );
+                          }
+                          if (
+                            href?.includes("google.com/maps") ||
+                            href?.includes("maps.app.goo.gl")
+                          ) {
+                            return (
+                              <a
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Open venue on Google Maps"
+                                className="mt-4 mb-2 flex flex-col gap-2 rounded-2xl border border-zinc-700/50 bg-zinc-900/50 p-4 transition-transform transition-colors transition-opacity hover:bg-zinc-800/80 hover:border-emerald-500/50 group no-underline"
+                              >
+                                <div className="flex items-center gap-3">
+                                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors">
+                                    <MapPin className="h-5 w-5 text-emerald-400" />
+                                  </div>
+                                  <div>
+                                    <h4 className="font-semibold text-zinc-100 m-0">
+                                      View Venue on Map
+                                    </h4>
+                                    <p className="text-xs text-zinc-400 m-0 mt-0.5 group-hover:text-zinc-300 transition-colors">
+                                      Opens in Google Maps
+                                    </p>
+                                  </div>
+                                </div>
+                              </a>
+                            );
+                          }
                           return (
                             <a
                               href={href}
-                              className="inline-flex my-2 w-full sm:w-auto items-center justify-center rounded-xl bg-[var(--brand-pink)] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#e45a92]/30 transition-transform transition-colors transition-opacity hover:scale-105 hover:shadow-xl hover:shadow-[#e45a92]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
+                              className="text-emerald-400 hover:text-emerald-300 font-medium hover:underline underline-offset-4"
                               target="_blank"
-                              rel="noopener noreferrer"
+                              rel="noreferrer"
                               {...props}
                             >
                               {children}
                             </a>
                           );
-                        }
-                        if (title === "follow-up") {
-                          return (
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                const promptText = Array.isArray(children)
-                                  ? children.join("")
-                                  : String(children);
-                                handleQuickPrompt(promptText);
-                              }}
-                              className="block w-full mt-3 text-left rounded-xl border border-zinc-700/80 bg-zinc-800/60 px-4 py-3 text-sm text-zinc-200 transition-transform transition-colors transition-opacity hover:border-[#e45a92] hover:bg-zinc-800 hover:text-white"
-                            >
-                              ↳ {children}
-                            </button>
-                          );
-                        }
-                        if (href?.startsWith("#")) {
-                          return (
-                            <a
-                              href={href}
-                              className="text-[#e45a92] font-medium hover:underline underline-offset-4"
-                              {...props}
-                            >
-                              {children}
-                            </a>
-                          );
-                        }
-                        if (
-                          href?.includes("google.com/maps") ||
-                          href?.includes("maps.app.goo.gl")
-                        ) {
-                          return (
-                            <a
-                              href={href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label="Open venue on Google Maps"
-                              className="mt-4 mb-2 flex flex-col gap-2 rounded-2xl border border-zinc-700/50 bg-zinc-900/50 p-4 transition-transform transition-colors transition-opacity hover:bg-zinc-800/80 hover:border-emerald-500/50 group no-underline"
-                            >
-                              <div className="flex items-center gap-3">
-                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors">
-                                  <MapPin className="h-5 w-5 text-emerald-400" />
-                                </div>
-                                <div>
-                                  <h4 className="font-semibold text-zinc-100 m-0">
-                                    View Venue on Map
-                                  </h4>
-                                  <p className="text-xs text-zinc-400 m-0 mt-0.5 group-hover:text-zinc-300 transition-colors">
-                                    Opens in Google Maps
-                                  </p>
-                                </div>
-                              </div>
-                            </a>
-                          );
-                        }
-                        return (
-                          <a
-                            href={href}
-                            className="text-emerald-400 hover:text-emerald-300 font-medium hover:underline underline-offset-4"
-                            target="_blank"
-                            rel="noreferrer"
-                            {...props}
-                          >
-                            {children}
-                          </a>
-                        );
-                      },
-                      code: ({ className, children, ...props }) => {
-                        const match = /language-([\w-]+)/.exec(className || "");
-                        const language = match?.[1];
-                        const isChart = language === "chart";
-                        const isDiscordWidget = language === "discord-widget";
-                        const isCountdown = language === "countdown";
-                        const isMemberCard = language === "member_card";
-                        const isProjectCard = language === "project_card";
+                        },
+                        code: ({ className, children, ...props }) => {
+                          const match = /language-([\w-]+)/.exec(className || "");
+                          const language = match?.[1];
+                          const isChart = language === "chart";
+                          const isDiscordWidget = language === "discord-widget";
+                          const isCountdown = language === "countdown";
+                          const isMemberCard = language === "member_card";
+                          const isProjectCard = language === "project_card";
 
-                        if (isDiscordWidget) {
-                          const serverId = String(children).trim();
-                          return (
-                            <div className="my-4 rounded-2xl overflow-hidden border border-[#5865F2]/30 bg-zinc-900/60">
-                              <div className="flex items-center gap-2 px-4 py-2.5 bg-[#5865F2]/10 border-b border-[#5865F2]/20">
-                                <svg
-                                  className="w-4 h-4 text-[#5865F2]"
-                                  viewBox="0 0 24 24"
-                                  fill="currentColor"
-                                >
-                                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.001.022.015.04.034.048a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z" />
-                                </svg>
-                                <span className="text-sm font-semibold text-[#5865F2]">
-                                  India Innovates · Discord
-                                </span>
-                              </div>
-                              <iframe
-                                src={`https://discord.com/widget?id=${serverId}&theme=dark`}
-                                width="100%"
-                                height="400"
-                                frameBorder="0"
-                                sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-                                className="block"
-                              />
-                            </div>
-                          );
-                        }
-
-                        if (isChart) {
-                          try {
-                            const rawData = String(children).replace(/\n$/, "");
-                            const data = JSON.parse(rawData);
-                            if (Array.isArray(data)) {
-                              return (
-                                <div className="my-6 h-64 w-full rounded-2xl bg-zinc-950 p-4 border border-zinc-800 px-2 sm:px-4">
-                                  <ResponsiveContainer
-                                    width="100%"
-                                    height="100%"
+                          if (isDiscordWidget) {
+                            const serverId = String(children).trim();
+                            return (
+                              <div className="my-4 rounded-2xl overflow-hidden border border-[#5865F2]/30 bg-zinc-900/60">
+                                <div className="flex items-center gap-2 px-4 py-2.5 bg-[#5865F2]/10 border-b border-[#5865F2]/20">
+                                  <svg
+                                    className="w-4 h-4 text-[#5865F2]"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
                                   >
-                                    <BarChart
-                                      data={data}
-                                      margin={{
-                                        top: 10,
-                                        right: 10,
-                                        left: -20,
-                                        bottom: 0,
-                                      }}
+                                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.001.022.015.04.034.048a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z" />
+                                  </svg>
+                                  <span className="text-sm font-semibold text-[#5865F2]">
+                                    India Innovates · Discord
+                                  </span>
+                                </div>
+                                <iframe
+                                  src={`https://discord.com/widget?id=${serverId}&theme=dark`}
+                                  width="100%"
+                                  height="400"
+                                  frameBorder="0"
+                                  sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                                  className="block"
+                                />
+                              </div>
+                            );
+                          }
+
+                          if (isChart) {
+                            try {
+                              const rawData = String(children).replace(/\n$/, "");
+                              const data = JSON.parse(rawData);
+                              if (Array.isArray(data)) {
+                                return (
+                                  <div className="my-6 h-64 w-full rounded-2xl bg-zinc-950 p-4 border border-zinc-800 px-2 sm:px-4">
+                                    <ResponsiveContainer
+                                      width="100%"
+                                      height="100%"
                                     >
-                                      <XAxis
-                                        dataKey="name"
-                                        fontSize={12}
-                                        tickLine={false}
-                                        axisLine={false}
-                                        stroke="#a1a1aa"
-                                      />
-                                      <Tooltip
-                                        cursor={{
-                                          fill: "#27272a",
-                                          opacity: 0.4,
+                                      <BarChart
+                                        data={data}
+                                        margin={{
+                                          top: 10,
+                                          right: 10,
+                                          left: -20,
+                                          bottom: 0,
                                         }}
-                                        contentStyle={{
-                                          backgroundColor: "#18181b",
-                                          border: "1px solid #3f3f46",
-                                          borderRadius: "8px",
-                                          color: "#f4f4f5",
-                                        }}
-                                        itemStyle={{ color: "#e45a92" }}
-                                      />
-                                      <Bar
-                                        dataKey="value"
-                                        fill="#e45a92"
-                                        radius={[6, 6, 0, 0]}
-                                        maxBarSize={50}
-                                      />
-                                    </BarChart>
-                                  </ResponsiveContainer>
+                                      >
+                                        <XAxis
+                                          dataKey="name"
+                                          fontSize={12}
+                                          tickLine={false}
+                                          axisLine={false}
+                                          stroke="#a1a1aa"
+                                        />
+                                        <Tooltip
+                                          cursor={{
+                                            fill: "#27272a",
+                                            opacity: 0.4,
+                                          }}
+                                          contentStyle={{
+                                            backgroundColor: "#18181b",
+                                            border: "1px solid #3f3f46",
+                                            borderRadius: "8px",
+                                            color: "#f4f4f5",
+                                          }}
+                                          itemStyle={{ color: "#e45a92" }}
+                                        />
+                                        <Bar
+                                          dataKey="value"
+                                          fill="#e45a92"
+                                          radius={[6, 6, 0, 0]}
+                                          maxBarSize={50}
+                                        />
+                                      </BarChart>
+                                    </ResponsiveContainer>
+                                  </div>
+                                );
+                              }
+                            } catch (e) {
+                              return (
+                                <div className="my-2 p-3 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 text-sm">
+                                  Error visualizing chart data
                                 </div>
                               );
                             }
-                          } catch (e) {
+                          }
+
+                          if (isCountdown) {
+                            try {
+                              const payload = JSON.parse(
+                                String(children).replace(/\n$/, ""),
+                              ) as CountdownPayload;
+                              if (payload?.event && payload?.date) {
+                                return <CountdownCard payload={payload} />;
+                              }
+                            } catch (e) {
+                              console.error("Failed to parse countdown data", e);
+                            }
                             return (
                               <div className="my-2 p-3 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 text-sm">
-                                Error visualizing chart data
+                                Error visualizing countdown data
                               </div>
                             );
                           }
-                        }
 
-                        if (isCountdown) {
-                          try {
-                            const payload = JSON.parse(
-                              String(children).replace(/\n$/, ""),
-                            ) as CountdownPayload;
-                            if (payload?.event && payload?.date) {
-                              return <CountdownCard payload={payload} />;
+                          if (isMemberCard) {
+                            try {
+                              const payload = JSON.parse(
+                                String(children).replace(/\n$/, ""),
+                              ) as MemberCardPayload;
+                              if (payload?.name && payload?.role) {
+                                return <TeamMemberCard payload={payload} />;
+                              }
+                            } catch (e) {
+                              console.error(
+                                "Failed to parse member card data",
+                                e,
+                              );
                             }
-                          } catch (e) {
-                            console.error("Failed to parse countdown data", e);
-                          }
-                          return (
-                            <div className="my-2 p-3 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 text-sm">
-                              Error visualizing countdown data
-                            </div>
-                          );
-                        }
-
-                        if (isMemberCard) {
-                          try {
-                            const payload = JSON.parse(
-                              String(children).replace(/\n$/, ""),
-                            ) as MemberCardPayload;
-                            if (payload?.name && payload?.role) {
-                              return <TeamMemberCard payload={payload} />;
-                            }
-                          } catch (e) {
-                            console.error(
-                              "Failed to parse member card data",
-                              e,
+                            return (
+                              <div className="my-2 p-3 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 text-sm">
+                                Error visualizing member card data
+                              </div>
                             );
                           }
-                          return (
-                            <div className="my-2 p-3 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 text-sm">
-                              Error visualizing member card data
-                            </div>
-                          );
-                        }
 
-                        if (isProjectCard) {
-                          try {
-                            const payload = JSON.parse(
-                              String(children).replace(/\n$/, ""),
-                            );
-                            const ideas: ProjectIdea[] = Array.isArray(payload)
-                              ? payload
-                              : Array.isArray(payload?.ideas)
-                                ? payload.ideas
-                                : [];
-                            if (ideas.length > 0) {
-                              return <ProjectCards ideas={ideas.slice(0, 3)} />;
+                          if (isProjectCard) {
+                            try {
+                              const payload = JSON.parse(
+                                String(children).replace(/\n$/, ""),
+                              );
+                              const ideas: ProjectIdea[] = Array.isArray(payload)
+                                ? payload
+                                : Array.isArray(payload?.ideas)
+                                  ? payload.ideas
+                                  : [];
+                              if (ideas.length > 0) {
+                                return <ProjectCards ideas={ideas.slice(0, 3)} />;
+                              }
+                            } catch (e) {
+                              console.error(
+                                "Failed to parse project card data",
+                                e,
+                              );
                             }
-                          } catch (e) {
-                            console.error(
-                              "Failed to parse project card data",
-                              e,
+                            return (
+                              <div className="my-2 p-3 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 text-sm">
+                                Error visualizing project card data
+                              </div>
                             );
                           }
-                          return (
-                            <div className="my-2 p-3 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 text-sm">
-                              Error visualizing project card data
-                            </div>
-                          );
-                        }
 
-                        const isInline = !match;
-                        return (
-                          <code
-                            className={`${
-                              isInline
-                                ? "rounded-md bg-zinc-800/80 px-1.5 py-0.5 text-[0.85em] font-medium"
-                                : "block rounded-2xl bg-[#0d0d0f] p-4 text-[0.85em] overflow-x-auto border border-zinc-800 text-zinc-300 my-4 shadow-inner custom-scrollbar"
-                            } ${className || ""}`}
-                            {...props}
-                          >
-                            {children}
-                          </code>
-                        );
-                      },
-                    }}
-                  >
-                    {m.content || "..."}
-                  </ReactMarkdown>
-                )}
-              </div>
-            </div>
-          ))}
+                          const isInline = !match;
+                          return (
+                            <code
+                              className={`${
+                                isInline
+                                  ? "rounded-md bg-zinc-800/80 px-1.5 py-0.5 text-[0.85em] font-medium"
+                                  : "block rounded-2xl bg-[#0d0d0f] p-4 text-[0.85em] overflow-x-auto border border-zinc-800 text-zinc-300 my-4 shadow-inner custom-scrollbar"
+                              } ${className || ""}`}
+                              {...props}
+                            >
+                              {children}
+                            </code>
+                          );
+                        },
+                      }}
+                    >
+                      {m.content || "..."}
+                    </ReactMarkdown>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
           <div ref={messagesEndRef} />
           {isLoading && (
-            <div className="flex justify-start">
+            <motion.div 
+              initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              className="flex justify-start"
+            >
               <div className="hidden sm:flex self-end mr-3 mb-1 w-8 h-8 rounded-full bg-zinc-800 items-center justify-center border border-zinc-700/50 flex-shrink-0">
                 <Bot className="w-4 h-4 text-[#e45a92]" />
               </div>
@@ -962,7 +972,7 @@ export function QnAChatInterface() {
                   />
                 </span>
               </div>
-            </div>
+            </motion.div>
           )}
           {error && (
             <div className="p-3 mx-auto w-full max-w-sm text-center rounded-xl bg-red-950/50 border border-red-900/50 text-sm text-red-400">
