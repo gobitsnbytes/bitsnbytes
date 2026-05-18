@@ -58,14 +58,14 @@ export default function QnAPage() {
                                 <div className="flex flex-col gap-2">
                                     <Link
                                         href="/contact"
-                                        className="inline-flex items-center justify-between rounded-xl bg-[var(--brand-pink)] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-[rgba(151,25,44,0.35)] transition-transform hover:translate-y-[-1px]"
+                                        className="inline-flex items-center justify-between rounded-xl bg-[var(--brand-pink)] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-[rgba(151,25,44,0.35)] transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.02] active:scale-[0.97] hover:shadow-xl hover:shadow-[rgba(151,25,44,0.45)]"
                                     >
                                         Contact the team
                                         <ArrowRight className="h-4 w-4" />
                                     </Link>
                                     <Link
                                         href="/join"
-                                        className="inline-flex items-center justify-between rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold text-white/90 transition-colors hover:border-white/25 hover:bg-white/10"
+                                        className="inline-flex items-center justify-between rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold text-white/90 transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.02] active:scale-[0.97] hover:border-white/25 hover:bg-white/10"
                                     >
                                         Join the crew
                                         <ArrowRight className="h-4 w-4" />
@@ -76,7 +76,7 @@ export default function QnAPage() {
                     </div>
                 </div>
             </section>
-
+ 
             <section className="w-full pb-12 sm:pb-16">
                 <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10">
                     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] items-start">
@@ -107,7 +107,7 @@ export default function QnAPage() {
                                                 key={prompt}
                                                 type="button"
                                                 onClick={() => sendSuggestedPrompt(prompt)}
-                                                className="w-full text-left rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80 transition-colors hover:border-[rgba(151,25,44,0.6)] hover:bg-[rgba(151,25,44,0.18)] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-pink)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b0608]"
+                                                className="w-full text-left rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80 transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.02] active:scale-[0.97] hover:border-[rgba(151,25,44,0.6)] hover:bg-[rgba(151,25,44,0.18)] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-pink)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b0608]"
                                             >
                                                 {prompt}
                                             </button>

@@ -139,7 +139,7 @@ export const HeroFuturistic = () => {
         {/* Right — Event Slideshow */}
         <Link
           href={heroEvents[activeSlide].href}
-          className="relative flex-1 min-w-0 block group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 rounded-[1.75rem]"
+          className="relative flex-1 min-w-0 block group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 rounded-[1.75rem] transition-transform duration-300 active:scale-[0.98]"
           aria-label={`View details for ${heroEvents[activeSlide].title}`}
         >
           <GlassContainer
@@ -223,7 +223,7 @@ export const HeroFuturistic = () => {
                         e.stopPropagation();
                         setActiveSlide(idx);
                       }}
-                      className={`h-1.5 rounded-full transition-transform transition-colors transition-opacity duration-300 ${idx === activeSlide ? "w-6 bg-(--brand-pink)" : "w-1.5 bg-white/30 hover:bg-white/50"}`}
+                      className={`h-1.5 rounded-full transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] ${idx === activeSlide ? "w-6 bg-(--brand-pink)" : "w-1.5 bg-white/30 hover:bg-white/50"}`}
                       aria-label={`Go to slide ${idx + 1}`}
                       aria-current={idx === activeSlide}
                     />

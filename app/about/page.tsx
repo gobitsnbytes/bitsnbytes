@@ -184,21 +184,21 @@ const volunteers: Volunteer[] = [
   {
     id: 11,
     name: "Jaagruti",
-    role: "Graphic Design",
+    role: "Graphic + Video Editing",
     image: "/team/jaagruti.jpeg",
     section: "Creative",
   },
   {
     id: 18,
     name: "Kavan",
-    role: "Graphic Design",
+    role: "Graphic + Video Editing",
     image: "/team/kavan.jpg",
     section: "Creative",
   },
   {
     id: 16,
     name: "Vareesha",
-    role: "Creative Media",
+    role: "Graphic + Video Editing",
     image: "/team/vareesha.jpg",
     linkedin: "https://www.linkedin.com/in/vareesha-mehdi-a669203ab/",
     section: "Creative",
@@ -206,7 +206,7 @@ const volunteers: Volunteer[] = [
   {
     id: 13,
     name: "Aishwary",
-    role: "Visual Design & Editing",
+    role: "Graphic + Video Editing",
     image: "/team/aishwary.jpeg",
     linkedin: "https://www.linkedin.com/in/ashlovesnoodle",
     section: "Creative",

@@ -131,6 +131,7 @@ export default function CodeOfConduct() {
             <GlassContainer
               className="p-8 md:p-12 text-center"
               glowColor="both"
+              interactive
             >
               <p className="text-lg md:text-xl text-white font-medium leading-relaxed">
                 We want this place to feel friendly, safe, and welcoming for
@@ -156,6 +157,7 @@ export default function CodeOfConduct() {
                 className="p-6 md:p-8"
                 glowColor={index % 2 === 0 ? "pink" : "purple"}
                 delay={index * 0.1}
+                interactive
               >
                 <div className="flex items-start gap-4 md:gap-6">
                   <div className="flex h-12 w-12 md:h-14 md:w-14 shrink-0 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-(--brand-pink) shadow-inner">
@@ -183,7 +185,7 @@ export default function CodeOfConduct() {
           description="If it has the Bits&Bytes name on it, this code covers it."
         >
           <div className="mx-auto max-w-2xl">
-            <GlassContainer className="p-8 md:p-10" glowColor="purple">
+            <GlassContainer className="p-8 md:p-10" glowColor="purple" interactive>
               <ul className="space-y-4 md:space-y-6">
                 {appliesTo.map((item, index) => (
                   <motion.li
@@ -214,6 +216,7 @@ export default function CodeOfConduct() {
             <GlassContainer
               className="p-8 md:p-10 border-red-500/20"
               glowColor="none"
+              interactive
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-500/10 border border-red-500/20">
@@ -259,6 +262,7 @@ export default function CodeOfConduct() {
                     index === 0 ? "none" : index === 1 ? "purple" : "pink"
                   }
                   delay={index * 0.15}
+                  interactive
                 >
                   <div
                     className={cn(
@@ -283,7 +287,7 @@ export default function CodeOfConduct() {
             </div>
 
             <div className="mt-8">
-              <GlassContainer className="p-6 text-center" glowColor="none">
+              <GlassContainer className="p-6 text-center" glowColor="none" interactive>
                 <p className="text-sm md:text-base text-white/70 font-medium leading-relaxed">
                   <strong className="text-white font-black uppercase tracking-tighter mr-2">
                     Important:
@@ -308,6 +312,7 @@ export default function CodeOfConduct() {
             <GlassContainer
               className="p-8 md:p-12 text-center"
               glowColor="pink"
+              interactive
             >
               <div className="space-y-8">
                 <div className="flex flex-col md:flex-row items-center gap-6 p-6 rounded-3xl bg-white/5 border border-white/10 shadow-inner">
@@ -320,7 +325,7 @@ export default function CodeOfConduct() {
                     </p>
                     <a
                       href="mailto:hello@gobitsnbytes.org"
-                      className="text-2xl md:text-3xl font-black text-white hover:text-(--brand-pink) transition-colors tracking-tighter"
+                      className="inline-block text-2xl md:text-3xl font-black text-white hover:text-(--brand-pink) transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.02] active:scale-[0.97] tracking-tighter"
                     >
                       hello@gobitsnbytes.org
                     </a>
@@ -342,7 +347,7 @@ export default function CodeOfConduct() {
 
         {/* Final CTA */}
         <PageSection align="center">
-          <GlassContainer className="p-10 md:p-20 text-center" glowColor="both">
+          <GlassContainer className="p-10 md:p-20 text-center" glowColor="both" interactive>
             <p className="text-xl md:text-3xl font-black text-white leading-tight max-w-3xl mx-auto tracking-tighter">
               "Bits&Bytes exists to be a space where people can actually build
               things.
@@ -355,7 +360,7 @@ export default function CodeOfConduct() {
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
                 asChild
-                className="group rounded-full bg-[var(--brand-pink)] px-10 py-7 text-lg font-black text-white shadow-lg shadow-[var(--brand-pink)/20] hover:shadow-xl hover:shadow-[var(--brand-pink)/40] transition-transform transition-colors transition-opacity hover:scale-105 w-full sm:w-auto"
+                className="group rounded-full bg-[var(--brand-pink)] px-10 py-7 text-lg font-black text-white shadow-lg hover:shadow-xl w-full sm:w-auto"
               >
                 <Link href="/join">
                   Join the Community
@@ -365,7 +370,7 @@ export default function CodeOfConduct() {
               <Button
                 asChild
                 variant="outline"
-                className="rounded-full border-white/20 bg-white/5 px-10 py-7 text-lg font-bold text-white backdrop-blur-md hover:bg-white/10 w-full sm:w-auto transition-transform transition-colors transition-opacity"
+                className="rounded-full border-white/20 bg-white/5 px-10 py-7 text-lg font-bold text-white backdrop-blur-md hover:bg-white/10 w-full sm:w-auto"
               >
                 <Link href="/contact">Contact the Team</Link>
               </Button>

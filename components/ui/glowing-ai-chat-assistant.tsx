@@ -1141,7 +1141,7 @@ const FloatingAiAssistant: React.FC = () => {
 
         {/* Floating AI button */}
         <button
-          className={`floating-ai-button relative ml-auto flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full border border-white/40 bg-[var(--brand-pink)] shadow-lg shadow-[#e45a92]/40 transition-transform transition-colors transition-opacity duration-300 hover:scale-110 hover:shadow-xl ${
+          className={`floating-ai-button relative ml-auto flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full border border-white/40 bg-[var(--brand-pink)] shadow-lg shadow-[#e45a92]/40 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-110 active:scale-[0.93] hover:shadow-xl ${
             isChatOpen ? "rotate-90" : "rotate-0"
           }`}
           onClick={handleToggle}
@@ -1246,7 +1246,7 @@ const FloatingAiAssistant: React.FC = () => {
                           key={prompt}
                           type="button"
                           onClick={() => handleQuickPrompt(prompt)}
-                          className="rounded-full border border-zinc-800/80 bg-zinc-900/50 px-3 py-1 text-[0.65rem] text-zinc-300 transition hover:border-[#e45a92] hover:text-white"
+                          className="rounded-full border border-zinc-800/80 bg-zinc-900/50 px-3 py-1 text-[0.65rem] text-zinc-300 transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.02] active:scale-[0.97] hover:border-[#e45a92] hover:text-white"
                         >
                           {prompt}
                         </button>
@@ -1664,7 +1664,7 @@ const FloatingAiAssistant: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => void handleVoiceToggle()}
-                    className={`group flex items-center gap-1 shrink-0 rounded-lg border px-2 py-1.5 text-[0.7rem] transition-colors ${
+                    className={`group flex items-center gap-1 shrink-0 rounded-lg border px-2 py-1.5 text-[0.7rem] transition-all duration-150 active:scale-[0.96] ${
                       isRecording
                         ? "border-red-500/60 bg-red-500/20 text-red-300"
                         : "border-zinc-800/60 bg-zinc-900/80 text-zinc-500 hover:border-zinc-700 hover:text-zinc-200"
@@ -1687,7 +1687,7 @@ const FloatingAiAssistant: React.FC = () => {
                       type="button"
                       onClick={() => void handleSend()}
                       disabled={!message.trim() || isLoading}
-                      className="relative inline-flex h-8 sm:h-9 items-center justify-center rounded-xl bg-[var(--brand-pink)] px-3 sm:px-4 text-xs font-semibold text-white shadow-lg shadow-[#e45a92]/30 transition-transform transition-colors transition-opacity hover:shadow-xl hover:shadow-[#e45a92]/40 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="relative inline-flex h-8 sm:h-9 items-center justify-center rounded-xl bg-[var(--brand-pink)] px-3 sm:px-4 text-xs font-semibold text-white shadow-lg shadow-[#e45a92]/30 transition-all duration-150 hover:scale-[1.03] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
                     >
                       <Send className="mr-1.5 h-3.5 w-3.5" />
                       Ask

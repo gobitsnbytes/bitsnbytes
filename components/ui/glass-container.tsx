@@ -16,6 +16,8 @@ interface GlassContainerProps {
     layoutId?: string;
     /** Whether to enable layout transitions */
     layout?: boolean | "position" | "size" | "preserve-aspect";
+    /** Enable interactive tap scaling feedback */
+    interactive?: boolean;
 }
 
 export function GlassContainer({
@@ -28,6 +30,7 @@ export function GlassContainer({
     noEntry = false,
     layoutId,
     layout,
+    interactive = false,
 }: GlassContainerProps) {
     const entryProps = noEntry ? {} : {
         initial: { opacity: 0, y: 12, filter: "blur(8px)" },
@@ -41,13 +44,19 @@ export function GlassContainer({
         }
     };
 
+    const tapProps = interactive ? {
+        whileTap: { scale: 0.98 },
+    } : {};
+
     return (
         <motion.div 
             {...entryProps}
+            {...tapProps}
             layoutId={layoutId}
             layout={layout}
             className={cn(
                 "group relative overflow-hidden rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border border-white/10 bg-white/5 p-1.5 sm:p-2 transition-all duration-300 hover:border-white/20 hover:bg-white/10",
+                interactive && "cursor-pointer active:scale-[0.98]",
                 "md:backdrop-blur-xl", // Only apply blur on larger screens for mobile performance
                 containerClassName
             )}

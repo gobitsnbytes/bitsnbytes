@@ -70,6 +70,7 @@ export default function Home() {
                   stat.label === "Projects shipped" ? "pink" : "purple"
                 }
                 delay={idx * 0.15}
+                interactive
               >
                 <div className="space-y-4">
                   <p className="text-5xl font-black text-white tracking-tighter">

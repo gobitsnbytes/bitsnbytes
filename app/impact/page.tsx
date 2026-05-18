@@ -128,7 +128,7 @@ export default function Impact() {
               </GlassContainer>
             </div>
             <div className="order-1 lg:order-2">
-              <GlassContainer className="p-8 h-full" glowColor="pink">
+              <GlassContainer className="p-8 h-full" glowColor="pink" interactive>
                 <div className="space-y-6">
                   {highlightStats.map((stat, index) => (
                     <motion.div
@@ -202,6 +202,7 @@ export default function Impact() {
                   containerClassName="h-full"
                   glowColor={idx % 2 === 0 ? "pink" : "purple"}
                   delay={idx * 0.15}
+                  interactive
                 >
                   <CardItem
                     translateZ="100"
@@ -211,7 +212,7 @@ export default function Impact() {
                       src={card.image}
                       height={600}
                       width={600}
-                      className="h-52 w-full object-cover grayscale transition-transform transition-colors transition-opacity duration-500 group-hover:grayscale-0 group-hover:scale-110"
+                      className="h-52 w-full object-cover grayscale transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:grayscale-0 group-hover:scale-110"
                       alt={card.title}
                     />
                   </CardItem>

@@ -88,7 +88,7 @@ export default function Events() {
             onClick={() => setActiveEvent("all")}
             aria-selected={activeEvent === "all"}
             role="tab"
-            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
+            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.02] active:scale-[0.96] ${
               activeEvent === "all"
                 ? "bg-(--brand-pink) text-white shadow-[0_0_20px_rgba(228,90,146,0.3)]"
                 : "text-white/70 hover:text-white hover:bg-white/5"
@@ -101,7 +101,7 @@ export default function Events() {
             onClick={() => setActiveEvent("lucknow-build-guild")}
             aria-selected={activeEvent === "lucknow-build-guild"}
             role="tab"
-            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
+            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.02] active:scale-[0.96] ${
               activeEvent === "lucknow-build-guild"
                 ? "bg-(--brand-pink) text-white shadow-[0_0_20px_rgba(228,90,146,0.3)]"
                 : "text-white/70 hover:text-white hover:bg-white/5"
@@ -114,7 +114,7 @@ export default function Events() {
             onClick={() => setActiveEvent("copilot")}
             aria-selected={activeEvent === "copilot"}
             role="tab"
-            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
+            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.02] active:scale-[0.96] ${
               activeEvent === "copilot"
                 ? "bg-(--brand-pink) text-white shadow-[0_0_20px_rgba(228,90,146,0.3)]"
                 : "text-white/70 hover:text-white hover:bg-white/5"
@@ -127,7 +127,7 @@ export default function Events() {
             onClick={() => setActiveEvent("execron")}
             aria-selected={activeEvent === "execron"}
             role="tab"
-            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
+            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.02] active:scale-[0.96] ${
               activeEvent === "execron"
                 ? "bg-(--brand-pink) text-white shadow-[0_0_20px_rgba(228,90,146,0.3)]"
                 : "text-white/70 hover:text-white hover:bg-white/5"
@@ -140,7 +140,7 @@ export default function Events() {
             onClick={() => setActiveEvent("india-innovates")}
             aria-selected={activeEvent === "india-innovates"}
             role="tab"
-            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
+            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.02] active:scale-[0.96] ${
               activeEvent === "india-innovates"
                 ? "bg-(--brand-pink) text-white shadow-[0_0_20px_rgba(228,90,146,0.3)]"
                 : "text-white/70 hover:text-white hover:bg-white/5"
@@ -510,7 +510,7 @@ export default function Events() {
                     <div className="rounded-2xl border border-white/15 bg-white/5 p-4">
                       <a
                         href={githubDevDayEvent.lumaCheckoutUrl}
-                        className="luma-checkout--button inline-flex w-full items-center justify-center rounded-xl bg-(--brand-pink) px-4 py-3 text-sm font-bold text-white transition-transform transition-colors transition-opacity hover:scale-[1.01] hover:brightness-110"
+                        className="luma-checkout--button inline-flex w-full items-center justify-center rounded-xl bg-(--brand-pink) px-4 py-3 text-sm font-bold text-white transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.01] active:scale-[0.97] hover:brightness-110"
                         data-luma-action="checkout"
                         data-luma-event-id={githubDevDayEvent.lumaEventId}
                         target="_blank"

@@ -208,7 +208,7 @@ function TeamCard({
                           href={href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 transition-all hover:scale-110 hover:bg-white/20"
+                          className="group flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-110 active:scale-[0.93] hover:bg-white/20"
                           aria-label={label}
                           style={{ boxShadow: `0 0 0 1px ${cardAccent}33 inset` }}
                         >
@@ -265,7 +265,7 @@ function VolunteerCard({ volunteer, index }: { volunteer: Volunteer; index: numb
         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--brand-purple)] via-[var(--brand-pink)] to-[var(--brand-plum)] opacity-50 blur-lg group-hover:opacity-80 transition-opacity duration-300" />
 
         {/* Avatar container */}
-        <div className="relative h-16 w-16 sm:h-20 sm:w-20 overflow-hidden rounded-full border-2 border-white/20 bg-gradient-to-br from-[var(--brand-purple)] to-[var(--brand-plum)] group-hover:border-[var(--brand-pink)]/50 transition-transform transition-colors transition-opacity duration-300 group-hover:scale-105">
+        <div className="relative h-16 w-16 sm:h-20 sm:w-20 overflow-hidden rounded-full border-2 border-white/20 bg-gradient-to-br from-[var(--brand-purple)] to-[var(--brand-plum)] group-hover:border-[var(--brand-pink)]/50 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-105 group-active:scale-[0.96]">
           {isPlaceholder || imageError ? (
             <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[var(--brand-purple)]/80 to-[var(--brand-plum)]/80">
               <User className="h-8 w-8 sm:h-10 sm:w-10 text-white/60" />
@@ -298,7 +298,7 @@ function VolunteerCard({ volunteer, index }: { volunteer: Volunteer; index: numb
               href={volunteer.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-full bg-white/10 transition-transform transition-colors transition-opacity hover:bg-white/20 hover:scale-110"
+              className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-full bg-white/10 transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-white/20 hover:scale-110 active:scale-[0.92]"
               aria-label={`${volunteer.name}'s LinkedIn`}
             >
               <Linkedin className="h-3 w-3 sm:h-3.5 sm:w-3.5" />

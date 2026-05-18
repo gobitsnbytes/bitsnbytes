@@ -13,6 +13,7 @@ export function Features() {
             containerClassName="col-span-full lg:col-span-2"
             className="flex p-0 overflow-hidden"
             glowColor="pink"
+            interactive
           >
             <div className="relative m-auto h-full w-full flex flex-col items-center justify-center p-8 md:p-12">
               <div className="relative flex h-24 w-56 items-center">
@@ -42,6 +43,7 @@ export function Features() {
             containerClassName="col-span-full sm:col-span-3 lg:col-span-2"
             className="overflow-hidden p-8 md:p-12"
             glowColor="purple"
+            interactive
           >
             <div className="relative mx-auto flex aspect-square size-32 rounded-3xl border border-white/10 bg-white/5 transition-transform group-hover:scale-110 group-hover:rotate-3">
               <Lightbulb className="m-auto h-14 w-14 text-(--brand-pink)" />
@@ -59,6 +61,7 @@ export function Features() {
             containerClassName="col-span-full sm:col-span-3 lg:col-span-2"
             className="overflow-hidden p-8 md:p-12"
             glowColor="pink"
+            interactive
           >
             <div className="w-full">
               <svg
@@ -141,6 +144,7 @@ export function Features() {
             containerClassName="col-span-full lg:col-span-3"
             className="overflow-hidden p-8 md:p-12"
             glowColor="purple"
+            interactive
           >
             <div className="grid sm:grid-cols-2 h-full">
               <div className="relative z-10 flex flex-col justify-between space-y-12 h-full">
@@ -185,6 +189,7 @@ export function Features() {
             containerClassName="col-span-full lg:col-span-3"
             className="overflow-hidden p-8 md:p-12"
             glowColor="pink"
+            interactive
           >
             <div className="grid sm:grid-cols-2 h-full">
               <div className="relative z-10 flex flex-col justify-between space-y-12 h-full">
