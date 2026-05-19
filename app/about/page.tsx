@@ -64,7 +64,7 @@ const coreTeam: CoreTeamMember[] = [
   {
     id: 2,
     name: "Aadrika Maurya",
-    role: "Chief Operating Officer (COO)",
+    role: "Chief Creative Officer (CCO)",
     image: "/team/aadrika.png",
     mobileImagePosition: "center 20%",
     isFeatured: true,
@@ -79,7 +79,7 @@ const coreTeam: CoreTeamMember[] = [
   {
     id: 3,
     name: "Akshat Kushwaha",
-    role: "Chief Technology Officer (CTO)",
+    role: "Chief Technology Officer (CTO) & Chief Operating Officer (COO)",
     image: "/team/akshat.jpg",
     mobileImagePosition: "center 16%",
     mobileImageScale: 1.03,
