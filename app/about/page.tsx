@@ -211,6 +211,20 @@ const volunteers: Volunteer[] = [
     linkedin: "https://www.linkedin.com/in/ashlovesnoodle",
     section: "Creative",
   },
+  {
+    id: 22,
+    name: "Swastika",
+    role: "Video Editing",
+    image: "/team/swastika.jpg",
+    section: "Creative",
+  },
+  {
+    id: 23,
+    name: "Diaa",
+    role: "Email Writing & Reel Editing",
+    image: "/team/diaa.jpg",
+    section: "Creative",
+  },
   // Tech Track
   {
     id: 5,
