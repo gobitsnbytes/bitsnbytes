@@ -21,4 +21,4 @@ if [ "$SHOULD_EMBED" -eq 0 ]; then
   exit 0
 fi
 
-npx tsx scripts/embed-site.ts
+pnpm tsx scripts/embed-site.ts
