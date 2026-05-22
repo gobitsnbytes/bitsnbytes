@@ -7,7 +7,7 @@ dotenv.config({ path: ".env" })
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.backend_SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
 const EMBEDDING_MODEL = "openai/text-embedding-3-small"

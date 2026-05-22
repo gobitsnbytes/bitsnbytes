@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { safeJsonParse } from "@/lib/safe-json";
 
 import { Bot, Trash, MapPin } from "lucide-react";
 
@@ -797,12 +798,11 @@ export function QnAChatInterface() {
                               </div>
                             );
                           }
-
                           if (isChart) {
                             try {
                               const rawData = String(children).replace(/\n$/, "");
-                              const data = JSON.parse(rawData);
-                              if (Array.isArray(data)) {
+                              const data = safeJsonParse<any[]>(rawData, "generic", []);
+                              if (Array.isArray(data) && data.length > 0) {
                                 return (
                                   <div className="my-6 h-64 w-full rounded-2xl bg-zinc-950 p-4 border border-zinc-800 px-2 sm:px-4">
                                     <ResponsiveContainer
@@ -860,9 +860,11 @@ export function QnAChatInterface() {
 
                           if (isCountdown) {
                             try {
-                              const payload = JSON.parse(
+                              const payload = safeJsonParse<CountdownPayload | null>(
                                 String(children).replace(/\n$/, ""),
-                              ) as CountdownPayload;
+                                "countdown",
+                                null
+                              );
                               if (payload?.event && payload?.date) {
                                 return <CountdownCard payload={payload} />;
                               }
@@ -878,9 +880,11 @@ export function QnAChatInterface() {
 
                           if (isMemberCard) {
                             try {
-                              const payload = JSON.parse(
+                              const payload = safeJsonParse<MemberCardPayload | null>(
                                 String(children).replace(/\n$/, ""),
-                              ) as MemberCardPayload;
+                                "member_card",
+                                null
+                              );
                               if (payload?.name && payload?.role) {
                                 return <TeamMemberCard payload={payload} />;
                               }
@@ -899,8 +903,10 @@ export function QnAChatInterface() {
 
                           if (isProjectCard) {
                             try {
-                              const payload = JSON.parse(
+                              const payload = safeJsonParse<any>(
                                 String(children).replace(/\n$/, ""),
+                                "project_card",
+                                null
                               );
                               const ideas: ProjectIdea[] = Array.isArray(payload)
                                 ? payload

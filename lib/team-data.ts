@@ -11,12 +11,24 @@ export interface TeamMember {
     | "Community"
     | "Content"
     | "Operations";
+  photo?: string;
+  socials?: {
+    linkedin?: string;
+    github?: string;
+    website?: string;
+  };
 }
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Yash Singh",
     role: "Chief Executive Officer",
+    photo: "/team/yash.jpeg",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/yash-vardhan-singh-a41540270/",
+      github: "https://github.com/yashclouded",
+      website: "https://yashvibe.codes/",
+    },
     superpowers: [
       "Full-Stack Engineering",
       "Mathematics (IOQM)",
@@ -43,6 +55,12 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Aadrika Maurya",
     role: "Chief Creative Officer & Chief Operating Officer",
+    photo: "/team/aadrika.png",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/aadrika-maurya/",
+      github: "https://github.com/Aadrika08",
+      website: "https://aadrikasportfolio.framer.website/",
+    },
     superpowers: [
       "Neuroscience Research",
       "Creative Strategy",
@@ -66,6 +84,12 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Akshat Kushwaha",
     role: "Chief Technology Officer",
+    photo: "/team/akshat.jpg",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/akshat-singh-kushwaha/",
+      github: "https://github.com/a3ro-dev",
+      website: "https://a3ro.dev",
+    },
     superpowers: [
       "Production-Grade Engineering",
       "LLMOps & RAG Architecture",
@@ -91,6 +115,10 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Devaansh Pathak",
     role: "Chief Financial Officer",
+    photo: "/team/devansh.jpeg",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/devaanshpa/",
+    },
     superpowers: [
       "Backend Architecture",
       "Database Systems",
@@ -110,6 +138,10 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Drishti Arora",
     role: "Chief Marketing Officer",
+    photo: "/team/drishti.jpg",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/drish-arora",
+    },
     superpowers: [
       "Marketing Strategy",
       "Brand Growth",
@@ -130,6 +162,10 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Raghwender Vasisth",
     role: "Head of Operations",
+    photo: "/team/raghav.png",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/raghwender-vasisth/",
+    },
     superpowers: [
       "Operations Management",
       "Process Optimization",
@@ -150,6 +186,10 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Maryam Fatima",
     role: "Head of Brand & Media",
+    photo: "/team/maryam.jpeg",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/maryam-fatima-9719aa377/",
+    },
     superpowers: [
       "Visual Communication",
       "Brand Consistency",
@@ -171,6 +211,10 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Srishti Singh",
     role: "Head of Partnerships & Institutional Relations",
+    photo: "/team/srishti.jpeg",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/srishti-singh-ab6a1b391",
+    },
     superpowers: [
       "Process Optimization",
       "Resource Coordination",
