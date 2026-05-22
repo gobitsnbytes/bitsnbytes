@@ -96,14 +96,5 @@
   "browserslist": [
     "defaults",
     "not dead"
-  ],
-  "pnpm": {
-    "overrides": {
-      "sharp": "^0.33.5"
-    },
-    "ignoredBuiltDependencies": [
-      "msw",
-      "sharp"
-    ]
-  }
+  ]
 }

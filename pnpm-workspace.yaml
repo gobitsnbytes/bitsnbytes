@@ -1,5 +1,7 @@
 packages:
   - '.'
+overridePackages:
+  sharp: '^0.33.5'
 allowBuilds:
   esbuild: true
   msw: true
