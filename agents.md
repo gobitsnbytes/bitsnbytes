@@ -52,11 +52,11 @@ Quick reference for "who to ping for what".
 | Name | Role | Superpowers |
 |-----------|---------------------------|---------------------------------------------------------|
 | **Yash Singh** | Chief Executive Officer (CEO) | Competitive Math, AI Prototyping, Full-Stack Dev, Event Ops |
-| **Akshat Kushwaha** | Chief Technology Officer (CTO) & Chief Operating Officer (COO) | Production Infrastructure, AI/LLMOps, System Reliability, Operations |
-| **Aadrika Maurya** | Chief Creative Officer (CCO) | Neuroscience Research (EEG), Brand Strategy, Creative Direction |
+| **Akshat Kushwaha** | Chief Technology Officer (CTO) | Production Infrastructure, AI/LLMOps, System Reliability, Operations |
+| **Aadrika Maurya** | Chief Creative Officer (CCO) & Chief Operating Officer (COO) | Neuroscience Research (EEG), Brand Strategy, Creative Direction |
 | **Devaansh Pathak** | Chief Financial Officer (CFO) | Backend Architecture, Partnership Economics |
-| **Drishti** | Chief Marketing Officer (CMO) | Marketing Strategy, Brand Growth, Campaign Management |
-| **Raghav** | Head of Operations | Operations Management, Process Optimization, Resource Logistics |
+| **Drishti Arora** | Chief Marketing Officer (CMO) | Marketing Strategy, Brand Growth, Campaign Management |
+| **Raghwender Vasisth** | Head of Operations | Operations Management, Process Optimization, Resource Logistics |
 | **Maryam Fatima** | Head of Brand & Media | Visual Design, Campaign Strategy, Social |
 | **Srishti Singh** | Head of Partnerships & Institutional Relations | Logistics, Internal Comms, Coordination |
 
@@ -87,7 +87,7 @@ Bits&Bytes is supported by a volunteer network:
   - GitHub: https://github.com/yashclouded
 - **Owns:** Organizational strategy, event timelines, and outreach. The operator instincts and community connections that make events actually execute.
 
-#### Aadrika Maurya – Chief Creative Officer
+#### Aadrika Maurya – Chief Creative Officer & Chief Operating Officer
 - **Expertise:** Neuroscience (EEG/Attention modeling), Creative Strategy, Brand Direction
 - **Achievements:**
   - RSI India Alumni who conducted neuroscience research on EEG signals and attention modeling, the kind of work most people don't touch until grad school.
@@ -97,7 +97,7 @@ Bits&Bytes is supported by a volunteer network:
   - GitHub: https://github.com/Aadrika08
 - **Owns:** Creative direction, brand strategy, visual identity, and the vision for what the network becomes.
 
-#### Akshat Kushwaha – Chief Technology Officer & Chief Operating Officer
+#### Akshat Kushwaha – Chief Technology Officer
 - **Expertise:** AI-Native Engineering, Retrieval Systems, System Reliability, LLMOps
 - **Achievements:**
   - Ex Jr. Research Engineer at jhana.ai at 17, where he built production AI systems including a Steno dictation plugin and AI-era IVRS.
@@ -118,13 +118,13 @@ Bits&Bytes is supported by a volunteer network:
   - LinkedIn: https://www.linkedin.com/in/devaanshpa/
 - **Owns:** Financial operations, partnership economics, and backend architecture.
 
-#### Drishti – Chief Marketing Officer
+#### Drishti Arora – Chief Marketing Officer
 - **Expertise:** Marketing Strategy, Brand Growth, Campaign Management, Audience Development
 - **Profiles:**
   - LinkedIn: https://www.linkedin.com/in/drish-arora
 - **Owns:** Marketing strategy, brand growth, and audience development across all channels.
 
-#### Raghav – Head of Operations
+#### Raghwender Vasisth – Head of Operations
 - **Expertise:** Operations Management, Process Optimization, Resource Logistics, Team Coordination
 - **Profiles:**
   - LinkedIn: https://www.linkedin.com/in/raghwender-vasisth/

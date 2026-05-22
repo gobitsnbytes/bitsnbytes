@@ -23,7 +23,7 @@ const testimonials = [
     quote:
       "The brand isn't decoration. It's how we show people that teens can set the standard, not just follow it.",
     author: "Aadrika",
-    role: "Chief Operating Officer",
+    role: "Chief Creative Officer & Chief Operating Officer",
     company: "Bits&Bytes",
   },
   {

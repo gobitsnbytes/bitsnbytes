@@ -20,13 +20,11 @@ import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 import {
   Mic,
   Send,
-  Info,
   Bot,
   X,
   Trash,
   ThumbsUp,
   ThumbsDown,
-  Download,
 } from "lucide-react";
 
 type CountdownPayload = {
@@ -304,7 +302,7 @@ const SMART_FAQ: FaqEntry[] = [
       "core team",
     ],
     answer:
-      '**Bits&Bytes Core Team:**\n\n- **Yash Singh** — Chief Executive Officer\n\n- **Akshat Kushwaha** — Chief Technology Officer\n\n- **Aadrika Maurya** — Chief Operating Officer\n\n- **Devaansh Pathak** — Chief Financial Officer\n\n- **Drishti** — Chief Marketing Officer\n\n- **Raghav** — Head of Operations\n\n- **Maryam Fatima** — Head of Brand & Media\n\n- **Srishti Singh** — Head of Partnerships & Institutional Relations\n\n[Meet the team](/about "cta")',
+      '**Bits&Bytes Core Team:**\n\n- **Yash Singh** — Chief Executive Officer\n\n- **Akshat Kushwaha** — Chief Technology Officer\n\n- **Aadrika Maurya** — Chief Creative Officer & Chief Operating Officer\n\n- **Devaansh Pathak** — Chief Financial Officer\n\n- **Drishti Arora** — Chief Marketing Officer\n\n- **Raghav** — Head of Operations\n\n- **Maryam Fatima** — Head of Brand & Media\n\n- **Srishti Singh** — Head of Partnerships & Institutional Relations\n\n[Meet the team](/about "cta")',
   },
   {
     patterns: ["discord", "community link", "whatsapp group", "discord server"],
@@ -343,7 +341,7 @@ const SMART_FAQ: FaqEntry[] = [
       "akshats' achievements",
     ],
     answer:
-      '**Akshat Kushwaha** is Chief Technology Officer at Bits&Bytes, focused on production-grade systems, AI-native workflows, and platform reliability for club projects.\n\n[See our projects](/projects "cta")',
+      '**Akshat Kushwaha** is Chief Technology Officer (CTO) at Bits&Bytes, focused on production-grade systems, AI-native workflows, and platform reliability for club projects.\n\n[See our projects](/projects "cta")',
   },
 ];
 
@@ -1117,31 +1115,29 @@ const FloatingAiAssistant: React.FC = () => {
       <div className="relative">
         {/* Proactive tooltip */}
         {showProactive && !isChatOpen && (
-          <div className="absolute bottom-full right-0 mb-4 w-[220px] rounded-2xl border border-zinc-700/80 bg-zinc-900/95 p-4 shadow-xl shadow-black/40 animate-in slide-in-from-bottom-5 fade-in duration-500">
-            <div className="relative">
-              <button
-                onClick={() => setShowProactive(false)}
-                className="absolute -top-2 -right-2 p-1 text-zinc-500 hover:text-white transition-colors"
-              >
-                <X className="h-3 w-3" />
-              </button>
-              <p className="text-xs text-zinc-200 pr-2">
-                {pathname === "/events"
-                  ? "Want help registering for an event? 🎟️"
-                  : pathname === "/join"
-                    ? "I can help you join the club! 💡"
-                    : pathname === "/contact"
-                      ? "Need to reach someone specific? Ask me! 👋"
-                      : "Hey! Want to know what we do? 🚀"}
-              </p>
-              <div className="absolute -bottom-[21px] right-3 h-3 w-3 rotate-45 border-b border-r border-zinc-700/80 bg-zinc-900/95" />
-            </div>
+          <div className="absolute bottom-full right-0 mb-4 w-[200px] rounded-xl border border-zinc-700/60 bg-zinc-900/95 px-3 py-2.5 shadow-lg shadow-black/30 animate-in slide-in-from-bottom-3 fade-in duration-400">
+            <button
+              onClick={() => setShowProactive(false)}
+              className="absolute top-1.5 right-1.5 p-0.5 text-zinc-600 hover:text-zinc-300 transition-colors"
+            >
+              <X className="h-2.5 w-2.5" />
+            </button>
+            <p className="text-[0.7rem] text-zinc-300 pr-3 leading-snug">
+              {pathname === "/events"
+                ? "Want help registering for an event? 🎟️"
+                : pathname === "/join"
+                  ? "I can help you join the club! 💡"
+                  : pathname === "/contact"
+                    ? "Need to reach someone specific? Ask me! 👋"
+                    : "Hey! Want to know what we do? 🚀"}
+            </p>
+            <div className="absolute -bottom-[9px] right-4 h-2.5 w-2.5 rotate-45 border-b border-r border-zinc-700/60 bg-zinc-900/95" />
           </div>
         )}
 
         {/* Floating AI button */}
         <button
-          className={`floating-ai-button relative ml-auto flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full border border-white/40 bg-[var(--brand-pink)] shadow-lg shadow-[#e45a92]/40 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-110 active:scale-[0.93] hover:shadow-xl ${
+          className={`floating-ai-button relative ml-auto flex h-11 w-11 sm:h-13 sm:w-13 items-center justify-center rounded-full border border-white/30 bg-[var(--brand-pink)] shadow-lg shadow-[#e45a92]/30 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-105 active:scale-[0.93] ${
             isChatOpen ? "rotate-90" : "rotate-0"
           }`}
           onClick={handleToggle}
@@ -1151,108 +1147,80 @@ const FloatingAiAssistant: React.FC = () => {
               : "Open Bits&Bytes assistant"
           }
         >
-          {/* Inner ring */}
-          <div className="absolute inset-1 rounded-full border border-white/20" />
-
-          {/* Icon */}
           <div className="relative z-10 flex items-center justify-center">
             {isChatOpen ? (
-              <X className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+              <X className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             ) : (
-              <Bot className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+              <Bot className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             )}
           </div>
-
-          {/* Subtle glow */}
-          <div className="pointer-events-none absolute inset-0 rounded-full bg-[#e45a92]/40 opacity-40 blur-lg" />
-          <div className="pointer-events-none absolute inset-0 rounded-full bg-[#3e1e68]/40 opacity-40 blur-xl" />
+          <div className="pointer-events-none absolute inset-0 rounded-full bg-[#e45a92]/30 opacity-50 blur-md" />
         </button>
 
         {/* Chat panel */}
         {isChatOpen && (
           <div
             ref={chatRef}
-            className="fixed inset-4 bottom-[4.5rem] sm:absolute sm:inset-auto sm:bottom-16 sm:right-0 w-auto sm:w-[380px] origin-bottom-right animate-slide-in-up flex flex-col justify-end"
+            className="fixed inset-4 bottom-[4.5rem] sm:absolute sm:inset-auto sm:bottom-16 sm:right-0 w-auto sm:w-[360px] origin-bottom-right animate-slide-in-up flex flex-col justify-end"
           >
-            <div className="relative flex w-full max-h-[80vh] sm:max-h-[520px] flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-700/60 bg-zinc-950/95 shadow-2xl backdrop-blur-2xl">
-              {/* Header */}
-              <div className="flex flex-wrap items-center justify-between gap-3 px-4 pt-3 pb-2">
+            <div className="relative flex w-full max-h-[80vh] sm:max-h-[500px] flex-col overflow-hidden rounded-2xl border border-zinc-800/70 bg-zinc-950 shadow-2xl">
+              {/* Header — single clean row */}
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-zinc-800/70">
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-zinc-300">
-                      Bits&Bytes Assistant
-                    </span>
-                    <span className="text-[0.65rem] text-zinc-500">
-                      Answers from this site&apos;s public info only
-                    </span>
-                  </div>
+                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-xs font-medium text-zinc-200">
+                    Bits&Bytes Assistant
+                  </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="relative inline-flex items-center">
-                    <span
-                      id="export-toast"
-                      className="absolute right-full mr-2 whitespace-nowrap opacity-0 transition-opacity duration-300 text-[10px] font-medium text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded"
-                    >
-                      Copied!
-                    </span>
+                <div className="flex items-center gap-1">
+                  {messages.length > 0 && (
                     <button
-                      onClick={handleExport}
-                      className="inline-flex h-7 w-7 items-center justify-center rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
-                      title="Export chat as Markdown"
-                      disabled={messages.length === 0}
+                      onClick={() => {
+                        setMessages([]);
+                        setCharCount(0);
+                        setMessage("");
+                        window.localStorage.removeItem(STORAGE_KEY);
+                      }}
+                      className="inline-flex h-6 w-6 items-center justify-center rounded-md text-zinc-600 hover:text-zinc-300 hover:bg-zinc-800/60 transition-colors"
+                      aria-label="Clear chat"
+                      title="Clear chat"
                     >
-                      <Download className="h-3.5 w-3.5" />
+                      <Trash className="h-3 w-3" />
                     </button>
-                  </div>
-                  <button
-                    onClick={() => {
-                      setMessages([]);
-                      setCharCount(0);
-                      setMessage("");
-                      window.localStorage.removeItem(STORAGE_KEY);
-                    }}
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-800/80 hover:text-red-400 transition-colors"
-                    aria-label="Clear chat"
-                    title="Clear chat"
-                  >
-                    <Trash className="h-3.5 w-3.5" />
-                  </button>
+                  )}
                   <button
                     onClick={() => {
                       streamControllerRef.current?.abort();
                       setIsChatOpen(false);
                     }}
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-800/80 hover:text-zinc-100"
+                    className="inline-flex h-6 w-6 items-center justify-center rounded-md text-zinc-600 hover:text-zinc-300 hover:bg-zinc-800/60 transition-colors"
                     aria-label="Close assistant"
                   >
-                    <X className="h-3.5 w-3.5" />
+                    <X className="h-3 w-3" />
                   </button>
                 </div>
               </div>
 
               {/* Messages */}
-              <div className="mx-3 mb-2 h-[1px] bg-zinc-700/70" />
-              <div className="flex flex-col gap-3 overflow-y-auto px-4 pb-4 pt-1 text-sm text-zinc-100">
+              <div className="flex flex-col gap-2.5 overflow-y-auto px-3 py-3 text-sm text-zinc-100">
                 {messages.length === 0 && (
-                  <>
-                    <div className="rounded-2xl border border-zinc-700/80 bg-zinc-900/60 px-3 py-3 text-xs text-zinc-400">
-                      Ask me anything about Bits&Bytes—our mission, team,
-                      hackathons, impact stats, or how to get involved.
-                    </div>
-                    <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[0.7rem] text-zinc-500 px-1">
+                      Ask about our team, hackathons, or how to get involved.
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
                       {QUICK_PROMPTS.map((prompt) => (
                         <button
                           key={prompt}
                           type="button"
                           onClick={() => handleQuickPrompt(prompt)}
-                          className="rounded-full border border-zinc-800/80 bg-zinc-900/50 px-3 py-1 text-[0.65rem] text-zinc-300 transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.02] active:scale-[0.97] hover:border-[#e45a92] hover:text-white"
+                          className="rounded-full border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-[0.65rem] text-zinc-400 transition-colors hover:border-[#e45a92]/60 hover:text-zinc-200"
                         >
                           {prompt}
                         </button>
                       ))}
                     </div>
-                  </>
+                  </div>
                 )}
                 {messages.map((m) => (
                   <div
@@ -1645,75 +1613,43 @@ const FloatingAiAssistant: React.FC = () => {
               </div>
 
               {/* Input */}
-              <div className="border-t border-zinc-800/80 bg-zinc-950/80">
-                <div className="relative">
+              <div className="border-t border-zinc-800/70">
+                <div className="flex items-end gap-2 px-3 py-2.5">
                   <textarea
                     ref={textareaRef}
                     value={message}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
-                    rows={3}
-                    className="block w-full resize-none bg-transparent px-4 pb-10 pt-3 text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
-                    placeholder="Ask about our team, hackathons, impact, or how to join..."
+                    rows={2}
+                    className="flex-1 resize-none bg-zinc-900/60 rounded-xl px-3 py-2 text-[0.8rem] text-zinc-100 outline-none placeholder:text-zinc-600 border border-zinc-800/60 focus:border-zinc-700 transition-colors"
+                    placeholder="Ask anything..."
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-zinc-950/30" />
-                </div>
-
-                {/* Controls */}
-                <div className="flex items-center justify-between gap-2 px-3 pb-3 pt-2 w-full">
-                  <button
-                    type="button"
-                    onClick={() => void handleVoiceToggle()}
-                    className={`group flex items-center gap-1 shrink-0 rounded-lg border px-2 py-1.5 text-[0.7rem] transition-all duration-150 active:scale-[0.96] ${
-                      isRecording
-                        ? "border-red-500/60 bg-red-500/20 text-red-300"
-                        : "border-zinc-800/60 bg-zinc-900/80 text-zinc-500 hover:border-zinc-700 hover:text-zinc-200"
-                    }`}
-                    aria-label="Voice input"
-                  >
-                    <Mic
-                      className={`h-3 w-3 ${isRecording ? "animate-pulse text-red-400" : ""}`}
-                    />
-                    <span className="hidden sm:inline">
-                      {isRecording ? "Listening..." : "Voice"}
-                    </span>
-                  </button>
-
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-[0.65rem] sm:text-[0.7rem] text-zinc-500 hidden xs:inline-block">
-                      {charCount}/{MAX_CHARS}
-                    </span>
+                  <div className="flex flex-col items-center gap-1.5 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => void handleVoiceToggle()}
+                      className={`inline-flex h-8 w-8 items-center justify-center rounded-lg transition-colors ${
+                        isRecording
+                          ? "bg-red-500/20 text-red-400"
+                          : "text-zinc-600 hover:text-zinc-300 hover:bg-zinc-800/60"
+                      }`}
+                      aria-label="Voice input"
+                      title={isRecording ? "Stop recording" : "Voice input"}
+                    >
+                      <Mic className={`h-3.5 w-3.5 ${isRecording ? "animate-pulse" : ""}`} />
+                    </button>
                     <button
                       type="button"
                       onClick={() => void handleSend()}
                       disabled={!message.trim() || isLoading}
-                      className="relative inline-flex h-8 sm:h-9 items-center justify-center rounded-xl bg-[var(--brand-pink)] px-3 sm:px-4 text-xs font-semibold text-white shadow-lg shadow-[#e45a92]/30 transition-all duration-150 hover:scale-[1.03] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--brand-pink)] text-white shadow-md shadow-[#e45a92]/20 transition-all hover:opacity-90 active:scale-[0.95] disabled:opacity-40 disabled:cursor-not-allowed"
+                      aria-label="Send"
                     >
-                      <Send className="mr-1.5 h-3.5 w-3.5" />
-                      Ask
+                      <Send className="h-3.5 w-3.5" />
                     </button>
                   </div>
                 </div>
-
-                {/* Footer helper */}
-                <div className="flex items-center justify-between gap-2 border-t border-zinc-800/80 px-3 py-2 text-[0.65rem] text-zinc-500 w-full overflow-hidden">
-                  <div className="flex items-center gap-1.5 shrink-0">
-                    <Info className="h-3 w-3 shrink-0" />
-                    <span className="hidden sm:inline">
-                      Press{" "}
-                      <kbd className="rounded border border-zinc-700 bg-zinc-900 px-1.5 py-0.5 font-mono text-[0.65rem] mx-1">
-                        Shift + Enter
-                      </kbd>{" "}
-                      for a new line
-                    </span>
-                    <span className="sm:hidden">Assistant</span>
-                  </div>
-                  {/* model / attribution removed intentionally */}
-                </div>
               </div>
-
-              {/* Soft overlay accent */}
-              <div className="pointer-events-none absolute inset-0 rounded-3xl bg-[#e45a92]/10" />
             </div>
           </div>
         )}

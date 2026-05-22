@@ -40,17 +40,21 @@ We were hosting Daydream Lucknow under Hack Club. Everything was set: venue, spo
 - **Lucknow Build Guild** [ARCHIVED] — Free hardware workshop and meetup held on April 19, 2026 at SureStay by Best Western, Lucknow. Hosted by Shaurya. Event site: https://www.lucknow-build-guild.xyz/, Host: https://linktr.ee/shauryaashu and https://github.com/Shaurya-Ashu.
 
 ## Leadership Team (Core Team)
-- **Yash Singh** — Co-Founder & Organisation Lead. Builds things that matter: a VS Code extension with thousands of users, hackathons with 400+ participants. IOQM National Qualifier. Built AI projects including laser pushup detection systems and PDF scrapers. Organized Scrapyard LKO and GDS MUN. Educator at STEMist Lucknow. LinkedIn: https://www.linkedin.com/in/yash-vardhan-singh-a41540270/, GitHub: https://github.com/yashclouded, Website: https://yashvibe.codes/
+- **Yash Singh** — Co-Founder & Chief Executive Officer (CEO). Builds things that matter: a VS Code extension with thousands of users, hackathons with 400+ participants. IOQM National Qualifier. Built AI projects including laser pushup detection systems and PDF scrapers. Organized Scrapyard LKO and GDS MUN. Educator at STEMist Lucknow. LinkedIn: https://www.linkedin.com/in/yash-vardhan-singh-a41540270/, GitHub: https://github.com/yashclouded, Website: https://yashvibe.codes/
 
-- **Aadrika Maurya** — Co-Founder & Chief Creative Strategist. RSI India Alumni who conducted neuroscience research on EEG signals and attention modeling, the kind of work most people don't touch until grad school. Owns the creative direction and the strategy for what the network becomes. LinkedIn: https://www.linkedin.com/in/aadrika-maurya/, GitHub: https://github.com/Aadrika08, Website: https://aadrikasportfolio.framer.website/
+- **Aadrika Maurya** — Co-Founder, Chief Creative Officer (CCO) & Chief Operating Officer (COO). RSI India Alumni who conducted neuroscience research on EEG signals and attention modeling, the kind of work most people don't touch until grad school. Owns the creative direction, operations, and the strategy for what the network becomes. LinkedIn: https://www.linkedin.com/in/aadrika-maurya/, GitHub: https://github.com/Aadrika08, Website: https://aadrikasportfolio.framer.website/
 
-- **Akshat Kushwaha** — Co-Founder & Technical Lead. AI-native systems engineer who asks what happens when software fails. Ex Jr. Research Engineer at jhana.ai at 17, where he built production AI systems including a Steno dictation plugin and AI-era IVRS. Owns the entire tech stack and anything that needs to work under pressure. LinkedIn: https://www.linkedin.com/in/akshat-singh-kushwaha/, GitHub: https://github.com/a3ro-dev, Website: https://a3ro.dev
+- **Akshat Kushwaha** — Co-Founder & Chief Technology Officer (CTO). AI-native systems engineer who asks what happens when software fails. Ex Jr. Research Engineer at jhana.ai at 17, where he built production AI systems including a Steno dictation plugin and AI-era IVRS. Owns the entire tech stack and anything that needs to work under pressure. LinkedIn: https://www.linkedin.com/in/akshat-singh-kushwaha/, GitHub: https://github.com/a3ro-dev, Website: https://a3ro.dev
 
-- **Devaansh Pathak** — Founding Member & Backend Lead. Handles backend architecture and the economics of partnerships. LinkedIn: https://www.linkedin.com/in/devaanshpa/
+- **Devaansh Pathak** — Chief Financial Officer (CFO). Handles backend architecture and the economics of partnerships. LinkedIn: https://www.linkedin.com/in/devaanshpa/
 
-- **Maryam Fatima** — Social Media & Promotions Head. Runs social strategy. 10k+ impressions on club events. Designs visual campaigns for independent hackathons. LinkedIn: https://www.linkedin.com/in/maryam-fatima-9719aa377/
+- **Drishti Arora** — Chief Marketing Officer (CMO). Leads marketing strategy, brand growth, and audience development across all Bits&Bytes channels. LinkedIn: https://www.linkedin.com/in/drish-arora
 
-- **Sristhi Singh** — Operations & Communications Head. Keeps 100+ members on the same page. Coordinates between design/dev squads and handles logistics for city-wide events. LinkedIn: https://www.linkedin.com/in/srishti-singh-ab6a1b391
+- **Raghwender Vasisth** — Head of Operations. Drives operational excellence and keeps the organization running at scale across city-wide events. LinkedIn: https://www.linkedin.com/in/raghwender-vasisth/
+
+- **Maryam Fatima** — Head of Brand & Media. Runs social strategy. 10k+ impressions on club events. Designs visual campaigns for independent hackathons. LinkedIn: https://www.linkedin.com/in/maryam-fatima-9719aa377/
+
+- **Srishti Singh** — Head of Partnerships & Institutional Relations. Keeps 100+ members on the same page. Coordinates between design/dev squads and handles logistics for city-wide events. LinkedIn: https://www.linkedin.com/in/srishti-singh-ab6a1b391
 
 ## Technology Stack
 - **Frontend**: Next.js, React, TypeScript, Tailwind CSS, Framer Motion, Three.js / WebGL

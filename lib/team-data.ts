@@ -42,7 +42,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Aadrika Maurya",
-    role: "Chief Operating Officer",
+    role: "Chief Creative Officer & Chief Operating Officer",
     superpowers: [
       "Neuroscience Research",
       "Creative Strategy",
@@ -108,7 +108,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     department: "Engineering",
   },
   {
-    name: "Drishti",
+    name: "Drishti Arora",
     role: "Chief Marketing Officer",
     superpowers: [
       "Marketing Strategy",
@@ -128,7 +128,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     department: "Leadership",
   },
   {
-    name: "Raghav",
+    name: "Raghwender Vasisth",
     role: "Head of Operations",
     superpowers: [
       "Operations Management",
