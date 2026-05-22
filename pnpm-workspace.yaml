@@ -1,3 +1,4 @@
+packages: []
 allowBuilds:
   msw: true
   protobufjs: true
