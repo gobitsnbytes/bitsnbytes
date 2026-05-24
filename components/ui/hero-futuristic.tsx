@@ -23,8 +23,8 @@ import { GlassContainer } from "@/components/ui/glass-container";
 
 const stats = [
   { value: "1500+", label: "Active members" },
-  { value: "130+", label: "Projects shipped" },
-  { value: "100+", label: "Partner schools" },
+  { value: "2700+", label: "Submissions" },
+  { value: "100%", label: "Student-led" },
 ];
 
 export const HeroFuturistic = () => {

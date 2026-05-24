@@ -326,7 +326,7 @@ const SMART_FAQ: FaqEntry[] = [
       "why bits",
     ],
     answer:
-      'At Bits&Bytes we build for **high-agency teen builders** who want to ship real products:\n\n- **Hackathons** — Scrapyard Lucknow, NASA Space Apps, and 48-hour sprints\n- **Workshops** — Web dev, AI/ML, mobile apps, UI/UX, hardware building\n- **Build programs** — Portfolio-ready projects with mentorship at every stage\n- **Mentorship pods** — Pair programming, code reviews, and accountability partners\n\nWe treat participants like **ambitious builders**, not beginners. Every prompt becomes a prototype. You\'ll ship real impact.\n\n[View our projects](/projects "cta")',
+      'At Bits&Bytes we build for **high-agency teen builders** who want to ship real products:\n\n- **Hackathons** — Regional hackathons, builder sprints, and 48-hour prototype builds\n- **Workshops** — Web dev, AI/ML, mobile apps, UI/UX, hardware building\n- **Build programs** — Portfolio-ready projects with mentorship at every stage\n- **Mentorship pods** — Pair programming, code reviews, and accountability partners\n\nWe treat participants like **ambitious builders**, not beginners. Every prompt becomes a prototype. You\'ll ship real impact.\n\n[View our projects](/projects "cta")',
   },
   {
     patterns: ["events", "upcoming event", "next event", "what events"],

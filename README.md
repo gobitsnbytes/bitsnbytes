@@ -1,5 +1,7 @@
 # Bits&Bytes Official Website
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/gobitsnbytes/bitsnbytes)
+
 Official platform for Bits&Bytes, a teen-led coding community based in Lucknow, India. This repository powers the public website, community pages, and an AI assistant with retrieval and tool-calling support.
 
 ## What This Project Includes
@@ -149,7 +151,7 @@ See `TECHNICAL_DOCUMENTATION.md` for deeper schema and function examples.
 The script `scripts/embed-site.ts` currently reads:
 
 - `public/llms.txt`
-- `agents.md`
+- `AGENTS.md`
 
 Then it generates embeddings and inserts chunks into `site_embeddings`.
 
@@ -181,7 +183,7 @@ The app also injects git metadata at build time in `next.config.mjs`.
 ## Documentation
 
 - High-level technical reference: `TECHNICAL_DOCUMENTATION.md`
-- Organization and team handbook used for assistant context: `agents.md`
+- Organization and team handbook used for assistant context: `AGENTS.md`
 
 ## Contributing
 

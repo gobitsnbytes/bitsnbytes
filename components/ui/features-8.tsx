@@ -131,10 +131,10 @@ export function Features() {
             </div>
             <div className="relative z-10 mt-10 space-y-3 text-center">
               <h2 className="text-2xl font-black text-white px-2">
-                130+ Projects
+                2700+ Submissions
               </h2>
               <p className="text-base text-white/60 font-medium">
-                From apps to AI. Shipped to production.
+                Evaluated by the Bits&Bytes team in a 3-day sprint.
               </p>
             </div>
           </GlassContainer>

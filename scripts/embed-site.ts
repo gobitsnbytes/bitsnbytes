@@ -127,7 +127,7 @@ async function run() {
 
   const filePaths = [
     { absPath: path.resolve(process.cwd(), "public/llms.txt"), endpoint: "/llms.txt" },
-    { absPath: path.resolve(process.cwd(), "agents.md"), endpoint: "/agents.md" }
+    { absPath: path.resolve(process.cwd(), "AGENTS.md"), endpoint: "/AGENTS.md" }
   ]
 
   let siteContent: SiteChunk[] = []

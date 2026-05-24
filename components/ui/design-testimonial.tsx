@@ -14,37 +14,23 @@ import {
 const testimonials = [
   {
     quote:
-      "I didn't expect a student club to feel this real. We're not pretending to build things. We actually are.",
-    author: "Yash",
-    role: "Chief Executive Officer",
-    company: "Bits&Bytes",
-  },
-  {
-    quote:
-      "The brand isn't decoration. It's how we show people that teens can set the standard, not just follow it.",
-    author: "Aadrika",
+      "Most cities don't have a student tech scene. It’s not a lack of talent, it’s just a lack of people around you who are also building. We got tired of waiting for someone else to fix that, so we built Bits&Bytes. It's just us doing the unglamorous work, showing up, and giving people a place to finally ship their chaotic, half-baked ideas together.",
+    author: "Aadrika Maurya",
     role: "Chief Creative Officer & Chief Operating Officer",
     company: "Bits&Bytes",
   },
   {
     quote:
-      "If the site goes down, 1500 people notice. That's why I care about infrastructure that actually holds up, not just looks good in a demo.",
+      "There's a difference between building and shipping, and most people never cross that line. We don't have VC money or fancy decks. We just have a ridiculous amount of conviction that high schoolers should be pushing real projects to real users. Ship first. Panic later. That's the bar.",
+    author: "Yash Vardhan Singh",
+    role: "Chief Executive Officer",
+    company: "Bits&Bytes",
+  },
+  {
+    quote:
+      "Bits&Bytes started as a cope because my school said no to a CS club. Now, we run hackathons where teenagers actually ship code instead of pitching slide decks. You don't need institutional approval or a five-year plan to build something cool. You just need to ignore the gatekeepers and write the code.",
     author: "Akshat Kushwaha",
     role: "Chief Technology Officer",
-    company: "Bits&Bytes",
-  },
-  {
-    quote:
-      "Backend work isn't glamorous but it's what makes everything else possible. If the database dies, the hackathon dies.",
-    author: "Devansh",
-    role: "Chief Financial Officer",
-    company: "Bits&Bytes",
-  },
-  {
-    quote:
-      "I post because I want other teens to see this and think, 'Wait, I could do that too.' That's the whole point.",
-    author: "Maryam",
-    role: "Head of Brand & Media",
     company: "Bits&Bytes",
   },
 ];

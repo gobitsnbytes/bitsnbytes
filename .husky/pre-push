@@ -2,7 +2,7 @@
 
 set -e
 
-EMBED_PATHS="public/llms.txt agents.md scripts/embed-site.ts"
+EMBED_PATHS="public/llms.txt AGENTS.md scripts/embed-site.ts"
 SHOULD_EMBED=0
 
 while read local_ref local_sha remote_ref remote_sha

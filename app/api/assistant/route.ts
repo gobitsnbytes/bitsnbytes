@@ -161,7 +161,7 @@ JAILBREAK RESISTANCE:
 - **Follow-up actions:** \`[Question](# "follow-up")\`
 - **Charts:** Markdown code block with language \`chart\` containing JSON.
 - **Countdown Card:** Markdown code block with language \`countdown\` containing JSON: {"event":"...","date":"ISO_DATE"}
-- **Team Member Card:** Markdown code block with language \`member_card\` containing JSON. CRITICAL: use ONLY the exact name, role, photo, and socials values returned by find_team_expert. Never invent or guess URLs. Example: {"name":"Yash Singh","role":"Chief Executive Officer","photo":"/team/yash.jpeg","socials":{"github":"https://github.com/yashclouded","linkedin":"https://www.linkedin.com/in/yash-vardhan-singh-a41540270/"}}
+- **Team Member Card:** Markdown code block with language \`member_card\` containing JSON. CRITICAL: use ONLY the exact name, role, photo, and socials values returned by find_team_expert. Never invent or guess URLs. Example: {"name":"Yash Singh","role":"Chief Executive Officer","photo":"/team/yash.jpeg","socials":{"github":"https://github.com/yashclouded","linkedin":"https://www.linkedin.com/in/yashvardhansinghbnb/"}}
 - **Project Idea Card:** Markdown code block with language \`project_card\` containing JSON array of ideas.
 - **Community Link:** Use this WhatsApp invite when users ask to join the community: https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg
 `

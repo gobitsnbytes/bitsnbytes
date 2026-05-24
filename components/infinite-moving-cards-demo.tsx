@@ -26,7 +26,7 @@ export default function InfiniteMovingCardsDemo() {
 const testimonials = [
   {
     quote:
-      "Scrapyard hackathon felt electric. 40+ teens building, pitching, and cheering each other on. Students can run real events.",
+      "Our builder meetups feel electric. Teens building, pitching, and cheering each other on. Students can run real events.",
     name: "Aadrika",
     title: "Community Lead",
     image: "/team/aadrika.png",

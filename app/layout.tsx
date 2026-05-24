@@ -154,7 +154,7 @@ export default function RootLayout({
     image: "https://gobitsnbytes.org/og-image.png",
     description:
       "India's boldest teen-led code club. We run hackathons, workshops, and build real projects with 1500+ student developers across India.",
-    foundingDate: "2024",
+    foundingDate: "2025",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Lucknow",
@@ -176,10 +176,6 @@ export default function RootLayout({
       contactType: "customer service",
       url: "https://gobitsnbytes.org/contact",
       availableLanguage: ["English", "Hindi"],
-    },
-    memberOf: {
-      "@type": "Organization",
-      name: "Hack Club",
     },
     knowsAbout: [
       "Web Development",
@@ -244,7 +240,7 @@ export default function RootLayout({
       {
         "@type": "WebPage",
         name: "Projects",
-        description: "Explore 130+ projects built by teen developers",
+        description: "Explore projects built by teen developers",
         url: "https://gobitsnbytes.org/projects",
       },
       {
@@ -262,7 +258,7 @@ export default function RootLayout({
       {
         "@type": "WebPage",
         name: "Impact",
-        description: "See our community impact - 1500+ students, 130+ projects",
+        description: "See our community impact - 1500+ students, 100% student-led",
         url: "https://gobitsnbytes.org/impact",
       },
       {

@@ -42,8 +42,8 @@ const Testimonial = dynamic(
 
 const stats = [
   { value: "1500+", label: "Active members", detail: "across India" },
-  { value: "130+", label: "Projects shipped", detail: "from apps to AI" },
-  { value: "100+", label: "Partner schools", detail: "and growing" },
+  { value: "2700+", label: "Submissions evaluated", detail: "in a 3-day sprint" },
+  { value: "100%", label: "Student-led", detail: "by and for teens" },
 ];
 
 // Focus Areas are now handled within the Features component
@@ -67,7 +67,7 @@ export default function Home() {
                 key={stat.label}
                 className="p-8"
                 glowColor={
-                  stat.label === "Projects shipped" ? "pink" : "purple"
+                  stat.label === "Submissions evaluated" ? "pink" : "purple"
                 }
                 delay={idx * 0.15}
                 interactive

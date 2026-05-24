@@ -103,8 +103,7 @@ export default function Impact() {
               <p className="max-w-2xl text-base sm:text-lg md:text-xl text-white/85 font-medium leading-relaxed">
                 From first-time hackathons to squads inside local schools, we
                 build experiences that get teens building, and we ship the
-                results publicly. We built our first independent hackathon in 13
-                days flat.
+                results publicly.
               </p>
             </div>
           </div>
@@ -161,85 +160,7 @@ export default function Impact() {
           </div>
         </PageSection>
 
-        <PageSection
-          align="center"
-          eyebrow="Event highlight"
-          title="Scrapyard Lucknow 2024"
-          description={
-            <span className="mx-auto block max-w-2xl">
-              40+ coders, designers, filmmakers, and builders working on civic,
-              education, and sustainability problems.
-            </span>
-          }
-        >
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-            {[
-              {
-                image:
-                  "/images/b653f79c-fcc9-49bb-a92a-4fc454659b3a-1-105-c.jpeg",
-                title: "40+ Builders",
-                copy: "Coders, designers, and filmmakers in one room",
-              },
-              {
-                image: "/images/hero-img.jpeg",
-                title: "Ideation",
-                copy: "Working through ideas for civic and education problems",
-              },
-              {
-                image:
-                  "/images/4c59e5bb-c1eb-4e4d-9b69-f29faa693002-1-105-c.jpeg",
-                title: "Project Showcase",
-                copy: "Presenting prototypes to judges and club members",
-              },
-            ].map((card, idx) => (
-              <CardContainer
-                key={card.title}
-                className="inter-var w-full h-full"
-                containerClassName="py-0"
-              >
-                <GlassContainer
-                  className="flex h-full min-h-[440px] flex-col p-6"
-                  containerClassName="h-full"
-                  glowColor={idx % 2 === 0 ? "pink" : "purple"}
-                  delay={idx * 0.15}
-                  interactive
-                >
-                  <CardItem
-                    translateZ="100"
-                    className="mb-6 w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl"
-                  >
-                    <Image
-                      src={card.image}
-                      height={600}
-                      width={600}
-                      className="h-52 w-full object-cover grayscale transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:grayscale-0 group-hover:scale-110"
-                      alt={card.title}
-                    />
-                  </CardItem>
-                  <CardItem
-                    translateZ="50"
-                    className="font-display text-2xl font-black text-white"
-                  >
-                    {card.title}
-                  </CardItem>
-                  <CardItem
-                    as="p"
-                    translateZ="60"
-                    className="mt-3 flex-1 text-base text-white/70 font-medium leading-relaxed"
-                  >
-                    {card.copy}
-                  </CardItem>
-                  <CardItem translateZ="40" className="mt-6">
-                    <div className="inline-flex items-center gap-3 text-sm font-black text-(--brand-pink) uppercase tracking-widest">
-                      <span>0{idx + 1}</span>
-                      <div className="h-px w-12 bg-gradient-to-r from-(--brand-pink) to-transparent" />
-                    </div>
-                  </CardItem>
-                </GlassContainer>
-              </CardContainer>
-            ))}
-          </div>
-        </PageSection>
+
 
         <PageSection
           align="center"

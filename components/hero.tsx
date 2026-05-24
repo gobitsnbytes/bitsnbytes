@@ -118,18 +118,18 @@ export default function Hero() {
                     </div>
                     <div>
                       <p className="text-lg sm:text-xl font-bold text-[var(--brand-pink)]">
-                        130+
+                        2700+
                       </p>
                       <p className="text-[0.65rem] sm:text-xs text-white/60">
-                        Projects
+                        Submissions
                       </p>
                     </div>
                     <div>
                       <p className="text-lg sm:text-xl font-bold text-[var(--brand-plum)]">
-                        100+
+                        100%
                       </p>
                       <p className="text-[0.65rem] sm:text-xs text-white/60">
-                        Schools
+                        Student-Led
                       </p>
                     </div>
                   </div>

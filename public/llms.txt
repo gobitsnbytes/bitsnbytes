@@ -7,25 +7,25 @@
 This file provides context for AI agents and LLM-powered search engines about Bits&Bytes.
 
 ## Quick Facts
-- **Founded:** 2024
+- **Founded:** 2025
 - **Location:** Lucknow, Uttar Pradesh, India
 - **Members:** 1500+ active student developers from across India
-- **Projects Shipped:** 130+ real products (apps, web, AI)
-- **Partner Schools:** 100+ and growing
+- **Submissions Evaluated:** 2,700+ (in a 3-day civic tech partner sprint)
+- **Scale:** 100% Student-led
 - **Membership Cost:** Free. Always student-led.
 - **Age Range:** 13-19 years old
 
 ## Core Identity & Culture
 Bits&Bytes is a teen-led code club. Three co-founders, no adults in the room. Built from scratch. We're not a chapter of someone else's thing. We're fully independent, fully student-led, and we run events on our own terms.
 
-We were hosting Daydream Lucknow under Hack Club. Everything was set: venue, sponsors, participants. At the last moment, Hack Club pulled the venue. So we went fully independent and built the entire hackathon in 13 days flat. That's probably the most honest thing we can tell you about us. We don't quit, and we don't make excuses.
+In July 2025, our team was organizing a major regional student hackathon under an external partner organization. By mid-August, the partner organization cancelled the event, which was a significant setback. To overcome this uncertainty and avoid relying on external groups, we founded Bits&Bytes in November 2025. Originally, our goal was simply to gather everyone together and host a 24-hour independent hackathon to make up for the cancelled event. However, we quickly realized we could build something far more impactful and sustainable. Since then, we have launched cohort-based programs, executed the India Innovates partner sprint, and grown into a nationwide teen builder network.
 
 - **Ship or dip:** Talking about your idea is easy. We'd rather have a working prototype by Sunday than a perfect slide deck by next month.
 - **Your squad keeps you honest:** Mentors, pods, and the kind of peer pressure that makes you actually finish things. Nobody ghosts a project when their team is waiting on their code.
 - **Built for users, not grades:** School operations, civic tech, accessibility tools. The things we ship get used by real people, not just submitted for a rubric.
 
 ## What We Do
-1. **Hackathons**: Organizing events like Scrapyard Lucknow where 40+ coders tackle civic, education, and sustainability problems.
+1. **Hackathons**: Organizing events where coders tackle real-world civic, education, and sustainability problems.
 2. **Workshops**: Dev tools and AI, one weekend at a time.
 3. **Projects**: Members ship real products with mentorship at every step, from idea to deployment.
 4. **Community**: A safe, inclusive community where people can actually build things without garbage getting in the way.
@@ -40,7 +40,7 @@ We were hosting Daydream Lucknow under Hack Club. Everything was set: venue, spo
 - **Lucknow Build Guild** [ARCHIVED] — Free hardware workshop and meetup held on April 19, 2026 at SureStay by Best Western, Lucknow. Hosted by Shaurya. Event site: https://www.lucknow-build-guild.xyz/, Host: https://linktr.ee/shauryaashu and https://github.com/Shaurya-Ashu.
 
 ## Leadership Team (Core Team)
-- **Yash Singh** — Co-Founder & Chief Executive Officer (CEO). Builds things that matter: a VS Code extension with thousands of users, hackathons with 400+ participants. IOQM National Qualifier. Built AI projects including laser pushup detection systems and PDF scrapers. Organized Scrapyard LKO and GDS MUN. Educator at STEMist Lucknow. LinkedIn: https://www.linkedin.com/in/yash-vardhan-singh-a41540270/, GitHub: https://github.com/yashclouded, Website: https://yashvibe.codes/
+- **Yash Singh** — Co-Founder & Chief Executive Officer (CEO). Builds things that matter: a VS Code extension with thousands of users, hackathons with 400+ participants. IOQM National Qualifier. Built AI projects including laser pushup detection systems and PDF scrapers. Organized local developer meetups and GDS MUN. Educator at STEMist Lucknow. LinkedIn: https://www.linkedin.com/in/yashvardhansinghbnb/, GitHub: https://github.com/yashclouded, Website: https://yashvibe.codes/
 
 - **Aadrika Maurya** — Co-Founder, Chief Creative Officer (CCO) & Chief Operating Officer (COO). RSI India Alumni who conducted neuroscience research on EEG signals and attention modeling, the kind of work most people don't touch until grad school. Owns the creative direction, operations, and the strategy for what the network becomes. LinkedIn: https://www.linkedin.com/in/aadrika-maurya/, GitHub: https://github.com/Aadrika08, Website: https://aadrikasportfolio.framer.website/
 
@@ -153,7 +153,7 @@ Notes:
 
 ## RAG / Indexing (maintenance)
 - The site uses `scripts/embed-site.ts` to generate embeddings and populate the `site_embeddings` table in Supabase.
-- By default the script currently indexes `public/llms.txt` and `agents.md`. If you update these files, re-run:
+- By default the script currently indexes `public/llms.txt` and `AGENTS.md`. If you update these files, re-run:
 
 ```bash
 npx tsx scripts/embed-site.ts

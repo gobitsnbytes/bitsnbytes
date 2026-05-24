@@ -10,10 +10,14 @@ This handbook describes the core Bits&Bytes "agents" (team members), what each p
 ## 1. Brand & Identity
 
 ### 1.1 Mission & Vision
-We're not a chapter of someone else's thing. We're fully independent, fully student-led, and we run events on our own terms. Platforms like CodeDay, Hack Club, and NASA Space Apps are great for beginners, but they lock organizers into rigid formats that don't deliver. We're building the alternative. Anyone can participate, but they'll be surrounded by people who actually want to ship, not just attend.
+We're not a branch of any external student group. We're fully independent, fully student-led, and we run events on our own terms. Traditional structured networks are great for beginners, but they lock organizers into rigid formats that don't deliver. We're building the alternative. Anyone can participate, but they'll be surrounded by people who actually want to ship, not just attend.
 
 ### 1.2 The Origin Story
-We were hosting Daydream Lucknow under Hack Club. Everything was set: venue, sponsors, participants. At the last moment, Hack Club pulled the venue. So we went fully independent and built the entire hackathon in 13 days flat. That's probably the most honest thing we can tell you about us. We don't quit, and we don't make excuses.
+In July 2025, our team was organizing a major regional student hackathon under an external partner organization. By mid-August, the partner organization cancelled the event, which was a significant setback.
+
+To overcome this uncertainty and avoid relying on external groups, we founded Bits&Bytes in November 2025. Originally, our goal was simply to gather everyone together and host a 24-hour independent hackathon to make up for the cancelled event. However, we quickly realized we could build something far more impactful and sustainable.
+
+Since then, our team has gone through major revamps, but our core mission has remained clear. We have since launched cohort-based programs, executed the India Innovates partner sprint, and grown into a nationwide teen builder network.
 
 ### 1.3 Brand Kit
 Bits&Bytes uses a compact, production-friendly visual identity. Key elements:
@@ -80,7 +84,7 @@ Bits&Bytes is supported by a volunteer network:
   - Created **Codiva**, a 5-star rated VS Code extension with thousands of users.
   - National Qualifier for the **Indian Mathematics Olympiad (IOQM)**.
   - Built AI projects including laser pushup detection systems and PDF scrapers.
-  - Lead Organizer for Scrapyard Lucknow and GDS MUN. Mentor at NASA Space Apps Challenge (helping 400+ participants).
+  - Lead Organizer for local developer meetups and GDS MUN. Mentor at national student hackathons (helping 400+ participants).
   - Educator at **STEMist Lucknow**, teaching CS to underprivileged students.
 - **Profiles:**
   - Website: https://yashvibe.codes/
@@ -134,14 +138,12 @@ Bits&Bytes is supported by a volunteer network:
 
 ## 4. Track Record
 
-- **Scrapyard Lucknow:** 40+ coders, designers, and filmmakers in one room. Executed in 13 days.
 - **India Innovates 2026:** Official Executive Partner for the World's Largest Civic Tech Hackathon with 1.26 crore+ applicants.
 - **Execron 1.0:** Co-hosted AI Hackathon & Workshop at IIT Kanpur for students in Classes 9–12.
 - **GitHub Copilot Dev Days:** Hosted community developer event focused on AI-assisted coding in Lucknow.
 - **Lucknow Build Guild:** Free hardware workshop and meetup for local tech people.
-- **NASA Space Apps Challenge Lucknow:** 300+ participants.
-- **CodeDay Hackathons:** Across Lucknow, Delhi, and Dehradun.
-- **Web Presence:** gobitsnbytes.org serves thousands of monthly visitors with 1,500+ active members and 130+ shipped projects.
+- **Regional Space Apps Hackathon:** 300+ participants.
+- **Web Presence:** gobitsnbytes.org serves thousands of monthly visitors with 1,500+ active members.
 - **Evaluation Throughput:** 2,700+ project submissions reviewed in 3-day sprints.
 
 ---
@@ -165,7 +167,7 @@ Bits&Bytes is supported by a volunteer network:
   - live page context (client `pathname` and optional page snippets sent by the client), and
   - a semantic RAG index stored in Supabase (`site_embeddings`) and queried via `lib/rag.ts`.
 - Embeddings are generated with `openai/text-embedding-3-small` through the Hack Club proxy (`HACKCLUB_PROXY_API_KEY`) by `scripts/embed-site.ts`.
-- The embed script currently indexes `public/llms.txt` and `agents.md` (keeping these files current keeps the RAG index up to date).
+- The embed script currently indexes `public/llms.txt` and `AGENTS.md` (keeping these files current keeps the RAG index up to date).
 - To refresh the RAG index after content changes run:
 
 ```bash

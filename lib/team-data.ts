@@ -25,7 +25,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     role: "Chief Executive Officer",
     photo: "/team/yash.jpeg",
     socials: {
-      linkedin: "https://www.linkedin.com/in/yash-vardhan-singh-a41540270/",
+      linkedin: "https://www.linkedin.com/in/yashvardhansinghbnb/",
       github: "https://github.com/yashclouded",
       website: "https://yashvibe.codes/",
     },
@@ -37,12 +37,12 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Three.js & Creative Coding",
     ],
     achievements: [
-      "Founder of Bits&Bytes (gobitsnbytes.org), leading 100+ active members in student-led tech culture",
+      "Founder of Bits&Bytes (gobitsnbytes.org), leading 1,500+ active members in student-led tech culture",
       "Created Codiva: A 5-star rated VS Code extension that gamifies coding for thousands of users",
       "National Qualifier for the Indian Mathematics Olympiad (IOQM)",
       "Built Alem (AI notes app <25MB) and MailAF (AI cold outreach automation)",
       "Educator at STEMist Lucknow, teaching Computer Science to underprivileged students with talent",
-      "Lead Organizer for Scrapyard Lucknow and Galactic Local Mentor at NASA Space Apps Challenge",
+      "Lead Organizer for local developer meetups and Galactic Local Mentor at regional hackathons",
     ],
     talkToMeWhen: [
       "You want to discuss community building or scaling high-agency movements",
@@ -70,7 +70,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     ],
     achievements: [
       "RSI India Alumni who conducted neuroscience research on EEG signals and attention pattern modeling",
-      "Regional Manager for CodeDay Kanpur, empowering local student developers",
+      "Regional Coordinator for student-led developer meetups, empowering local student developers",
       "Leading creative strategy and cross-city collaboration initiatives for teen builders",
       "Designed the complete visual identity and campaign strategy for India-wide movements",
     ],
@@ -199,7 +199,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     achievements: [
       "Generating 10k+ impressions for club events through strategic storytelling",
       "Maintains the premium Bits&Bytes brand identity across all social channels",
-      "Orchestrated promotions for GitHub Copilot Dev Days and multiple CodeDay hackathons",
+      "Orchestrated promotions for GitHub Copilot Dev Days and multiple independent hackathons",
     ],
     talkToMeWhen: [
       "You need high-impact visuals for a campaign or real-world product launch",
@@ -223,7 +223,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     ],
     achievements: [
       "Engineered the internal communication workflows for our 100+ active members",
-      "Coordinated logistics for NASA Space Apps and multiple city-wide transitions",
+      "Coordinated logistics for regional hackathons and multiple city-wide transitions",
       "Optimized the project lifecycle from workshop to tangible product launch",
     ],
     talkToMeWhen: [

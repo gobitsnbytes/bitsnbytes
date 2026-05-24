@@ -60,33 +60,6 @@ const eventsJsonLd = {
         },
       },
     },
-    {
-      "@type": "ListItem",
-      position: 2,
-      item: {
-        "@type": "Event",
-        name: "Scrapyard Lucknow 2025",
-        description: "Our debut hackathon united 40+ coders, designers, filmmakers, and builders.",
-        startDate: "2025-12-01",
-        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-        eventStatus: "https://schema.org/EventPostponed",
-        location: {
-          "@type": "Place",
-          name: "Lucknow",
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Lucknow",
-            addressRegion: "Uttar Pradesh",
-            addressCountry: "IN",
-          },
-        },
-        organizer: {
-          "@type": "Organization",
-          name: "Bits&Bytes",
-          url: "https://gobitsnbytes.org",
-        },
-      },
-    },
   ],
 };
 

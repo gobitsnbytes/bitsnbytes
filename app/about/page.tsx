@@ -25,7 +25,7 @@ const aboutContent = {
     {
       title: "The Origin Story",
       description:
-        "We started by hosting Daydream Lucknow under Hack Club. When they pulled our venue at the last minute with everything ready, we didn't cancel. We went fully independent and built the entire hackathon in 13 days flat. That's how Bits&Bytes was born: no excuses, just shipping.",
+        "In July 2025, our team was organizing a major regional student hackathon under an external partner organization. When they cancelled the event at the last minute, we refused to quit. To build something independent and reliable, we founded Bits&Bytes in November 2025. Originally planning a single cope hackathon, we quickly grew into a sustainable nationwide teen builder network.",
     },
     {
       title: "High Agency Only",
@@ -54,7 +54,7 @@ const coreTeam: CoreTeamMember[] = [
     image: "/team/yash.jpeg",
     mobileImagePosition: "center 18%",
     socials: {
-      linkedin: "https://www.linkedin.com/in/yash-vardhan-singh-a41540270/",
+      linkedin: "https://www.linkedin.com/in/yashvardhansinghbnb/",
       github: "https://github.com/yashclouded",
       website: "https://yashvibe.codes/",
     },
