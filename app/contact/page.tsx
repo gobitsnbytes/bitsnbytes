@@ -85,22 +85,23 @@ export default function Contact() {
     }
 
     try {
-      const { createClient } = await import("@supabase/supabase-js");
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      );
-
-      const { error } = await supabase.from("contacts").insert({
-        name,
-        email,
-        subject: subject || null,
-        message,
-        source: "website",
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          subject,
+          message,
+          source: "website",
+        }),
       });
 
-      if (error) {
-        throw new Error(error.message || "Failed to send message.");
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData?.error || "Failed to send message.");
       }
 
       setStatus({
@@ -110,11 +111,12 @@ export default function Contact() {
       form.reset();
       setCaptchaToken(null);
       captchaRef.current?.resetCaptcha();
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       setStatus({
         type: "error",
         message:
+          err.message ||
           "Something went wrong while sending your message. Please try again in a moment.",
       });
     } finally {

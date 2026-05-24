@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { ChangeEvent } from "react";
-import { useRouter } from "next/navigation";
+
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from "recharts";
@@ -227,7 +227,7 @@ export function QnAChatInterface() {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const nextIdRef = useRef(1);
   const streamControllerRef = useRef<AbortController | null>(null);
-  const router = useRouter();
+
 
   const appendMessage = useCallback((newMessage: ChatMessage) => {
     setMessages((prev) => {
@@ -494,14 +494,31 @@ export function QnAChatInterface() {
       }
 
       updateMessageContent(assistantMessageId, (prev) => {
-        if (prev && prev.trim().length > 0) return prev;
-        if (navigatePath) return "Taking you there now.";
-        return "I'm not sure about that based on the information publicly available on this site.";
+        if (prev && prev.trim().length > 0) {
+          // If we got a navigate action but the assistant already wrote content,
+          // append a CTA link so the user can navigate voluntarily
+          if (navigatePath && !prev.includes(navigatePath)) {
+            const PAGE_NAMES: Record<string, string> = {
+              "/": "Home", "/about": "About", "/impact": "Impact",
+              "/join": "Join", "/contact": "Contact", "/coc": "Code of Conduct",
+              "/events": "Events", "/qna": "Q&A", "/faq": "FAQ",
+            };
+            const pageName = PAGE_NAMES[navigatePath] ?? navigatePath;
+            return prev + `\n\n[Go to ${pageName}](${navigatePath} "cta")`;
+          }
+          return prev;
+        }
+        if (navigatePath) {
+          const PAGE_NAMES: Record<string, string> = {
+            "/": "Home", "/about": "About", "/impact": "Impact",
+            "/join": "Join", "/contact": "Contact", "/coc": "Code of Conduct",
+            "/events": "Events", "/qna": "Q&A", "/faq": "FAQ",
+          };
+          const pageName = PAGE_NAMES[navigatePath] ?? navigatePath;
+          return `I can take you to the ${pageName} page — [Go to ${pageName}](${navigatePath} "cta")`;
+        }
+        return "I don't have enough information to answer that. Feel free to ask about our events, team, community, or how to join Bits&Bytes!";
       });
-
-      if (navigatePath) {
-        router.push(navigatePath);
-      }
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") {
         return;

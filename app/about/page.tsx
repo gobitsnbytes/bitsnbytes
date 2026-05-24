@@ -20,27 +20,27 @@ const TeamCaseStudy = dynamic(() => import("@/components/team-case-study"), {
 const aboutContent = {
   title: "About Bits&Bytes",
   description:
-    "Innovate. Collaborate. Hack. A teen-led code club. Three co-founders, no adults in the room. Built from scratch.",
+    "We are a student led code club building the alternative to rigid, beginner locked tech events. Run entirely by teenagers, built from scratch.",
   sections: [
     {
       title: "The Origin Story",
       description:
-        "We were hosting Daydream Lucknow under Hack Club. Everything was set: venue, sponsors, participants. At the last moment, Hack Club pulled the venue. So we went fully independent and built the entire hackathon in 13 days flat. That's probably the most honest thing we can tell you about us. We don't quit, and we don't make excuses.",
+        "We started by hosting Daydream Lucknow under Hack Club. When they pulled our venue at the last minute with everything ready, we didn't cancel. We went fully independent and built the entire hackathon in 13 days flat. That's how Bits&Bytes was born: no excuses, just shipping.",
     },
     {
       title: "High Agency Only",
       description:
-        "Platforms like CodeDay and Hack Club are great for beginners. But they lock organizers into rigid formats that don't deliver. We're building the alternative. Anyone can participate, but they'll be surrounded by people who actually want to ship, not just attend.",
+        "We don't do hand-holding or rigid formats. Bits&Bytes is run entirely by and for teenagers. You'll be surrounded by people who want to write code and launch real projects, not just sit through lectures and collect certificates.",
+    },
+    {
+      title: "Distributed Forks",
+      description:
+        "Forks are a distributed model where local builders run their own nodes without waiting for permission. They are active in Jaipur, Hyderabad, Bangalore, Kolkata, and Noida, where local teams run their own events and dev squads.",
     },
     {
       title: "Ship Real Products",
       description:
-        "Workshops and hack nights that end with something shipped, not just something learned. Hackathons, dev squads, and launches, all student-run.",
-    },
-    {
-      title: "Production Grade",
-      description:
-        "If the site goes down, 1500 people notice. We build real infrastructure, not just demos that look good for five minutes.",
+        "Our meetups and hack nights have to end with something launched, not just something learned. We don't build throwaway demos that only exist for a presentation slide. We build actual software that people use.",
     },
   ],
 };
