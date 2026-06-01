@@ -13,7 +13,14 @@ import React, {
   useState,
 } from "react";
 import { cn } from "@/lib/utils";
-import { Github, Instagram, Linkedin, Mail, MapPin } from "lucide-react";
+import {
+  Github,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  MessageCircle,
+} from "lucide-react";
 import logo from "@public/logo.svg";
 
 // Helper function to convert any CSS color to rgba
@@ -259,6 +266,11 @@ const socialLinks = [
     href: "https://www.linkedin.com/company/gobitsbytes",
     label: "LinkedIn",
     icon: Linkedin,
+  },
+  {
+    href: "https://discord.gg/rjqPfwKKTE",
+    label: "Discord",
+    icon: MessageCircle,
   },
   { href: "https://github.com/gobitsnbytes", label: "GitHub", icon: Github },
   {

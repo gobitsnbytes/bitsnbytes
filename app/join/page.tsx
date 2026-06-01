@@ -28,6 +28,7 @@ const WebGLShader = dynamic(
 
 const NOTION_JOIN_FORM_URL =
   "https://perfect-dinghy-781.notion.site/33949ed2fc338035bd3bef46155035f5?pvs=105";
+const DISCORD_INVITE_URL = "https://discord.gg/rjqPfwKKTE";
 
 const benefits = [
   {
@@ -136,20 +137,36 @@ export default function Join() {
                   <span>Takes less than 2 minutes</span>
                 </div>
 
-                <Button
-                  asChild
-                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-(--brand-pink) px-10 py-4 text-lg md:text-xl font-black text-white shadow-lg shadow-[#e45a92]/20 hover:shadow-xl hover:shadow-[#e45a92]/40 transition-transform transition-colors transition-opacity hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 w-full sm:w-auto max-w-xs"
-                >
-                  <a
-                    href={NOTION_JOIN_FORM_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Open Bits&Bytes join form in Notion"
+                <div className="flex w-full flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                  <Button
+                    asChild
+                    className="group inline-flex items-center justify-center gap-2 rounded-full bg-(--brand-pink) px-10 py-4 text-lg md:text-xl font-black text-white shadow-lg shadow-[#e45a92]/20 hover:shadow-xl hover:shadow-[#e45a92]/40 transition-transform transition-colors transition-opacity hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 w-full sm:w-auto"
                   >
-                    Apply to Join
-                    <ArrowRight className="h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1" />
-                  </a>
-                </Button>
+                    <a
+                      href={NOTION_JOIN_FORM_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Open Bits&Bytes lead application in Notion"
+                    >
+                      Join as a Lead
+                      <ArrowRight className="h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1" />
+                    </a>
+                  </Button>
+                  <Button
+                    asChild
+                    className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-10 py-4 text-lg md:text-xl font-black text-white shadow-lg shadow-white/10 hover:border-white/60 hover:bg-white/20 transition-transform transition-colors transition-opacity hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 w-full sm:w-auto"
+                  >
+                    <a
+                      href={DISCORD_INVITE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Join Bits&Bytes Discord"
+                    >
+                      Join as a Member
+                      <ArrowRight className="h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1" />
+                    </a>
+                  </Button>
+                </div>
 
                 <p className="text-sm text-white/50 font-medium">
                   We review applications weekly · You&apos;ll hear back within 7
@@ -256,20 +273,36 @@ export default function Join() {
             <p className="text-sm sm:text-base text-white/70 px-4 sm:px-0">
               Join 1500+ teen builders who ship real projects.
             </p>
-            <Button
-              asChild
-              className="group rounded-full bg-[var(--brand-pink)] px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base font-semibold text-white shadow-lg shadow-[#e45a92]/20 hover:shadow-xl hover:shadow-[#e45a92]/40 transition-transform transition-colors transition-opacity hover:scale-105 focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 w-full sm:w-auto"
-            >
-              <a
-                href={NOTION_JOIN_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Open Bits&Bytes join form in Notion"
+            <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+              <Button
+                asChild
+                className="group rounded-full bg-[var(--brand-pink)] px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base font-semibold text-white shadow-lg shadow-[#e45a92]/20 hover:shadow-xl hover:shadow-[#e45a92]/40 transition-transform transition-colors transition-opacity hover:scale-105 focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 w-full sm:w-auto"
               >
-                Apply Now
-                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
-              </a>
-            </Button>
+                <a
+                  href={NOTION_JOIN_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open Bits&Bytes lead application in Notion"
+                >
+                  Join as a Lead
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
+                </a>
+              </Button>
+              <Button
+                asChild
+                className="group rounded-full border border-white/30 bg-white/10 px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base font-semibold text-white shadow-lg shadow-white/10 hover:border-white/60 hover:bg-white/20 transition-transform transition-colors transition-opacity hover:scale-105 focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 w-full sm:w-auto"
+              >
+                <a
+                  href={DISCORD_INVITE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Join Bits&Bytes Discord"
+                >
+                  Join as a Member
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
+                </a>
+              </Button>
+            </div>
             <p className="text-xs sm:text-sm text-white/60">
               Questions? Reach us at{" "}
               <a
