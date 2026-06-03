@@ -260,16 +260,18 @@ export default function PressKit() {
           </GlassContainer>
 
           {/* About & Corporate Details */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <GlassContainer className="p-6 md:col-span-2 border-white/10" glowColor="purple">
-              <div className="space-y-4">
-                <h3 className="font-display text-xl font-bold text-white flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-[var(--brand-pink)]" />
-                  About bits&bytes™
-                </h3>
-                <p className="text-sm text-white/80 leading-relaxed font-serif-brand">
-                  bits&bytes™ is a youth-led, independent builder network that runs hackathons, developer meetups, and cohort-based learning squads. Founded in Lucknow in November 2025 following the last-minute cancellation of a major partner hackathon, we built bits&bytes™ as a sustainable, student-run alternative where teenagers can build real software instead of pursuing throwaway templates. We now serve 1,500+ active members across India.
-                </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+            <GlassContainer className="p-6 border-white/10 h-full" containerClassName="h-full md:col-span-2" glowColor="purple">
+              <div className="space-y-4 flex flex-col justify-between h-full">
+                <div className="space-y-4">
+                  <h3 className="font-display text-xl font-bold text-white flex items-center gap-2">
+                    <FileText className="h-5 w-5 text-[var(--brand-pink)]" />
+                    About bits&bytes™
+                  </h3>
+                  <p className="text-sm text-white/80 leading-relaxed font-serif-brand">
+                    bits&bytes™ is a youth-led, independent builder network that runs hackathons, developer meetups, and cohort-based learning squads. Founded in Lucknow in November 2025 following the last-minute cancellation of a major partner hackathon, we built bits&bytes™ as a sustainable, student-run alternative where teenagers can build real software instead of pursuing throwaway templates. We now serve 1,500+ active members across India.
+                  </p>
+                </div>
                 <div className="grid grid-cols-2 gap-4 pt-2">
                   <div className="border border-white/10 bg-white/5 rounded-xl p-3 text-center">
                     <p className="text-2xl font-black text-[var(--brand-pink)] font-display">1500+</p>
@@ -283,13 +285,13 @@ export default function PressKit() {
               </div>
             </GlassContainer>
 
-            <GlassContainer className="p-6 border-white/10" glowColor="coral">
-              <div className="space-y-4">
+            <GlassContainer className="p-6 border-white/10 h-full" containerClassName="h-full" glowColor="coral">
+              <div className="space-y-4 flex flex-col h-full">
                 <h3 className="font-display text-lg font-bold text-white flex items-center gap-2">
                   <Info className="h-4 w-4 text-[var(--brand-coral)]" />
                   Corporate Details
                 </h3>
-                <div className="text-xs text-white/80 space-y-3 font-mono">
+                <div className="text-xs text-white/80 space-y-3 font-mono flex-1 flex flex-col justify-between pt-2">
                   <div>
                     <span className="text-white/40 block uppercase text-[9px] tracking-wider">Legal Entity</span>
                     <span className="font-semibold text-white">GOBITSNBYTES FOUNDATION</span>

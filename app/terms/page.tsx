@@ -147,21 +147,15 @@ export default function TermsOfService() {
         const cleanText = text.replace(/^⚖️\s*/, "");
 
         return (
-          <div key={index} className="my-6">
-            <GlassContainer
-              className="p-6 border-white/10 bg-white/5 rounded-2xl"
-              glowColor="purple"
-              interactive
-            >
-              <div className="flex gap-4 items-start text-left">
-                <span className="text-2xl shrink-0" role="img" aria-hidden="true">
-                  {icon}
-                </span>
-                <p className="text-base md:text-lg font-medium leading-relaxed font-serif-brand m-0 text-white/90">
-                  {cleanText}
-                </p>
-              </div>
-            </GlassContainer>
+          <div key={index} className="my-6 border-l-4 border-[var(--brand-pink)] bg-white/5 p-5 sm:p-6 rounded-r-2xl text-left">
+            <div className="flex gap-4 items-start">
+              <span className="text-2xl shrink-0" role="img" aria-hidden="true">
+                {icon}
+              </span>
+              <p className="text-sm sm:text-base md:text-lg font-serif-brand leading-relaxed m-0 text-white/90">
+                {cleanText}
+              </p>
+            </div>
           </div>
         );
       } else {
@@ -255,7 +249,7 @@ export default function TermsOfService() {
         {/* Main Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Sticky Sidebar Index */}
-          <aside className="hidden lg:block lg:col-span-3">
+          <aside className="hidden lg:block lg:col-span-3 h-full">
             <div className="sticky top-32 space-y-4">
               <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 font-bold px-3">
                 On this page

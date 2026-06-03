@@ -213,27 +213,24 @@ export default function CodeOfConduct() {
         const cleanText = text.replace(/^(⚠️|📋)\s*/, "");
 
         return (
-          <div key={index} className="my-6">
-            <GlassContainer
-              className={cn(
-                "p-6 border-white/10 bg-white/5 rounded-2xl",
-                isWarning ? "border-red-500/20 bg-red-950/15" : "border-white/10 bg-white/5"
-              )}
-              glowColor={isWarning ? "pink" : "purple"}
-              interactive
-            >
-              <div className="flex gap-4 items-start text-left">
-                <span className="text-2xl shrink-0" role="img" aria-hidden="true">
-                  {icon}
-                </span>
-                <p className={cn(
-                  "text-base md:text-lg font-medium leading-relaxed font-serif-brand m-0",
-                  isWarning ? "text-red-200" : "text-white/90"
-                )}>
-                  {cleanText}
-                </p>
-              </div>
-            </GlassContainer>
+          <div
+            key={index}
+            className={cn(
+              "my-6 border-l-4 p-5 sm:p-6 rounded-r-2xl text-left",
+              isWarning ? "border-red-500 bg-red-950/15" : "border-[var(--brand-pink)] bg-white/5"
+            )}
+          >
+            <div className="flex gap-4 items-start">
+              <span className="text-2xl shrink-0" role="img" aria-hidden="true">
+                {icon}
+              </span>
+              <p className={cn(
+                "text-sm sm:text-base md:text-lg font-serif-brand leading-relaxed m-0",
+                isWarning ? "text-red-200" : "text-white/90"
+              )}>
+                {cleanText}
+              </p>
+            </div>
           </div>
         );
       } else {
@@ -328,7 +325,7 @@ export default function CodeOfConduct() {
         {/* Main Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Sticky Sidebar Index */}
-          <aside className="hidden lg:block lg:col-span-3">
+          <aside className="hidden lg:block lg:col-span-3 h-full">
             <div className="sticky top-32 space-y-4">
               <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 font-bold px-3">
                 On this page

@@ -335,7 +335,7 @@ export function FlickeringFooter() {
             </div>
           </Link>
           <p className="tracking-tight text-muted-foreground text-sm">
-            Innovate. Collaborate. Hack. Born in Lucknow, spreading across
+            Innovate. Collaborate. Hack. Born in India, spreading across
             India. No adults in the room.
           </p>
           <div className="flex flex-wrap gap-2 mt-2">
@@ -390,7 +390,7 @@ export function FlickeringFooter() {
               </a>
               <p className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 shrink-0" />
-                Based in Lucknow, India
+                Based in Prayagraj, India
               </p>
             </div>
           </div>
@@ -433,7 +433,7 @@ export function FlickeringFooter() {
       </div>
       <div className="border-t border-white/10 py-4 px-4 w-full text-muted-foreground bg-white/30 dark:bg-black/20">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs text-center md:text-left">
-          <p>© {new Date().getFullYear()} bits&bytes™. Built with club ❤️.</p>
+          <p>© {new Date().getFullYear()} bits&bytes™. Built with ❤️.</p>
           <p className="max-w-2xl text-[9px] sm:text-[10px] opacity-80 leading-relaxed text-center md:text-right">
             bits&bytes™ is run by GOBITSNBYTES FOUNDATION, a non-profit company incorporated under Section 8 of the Companies Act, 2013 (Uttar Pradesh, India). CIN: U85500UP2026NPL248652. Registered Address: 265/1 PATRAKAR COLONY, PRAYAGRAJ ASHOK NAGER, Allahabad, Uttar Pradesh - 211001.
           </p>
