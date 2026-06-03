@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Us - Meet India's Teen-Led Code Club",
+  title: "About Us - Meet India's Youth-Led Builder Network",
   description:
-    "Learn about Bits&Bytes - India's boldest teen-led code club based in Lucknow. Meet our team, our mission, and our open source culture.",
+    "Learn about bits&bytes™ - India's boldest youth-led builder network based in Lucknow. Meet our team, our mission, and our open source culture.",
   keywords: [
-    "about bits and bytes",
-    "teen code club india",
-    "lucknow coding club",
+    "about bits&bytes™",
+    "teen builders network india",
+    "lucknow coding network",
     "student developers team",
     "youth tech organization india",
     "teen programmers community",
@@ -16,9 +16,9 @@ export const metadata: Metadata = {
     canonical: "https://gobitsnbytes.org/about",
   },
   openGraph: {
-    title: "About Us - Meet India's Teen-Led Code Club | Bits&Bytes",
+    title: "About Us - Meet India's Youth-Led Builder Network | bits&bytes™",
     description:
-      "Learn about Bits&Bytes, our mission, and the teen developers building India's boldest code club.",
+      "Learn about bits&bytes™, our mission, and the teen developers building India's boldest youth-led builder network.",
     url: "https://gobitsnbytes.org/about",
     type: "website",
   },

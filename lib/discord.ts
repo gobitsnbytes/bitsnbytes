@@ -56,7 +56,7 @@ export async function sendContactWebhook(params: ContactWebhookParams): Promise<
         ],
         timestamp: new Date().toISOString(),
         footer: {
-          text: "Bits&Bytes Notification System",
+          text: "bits&bytes™ Notification System",
         },
       },
     ],

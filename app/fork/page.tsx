@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { ForkScroll } from "./fork-scroll";
 
 export const metadata: Metadata = {
-  title: "Bits&Bytes Forks",
-  description: "Apply to lead your city's Bits&Bytes fork.",
+  title: "bits&bytes™ Forks",
+  description: "Apply to lead your city's bits&bytes™ fork.",
 };
 
 const applyUrl =

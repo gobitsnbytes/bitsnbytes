@@ -14,7 +14,7 @@ export default function Hero() {
           <div className="animate-slide-in-up">
             <div className="inline-block px-4 py-2 bg-[var(--brand-coral)]/20 rounded-full mb-6">
               <span className="text-sm font-medium text-[var(--brand-pink)]">
-                Welcome to Bits&Bytes
+                Welcome to bits&bytes™
               </span>
             </div>
             <div className="mb-6">
@@ -105,7 +105,7 @@ export default function Hero() {
               <div className="self-end w-full max-w-xs sm:max-w-sm">
                 <div className="rounded-2xl bg-[var(--brand-ink)]/60 border border-white/10 px-4 py-3 sm:px-5 sm:py-4 backdrop-blur-md text-white pointer-events-auto">
                   <p className="text-xs sm:text-sm font-medium text-white/70 mb-2">
-                    Bits&Bytes in numbers
+                    bits&bytes™ in numbers
                   </p>
                   <div className="grid grid-cols-3 gap-3">
                     <div>

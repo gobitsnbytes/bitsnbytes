@@ -59,7 +59,7 @@ export default function Home() {
         <PageSection
           eyebrow="Impact"
           title="Shipped, not just taught"
-          description="A teen-led code club. Workshops and hackathons that end with something shipped, not just something learned."
+          description="A teen-led builders club. Workshops and hackathons that end with something shipped, not just something learned."
         >
           <div className="grid gap-6 md:grid-cols-3">
             {stats.map((stat, idx) => (

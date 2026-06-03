@@ -140,7 +140,7 @@ vec3 calcNormal(vec3 p) {
 vec3 getHolographicMaterial(vec3 normal, vec3 viewDir, float time) {
   float fresnel = pow(1.0 - max(dot(normal, viewDir), 0.0), 2.0);
   float hue = dot(normal, viewDir) * 3.14159 + time * 0.5;
-  // Bits&Bytes brand colors: Deep Purple #3e1e68 and Vibrant Pink #e45a92
+  // bits&bytes™ brand colors: Deep Purple #3e1e68 and Vibrant Pink #e45a92
   vec3 purple = vec3(0.243, 0.118, 0.408);
   vec3 pink = vec3(0.894, 0.353, 0.573);
   vec3 brandShades = mix(purple, pink, sin(hue) * 0.5 + 0.5);

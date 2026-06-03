@@ -3,7 +3,7 @@ import { Gallery4, type Gallery4Props } from "@/components/ui/gallery4";
 const demoData: Gallery4Props = {
   title: "Projects",
   description:
-    "Some of the tools and frameworks that inspire how we build Bits&Bytes experiences.",
+    "Some of the tools and frameworks that inspire how we build bits&bytes™ experiences.",
   items: undefined as unknown as any, // use Gallery4 defaults when omitted
 };
 

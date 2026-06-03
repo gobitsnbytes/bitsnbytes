@@ -37,32 +37,32 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   title: {
     default:
-      "Bits&Bytes - India's Teen-Led Code Club | Hackathons & Tech Community",
-    template: "%s | Bits&Bytes",
+      "bits&bytes™ - India's Youth-Led Builder Network | Hackathons & Tech Community",
+    template: "%s | bits&bytes™",
   },
   description:
-    "Innovate. Collaborate. Hack. Join India's boldest teen-led code club. Build real projects, attend hackathons, and grow as a developer. 1500+ active members and 2700+ participant submissions evaluated in 3 days.",
+    "Innovate. Collaborate. Hack. Join India's boldest youth-led builder network. Build real projects, attend hackathons, and grow as a developer. 1500+ active members and 2700+ participant submissions evaluated in 3 days.",
   keywords: [
-    "Bits and Bytes",
+    "bits&bytes™",
     "bits&bytes",
-    "teen code club india",
+    "teen builders network india",
     "india hackathons for students",
     "student developers india",
-    "coding club lucknow",
+    "coding network lucknow",
     "tech events india",
     "learn coding for teens",
     "teen programmers community",
     "hackathons in india 2025",
     "coding classes for teens india",
-    "high school coding club",
+    "high school coding network",
     "teen tech community",
     "youth coding programs india",
     "student hackathon india",
-    "free coding club india",
+    "free coding network india",
   ],
-  authors: [{ name: "Bits&Bytes Team", url: "https://gobitsnbytes.org/about" }],
-  creator: "Bits&Bytes",
-  publisher: "Bits&Bytes",
+  authors: [{ name: "bits&bytes™ Team", url: "https://gobitsnbytes.org/about" }],
+  creator: "bits&bytes™",
+  publisher: "bits&bytes™",
   formatDetection: {
     email: true,
     address: true,
@@ -91,26 +91,26 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://gobitsnbytes.org",
-    siteName: "Bits&Bytes",
+    siteName: "bits&bytes™",
     title:
-      "Bits&Bytes - India's Teen-Led Code Club | Hackathons & Tech Community",
+      "bits&bytes™ - India's Youth-Led Builder Network | Hackathons & Tech Community",
     description:
-      "Join India's boldest teen-led code club. Build real projects, attend hackathons, and grow as a developer. 1500+ active members.",
+      "Join India's boldest youth-led builder network. Build real projects, attend hackathons, and grow as a developer. 1500+ active members.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Bits&Bytes - India's Teen-Led Code Club",
+        alt: "bits&bytes™ - India's Youth-Led Builder Network",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bits&Bytes - India's Teen-Led Code Club",
+    title: "bits&bytes™ - India's Youth-Led Builder Network",
     description:
-      "Join India's boldest teen-led code club. 1500+ active members building and shipping real products.",
+      "Join India's boldest youth-led builder network. 1500+ active members building and shipping real products.",
     images: ["/og-image.png"],
     creator: "@bitsnbytes_lko",
     site: "@bitsnbytes_lko",
@@ -120,7 +120,7 @@ export const metadata: Metadata = {
       process.env.GOOGLE_SITE_VERIFICATION || "google-site-verification-code",
   },
   category: "education",
-  classification: "Nonprofit Teen Code Club",
+  classification: "Nonprofit Youth Builder Network",
   other: {
     "msapplication-TileColor": "#3E1E68",
     "apple-mobile-web-app-capable": "yes",
@@ -142,8 +142,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
     "@id": "https://gobitsnbytes.org/#organization",
-    name: "Bits&Bytes",
-    alternateName: ["Bits and Bytes", "BitsNBytes", "Bits & Bytes"],
+    name: "bits&bytes™",
+    alternateName: ["bits&bytes™", "BitsNBytes", "bits&bytes™"],
     url: "https://gobitsnbytes.org",
     logo: {
       "@type": "ImageObject",
@@ -153,7 +153,7 @@ export default function RootLayout({
     },
     image: "https://gobitsnbytes.org/og-image.png",
     description:
-      "India's boldest teen-led code club. We run hackathons, workshops, and build real projects with 1500+ student developers across India.",
+      "India's boldest youth-led builder network. We run hackathons, workshops, and build real projects with 1500+ student developers across India.",
     foundingDate: "2025",
     address: {
       "@type": "PostalAddress",
@@ -193,9 +193,9 @@ export default function RootLayout({
     "@type": "WebSite",
     "@id": "https://gobitsnbytes.org/#website",
     url: "https://gobitsnbytes.org",
-    name: "Bits&Bytes",
+    name: "bits&bytes™",
     description:
-      "India's teen-led code club for hackathons, workshops, and building real projects",
+      "India's youth-led builder network for hackathons, workshops, and building real projects",
     publisher: {
       "@id": "https://gobitsnbytes.org/#organization",
     },
@@ -234,7 +234,7 @@ export default function RootLayout({
       {
         "@type": "WebPage",
         name: "About Us",
-        description: "Learn about Bits&Bytes - India's teen-led code club",
+        description: "Learn about bits&bytes™ - India's youth-led builder network",
         url: "https://gobitsnbytes.org/about",
       },
       {
@@ -252,7 +252,7 @@ export default function RootLayout({
       {
         "@type": "WebPage",
         name: "Join Us",
-        description: "Join India's boldest teen code club - free membership",
+        description: "Join India's boldest youth-led builder network - free membership",
         url: "https://gobitsnbytes.org/join",
       },
       {
@@ -264,13 +264,13 @@ export default function RootLayout({
       {
         "@type": "WebPage",
         name: "Contact",
-        description: "Get in touch with Bits&Bytes team",
+        description: "Get in touch with bits&bytes™ team",
         url: "https://gobitsnbytes.org/contact",
       },
       {
         "@type": "WebPage",
         name: "FAQ",
-        description: "Frequently asked questions about Bits&Bytes",
+        description: "Frequently asked questions about bits&bytes™",
         url: "https://gobitsnbytes.org/faq",
       },
     ],

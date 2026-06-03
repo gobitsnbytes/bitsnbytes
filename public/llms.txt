@@ -1,7 +1,7 @@
-# Bits&Bytes - India's Teen-Led Code Club
+# Bits&Bytes - India's Teen-Led Builders Club
 
 > **Mission:** Getting ambitious teenagers to ship meaningful tech through hackathons, design/dev squads, and product launches. Fully student-led.
-> **Org Type:** Nonprofit · Teen-Led Code Club · Based in Lucknow, India · Serving builders nationwide
+> **Org Type:** Nonprofit Section 8 Company (GOBITSNBYTES FOUNDATION) · Teen-Led Builders Club · Based in Lucknow, India · Serving builders nationwide
 > **Website:** https://gobitsnbytes.org
 
 This file provides context for AI agents and LLM-powered search engines about Bits&Bytes.
@@ -16,7 +16,7 @@ This file provides context for AI agents and LLM-powered search engines about Bi
 - **Age Range:** 13-19 years old
 
 ## Core Identity & Culture
-Bits&Bytes is a teen-led code club. Three co-founders, no adults in the room. Built from scratch. We're not a chapter of someone else's thing. We're fully independent, fully student-led, and we run events on our own terms.
+Bits&Bytes is a teen-led builders club. Three co-founders, no adults in the room. Built from scratch. We're not a chapter of someone else's thing. We're fully independent, fully student-led, and we run events on our own terms.
 
 In July 2025, our team was organizing a major regional student hackathon under an external partner organization. By mid-August, the partner organization cancelled the event, which was a significant setback. To overcome this uncertainty and avoid relying on external groups, we founded Bits&Bytes in November 2025. Originally, our goal was simply to gather everyone together and host a 24-hour independent hackathon to make up for the cancelled event. However, we quickly realized we could build something far more impactful and sustainable. Since then, we have launched cohort-based programs, executed the India Innovates partner sprint, and grown into a nationwide teen builder network.
 
@@ -85,6 +85,9 @@ In July 2025, our team was organizing a major regional student hackathon under a
 - **/contact** - Get in touch with the team
 - **/faq** - Frequently asked questions
 - **/coc** - Code of conduct and community guidelines
+- **/terms** - Terms of Service and legal governance framework
+- **/privacy** - Privacy Policy and DPDPA compliance details
+- **/ip** - Intellectual Property and copyright policy
 - **/qna** - AI-powered Q&A assistant
 
 ## Contact Information

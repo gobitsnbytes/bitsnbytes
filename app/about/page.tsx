@@ -18,19 +18,19 @@ const TeamCaseStudy = dynamic(() => import("@/components/team-case-study"), {
 });
 
 const aboutContent = {
-  title: "About Bits&Bytes",
+  title: "About bits&bytes™",
   description:
-    "We are a student led code club building the alternative to rigid, beginner locked tech events. Run entirely by teenagers, built from scratch.",
+    "We are a youth-led builder network building the alternative to rigid, beginner-locked tech events. Run entirely by teenagers, built from scratch.",
   sections: [
     {
       title: "The Origin Story",
       description:
-        "In July 2025, our team was organizing a major regional student hackathon under an external partner organization. When they cancelled the event at the last minute, we refused to quit. To build something independent and reliable, we founded Bits&Bytes in November 2025. Originally planning a single cope hackathon, we quickly grew into a sustainable nationwide teen builder network.",
+        "In July 2025, our team was organizing a major regional student hackathon under an external partner organization. When they cancelled the event at the last minute, we refused to quit. To build something independent and reliable, we founded bits&bytes™ in November 2025. Originally planning a single cope hackathon, we quickly grew into a sustainable nationwide teen builder network.",
     },
     {
       title: "High Agency Only",
       description:
-        "We don't do hand-holding or rigid formats. Bits&Bytes is run entirely by and for teenagers. You'll be surrounded by people who want to write code and launch real projects, not just sit through lectures and collect certificates.",
+        "We don't do hand-holding or rigid formats. bits&bytes™ is run entirely by and for teenagers. You'll be surrounded by people who want to write code and launch real projects, not just sit through lectures and collect certificates.",
     },
     {
       title: "Distributed Forks",
@@ -292,13 +292,13 @@ export default function About() {
           align="center"
           eyebrow="Team"
           title="Meet the Agents"
-          description="Designers, engineers, club leads, and storytellers. The people behind everything."
+          description="Designers, engineers, fork leads, and storytellers. The people behind everything."
         >
           <Suspense fallback={<LoadingInline />}>
             <TeamCaseStudy coreTeam={coreTeam} volunteers={volunteers} />
           </Suspense>
           <p className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-muted-foreground px-4 sm:px-0">
-            *Roles stay flexible as our team and club grow.
+            *Roles stay flexible as our team and network grow.
           </p>
         </PageSection>
       </main>

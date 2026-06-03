@@ -1,9 +1,9 @@
-# Bits&Bytes Team – Agents Handbook
+# bits&bytes™ Team – Agents Handbook
 
 > **Mission:** Getting ambitious teenagers to ship meaningful tech through hackathons, design/dev squads, and product launches. Fully student-led.
 > **Org Type:** Nonprofit · Independent Teen-Led Code Club · Based in Lucknow, India · Serving builders nationwide
 
-This handbook describes the core Bits&Bytes "agents" (team members), what each person does, and how we collaborate.
+This handbook describes the core bits&bytes™ "agents" (team members), what each person does, and how we collaborate.
 
 ---
 
@@ -15,14 +15,16 @@ We're not a branch of any external student group. We're fully independent, fully
 ### 1.2 The Origin Story
 In July 2025, our team was organizing a major regional student hackathon under an external partner organization. By mid-August, the partner organization cancelled the event, which was a significant setback.
 
-To overcome this uncertainty and avoid relying on external groups, we founded Bits&Bytes in November 2025. Originally, our goal was simply to gather everyone together and host a 24-hour independent hackathon to make up for the cancelled event. However, we quickly realized we could build something far more impactful and sustainable.
+To overcome this uncertainty and avoid relying on external groups, we founded bits&bytes™ in November 2025. Originally, our goal was simply to gather everyone together and host a 24-hour independent hackathon to make up for the cancelled event. However, we quickly realized we could build something far more impactful and sustainable.
 
 Since then, our team has gone through major revamps, but our core mission has remained clear. We have since launched cohort-based programs, executed the India Innovates partner sprint, and grown into a nationwide teen builder network.
 
 ### 1.3 Brand Kit
-Bits&Bytes uses a compact, production-friendly visual identity. Key elements:
+bits&bytes™ uses a compact, production-friendly visual identity. Key elements:
 
-- **Brand Mark:** A 3D cube monogram (the cube contains a stylized 'BB' and a small star accent). Use the full wordmark for large headings and the cube mark for constrained spaces (avatars, favicons). Prefer a white reversed mark on dark backgrounds; use single-color marks on light backgrounds. Always maintain clear space around the mark.
+- **Brand Mark**: A 3D cube monogram (the cube contains a stylized 'BB' and a small star accent). Use the full wordmark for large headings and the cube mark for constrained spaces (avatars, favicons). Prefer a white reversed mark on dark backgrounds; use single-color marks on light backgrounds. Always maintain clear space around the mark.
+
+- **Name Usage**: The primary brand spelling is "bits&bytes™". In contexts or environments where the ampersand character ("&") is unavailable, unsupported, or restricted (such as domains, email handles, code package repositories, or file system directories), "bitsnbytes" is the official, approved, and equivalent alternative. Both "bits&bytes" and "bitsnbytes" are approved brand descriptors.
 
 - **Typography:**
   - Primary: Helvetica Now — headings and display (use heavier weights for emphasis).
@@ -66,7 +68,7 @@ Quick reference for "who to ping for what".
 
 ### Volunteers (Operations, Outreach, Creative, Tech)
 
-Bits&Bytes is supported by a volunteer network:
+bits&bytes™ is supported by a volunteer network:
 - **Operations:** Shantanu Joshi and Atharva
 - **Outreach:** Adithya and Aanjaneya
 - **Creatives (Graphic + Video Editing):** Jaagruti, Kavan, Vareesha, and Aishwary
@@ -106,7 +108,7 @@ Bits&Bytes is supported by a volunteer network:
 - **Achievements:**
   - Ex Jr. Research Engineer at jhana.ai at 17, where he built production AI systems including a Steno dictation plugin and AI-era IVRS.
   - Builds production workflows and retrieval architectures that survive real constraints.
-  - Built the entire Bits&Bytes tech infrastructure from scratch.
+  - Built the entire bits&bytes™ tech infrastructure from scratch.
 - **Profiles:**
   - LinkedIn: https://www.linkedin.com/in/akshat-singh-kushwaha
   - Website: https://a3ro.dev
@@ -116,7 +118,7 @@ Bits&Bytes is supported by a volunteer network:
 #### Devaansh Pathak – Chief Financial Officer
 - **Expertise:** Backend Architecture, Database Systems, Partnership Economics
 - **Achievements:**
-  - Co-Architected the high-performance backend systems for the Bits&Bytes platform.
+  - Co-Architected the high-performance backend systems for the bits&bytes™ platform.
   - Executed partnerships that delivered genuine ROI for sponsors across multiple cities.
 - **Profiles:**
   - LinkedIn: https://www.linkedin.com/in/devaanshpa/

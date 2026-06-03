@@ -67,7 +67,7 @@ export const HeroFuturistic = () => {
                   className="font-display text-2xl font-extrabold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl tracking-tighter drop-shadow-2xl"
                 >
                   India&apos;s boldest <br className="hidden sm:block" />
-                  builders club
+                  builder network
                 </h1>
                 <p className="text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.25em] sm:tracking-[0.35em] text-(--brand-pink)">
                   innovate. collaborate. hack.

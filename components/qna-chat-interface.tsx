@@ -187,7 +187,7 @@ const MAX_CHARS = 2000;
 const MAX_HISTORY = 20;
 const STORAGE_KEY = "bb-floating-assistant-state-v1";
 const QUICK_PROMPTS = [
-  "Who started Bits&Bytes?",
+  "Who started bits&bytes™?",
   "What makes this club different?",
   "What was India Innovates 2026?",
   "How do I join?",
@@ -517,7 +517,7 @@ export function QnAChatInterface() {
           const pageName = PAGE_NAMES[navigatePath] ?? navigatePath;
           return `I can take you to the ${pageName} page — [Go to ${pageName}](${navigatePath} "cta")`;
         }
-        return "I don't have enough information to answer that. Feel free to ask about our events, team, community, or how to join Bits&Bytes!";
+        return "I don't have enough information to answer that. Feel free to ask about our events, team, community, or how to join bits&bytes™!";
       });
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") {
@@ -543,7 +543,7 @@ export function QnAChatInterface() {
     <div
       className="flex flex-col w-full h-[70vh] min-h-[520px] rounded-2xl overflow-hidden border border-white/10 bg-[rgba(13,7,9,0.86)] shadow-[0_30px_80px_rgba(7,3,4,0.75)] backdrop-blur-2xl relative"
       role="region"
-      aria-label="Bits and Bytes chat assistant"
+      aria-label="bits&bytes™ chat assistant"
     >
       <div className="flex flex-wrap items-center justify-between gap-3 px-6 pt-5 pb-4 border-b border-white/10 bg-[rgba(18,9,12,0.7)] shrink-0">
         <div className="flex items-center gap-3">
@@ -552,7 +552,7 @@ export function QnAChatInterface() {
           </div>
           <div className="flex flex-col">
             <h1 className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
-              Bits&Bytes QnA
+              bits&bytes™ QnA
               <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400/70 opacity-70"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
@@ -599,7 +599,7 @@ export function QnAChatInterface() {
                 Start with a real question, get a grounded answer.
               </p>
               <p>
-                Ask about events, team, partnerships, or how Bits&Bytes actually
+                Ask about events, team, partnerships, or how bits&bytes™ actually
                 runs. Every reply is anchored in public site sources.
               </p>
             </div>

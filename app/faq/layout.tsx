@@ -2,11 +2,11 @@ import { Metadata } from "next";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "FAQ - Frequently Asked Questions About Bits&Bytes",
+  title: "FAQ - Frequently Asked Questions About bits&bytes™",
   description:
-    "Get answers about joining Bits&Bytes teen code club. Learn about hackathons, membership, time commitments & what to expect. Everything you need to know!",
+    "Get answers about joining bits&bytes™ teen builders club. Learn about hackathons, membership, time commitments & what to expect. Everything you need to know!",
   keywords: [
-    "bits and bytes faq",
+    "bits&bytes™ faq",
     "teen coding club questions",
     "hackathon faq",
     "how to join coding club",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     canonical: "https://gobitsnbytes.org/faq",
   },
   openGraph: {
-    title: "FAQ - Frequently Asked Questions | Bits&Bytes",
-    description: "Get answers about joining Bits&Bytes, our hackathons, and what to expect from India's teen code club.",
+    title: "FAQ - Frequently Asked Questions | bits&bytes™",
+    description: "Get answers about joining bits&bytes™, our hackathons, and what to expect from India's teen builders club.",
     url: "https://gobitsnbytes.org/faq",
     type: "website",
   },
@@ -30,15 +30,15 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "What is Bits&Bytes?",
+      name: "What is bits&bytes™?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Bits&Bytes is a student-led tech club that runs hackathons and other events. Our hackathons follow the usual format but aren't traditional—we have some inspirations from Hack Club style hackathons. Our focus is on creativity; lots of attendees are newer to coding.",
+        text: "bits&bytes™ is a student-led tech club that runs hackathons and other events. Our hackathons follow the usual format but aren't traditional—we have some inspirations from Hack Club style hackathons. Our focus is on creativity; lots of attendees are newer to coding.",
       },
     },
     {
       "@type": "Question",
-      name: "Do I need coding experience to join Bits&Bytes?",
+      name: "Do I need coding experience to join bits&bytes™?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "Not at all! We welcome beginners and pair them with experienced mentors. What matters most is your enthusiasm to learn and build.",
@@ -46,10 +46,10 @@ const faqJsonLd = {
     },
     {
       "@type": "Question",
-      name: "Is there a membership fee to join Bits&Bytes?",
+      name: "Is there a membership fee to join bits&bytes™?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Bits&Bytes is completely free to join. We believe tech education should be accessible to all students.",
+        text: "bits&bytes™ is completely free to join. We believe tech education should be accessible to all students.",
       },
     },
     {
@@ -62,7 +62,7 @@ const faqJsonLd = {
     },
     {
       "@type": "Question",
-      name: "How much time do I need to commit to Bits&Bytes?",
+      name: "How much time do I need to commit to bits&bytes™?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "We recommend 2-4 hours per week, but it's flexible. Some weeks you might attend a workshop, others you might work on a project async.",
@@ -70,7 +70,7 @@ const faqJsonLd = {
     },
     {
       "@type": "Question",
-      name: "Can I volunteer for Bits&Bytes?",
+      name: "Can I volunteer for bits&bytes™?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "Absolutely! We're almost always looking for help with organizers, general day-of volunteers, workshops, and mentors. Reach out through our contact page to learn more.",

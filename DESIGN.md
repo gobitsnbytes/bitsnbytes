@@ -1,5 +1,5 @@
 ---
-name: Bits&Bytes Design System
+name: bits&bytes™ Design System
 colors:
   background: "#080504"
   foreground: "#f7f1ec"
@@ -52,7 +52,7 @@ shadows:
 
 ## Brand & Style
 
-The Bits&Bytes design system embraces a bold, production-friendly dark mode aesthetic designed for highly agency, ambitious student builders. The interface balances high-impact energy with mature restraint, making the platform feel like a professional environment where real products are shipped—not a beginner-centric playground. 
+The bits&bytes™ design system embraces a bold, production-friendly dark mode aesthetic designed for highly agency, ambitious student builders. The interface balances high-impact energy with mature restraint, making the platform feel like a professional environment where real products are shipped—not a beginner-centric playground. 
 
 With deep, rich tones and vibrant gradient pops, the UI projects confidence. Textured overlays (halftones, stipples) give character without detracting from legibility. 
 

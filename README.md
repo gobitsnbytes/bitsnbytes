@@ -1,8 +1,8 @@
-# Bits&Bytes Official Website
+# bits&bytes™ Official Website
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/gobitsnbytes/bitsnbytes)
 
-Official platform for Bits&Bytes, a teen-led coding community based in Lucknow, India. This repository powers the public website, community pages, and an AI assistant with retrieval and tool-calling support.
+Official platform for bits&bytes™, a teen-led coding community based in Lucknow, India. This repository powers the public website, community pages, and an AI assistant with retrieval and tool-calling support.
 
 ## What This Project Includes
 

@@ -12,7 +12,10 @@ import {
   Rocket,
   Heart,
   Zap,
+  GitFork,
+  MessageCircle,
 } from "lucide-react";
+import Link from "next/link";
 
 // Lazy load WebGL shader
 const WebGLShader = dynamic(
@@ -78,7 +81,7 @@ const faqs = [
   },
   {
     question: "Is there a membership fee?",
-    answer: "No. Bits&Bytes is free. Tech education shouldn't cost money.",
+    answer: "No. bits&bytes™ is free. Tech education shouldn't cost money.",
   },
   {
     question: "I'm not from Lucknow. Can I still join?",
@@ -126,54 +129,90 @@ export default function Join() {
       <main className="relative z-10 bg-transparent">
         {/* Main CTA Section */}
         <PageSection align="center">
-          <div className="mx-auto w-full max-w-3xl space-y-6 sm:space-y-8">
-            <GlassContainer
-              className="p-8 md:p-12 text-center"
-              glowColor="both"
-            >
-              <div className="flex flex-col items-center gap-6">
-                <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-white/60 font-bold uppercase tracking-widest">
-                  <Clock className="h-4 w-4 text-(--brand-pink)" />
-                  <span>Takes less than 2 minutes</span>
+          <div className="mx-auto w-full max-w-5xl space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Option 1: Discord Community */}
+              <GlassContainer className="p-6 md:p-8 flex flex-col justify-between h-full text-center md:text-left" glowColor="pink">
+                <div className="space-y-4">
+                  <div className="flex h-12 w-12 mx-auto md:mx-0 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-[var(--brand-pink)] shadow-inner">
+                    <MessageCircle className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xl font-black text-white uppercase tracking-tight">Join Community</h3>
+                    <p className="mt-2 text-sm text-white/70 leading-relaxed font-medium">
+                      Hop onto our Discord server. Chat with 1500+ student builders, find project teams, and attend online study sessions.
+                    </p>
+                  </div>
                 </div>
-
-                <div className="flex w-full flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                <div className="mt-6 pt-4">
                   <Button
                     asChild
-                    className="group inline-flex items-center justify-center gap-2 rounded-full bg-(--brand-pink) px-10 py-4 text-lg md:text-xl font-black text-white shadow-lg shadow-[#e45a92]/20 hover:shadow-xl hover:shadow-[#e45a92]/40 transition-transform transition-colors transition-opacity hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 w-full sm:w-auto"
+                    className="group w-full rounded-full bg-white/10 border border-white/20 py-3 text-sm font-bold text-white hover:bg-white/20 transition-all hover:scale-[1.02]"
                   >
-                    <a
-                      href={NOTION_JOIN_FORM_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Open Bits&Bytes lead application in Notion"
-                    >
-                      Join as a Lead
-                      <ArrowRight className="h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1" />
-                    </a>
-                  </Button>
-                  <Button
-                    asChild
-                    className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-10 py-4 text-lg md:text-xl font-black text-white shadow-lg shadow-white/10 hover:border-white/60 hover:bg-white/20 transition-transform transition-colors transition-opacity hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 w-full sm:w-auto"
-                  >
-                    <a
-                      href={DISCORD_INVITE_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Join Bits&Bytes Discord"
-                    >
-                      Join as a Member
-                      <ArrowRight className="h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1" />
+                    <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">
+                      Join Discord
+                      <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
                     </a>
                   </Button>
                 </div>
+              </GlassContainer>
 
-                <p className="text-sm text-white/50 font-medium">
-                  We review applications weekly · You&apos;ll hear back within 7
-                  days
-                </p>
-              </div>
-            </GlassContainer>
+              {/* Option 2: Contributor Application */}
+              <GlassContainer className="p-6 md:p-8 flex flex-col justify-between h-full text-center md:text-left" glowColor="both">
+                <div className="space-y-4">
+                  <div className="flex h-12 w-12 mx-auto md:mx-0 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-[var(--brand-pink)] shadow-inner">
+                    <Rocket className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xl font-black text-white uppercase tracking-tight">Become a Contributor</h3>
+                    <p className="mt-2 text-sm text-white/70 leading-relaxed font-medium">
+                      Apply to build our core open-source software projects, organize developer cohorts, or manage outreach.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6 pt-4">
+                  <Button
+                    asChild
+                    className="group w-full rounded-full bg-[var(--brand-pink)] py-3 text-sm font-black text-white shadow-lg shadow-[#e45a92]/20 hover:shadow-xl hover:shadow-[#e45a92]/40 transition-all hover:scale-[1.02]"
+                  >
+                    <a href={NOTION_JOIN_FORM_URL} target="_blank" rel="noopener noreferrer">
+                      Apply Now
+                      <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
+                    </a>
+                  </Button>
+                </div>
+              </GlassContainer>
+
+              {/* Option 3: Fork Lead Application */}
+              <GlassContainer className="p-6 md:p-8 flex flex-col justify-between h-full text-center md:text-left" glowColor="purple">
+                <div className="space-y-4">
+                  <div className="flex h-12 w-12 mx-auto md:mx-0 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-[var(--brand-pink)] shadow-inner">
+                    <GitFork className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xl font-black text-white uppercase tracking-tight">Launch a Fork</h3>
+                    <p className="mt-2 text-sm text-white/70 leading-relaxed font-medium">
+                      Bring bits&bytes to your city. Gather local builders, host workshops/hacknights, and run your city's tech scene.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6 pt-4">
+                  <Button
+                    asChild
+                    className="group w-full rounded-full bg-white/10 border border-white/20 py-3 text-sm font-bold text-white hover:bg-white/20 transition-all hover:scale-[1.02]"
+                  >
+                    <Link href="/fork">
+                      Explore Forks
+                      <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </Button>
+                </div>
+              </GlassContainer>
+            </div>
+            
+            <p className="text-center text-xs text-white/40 font-mono mt-4">
+              We review contributor and fork applications weekly • Expected response time: 7 days
+            </p>
           </div>
         </PageSection>
 
@@ -182,7 +221,7 @@ export default function Join() {
           align="center"
           eyebrow="Why Join"
           title="What you'll get as a member"
-          description="Being part of Bits&Bytes is more than a Discord invite."
+          description="Being part of bits&bytes™ is more than a Discord invite."
         >
           <div className="grid gap-6 md:grid-cols-2">
             {benefits.map((benefit, index) => (
@@ -215,7 +254,7 @@ export default function Join() {
           align="center"
           eyebrow="Expectations"
           title="What we look for"
-          description="We want to make sure Bits&Bytes is the right fit for you."
+          description="We want to make sure bits&bytes™ is the right fit for you."
         >
           <div className="mx-auto max-w-2xl">
             <GlassContainer className="p-8 md:p-10" glowColor="purple">
@@ -276,31 +315,30 @@ export default function Join() {
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Button
                 asChild
-                className="group rounded-full bg-[var(--brand-pink)] px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base font-semibold text-white shadow-lg shadow-[#e45a92]/20 hover:shadow-xl hover:shadow-[#e45a92]/40 transition-transform transition-colors transition-opacity hover:scale-105 focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 w-full sm:w-auto"
+                className="group rounded-full bg-white/10 border border-white/30 px-6 py-4 h-auto text-sm font-semibold text-white hover:bg-white/20 hover:border-white/50 transition-all hover:scale-105 w-full sm:w-auto"
               >
-                <a
-                  href={NOTION_JOIN_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Open Bits&Bytes lead application in Notion"
-                >
-                  Join as a Lead
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
+                <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">
+                  Join Discord
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </a>
               </Button>
               <Button
                 asChild
-                className="group rounded-full border border-white/30 bg-white/10 px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base font-semibold text-white shadow-lg shadow-white/10 hover:border-white/60 hover:bg-white/20 transition-transform transition-colors transition-opacity hover:scale-105 focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 w-full sm:w-auto"
+                className="group rounded-full bg-[var(--brand-pink)] px-6 py-4 h-auto text-sm font-semibold text-white shadow-lg shadow-[#e45a92]/20 hover:shadow-xl hover:shadow-[#e45a92]/40 transition-all hover:scale-105 w-full sm:w-auto"
               >
-                <a
-                  href={DISCORD_INVITE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Join Bits&Bytes Discord"
-                >
-                  Join as a Member
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
+                <a href={NOTION_JOIN_FORM_URL} target="_blank" rel="noopener noreferrer">
+                  Become a Contributor
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </a>
+              </Button>
+              <Button
+                asChild
+                className="group rounded-full bg-white/10 border border-white/30 px-6 py-4 h-auto text-sm font-semibold text-white hover:bg-white/20 hover:border-white/50 transition-all hover:scale-105 w-full sm:w-auto"
+              >
+                <Link href="/fork">
+                  Launch a Fork
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
               </Button>
             </div>
             <p className="text-xs sm:text-sm text-white/60">

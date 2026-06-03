@@ -37,7 +37,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Three.js & Creative Coding",
     ],
     achievements: [
-      "Founder of Bits&Bytes (gobitsnbytes.org), leading 1,500+ active members in student-led tech culture",
+      "Founder of bits&bytes™ (gobitsnbytes.org), leading 1,500+ active members in student-led tech culture",
       "Created Codiva: A 5-star rated VS Code extension that gamifies coding for thousands of users",
       "National Qualifier for the Indian Mathematics Olympiad (IOQM)",
       "Built Alem (AI notes app <25MB) and MailAF (AI cold outreach automation)",
@@ -98,11 +98,11 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "System Design",
     ],
     achievements: [
-      "AI-native systems engineer; lead architect for the entire Bits&Bytes production-grade tech infrastructure",
+      "AI-native systems engineer; lead architect for the entire bits&bytes™ production-grade tech infrastructure",
       "Designed high-performance efficient retrieval systems for complex AI workflows",
       "Developed reliable long-running autonomous execution stacks for complex tool orchestration",
       "Chapter Lead @ STEMist Education, founding builder-focused STEM culture at Boys High School, Prayagraj",
-      "Project Lead for the Bits&Bytes Platform, turning community operations into durable infrastructure",
+      "Project Lead for the bits&bytes™ Platform, turning community operations into durable infrastructure",
     ],
     talkToMeWhen: [
       "You care about the edge cases where AI systems usually break and want to build for real constraints",
@@ -125,7 +125,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Partnership Economics",
     ],
     achievements: [
-      "Co-Architected the high-performance backend systems for the Bits&Bytes platform",
+      "Co-Architected the high-performance backend systems for the bits&bytes™ platform",
       "Executed partnerships that delivered genuine ROI for sponsors across multiple cities",
     ],
     talkToMeWhen: [
@@ -149,7 +149,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Audience Development",
     ],
     achievements: [
-      "Leads marketing strategy and brand growth across all Bits&Bytes channels",
+      "Leads marketing strategy and brand growth across all bits&bytes™ channels",
       "Drives audience development and campaign management for community growth",
     ],
     talkToMeWhen: [
@@ -198,7 +198,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     ],
     achievements: [
       "Generating 10k+ impressions for club events through strategic storytelling",
-      "Maintains the premium Bits&Bytes brand identity across all social channels",
+      "Maintains the premium bits&bytes™ brand identity across all social channels",
       "Orchestrated promotions for GitHub Copilot Dev Days and multiple independent hackathons",
     ],
     talkToMeWhen: [
@@ -243,7 +243,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Brand Collateral",
     ],
     achievements: [
-      "Active creative contributor to Bits&Bytes projects",
+      "Active creative contributor to bits&bytes™ projects",
       "Contributed design assets and creative support for community campaigns",
     ],
     talkToMeWhen: [

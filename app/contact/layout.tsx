@@ -1,21 +1,21 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Us - Get in Touch with Bits&Bytes",
+  title: "Contact Us - Get in Touch with bits&bytes™",
   description:
-    "Contact Bits&Bytes team for partnerships, volunteering, questions or collaboration. Reach India's teen-led code club based in Lucknow, Uttar Pradesh.",
+    "Contact bits&bytes™ team for partnerships, volunteering, questions or collaboration. Reach India's teen-led builders club based in Lucknow, Uttar Pradesh.",
   keywords: [
-    "contact bits and bytes",
-    "teen code club contact",
+    "contact bits&bytes™",
+    "teen builders club contact",
     "lucknow coding club email",
-    "bits and bytes support",
+    "bits&bytes™ support",
   ],
   alternates: {
     canonical: "https://gobitsnbytes.org/contact",
   },
   openGraph: {
-    title: "Contact Us | Bits&Bytes",
-    description: "Get in touch with Bits&Bytes team for partnerships, volunteering, or questions.",
+    title: "Contact Us | bits&bytes™",
+    description: "Get in touch with bits&bytes™ team for partnerships, volunteering, or questions.",
     url: "https://gobitsnbytes.org/contact",
     type: "website",
   },

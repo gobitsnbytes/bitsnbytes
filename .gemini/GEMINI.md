@@ -16,4 +16,4 @@ When assisting with this repository, **you must always read and adhere to `AGENT
 3. **Align with Team Roles:**
    If the user asks who to ping, or if you need to know who owns a specific part of the stack (e.g., backend, design, cloud infra), look up the Agent Profiles in `AGENTS.md` to provide accurate guidance.
 
-By reading this file, you understand that these guidelines and the contents of `AGENTS.md` are mandatory for your operations within the Bits&Bytes codebase.
+By reading this file, you understand that these guidelines and the contents of `AGENTS.md` are mandatory for your operations within the bits&bytes™ codebase.

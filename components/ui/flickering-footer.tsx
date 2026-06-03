@@ -288,13 +288,17 @@ const footerLinks = [
       { id: 2, title: "Impact", url: "/impact" },
       { id: 3, title: "Join", url: "/join" },
       { id: 4, title: "Contact", url: "/contact" },
+      { id: 10, title: "Press Kit", url: "/press" },
     ],
   },
   {
-    title: "Resources",
+    title: "Legal & Safety",
     links: [
       { id: 5, title: "FAQ", url: "/faq" },
       { id: 6, title: "Code of Conduct", url: "/coc" },
+      { id: 7, title: "Terms of Service", url: "/terms" },
+      { id: 8, title: "Privacy Policy", url: "/privacy" },
+      { id: 9, title: "IP Policy", url: "/ip" },
     ],
   },
 ];
@@ -312,8 +316,8 @@ export function FlickeringFooter() {
           <Link href="/" className="flex items-center gap-3">
             <div className="relative grid h-10 w-10 place-items-center rounded-xl bg-black text-white shadow-[0_8px_30px_rgba(228,90,146,0.4)]">
               <Image
-                src={logo}
-                alt="Bits&Bytes logo"
+                src="/logo.svg"
+                alt="bits&bytes™ logo"
                 width={28}
                 height={28}
                 className="h-6 w-6 object-contain"
@@ -323,7 +327,7 @@ export function FlickeringFooter() {
             </div>
             <div>
               <p className="font-display text-base font-semibold text-foreground">
-                Bits&Bytes
+                bits&bytes™
               </p>
               <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                 Teen-led
@@ -396,7 +400,7 @@ export function FlickeringFooter() {
         <div className="absolute inset-0 bg-gradient-to-t from-transparent to-background z-10 from-40%" />
         <div className="absolute inset-0 mx-4">
           <FlickeringGrid
-            text={tablet ? "B&B" : "Bits&Bytes"}
+            text={tablet ? "B&B" : "bits&bytes™"}
             fontSize={tablet ? 50 : 80}
             className="absolute inset-0 h-full w-full"
             squareSize={2}
@@ -406,7 +410,7 @@ export function FlickeringFooter() {
             flickerChance={0.08}
           />
           <FlickeringGrid
-            text={tablet ? "B&B" : "Bits&Bytes"}
+            text={tablet ? "B&B" : "bits&bytes™"}
             fontSize={tablet ? 50 : 80}
             className="absolute inset-0 h-full w-full"
             squareSize={2}
@@ -416,7 +420,7 @@ export function FlickeringFooter() {
             flickerChance={0.12}
           />
           <FlickeringGrid
-            text={tablet ? "B&B" : "Bits&Bytes"}
+            text={tablet ? "B&B" : "bits&bytes™"}
             fontSize={tablet ? 50 : 80}
             className="absolute inset-0 h-full w-full"
             squareSize={2}
@@ -427,8 +431,13 @@ export function FlickeringFooter() {
           />
         </div>
       </div>
-      <div className="border-t border-white/10 text-center text-[10px] sm:text-xs py-3 sm:py-4 px-4 w-full text-muted-foreground">
-        © {new Date().getFullYear()} Bits&Bytes. Built with club ❤️.
+      <div className="border-t border-white/10 py-4 px-4 w-full text-muted-foreground bg-white/30 dark:bg-black/20">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs text-center md:text-left">
+          <p>© {new Date().getFullYear()} bits&bytes™. Built with club ❤️.</p>
+          <p className="max-w-2xl text-[9px] sm:text-[10px] opacity-80 leading-relaxed text-center md:text-right">
+            bits&bytes™ is run by GOBITSNBYTES FOUNDATION, a non-profit company incorporated under Section 8 of the Companies Act, 2013 (Uttar Pradesh, India). CIN: U85500UP2026NPL248652. Registered Address: 265/1 PATRAKAR COLONY, PRAYAGRAJ ASHOK NAGER, Allahabad, Uttar Pradesh - 211001.
+          </p>
+        </div>
       </div>
     </footer>
   );

@@ -12,7 +12,7 @@ export function EvervaultCardDemo() {
       <EvervaultCard text="hover" />
 
       <h2 className="dark:text-white text-black mt-4 text-sm font-light">
-        Hover over this card to see the effect. Good for featuring Bits&Bytes
+        Hover over this card to see the effect. Good for featuring bits&bytes™
         projects.
       </h2>
       <p className="text-sm border font-light dark:border-white/20 border-black/20 rounded-full mt-4 text-black dark:text-white px-2 py-0.5">

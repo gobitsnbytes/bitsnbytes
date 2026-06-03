@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import type { MotionValue } from "framer-motion";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 const howItWorks = [
   ["01", "one city", "one fork"],
@@ -156,9 +157,9 @@ function HowItWorksMobile({ progress }: { progress: MotionValue<number> }) {
 }
 
 function BenefitLabel({ item, index, progress }: { item: string; index: number; progress: MotionValue<number> }) {
-  const start = 0.67 + index * 0.022;
-  const opacity = useTransform(progress, [start, start + 0.035, 0.81, 0.85], [0, 1, 1, 0]);
-  const x = useTransform(progress, [start, start + 0.035], [index % 2 ? 60 : -60, 0]);
+  const start = 0.61 + index * 0.016;
+  const opacity = useTransform(progress, [start, start + 0.03, 0.72, 0.75], [0, 1, 1, 0]);
+  const x = useTransform(progress, [start, start + 0.03], [index % 2 ? 60 : -60, 0]);
   const rotate = index % 2 ? -2 : 2;
 
   return (
@@ -172,8 +173,8 @@ function BenefitLabel({ item, index, progress }: { item: string; index: number; 
 }
 
 function BenefitsMobile({ progress }: { progress: MotionValue<number> }) {
-  const opacity = useTransform(progress, [0.64, 0.68, 0.8, 0.84], [0, 1, 1, 0]);
-  const y = useTransform(progress, [0.64, 0.68], ["8vh", "0vh"]);
+  const opacity = useTransform(progress, [0.59, 0.63, 0.72, 0.75], [0, 1, 1, 0]);
+  const y = useTransform(progress, [0.59, 0.63], ["8vh", "0vh"]);
 
   return (
     <motion.div
@@ -290,30 +291,7 @@ function CodeEditor({ activeFork, setActiveFork }: { activeFork: keyof typeof fo
 }
 
 export function ForkScroll({ applyUrl }: { applyUrl: string }) {
-  const scrollYProgress = useMotionValue(0);
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateProgress = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const page = document.documentElement;
-        const maxScroll = Math.max(page.scrollHeight - window.innerHeight, 1);
-        scrollYProgress.set(Math.min(window.scrollY / maxScroll, 1));
-      });
-    };
-
-    updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", updateProgress);
-    };
-  }, [scrollYProgress]);
+  const { scrollYProgress } = useScroll();
 
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 70,
@@ -487,27 +465,64 @@ export function ForkScroll({ applyUrl }: { applyUrl: string }) {
 
         <motion.div
           style={{ opacity: finalOpacity, y: finalY }}
-          className="absolute inset-x-4 bottom-[max(1.5rem,env(safe-area-inset-bottom))] z-50 mx-auto max-w-[58rem] bg-[#D0CFCE] p-4 text-right text-[#120F0A] shadow-[10px_10px_0_#120F0A] md:bottom-[7vh] md:p-8 md:shadow-[14px_14px_0_#120F0A]"
+          className="absolute inset-x-4 bottom-[max(1.5rem,env(safe-area-inset-bottom))] z-50 mx-auto max-w-[64rem] bg-[#D0CFCE] p-6 text-[#120F0A] shadow-[10px_10px_0_#120F0A] md:bottom-[5vh] md:p-8 md:shadow-[14px_14px_0_#120F0A]"
         >
           <div className="absolute inset-0 bg-noise-texture opacity-25 mix-blend-multiply" aria-hidden />
-          <div className="relative">
-            <h2 className="font-display text-[clamp(2.75rem,13vw,8.4rem)] font-black leading-[0.86] tracking-[-0.055em] md:leading-[0.76] md:tracking-[-0.09em]">
-              lead your
-              <br />
-              city&apos;s fork.
-            </h2>
-            <p className="mt-4 font-serif-brand text-[clamp(1.15rem,5.5vw,2.6rem)] leading-tight tracking-[-0.03em] md:leading-none md:tracking-[-0.04em]">
-              Apply if you can gather people, make noise, and ship in public.
-            </p>
-            <div className="mt-6 flex flex-col items-stretch gap-3 md:mt-8 md:flex-row md:items-center md:justify-between">
-              <div className="bg-[#120F0A] px-5 py-3 text-left">
-                <p className="whitespace-nowrap font-display text-[clamp(1.25rem,6vw,3.05rem)] font-black leading-none tracking-[-0.04em] text-[#D0CFCE]">
-                  bits&amp;bytes forks
+          <div className="relative flex flex-col gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+              <div className="md:col-span-6 flex flex-col gap-4 text-left">
+                <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black leading-[0.9] tracking-[-0.055em]">
+                  lead your
+                  <br />
+                  city&apos;s fork.
+                </h2>
+                <p className="font-serif-brand text-[clamp(1.1rem,2.2vw,1.6rem)] leading-snug tracking-[-0.02em]">
+                  Apply if you can gather people, make noise, and ship in public.
+                </p>
+              </div>
+
+              <div className="md:col-span-6 text-left border-t border-[#120F0A]/20 md:border-t-0 md:border-l md:border-[#120F0A]/20 pt-6 md:pt-0 md:pl-8">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#97192C] font-bold mb-4">
+                  The Fork Covenant / Rules
+                </p>
+                <div className="space-y-5 font-serif-brand text-[#120F0A]/85">
+                  <div>
+                    <h4 className="font-display text-sm font-black uppercase tracking-wider text-[#120F0A]">
+                      1. Upstream Governance
+                    </h4>
+                    <p className="text-xs leading-relaxed mt-1">
+                      Forks are operational subunits recognized by the Board. GOBITSNBYTES FOUNDATION is the upstream steward. Forks have no independent legal personality.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-display text-sm font-black uppercase tracking-wider text-[#120F0A]">
+                      2. Centralized Financial Routing
+                    </h4>
+                    <p className="text-xs leading-relaxed mt-1">
+                      All funds must route upstream to GOBITSNBYTES FOUNDATION. Local bank accounts, personal UPI IDs, or cash collections are strictly prohibited.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-display text-sm font-black uppercase tracking-wider text-[#120F0A]">
+                      3. No Unapproved Representation
+                    </h4>
+                    <p className="text-xs leading-relaxed mt-1">
+                      Fork Leads and Maintainers are local facilitators and do not hold statutory authority, directorship, or the power to bind the Foundation legally.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="border-t border-[#120F0A]/10 pt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+              <div className="bg-[#120F0A] px-5 py-3 text-left w-fit">
+                <p className="whitespace-nowrap font-display text-lg font-black leading-none tracking-[-0.04em] text-[#D0CFCE]">
+                  bits&amp;bytes™ forks
                 </p>
               </div>
               <Link
                 href={applyUrl}
-                className="inline-flex min-h-12 shrink-0 items-center justify-center bg-[#FC920D] px-6 py-3 font-display text-sm font-black uppercase tracking-[0.12em] text-[#120F0A] shadow-[6px_6px_0_#120F0A] outline-none transition-all duration-100 ease-out hover:-translate-y-0.5 hover:shadow-[8px_8px_0_#120F0A] active:translate-y-0.5 active:shadow-[2px_2px_0_#120F0A] active:scale-[0.97] focus-visible:ring-4 focus-visible:ring-[#120F0A]"
+                className="inline-flex min-h-12 shrink-0 items-center justify-center bg-[#FC920D] px-8 py-3 font-display text-sm font-black uppercase tracking-[0.12em] text-[#120F0A] shadow-[6px_6px_0_#120F0A] outline-none transition-all duration-100 ease-out hover:-translate-y-0.5 hover:shadow-[8px_8px_0_#120F0A] active:translate-y-0.5 active:shadow-[2px_2px_0_#120F0A] active:scale-[0.97] focus-visible:ring-4 focus-visible:ring-[#120F0A]"
               >
                 apply now
               </Link>

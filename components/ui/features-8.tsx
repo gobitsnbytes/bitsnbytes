@@ -134,7 +134,7 @@ export function Features() {
                 2700+ Submissions
               </h2>
               <p className="text-base text-white/60 font-medium">
-                Evaluated by the Bits&Bytes team in a 3-day sprint.
+                Evaluated by the bits&bytes™ team in a 3-day sprint.
               </p>
             </div>
           </GlassContainer>

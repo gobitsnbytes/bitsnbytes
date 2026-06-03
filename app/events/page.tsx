@@ -439,7 +439,7 @@ export default function Events() {
                         Partners & Details
                       </h2>
                       <p>
-                        The event was hosted by <strong>Bits&Bytes</strong>,
+                        The event was hosted by <strong>bits&bytes™</strong>,
                         with community partners including{" "}
                         <strong>Coding Connoisseurs</strong>,{" "}
                         <strong>Aryan Singh</strong>, and{" "}
@@ -735,7 +735,7 @@ export default function Events() {
                             <Building2 className="h-4 w-4 text-(--brand-pink)" />
                           ),
                           label: "Partners",
-                          value: "ByteForge, Bits&Bytes",
+                          value: "ByteForge, bits&bytes™",
                         },
                       ].map((s) => (
                         <div
@@ -852,7 +852,7 @@ export default function Events() {
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white/80 backdrop-blur-md">
                     <Trophy className="h-3 w-3 text-(--brand-pink)" />
-                    Official Executive Partner: Bits&Bytes
+                    Official Executive Partner: bits&bytes™
                   </span>
                 </div>
 
@@ -860,7 +860,7 @@ export default function Events() {
                   <div className="prose prose-invert max-w-none text-white/80 space-y-6 lg:col-span-2">
                     <p className="text-lg text-white font-medium">
                       <strong>India Innovates 2026</strong> is now archived.{" "}
-                      <strong>Bits&Bytes (GobitsnBytes)</strong> was listed as
+                      <strong>bits&bytes™ (GobitsnBytes)</strong> was listed as
                       the <strong>Official Executive Partner</strong> for the
                       finale.
                     </p>

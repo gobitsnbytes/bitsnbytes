@@ -1,7 +1,7 @@
 {
-  "name": "Bits&Bytes - India's Teen-Led Code Club",
-  "short_name": "Bits&Bytes",
-  "description": "Join India's boldest teen-led code club. Build real projects, attend hackathons, and grow as a developer. 1500+ active members, 130+ shipped projects.",
+  "name": "bits&bytes™ - India's Teen-Led Builders Club",
+  "short_name": "bits&bytes™",
+  "description": "Join India's boldest teen-led builders club. Build real projects, attend hackathons, and grow as a developer. 1500+ active members, 130+ shipped projects.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -31,9 +31,9 @@
   ],
   "shortcuts": [
     {
-      "name": "Join Bits&Bytes",
+      "name": "Join bits&bytes™",
       "short_name": "Join",
-      "description": "Become a member of our teen code club",
+      "description": "Become a member of our teen builders club",
       "url": "/join"
     },
     {

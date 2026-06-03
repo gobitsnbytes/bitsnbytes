@@ -40,7 +40,7 @@ const testimonials = [
   },
   {
     quote:
-      "Bits&Bytes let me dig into complex backend systems. Now I help others design their own projects.",
+      "bits&bytes™ let me dig into complex backend systems. Now I help others design their own projects.",
     name: "Devansh",
     title: "Backend Specialist",
     image: "/team/devansh.jpeg",

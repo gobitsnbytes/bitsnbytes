@@ -44,12 +44,12 @@ const faqs: FAQItem[] = [
       "Also fine. Plenty of people work solo. That said, most people end up having more fun on a team.",
   },
   {
-    question: "What is Bits and Bytes?",
+    question: "What is bits&bytes™?",
     answer:
-      "A student-led tech club that runs hackathons and events. Our hackathons are loosely inspired by Hack Club's format but we do our own thing. We care about creativity, and a lot of attendees are new to coding. If that sounds fun, come through.",
+      "A student-led, youth-led builder network that runs hackathons and events. Our hackathons are loosely inspired by Hack Club's format but we do our own thing. We care about creativity, and a lot of attendees are new to coding. If that sounds fun, come through.",
   },
   {
-    question: "Can I volunteer for Bits and Bytes?",
+    question: "Can I volunteer for bits&bytes™?",
     answer:
       "Yes. We're almost always looking for organizers, day-of volunteers, workshop leads, and mentors. Reach out through our contact page.",
   },
@@ -64,11 +64,11 @@ const faqs: FAQItem[] = [
       "Most people make games. A good chunk make mobile apps. A smaller number build websites or hardware projects. You can even make non-coding things: people have presented paintings and recorded albums. If you don't know what to make, you can always join an existing team.",
   },
   {
-    question: "Can I show existing projects at Bits and Bytes?",
+    question: "Can I show existing projects at bits&bytes™?",
     answer: "No. All projects have to be built during the event.",
   },
   {
-    question: "Can parents attend Bits and Bytes?",
+    question: "Can parents attend bits&bytes™?",
     answer:
       "Not on the main floor, for security reasons. They can come to the kickoff and the awards ceremony. Parents can also attend if they volunteer and pass a background check, or if they're chaperoning a school group.",
   },
@@ -124,7 +124,7 @@ export default function FAQ() {
                 Frequently Asked <br className="hidden sm:block" /> Questions
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed font-medium">
-                Questions people actually ask us about Bits and Bytes.
+                Questions people actually ask us about bits&bytes™.
               </p>
             </div>
           </div>

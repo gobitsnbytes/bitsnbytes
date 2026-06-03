@@ -207,10 +207,10 @@ const MAX_HISTORY = 8;
 const STORAGE_KEY = "bb-floating-assistant-state-v1";
 const FEEDBACK_STORAGE_KEY = "bb-assistant-feedback-v1";
 const QUICK_PROMPTS = [
-  "Who founded Bits&Bytes and what are they working on?",
-  "What makes Bits&Bytes different from other tech clubs?",
+  "Who founded bits&bytes™ and what are they working on?",
+  "What makes bits&bytes™ different from other tech clubs?",
   "Tell me about India Innovates 2026 — what was it?",
-  "How can I join Bits&Bytes as a student developer?",
+  "How can I join bits&bytes™ as a student developer?",
   "What kind of projects do members ship?",
   "Show me all the past events and hackathons.",
   "Generate a cool sci-fi robot concept for me! 🤖",
@@ -224,13 +224,13 @@ const SMART_FAQ: FaqEntry[] = [
     patterns: [
       "what is bits",
       "what is bitsnbytes",
-      "bits and bytes",
+      "bits&bytes™",
       "bits&bytes",
       "about bits",
       "tell me about bits",
     ],
     answer:
-      '**Bits&Bytes** is a teen-led code club based in Lucknow, India. We run hackathons, workshops, and product-focused build programs led by students.\n\n[Learn more about us](/about "cta")\n\n[Who founded it?](# "follow-up")  \n[How can I join?](# "follow-up")',
+      '**bits&bytes™** is a teen-led builders club based in Lucknow, India. We run hackathons, workshops, and product-focused build programs led by students.\n\n[Learn more about us](/about "cta")\n\n[Who founded it?](# "follow-up")  \n[How can I join?](# "follow-up")',
   },
   {
     patterns: [
@@ -243,7 +243,7 @@ const SMART_FAQ: FaqEntry[] = [
       "membership",
     ],
     answer:
-      'To join Bits&Bytes **completely free**:\n\n1. **Apply** — Fill the form on our join page\n2. **Join Discord/WhatsApp** — Connect with 1500+ student builders\n3. **Attend an event or workshop** — Start building with mentors\n4. **Ship projects** — Get paired with accountability partners\n\n**Requirements:** Be a student (ages 13–19), commit 2–4 hours/week, and stay active.\n\n[Apply now](/join "cta")\n[Join WhatsApp Community](https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg "cta")',
+      'To join bits&bytes™ **completely free**:\n\n1. **Apply** — Fill the form on our join page\n2. **Join Discord/WhatsApp** — Connect with 1500+ student builders\n3. **Attend an event or workshop** — Start building with mentors\n4. **Ship projects** — Get paired with accountability partners\n\n**Requirements:** Be a student (ages 13–19), commit 2–4 hours/week, and stay active.\n\n[Apply now](/join "cta")\n[Join WhatsApp Community](https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg "cta")',
   },
   {
     patterns: [
@@ -254,7 +254,7 @@ const SMART_FAQ: FaqEntry[] = [
       "how to contact",
     ],
     answer:
-      'You can reach us at:\n\n- **Email:** hello@gobitsnbytes.org\n- **WhatsApp Community:** https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg\n- **LinkedIn:** [Bits&Bytes](https://www.linkedin.com/company/gobitsbytes)\n\n[Contact Page](/contact "cta")',
+      'You can reach us at:\n\n- **Email:** hello@gobitsnbytes.org\n- **WhatsApp Community:** https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg\n- **LinkedIn:** [bits&bytes™](https://www.linkedin.com/company/gobitsbytes)\n\n[Contact Page](/contact "cta")',
   },
   {
     patterns: [
@@ -285,7 +285,7 @@ const SMART_FAQ: FaqEntry[] = [
       "india innovates 2026",
     ],
     answer:
-      '**India Innovates 2026 (Archive)**\n\nThe world\'s largest civic tech hackathon. Bits&Bytes served as the **Official Executive Partner**.\n\n- **Date:** March 28, 2026\n- **Venue:** Bharat Mandapam, New Delhi\n- **Scale:** 1.26+ crore applicants → 28,000+ → 5,000+ → **15 finalist teams**\n- **Prize Pool:** ₹10 Lakh+ (₹1L/₹75K/₹50K/₹25K per domain)\n- **Domains:** Urban Solutions, Digital Democracy, Open Innovation\n- **Dignitaries:** Delhi CM Rekha Gupta, Bihar Assembly Speaker, MP Manoj Tiwari\n- **Media:** #IndiaInnovates2026 trended on X on event day\n\n[View official site](https://indiainnovates.org "cta")',
+      '**India Innovates 2026 (Archive)**\n\nThe world\'s largest civic tech hackathon. bits&bytes™ served as the **Official Executive Partner**.\n\n- **Date:** March 28, 2026\n- **Venue:** Bharat Mandapam, New Delhi\n- **Scale:** 1.26+ crore applicants → 28,000+ → 5,000+ → **15 finalist teams**\n- **Prize Pool:** ₹10 Lakh+ (₹1L/₹75K/₹50K/₹25K per domain)\n- **Domains:** Urban Solutions, Digital Democracy, Open Innovation\n- **Dignitaries:** Delhi CM Rekha Gupta, Bihar Assembly Speaker, MP Manoj Tiwari\n- **Media:** #IndiaInnovates2026 trended on X on event day\n\n[View official site](https://indiainnovates.org "cta")',
   },
   {
     patterns: ["execron", "execron 1.0", "iit kanpur hackathon", "techkriti"],
@@ -303,12 +303,12 @@ const SMART_FAQ: FaqEntry[] = [
       "core team",
     ],
     answer:
-      '**Bits&Bytes Core Team:**\n\n- **Yash Singh** — Chief Executive Officer\n\n- **Akshat Kushwaha** — Chief Technology Officer\n\n- **Aadrika Maurya** — Chief Creative Officer & Chief Operating Officer\n\n- **Devaansh Pathak** — Chief Financial Officer\n\n- **Drishti Arora** — Chief Marketing Officer\n\n- **Raghav** — Head of Operations\n\n- **Maryam Fatima** — Head of Brand & Media\n\n- **Srishti Singh** — Head of Partnerships & Institutional Relations\n\n[Meet the team](/about "cta")',
+      '**bits&bytes™ Core Team:**\n\n- **Yash Singh** — Chief Executive Officer\n\n- **Akshat Kushwaha** — Chief Technology Officer\n\n- **Aadrika Maurya** — Chief Creative Officer & Chief Operating Officer\n\n- **Devaansh Pathak** — Chief Financial Officer\n\n- **Drishti Arora** — Chief Marketing Officer\n\n- **Raghav** — Head of Operations\n\n- **Maryam Fatima** — Head of Brand & Media\n\n- **Srishti Singh** — Head of Partnerships & Institutional Relations\n\n[Meet the team](/about "cta")',
   },
   {
     patterns: ["discord", "community link", "whatsapp group", "discord server"],
     answer:
-      'Join the Bits&Bytes community here:\n\n[Join WhatsApp Community](https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg "cta")\n\n[What events are coming up?](# "follow-up")',
+      'Join the bits&bytes™ community here:\n\n[Join WhatsApp Community](https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg "cta")\n\n[What events are coming up?](# "follow-up")',
   },
   {
     patterns: ["where are you", "location", "based in", "city", "lucknow"],
@@ -326,7 +326,7 @@ const SMART_FAQ: FaqEntry[] = [
       "why bits",
     ],
     answer:
-      'At Bits&Bytes we build for **high-agency teen builders** who want to ship real products:\n\n- **Hackathons** — Regional hackathons, builder sprints, and 48-hour prototype builds\n- **Workshops** — Web dev, AI/ML, mobile apps, UI/UX, hardware building\n- **Build programs** — Portfolio-ready projects with mentorship at every stage\n- **Mentorship pods** — Pair programming, code reviews, and accountability partners\n\nWe treat participants like **ambitious builders**, not beginners. Every prompt becomes a prototype. You\'ll ship real impact.\n\n[View our projects](/projects "cta")',
+      'At bits&bytes™ we build for **high-agency teen builders** who want to ship real products:\n\n- **Hackathons** — Regional hackathons, builder sprints, and 48-hour prototype builds\n- **Workshops** — Web dev, AI/ML, mobile apps, UI/UX, hardware building\n- **Build programs** — Portfolio-ready projects with mentorship at every stage\n- **Mentorship pods** — Pair programming, code reviews, and accountability partners\n\nWe treat participants like **ambitious builders**, not beginners. Every prompt becomes a prototype. You\'ll ship real impact.\n\n[View our projects](/projects "cta")',
   },
   {
     patterns: ["events", "upcoming event", "next event", "what events"],
@@ -342,7 +342,7 @@ const SMART_FAQ: FaqEntry[] = [
       "akshats' achievements",
     ],
     answer:
-      '**Akshat Kushwaha** is Chief Technology Officer (CTO) at Bits&Bytes, focused on production-grade systems, AI-native workflows, and platform reliability for club projects.\n\n[See our projects](/projects "cta")',
+      '**Akshat Kushwaha** is Chief Technology Officer (CTO) at bits&bytes™, focused on production-grade systems, AI-native workflows, and platform reliability for club projects.\n\n[See our projects](/projects "cta")',
   },
 ];
 
@@ -695,7 +695,7 @@ const FloatingAiAssistant: React.FC = () => {
   );
 
   const handleExport = () => {
-    let md = "# Bits&Bytes Assistant Session\n\n";
+    let md = "# bits&bytes™ Assistant Session\n\n";
     messages.forEach((m) => {
       const role = m.role === "user" ? "**You**" : "**Assistant**";
       md += `${role}:\n${m.content}\n\n`;
@@ -1144,8 +1144,8 @@ const FloatingAiAssistant: React.FC = () => {
           onClick={handleToggle}
           aria-label={
             isChatOpen
-              ? "Close Bits&Bytes assistant"
-              : "Open Bits&Bytes assistant"
+              ? "Close bits&bytes™ assistant"
+              : "Open bits&bytes™ assistant"
           }
         >
           <div className="relative z-10 flex items-center justify-center">
@@ -1170,7 +1170,7 @@ const FloatingAiAssistant: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span className="text-xs font-medium text-zinc-200">
-                    Bits&Bytes Assistant
+                    bits&bytes™ Assistant
                   </span>
                 </div>
                 <div className="flex items-center gap-1">

@@ -14,7 +14,7 @@ export default function QnAPage() {
     return (
         <main
             className="flex flex-col w-full px-0 pt-24 sm:pt-28 lg:pt-32"
-            aria-label="Bits and Bytes QnA Assistant"
+            aria-label="bits&bytes™ QnA Assistant"
         >
             <section className="w-full">
                 <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12">
@@ -24,7 +24,7 @@ export default function QnAPage() {
                                 QnA Assistant
                             </span>
                             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white">
-                                Ask what matters, get the real Bits&Bytes answer.
+                                Ask what matters, get the real bits&bytes™ answer.
                             </h1>
                             <p className="text-base sm:text-lg text-white/80 max-w-2xl">
                                 This is the official QnA layer for sponsors, educators, and builders. We answer from
@@ -99,7 +99,7 @@ export default function QnAPage() {
                                     </p>
                                     <div className="mt-3 space-y-2">
                                         {[
-                                            "What makes Bits&Bytes different?",
+                                            "What makes bits&bytes™ different?",
                                             "Show me partner events and outcomes.",
                                             "How do sponsors get involved?",
                                         ].map((prompt) => (

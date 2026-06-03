@@ -1,8 +1,8 @@
-# Bits&Bytes Technical Documentation
+# bits&bytes™ Technical Documentation
 
 ## 1. Project Overview
 
-**Purpose:** Official website and platform for Bits&Bytes, a teen-led code club operating nationwide in India. Serves as community hub, event platform, and AI-powered assistant system.
+**Purpose:** Official website and platform for bits&bytes™, a teen-led builders club operating nationwide in India. Serves as community hub, event platform, and AI-powered assistant system.
 
 **Tech Stack:** Next.js 16, React 19, TypeScript 5, Tailwind CSS 4, Supabase (PostgreSQL), OpenAI/HackClub Proxy API, Vercel.
 

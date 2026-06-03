@@ -8,7 +8,7 @@ brand
 
 - Teens evaluating whether to join or participate
 - Sponsors exploring partnerships
-- Educators and community members learning about Bits&Bytes
+- Educators and community members learning about bits&bytes™
 
 ## Product Purpose
 

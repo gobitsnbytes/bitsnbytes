@@ -14,24 +14,24 @@ import {
 const testimonials = [
   {
     quote:
-      "Most cities don't have a student tech scene. It’s not a lack of talent, it’s just a lack of people around you who are also building. We got tired of waiting for someone else to fix that, so we built Bits&Bytes. It's just us doing the unglamorous work, showing up, and giving people a place to finally ship their chaotic, half-baked ideas together.",
+      "Most cities don't have a student tech scene. It’s not a lack of talent, it’s just a lack of people around you who are also building. We got tired of waiting for someone else to fix that, so we built bits&bytes™. It's just us doing the unglamorous work, showing up, and giving people a place to finally ship their chaotic, half-baked ideas together.",
     author: "Aadrika Maurya",
     role: "Chief Creative Officer & Chief Operating Officer",
-    company: "Bits&Bytes",
+    company: "bits&bytes™",
   },
   {
     quote:
       "There's a difference between building and shipping, and most people never cross that line. We don't have VC money or fancy decks. We just have a ridiculous amount of conviction that high schoolers should be pushing real projects to real users. Ship first. Panic later. That's the bar.",
     author: "Yash Vardhan Singh",
     role: "Chief Executive Officer",
-    company: "Bits&Bytes",
+    company: "bits&bytes™",
   },
   {
     quote:
-      "Bits&Bytes started as a cope because my school said no to a CS club. Now, we run hackathons where teenagers actually ship code instead of pitching slide decks. You don't need institutional approval or a five-year plan to build something cool. You just need to ignore the gatekeepers and write the code.",
+      "bits&bytes™ started as a cope because my school said no to a CS club. Now, we run hackathons where teenagers actually ship code instead of pitching slide decks. You don't need institutional approval or a five-year plan to build something cool. You just need to ignore the gatekeepers and write the code.",
     author: "Akshat Kushwaha",
     role: "Chief Technology Officer",
-    company: "Bits&Bytes",
+    company: "bits&bytes™",
   },
 ];
 

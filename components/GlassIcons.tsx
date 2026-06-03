@@ -17,7 +17,7 @@ export interface GlassIconsProps {
   className?: string;
 }
 
-// Brand colors from Bits&Bytes - reference CSS variables from the canonical palette
+// Brand colors from bits&bytes™ - reference CSS variables from the canonical palette
 const brandColors: Record<string, string> = {
   "deep-purple": "var(--bb-deep-purple)",
   "vibrant-pink": "var(--bb-pink)",

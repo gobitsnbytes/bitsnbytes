@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
 
-export const alt = 'Bits&Bytes - 1500+ Teen Builders | High-Impact Execution'
+export const alt = 'bits&bytes™ - 1500+ Teen Builders | High-Impact Execution'
 export const size = {
   width: 1200,
   height: 630,
@@ -101,7 +101,7 @@ export default async function Image() {
                 src={logoDataUri}
                 width={48}
                 height={48}
-                alt="Bits&Bytes"
+                alt="bits&bytes™"
                 style={{ objectFit: 'contain' }}
               />
             </div>
@@ -112,10 +112,10 @@ export default async function Image() {
               }}
             >
               <div style={{ fontSize: '20px', color: '#c6d6ff', letterSpacing: '2px' }}>
-                INDIA'S TEEN-LED CODE CLUB
+                INDIA'S TEEN-LED BUILDERS CLUB
               </div>
               <div style={{ fontSize: '46px', fontWeight: 850, lineHeight: 1.05 }}>
-                Bits&Bytes
+                bits&bytes™
               </div>
             </div>
           </div>
@@ -199,7 +199,7 @@ export default async function Image() {
               marginTop: '6px',
             }}
           >
-            <div>Impact Highlight: 2700+ submissions evaluated in 72 hours by the Bits&Bytes team.</div>
+            <div>Impact Highlight: 2700+ submissions evaluated in 72 hours by the bits&bytes™ team.</div>
             <div style={{ color: '#ffffff' }}>gobitsnbytes.org</div>
           </div>
         </div>

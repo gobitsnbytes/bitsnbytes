@@ -15,6 +15,7 @@ const NAV_LINKS = [
     { href: "/events", label: "Events" },
     { href: "/impact", label: "Impact" },
     { href: "/qna", label: "QnA" },
+    { href: "/press", label: "Press" },
 ];
 
 const AnimatedNavLink = ({
@@ -134,8 +135,8 @@ export function MiniNavbar() {
                 <Link href="/" className="flex items-center">
                     <div className="relative h-8 w-8 flex items-center justify-center rounded-lg bg-white overflow-hidden p-1.5">
                         <Image
-                            src={logo}
-                            alt="Bits&Bytes logo"
+                            src="/logo.svg"
+                            alt="bits&bytes™ logo"
                             width={20}
                             height={20}
                             className="object-contain invert"
@@ -161,18 +162,20 @@ export function MiniNavbar() {
                     onClick={toggleMenu}
                     aria-label={isOpen ? "Close Menu" : "Open Menu"}
                 >
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={isOpen ? "close" : "open"}
-                            initial={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
-                            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                            exit={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
-                            transition={{ duration: 0.15, ease: "easeOut" }}
-                            className="flex items-center justify-center"
-                        >
-                            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                        </motion.div>
-                    </AnimatePresence>
+                    <div className="relative w-5 h-5 flex items-center justify-center">
+                        <div className={cn(
+                            "absolute transition-all duration-200 ease-out transform",
+                            isOpen ? "rotate-90 opacity-0 scale-75" : "rotate-0 opacity-100 scale-100"
+                        )}>
+                            <Menu className="w-5 h-5" />
+                        </div>
+                        <div className={cn(
+                            "absolute transition-all duration-200 ease-out transform",
+                            isOpen ? "rotate-0 opacity-100 scale-100" : "-rotate-90 opacity-0 scale-75"
+                        )}>
+                            <X className="w-5 h-5" />
+                        </div>
+                    </div>
                 </button>
             </div>
 
