@@ -9,17 +9,42 @@
     --font-serif-brand: "Georgia Pro", Georgia, "Times New Roman", serif;
     --font-script-brand: "Palm Club", "Brush Script MT", "Segoe Script", cursive;
 
-    --brand-purple: #5e0f1a;
-    --brand-plum: #791423;
-    --brand-pink: #97192c;
-    --brand-coral: #ff7a1b;
-    --brand-amber: #ffae24;
-    --brand-midnight: #1e0509;
-    --brand-ink: #120f0a;
+    --bb-burgundy-100: #97192c;
+    --bb-burgundy-80: #791423;
+    --bb-burgundy-60: #5b0f1a;
+    --bb-burgundy-40: #3c0a12;
+    --bb-burgundy-20: #1e0509;
+    --bb-neutral-100: #120f0a;
+    --bb-neutral-80: #413f3b;
+    --bb-neutral-60: #716f6c;
+    --bb-neutral-40: #a09f9d;
+    --bb-neutral-20: #d0cfce;
+    --bb-orange-100: #fc920d;
+    --bb-orange-80: #fda83d;
+    --bb-orange-60: #fdbe6e;
+    --bb-orange-40: #fed39e;
+    --bb-orange-20: #fee9cf;
+    --bb-warm-100: #c94218;
+    --bb-warm-80: #d46846;
+    --bb-warm-60: #df8e74;
+    --bb-warm-40: #e9b3a3;
+    --bb-warm-20: #f4d9d1;
+    --bb-pink: #e45a92;
+    --bb-plum: #5d2f77;
+    --bb-deep-purple: #3e1e68;
 
-    --background: #080504;
+    --brand-purple: var(--bb-deep-purple);
+    --brand-plum: var(--bb-plum);
+    --brand-pink: var(--bb-burgundy-100);
+    --brand-vibrant-pink: var(--bb-pink);
+    --brand-coral: var(--bb-orange-100);
+    --brand-amber: var(--bb-orange-80);
+    --brand-midnight: var(--bb-burgundy-20);
+    --brand-ink: var(--bb-neutral-100);
+
+    --background: var(--bb-burgundy-20);
     --foreground: #f7f1ec;
-    --card: rgba(20, 15, 10, 0.86);
+    --card: rgba(18, 15, 10, 0.86);
     --card-foreground: #f8f2ed;
     --popover: rgba(22, 16, 11, 0.96);
     --popover-foreground: #f8f2ed;
@@ -28,21 +53,21 @@
     --border: rgba(247, 241, 236, 0.12);
     --input: rgba(247, 241, 236, 0.1);
 
-    --primary: var(--brand-pink);
+    --primary: var(--bb-burgundy-100);
     --primary-foreground: #fff9f4;
     --secondary: rgba(151, 25, 44, 0.2);
     --secondary-foreground: #fff4ea;
-    --accent: var(--brand-coral);
+    --accent: var(--bb-orange-100);
     --accent-foreground: #2a0804;
     --destructive: #f04438;
     --destructive-foreground: #ffffff;
 
-    --ring: rgba(255, 122, 27, 0.4);
+    --ring: rgba(252, 146, 13, 0.4);
     --radius: 18px;
 
-    --glow-strong: 0 20px 70px rgba(255, 122, 27, 0.24);
-    --glow-soft: 0 10px 32px rgba(151, 25, 44, 0.22);
-    --shadow-card: 0 20px 60px rgba(7, 3, 2, 0.55);
+    --glow-strong: 0 20px 70px rgba(252, 146, 13, 0.24);
+    --glow-soft: 0 10px 32px rgba(151, 25, 44, 0.28);
+    --shadow-card: 0 20px 60px rgba(18, 15, 10, 0.5);
 
     --chart-1: oklch(0.646 0.222 41.116);
     --chart-2: oklch(0.6 0.118 184.704);
@@ -61,7 +86,7 @@
 }
 
 .dark {
-    --background: #070403;
+    --background: #1e0509;
     --foreground: #f7f1ec;
     --card: rgba(16, 10, 7, 0.88);
     --card-foreground: #f8f2ed;
@@ -72,18 +97,18 @@
     --border: rgba(247, 241, 236, 0.1);
     --input: rgba(247, 241, 236, 0.12);
 
-    --primary: #fbe5d5;
+    --primary: #fee9cf;
     --primary-foreground: #2a0804;
     --secondary: rgba(247, 241, 236, 0.08);
     --secondary-foreground: #f8f2ed;
-    --accent: var(--brand-coral);
+    --accent: var(--bb-orange-100);
     --accent-foreground: #2a0804;
     --destructive: #f87171;
     --destructive-foreground: #1f0508;
 
     --ring: rgba(255, 122, 27, 0.45);
 
-    --glow-strong: 0 26px 92px rgba(255, 122, 27, 0.32);
+    --glow-strong: 0 26px 92px rgba(252, 146, 13, 0.32);
     --glow-soft: 0 14px 42px rgba(151, 25, 44, 0.35);
     --shadow-card: 0 26px 76px rgba(2, 1, 1, 0.78);
 

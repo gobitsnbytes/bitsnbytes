@@ -55,7 +55,7 @@ export function GlassContainer({
             layoutId={layoutId}
             layout={layout}
             className={cn(
-                "group relative overflow-hidden rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border border-white/10 bg-white/5 p-1.5 sm:p-2 transition-all duration-300 hover:border-white/20 hover:bg-white/10",
+                "group relative overflow-hidden rounded-[18px] border border-[rgba(208,207,206,0.12)] bg-[linear-gradient(145deg,rgba(151,25,44,0.18),rgba(18,15,10,0.5))] p-1.5 sm:p-2 transition-[background-color,border-color,transform,box-shadow] duration-200 ease-out hover:border-[rgba(252,146,13,0.26)] hover:shadow-[var(--glow-soft)]",
                 interactive && "cursor-pointer active:scale-[0.98]",
                 "md:backdrop-blur-xl", // Only apply blur on larger screens for mobile performance
                 containerClassName
@@ -65,7 +65,7 @@ export function GlassContainer({
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent z-20" />
 
             <div className={cn(
-                "relative overflow-hidden rounded-xl sm:rounded-2xl md:rounded-[2.25rem] border border-white/10 bg-black/20",
+                "relative overflow-hidden rounded-[14px] border border-[rgba(208,207,206,0.11)] bg-[rgba(18,15,10,0.5)]",
                 className
             )}>
                 {/* Animated glass shine */}
@@ -81,10 +81,10 @@ export function GlassContainer({
 
             {/* Ambient glows */}
             {(glowColor === "pink" || glowColor === "both") && (
-                <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-(--brand-pink)/10 blur-[80px] transition-opacity duration-300 group-hover:opacity-100 opacity-50" />
+                <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-[var(--bb-burgundy-100)]/14 blur-[80px] transition-opacity duration-300 group-hover:opacity-100 opacity-50" />
             )}
             {(glowColor === "purple" || glowColor === "both") && (
-                <div className="absolute -bottom-24 -right-24 h-48 w-48 rounded-full bg-(--brand-purple)/10 blur-[80px] transition-opacity duration-300 group-hover:opacity-100 opacity-50" />
+                <div className="absolute -bottom-24 -right-24 h-48 w-48 rounded-full bg-[var(--bb-orange-100)]/12 blur-[80px] transition-opacity duration-300 group-hover:opacity-100 opacity-50" />
             )}
         </motion.div>
     );

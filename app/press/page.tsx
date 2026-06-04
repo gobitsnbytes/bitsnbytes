@@ -17,9 +17,11 @@ import {
   ExternalLink,
   FileText,
   Info,
+  ShieldCheck,
 } from "lucide-react";
 
 import { GlassContainer } from "@/components/ui/glass-container";
+import { TEAM_MEMBERS } from "@/lib/team-data";
 import logoSvg from "@public/logo.svg";
 
 const WebGLShader = dynamic(
@@ -47,12 +49,9 @@ const colors = {
   ],
 };
 
-const leadership = [
-  { name: "Yash Singh", role: "Chief Executive Officer (CEO)" },
-  { name: "Aadrika Maurya", role: "Chief Creative & Chief Operating Officer (CCO / COO)" },
-  { name: "Akshat Kushwaha", role: "Chief Technology Officer (CTO)" },
-  { name: "Devaansh Pathak", role: "Chief Financial Officer (CFO)" },
-];
+const leadership = TEAM_MEMBERS.filter(
+  (member) => member.role.startsWith("Chief") || member.role.startsWith("Head"),
+);
 
 export default function PressKit() {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
@@ -80,7 +79,7 @@ export default function PressKit() {
                 Press Kit & Brand Assets
               </h1>
               <p className="max-w-2xl text-white/80 text-sm sm:text-base md:text-lg">
-                Official assets, color palettes, typography specs, and organization facts for bits&bytes™ and GOBITSNBYTES FOUNDATION.
+                Official logos, color palettes, typography specs, public facts, and media contact paths for bits&bytes™.
               </p>
             </div>
           </div>
@@ -108,8 +107,8 @@ export default function PressKit() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* SVG Logo */}
                 <div className="border border-white/10 rounded-2xl p-6 bg-white/5 flex flex-col items-center justify-between gap-6">
-                  <div className="w-32 h-32 relative flex items-center justify-center bg-black rounded-2xl border border-white/20 shadow-inner">
-                    <Image src={logoSvg} alt="bits&bytes logo SVG" width={80} height={80} className="object-contain" />
+                  <div className="relative flex h-32 w-32 items-center justify-center rounded-[14px] border border-[rgba(208,207,206,0.14)] bg-[var(--bb-neutral-100)] shadow-inner">
+                    <Image src={logoSvg} alt="bits&bytes logo SVG" width={104} height={104} className="object-contain" />
                   </div>
                   <div className="text-center w-full">
                     <h3 className="font-bold text-white text-lg">Vector SVG Logo</h3>
@@ -127,8 +126,8 @@ export default function PressKit() {
 
                 {/* PNG Logo */}
                 <div className="border border-white/10 rounded-2xl p-6 bg-white/5 flex flex-col items-center justify-between gap-6">
-                  <div className="w-32 h-32 relative flex items-center justify-center bg-black rounded-2xl border border-white/20 shadow-inner">
-                    <Image src="/logo.png" alt="bits&bytes logo PNG" width={80} height={80} className="object-contain" />
+                  <div className="relative flex h-32 w-32 items-center justify-center rounded-[14px] border border-[rgba(208,207,206,0.14)] bg-[var(--bb-neutral-100)] shadow-inner">
+                    <Image src="/logo.png" alt="bits&bytes logo PNG" width={104} height={104} className="object-contain" />
                   </div>
                   <div className="text-center w-full">
                     <h3 className="font-bold text-white text-lg">Raster PNG Logo</h3>
@@ -168,18 +167,18 @@ export default function PressKit() {
                       <button
                         key={color.hex}
                         onClick={() => copyToClipboard(color.hex)}
-                        className="group flex items-center gap-4 border border-white/10 rounded-xl p-3 bg-white/5 hover:border-white/30 text-left transition-all active:scale-98"
+                        className="group relative min-h-32 overflow-hidden rounded-[14px] border border-[rgba(208,207,206,0.14)] bg-[rgba(18,15,10,0.48)] text-left shadow-[0_18px_44px_rgba(18,15,10,0.24)] transition-[border-color,transform,box-shadow] duration-200 ease-out hover:border-[rgba(252,146,13,0.36)] hover:shadow-[var(--glow-soft)] active:scale-[0.98]"
                       >
                         <div
-                          className="w-12 h-12 rounded-lg border border-white/10 shadow-inner shrink-0 group-hover:scale-105 transition-transform"
+                          className="absolute inset-x-0 top-0 h-14 border-b border-white/10"
                           style={{ backgroundColor: color.hex }}
                         />
-                        <div className="overflow-hidden">
-                          <h4 className="font-semibold text-white text-sm truncate">{color.name}</h4>
-                          <p className="text-xs text-white/50 font-mono mt-0.5">{color.hex}</p>
-                          <p className="text-[10px] text-white/40 truncate mt-0.5">{color.desc}</p>
+                        <div className="relative flex min-h-32 flex-col justify-end p-4 pt-16">
+                          <h4 className="font-display text-base font-black text-white">{color.name}</h4>
+                          <p className="mt-1 text-xs text-[var(--bb-orange-60)] font-mono">{color.hex}</p>
+                          <p className="mt-2 text-xs leading-snug text-white/54">{color.desc}</p>
                         </div>
-                        <div className="ml-auto shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="absolute right-3 top-3 rounded-lg bg-[rgba(18,15,10,0.42)] p-1.5 text-white/72 opacity-80 transition-opacity group-hover:opacity-100">
                           {copiedColor === color.hex ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4 text-white/60" />}
                         </div>
                       </button>
@@ -189,23 +188,23 @@ export default function PressKit() {
 
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-[0.25em] text-white/60 mb-3">Accent / Interaction Colors</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {colors.accents.map((color) => (
                       <button
                         key={color.hex}
                         onClick={() => copyToClipboard(color.hex)}
-                        className="group flex items-center gap-3 border border-white/10 rounded-xl p-2.5 bg-white/5 hover:border-white/30 text-left transition-all active:scale-98"
+                        className="group relative min-h-28 overflow-hidden rounded-[14px] border border-[rgba(208,207,206,0.14)] bg-[rgba(18,15,10,0.48)] text-left shadow-[0_14px_36px_rgba(18,15,10,0.2)] transition-[border-color,transform,box-shadow] duration-200 ease-out hover:border-[rgba(252,146,13,0.36)] hover:shadow-[var(--glow-soft)] active:scale-[0.98]"
                       >
                         <div
-                          className="w-10 h-10 rounded-lg border border-white/10 shadow-inner shrink-0 group-hover:scale-105 transition-transform"
+                          className="absolute inset-x-0 top-0 h-12 border-b border-white/10"
                           style={{ backgroundColor: color.hex }}
                         />
-                        <div className="overflow-hidden">
-                          <h4 className="font-semibold text-white text-xs truncate">{color.name}</h4>
-                          <p className="text-[10px] text-white/50 font-mono mt-0.5">{color.hex}</p>
-                          <p className="text-[9px] text-white/40 truncate mt-0.5">{color.desc}</p>
+                        <div className="relative flex min-h-28 flex-col justify-end p-3 pt-14">
+                          <h4 className="font-display text-sm font-black text-white">{color.name}</h4>
+                          <p className="mt-1 text-[0.68rem] text-[var(--bb-orange-60)] font-mono">{color.hex}</p>
+                          <p className="mt-1 text-[0.68rem] leading-snug text-white/52">{color.desc}</p>
                         </div>
-                        <div className="ml-auto shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="absolute right-2.5 top-2.5 rounded-lg bg-[rgba(18,15,10,0.42)] p-1.5 text-white/72 opacity-80 transition-opacity group-hover:opacity-100">
                           {copiedColor === color.hex ? <Check className="h-3.5 w-3.5 text-green-400" /> : <Copy className="h-3.5 w-3.5 text-white/60" />}
                         </div>
                       </button>
@@ -259,7 +258,7 @@ export default function PressKit() {
             </div>
           </GlassContainer>
 
-          {/* About & Corporate Details */}
+          {/* About & Public Facts */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             <GlassContainer className="p-6 border-white/10 h-full" containerClassName="h-full md:col-span-2" glowColor="purple">
               <div className="space-y-4 flex flex-col justify-between h-full">
@@ -269,7 +268,7 @@ export default function PressKit() {
                     About bits&bytes™
                   </h3>
                   <p className="text-sm text-white/80 leading-relaxed font-serif-brand">
-                    bits&bytes™ is a youth-led, independent builder network that runs hackathons, developer meetups, and cohort-based learning squads. Founded in Lucknow in November 2025 following the last-minute cancellation of a major partner hackathon, we built bits&bytes™ as a sustainable, student-run alternative where teenagers can build real software instead of pursuing throwaway templates. We now serve 1,500+ active members across India.
+                    bits&bytes™ is an independent, youth-led builder network that runs hackathons, developer meetups, open-source squads, and cohort-based programs. Founded in November 2025 after a major partner hackathon was cancelled, the team built a durable student-led alternative where teenagers ship real software, learn in public, and organize with serious safety standards.
                   </p>
                 </div>
                 <div className="grid grid-cols-2 gap-4 pt-2">
@@ -289,31 +288,55 @@ export default function PressKit() {
               <div className="space-y-4 flex flex-col h-full">
                 <h3 className="font-display text-lg font-bold text-white flex items-center gap-2">
                   <Info className="h-4 w-4 text-[var(--brand-coral)]" />
-                  Corporate Details
+                  Public Facts
                 </h3>
                 <div className="text-xs text-white/80 space-y-3 font-mono flex-1 flex flex-col justify-between pt-2">
                   <div>
-                    <span className="text-white/40 block uppercase text-[9px] tracking-wider">Legal Entity</span>
-                    <span className="font-semibold text-white">GOBITSNBYTES FOUNDATION</span>
+                    <span className="text-white/40 block uppercase text-[9px] tracking-wider">Public Brand</span>
+                    <span className="font-semibold text-white">bits&bytes™</span>
                   </div>
                   <div>
-                    <span className="text-white/40 block uppercase text-[9px] tracking-wider">Status</span>
-                    <span>Section 8 Non-Profit Company (Limited by Guarantee)</span>
+                    <span className="text-white/40 block uppercase text-[9px] tracking-wider">Operator</span>
+                    <span>GOBITSNBYTES FOUNDATION</span>
                   </div>
                   <div>
-                    <span className="text-white/40 block uppercase text-[9px] tracking-wider">CIN</span>
-                    <span className="text-white">U85500UP2026NPL248652</span>
+                    <span className="text-white/40 block uppercase text-[9px] tracking-wider">Structure</span>
+                    <span>Section 8 non-profit company in India</span>
                   </div>
                   <div>
-                    <span className="text-white/40 block uppercase text-[9px] tracking-wider">Registered Address</span>
-                    <span className="not-italic leading-relaxed block text-white/90">
-                      265/1 PATRAKAR COLONY, PRAYAGRAJ ASHOK NAGER, Allahabad, Uttar Pradesh - 211001
-                    </span>
+                    <span className="text-white/40 block uppercase text-[9px] tracking-wider">Use This Name</span>
+                    <span className="not-italic leading-relaxed block text-white/90">bits&bytes™ in public copy, bitsnbytes where symbols are restricted.</span>
                   </div>
                 </div>
               </div>
             </GlassContainer>
           </div>
+
+          <GlassContainer className="p-8 sm:p-10 border-white/10" glowColor="purple">
+            <div className="grid gap-6 md:grid-cols-[1fr_1.4fr] md:items-start">
+              <div>
+                <h2 className="font-display text-2xl font-black text-white flex items-center gap-3 uppercase tracking-wider">
+                  <ShieldCheck className="h-6 w-6 text-[var(--brand-coral)]" />
+                  Usage Rules
+                </h2>
+                <p className="text-sm text-white/70 mt-2 font-serif-brand leading-relaxed">
+                  Press and partners may use official assets for accurate coverage of bits&bytes™. Co-branded materials, merch, sponsorship announcements, and anything implying endorsement need written approval.
+                </p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  "Do not distort, recolor, rotate, or add effects to the logo.",
+                  "Do not use bits&bytes™ branding for fundraising without approval.",
+                  "Do not publish participant data, private chats, or minor photos without consent.",
+                  "Use the Code of Conduct and Privacy Policy for safety-sensitive questions.",
+                ].map((rule) => (
+                  <div key={rule} className="rounded-xl border border-white/10 bg-white/5 p-4 text-sm leading-relaxed text-white/76">
+                    {rule}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </GlassContainer>
 
           {/* Leadership & Contacts */}
           <GlassContainer className="p-8 sm:p-12 border-white/10" glowColor="both">
@@ -325,9 +348,9 @@ export default function PressKit() {
                 </h3>
                 <ul className="space-y-3">
                   {leadership.map((member) => (
-                    <li key={member.name} className="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                    <li key={member.name} className="grid gap-1 border-b border-white/5 pb-3 text-sm sm:grid-cols-[10rem_1fr] sm:items-baseline">
                       <span className="font-semibold text-white">{member.name}</span>
-                      <span className="text-xs text-white/60">{member.role}</span>
+                      <span className="text-xs leading-relaxed text-white/60">{member.role}</span>
                     </li>
                   ))}
                 </ul>

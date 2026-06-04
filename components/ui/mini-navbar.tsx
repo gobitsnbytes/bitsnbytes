@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight, Github } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import logo from "@public/logo.svg";
 
 const NAV_LINKS = [
     { href: "/", label: "Home" },
@@ -133,13 +132,13 @@ export function MiniNavbar() {
         >
             <div className="flex items-center justify-between w-full gap-x-6 md:gap-x-10">
                 <Link href="/" className="flex items-center">
-                    <div className="relative h-8 w-8 flex items-center justify-center rounded-lg bg-white overflow-hidden p-1.5">
+                    <div className="relative flex h-9 w-9 items-center justify-center rounded-[10px] border border-[rgba(208,207,206,0.16)] bg-[var(--bb-neutral-100)] p-1 shadow-[0_8px_24px_rgba(151,25,44,0.24)]">
                         <Image
                             src="/logo.svg"
                             alt="bits&bytes™ logo"
-                            width={20}
-                            height={20}
-                            className="object-contain invert"
+                            width={28}
+                            height={28}
+                            className="object-contain"
                         />
                     </div>
                 </Link>

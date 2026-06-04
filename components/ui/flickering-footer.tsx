@@ -17,11 +17,10 @@ import {
   Github,
   Instagram,
   Linkedin,
-  Mail,
   MapPin,
   MessageCircle,
+  ShieldCheck,
 } from "lucide-react";
-import logo from "@public/logo.svg";
 
 // Helper function to convert any CSS color to rgba
 export const getRGBA = (
@@ -303,27 +302,87 @@ const footerLinks = [
   },
 ];
 
+const legalLinks = [
+  {
+    title: "Terms",
+    url: "/terms",
+    label: "Participation, Forks, money, and authority",
+  },
+  {
+    title: "Privacy",
+    url: "/privacy",
+    label: "Data handling, minors, and guardian requests",
+  },
+  {
+    title: "Code of Conduct",
+    url: "/coc",
+    label: "Safety, reporting, enforcement, and standards",
+  },
+  {
+    title: "IP Policy",
+    url: "/ip",
+    label: "Brand use, logos, open-source, and claims",
+  },
+  {
+    title: "Press Kit",
+    url: "/press",
+    label: "Official logos, facts, colors, and media contact",
+  },
+];
+
 export function FlickeringFooter() {
   const tablet = useMediaQuery("(max-width: 1024px)");
 
   return (
     <footer
       id="footer"
-      className="w-full pb-0 mt-12 sm:mt-16 border-t border-white/20 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-white/5"
+      className="w-full pb-0 mt-12 sm:mt-16 border-t border-[rgba(208,207,206,0.16)] bg-[rgba(18,15,10,0.78)] backdrop-blur-xl"
     >
+      <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(151,25,44,0.24),rgba(252,146,13,0.08)_48%,rgba(18,15,10,0.72))] p-5 shadow-[var(--shadow-card)] sm:p-6">
+          <div className="absolute inset-0 bg-grid-faint opacity-25" />
+          <div className="relative grid gap-6 lg:grid-cols-[18rem_1fr] lg:items-start">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-white/72">
+                <ShieldCheck className="h-3.5 w-3.5 text-[var(--bb-orange-100)]" />
+                Trust Center
+              </div>
+              <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/68">
+                The public rules for a teen-led network: safety, privacy, brand stewardship, and participation standards.
+              </p>
+            </div>
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+              {legalLinks.map((link) => (
+                <Link
+                  key={link.url}
+                  href={link.url}
+                  className="group rounded-xl border border-white/10 bg-black/15 p-3 text-left transition-[background-color,border-color,transform] duration-200 ease-out hover:border-white/22 hover:bg-white/[0.075] active:scale-[0.98]"
+                >
+                  <span className="flex items-center justify-between gap-2 text-sm font-bold text-white">
+                    {link.title}
+                    <ChevronRightIcon className="h-4 w-4 text-white/44 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
+                  </span>
+                  <span className="mt-2 block text-xs leading-snug text-white/54">
+                    {link.label}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="flex flex-col md:flex-row md:items-start md:justify-between p-6 sm:p-10 max-w-6xl mx-auto">
         <div className="flex flex-col items-start justify-start gap-y-4 max-w-xs">
           <Link href="/" className="flex items-center gap-3">
-            <div className="relative grid h-10 w-10 place-items-center rounded-xl bg-black text-white shadow-[0_8px_30px_rgba(228,90,146,0.4)]">
+            <div className="relative grid h-10 w-10 place-items-center rounded-[10px] border border-[rgba(208,207,206,0.16)] bg-[var(--bb-neutral-100)] text-white shadow-[0_8px_24px_rgba(151,25,44,0.24)]">
               <Image
                 src="/logo.svg"
                 alt="bits&bytes™ logo"
-                width={28}
-                height={28}
-                className="h-6 w-6 object-contain"
+                width={30}
+                height={30}
+                className="h-7 w-7 object-contain"
                 priority
               />
-              <div className="absolute inset-0 rounded-xl border-2 border-[var(--brand-pink)]" />
             </div>
             <div>
               <p className="font-display text-base font-semibold text-foreground">
@@ -336,7 +395,7 @@ export function FlickeringFooter() {
           </Link>
           <p className="tracking-tight text-muted-foreground text-sm">
             Innovate. Collaborate. Hack. Born in India, spreading across
-            India. No adults in the room.
+            India. Teen-led, safety-first, and built for people who ship.
           </p>
           <div className="flex flex-wrap gap-2 mt-2">
             {socialLinks.map(({ href, label, icon: Icon }) => (
@@ -345,7 +404,7 @@ export function FlickeringFooter() {
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/50 px-3 py-1.5 text-xs backdrop-blur-md transition-colors hover:border-white/50 hover:text-foreground dark:bg-white/10"
+                className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(208,207,206,0.18)] bg-[rgba(151,25,44,0.16)] px-3 py-1.5 text-xs text-white/72 backdrop-blur-md transition-colors hover:border-[rgba(252,146,13,0.36)] hover:text-white"
               >
                 <Icon className="h-3.5 w-3.5" />
                 <span>{label}</span>
@@ -390,7 +449,7 @@ export function FlickeringFooter() {
               </a>
               <p className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 shrink-0" />
-                Based in Prayagraj, India
+                India
               </p>
             </div>
           </div>
@@ -431,11 +490,11 @@ export function FlickeringFooter() {
           />
         </div>
       </div>
-      <div className="border-t border-white/10 py-4 px-4 w-full text-muted-foreground bg-white/30 dark:bg-black/20">
+      <div className="border-t border-[rgba(208,207,206,0.12)] py-4 px-4 w-full text-muted-foreground bg-[rgba(18,15,10,0.42)]">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs text-center md:text-left">
-          <p>© {new Date().getFullYear()} bits&bytes™. Built with ❤️.</p>
+          <p>© {new Date().getFullYear()} bits&bytes™ by GOBITSNBYTES FOUNDATION.</p>
           <p className="max-w-2xl text-[9px] sm:text-[10px] opacity-80 leading-relaxed text-center md:text-right">
-            bits&bytes™ is run by GOBITSNBYTES FOUNDATION, a non-profit company incorporated under Section 8 of the Companies Act, 2013 (Uttar Pradesh, India). CIN: U85500UP2026NPL248652. Registered Address: 265/1 PATRAKAR COLONY, PRAYAGRAJ ASHOK NAGER, Allahabad, Uttar Pradesh - 211001.
+            bits&bytes™ is a youth-led builder network operated by GOBITSNBYTES FOUNDATION, a Section 8 non-profit company in India.
           </p>
         </div>
       </div>

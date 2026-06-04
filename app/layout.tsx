@@ -24,8 +24,8 @@ const jetBrainsMono = JetBrains_Mono({
 // SEO-optimized viewport configuration
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#3E1E68" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#97192C" },
+    { media: "(prefers-color-scheme: dark)", color: "#1E0509" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -122,7 +122,7 @@ export const metadata: Metadata = {
   category: "education",
   classification: "Nonprofit Youth Builder Network",
   other: {
-    "msapplication-TileColor": "#3E1E68",
+    "msapplication-TileColor": "#97192C",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
   },
