@@ -4,18 +4,14 @@ import * as path from "path"
 
 dotenv.config({ path: ".env" })
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseServiceRoleKey = process.env.backend_SUPABASE_SERVICE_ROLE_KEY
+const upstashUrl = process.env.UPSTASH_VECTOR_REST_URL
+const upstashToken = process.env.UPSTASH_VECTOR_REST_TOKEN
 const hackclubProxyApiKey = process.env.HACKCLUB_PROXY_API_KEY
 
-if (!supabaseUrl || !supabaseServiceRoleKey || !hackclubProxyApiKey) {
-  console.warn("⚠️ Skipping site embeddings auto-generation: environment variables are missing (NEXT_PUBLIC_SUPABASE_URL, backend_SUPABASE_SERVICE_ROLE_KEY, or HACKCLUB_PROXY_API_KEY).")
+if (!upstashUrl || !upstashToken || !hackclubProxyApiKey) {
+  console.warn("⚠️ Skipping site embeddings auto-generation: environment variables are missing (UPSTASH_VECTOR_REST_URL, UPSTASH_VECTOR_REST_TOKEN, or HACKCLUB_PROXY_API_KEY).")
   process.exit(0)
 }
-
-import { createClient } from "@supabase/supabase-js"
-
-const supabase = createClient(supabaseUrl, supabaseServiceRoleKey)
 
 const EMBEDDING_MODEL = "openai/text-embedding-3-small"
 const EMBEDDING_DIMENSIONS = 1536
@@ -114,16 +110,19 @@ async function generateEmbedding(inputText: string): Promise<number[] | null> {
 }
 
 async function run() {
-  console.log("Clearing existing embeddings from site_embeddings...")
-  const { error: clearError } = await supabase
-    .from("site_embeddings")
-    .delete()
-    .not("id", "is", null)
+  console.log("Clearing existing embeddings from Upstash Vector...")
+  const clearRes = await fetch(`${upstashUrl}/reset`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${upstashToken}`,
+    },
+  })
 
-  if (clearError) {
-    console.error("Failed to clear existing embeddings:", clearError)
+  if (!clearRes.ok) {
+    console.error("Failed to clear existing embeddings:", await clearRes.text())
     return
   }
+  console.log("Upstash Vector Index cleared successfully.")
 
   const filePaths = [
     { absPath: path.resolve(process.cwd(), "public/llms.txt"), endpoint: "/llms.txt" },
@@ -146,11 +145,13 @@ async function run() {
 
   console.log(`Embedding ${siteContent.length} chunks...`)
 
+  const upsertBatch: any[] = []
+
   for (const item of siteContent) {
     const safeSection = normalizeSectionKey(item.section)
     const key = `${item.page}-${safeSection}`
 
-    console.log(`Embedding ${key} with ${EMBEDDING_MODEL} (${EMBEDDING_DIMENSIONS} dims)...`)
+    console.log(`Generating embedding for ${key}...`)
     try {
       const embedding = await generateEmbedding(item.content.replace(/\n/g, " ").trim())
       if (!Array.isArray(embedding) || embedding.length !== EMBEDDING_DIMENSIONS) {
@@ -158,16 +159,36 @@ async function run() {
         continue
       }
 
-      const { error } = await supabase.from("site_embeddings").insert({
-        page: item.page,
-        section: safeSection,
-        content: item.content,
-        embedding,
+      upsertBatch.push({
+        id: key,
+        vector: embedding.slice(0, 1535),
+        metadata: {
+          page: item.page,
+          section: safeSection,
+          content: item.content,
+        },
       })
-      if (error) console.error(`Failed to insert ${key}:`, error)
-      else console.log(`Success inserted ${key}`)
+      console.log(`Success queued ${key}`)
     } catch (e) {
-      console.error(`Local embedding failed for ${key}:`, e)
+      console.error(`Embedding generation failed for ${key}:`, e)
+    }
+  }
+
+  if (upsertBatch.length > 0) {
+    console.log(`Upserting ${upsertBatch.length} vectors to Upstash in batch...`)
+    const res = await fetch(`${upstashUrl}/upsert`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${upstashToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(upsertBatch),
+    })
+
+    if (!res.ok) {
+      console.error("Batch upsert failed:", await res.text())
+    } else {
+      console.log("Successfully upserted all vectors to Upstash!")
     }
   }
 

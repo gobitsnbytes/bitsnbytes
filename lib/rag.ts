@@ -1,4 +1,4 @@
-import { supabase } from "./supabase"
+// Querying Upstash Vector DB instead of Supabase
 
 const EMBEDDING_MODEL = "openai/text-embedding-3-small"
 const EMBEDDING_DIMENSIONS = 1536
@@ -65,51 +65,48 @@ export async function generateEmbedding(text: string): Promise<number[]> {
 export async function searchSiteContent(query: string, matchCount = 6): Promise<string[]> {
   let queryEmbedding: number[]
   try {
-    queryEmbedding = await generateEmbedding(query)
+    const rawEmbedding = await generateEmbedding(query)
+    queryEmbedding = rawEmbedding.slice(0, 1535)
   } catch (error) {
     console.error("Failed to generate query embedding:", error)
     return []
   }
 
-  // This relies on a Postgres function:
-  /*
-    create or replace function match_site_sections (
-      query_embedding vector(1536),
-      match_threshold float,
-      match_count int
-    )
-    returns table (
-      id uuid,
-      page text,
-      section text,
-      content text,
-      similarity float
-    )
-    language sql stable
-    as $$
-      select
-        site_embeddings.id,
-        site_embeddings.page,
-        site_embeddings.section,
-        site_embeddings.content,
-        1 - (site_embeddings.embedding <=> query_embedding) as similarity
-      from site_embeddings
-      where 1 - (site_embeddings.embedding <=> query_embedding) > match_threshold
-      order by site_embeddings.embedding <=> query_embedding
-      limit match_count;
-    $$;
-  */
+  const upstashUrl = process.env.UPSTASH_VECTOR_REST_URL
+  const upstashToken = process.env.UPSTASH_VECTOR_REST_TOKEN
 
-  const { data, error } = await supabase.rpc("match_site_sections", {
-    query_embedding: queryEmbedding,
-    match_threshold: 0.25, // lowered to 0.25 to prevent empty results on shorter queries
-    match_count: matchCount, // was 3 — too few for multi-part questions
-  })
-
-  if (error) {
-    console.error("Error searching embeddings:", error)
+  if (!upstashUrl || !upstashToken) {
+    console.error("Upstash Vector credentials are not configured in RAG search")
     return []
   }
 
-  return (data as any[]).map((d) => d.content)
+  try {
+    const res = await fetch(`${upstashUrl}/query`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${upstashToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        vector: queryEmbedding,
+        topK: matchCount,
+        includeMetadata: true,
+      }),
+    })
+
+    if (!res.ok) {
+      console.error("Upstash query failed:", await res.text())
+      return []
+    }
+
+    const data = await res.json()
+    const results = data?.result || []
+    
+    // Filter results using similarity score threshold (0.25)
+    const filtered = results.filter((r: any) => r.score >= 0.25)
+    return filtered.map((r: any) => r.metadata?.content || "")
+  } catch (err) {
+    console.error("Error querying Upstash Vector:", err)
+    return []
+  }
 }
