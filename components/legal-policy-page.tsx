@@ -122,7 +122,7 @@ export function LegalPolicyPage({
         )}
 
         <div className="grid gap-10 lg:grid-cols-[16rem_minmax(0,1fr)] lg:items-start">
-          <aside className="hidden lg:block">
+          <aside className="hidden lg:block self-stretch">
             <div className="sticky top-28 rounded-2xl border border-white/10 bg-[rgba(18,15,10,0.62)] p-3">
               <p className="px-2 pb-3 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-white/42">
                 On This Page
