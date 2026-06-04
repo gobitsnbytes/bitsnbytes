@@ -65,8 +65,7 @@ export async function generateEmbedding(text: string): Promise<number[]> {
 export async function searchSiteContent(query: string, matchCount = 6): Promise<string[]> {
   let queryEmbedding: number[]
   try {
-    const rawEmbedding = await generateEmbedding(query)
-    queryEmbedding = rawEmbedding.slice(0, 1535)
+    queryEmbedding = await generateEmbedding(query)
   } catch (error) {
     console.error("Failed to generate query embedding:", error)
     return []

@@ -92,6 +92,16 @@ const faqs: FAQItem[] = [
     answer:
       "Yes, but minors need a parent to pick them up or a signed note to leave on their own. You might not be able to come back at any hour. Venues lock down overnight, and security may not let you back in until morning.",
   },
+  {
+    question: "Is bits&bytes™ a legally registered organization?",
+    answer:
+      "Yes. To establish a permanent and independent home for the network, GOBITSNBYTES FOUNDATION was legally incorporated as a Section 8 non-profit company in India on 2 June 2026. The Foundation is governed by its Board of Directors.",
+  },
+  {
+    question: "What is a Fork? How can I run one?",
+    answer:
+      "A Fork is a recognized local, institutional, or thematic operating node of the bits&bytes™ Network recognized under authority of GOBITSNBYTES FOUNDATION. Local student-led teams can apply to run their own events and dev squads under our brand. All local operations are supported and governed by our Upstream teams.",
+  },
 ];
 
 import { GlassContainer } from "@/components/ui/glass-container";

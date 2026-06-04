@@ -161,7 +161,7 @@ async function run() {
 
       upsertBatch.push({
         id: key,
-        vector: embedding.slice(0, 1535),
+        vector: embedding,
         metadata: {
           page: item.page,
           section: safeSection,
