@@ -135,10 +135,6 @@ A **Fork** is a recognized local, institutional, or thematic operating unit of t
   - #FC920D, #FDA83D, #FDBE6E, #FED39E, #FEE9CF
 - **Warm Accent Range (supporting):**
   - #C94218, #D46846, #DF8E74, #E9B3A3, #F4D9D1
-- **Utility / Interaction colors:**
-  - Vibrant Pink (Interactive): #E45A92
-  - Rich Plum (Secondary): #5D2F77
-  - Deep Purple (Brand accent): #3E1E68
 
 Design guidance:
 - **Burgundy / Core:** the voice of the brand — serious and composed; use as the structural anchor for hero surfaces and heavy weights.

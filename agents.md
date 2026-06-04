@@ -37,7 +37,6 @@ bits&bytes™ uses a compact, production-friendly visual identity. Key elements:
   - **Neutrals:** #120F0A, #413F3B, #716F6C, #A09F9D, #D0CFCE
   - **Accent / Orange (pop gradient):** #FC920D → #FDA83D → #FDBE6E → #FED39E → #FEE9CF
   - **Warm Accent Range:** #C94218, #D46846, #DF8E74, #E9B3A3, #F4D9D1
-  - **Utility / Interaction:** Vibrant Pink #E45A92, Rich Plum #5D2F77, Deep Purple #3E1E68
 
   Design guidance: treat burgundy/plum as the core voice (serious and composed); use the orange gradient for emphasis and pops; prefer layered gradients for depth; and use the neutral scale to keep layouts clean.
 

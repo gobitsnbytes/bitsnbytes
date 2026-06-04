@@ -82,12 +82,6 @@ const colorPaletteRows = [
   },
 ];
 
-const utilityColors = [
-  { step: "Pink", hex: "#E45A92", name: "Vibrant Pink", desc: "Interactive states & highlights" },
-  { step: "Plum", hex: "#5D2F77", name: "Rich Plum", desc: "Secondary depth layering" },
-  { step: "Purple", hex: "#3E1E68", name: "Deep Purple", desc: "Core system brand accent" },
-];
-
 const executiveLeadership = TEAM_MEMBERS.filter(
   (member) => member.role.startsWith("Chief"),
 );
@@ -244,45 +238,6 @@ export default function PressKit() {
                   </div>
                 ))}
 
-                {/* Utility / Interaction Colors */}
-                <div className="grid grid-cols-1 md:grid-cols-[16rem_1fr] gap-6 pt-8">
-                  <div className="space-y-2">
-                    <h3 className="font-display text-lg font-bold text-white uppercase tracking-wider">
-                      Utility & Comms
-                    </h3>
-                    <p className="text-sm text-white/60 leading-relaxed font-serif-brand">
-                      Vibrant highlights and active interactive elements across digital products.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col gap-2 md:grid md:grid-cols-3 md:gap-4">
-                    {utilityColors.map((color) => (
-                      <button
-                        key={color.hex}
-                        onClick={() => copyToClipboard(color.hex)}
-                        className="group relative flex flex-row md:flex-col items-center md:items-stretch overflow-hidden rounded-xl border border-white/10 bg-white/5 p-2.5 md:p-0 text-left transition-all duration-200 hover:border-white/20 active:scale-95 cursor-pointer shadow-md"
-                      >
-                        <div 
-                          className="h-10 w-10 md:h-16 md:w-full rounded-lg md:rounded-none border border-white/10 md:border-none shrink-0" 
-                          style={{ backgroundColor: color.hex }} 
-                        />
-                        <div className="ml-3 md:ml-0 p-0 md:p-3 flex-1 flex flex-row md:flex-col justify-between items-center md:items-stretch">
-                          <div className="flex flex-col">
-                            <span className="block text-[10px] uppercase tracking-wider text-white/40">{color.name}</span>
-                            <span className="text-sm md:text-xs font-mono font-bold text-white mt-0.5">{color.hex}</span>
-                          </div>
-                          <div className="md:absolute md:right-2 md:top-2 rounded bg-white/10 md:bg-black/60 p-1.5 md:p-1 text-white md:opacity-0 transition-opacity group-hover:opacity-100 ml-auto md:ml-0">
-                            {copiedColor === color.hex ? (
-                              <Check className="h-3.5 w-3.5 text-green-400" />
-                            ) : (
-                              <Copy className="h-3.5 w-3.5 text-white/70" />
-                            )}
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
           </GlassContainer>
