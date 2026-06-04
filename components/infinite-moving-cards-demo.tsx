@@ -54,9 +54,9 @@ const testimonials = [
   },
   {
     quote:
-      "From design systems to deployment pipelines, we learn by doing. That's how you actually grow as an engineer.",
-    name: "Kaustubh",
-    title: "DevOps Engineer",
-    image: "/team/kaustubh.jpeg",
+      "We design production-grade systems and AI workflows that survive real-world constraints. No compromises, just clean and reliable code.",
+    name: "Akshat",
+    title: "Chief Technology Officer",
+    image: "/team/akshat.jpg",
   },
 ];

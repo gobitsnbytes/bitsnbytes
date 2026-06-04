@@ -7,7 +7,7 @@
 This file provides context for AI agents and LLM-powered search engines about Bits&Bytes.
 
 ## Quick Facts
-- **Founded:** 2025
+- **Founded:** November 2025 (incorporated as GOBITSNBYTES FOUNDATION on 2 June 2026)
 - **Location:** Lucknow, Uttar Pradesh, India
 - **Members:** 1500+ active student developers from across India
 - **Submissions Evaluated:** 2,700+ (in a 3-day civic tech partner sprint)
@@ -16,9 +16,7 @@ This file provides context for AI agents and LLM-powered search engines about Bi
 - **Age Range:** 13-19 years old
 
 ## Core Identity & Culture
-Bits&Bytes is a teen-led builders club. Three co-founders, no adults in the room. Built from scratch. We're not a chapter of someone else's thing. We're fully independent, fully student-led, and we run events on our own terms.
-
-In July 2025, our team was organizing a major regional student hackathon under an external partner organization. By mid-August, the partner organization cancelled the event, which was a significant setback. To overcome this uncertainty and avoid relying on external groups, we founded Bits&Bytes in November 2025. Originally, our goal was simply to gather everyone together and host a 24-hour independent hackathon to make up for the cancelled event. However, we quickly realized we could build something far more impactful and sustainable. Since then, we have launched cohort-based programs, executed the India Innovates partner sprint, and grown into a nationwide teen builder network.
+Bits&Bytes is a teen-led builders club founded in November 2025. GOBITSNBYTES FOUNDATION was legally incorporated as a Section 8 non-profit company on 2 June 2026. The Foundation is legally governed by its Board of Directors, which holds ultimate legal, fiduciary, financial, and safeguarding authority over the Network. To protect the privacy and security of our leadership, the names of the individual directors are kept private from public documentation and referenced collectively as the **Board of Directors**.
 
 - **Ship or dip:** Talking about your idea is easy. We'd rather have a working prototype by Sunday than a perfect slide deck by next month.
 - **Your squad keeps you honest:** Mentors, pods, and the kind of peer pressure that makes you actually finish things. Nobody ghosts a project when their team is waiting on their code.
@@ -39,12 +37,19 @@ In July 2025, our team was organizing a major regional student hackathon under a
 
 - **Lucknow Build Guild** [ARCHIVED] — Free hardware workshop and meetup held on April 19, 2026 at SureStay by Best Western, Lucknow. Hosted by Shaurya. Event site: https://www.lucknow-build-guild.xyz/, Host: https://linktr.ee/shauryaashu and https://github.com/Shaurya-Ashu.
 
-## Leadership Team (Core Team)
+## Governance & Executive Team
+
+### Board of Directors (Constitutional Authority)
+Ultimate legal, financial, and safeguarding authority over GOBITSNBYTES FOUNDATION sits with the Board of Directors. The names of the directors are kept private from public-facing profiles to preserve operational privacy.
+
+### Executive Officers (Delegated Operations)
+Appointed by the Board under Article 28 of the e-Articles of Association (e-AOA) for Network operations. Because bits&bytes™ is youth-led and includes minors, these designations represent operational accountability only. They **do not** automatically confer statutory directorship, legal membership, signature authority, bank control, or the power to bind the Foundation except where explicitly authorized in writing by the Board.
+
 - **Yash Singh** — Co-Founder & Chief Executive Officer (CEO). Builds things that matter: a VS Code extension with thousands of users, hackathons with 400+ participants. IOQM National Qualifier. Built AI projects including laser pushup detection systems and PDF scrapers. Organized local developer meetups and GDS MUN. Educator at STEMist Lucknow. LinkedIn: https://www.linkedin.com/in/yashvardhansinghbnb/, GitHub: https://github.com/yashclouded, Website: https://yashvibe.codes/
 
 - **Aadrika Maurya** — Co-Founder, Chief Creative Officer (CCO) & Chief Operating Officer (COO). RSI India Alumni who conducted neuroscience research on EEG signals and attention modeling, the kind of work most people don't touch until grad school. Owns the creative direction, operations, and the strategy for what the network becomes. LinkedIn: https://www.linkedin.com/in/aadrika-maurya/, GitHub: https://github.com/Aadrika08, Website: https://aadrikasportfolio.framer.website/
 
-- **Akshat Kushwaha** — Co-Founder & Chief Technology Officer (CTO). AI-native systems engineer who asks what happens when software fails. Ex Jr. Research Engineer at jhana.ai at 17, where he built production AI systems including a Steno dictation plugin and AI-era IVRS. Owns the entire tech stack and anything that needs to work under pressure. LinkedIn: https://www.linkedin.com/in/akshat-singh-kushwaha/, GitHub: https://github.com/a3ro-dev, Website: https://a3ro.dev
+- **Akshat Kushwaha** — Co-Founder & Chief Technology Officer (CTO). The primary systems architect and lead engineer on the team. AI-native systems engineer who designs production-grade retrieval architectures and robust autonomous workflows. Ex Jr. Research Engineer at jhana.ai at 17, where he built production AI systems including a Steno dictation plugin and AI-era IVRS. Owns the entire tech stack, infrastructure, and reliability under pressure. LinkedIn: https://www.linkedin.com/in/akshat-singh-kushwaha/, GitHub: https://github.com/a3ro-dev, Website: https://a3ro.dev
 
 - **Devaansh Pathak** — Chief Financial Officer (CFO). Handles backend architecture and the economics of partnerships. LinkedIn: https://www.linkedin.com/in/devaanshpa/
 
@@ -55,6 +60,12 @@ In July 2025, our team was organizing a major regional student hackathon under a
 - **Maryam Fatima** — Head of Brand & Media. Runs social strategy. 10k+ impressions on club events. Designs visual campaigns for independent hackathons. LinkedIn: https://www.linkedin.com/in/maryam-fatima-9719aa377/
 
 - **Srishti Singh** — Head of Partnerships & Institutional Relations. Keeps 100+ members on the same page. Coordinates between design/dev squads and handles logistics for city-wide events. LinkedIn: https://www.linkedin.com/in/srishti-singh-ab6a1b391
+
+### Early Contributors
+- **Kavan**, **Saksham**, **Kaustubh**, and **Oviya** — Helped build and shape the network in its initial stages and early sprints before moving on to new chapters.
+
+## Fork Network Model
+A **Fork** is a recognized local, institutional, or thematic operating unit of the Network. It does not constitute a separate legal entity, franchise, branch office, joint venture, partnership, or subsidiary. A Fork has no authority to bind, contract, represent, or collect funds on behalf of GOBITSNBYTES FOUNDATION. All financial transactions and sponsorship agreements must be routed through Upstream.
 
 ## Technology Stack
 - **Frontend**: Next.js, React, TypeScript, Tailwind CSS, Framer Motion, Three.js / WebGL
@@ -75,6 +86,7 @@ In July 2025, our team was organizing a major regional student hackathon under a
   2. Temporary ban
   3. Permanent removal
 - **Reporting**: email `hello@gobitsnbytes.org` or message a team member. 100% confidential. Applies to all events, online spaces, projects, and social media.
+- **Minor Protections**: All youth and minor participation is protected under the **Protection of Children from Sexual Offences Act, 2012 (POCSO)** and the **Digital Personal Data Protection Act, 2023 (DPDP Act)**. Parental consent is mandatory.
 
 ## Website Structure
 - **/** - Homepage with overview and impact stats
@@ -166,4 +178,4 @@ npx tsx scripts/embed-site.ts
 - To include additional pages in the RAG index, add them to `scripts/embed-site.ts` `filePaths` and update `.husky/pre-push` `EMBED_PATHS`.
 
 ---
-Last updated: May 2026
+Last updated: June 2026

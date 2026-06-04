@@ -189,13 +189,6 @@ const volunteers: Volunteer[] = [
     section: "Creative",
   },
   {
-    id: 18,
-    name: "Kavan",
-    role: "Graphic + Video Editing",
-    image: "/team/kavan.jpg",
-    section: "Creative",
-  },
-  {
     id: 16,
     name: "Vareesha",
     role: "Graphic + Video Editing",
@@ -297,7 +290,15 @@ export default function About() {
           <Suspense fallback={<LoadingInline />}>
             <TeamCaseStudy coreTeam={coreTeam} volunteers={volunteers} />
           </Suspense>
-          <p className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-muted-foreground px-4 sm:px-0">
+          <div className="mt-16 border-t border-white/5 pt-8 text-center max-w-lg mx-auto">
+            <h4 className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-[var(--brand-pink)]/70 mb-2">
+              Early Contributors
+            </h4>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed px-4">
+              We are grateful to our early team members and contributors who helped build and shape the network during its initial sprints before moving on to new chapters: <span className="text-white font-medium">Kavan, Saksham, Kaustubh, Oviya</span>.
+            </p>
+          </div>
+          <p className="mt-6 sm:mt-8 text-center text-xs text-muted-foreground px-4 sm:px-0">
             *Roles stay flexible as our team and network grow.
           </p>
         </PageSection>

@@ -1,9 +1,9 @@
 # bits&bytes™ Team – Agents Handbook
 
 > **Mission:** Getting ambitious teenagers to ship meaningful tech through hackathons, design/dev squads, and product launches. Fully student-led.
-> **Org Type:** Nonprofit · Independent Teen-Led Code Club · Based in Lucknow, India · Serving builders nationwide
+> **Org Type:** Nonprofit Section 8 Company (GOBITSNBYTES FOUNDATION) · Independent Teen-Led Code Club · Based in Lucknow, India · Serving builders nationwide
 
-This handbook describes the core bits&bytes™ "agents" (team members), what each person does, and how we collaborate.
+This handbook describes the core bits&bytes™ "agents" (team members), what each person does, how we collaborate, and our legal governance framework.
 
 ---
 
@@ -15,9 +15,9 @@ We're not a branch of any external student group. We're fully independent, fully
 ### 1.2 The Origin Story
 In July 2025, our team was organizing a major regional student hackathon under an external partner organization. By mid-August, the partner organization cancelled the event, which was a significant setback.
 
-To overcome this uncertainty and avoid relying on external groups, we founded bits&bytes™ in November 2025. Originally, our goal was simply to gather everyone together and host a 24-hour independent hackathon to make up for the cancelled event. However, we quickly realized we could build something far more impactful and sustainable.
+To overcome this uncertainty and avoid relying on external groups, we founded bits&bytes™ as a student-led club in November 2025. Originally, our goal was simply to gather everyone together and host a 24-hour independent hackathon to make up for the cancelled event. However, we quickly realized we could build something far more impactful and sustainable.
 
-Since then, our team has gone through major revamps, but our core mission has remained clear. We have since launched cohort-based programs, executed the India Innovates partner sprint, and grown into a nationwide teen builder network.
+To establish a permanent, legally protected, and independent home for the network, **GOBITSNBYTES FOUNDATION** was incorporated as a Section 8 non-profit company on 2 June 2026. The Foundation is legally governed by its Board of Directors, which holds ultimate fiduciary, constitutional, and safeguarding authority over the Network.
 
 ### 1.3 Brand Kit
 bits&bytes™ uses a compact, production-friendly visual identity. Key elements:
@@ -71,14 +71,45 @@ Quick reference for "who to ping for what".
 bits&bytes™ is supported by a volunteer network:
 - **Operations:** Shantanu Joshi and Atharva
 - **Outreach:** Adithya and Aanjaneya
-- **Creatives (Graphic + Video Editing):** Jaagruti, Kavan, Vareesha, and Aishwary
+- **Creatives (Graphic + Video Editing):** Jaagruti, Vareesha, and Aishwary
 - **Tech:** Hridyansh, Areeb, and Prakhar
+
+### Early Contributors
+We are grateful to our early team members and contributors who helped build and shape the network during its initial sprints before moving on to new chapters:
+- Kavan, Saksham, Kaustubh, Oviya
 
 ---
 
-## 3. Agent Profiles
+## 3. Executive & Governance Framework
 
-### 3.1 Leadership
+To protect our community and maintain Section 8 compliance, bits&bytes™ operates under a structured legal division of authority between Upstream governance and operational teams.
+
+### 3.1 The Board of Directors
+The Board of Directors holds ultimate legal, fiduciary, financial, and safeguarding authority over GOBITSNBYTES FOUNDATION.
+- **Powers:** Approving strategic plans, managing formal banking/accounts, entering into legal contracts/leases, setting the Authority Matrix, and deciding on Fork Recognition, Suspension, or Revocation.
+- **Privacy Notice:** In accordance with internal security and operational protocols, the names of the individual directors are kept private from public-facing marketing and community documentation. They are referenced collectively as the **Board of Directors**.
+
+### 3.2 Executive Officers (Operational Team)
+Executive Officers are appointed by the Board under Article 28 of the e-Articles of Association (e-AOA) for day-to-day operations.
+- **Operational Status:** Titles like CEO, CTO, COO, CFO, and CMO represent specific operational management domains.
+- **Signing & Fiduciary Limits:** Because bits&bytes™ is intentionally youth-led and includes minors, the designation of an Executive Officer **does not** automatically confer statutory directorship, legal membership, signature authority, banking access, or the power to bind the Foundation. All formal commitments, contracts, and bank operations must be routed through written Board authorizations.
+
+### 3.3 Fork Network Model
+A **Fork** is a recognized local, institutional, or thematic operating unit of the bits&bytes™ Network recognized under authority of the Board.
+- **Participation Only:** Fork Recognition is an operational, brand-use, and community permission only. 
+- **No Independent Agency:** A Fork does not constitute a separate legal entity, franchise, branch office, joint venture, partnership, or subsidiary. A Fork has no authority to bind, contract, represent, or collect funds on behalf of GOBITSNBYTES FOUNDATION. All local fundraising, sponsor deals, and venue contracts must be routed to Upstream for written legal execution.
+
+### 3.4 Minor Safeguarding & Data Rules
+Because many participants are minors, the Foundation enforces rigorous safety protocols:
+- **Statutory Compliance:** All activities, data processing, and communications involving minors are governed by the **Protection of Children from Sexual Offences Act, 2012 (POCSO)** and the **Digital Personal Data Protection Act, 2023 (DPDP Act)**.
+- **Parental Consent:** Verified parent or guardian consent is mandatory for minor participation in events, travel, photography, or public showcases.
+- **Safety Records:** Safeguarding reports and incident files are kept strictly confidential, secure, and shared only on a strict need-to-know basis. Safeguarding decisions override any concepts of local autonomy.
+
+---
+
+## 4. Agent Profiles
+
+### 4.1 Leadership
 
 #### Yash Singh – Chief Executive Officer
 - **Expertise:** Mathematics (IOQM), AI Prototyping, Full-Stack Dev, Hardware Experiments
@@ -104,8 +135,9 @@ bits&bytes™ is supported by a volunteer network:
 - **Owns:** Creative direction, brand strategy, visual identity, and the vision for what the network becomes.
 
 #### Akshat Kushwaha – Chief Technology Officer
-- **Expertise:** AI-Native Engineering, Retrieval Systems, System Reliability, LLMOps
+- **Expertise:** Core Systems Engineering, AI-Native Systems, Retrieval Architectures, LLMOps
 - **Achievements:**
+  - Primary systems architect and lead engineer on the team.
   - Ex Jr. Research Engineer at jhana.ai at 17, where he built production AI systems including a Steno dictation plugin and AI-era IVRS.
   - Builds production workflows and retrieval architectures that survive real constraints.
   - Built the entire bits&bytes™ tech infrastructure from scratch.
@@ -138,7 +170,7 @@ bits&bytes™ is supported by a volunteer network:
 
 ---
 
-## 4. Track Record
+## 5. Track Record
 
 - **India Innovates 2026:** Official Executive Partner for the World's Largest Civic Tech Hackathon with 1.26 crore+ applicants.
 - **Execron 1.0:** Co-hosted AI Hackathon & Workshop at IIT Kanpur for students in Classes 9–12.
@@ -150,20 +182,20 @@ bits&bytes™ is supported by a volunteer network:
 
 ---
 
-## 5. How We Work
+## 6. How We Work
 
-### 5.1 Core Principles
+### 6.1 Core Principles
 1. **High Agency ONLY** – We don't do hand-holding. We build for people who want to ship.
 2. **Ship Real Products** – Workshops and hack nights must end with something shipped, not just something learned.
 3. **Collaboration First** – We default to pairing and sharing context.
 4. **Resilience** – We don't make excuses; we ship regardless of obstacles.
 
-### 5.2 Technical Guidelines
+### 6.2 Technical Guidelines
 1. **Performance First** – Optimized for speed (TTFB, LCP, INP).
 2. **Always Optimized** – Production-grade code is mandatory; no "just for fun" hacks on core infra.
 3. **Use PNPM** – Always use `pnpm` for speed and consistency.
 
-## 6. AI Assistant & RAG Maintenance
+## 7. AI Assistant & RAG Maintenance
 
 - The repository includes an on-page AI assistant that answers from two sources:
   - live page context (client `pathname` and optional page snippets sent by the client), and
@@ -181,4 +213,4 @@ npx tsx scripts/embed-site.ts
 
 ---
 
-*Last updated: May 2026*
+*Last updated: June 2026*

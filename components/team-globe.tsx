@@ -173,6 +173,24 @@ export default function TeamGlobe() {
         arcAlt: 0.2,
         color: "#5D2F77",
       },
+      {
+        order: 15,
+        startLat: 26.8467, // Lucknow
+        startLng: 80.9462,
+        endLat: 17.3850, // Hyderabad
+        endLng: 78.4867,
+        arcAlt: 0.2,
+        color: "#E45A92",
+      },
+      {
+        order: 16,
+        startLat: 26.8467, // Lucknow
+        startLng: 80.9462,
+        endLat: 26.9124, // Jaipur
+        endLng: 75.7873,
+        arcAlt: 0.1,
+        color: "#FFACAC",
+      },
     ],
     [],
   );

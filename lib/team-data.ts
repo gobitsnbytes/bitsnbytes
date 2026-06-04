@@ -91,13 +91,14 @@ export const TEAM_MEMBERS: TeamMember[] = [
       website: "https://a3ro.dev",
     },
     superpowers: [
-      "Production-Grade Engineering",
+      "Systems Engineering",
       "LLMOps & RAG Architecture",
       "Agentic Workflows",
       "Next.js 16 / React 19",
       "System Design",
     ],
     achievements: [
+      "Primary systems architect and lead engineer on the team",
       "AI-native systems engineer; lead architect for the entire bits&bytes™ production-grade tech infrastructure",
       "Designed high-performance efficient retrieval systems for complex AI workflows",
       "Developed reliable long-running autonomous execution stacks for complex tool orchestration",

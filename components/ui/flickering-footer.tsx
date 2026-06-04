@@ -393,9 +393,8 @@ export function FlickeringFooter() {
               </p>
             </div>
           </Link>
-          <p className="tracking-tight text-muted-foreground text-sm">
-            Innovate. Collaborate. Hack. Born in India, spreading across
-            India. Teen-led, safety-first, and built for people who ship.
+          <p className="tracking-tight text-muted-foreground text-sm leading-relaxed">
+            India's independent, teen-led builder network. Connecting the country's most ambitious teenage developers and designers to ship software from scratch.
           </p>
           <div className="flex flex-wrap gap-2 mt-2">
             {socialLinks.map(({ href, label, icon: Icon }) => (
