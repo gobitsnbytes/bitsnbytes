@@ -41,9 +41,24 @@ const Testimonial = dynamic(
 // GlassIcons removed in favor of Features bento grid
 
 const stats = [
-  { value: "1500+", label: "Active members", detail: "across India" },
-  { value: "2700+", label: "Submissions evaluated", detail: "in a 3-day sprint" },
-  { value: "100%", label: "Student-led", detail: "by and for teens" },
+  { value: "1400+", label: "Community Members", detail: "active builders nationwide" },
+  { 
+    value: "5+ Forks", 
+    label: "Local Hubs", 
+    detail: (
+      <span>
+        city chapters — view at{" "}
+        <a 
+          href="/fork" 
+          className="text-[var(--brand-coral)] underline hover:text-white transition-colors"
+        >
+          gobitsnbytes.org/fork
+        </a>
+      </span>
+    )
+  },
+  { value: "4+ Events", label: "Nationwide Events", detail: "hackathons and workshops" },
+  { value: "16.5 Years", label: "Mean Team Age", detail: "average age of our team" },
 ];
 
 // Focus Areas are now handled within the Features component
@@ -59,30 +74,28 @@ export default function Home() {
         <PageSection
           eyebrow="Impact"
           title="Shipped, not just taught"
-          description="A teen-led builders club. Workshops and hackathons that end with something shipped, not just something learned."
+          description="A teen-led builders network. Workshops and hackathons that end with something shipped, not just something learned."
         >
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((stat, idx) => (
               <GlassContainer
                 key={stat.label}
                 className="p-8"
-                glowColor={
-                  stat.label === "Submissions evaluated" ? "pink" : "purple"
-                }
-                delay={idx * 0.15}
+                glowColor={idx % 2 === 0 ? "pink" : "purple"}
+                delay={idx * 0.1}
                 interactive
               >
                 <div className="space-y-4">
-                  <p className="text-5xl font-black text-white tracking-tighter">
+                  <p className="text-4xl font-black text-white tracking-tighter">
                     {stat.value}
                   </p>
                   <div>
-                    <h3 className="text-xl font-bold text-white uppercase tracking-tight">
+                    <h3 className="text-lg font-bold text-white uppercase tracking-tight">
                       {stat.label}
                     </h3>
-                    <p className="text-base text-white/60 font-medium">
+                    <div className="text-sm text-white/60 font-medium mt-1">
                       {stat.detail}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </GlassContainer>

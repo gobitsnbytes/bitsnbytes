@@ -37,7 +37,7 @@ const benefits = [
     icon: Users,
     title: "Join a tight-knit crew",
     description:
-      "Work alongside 1500+ teen builders across India who are actually building things.",
+      "Work alongside 1400+ teen builders across India who are actually building things.",
   },
   {
     icon: Rocket,
@@ -150,7 +150,7 @@ export default function Join() {
                   <div>
                     <h3 className="font-display text-xl font-black text-white uppercase tracking-tight">Join Community</h3>
                     <p className="mt-2 text-sm text-white/70 leading-relaxed font-medium">
-                      Hop onto our Discord server. Chat with 1500+ student builders, find project teams, and attend online study sessions.
+                      Hop onto our Discord server. Chat with 1400+ student builders, find project teams, and attend online study sessions.
                     </p>
                   </div>
                 </div>
@@ -320,7 +320,7 @@ export default function Join() {
               Ready to start building?
             </h2>
             <p className="text-sm sm:text-base text-white/70 px-4 sm:px-0">
-              Join 1500+ teen builders who ship real projects.
+              Join 1400+ teen builders who ship real projects.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Button

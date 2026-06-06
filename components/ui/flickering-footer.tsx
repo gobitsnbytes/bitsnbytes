@@ -470,7 +470,7 @@ export function FlickeringFooter() {
         <div className="absolute inset-0 bg-gradient-to-t from-transparent to-background z-10 from-40%" />
         <div className="absolute inset-0 mx-4">
           <FlickeringGrid
-            text={tablet ? "B&B" : "bits&bytes™"}
+            text="bits&bytes™"
             fontSize={tablet ? 50 : 80}
             className="absolute inset-0 h-full w-full"
             squareSize={2}
@@ -480,7 +480,7 @@ export function FlickeringFooter() {
             flickerChance={0.08}
           />
           <FlickeringGrid
-            text={tablet ? "B&B" : "bits&bytes™"}
+            text="bits&bytes™"
             fontSize={tablet ? 50 : 80}
             className="absolute inset-0 h-full w-full"
             squareSize={2}
@@ -490,7 +490,7 @@ export function FlickeringFooter() {
             flickerChance={0.12}
           />
           <FlickeringGrid
-            text={tablet ? "B&B" : "bits&bytes™"}
+            text="bits&bytes™"
             fontSize={tablet ? 50 : 80}
             className="absolute inset-0 h-full w-full"
             squareSize={2}
@@ -503,9 +503,12 @@ export function FlickeringFooter() {
       </div>
       <div className="border-t border-[rgba(208,207,206,0.12)] py-4 px-4 w-full text-muted-foreground bg-[rgba(18,15,10,0.42)]">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs text-center md:text-left">
-          <p>© {new Date().getFullYear()} bits&bytes™ by GOBITSNBYTES FOUNDATION.</p>
+          <div className="flex flex-col items-center md:items-start gap-1">
+            <p className="font-bold text-foreground">bits&amp;bytes™ by GOBITSNBYTES FOUNDATION</p>
+            <p>© {new Date().getFullYear()} GOBITSNBYTES FOUNDATION. All rights reserved. | gobitsnbytes.org</p>
+          </div>
           <p className="max-w-2xl text-[9px] sm:text-[10px] opacity-80 leading-relaxed text-center md:text-right">
-            bits&bytes™ is a youth-led builder network operated by GOBITSNBYTES FOUNDATION, a Section 8 non-profit company in India.
+            bits&amp;bytes™ is a student-led builder network operated by GOBITSNBYTES FOUNDATION, a Section 8 non-profit company in India.
           </p>
         </div>
       </div>

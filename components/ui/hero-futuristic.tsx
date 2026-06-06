@@ -22,9 +22,10 @@ import { Button } from "@/components/ui/button";
 import { GlassContainer } from "@/components/ui/glass-container";
 
 const stats = [
-  { value: "1500+", label: "Active members" },
-  { value: "2700+", label: "Submissions" },
-  { value: "100%", label: "Student-led" },
+  { value: "1400+", label: "Active Members" },
+  { value: "5+ Forks", label: "Local Hubs" },
+  { value: "4+ Events", label: "Nationwide" },
+  { value: "16.5 Yrs", label: "Mean Team Age" },
 ];
 
 export const HeroFuturistic = () => {
@@ -46,14 +47,14 @@ export const HeroFuturistic = () => {
     >
       <WebGLShader />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-12 px-4 pb-8 pt-20 sm:px-6 sm:pb-10 sm:pt-20 md:px-6 md:pb-16 md:pt-24 lg:pb-20 lg:pt-28 lg:flex-row lg:items-stretch lg:gap-16 box-border">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-10 px-4 pb-6 pt-16 sm:px-6 sm:pb-8 sm:pt-16 md:px-6 md:pb-12 md:pt-20 lg:pb-16 lg:pt-24 lg:flex-row lg:items-stretch lg:gap-10 box-border">
         {/* Left content card */}
         <div className="flex-1 min-w-0">
           <GlassContainer
-            className="p-5 sm:p-6 md:p-8 lg:p-12"
+            className="p-4 sm:p-5 md:p-6 lg:p-8"
             containerClassName="h-full"
           >
-            <div className="flex flex-col h-full gap-6 sm:gap-8 md:gap-10">
+            <div className="flex flex-col h-full gap-4 sm:gap-5 md:gap-6">
               {/* Teen-led badge */}
               <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3 py-1 sm:px-4 sm:py-1.5 text-[0.6rem] sm:text-[0.65rem] font-bold uppercase tracking-[0.25em] sm:tracking-[0.35em] text-white/80 backdrop-blur-md shadow-inner">
                 <Sparkles className="h-3 w-3 text-(--brand-pink)" />
@@ -61,41 +62,41 @@ export const HeroFuturistic = () => {
               </span>
 
               {/* Main content */}
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <h1
                   id="home-hero-title"
-                  className="font-display text-2xl font-extrabold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl tracking-tighter drop-shadow-2xl"
+                  className="font-display text-xl font-extrabold leading-tight text-white sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl tracking-tighter drop-shadow-2xl"
                 >
                   India&apos;s boldest <br className="hidden sm:block" />
                   builder network
                 </h1>
-                <p className="text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.25em] sm:tracking-[0.35em] text-(--brand-pink)">
+                <p className="text-xs sm:text-sm font-black uppercase tracking-[0.2em] sm:tracking-[0.25em] text-(--brand-pink)">
                   innovate. collaborate. hack.
                 </p>
-                <p className="text-sm text-white/80 sm:text-base md:text-lg lg:text-xl max-w-2xl leading-relaxed">
+                <p className="text-xs sm:text-sm md:text-base text-white/80 max-w-xl leading-relaxed">
                   Hackathons, dev squads, and launches. Fully student-led, fully
                   independent. No adults in the room.
                 </p>
               </div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col gap-4 sm:flex-row w-full mt-2">
+              <div className="flex flex-col gap-3 sm:flex-row w-full mt-1">
                 <Button
                   asChild
-                  className="w-full sm:flex-1 h-12 sm:h-14 px-6 sm:px-8 rounded-full bg-(--brand-pink) text-sm sm:text-base font-bold text-white shadow-[0_0_30px_rgba(228,90,146,0.5)] hover:shadow-[0_0_50px_rgba(228,90,146,0.7)] transition-transform transition-colors transition-opacity hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/20"
+                  className="w-full sm:flex-1 h-10 sm:h-12 px-5 sm:px-6 rounded-full bg-(--brand-pink) text-xs sm:text-sm font-bold text-white shadow-[0_0_20px_rgba(228,90,146,0.4)] hover:shadow-[0_0_35px_rgba(228,90,146,0.6)] transition-transform transition-colors transition-opacity hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/20"
                 >
                   <Link
                     href="/join"
                     className="flex items-center justify-center gap-2"
                   >
                     Join the crew
-                    <ArrowRight className="h-5 w-5 shrink-0" />
+                    <ArrowRight className="h-4 w-4 shrink-0" />
                   </Link>
                 </Button>
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full sm:flex-1 h-12 sm:h-14 px-6 sm:px-8 rounded-full border-white/20 bg-white/5 text-sm sm:text-base font-semibold text-white backdrop-blur-md hover:bg-white/10 transition-transform transition-colors transition-opacity hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/20"
+                  className="w-full sm:flex-1 h-10 sm:h-12 px-5 sm:px-6 rounded-full border-white/20 bg-white/5 text-xs sm:text-sm font-semibold text-white backdrop-blur-md hover:bg-white/10 transition-transform transition-colors transition-opacity hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/20"
                 >
                   <Link
                     href="/impact"
@@ -108,28 +109,37 @@ export const HeroFuturistic = () => {
 
               {/* Stats Grid */}
               <GlassContainer
-                className="mt-auto p-4 sm:p-6"
+                className="mt-auto p-3 sm:p-4"
                 glowColor="none"
                 animated={false}
               >
-                <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-                  {stats.map((stat, idx) => (
-                    <motion.div 
-                      key={stat.label} 
-                      className="text-center sm:text-left"
-                      initial={{ opacity: 0, y: 5 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.3 + (idx * 0.1) }}
-                    >
-                      <p className="text-lg sm:text-xl md:text-3xl font-black text-white">
-                        {stat.value}
-                      </p>
-                      <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.12em] sm:tracking-[0.18em] text-white/60 font-bold">
-                        {stat.label}
-                      </p>
-                    </motion.div>
-                  ))}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                  {stats.map((stat, idx) => {
+                    const isFork = stat.value === "5+ Forks";
+                    return (
+                      <motion.div 
+                        key={stat.label} 
+                        className="text-center sm:text-left"
+                        initial={{ opacity: 0, y: 5 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.3 + (idx * 0.1) }}
+                      >
+                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-black text-white leading-tight">
+                          {isFork ? (
+                            <Link href="/fork" className="hover:text-[var(--brand-coral)] transition-colors underline decoration-white/20">
+                              5+ Forks
+                            </Link>
+                          ) : (
+                            stat.value
+                          )}
+                        </p>
+                        <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] text-white/60 font-bold mt-1">
+                          {stat.label}
+                        </p>
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </GlassContainer>
             </div>

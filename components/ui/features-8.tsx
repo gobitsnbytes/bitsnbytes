@@ -8,7 +8,7 @@ export function Features() {
     <div className="mx-auto max-w-6xl">
       <div className="relative">
         <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
-          {/* Card 1: 1500+ Members (Replaces Customizable) */}
+          {/* Card 1: 1400+ Members */}
           <GlassContainer
             containerClassName="col-span-full lg:col-span-2"
             className="flex p-0 overflow-hidden"
@@ -29,11 +29,11 @@ export function Features() {
                   />
                 </svg>
                 <span className="mx-auto block w-fit text-5xl md:text-6xl font-black text-white tracking-tighter">
-                  1500+
+                  1400+
                 </span>
               </div>
               <h2 className="mt-8 text-center text-2xl font-black text-white uppercase tracking-widest">
-                Across India
+                Members
               </h2>
             </div>
           </GlassContainer>
@@ -131,10 +131,10 @@ export function Features() {
             </div>
             <div className="relative z-10 mt-10 space-y-3 text-center">
               <h2 className="text-2xl font-black text-white px-2">
-                2700+ Submissions
+                5+ Forks
               </h2>
               <p className="text-base text-white/60 font-medium">
-                Evaluated by the bits&bytes™ team in a 3-day sprint.
+                Active city chapters — <a href="/fork" className="underline text-[var(--brand-coral)] hover:text-white transition-colors">gobitsnbytes.org/fork</a>
               </p>
             </div>
           </GlassContainer>

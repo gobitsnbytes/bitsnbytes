@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
 
-export const alt = 'bits&bytes™ - 1500+ Teen Builders | High-Impact Execution'
+export const alt = 'bits&bytes™ - 1400+ Teen Builders | High-Impact Execution'
 export const size = {
   width: 1200,
   height: 630,
@@ -32,18 +32,19 @@ export default async function Image() {
     (
       <div
         style={{
-          background: 'linear-gradient(135deg, #0b1220 0%, #16223a 50%, #28184a 100%)',
+          background: 'linear-gradient(135deg, #120f0a 0%, #1e0509 45%, #3c0a12 100%)',
           width: '100%',
           height: '100%',
           display: 'flex',
           alignItems: 'stretch',
           justifyContent: 'center',
           fontFamily: 'sans-serif',
-          color: 'white',
+          color: '#f7f1ec',
           position: 'relative',
           padding: '52px',
         }}
       >
+        {/* Glow Effects */}
         <div
           style={{
             position: 'absolute',
@@ -52,19 +53,48 @@ export default async function Image() {
             right: 0,
             bottom: 0,
             backgroundImage:
-              'radial-gradient(circle at 18% 20%, rgba(63, 225, 255, 0.22) 0%, transparent 36%), radial-gradient(circle at 82% 10%, rgba(255, 120, 180, 0.2) 0%, transparent 42%), radial-gradient(circle at 50% 90%, rgba(131, 102, 255, 0.22) 0%, transparent 40%)',
+              'radial-gradient(circle at 10% 10%, rgba(151, 25, 44, 0.35) 0%, transparent 65%), radial-gradient(circle at 90% 90%, rgba(252, 146, 13, 0.22) 0%, transparent 60%), radial-gradient(circle at 50% 50%, rgba(201, 66, 24, 0.08) 0%, transparent 50%)',
           }}
         />
 
+        {/* Decorative Inner Frame */}
         <div
           style={{
             position: 'absolute',
             inset: '28px',
-            borderRadius: '28px',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
+            borderRadius: '24px',
+            border: '1px solid rgba(151, 25, 44, 0.25)',
           }}
         />
 
+        {/* Floating Stars for Accent */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '48px',
+            right: '48px',
+            display: 'flex',
+          }}
+        >
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z" fill="#fda83d" opacity="0.8" />
+          </svg>
+        </div>
+
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '220px',
+            left: '80%',
+            display: 'flex',
+          }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z" fill="#97192c" opacity="0.6" />
+          </svg>
+        </div>
+
+        {/* Main Content Layout */}
         <div
           style={{
             display: 'flex',
@@ -76,6 +106,7 @@ export default async function Image() {
             padding: '22px 20px',
           }}
         >
+          {/* Header */}
           <div
             style={{
               display: 'flex',
@@ -92,8 +123,8 @@ export default async function Image() {
                 width: '64px',
                 height: '64px',
                 borderRadius: '16px',
-                background: 'linear-gradient(135deg, #2fe2ff, #7f67ff 60%, #ff6dad)',
-                color: '#0c1020',
+                background: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
                 padding: '8px',
               }}
             >
@@ -111,29 +142,31 @@ export default async function Image() {
                 flexDirection: 'column',
               }}
             >
-              <div style={{ fontSize: '20px', color: '#c6d6ff', letterSpacing: '2px' }}>
-                INDIA'S TEEN-LED BUILDERS CLUB
+              <div style={{ fontSize: '15px', fontWeight: 700, color: '#fda83d', letterSpacing: '2.5px', textTransform: 'uppercase' }}>
+                India&apos;s Teen-Led Builders Network
               </div>
-              <div style={{ fontSize: '46px', fontWeight: 850, lineHeight: 1.05 }}>
-                bits&bytes™
+              <div style={{ fontSize: '42px', fontWeight: 900, lineHeight: 1.05, color: '#f7f1ec' }}>
+                bits&amp;bytes™
               </div>
             </div>
           </div>
 
+          {/* Headline and Tagline */}
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '18px',
+              gap: '14px',
             }}
           >
             <div
               style={{
-                fontSize: '56px',
+                fontSize: '54px',
                 fontWeight: 900,
-                lineHeight: 1.08,
+                lineHeight: 1.1,
                 maxWidth: '1020px',
                 letterSpacing: '-1px',
+                color: '#ffffff',
               }}
             >
               Building India&apos;s next generation of founders, engineers, and problem solvers.
@@ -141,27 +174,29 @@ export default async function Image() {
 
             <div
               style={{
-                fontSize: '26px',
-                color: '#d7e4ff',
+                fontSize: '24px',
+                color: '#a09f9d',
                 maxWidth: '1020px',
                 lineHeight: 1.3,
+                fontWeight: 500,
               }}
             >
               High-agency community. Real products. Real velocity. Real outcomes.
             </div>
           </div>
 
+          {/* Stats Dashboard Grid */}
           <div
             style={{
               display: 'flex',
-              gap: '14px',
+              gap: '16px',
               alignItems: 'stretch',
             }}
           >
             {[
-              { label: 'Community Size', value: '1500+', note: 'Teen builders across India' },
-              { label: 'Submission Ops', value: '2700+', note: 'Participant submissions evaluated' },
-              { label: 'Execution Speed', value: '900/day', note: 'Reviewed in a 3-day sprint' },
+              { label: 'Community Size', value: '1400+', note: 'Teen builders active' },
+              { label: 'Local Hubs', value: '5+ Forks', note: 'gobitsnbytes.org/fork' },
+              { label: 'Nationwide', value: '4+ Events', note: 'Hackathons & workshops' },
             ].map((item) => (
               <div
                 key={item.label}
@@ -171,36 +206,38 @@ export default async function Image() {
                   justifyContent: 'center',
                   flex: 1,
                   borderRadius: '16px',
-                  padding: '16px 18px',
-                  background: 'rgba(14, 20, 38, 0.62)',
-                  border: '1px solid rgba(188, 214, 255, 0.28)',
+                  padding: '16px 20px',
+                  background: 'rgba(30, 5, 9, 0.45)',
+                  border: '1px solid rgba(151, 25, 44, 0.22)',
                 }}
               >
-                <div style={{ fontSize: '17px', color: '#a7bfec', marginBottom: '6px', textTransform: 'uppercase' }}>
+                <div style={{ fontSize: '15px', color: '#a09f9d', marginBottom: '4px', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '1px' }}>
                   {item.label}
                 </div>
-                <div style={{ fontSize: '44px', fontWeight: 900, lineHeight: 1 }}>
+                <div style={{ fontSize: '42px', fontWeight: 900, lineHeight: 1, color: '#ffffff' }}>
                   {item.value}
                 </div>
-                <div style={{ fontSize: '17px', color: '#d7e4ff', marginTop: '6px' }}>
+                <div style={{ fontSize: '15px', color: '#d0cfce', marginTop: '4px', fontWeight: 500 }}>
                   {item.note}
                 </div>
               </div>
             ))}
           </div>
 
+          {/* Footer Legal/Notice */}
           <div
             style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              fontSize: '21px',
-              color: '#bfd4ff',
+              fontSize: '18px',
+              color: '#a09f9d',
               marginTop: '6px',
+              fontWeight: 500,
             }}
           >
-            <div>Impact Highlight: 2700+ submissions evaluated in 72 hours by the bits&bytes™ team.</div>
-            <div style={{ color: '#ffffff' }}>gobitsnbytes.org</div>
+            <div>Impact Highlight: 1400+ members, 5+ forks, 4+ events. Mean team age: 16.5 years.</div>
+            <div style={{ color: '#ffffff', fontWeight: 700 }}>gobitsnbytes.org</div>
           </div>
         </div>
       </div>
@@ -210,4 +247,3 @@ export default async function Image() {
     }
   )
 }
-

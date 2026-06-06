@@ -298,14 +298,26 @@ export default function PressKit() {
                     bits&bytes™ is an independent, youth-led builder network that runs hackathons, developer meetups, open-source squads, and cohort-based programs. Founded in November 2025 after a major partner hackathon was cancelled, the team built a durable student-led alternative where teenagers ship real software, learn in public, and organize with serious safety standards.
                   </p>
                 </div>
-                <div className="grid grid-cols-2 gap-4 pt-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
                   <div className="border border-white/10 bg-white/5 rounded-xl p-3 text-center">
-                    <p className="text-2xl font-black text-[var(--brand-pink)] font-display">1500+</p>
+                    <p className="text-2xl font-black text-[var(--brand-pink)] font-display">1400+</p>
                     <p className="text-[10px] text-white/50 uppercase tracking-widest mt-0.5">Active Builders</p>
                   </div>
                   <div className="border border-white/10 bg-white/5 rounded-xl p-3 text-center">
-                    <p className="text-2xl font-black text-[var(--brand-coral)] font-display">2700+</p>
-                    <p className="text-[10px] text-white/50 uppercase tracking-widest mt-0.5">Submissions Reviewed</p>
+                    <p className="text-2xl font-black text-[var(--brand-coral)] font-display">
+                      <Link href="/fork" className="hover:text-white transition-colors underline decoration-white/20">
+                        5+ Forks
+                      </Link>
+                    </p>
+                    <p className="text-[10px] text-white/50 uppercase tracking-widest mt-0.5">Local Chapters</p>
+                  </div>
+                  <div className="border border-white/10 bg-white/5 rounded-xl p-3 text-center">
+                    <p className="text-2xl font-black text-[var(--brand-pink)] font-display">4+</p>
+                    <p className="text-[10px] text-white/50 uppercase tracking-widest mt-0.5">Events</p>
+                  </div>
+                  <div className="border border-white/10 bg-white/5 rounded-xl p-3 text-center">
+                    <p className="text-2xl font-black text-[var(--brand-coral)] font-display">16.5 Yrs</p>
+                    <p className="text-[10px] text-white/50 uppercase tracking-widest mt-0.5">Mean Team Age</p>
                   </div>
                 </div>
               </div>

@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Join bits&bytes™ - Free Teen Builders Club Membership",
+  title: "Join bits&bytes™ - Free Teen Builders Network Membership",
   description:
-    "Join India's boldest teen builders club for FREE! Connect with 1500+ student developers, build real projects, attend hackathons & grow your skills. Ages 13-19 welcome.",
+    "Join India's boldest teen builders network for FREE! Connect with 1400+ student developers, build real projects, attend hackathons & grow your skills. Ages 13-19 welcome.",
   keywords: [
     "join bits&bytes™",
-    "teen coding club membership",
-    "free coding club india",
-    "how to join hackathon club",
+    "teen coding network membership",
+    "free coding network india",
+    "how to join hackathon network",
     "student developer community",
     "teen programmers india join",
   ],
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     canonical: "https://gobitsnbytes.org/join",
   },
   openGraph: {
-    title: "Join bits&bytes™ - Free Membership | India's Teen Builders Club",
-    description: "Join for FREE! Connect with 1500+ teen developers, build projects, attend hackathons. Ages 13-19 welcome.",
+    title: "Join bits&bytes™ - Free Membership | India's Teen Builders Network",
+    description: "Join for FREE! Connect with 1400+ teen developers, build projects, attend hackathons. Ages 13-19 welcome.",
     url: "https://gobitsnbytes.org/join",
     type: "website",
   },

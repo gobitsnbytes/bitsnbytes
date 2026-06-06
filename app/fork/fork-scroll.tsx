@@ -364,7 +364,7 @@ export function ForkScroll({ applyUrl }: { applyUrl: string }) {
             </p>
             <div className="mt-5 bg-[#120F0A] px-4 py-3 text-left md:mt-7">
               <p className="whitespace-nowrap font-display text-[clamp(1.45rem,3.4vw,2.95rem)] font-black leading-none tracking-[-0.045em] text-[#D0CFCE]">
-                bits&amp;bytes forks
+                bits&amp;bytes™ forks
               </p>
             </div>
           </div>
@@ -391,7 +391,7 @@ export function ForkScroll({ applyUrl }: { applyUrl: string }) {
                 <Image src="/logo.svg" alt="bits&bytes logo" width={92} height={92} className="h-full w-full object-contain" />
               </div>
               <p className="min-w-0 whitespace-nowrap font-display text-[clamp(1.65rem,7vw,4rem)] font-black leading-none tracking-[-0.035em] text-[#120F0A] max-[390px]:text-[1.45rem]">
-                bits&amp;bytes
+                bits&amp;bytes™
               </p>
             </motion.div>
             <p className="mt-5 max-w-lg text-pretty font-serif-brand text-[clamp(1.08rem,5.1vw,2rem)] leading-tight text-[#120F0A]/82 md:text-[clamp(1.35rem,2.5vw,2rem)]">
