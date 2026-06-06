@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "QnA Assistant | bits&bytes™ AI Bot",
     description:
-      "Chat with the official bits&bytes™ AI assistant. Ask anything about our club, events, and tech community.",
+      "Chat with the official bits&bytes™ AI assistant. Ask anything about our network, events, and tech community.",
     url: "https://gobitsnbytes.org/qna",
     type: "website",
     images: [
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "QnA Assistant | bits&bytes™ AI",
     description:
-      "Chat with the official bits&bytes™ AI assistant. Ask about our club, events, and community.",
+      "Chat with the official bits&bytes™ AI assistant. Ask about our network, events, and community.",
     images: ["/og-image.png"],
     creator: "@bitsnbytes_lko",
   },

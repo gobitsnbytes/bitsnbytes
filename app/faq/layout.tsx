@@ -4,12 +4,12 @@ import Script from "next/script";
 export const metadata: Metadata = {
   title: "FAQ - Frequently Asked Questions About bits&bytes™",
   description:
-    "Get answers about joining bits&bytes™ teen builders club. Learn about hackathons, membership, time commitments & what to expect. Everything you need to know!",
+    "Get answers about joining bits&bytes™ teen builders network. Learn about hackathons, membership, time commitments & what to expect. Everything you need to know!",
   keywords: [
     "bits&bytes™ faq",
-    "teen coding club questions",
+    "teen coding network questions",
     "hackathon faq",
-    "how to join coding club",
+    "how to join coding network",
     "student hackathon questions",
   ],
   alternates: {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "FAQ - Frequently Asked Questions | bits&bytes™",
-    description: "Get answers about joining bits&bytes™, our hackathons, and what to expect from India's teen builders club.",
+    description: "Get answers about joining bits&bytes™, our hackathons, and what to expect from India's teen builders network.",
     url: "https://gobitsnbytes.org/faq",
     type: "website",
   },
@@ -33,7 +33,7 @@ const faqJsonLd = {
       name: "What is bits&bytes™?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "bits&bytes™ is a student-led tech club that runs hackathons and other events. Our hackathons follow the usual format but aren't traditional—we have some inspirations from Hack Club style hackathons. Our focus is on creativity; lots of attendees are newer to coding.",
+        text: "bits&bytes™ is a student-led tech network that runs hackathons and other events. Our hackathons follow the usual format but aren't traditional—we have some inspirations from Hack Club style hackathons. Our focus is on creativity; lots of attendees are newer to coding.",
       },
     },
     {
