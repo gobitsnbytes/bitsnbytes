@@ -6,11 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { useState } from "react";
-import { PageSection } from "@/components/page-section";
+// PageSection import removed for consistent UI layout matching /press
 import { GlassContainer } from "@/components/ui/glass-container";
 import { Gallery4 } from "@/components/ui/gallery4";
 import { Button } from "@/components/ui/button";
-import { githubDevDayEvent, lucknowBuildGuildEvent } from "@/lib/events-data";
+import { githubDevDayEvent, lucknowBuildGuildEvent, hack4goodEvent } from "@/lib/events-data";
 import {
   Trophy,
   Users,
@@ -41,30 +41,30 @@ export default function Events() {
 
   return (
     <>
-      {/* ── Hero ──────────────────────────────────────────────────────────── */}
+      {/* Hero Section - Consistent with /press and /impact */}
       <section
-        className="relative min-h-[72vh] flex items-center justify-center overflow-hidden text-white pt-24 md:pt-32"
+        className="relative min-h-[40vh] sm:min-h-[45vh] flex items-center justify-center overflow-hidden text-white pt-24 md:pt-32"
         aria-labelledby="events-hero-title"
       >
         <WebGLShader />
-        <div className="relative z-10 w-full mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="mx-auto w-full max-w-[860px] min-h-[460px] md:min-h-[500px] px-6 py-12 md:py-20 sm:px-10 lg:px-16 text-center flex items-center justify-center">
+        <div className="relative z-10 w-full mx-auto max-w-5xl px-4 sm:px-6 py-8 sm:py-12">
+          <div className="px-6 py-8 sm:px-10 lg:px-16 text-center">
             <div className="flex flex-col items-center gap-6">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs uppercase tracking-[0.35em] font-semibold text-white/90 backdrop-blur-md shadow-inner">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-(--brand-pink) opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-(--brand-pink)" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--brand-pink)] opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--brand-pink)]" />
                 </span>
                 Events
               </span>
               <h1
                 id="events-hero-title"
-                className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight font-extrabold text-white tracking-tighter drop-shadow-2xl"
+                className="font-display text-4xl sm:text-5xl md:text-6xl leading-tight font-black text-white tracking-tighter drop-shadow-2xl"
               >
                 Where code meets <br className="hidden sm:block" /> the real
                 world
               </h1>
-              <p className="max-w-2xl text-base sm:text-lg md:text-xl text-white/85 font-medium leading-relaxed">
+              <p className="max-w-2xl text-white/80 text-sm sm:text-base md:text-lg font-medium leading-relaxed">
                 Hackathons, summits, and workshops where teen builders actually
                 ship things.
               </p>
@@ -73,7 +73,8 @@ export default function Events() {
         </div>
       </section>
 
-      <main className="bg-transparent flex flex-col pt-12">
+      <main className="relative z-10 bg-transparent pb-24">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
         {/* ── Event Toggle Tabs ────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
@@ -158,13 +159,420 @@ export default function Events() {
             exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
             transition={{ type: "spring", duration: 0.5, bounce: 0 }}
           >
+            {/* ── Hack4Good v0 ────────────────────────────────────────────── */}
+            {(activeEvent === "all" || activeEvent === "hack4good") && (
+              <GlassContainer
+                glowColor="pink"
+                animated={false}
+                className="overflow-hidden"
+                noEntry
+              >
+                {/* ── Banner image header ── */}
+                <div className="relative w-full overflow-hidden rounded-t-[2.25rem] bg-white/5">
+                  <Image
+                    src="/event_pictures/h4g/h4gbanner.jpg"
+                    alt="Hack4Good v0 Banner"
+                    width={1920}
+                    height={640}
+                    className="w-full h-auto object-cover"
+                    priority
+                  />
+                </div>
+
+                {/* ── Details grid ── */}
+                <div className="p-6 sm:p-8 md:p-10">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-8">
+                    <div>
+                      <span className="text-xs font-bold text-[var(--brand-coral)] uppercase tracking-wider block mb-1">
+                        Archived · Apr 2 – May 3, 2026
+                      </span>
+                      <h2 className="font-display text-2xl font-black text-white flex items-center gap-3 uppercase tracking-wider">
+                        Hack4Good v0
+                      </h2>
+                      <p className="text-sm text-white/70 mt-1">
+                        Architect Your Autonomy. Lucknow's first Agentic AI hackathon.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2 mb-6">
+                    <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold text-white bg-(--brand-pink)">
+                      Archived Event
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white/80 backdrop-blur-md">
+                      Community Partner: bits&amp;bytes™
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white/80 backdrop-blur-md">
+                      Agentic AI
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="prose prose-invert max-w-none text-white/80 space-y-8 lg:col-span-2">
+                      <div>
+                        <h2 className="text-xl font-bold text-white mb-3">
+                          Event Summary
+                        </h2>
+                        <p className="leading-relaxed">
+                          Hack4Good v0 is a 24-hour Agentic AI hackathon created to kickstart and shape a stronger hackathon and builder culture in Lucknow. At its core, the event is about moving beyond traditional coding and enabling students to build intelligent AI agents capable of planning workflows, navigating systems, and executing tasks autonomously.
+                        </p>
+                        <p className="leading-relaxed mt-3">
+                          Bringing together student developers, beginners, and curious builders, Hack4Good focuses on hands-on experimentation, collaboration, and real-world problem solving. Participants explore diverse ideas, right from automation tools to creative systems, all while learning how to design and build with emerging AI paradigms.
+                        </p>
+                        <p className="leading-relaxed mt-3">
+                          More than just a simple hackathon, Hack4Good is an effort to establish a sustainable, high-impact tech ecosystem in the city. By creating a space for students to build, connect, and grow together, it aims to lay the foundation for a thriving hackathon community in Lucknow, one that continuously drives innovation, opportunity, and technical excellence forward!
+                        </p>
+                      </div>
+
+                      <div>
+                        <h2 className="text-xl font-bold text-white mb-4">
+                          Themes
+                        </h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div className="p-4 rounded-xl border border-white/10 bg-white/5">
+                            <h3 className="font-bold text-white text-sm uppercase tracking-wider mb-1">
+                              The Architect
+                            </h3>
+                            <p className="text-xs text-white/70 leading-relaxed">
+                              Build tools for builders. Create agents that auto-fix bugs, refactor legacy code, or automate deployments. <em className="text-[var(--brand-coral)] block mt-1">Ex: Auto-fix runtime errors &amp; push hotfixes.</em>
+                            </p>
+                          </div>
+                          <div className="p-4 rounded-xl border border-white/10 bg-white/5">
+                            <h3 className="font-bold text-white text-sm uppercase tracking-wider mb-1">
+                              The Investigator
+                            </h3>
+                            <p className="text-xs text-white/70 leading-relaxed">
+                              Process information at scale. Design agents that scrape complex web structures, analyze unstructured data, and generate actionable insights. <em className="text-[var(--brand-coral)] block mt-1">Ex: Monitor crypto-sentiment on 50+ subreddits.</em>
+                            </p>
+                          </div>
+                          <div className="p-4 rounded-xl border border-white/10 bg-white/5">
+                            <h3 className="font-bold text-white text-sm uppercase tracking-wider mb-1">
+                              The Artist
+                            </h3>
+                            <p className="text-xs text-white/70 leading-relaxed">
+                              Automate art. Build agents that edit video, generate assets, and tell stories autonomously. <em className="text-[var(--brand-coral)] block mt-1">Ex: Autonomous news anchor from RSS feeds.</em>
+                            </p>
+                          </div>
+                          <div className="p-4 rounded-xl border border-white/10 bg-white/5">
+                            <h3 className="font-bold text-white text-sm uppercase tracking-wider mb-1">
+                              The Liaison
+                            </h3>
+                            <p className="text-xs text-white/70 leading-relaxed">
+                              Unify the fractured web. Connect the disconnected. Stitch together daily use applications into one seamless workflow. <em className="text-[var(--brand-coral)] block mt-1">Ex: Sync calendar based on email priority.</em>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h2 className="text-xl font-bold text-white mb-3">
+                          Prizes
+                        </h2>
+                        <p className="text-sm text-white/60 mb-4">
+                          Compete for a ₹35K prize pool. Get a participation certificate on completion.
+                        </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                          <div className="p-4 rounded-xl border border-white/10 bg-white/5 text-center">
+                            <div className="text-xs font-bold text-[var(--brand-coral)] uppercase tracking-wider mb-1">
+                              First Place
+                            </div>
+                            <div className="text-xl font-black text-white">₹ 20,000</div>
+                            <div className="text-[10px] text-white/50 mt-0.5">1 winner</div>
+                          </div>
+                          <div className="p-4 rounded-xl border border-white/10 bg-white/5 text-center">
+                            <div className="text-xs font-bold text-[var(--brand-coral)] uppercase tracking-wider mb-1">
+                              Second Place
+                            </div>
+                            <div className="text-xl font-black text-white">₹ 10,000</div>
+                            <div className="text-[10px] text-white/50 mt-0.5">1 winner</div>
+                          </div>
+                          <div className="p-4 rounded-xl border border-white/10 bg-white/5 text-center">
+                            <div className="text-xs font-bold text-[var(--brand-coral)] uppercase tracking-wider mb-1">
+                              Third Place
+                            </div>
+                            <div className="text-xl font-black text-white">₹ 5,000</div>
+                            <div className="text-[10px] text-white/50 mt-0.5">1 winner</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h2 className="text-xl font-bold text-white mb-3">
+                          Partners &amp; Sponsors
+                        </h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                          {/* GitHub Card */}
+                          <div className="relative overflow-hidden bg-white rounded-2xl border border-neutral-200 shadow-md p-6 flex flex-col items-center justify-center min-h-[180px] text-center hover:shadow-lg transition-all duration-300">
+                            <div className="absolute top-0 left-0 right-0 h-1 bg-[#97192C]" />
+                            <div className="h-16 flex items-center justify-center w-full">
+                              <img
+                                src="/partners/github.jpg"
+                                alt="GitHub Logo"
+                                className="h-14 w-auto object-contain"
+                              />
+                            </div>
+                            <span className="font-bold text-neutral-900 text-sm mt-3">GitHub</span>
+                            <span className="mt-1 px-3 py-0.5 rounded-full text-[10px] font-bold text-white bg-[#791423] tracking-wide">
+                              Platinum
+                            </span>
+                          </div>
+
+                          {/* Notion Card */}
+                          <div className="relative overflow-hidden bg-white rounded-2xl border border-neutral-200 shadow-md p-6 flex flex-col items-center justify-center min-h-[180px] text-center hover:shadow-lg transition-all duration-300">
+                            <div className="absolute top-0 left-0 right-0 h-1 bg-[#97192C]" />
+                            <div className="h-16 flex items-center justify-center w-full">
+                              <img
+                                src="/partners/notion.png"
+                                alt="Notion Logo"
+                                className="h-14 w-auto object-contain"
+                              />
+                            </div>
+                            <span className="font-bold text-neutral-900 text-sm mt-3">Notion</span>
+                            <span className="mt-1 px-3 py-0.5 rounded-full text-[10px] font-bold text-white bg-[#791423] tracking-wide">
+                              Gold
+                            </span>
+                          </div>
+
+                          {/* Pure Buttons Card */}
+                          <div className="relative overflow-hidden bg-white rounded-2xl border border-neutral-200 shadow-md p-6 flex flex-col items-center justify-center min-h-[180px] text-center hover:shadow-lg transition-all duration-300">
+                            <div className="absolute top-0 left-0 right-0 h-1 bg-[#97192C]" />
+                            <div className="h-16 flex items-center justify-center w-full">
+                              <img
+                                src="/partners/pure_buttons.png"
+                                alt="Pure Buttons Logo"
+                                className="h-10 w-auto object-contain"
+                              />
+                            </div>
+                            <span className="font-bold text-neutral-900 text-sm mt-3">Pure Buttons</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      {/* Event Quick Info */}
+                      <div className="space-y-0 divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+                        {[
+                          {
+                            icon: <Calendar className="h-4 w-4 text-(--brand-pink)" />,
+                            label: "Date",
+                            value: hack4goodEvent.dateLabel,
+                          },
+                          {
+                            icon: <MapPin className="h-4 w-4 text-(--brand-pink)" />,
+                            label: "Venue",
+                            value: hack4goodEvent.venueLabel,
+                          },
+                          {
+                            icon: <Users className="h-4 w-4 text-(--brand-pink)" />,
+                            label: "Team Size",
+                            value: hack4goodEvent.teamSizeLabel,
+                          },
+                          {
+                            icon: <Trophy className="h-4 w-4 text-(--brand-pink)" />,
+                            label: "Total Prizes",
+                            value: hack4goodEvent.prizePoolLabel,
+                          },
+                          {
+                            icon: <Eye className="h-4 w-4 text-(--brand-pink)" />,
+                            label: "Impressions",
+                            value: hack4goodEvent.impressionsLabel,
+                          },
+                          {
+                            icon: <Activity className="h-4 w-4 text-(--brand-pink)" />,
+                            label: "Registrations",
+                            value: hack4goodEvent.registrationsLabel,
+                          },
+                          {
+                            icon: <Users className="h-4 w-4 text-(--brand-pink)" />,
+                            label: "On Ground",
+                            value: `${hack4goodEvent.onGroundLabel} people`,
+                          },
+                          {
+                            icon: <Check className="h-4 w-4 text-(--brand-pink)" />,
+                            label: "Status",
+                            value: hack4goodEvent.statusLabel,
+                          },
+                        ].map((s) => (
+                          <div
+                            key={s.label}
+                            className="flex items-center justify-between px-5 py-3.5"
+                          >
+                            <div className="flex items-center gap-2.5">
+                              {s.icon}
+                              <span className="text-xs text-white/60 font-medium">
+                                {s.label}
+                              </span>
+                            </div>
+                            <span className="text-xs font-black text-white text-right">
+                              {s.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Event Timeline */}
+                      <div className="p-5 rounded-2xl border border-white/10 bg-white/5 space-y-4">
+                        <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-white/10 pb-2">
+                          Schedule
+                        </h3>
+                        <div className="space-y-4">
+                          <div className="flex gap-3">
+                            <div className="flex flex-col items-center">
+                              <div className="h-2 w-2 rounded-full bg-[var(--brand-pink)]" />
+                              <div className="w-px h-full bg-white/10" />
+                            </div>
+                            <div>
+                              <p className="text-xs font-bold text-white">Registration</p>
+                              <p className="text-[10px] text-white/50">02 Apr – 28 Apr 2026 (Online)</p>
+                            </div>
+                          </div>
+                          <div className="flex gap-3">
+                            <div className="flex flex-col items-center">
+                              <div className="h-2 w-2 rounded-full bg-[var(--brand-pink)]" />
+                              <div className="w-px h-full bg-white/10" />
+                            </div>
+                            <div>
+                              <p className="text-xs font-bold text-white">Team Formation</p>
+                              <p className="text-[10px] text-white/50">02 Apr – 28 Apr 2026 (Online)</p>
+                            </div>
+                          </div>
+                          <div className="flex gap-3">
+                            <div className="flex flex-col items-center">
+                              <div className="h-2 w-2 rounded-full bg-[var(--brand-pink)]" />
+                              <div className="w-px h-full bg-white/10" />
+                            </div>
+                            <div>
+                              <p className="text-xs font-bold text-white">Idea Submission</p>
+                              <p className="text-[10px] text-white/50">07 Apr – 28 Apr 2026 (Online · Elimination)</p>
+                            </div>
+                          </div>
+                          <div className="flex gap-3">
+                            <div className="flex flex-col items-center">
+                              <div className="h-2 w-2 rounded-full bg-[var(--brand-coral)]" />
+                            </div>
+                            <div>
+                              <p className="text-xs font-bold text-white">Coding Round</p>
+                              <p className="text-[10px] text-white/50">02 May (12:00 PM) – 03 May (11:00 AM) (Offline · 24H)</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Event Support */}
+                      <div className="p-5 rounded-2xl border border-white/10 bg-white/5 space-y-3">
+                        <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+                          Support &amp; Contacts
+                        </h3>
+                        <div className="text-xs space-y-2 text-white/70">
+                          <div>
+                            <p className="font-bold text-white">Event Organization</p>
+                            <a href="mailto:hack4good.cc@gmail.com" className="text-(--brand-pink) hover:underline block mt-0.5">
+                              hack4good.cc@gmail.com
+                            </a>
+                          </div>
+                          <div className="pt-1">
+                            <p className="font-bold text-white">Nitya Pandey</p>
+                            <p className="text-[10px] text-white/50">Lead Organizer</p>
+                            <a href="mailto:nityaaaawwww@gmail.com" className="text-(--brand-pink) hover:underline block mt-0.5">
+                              nityaaaawwww@gmail.com
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Aftermovie Video Player */}
+                  <div className="mt-16 border-t border-white/10 pt-12 space-y-5">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div className="space-y-1">
+                        <h3 className="text-lg sm:text-xl font-bold text-white">
+                          Event Aftermovie
+                        </h3>
+                        <p className="text-sm text-white/65">
+                          Highlights and on-floor moments from Hack4Good v0 in Lucknow.
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white/70">
+                          Aftermovie
+                        </span>
+                        <span className="inline-flex items-center rounded-full border border-(--brand-pink)/40 bg-(--brand-pink)/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-(--brand-pink)">
+                          May 2026
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="relative flex items-center justify-center overflow-hidden rounded-[1.4rem] border border-white/15 bg-black/40 p-2 shadow-[0_20px_70px_rgba(0,0,0,0.45)] backdrop-blur-md">
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(228,90,146,0.15),transparent_50%)]" />
+                      <video
+                        className="relative z-10 w-full max-h-[75vh] object-contain rounded-[1rem] border border-white/10 bg-black"
+                        controls
+                        playsInline
+                        preload="metadata"
+                        poster="/event_pictures/h4g/h4g.jpg"
+                      >
+                        <source
+                          src="/event_pictures/h4g/h4g.mp4"
+                          type="video/mp4"
+                        />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+
+                  {/* Gallery Section */}
+                  <div className="mt-16 border-t border-white/10 pt-12">
+                    <Gallery4
+                      title="In Pictures"
+                      description="Moments from the 24-hour Agentic AI hacking sprint."
+                      items={[
+                        {
+                          id: "h4g-pic0",
+                          title: "Hack4Good Hackathon",
+                          description: "Teams hacking on autonomous agent workflows.",
+                          href: "#",
+                          image: "/event_pictures/h4g/h4g0.jpg",
+                        },
+                        {
+                          id: "h4g-pic1",
+                          title: "Hardware & AI Devs",
+                          description: "Collaborative building and prompt testing.",
+                          href: "#",
+                          image: "/event_pictures/h4g/h4g1.jpg",
+                        },
+                        {
+                          id: "h4g-pic2",
+                          title: "Project Iteration",
+                          description: "Mentoring sessions and agent execution loops.",
+                          href: "#",
+                          image: "/event_pictures/h4g/h4g2.jpeg",
+                        },
+                        {
+                          id: "h4g-pic3",
+                          title: "D-Day Coding Sprint",
+                          description: "Building autonomous systems under high velocity.",
+                          href: "#",
+                          image: "/event_pictures/h4g/h4g3.jpg",
+                        },
+                        {
+                          id: "h4g-pic4",
+                          title: "Pitching Session",
+                          description: "Showcasing agent deployments to the evaluators.",
+                          href: "#",
+                          image: "/event_pictures/h7g.jpeg",
+                        },
+                      ]}
+                    />
+                  </div>
+                </div>
+              </GlassContainer>
+            )}
+
+
             {/* ── Lucknow Build Guild ───────────────────────────────────────── */}
             {(activeEvent === "all" || activeEvent === "lucknow-build-guild") && (
-              <PageSection
-                eyebrow="Archived · Apr 19, 2026"
-                title="Lucknow Build Guild"
-                description="Free hardware workshop and meetup in Lucknow."
-              >
                 <GlassContainer
                   glowColor="pink"
                   animated={false}
@@ -184,6 +592,19 @@ export default function Events() {
                   </div>
                   {/* ── Details grid ── */}
               <div className="p-6 sm:p-8 md:p-10">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-8">
+                    <div>
+                      <span className="text-xs font-bold text-[var(--brand-coral)] uppercase tracking-wider block mb-1">
+                        Archived · Apr 19, 2026
+                      </span>
+                      <h2 className="font-display text-2xl font-black text-white flex items-center gap-3 uppercase tracking-wider">
+                        Lucknow Build Guild
+                      </h2>
+                      <p className="text-sm text-white/70 mt-1">
+                        Free hardware workshop and meetup in Lucknow.
+                      </p>
+                    </div>
+                  </div>
                 <div className="flex flex-wrap items-center gap-2 mb-6">
                   <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold text-white bg-(--brand-pink)">
                     Archived Event
@@ -361,16 +782,10 @@ export default function Events() {
                 </div>
               </div>
             </GlassContainer>
-          </PageSection>
         )}
 
         {/* ── GitHub Copilot Dev Days — Featured Spotlight ──────────────── */}
         {(activeEvent === "all" || activeEvent === "copilot") && (
-          <PageSection
-            eyebrow="Archived · Apr 19"
-            title="GitHub Copilot Dev Days | Lucknow"
-            description="AI-assisted coding with GitHub Copilot, a community developer event."
-          >
             <GlassContainer
               glowColor="pink"
               animated={false}
@@ -391,6 +806,19 @@ export default function Events() {
 
               {/* ── Details grid ── */}
               <div className="p-6 sm:p-8 md:p-10">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-8">
+                    <div>
+                      <span className="text-xs font-bold text-[var(--brand-coral)] uppercase tracking-wider block mb-1">
+                        Archived · Apr 19
+                      </span>
+                      <h2 className="font-display text-2xl font-black text-white flex items-center gap-3 uppercase tracking-wider">
+                        GitHub Copilot Dev Days | Lucknow
+                      </h2>
+                      <p className="text-sm text-white/70 mt-1">
+                        AI-assisted coding with GitHub Copilot, a community developer event.
+                      </p>
+                    </div>
+                  </div>
                 {/* Badges row */}
                 <div className="flex flex-wrap items-center gap-2 mb-6">
                   <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold text-white bg-(--brand-pink)">
@@ -583,16 +1011,10 @@ export default function Events() {
                 </div>
               </div>
             </GlassContainer>
-          </PageSection>
         )}
 
         {/* ── Execron 1.0 ─────────────────────────────────────────────────── */}
         {(activeEvent === "all" || activeEvent === "execron") && (
-          <PageSection
-            eyebrow="Archived · Mar 19-22, 2026"
-            title="Execron 1.0"
-            description="AI Hackathon & Workshop for Teens at IIT Kanpur."
-          >
             <GlassContainer
               glowColor="pink"
               animated={false}
@@ -616,6 +1038,19 @@ export default function Events() {
 
               {/* ── Details ── */}
               <div className="p-6 sm:p-8 md:p-10">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-8">
+                    <div>
+                      <span className="text-xs font-bold text-[var(--brand-coral)] uppercase tracking-wider block mb-1">
+                        Archived · Mar 19-22, 2026
+                      </span>
+                      <h2 className="font-display text-2xl font-black text-white flex items-center gap-3 uppercase tracking-wider">
+                        Execron 1.0
+                      </h2>
+                      <p className="text-sm text-white/70 mt-1">
+                        AI Hackathon & Workshop for Teens at IIT Kanpur.
+                      </p>
+                    </div>
+                  </div>
                 <div className="flex flex-wrap items-center gap-2 mb-8">
                   <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold text-white bg-(--brand-pink)">
                     Archived Event
@@ -816,16 +1251,10 @@ export default function Events() {
                 </div>
               </div>
             </GlassContainer>
-          </PageSection>
         )}
 
         {/* ── India Innovates 2026 ──────────────────────────────────────── */}
         {(activeEvent === "all" || activeEvent === "india-innovates") && (
-          <PageSection
-            eyebrow="Archived · Mar 28, 2026"
-            title="India Innovates 2026"
-            description="World's Largest Civic Tech Hackathon."
-          >
             <GlassContainer
               glowColor="pink"
               animated={false}
@@ -846,6 +1275,19 @@ export default function Events() {
 
               {/* ── Details grid ── */}
               <div className="p-6 sm:p-8 md:p-10">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-8">
+                    <div>
+                      <span className="text-xs font-bold text-[var(--brand-coral)] uppercase tracking-wider block mb-1">
+                        Archived · Mar 28, 2026
+                      </span>
+                      <h2 className="font-display text-2xl font-black text-white flex items-center gap-3 uppercase tracking-wider">
+                        India Innovates 2026
+                      </h2>
+                      <p className="text-sm text-white/70 mt-1">
+                        World's Largest Civic Tech Hackathon.
+                      </p>
+                    </div>
+                  </div>
                 <div className="flex flex-wrap items-center gap-2 mb-8">
                   <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold text-white bg-(--brand-pink)">
                     Archived Event
@@ -1231,10 +1673,10 @@ export default function Events() {
                 </div>
               </div>
             </GlassContainer>
-          </PageSection>
         )}
           </motion.div>
         </AnimatePresence>
+        </div>
       </main>
       <Script
         id="luma-checkout"

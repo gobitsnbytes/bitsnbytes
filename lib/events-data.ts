@@ -35,7 +35,31 @@ export const lucknowBuildGuildEvent = {
   hostGithub: "https://github.com/Shaurya-Ashu",
 } as const;
 
+export const hack4goodEvent = {
+  title: "Hack4Good",
+  subtitle: "Architect Your Autonomy",
+  dateLabel: "Apr 2, 2026 – May 3, 2026",
+  venueLabel: "Cubispace, Lucknow",
+  formatLabel: "Agentic AI Hackathon (24 Hours)",
+  statusLabel: "Registration Closed",
+  teamSizeLabel: "1–4 members",
+  prizePoolLabel: "₹35,000",
+  impressionsLabel: "4,117",
+  registrationsLabel: "425",
+  onGroundLabel: "110",
+} as const;
+
 export const heroEvents: HeroEventSlide[] = [
+  {
+    image: "/event_pictures/h4g/h4g2.jpeg",
+    imageMobile: "/event_pictures/h4g/h4g2.jpeg",
+    alt: "Hack4Good v0",
+    badge: "Archived Event",
+    status: "archived",
+    title: "Hack4Good v0",
+    subtitle: "2 May 2026 · Lucknow",
+    href: "/events",
+  },
   {
     image: "/event_pictures/bd1.jpg",
     imageMobile: "/event_pictures/bd1.jpg",
