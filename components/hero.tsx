@@ -26,7 +26,7 @@ export default function Hero() {
               />
             </div>
             <p className="text-lg text-white/80 mb-8 max-w-lg leading-relaxed">
-              A club for teen developers who actually ship. Fully student-led,
+              A builder network for teenagers who actually ship. Fully student-led,
               fully independent. No adults in the room.
             </p>
 

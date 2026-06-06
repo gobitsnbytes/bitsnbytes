@@ -188,7 +188,7 @@ const MAX_HISTORY = 20;
 const STORAGE_KEY = "bb-floating-assistant-state-v1";
 const QUICK_PROMPTS = [
   "Who started bits&bytes™?",
-  "What makes this club different?",
+  "What makes this network different?",
   "What was India Innovates 2026?",
   "How do I join?",
   "What do members actually build?",

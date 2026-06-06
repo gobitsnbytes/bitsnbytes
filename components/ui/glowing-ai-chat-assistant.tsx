@@ -208,7 +208,7 @@ const STORAGE_KEY = "bb-floating-assistant-state-v1";
 const FEEDBACK_STORAGE_KEY = "bb-assistant-feedback-v1";
 const QUICK_PROMPTS = [
   "Who founded bits&bytes™ and what are they working on?",
-  "What makes bits&bytes™ different from other tech clubs?",
+  "What makes bits&bytes™ different from other student tech networks?",
   "Tell me about India Innovates 2026 — what was it?",
   "How can I join bits&bytes™ as a student developer?",
   "What kind of projects do members ship?",
@@ -230,7 +230,7 @@ const SMART_FAQ: FaqEntry[] = [
       "tell me about bits",
     ],
     answer:
-      '**bits&bytes™** is a teen-led builders club based in Lucknow, India. We run hackathons, workshops, and product-focused build programs led by students.\n\n[Learn more about us](/about "cta")\n\n[Who founded it?](# "follow-up")  \n[How can I join?](# "follow-up")',
+      '**bits&bytes™** is a teen-led builders network based in Lucknow, India. We run hackathons, workshops, and product-focused build programs led by students.\n\n[Learn more about us](/about "cta")\n\n[Who founded it?](# "follow-up")  \n[How can I join?](# "follow-up")',
   },
   {
     patterns: [
@@ -342,7 +342,7 @@ const SMART_FAQ: FaqEntry[] = [
       "akshats' achievements",
     ],
     answer:
-      '**Akshat Kushwaha** is Chief Technology Officer (CTO) at bits&bytes™, focused on production-grade systems, AI-native workflows, and platform reliability for club projects.\n\n[See our projects](/projects "cta")',
+      '**Akshat Kushwaha** is Chief Technology Officer (CTO) at bits&bytes™, focused on production-grade systems, AI-native workflows, and platform reliability for network projects.\n\n[See our projects](/projects "cta")',
   },
 ];
 

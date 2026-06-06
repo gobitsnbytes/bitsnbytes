@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "teen coding statistics",
     "student developer community",
     "youth tech impact india",
-    "coding club achievements",
+    "student developer achievements",
   ],
   alternates: {
     canonical: "https://gobitsnbytes.org/impact",
