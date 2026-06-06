@@ -2,7 +2,7 @@
 
 ## 1. Project Overview
 
-**Purpose:** Official website and platform for bits&bytes™, a teen-led builders club operating nationwide in India. Serves as community hub, event platform, and AI-powered assistant system.
+**Purpose:** Official website and platform for bits&bytes™, a teen-led builders network operating nationwide in India. Serves as community hub, event platform, and AI-powered assistant system.
 
 **Tech Stack:** Next.js 16, React 19, TypeScript 5, Tailwind CSS 4, Supabase (PostgreSQL), OpenAI/HackClub Proxy API, Vercel.
 
@@ -36,7 +36,7 @@
 │   ├── contact/                    # Supabase + hCaptcha contact form
 │   ├── events/                     # Archived events (Execron, India Innovates)
 │   ├── faq/                        # Comprehensive FAQ accordion
-│   ├── impact/                     # Club metrics and shipped projects
+│   ├── impact/                     # Network metrics and shipped projects
 │   ├── join/, join-cohort/, fork/  # Static Notion application redirects
 │   └── qna/                        # Full-page interactive chat interface
 ├── components/
@@ -172,7 +172,7 @@ $$;
 **Key Tools:**
 - `search_site_content(query)` → Vector similarity search via RAG
 - `find_team_expert(topic)` → Match user query to team members
-- `recommend_role(skills, interests)` → Suggest role within club
+- `recommend_role(skills, interests)` → Suggest role within network
 - `suggest_navigation(path)` → Trigger client-side page navigation
 - `submit_contact_form(name, email, message)` → Insert into Supabase
 - `submit_sponsor_inquiry(company, contact, sponsor_type, goals)` → Sponsor capture
@@ -220,7 +220,7 @@ $$;
 | Function | Purpose | Output |
 |----------|---------|--------|
 | `findExperts(query)` | Search team by skill/topic | Matching members + their superpowers |
-| `recommendRoles(skills, interests)` | Match user to club roles | Ranked department suggestions |
+| `recommendRoles(skills, interests)` | Match user to network roles | Ranked department suggestions |
 
 ---
 

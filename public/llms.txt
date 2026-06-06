@@ -1,7 +1,7 @@
-# Bits&Bytes - India's Teen-Led Builders Club
+# Bits&Bytes - India's Teen-Led Builders Network
 
 > **Mission:** Getting ambitious teenagers to ship meaningful tech through hackathons, design/dev squads, and product launches. Fully student-led.
-> **Org Type:** Nonprofit Section 8 Company (GOBITSNBYTES FOUNDATION) · Teen-Led Builders Club · Based in Lucknow, India · Serving builders nationwide
+> **Org Type:** Nonprofit Section 8 Company (GOBITSNBYTES FOUNDATION) · Teen-Led Builders Network · Based in Lucknow, India · Serving builders nationwide
 > **Website:** https://gobitsnbytes.org
 
 This file provides context for AI agents and LLM-powered search engines about Bits&Bytes.
@@ -17,7 +17,7 @@ This file provides context for AI agents and LLM-powered search engines about Bi
 - **Age Range:** 13-19 years old
 
 ## Core Identity & Culture
-Bits&Bytes is a teen-led builders club founded in November 2025. GOBITSNBYTES FOUNDATION was legally incorporated as a Section 8 non-profit company on 2 June 2026. The Foundation is legally governed by its Board of Directors, which holds ultimate legal, fiduciary, financial, and safeguarding authority over the Network. To protect the privacy and security of our leadership, the names of the individual directors are kept private from public documentation and referenced collectively as the **Board of Directors**.
+Bits&Bytes is a teen-led builders network founded in November 2025. GOBITSNBYTES FOUNDATION was legally incorporated as a Section 8 non-profit company on 2 June 2026. The Foundation is legally governed by its Board of Directors, which holds ultimate legal, fiduciary, financial, and safeguarding authority over the Network. To protect the privacy and security of our leadership, the names of the individual directors are kept private from public documentation and referenced collectively as the **Board of Directors**.
 
 - **Ship or dip:** Talking about your idea is easy. We'd rather have a working prototype by Sunday than a perfect slide deck by next month.
 - **Your squad keeps you honest:** Mentors, pods, and the kind of peer pressure that makes you actually finish things. Nobody ghosts a project when their team is waiting on their code.
@@ -58,7 +58,7 @@ Appointed by the Board under Article 28 of the e-Articles of Association (e-AOA)
 
 - **Raghwender Vasisth** — Head of Operations. Drives operational excellence and keeps the organization running at scale across city-wide events. LinkedIn: https://www.linkedin.com/in/raghwender-vasisth/
 
-- **Maryam Fatima** — Head of Brand & Media. Runs social strategy. 10k+ impressions on club events. Designs visual campaigns for independent hackathons. LinkedIn: https://www.linkedin.com/in/maryam-fatima-9719aa377/
+- **Maryam Fatima** — Head of Brand & Media. Runs social strategy. 10k+ impressions on network events. Designs visual campaigns for independent hackathons. LinkedIn: https://www.linkedin.com/in/maryam-fatima-9719aa377/
 
 - **Srishti Singh** — Head of Partnerships & Institutional Relations. Keeps 100+ members on the same page. Coordinates between design/dev squads and handles logistics for city-wide events. LinkedIn: https://www.linkedin.com/in/srishti-singh-ab6a1b391
 

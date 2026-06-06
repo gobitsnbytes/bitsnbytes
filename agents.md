@@ -1,7 +1,7 @@
 # bits&bytes™ Team – Agents Handbook
 
 > **Mission:** Getting ambitious teenagers to ship meaningful tech through hackathons, design/dev squads, and product launches. Fully student-led.
-> **Org Type:** Nonprofit Section 8 Company (GOBITSNBYTES FOUNDATION) · Independent Teen-Led Code Club · Based in Lucknow, India · Serving builders nationwide
+> **Org Type:** Nonprofit Section 8 Company (GOBITSNBYTES FOUNDATION) · Independent Teen-Led Builder Network · Based in Lucknow, India · Serving builders nationwide
 
 This handbook describes the core bits&bytes™ "agents" (team members), what each person does, how we collaborate, and our legal governance framework.
 
@@ -15,7 +15,7 @@ We're not a branch of any external student group. We're fully independent, fully
 ### 1.2 The Origin Story
 In July 2025, our team was organizing a major regional student hackathon under an external partner organization. By mid-August, the partner organization cancelled the event, which was a significant setback.
 
-To overcome this uncertainty and avoid relying on external groups, we founded bits&bytes™ as a student-led club in November 2025. Originally, our goal was simply to gather everyone together and host a 24-hour independent hackathon to make up for the cancelled event. However, we quickly realized we could build something far more impactful and sustainable.
+To overcome this uncertainty and avoid relying on external groups, we founded bits&bytes™ as a student-led network in November 2025. Originally, our goal was simply to gather everyone together and host a 24-hour independent hackathon to make up for the cancelled event. However, we quickly realized we could build something far more impactful and sustainable.
 
 To establish a permanent, legally protected, and independent home for the network, **GOBITSNBYTES FOUNDATION** was incorporated as a Section 8 non-profit company on 2 June 2026. The Foundation is legally governed by its Board of Directors, which holds ultimate fiduciary, constitutional, and safeguarding authority over the Network.
 
