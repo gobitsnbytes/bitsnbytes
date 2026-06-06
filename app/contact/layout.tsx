@@ -3,11 +3,11 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact Us - Get in Touch with bits&bytes™",
   description:
-    "Contact bits&bytes™ team for partnerships, volunteering, questions or collaboration. Reach India's teen-led builders club based in Lucknow, Uttar Pradesh.",
+    "Contact bits&bytes™ team for partnerships, volunteering, questions or collaboration. Reach India's teen-led builders network based in Lucknow, Uttar Pradesh.",
   keywords: [
     "contact bits&bytes™",
-    "teen builders club contact",
-    "lucknow coding club email",
+    "teen builders network contact",
+    "lucknow coding network email",
     "bits&bytes™ support",
   ],
   alternates: {
