@@ -76,6 +76,38 @@ const faqJsonLd = {
         text: "Absolutely! We're almost always looking for help with organizers, general day-of volunteers, workshops, and mentors. Reach out through our contact page to learn more.",
       },
     },
+    {
+      "@type": "Question",
+      name: "Do I own what I build at hackathons?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, you retain full ownership of the projects, code, and designs you create. By submitting or showcasing your project on our platforms, you grant GOBITSNBYTES FOUNDATION a perpetual, royalty-free, non-exclusive license to share it for our non-profit educational and community-showcasing purposes.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What happens if someone breaks the rules?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Violations of our Code of Conduct can lead to warnings, role restriction, suspension from events, or a permanent ban. Serious violations are escalated to legal authorities. Any disciplined participant has 14 days to appeal the decision in writing to the Board of Directors.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How is my data handled?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "We process data as a Data Fiduciary under the Digital Personal Data Protection Act, 2023 (DPDP Act). We only collect what is needed for participation and safety. We never sell your data, and minor data is protected with extra safeguarding measures under POCSO and the DPDP Act.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I use the bits&bytes™ brand?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Recognized Forks and approved volunteers are granted a revocable, non-exclusive, royalty-free license to use the brand for authorized activities only. Local groups are not authorized to raise money or sign contracts on behalf of the brand.",
+      },
+    },
   ],
 };
 

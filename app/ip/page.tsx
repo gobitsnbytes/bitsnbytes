@@ -10,67 +10,69 @@ This policy explains how the bits&bytes™ name, logo, brand system, software, e
 
 ---
 
-## 1. Brand Ownership
+## 1. Brand Ownership and Trademarks
 
-bits&bytes™, bitsnbytes, the cube monogram, official logo assets, domains, repositories, design systems, curricula, documentation, event formats, and associated goodwill are stewarded by GOBITSNBYTES FOUNDATION.
+GOBITSNBYTES FOUNDATION is the sole legal owner and steward of all intellectual property, trademarks, copyrights, trade secrets, domain names (including gobitsnbytes.org), code repositories, curriculum resources, design systems, and visual marks associated with the bits&bytes™ brand.
 
-The public brand spelling is bits&bytes™. bitsnbytes is the approved alternative where ampersands are unavailable or restricted, such as handles, domains, package names, or file paths.
+- **Name Usage:** The primary, canonical brand spelling is bits&bytes™. In contexts where the ampersand character ("&") is unavailable or restricted (such as domains, email handles, package managers, or file systems), "bitsnbytes" is the approved and equivalent alternative.
+- **Brand Assets:** The 3D cube monogram (containing a stylized "BB" and a star accent), the full wordmark, all logo files, and associated goodwill are protected trademarks of GOBITSNBYTES FOUNDATION.
 
-## 2. Permission to Use the Brand
+## 2. Fork and Partner Licensing
 
-Recognized Forks, volunteers, partners, schools, and contributors may use the brand only for approved bits&bytes™ activity and only while their permission or recognition remains active.
-
-Brand permission is limited, conditional, non-exclusive, and revocable. It does not allow anyone to create a separate entity, imply independent legal authority, raise funds, sub-license the brand, or claim continuity after recognition ends.
+Recognized Forks, volunteers, partners, and schools may use the brand only for approved community activities and only while their recognition remains active.
+- **License Terms:** In accordance with Article 40 of our e-AOA, the Foundation grants recognized Forks a limited, revocable, non-exclusive, non-transferable, royalty-free license to use Foundation trademarks and assets solely for approved local activities.
+- **Restrictions:** This license does not allow anyone to create a separate legal entity, imply independent contracting or signing authority, raise or hold funds independently, sub-license the brand, or claim continuity after recognition ends.
 
 ## 3. Logo and Creative Standards
 
-Use official logo files only. Do not stretch, distort, recolor, rotate, outline, add effects, combine with other marks without approval, or place the logo where it becomes illegible.
+Use official logo files only, which must be reversed white on dark backgrounds or single-color on light backgrounds.
+- Do not stretch, distort, recolor, rotate, outline, add effects, combine with other marks without approval, or place the logo where it becomes illegible.
+- Public creative assets should use the brand name accurately, include the trademark symbol (™) where appropriate, avoid unsupported claims, avoid unapproved co-branding, and never include personal data, registration sheets, private communications, or images of minors without verified parent/guardian consent.
 
-Public creative should use the brand name accurately, include the trademark symbol where appropriate, avoid unsupported claims, avoid unapproved co-branding, and never include personal data, registration sheets, private communications, or images of minors without proper consent.
+## 4. Participant Content and Project Ownership
 
-## 4. Open Source and Educational Content
+We respect the creative work of student builders.
+- **Ownership:** Participants retain full ownership of the intellectual property (projects, code, designs, presentations) they create during bits&bytes™ hackathons and events, unless agreed otherwise in writing.
+- **License Grant:** By submitting projects, code, or presentations to Foundation platforms or event showcases, participants grant GOBITSNBYTES FOUNDATION a perpetual, irrevocable, worldwide, royalty-free, non-exclusive license to use, reproduce, modify, distribute, and display the submission for the Foundation's non-profit, educational, and promotional purposes.
+- **No Endorsement:** The showcase or use of participant content by the Foundation does not imply official endorsement.
 
-The Foundation may release software, curricula, documentation, and educational resources under open-source or open-content licenses when consistent with the mission, safeguarding obligations, third-party rights, and legal compliance.
+## 5. Contributed Work and Open Source
 
-No Fork, volunteer, or participant may independently license Foundation-owned or Foundation-stewarded assets except through published license terms or written approval.
+To ensure project continuity and the public-benefit mission of the Network:
+- **Vesting of Contributions:** All code, designs, content, curriculum, or documentation developed by Executive Officers, Fork Leads, volunteers, or contributors in connection with official Foundation programs, repositories, or digital assets shall vest in or be licensed to GOBITSNBYTES FOUNDATION.
+- **Open-Source Defaults:** The Foundation defaults to open-source software licenses (such as MIT or Apache 2.0) and open-content licenses (such as Creative Commons) for educational resources and public-benefit assets, subject to terms approved by the Board.
+- **Recognition:** Attribution and commit histories recognize contributions, but recognition does not create ownership of the repository, domain, or Fork identity. Minor contributors may require parent/guardian consent for formal assignments.
 
-## 5. Contributor Work
+## 6. Third-Party Rights and Liability
 
-Contributors should expect official project work to be stewarded for continuity and public benefit. Attribution, credits, commit history, acknowledgements, or showcases may recognize contributions, but recognition does not create ownership of the brand, repos, domains, or local Fork identity.
+All contributors, organizers, and participants must respect third-party copyrights, trademarks, licensing terms, and privacy rights.
+- **No Infringement:** Do not publish, copy, import, or distribute third-party materials without proper licensing or authorization.
+- **Disclaimer:** GOBITSNBYTES FOUNDATION is not liable for intellectual property infringements committed by individual participants, volunteers, or independent Forks.
 
-Where a contributor is a minor, formal IP assignment or contributor license documentation may require parent or guardian consent or a Board-approved process.
+## 7. Infringement Reports and Dispute Resolution
 
-## 6. Third-Party Rights
-
-All contributors and organizers must respect third-party copyrights, trademarks, licenses, image rights, music rights, font licenses, platform terms, and data rights.
-
-Do not publish, copy, import, train on, distribute, or use third-party material in a way that creates legal, ethical, security, reputational, or consent risk.
-
-## 7. Infringement Reports
-
-If you believe a bits&bytes™ website, repository, event asset, or platform post infringes your copyright or trademark, email hello@gobitsnbytes.org with:
-
-1. The work or mark you believe is infringed.
-2. The exact URL, repository, channel, or asset location.
-3. Your contact information.
-4. A statement that you own the rights or are authorized to act for the owner.
+If you believe any content on a bits&bytes™ website, repository, or official platform infringes your copyright or trademark, please email hello@gobitsnbytes.org with:
+1. Identify the work or mark you believe is infringed.
+2. The exact URL, repository, or asset location.
+3. Your contact information (name, address, email).
+4. A statement of ownership or authorization to act on behalf of the owner.
 5. A good-faith statement explaining why the use is unauthorized.
-6. Your physical or electronic signature.
+6. Your electronic or physical signature.
 
-We review notices promptly and may remove or restrict access to disputed material while assessing the issue.
+Upon receipt of a valid notice, we will review and may remove or restrict access to the disputed material. In accordance with Article 46 of the e-AOA, the Board of Directors has final authority over intellectual property disputes within the Network.
 
 ---
 
-Adopted for public use on 4 June 2026. Contact: hello@gobitsnbytes.org.`;
+Adopted for public use on 6 June 2026. Contact: hello@gobitsnbytes.org.`;
 
 const sections = [
-  { id: "1-brand-ownership", label: "Ownership" },
-  { id: "2-permission-to-use-the-brand", label: "Permission" },
+  { id: "1-brand-ownership-and-trademarks", label: "Ownership" },
+  { id: "2-fork-and-partner-licensing", label: "Permission" },
   { id: "3-logo-and-creative-standards", label: "Logo Use" },
-  { id: "4-open-source-and-educational-content", label: "Licensing" },
-  { id: "5-contributor-work", label: "Contributors" },
-  { id: "6-third-party-rights", label: "Third Party" },
-  { id: "7-infringement-reports", label: "Reports" },
+  { id: "4-participant-content-and-project-ownership", label: "Participant IP" },
+  { id: "5-contributed-work-and-open-source", label: "Licensing" },
+  { id: "6-third-party-rights-and-liability", label: "Third Party" },
+  { id: "7-infringement-reports-and-dispute-resolution", label: "Reports" },
 ];
 
 export default function IntellectualPropertyPolicy() {
@@ -79,7 +81,7 @@ export default function IntellectualPropertyPolicy() {
       badge="Brand Stewardship"
       title="Intellectual Property"
       summary="The public policy for brand use, logo permissions, open-source defaults, contributor work, third-party rights, and infringement reports."
-      updated="Last updated: 4 June 2026"
+      updated="Last updated: 6 June 2026"
       icon={Scale}
       sections={sections}
       markdown={ipMarkdown}

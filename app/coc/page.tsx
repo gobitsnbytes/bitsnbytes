@@ -30,11 +30,16 @@ It applies regardless of age, role, seniority, founding involvement, public prof
 
 Everyone is expected to:
 
+- Be respectful, inclusive, and collaborative.
+- Use welcoming and inclusive language.
+- Be considerate of differing viewpoints and experiences.
+- Accept constructive criticism gracefully.
+- Focus on what is best for the community.
+- Show empathy towards others.
+- Respect personal boundaries and privacy.
+- Follow instructions of event organizers and safety personnel.
+- Report any concerns about safety, conduct, privacy, or financial irregularities.
 - Welcome new people and make participation easier, not harder.
-- Be patient with different learning speeds, communication styles, and backgrounds.
-- Critique ideas without attacking people.
-- Take responsibility when something goes wrong.
-- Protect the community by reporting safety, conduct, privacy, or financial concerns.
 
 ## 4. Prohibited Behavior
 
@@ -46,10 +51,13 @@ The following are not allowed:
 - Doxxing, privacy violations, sharing private messages without consent, or exposing personal data.
 - Fraud, unauthorized fundraising, personal collection of money, or misuse of community funds.
 - Spam, sustained disruption, trolling, threats, or retaliation against someone who reports a concern.
+- Deliberate sabotage of projects, code, or collaborative work.
+- Use of Foundation resources or brand assets for unauthorized commercial purposes.
+- Any illegal activity or conduct which could reasonably be considered inappropriate in a professional setting.
 
 ## 5. Reporting
 
-If you experience or witness a violation, report it. Email hello@gobitsnbytes.org or contact a trusted team member.
+If you experience or witness a violation, report it immediately. Email hello@gobitsnbytes.org or contact a trusted team member.
 
 Include what happened, where it happened, when it happened, who was involved, and any screenshots or records that help the team understand the situation. If you are unsure whether something counts, report it anyway and let us assess.
 
@@ -69,19 +77,25 @@ Warning: Serious violations may lead to immediate action without prior warning. 
 
 Where conduct may violate applicable law, including child protection, information technology, privacy, or criminal law, the Foundation may refer the matter to appropriate authorities.
 
+Appeals of enforcement actions must be made in writing to the Board of Directors via hello@gobitsnbytes.org within 14 days of receiving notice of the decision. The Board holds final authority on enforcement decisions.
+
 ## 8. Special Protections for Minors
 
 Because bits&bytes™ is youth-led, safeguarding is a core governance priority. Teams must use appropriate consent, supervision, communication boundaries, moderation, and escalation procedures when minors are involved.
+
+In accordance with the Protection of Children from Sexual Offences Act, 2012 (POCSO), all activities and communications involving minors must maintain strict professional boundaries. One-on-one unsupervised interactions between adults and minors are prohibited.
 
 Photography, recording, public showcases, travel, residential activity, direct adult-to-minor communication, and platform access require heightened care. No local group may dilute these requirements for convenience.
 
 ## 9. Data and Privacy
 
-Participant data, safety records, consent information, and incident records must be handled according to the Privacy Policy and safeguarding standards. Do not expose personal data in public channels, creative assets, screenshots, slides, repos, or demos.
+Participant data, safety records, consent information, and incident records must be handled according to the Privacy Policy and safeguarding standards. Personal data collection and processing comply with the Digital Personal Data Protection Act, 2023 (DPDP Act).
+
+Do not expose personal data in public channels, creative assets, screenshots, slides, repos, or demos.
 
 ---
 
-Adopted for public use on 4 June 2026. Contact: hello@gobitsnbytes.org.`;
+Adopted for public use on 6 June 2026. Contact: hello@gobitsnbytes.org.`;
 
 const sections = [
   { id: "tldr", label: "TL;DR" },
@@ -102,7 +116,7 @@ export default function CodeOfConduct() {
       badge="Community Standard"
       title="Code of Conduct"
       summary="The standard for safe, high-agency participation across bits&bytes™ events, projects, Forks, and digital community spaces."
-      updated="Last updated: 4 June 2026"
+      updated="Last updated: 6 June 2026"
       icon={Shield}
       sections={sections}
       markdown={cocMarkdown}

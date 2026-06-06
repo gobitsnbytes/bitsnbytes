@@ -102,6 +102,26 @@ const faqs: FAQItem[] = [
     answer:
       "A Fork is a recognized local, institutional, or thematic operating node of the bits&bytes™ Network recognized under authority of GOBITSNBYTES FOUNDATION. Local student-led teams can apply to run their own events and dev squads under our brand. All local operations are supported and governed by our Upstream teams.",
   },
+  {
+    question: "Do I own what I build at hackathons?",
+    answer:
+      "Yes, you retain full ownership of the intellectual property (projects, code, designs, presentations) you create. By submitting your project on our platforms or showcasing it, you grant GOBITSNBYTES FOUNDATION a perpetual, royalty-free, non-exclusive license to share it for our non-profit educational and community-showcasing purposes.",
+  },
+  {
+    question: "What happens if someone breaks the rules?",
+    answer:
+      "We enforce our Code of Conduct strictly to keep the community safe. Depending on the violation, actions range from warnings and role removal to suspension from events and permanent ban. Serious violations may be escalated to legal authorities. Anyone disciplined has 14 days to appeal the decision in writing to the Board of Directors.",
+  },
+  {
+    question: "How is my data handled?",
+    answer:
+      "We act as a Data Fiduciary under the Digital Personal Data Protection Act, 2023 (DPDP Act). We only collect what is needed for event logistics, safety, and consent. We never sell your data, and minor data is protected with extra safeguarding measures under POCSO and the DPDP Act.",
+  },
+  {
+    question: "Can I use the bits&bytes™ brand?",
+    answer:
+      "Recognized Forks and approved volunteers are granted a revocable, non-exclusive, royalty-free license to use the brand for authorized activities only. Brand usage must adhere to our creative guidelines. No local group or individual is authorized to raise money or sign contracts on behalf of the brand.",
+  },
 ];
 
 import { GlassContainer } from "@/components/ui/glass-container";
