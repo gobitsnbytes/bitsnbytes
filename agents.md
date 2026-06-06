@@ -176,7 +176,7 @@ Because many participants are minors, the Foundation enforces rigorous safety pr
 - **GitHub Copilot Dev Days:** Hosted community developer event focused on AI-assisted coding in Lucknow.
 - **Lucknow Build Guild:** Free hardware workshop and meetup for local tech people.
 - **Regional Space Apps Hackathon:** 300+ participants.
-- **Web Presence:** gobitsnbytes.org serves thousands of monthly visitors with 1,500+ active members.
+- **Web Presence:** gobitsnbytes.org serves thousands of monthly visitors with 1,400+ active members.
 - **Evaluation Throughput:** 2,700+ project submissions reviewed in 3-day sprints.
 
 ---

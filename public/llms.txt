@@ -9,10 +9,11 @@ This file provides context for AI agents and LLM-powered search engines about Bi
 ## Quick Facts
 - **Founded:** November 2025 (incorporated as GOBITSNBYTES FOUNDATION on 2 June 2026)
 - **Location:** Lucknow, Uttar Pradesh, India
-- **Members:** 1500+ active student developers from across India
-- **Submissions Evaluated:** 2,700+ (in a 3-day civic tech partner sprint)
-- **Scale:** 100% Student-led
-- **Membership Cost:** Free. Always student-led.
+- **Community Members:** 1400+ active student developers from across India
+- **Forks:** 5+ recognized Forks (gobitsnbytes.org/fork)
+- **Events:** 4+ events
+- **Mean Age:** 16.5 years
+- **Membership Cost:** Free.
 - **Age Range:** 13-19 years old
 
 ## Core Identity & Culture

@@ -10,7 +10,7 @@
 
 **Key Features:** Semantic search over site content, AI-powered Q&A, team member matching, project idea generation, contact/sponsor lead capture, rate limiting, multi-language support (English/Hindi).
 
-**Scale:** 1500+ active members, 2700+ evaluated submissions, served via Vercel with production source maps disabled.
+**Scale:** 1400+ community members, 5+ recognized Forks, 4+ events, mean team age of 16.5 years, served via Vercel with production source maps disabled.
 
 ---
 
