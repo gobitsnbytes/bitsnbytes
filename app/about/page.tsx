@@ -153,6 +153,7 @@ const volunteers: Volunteer[] = [
     role: "Ground Operations",
     image: "/team/shantanu.jpeg",
     linkedin: "https://www.linkedin.com/in/theshantanujoshi/",
+    website: "https://theshantanujoshi.github.io",
     section: "Operations",
   },
   {
