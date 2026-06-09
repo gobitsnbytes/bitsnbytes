@@ -33,6 +33,7 @@ export interface Volunteer {
   name: string;
   image: string;
   linkedin?: string;
+  website?: string;
   section: "Creative" | "Tech" | "Outreach" | "Operations";
   role?: string;
 }
@@ -292,7 +293,7 @@ function VolunteerCard({ volunteer, index }: { volunteer: Volunteer; index: numb
           {volunteer.role || "Contributor"}
         </span>
         {/* Fixed height container for LinkedIn to keep grids aligned */}
-        <div className="mt-1 h-7 flex items-center justify-center">
+        <div className="mt-1 h-7 flex items-center justify-center gap-1.5">
           {volunteer.linkedin ? (
             <a
               href={volunteer.linkedin}
@@ -302,6 +303,17 @@ function VolunteerCard({ volunteer, index }: { volunteer: Volunteer; index: numb
               aria-label={`${volunteer.name}'s LinkedIn`}
             >
               <Linkedin className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+            </a>
+          ) : null}
+          {volunteer.website ? (
+            <a
+              href={volunteer.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-full bg-white/10 transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-white/20 hover:scale-110 active:scale-[0.92]"
+              aria-label={`${volunteer.name}'s Website`}
+            >
+              <Globe className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
             </a>
           ) : null}
         </div>
