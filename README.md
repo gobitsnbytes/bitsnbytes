@@ -1,46 +1,28 @@
 # bits&bytes™ Official Website
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/gobitsnbytes/bitsnbytes)
+Official public platform for bits&bytes™, a fully student-led builder network based in Lucknow and serving ambitious teen builders across India.
 
-Official platform for bits&bytes™, a teen-led coding community based in Lucknow, India. This repository powers the public website, community pages, and an AI assistant with retrieval and tool-calling support.
+The site includes the public brand pages, event archives, join/contact flows, and an AI assistant powered by page context plus a Supabase-backed RAG index.
 
-## What This Project Includes
+## Stack
 
-- Next.js App Router website for community pages, events, projects, join, and contact.
-- AI assistant API with SSE streaming responses and tool-calling flows.
-- Semantic search (RAG) over selected site content using embeddings.
-- Supabase-backed forms and chat session persistence.
-- Production-oriented frontend with 3D/interactive UI components.
-
-## Tech Stack
-
-- Framework: Next.js 16, React 19, TypeScript 5
-- Styling/UI: Tailwind CSS 4, Radix UI, custom animated components
-- Data: Supabase (PostgreSQL)
-- AI: OpenAI SDK against Hack Club proxy endpoints
-- Deployment: Vercel
+- Next.js 16, React 19, TypeScript 5
+- Tailwind CSS 4, Radix UI, Framer Motion
+- Supabase for forms, chat persistence, and vector search
+- Hack Club proxy for chat, embeddings, and image generation
+- Vercel deployment
 - Package manager: pnpm
 
-## Getting Started
-
-### 1. Prerequisites
-
-- Node.js 20+
-- pnpm 9+
-- A Supabase project
-- A Hack Club proxy API key for AI endpoints
-
-### 2. Install Dependencies
+## Local Setup
 
 ```bash
 pnpm install
+pnpm dev
 ```
 
-### 3. Configure Environment Variables
+The app runs at `http://localhost:3000`.
 
-Copy `.env.example` to `.env.local` and fill in values.
-
-Required in practice (based on current code paths):
+Copy `.env.example` to `.env.local` and provide:
 
 ```env
 NEXT_PUBLIC_SUPABASE_URL=...
@@ -55,143 +37,77 @@ Optional:
 NVIDIA_KEY=...
 ```
 
-Notes:
-- `HACKCLUB_PROXY_API_KEY` is required for the assistant and embedding generation.
-- `NVIDIA_KEY` is required only for the Stable Diffusion image generation branch.
-
-### 4. Run Locally
+## Scripts
 
 ```bash
 pnpm dev
+pnpm build
+pnpm start
+pnpm lint
 ```
 
-App runs at `http://localhost:3000`.
-
-## Available Scripts
-
-- `pnpm dev` - Run development server
-- `pnpm build` - Production build
-- `pnpm start` - Start production server
-- `pnpm lint` - Run ESLint
+Use pnpm for all project work.
 
 ## Project Structure
 
 ```text
-.
-|- app/                     # Next.js App Router pages and API routes
-|  |- api/
-|  |  |- assistant/         # AI assistant, feedback, image, voice
-|  |  |- join/              # Join form ingestion
-|  |  |- discord/           # Discord-related endpoint(s)
-|  |- about/ contact/ events/ impact/ join/ projects/ faq/ ...
-|- components/              # Shared and UI components
-|- lib/                     # RAG, Supabase, rate limit, sentiment, team logic
-|- public/                  # Static assets (images, llms.txt, sitemap, etc.)
-|- scripts/embed-site.ts    # Embeds selected docs into site_embeddings table
-|- comic/                   # Comic/sticker generation utilities
+app/                      Next.js routes and API handlers
+components/               Shared UI, navigation, hero, assistant, sections
+components/ui/            Reusable interface primitives and visual systems
+lib/                      RAG, Supabase, rate limit, team/event data, utilities
+public/                   Static images, logo, video, llms.txt, sitemap
+scripts/embed-site.ts     RAG embedding refresh script
+types/                    Type declarations
 ```
 
-## API Overview
+## Key Routes
 
-### `POST /api/assistant`
+- `/` homepage with hero, stats, partners, and story sections
+- `/about` team and mission
+- `/events` archived hackathons, workshops, and partner events
+- `/impact` community statistics and outcomes
+- `/join` membership application
+- `/fork` Fork network map
+- `/qna` full-page AI assistant
+- `/press` brand assets and media context
 
-Main AI assistant endpoint.
+## Events Context
 
-- Input: user message history, current pathname, session ID
-- Output: `text/event-stream` (SSE) with token streaming and final action payload
-- Includes:
-	- rate limiting (`10 requests/min/IP`)
-	- intent bypass for fast navigation/contact/WhatsApp responses
-	- tool-calling loop
-	- model fallback behavior
-	- optional semantic response cache
+Hack4Good v0 is now an archived event. Shared event state lives in `lib/events-data.ts`, and the homepage hero pulls its event carousel from that file.
 
-### `POST /api/join`
+The homepage movie CTA opens `public/movie/bnb-movie.mp4` in an in-page video frame.
 
-Stores join requests in Supabase `join_requests`.
+## Brand Notes
 
-Required fields:
-- `name`
-- `email`
-- `message`
+The public name is **bits&bytes™**. Use **bitsnbytes** only where the ampersand is impractical, such as domains, handles, repository names, packages, or file paths. Use **GOBITSNBYTES FOUNDATION** only for legal, regulatory, contract, invoice, and official correspondence contexts.
 
-Optional fields:
-- `school`
-- `experience`
-- `interests` (array, stored as comma-separated text)
+`public/logo.svg` is the white logo mark. Keep it on dark, burgundy, or orange surfaces unless a monochrome/dark variant is intentionally provided.
 
-### `POST /api/assistant/feedback`
+See `brand-guideline.md`, `DESIGN.md`, and `public/llms.txt` for the current brand kit.
 
-Appends per-message feedback into `chat_sessions.feedback` in Supabase.
+## AI Assistant And RAG
 
-### `POST /api/assistant/image`
+The assistant answers using:
 
-Image generation endpoint used by assistant tools.
+- live route/page context from the client
+- semantic search over `site_embeddings` in Supabase
 
-- Stable Diffusion path: NVIDIA endpoint (`NVIDIA_KEY`)
-- Gemini path: Hack Club proxy (`HACKCLUB_PROXY_API_KEY`)
-
-## Database Expectations (Supabase)
-
-At minimum, the code currently assumes tables like:
-
-- `join_requests`
-- `chat_sessions`
-- `site_embeddings`
-- `contacts`
-- `sponsor_leads`
-
-Also expected:
-- vector search support for embeddings (used by RAG search flows)
-
-See `TECHNICAL_DOCUMENTATION.md` for deeper schema and function examples.
-
-## Embedding Site Content for RAG
-
-The script `scripts/embed-site.ts` currently reads:
+The RAG refresh script currently indexes:
 
 - `public/llms.txt`
 - `AGENTS.md`
 
-Then it generates embeddings and inserts chunks into `site_embeddings`.
-
-Run with:
+Refresh after content changes:
 
 ```bash
 pnpm tsx scripts/embed-site.ts
 ```
 
-(Use your preferred TS runtime if `tsx` is not installed globally.)
+The Husky pre-push hook also runs the embedding step when tracked source paths change.
 
-## Deployment
+## Production Notes
 
-Configured for Vercel via `vercel.json`.
-
-- Install command: `pnpm install`
-- Build command: `pnpm run build`
-- Framework: `nextjs`
-
-The app also injects git metadata at build time in `next.config.mjs`.
-
-## Operational Notes
-
-- `next.config.mjs` currently has `typescript.ignoreBuildErrors: true`.
-	- This avoids type-check build blocking, but can hide production issues.
-- Rate limiting in `lib/rate-limit.ts` is in-memory.
-	- For multi-instance consistency, move to Redis or a shared store.
-
-## Documentation
-
-- High-level technical reference: `TECHNICAL_DOCUMENTATION.md`
-- Organization and team handbook used for assistant context: `AGENTS.md`
-
-## Contributing
-
-1. Create a feature branch.
-2. Make focused changes.
-3. Run lint/build locally.
-4. Open a PR with context and screenshots for UI work.
-
-## License
-
-This repository does not currently include a license file. Add one if you intend to allow reuse/distribution under specific terms.
+- Vercel config lives in `vercel.json`.
+- `next.config.mjs` injects git metadata at build time.
+- `typescript.ignoreBuildErrors` is currently enabled, so run lint/type checks before production-sensitive changes.
+- In-memory rate limiting is suitable for simple deployments; use a shared store if the API runs across multiple instances.

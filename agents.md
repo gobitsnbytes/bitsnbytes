@@ -22,9 +22,19 @@ To establish a permanent, legally protected, and independent home for the networ
 ### 1.3 Brand Kit
 bits&bytes™ uses a compact, production-friendly visual identity. Key elements:
 
-- **Brand Mark**: A 3D cube monogram (the cube contains a stylized 'BB' and a small star accent). Use the full wordmark for large headings and the cube mark for constrained spaces (avatars, favicons). Prefer a white reversed mark on dark backgrounds; use single-color marks on light backgrounds. Always maintain clear space around the mark.
+- **Brand Mark:** A geometric cube rendered in a bold isometric style with stylized B letterforms on its face and a four-pointed star on top. Use the full wordmark for large headings and the cube mark for constrained spaces such as avatars and favicons. `public/logo.svg` is the white mark and should sit on dark, burgundy, or orange surfaces; use the PNG or monochrome variants only when the surface requires it. Always maintain clear space around the mark.
+
+- **Logo Variations:**
+  - White background: primary/default lockup.
+  - Black background: dark-background contexts.
+  - Burgundy `#97192c`: brand-colored environments.
+  - Orange `#fc920d`: accent/campaign usage.
+
+- **Embedding:** use `![logo](https://gobitsnbytes.org/logo)` in Markdown or `<img src="https://gobitsnbytes.org/logo" alt="bits&bytes™ logo">` in HTML.
 
 - **Name Usage**: The primary brand spelling is "bits&bytes™". In contexts or environments where the ampersand character ("&") is unavailable, unsupported, or restricted (such as domains, email handles, code package repositories, or file system directories), "bitsnbytes" is the official, approved, and equivalent alternative. Both "bits&bytes" and "bitsnbytes" are approved brand descriptors.
+
+  Never write "bits & bytes™", "Bits & Bytes", "bits and bytes", "B&B", "gobitsnbytes", or other public-facing variants. The registered legal entity name is **GOBITSNBYTES FOUNDATION** and should appear only in legal, regulatory, banking, invoice, contract, and official correspondence contexts.
 
 - **Typography:**
   - Primary: Helvetica Now — headings and display (use heavier weights for emphasis).
@@ -41,8 +51,8 @@ bits&bytes™ uses a compact, production-friendly visual identity. Key elements:
   Design guidance: treat burgundy/plum as the core voice (serious and composed); use the orange gradient for emphasis and pops; prefer layered gradients for depth; and use the neutral scale to keep layouts clean.
 
 - **Visual Elements:**
-  - Use gradients (Vibrant Pink → Rich Plum → Deep Purple) for hero backgrounds.
-  - Halftone/stipple textures, geometric checks, and a small star/sparkle motif are approved decorative elements. Apply as subtle overlays to add texture without reducing legibility.
+  - Use gradients from burgundy/plum into orange warmth for hero and campaign surfaces.
+  - Dither, halftone dots, stipple textures, geometric checks, burst/starburst shapes, and small star/sparkle motifs are approved decorative elements. Apply as subtle overlays with generous white space so they add motion without reducing legibility.
 
 - **Logo usage & assets:** keep vector SVGs for web/print, provide monochrome variants, and do not distort, rotate, or apply unapproved color treatments.
 
@@ -172,6 +182,7 @@ Because many participants are minors, the Foundation enforces rigorous safety pr
 ## 5. Track Record
 
 - **India Innovates 2026:** Official Executive Partner for the World's Largest Civic Tech Hackathon with 1.26 crore+ applicants.
+- **Hack4Good v0:** Archived 24-hour Agentic AI hackathon in Lucknow with 425 registrations, 110 on-ground attendees, and a ₹35,000 prize pool.
 - **Execron 1.0:** Co-hosted AI Hackathon & Workshop at IIT Kanpur for students in Classes 9–12.
 - **GitHub Copilot Dev Days:** Hosted community developer event focused on AI-assisted coding in Lucknow.
 - **Lucknow Build Guild:** Free hardware workshop and meetup for local tech people.

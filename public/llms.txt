@@ -1,10 +1,10 @@
-# Bits&Bytes - India's Teen-Led Builders Network
+# bits&bytes™ - India's Teen-Led Builders Network
 
 > **Mission:** Getting ambitious teenagers to ship meaningful tech through hackathons, design/dev squads, and product launches. Fully student-led.
 > **Org Type:** Nonprofit Section 8 Company (GOBITSNBYTES FOUNDATION) · Teen-Led Builders Network · Based in Lucknow, India · Serving builders nationwide
 > **Website:** https://gobitsnbytes.org
 
-This file provides context for AI agents and LLM-powered search engines about Bits&Bytes.
+This file provides context for AI agents and LLM-powered search engines about bits&bytes™.
 
 ## Quick Facts
 - **Founded:** November 2025 (incorporated as GOBITSNBYTES FOUNDATION on 2 June 2026)
@@ -17,7 +17,7 @@ This file provides context for AI agents and LLM-powered search engines about Bi
 - **Age Range:** 13-19 years old
 
 ## Core Identity & Culture
-Bits&Bytes is a teen-led builders network founded in November 2025. GOBITSNBYTES FOUNDATION was legally incorporated as a Section 8 non-profit company on 2 June 2026. The Foundation is legally governed by its Board of Directors, which holds ultimate legal, fiduciary, financial, and safeguarding authority over the Network. To protect the privacy and security of our leadership, the names of the individual directors are kept private from public documentation and referenced collectively as the **Board of Directors**.
+bits&bytes™ is a teen-led builders network founded in November 2025. GOBITSNBYTES FOUNDATION was legally incorporated as a Section 8 non-profit company on 2 June 2026. The Foundation is legally governed by its Board of Directors, which holds ultimate legal, fiduciary, financial, and safeguarding authority over the Network. To protect the privacy and security of our leadership, the names of the individual directors are kept private from public documentation and referenced collectively as the **Board of Directors**.
 
 - **Ship or dip:** Talking about your idea is easy. We'd rather have a working prototype by Sunday than a perfect slide deck by next month.
 - **Your squad keeps you honest:** Mentors, pods, and the kind of peer pressure that makes you actually finish things. Nobody ghosts a project when their team is waiting on their code.
@@ -30,11 +30,13 @@ Bits&Bytes is a teen-led builders network founded in November 2025. GOBITSNBYTES
 4. **Community**: A safe, inclusive community where people can actually build things without garbage getting in the way.
 
 ## Current & Upcoming Events
-- **India Innovates 2026** [ARCHIVED] — Held on March 28, 2026 at Bharat Mandapam, New Delhi (9 AM to 7 PM). Verified scale: 1.26 crore+ applicants, narrowed to 28,000+, then 5,000+, and finally 15 teams. Domains: Urban Solutions, Digital Democracy, and Open Innovation. Prize pool: ₹10 Lakh+ with ₹1L/₹75K/₹50K/₹25K per domain. Bits&Bytes served as the Official Executive Partner. Attended by Delhi CM Rekha Gupta, Bihar Assembly Speaker, and MP Manoj Tiwari. Post-event flow included ministry-level presentation stage. Press coverage: #IndiaInnovates2026 trended on X. Details: https://indiainnovates.org
+- **Hack4Good v0** [ARCHIVED] — 24-hour Agentic AI hackathon held in Lucknow from April 2, 2026 to May 3, 2026, with the in-person hackathon at Cubispace, Lucknow. Theme: Architect Your Autonomy. Format: teams of 1–4, AI agents and autonomous workflows, ₹35,000 prize pool. Public metrics: 4,117 impressions, 425 registrations, and 110 on-ground attendees.
 
-- **Execron 1.0** [ARCHIVED] — AI Hackathon & Workshop for Classes 9–12, held March 19–22, 2026 at IIT Kanpur. In collaboration with TechKriti '26. A 4-hour hands-on workshop followed by a 24-hour hackathon sprint. Topics: AI & ML, Web Development, App Development, Cybersecurity, Cloud Computing. Team sizes 1–4 members. Partners: ByteForge, Bits&Bytes. Details: https://byteforge.paxus.in/
+- **India Innovates 2026** [ARCHIVED] — Held on March 28, 2026 at Bharat Mandapam, New Delhi (9 AM to 7 PM). Verified scale: 1.26 crore+ applicants, narrowed to 28,000+, then 5,000+, and finally 15 teams. Domains: Urban Solutions, Digital Democracy, and Open Innovation. Prize pool: ₹10 Lakh+ with ₹1L/₹75K/₹50K/₹25K per domain. bits&bytes™ served as the Official Executive Partner. Attended by Delhi CM Rekha Gupta, Bihar Assembly Speaker, and MP Manoj Tiwari. Post-event flow included ministry-level presentation stage. Press coverage: #IndiaInnovates2026 trended on X. Details: https://indiainnovates.org
 
-- **GitHub Copilot Dev Days | Lucknow** [ARCHIVED] — Community developer event on April 19, 2026 at Cubispace, Jankipuram, Lucknow. Hosted by Bits&Bytes with community partners Coding Connoisseurs, Aryan Singh, and Notion Lucknow. Topics: how GitHub Copilot works, integrating AI into dev workflows, prompt techniques, and using AI responsibly. Archive link: https://luma.com/xtxua1jl.
+- **Execron 1.0** [ARCHIVED] — AI Hackathon & Workshop for Classes 9–12, held March 19–22, 2026 at IIT Kanpur. In collaboration with TechKriti '26. A 4-hour hands-on workshop followed by a 24-hour hackathon sprint. Topics: AI & ML, Web Development, App Development, Cybersecurity, Cloud Computing. Team sizes 1–4 members. Partners: ByteForge and bits&bytes™. Details: https://byteforge.paxus.in/
+
+- **GitHub Copilot Dev Days | Lucknow** [ARCHIVED] — Community developer event on April 19, 2026 at Cubispace, Jankipuram, Lucknow. Hosted by bits&bytes™ with community partners Coding Connoisseurs, Aryan Singh, and Notion Lucknow. Topics: how GitHub Copilot works, integrating AI into dev workflows, prompt techniques, and using AI responsibly. Archive link: https://luma.com/xtxua1jl.
 
 - **Lucknow Build Guild** [ARCHIVED] — Free hardware workshop and meetup held on April 19, 2026 at SureStay by Best Western, Lucknow. Hosted by Shaurya. Event site: https://www.lucknow-build-guild.xyz/, Host: https://linktr.ee/shauryaashu and https://github.com/Shaurya-Ashu.
 
@@ -54,7 +56,7 @@ Appointed by the Board under Article 28 of the e-Articles of Association (e-AOA)
 
 - **Devaansh Pathak** — Chief Financial Officer (CFO). Handles backend architecture and the economics of partnerships. LinkedIn: https://www.linkedin.com/in/devaanshpa/
 
-- **Drishti Arora** — Chief Marketing Officer (CMO). Leads marketing strategy, brand growth, and audience development across all Bits&Bytes channels. LinkedIn: https://www.linkedin.com/in/drish-arora
+- **Drishti Arora** — Chief Marketing Officer (CMO). Leads marketing strategy, brand growth, and audience development across all bits&bytes™ channels. LinkedIn: https://www.linkedin.com/in/drish-arora
 
 - **Raghwender Vasisth** — Head of Operations. Drives operational excellence and keeps the organization running at scale across city-wide events. LinkedIn: https://www.linkedin.com/in/raghwender-vasisth/
 
@@ -115,7 +117,9 @@ A **Fork** is a recognized local, institutional, or thematic operating unit of t
 ## Brand Kit
 
 ### Brand Mark
-- The Bits&Bytes brand mark is a compact 3D cube monogram with a small star accent. Use the full wordmark for hero headings and the cube mark (square) for avatars, favicons, and constrained spaces. Prefer the reversed white mark on dark backgrounds and the single-color mark on light backgrounds. Maintain clear space around the mark equal to the cube's height.
+- The bits&bytes™ brand mark is a geometric cube rendered in a bold isometric style with stylized B letterforms on its face and a four-pointed star on top. Use the full wordmark for hero headings and the cube mark for avatars, favicons, and constrained spaces. `public/logo.svg` is the white mark; use it on dark, burgundy, orange, and high-contrast surfaces. Maintain clear space around the mark equal to the cube's height.
+- Public embeds: `![logo](https://gobitsnbytes.org/logo)` in Markdown or `<img src="https://gobitsnbytes.org/logo" alt="bits&bytes™ logo">` in HTML.
+- Name rules: public name is exactly **bits&bytes™**. Use **bitsnbytes** only where `&` is unavailable or impractical. Use **GOBITSNBYTES FOUNDATION** only for legal, regulatory, banking, contract, invoice, or official correspondence contexts. Never use "bits & bytes™", "Bits & Bytes", "bits and bytes", "B&B", or "gobitsnbytes" as public brand names.
 
 ### Fonts & Typography
 - **Primary:** Helvetica Now — headings and display; bold weights for impact.
@@ -144,8 +148,8 @@ Design guidance:
 - **Neutrals:** use the neutral scale to layer content and preserve legibility; prefer warm neutrals when overlaying textures.
 
 ### Visual Elements
-- Use rich gradients that blend Vibrant Pink → Rich Plum → Deep Purple for hero backgrounds and promotional graphics.
-- Halftone and stipple textures, geometric checks, and a small star/sparkle motif are approved decorative elements. Apply these as subtle overlays or masks (low opacity) to add tactile texture.
+- Use rich gradients that blend burgundy/plum into orange warmth for hero backgrounds and promotional graphics.
+- Dither, halftone dots, stipple textures, geometric checks, burst/starburst shapes, and small star/sparkle motifs are approved decorative elements. Apply these as subtle overlays or masks at low opacity to add tactile texture without harming legibility.
 - Maintain restrained use of script accents; keep body copy in Georgia Pro for legibility.
 
 ### Logo files & usage
