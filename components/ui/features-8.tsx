@@ -1,24 +1,20 @@
 import { Shield, Users, Rocket, Lightbulb, CodeXml } from "lucide-react";
 import Image from "next/image";
-import { GlassContainer } from "@/components/ui/glass-container";
 import { cn } from "@/lib/utils";
 
 export function Features() {
   return (
-    <div className="mx-auto max-w-6xl">
+    <div className="mx-auto max-w-6xl px-4 sm:px-6">
       <div className="relative">
-        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
           {/* Card 1: 1400+ Members */}
-          <GlassContainer
-            containerClassName="col-span-full lg:col-span-2"
-            className="flex p-0 overflow-hidden"
-            glowColor="pink"
-            interactive
+          <div
+            className="col-span-full lg:col-span-2 bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] flex flex-col items-center justify-center p-8 md:p-12 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_#120f0a] duration-200"
           >
-            <div className="relative m-auto h-full w-full flex flex-col items-center justify-center p-8 md:p-12">
+            <div className="relative m-auto h-full w-full flex flex-col items-center justify-center">
               <div className="relative flex h-24 w-56 items-center">
                 <svg
-                  className="text-(--brand-pink) absolute inset-0 size-full opacity-50"
+                  className="text-[#97192c]/20 absolute inset-0 size-full"
                   viewBox="0 0 254 104"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -28,147 +24,77 @@ export function Features() {
                     fill="currentColor"
                   />
                 </svg>
-                <span className="mx-auto block w-fit text-5xl md:text-6xl font-black text-white tracking-tighter">
+                <span className="mx-auto block w-fit text-5xl md:text-6xl font-black text-[#120f0a] tracking-tighter">
                   1400+
                 </span>
               </div>
-              <h2 className="mt-8 text-center text-2xl font-black text-white uppercase tracking-widest">
+              <h2 className="mt-8 text-center text-2xl font-black text-[#120f0a] uppercase tracking-widest">
                 Members
               </h2>
             </div>
-          </GlassContainer>
+          </div>
 
           {/* Card 2: Workshops */}
-          <GlassContainer
-            containerClassName="col-span-full sm:col-span-3 lg:col-span-2"
-            className="overflow-hidden p-8 md:p-12"
-            glowColor="purple"
-            interactive
+          <div
+            className="col-span-full sm:col-span-3 lg:col-span-2 bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-8 md:p-12 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_#120f0a] duration-200"
           >
-            <div className="relative mx-auto flex aspect-square size-32 rounded-3xl border border-white/10 bg-white/5 transition-transform group-hover:scale-110 group-hover:rotate-3">
-              <Lightbulb className="m-auto h-14 w-14 text-(--brand-pink)" />
+            <div className="relative mx-auto flex aspect-square size-24 items-center justify-center border-3 border-[#120f0a] bg-[#fee9cf] shadow-[4px_4px_0px_0px_#120f0a] transition-transform group-hover:scale-105 group-hover:rotate-2">
+              <Lightbulb className="h-10 w-10 text-[#97192c]" />
             </div>
-            <div className="relative z-10 mt-10 space-y-3 text-center">
-              <h2 className="text-2xl font-black text-white px-2">Workshops</h2>
-              <p className="text-base text-white/60 font-medium">
+            <div className="relative z-10 mt-8 space-y-3 text-center">
+              <h2 className="text-2xl font-black text-[#120f0a] uppercase tracking-tight">Workshops</h2>
+              <p className="text-sm text-[#413f3b] font-semibold">
                 Dev tools and AI, one weekend at a time.
               </p>
             </div>
-          </GlassContainer>
+          </div>
 
-          {/* Card 3: 130+ Projects */}
-          <GlassContainer
-            containerClassName="col-span-full sm:col-span-3 lg:col-span-2"
-            className="overflow-hidden p-8 md:p-12"
-            glowColor="pink"
-            interactive
+          {/* Card 3: 5+ Forks */}
+          <div
+            className="col-span-full sm:col-span-3 lg:col-span-2 bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-8 md:p-12 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_#120f0a] duration-200"
           >
-            <div className="w-full">
-              <svg
-                className="w-full h-32"
-                viewBox="0 0 386 123"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g clipPath="url(#clip0_0_106)">
-                  <circle
-                    className="text-(--brand-pink) opacity-20"
-                    cx="193"
-                    cy="40"
-                    r="30"
-                    fill="currentColor"
-                  />
-                  <CodeXml
-                    className="text-(--brand-pink)"
-                    x="178"
-                    y="25"
-                    width="30"
-                    height="30"
-                  />
-                </g>
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M3 123C3 123 14.3298 94.153 35.1282 88.0957C55.9266 82.0384 65.9333 80.5508 65.9333 80.5508C65.9333 80.5508 80.699 80.5508 92.1777 80.5508C103.656 80.5508 100.887 63.5348 109.06 63.5348C117.233 63.5348 117.217 91.9728 124.78 91.9728C132.343 91.9728 142.264 78.03 153.831 80.5508C165.398 83.0716 186.825 91.9728 193.761 91.9728C200.697 91.9728 206.296 63.5348 214.07 63.5348C221.844 63.5348 238.653 93.7771 244.234 91.9728C249.814 90.1684 258.8 60 266.19 60C272.075 60 284.1 88.057 286.678 88.0957C294.762 88.2171 300.192 72.9284 305.423 72.9284C312.323 72.9284 323.377 65.2437 335.553 63.5348C347.729 61.8259 348.218 82.07 363.639 80.5508C367.875 80.1335 372.949 82.2017 376.437 87.1008C379.446 91.3274 381.054 97.4325 382.521 104.647C383.479 109.364 382.521 123 382.521 123"
-                  fill="url(#paint0_linear_0_106)"
-                />
-                <path
-                  className="text-(--brand-pink)"
-                  d="M3 121.077C3 121.077 15.3041 93.6691 36.0195 87.756C56.7349 81.8429 66.6632 80.9723 66.6632 80.9723C66.6632 80.9723 80.0327 80.9723 91.4656 80.9723C102.898 80.9723 100.415 64.2824 108.556 64.2824C116.696 64.2824 117.693 92.1332 125.226 92.1332C132.759 92.1332 142.07 78.5115 153.591 80.9723C165.113 83.433 186.092 92.1332 193 92.1332C199.908 92.1332 205.274 64.2824 213.017 64.2824C220.76 64.2824 237.832 93.8946 243.39 92.1332C248.948 90.3718 257.923 60.5 265.284 60.5C271.145 60.5 283.204 87.7182 285.772 87.756C293.823 87.8746 299.2 73.0802 304.411 73.0802C311.283 73.0802 321.425 65.9506 333.552 64.2824C345.68 62.6141 346.91 82.4553 362.27 80.9723C377.629 79.4892 383 106.605 383 106.605"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                />
-                <defs>
-                  <linearGradient
-                    id="paint0_linear_0_106"
-                    x1="3"
-                    y1="60"
-                    x2="3"
-                    y2="123"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop
-                      className="text-(--brand-pink)/20"
-                      stopColor="currentColor"
-                    />
-                    <stop
-                      className="text-transparent"
-                      offset="1"
-                      stopColor="currentColor"
-                      stopOpacity="0"
-                    />
-                  </linearGradient>
-                  <clipPath id="clip0_0_106">
-                    <rect
-                      width="358"
-                      height="60"
-                      fill="white"
-                      transform="translate(14 14)"
-                    />
-                  </clipPath>
-                </defs>
-              </svg>
+            <div className="w-full h-24 flex items-center justify-center">
+              <CodeXml
+                className="text-[#97192c] h-12 w-12"
+              />
             </div>
-            <div className="relative z-10 mt-10 space-y-3 text-center">
-              <h2 className="text-2xl font-black text-white px-2">
+            <div className="relative z-10 mt-8 space-y-3 text-center">
+              <h2 className="text-2xl font-black text-[#120f0a] uppercase tracking-tight">
                 5+ Forks
               </h2>
-              <p className="text-base text-white/60 font-medium">
-                Active city chapters — <a href="/fork" className="underline text-[var(--brand-coral)] hover:text-white transition-colors">gobitsnbytes.org/fork</a>
+              <p className="text-sm text-[#413f3b] font-semibold">
+                Active city chapters — <a href="/fork" className="underline text-[#97192c] hover:text-[#fc920d] transition-colors font-bold">gobitsnbytes.org/fork</a>
               </p>
             </div>
-          </GlassContainer>
+          </div>
 
           {/* Card 4: Innovation */}
-          <GlassContainer
-            containerClassName="col-span-full lg:col-span-3"
-            className="overflow-hidden p-8 md:p-12"
-            glowColor="purple"
-            interactive
+          <div
+            className="col-span-full lg:col-span-3 bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-8 md:p-10 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_#120f0a] duration-200"
           >
-            <div className="grid sm:grid-cols-2 h-full">
-              <div className="relative z-10 flex flex-col justify-between space-y-12 h-full">
-                <div className="relative flex aspect-square size-14 rounded-2xl border border-white/10 bg-white/5 transition-transform group-hover:scale-110">
-                  <Rocket className="m-auto size-7 text-(--brand-pink)" />
+            <div className="grid sm:grid-cols-2 h-full gap-6">
+              <div className="relative z-10 flex flex-col justify-between space-y-8 h-full">
+                <div className="relative flex aspect-square size-14 items-center justify-center border-3 border-[#120f0a] bg-[#fee9cf] shadow-[3px_3px_0px_0px_#120f0a]">
+                  <Rocket className="size-7 text-[#97192c]" />
                 </div>
-                <div className="space-y-4">
-                  <h2 className="text-3xl font-black text-white tracking-tight">
+                <div className="space-y-3">
+                  <h2 className="text-3xl font-black text-[#120f0a] uppercase tracking-tight">
                     Innovation
                   </h2>
-                  <p className="text-base text-white/60 font-medium leading-relaxed">
+                  <p className="text-sm text-[#413f3b] font-semibold leading-relaxed">
                     AI, distributed systems, creative code. The stuff we
                     actually work on.
                   </p>
                 </div>
               </div>
-              <div className="rounded-3xl relative -mb-12 -mr-12 mt-8 sm:mt-0 h-full min-h-[200px] border-l border-t border-white/10 bg-white/5 p-8 sm:ml-8 overflow-hidden">
-                <div className="absolute left-6 top-4 flex gap-1.5">
-                  <span className="block size-2.5 rounded-full border border-white/10 bg-red-500/50"></span>
-                  <span className="block size-2.5 rounded-full border border-white/10 bg-yellow-500/50"></span>
-                  <span className="block size-2.5 rounded-full border border-white/10 bg-green-500/50"></span>
+              <div className="relative min-h-[160px] border-l-3 border-t-3 border-[#120f0a] bg-[#eae8e4] p-6 sm:ml-4 overflow-hidden">
+                <div className="absolute left-4 top-3 flex gap-1.5">
+                  <span className="block size-2.5 rounded-full border border-[#120f0a] bg-red-500"></span>
+                  <span className="block size-2.5 rounded-full border border-[#120f0a] bg-yellow-400"></span>
+                  <span className="block size-2.5 rounded-full border border-[#120f0a] bg-green-500"></span>
                 </div>
                 <svg
-                  className="w-full sm:w-[150%] mt-4 opacity-50 grayscale transition-transform transition-colors transition-opacity group-hover:grayscale-0 group-hover:opacity-100"
+                  className="w-full sm:w-[130%] mt-6 opacity-60 grayscale transition-transform transition-colors transition-opacity group-hover:grayscale-0 group-hover:opacity-100"
                   viewBox="0 0 366 231"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -182,78 +108,75 @@ export function Features() {
                 </svg>
               </div>
             </div>
-          </GlassContainer>
+          </div>
 
           {/* Card 5: Team & Mentorship */}
-          <GlassContainer
-            containerClassName="col-span-full lg:col-span-3"
-            className="overflow-hidden p-8 md:p-12"
-            glowColor="pink"
-            interactive
+          <div
+            className="col-span-full lg:col-span-3 bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-8 md:p-10 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_#120f0a] duration-200"
           >
-            <div className="grid sm:grid-cols-2 h-full">
-              <div className="relative z-10 flex flex-col justify-between space-y-12 h-full">
-                <div className="relative flex aspect-square size-14 rounded-2xl border border-white/10 bg-white/5 transition-transform group-hover:scale-110">
-                  <Users className="m-auto size-7 text-(--brand-pink)" />
+            <div className="grid sm:grid-cols-2 h-full gap-6">
+              <div className="relative z-10 flex flex-col justify-between space-y-8 h-full">
+                <div className="relative flex aspect-square size-14 items-center justify-center border-3 border-[#120f0a] bg-[#fee9cf] shadow-[3px_3px_0px_0px_#120f0a]">
+                  <Users className="m-auto size-7 text-[#97192c]" />
                 </div>
-                <div className="space-y-4">
-                  <h2 className="text-3xl font-black text-white tracking-tight">
+                <div className="space-y-3">
+                  <h2 className="text-3xl font-black text-[#120f0a] uppercase tracking-tight">
                     Team & Mentorship
                   </h2>
-                  <p className="text-base text-white/60 font-medium leading-relaxed">
+                  <p className="text-sm text-[#413f3b] font-semibold leading-relaxed">
                     Working alongside teen developers and designers who know
                     what they're doing.
                   </p>
                 </div>
               </div>
-              <div className="before:bg-white/10 relative mt-10 sm:mt-0 before:absolute before:inset-0 before:mx-auto before:w-px sm:-my-12 sm:-mr-12">
-                <div className="relative flex h-full flex-col justify-center space-y-8 py-12">
+              <div className="relative mt-6 sm:mt-0 before:absolute before:inset-y-0 before:left-1/2 before:w-[2px] before:bg-[#120f0a]/15 hidden sm:block">
+                <div className="relative flex h-full flex-col justify-center space-y-6">
                   <div className="relative flex w-[calc(50%+1.5rem)] items-center justify-end gap-3 transition-transform hover:scale-105">
-                    <span className="block h-fit rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold text-white shadow-sm backdrop-blur-md">
+                    <span className="block h-fit border-2 border-[#120f0a] bg-white px-3 py-1 text-xs font-bold text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]">
                       Yash Singh
                     </span>
-                    <div className="ring-white/10 size-12 ring-2 rounded-2xl overflow-hidden border border-white/20">
+                    <div className="size-10 rounded-none overflow-hidden border-2 border-[#120f0a]">
                       <Image
                         className="size-full object-cover"
                         src="/team/yash.jpeg"
                         alt="Yash"
-                        width={48}
-                        height={48}
+                        width={40}
+                        height={40}
                       />
                     </div>
                   </div>
-                  <div className="relative ml-[calc(50%-1.25rem)] flex items-center gap-3 transition-transform hover:scale-105">
-                    <div className="ring-white/10 size-14 ring-2 rounded-2xl overflow-hidden border border-white/20">
+                  <div className="relative ml-[calc(50%-1rem)] flex items-center gap-3 transition-transform hover:scale-105">
+                    <div className="size-12 rounded-none overflow-hidden border-2 border-[#120f0a]">
                       <Image
                         className="size-full object-cover"
                         src="/team/akshat.jpg"
                         alt="Akshat"
-                        width={56}
-                        height={56}
+                        width={48}
+                        height={48}
                       />
                     </div>
-                    <span className="block h-fit rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold text-white shadow-sm backdrop-blur-md">
+                    <span className="block h-fit border-2 border-[#120f0a] bg-white px-3 py-1 text-xs font-bold text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]">
                       Akshat Kushwaha
                     </span>
                   </div>
                   <div className="relative flex w-[calc(50%+1.5rem)] items-center justify-end gap-3 transition-transform hover:scale-105">
-                    <span className="block h-fit rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold text-white shadow-sm backdrop-blur-md">
+                    <span className="block h-fit border-2 border-[#120f0a] bg-white px-3 py-1 text-xs font-bold text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]">
                       Aadrika Maurya
                     </span>
-                    <div className="ring-white/10 size-12 ring-2 rounded-2xl overflow-hidden border border-white/20">
+                    <div className="size-10 rounded-none overflow-hidden border-2 border-[#120f0a]">
                       <Image
                         className="size-full object-cover"
                         src="/team/aadrika.png"
                         alt="Aadrika"
-                        width={48}
-                        height={48}
+                        width={40}
+                        height={40}
                       />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </GlassContainer>
+          </div>
         </div>
       </div>
     </div>
