@@ -3,24 +3,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { ChevronDown, ArrowRight } from "lucide-react";
 
 import { PageSection } from "@/components/page-section";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-
-// Lazy load WebGL shader
-const WebGLShader = dynamic(
-  () =>
-    import("@/components/ui/web-gl-shader").then((mod) => ({
-      default: mod.WebGLShader,
-    })),
-  {
-    loading: () => null,
-    ssr: false,
-  },
-);
 
 interface FAQItem {
   question: string;
@@ -124,8 +111,6 @@ const faqs: FAQItem[] = [
   },
 ];
 
-import { GlassContainer } from "@/components/ui/glass-container";
-
 export default function FAQ() {
   const [openItems, setOpenItems] = useState<Set<number>>(new Set());
 
@@ -142,18 +127,17 @@ export default function FAQ() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[58vh] sm:min-h-[64vh] flex items-center justify-center overflow-hidden text-white pt-24 md:pt-32">
-        <WebGLShader />
-        <div className="relative z-10 w-full mx-auto max-w-5xl px-4 sm:px-6 py-8 sm:py-12 md:py-20">
-          <div className="px-6 py-12 md:py-20 sm:px-10 lg:px-16 text-center">
+      <section className="relative flex items-center justify-center overflow-hidden text-[#120f0a] pt-24 md:pt-32">
+        <div className="relative z-10 w-full mx-auto max-w-5xl px-4 sm:px-6 py-8 sm:py-12 md:py-16">
+          <div className="px-6 py-8 text-center">
             <div className="flex flex-col items-center gap-6">
-              <p className="text-[10px] md:text-xs uppercase tracking-[0.35em] text-white/70 font-bold">
+              <span className="inline-flex items-center gap-2 border-2 border-[#120f0a] bg-[#fc920d] px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[3px_3px_0px_0px_#120f0a]">
                 FAQ
-              </p>
-              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl leading-tight font-black text-white tracking-tighter drop-shadow-2xl">
+              </span>
+              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#120f0a] uppercase tracking-tight leading-none">
                 Frequently Asked <br className="hidden sm:block" /> Questions
               </h1>
-              <p className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed font-medium">
+              <p className="text-base sm:text-lg md:text-xl text-[#413f3b] max-w-2xl mx-auto leading-relaxed font-semibold">
                 Questions people actually ask us about bits&bytes™.
               </p>
             </div>
@@ -161,34 +145,29 @@ export default function FAQ() {
         </div>
       </section>
 
-      <main className="relative z-10 bg-transparent">
+      <main className="relative z-10 bg-transparent pb-16">
         {/* FAQ Accordion */}
         <PageSection>
-          <div className="mx-auto max-w-4xl space-y-4 md:space-y-6">
+          <div className="mx-auto max-w-4xl space-y-4">
             {faqs.map((faq, index) => {
               const isOpen = openItems.has(index);
 
               return (
-                <GlassContainer
+                <div
                   key={index}
-                  className="p-0"
-                  glowColor="none"
-                  containerClassName="rounded-[2rem]"
-                  delay={index * 0.08}
-                  layout
+                  className="bg-white border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a]"
                 >
                   <button
                     onClick={() => toggleItem(index)}
-                    className="flex w-full items-center justify-between gap-4 p-6 md:p-8 text-left transition-colors hover:bg-white/5"
+                    className="flex w-full items-center justify-between gap-4 p-6 md:p-8 text-left transition-colors bg-white hover:bg-[#fee9cf]"
                   >
-                    <h3 className="font-display text-lg md:text-xl font-black text-white pr-4 leading-tight">
+                    <h3 className="font-display text-lg md:text-xl font-black text-[#120f0a] pr-4 leading-tight uppercase">
                       {faq.question}
                     </h3>
                     <div
                       className={cn(
-                        "flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-(--brand-pink) transition-transform transition-colors transition-opacity duration-300",
-                        isOpen &&
-                          "rotate-180 bg-(--brand-pink) text-white border-(--brand-pink)/50",
+                        "flex h-10 w-10 shrink-0 items-center justify-center border-2 border-[#120f0a] bg-white text-[#120f0a] transition-all duration-200 shadow-[2px_2px_0px_0px_#120f0a]",
+                        isOpen && "rotate-180 bg-[#fc920d] shadow-none translate-x-[2px] translate-y-[2px]",
                       )}
                     >
                       <ChevronDown className="h-6 w-6" />
@@ -200,18 +179,18 @@ export default function FAQ() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <div className="px-6 md:px-8 pb-6 md:pb-8 border-t border-white/5 mt-2 pt-6">
-                          <p className="text-base md:text-lg text-white/70 font-medium leading-relaxed">
+                        <div className="px-6 md:px-8 pb-6 md:pb-8 border-t-2 border-[#120f0a] mt-2 pt-6 bg-white">
+                          <p className="text-base md:text-lg text-[#413f3b] font-semibold leading-relaxed">
                             {faq.answer}
                           </p>
                         </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </GlassContainer>
+                </div>
               );
             })}
           </div>
@@ -219,32 +198,31 @@ export default function FAQ() {
 
         {/* Still have questions CTA */}
         <PageSection align="center">
-          <GlassContainer className="p-10 md:p-20 text-center" glowColor="both">
-            <h2 className="font-display text-3xl md:text-5xl font-black text-white tracking-tighter drop-shadow-2xl">
+          <div className="bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-8 md:p-16 text-center max-w-4xl mx-auto">
+            <h2 className="font-display text-3xl md:text-5xl font-black text-[#120f0a] uppercase tracking-tight leading-none">
               Still have questions?
             </h2>
-            <p className="mt-4 text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-medium leading-relaxed">
-              Can't find what you need? Reach out and we'll get back to you.
+            <p className="mt-4 text-base md:text-lg text-[#413f3b] max-w-2xl mx-auto font-semibold leading-relaxed">
+              Can&apos;t find what you need? Reach out and we&apos;ll get back to you.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
                 asChild
-                className="group rounded-full bg-[var(--brand-pink)] px-10 py-7 text-lg font-black text-white shadow-lg shadow-[var(--brand-pink)/20] hover:shadow-xl hover:shadow-[var(--brand-pink)/40] transition-transform transition-colors transition-opacity hover:scale-105 w-full sm:w-auto"
+                className="w-full sm:w-auto h-14 rounded-none bg-[#97192c] text-sm font-black uppercase tracking-wider text-white border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer px-8"
               >
                 <Link href="/contact">
                   Contact Us
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
               <Button
                 asChild
-                variant="outline"
-                className="rounded-full border-white/20 bg-white/5 px-10 py-7 text-lg font-bold text-white backdrop-blur-md hover:bg-white/10 w-full sm:w-auto transition-transform transition-colors transition-opacity"
+                className="w-full sm:w-auto h-14 rounded-none bg-white text-sm font-black uppercase tracking-wider text-[#120f0a] border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer px-8"
               >
                 <Link href="/join">Apply to Join</Link>
               </Button>
             </div>
-          </GlassContainer>
+          </div>
         </PageSection>
       </main>
     </>

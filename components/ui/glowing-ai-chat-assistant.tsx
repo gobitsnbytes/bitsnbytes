@@ -17,10 +17,9 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { safeJsonParse } from "@/lib/safe-json";
+import { PromptBox, PromptBoxRef } from "@/components/ui/chatgpt-prompt-input";
 
 import {
-  Mic,
-  Send,
   Bot,
   X,
   Trash,
@@ -78,7 +77,7 @@ function CountdownCard({ payload }: { payload: CountdownPayload }) {
 
   if (!Number.isFinite(target)) {
     return (
-      <div className="my-2 p-2 rounded bg-red-950/30 border border-red-900/50 text-red-400 text-xs">
+      <div className="my-2 p-3 rounded-none bg-red-100 border-2 border-red-500 text-red-700 text-xs font-bold font-mono">
         Invalid countdown date format.
       </div>
     );
@@ -86,13 +85,13 @@ function CountdownCard({ payload }: { payload: CountdownPayload }) {
 
   const remaining = formatRemaining(target - now);
   return (
-    <div className="my-3 rounded-xl border border-zinc-700/70 bg-zinc-950/90 p-3">
-      <p className="text-[11px] uppercase tracking-widest text-zinc-400">
+    <div className="my-3 rounded-none border-3 border-[#120f0a] bg-white p-4 text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a]">
+      <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#97192c]">
         Event Countdown
       </p>
-      <h4 className="mt-1 text-sm font-semibold text-white">{payload.event}</h4>
+      <h4 className="mt-1 text-sm font-black uppercase tracking-tight text-[#120f0a]">{payload.event}</h4>
       {remaining.done ? (
-        <p className="mt-2 text-xs text-emerald-400">This event has started.</p>
+        <p className="mt-2 text-xs font-bold text-emerald-600">This event has started.</p>
       ) : (
         <div className="mt-3 grid grid-cols-4 gap-2 text-center">
           {[
@@ -103,10 +102,10 @@ function CountdownCard({ payload }: { payload: CountdownPayload }) {
           ].map((item) => (
             <div
               key={item.label}
-              className="rounded-lg border border-zinc-700/60 bg-zinc-900/80 px-2 py-2"
+              className="rounded-none border-2 border-[#120f0a] bg-[#fee9cf] px-2 py-2 shadow-[2px_2px_0px_0px_#120f0a]"
             >
-              <div className="text-sm font-bold text-white">{item.value}</div>
-              <div className="text-[10px] text-zinc-400">{item.label}</div>
+              <div className="text-base font-black text-[#120f0a]">{item.value}</div>
+              <div className="text-[9px] font-mono font-bold text-[#413f3b] uppercase">{item.label}</div>
             </div>
           ))}
         </div>
@@ -117,74 +116,76 @@ function CountdownCard({ payload }: { payload: CountdownPayload }) {
 
 function TeamMemberCard({ payload }: { payload: MemberCardPayload }) {
   return (
-    <div className="my-3 rounded-xl border border-zinc-700/70 bg-zinc-950/90 p-3">
+    <div className="my-3 rounded-none border-3 border-[#120f0a] bg-white p-4 text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a]">
       <div className="flex items-center gap-3">
         {payload.photo ? (
           <img
             src={payload.photo}
             alt={payload.name}
-            className="h-12 w-12 rounded-full object-cover border border-zinc-700/70"
+            className="h-12 w-12 rounded-none object-cover border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]"
           />
         ) : (
-          <div className="h-12 w-12 rounded-full border border-zinc-700/70 bg-zinc-900/70" />
+          <div className="h-12 w-12 rounded-none border-2 border-[#120f0a] bg-[#fee9cf] shadow-[2px_2px_0px_0px_#120f0a]" />
         )}
         <div>
-          <p className="text-sm font-semibold text-white">{payload.name}</p>
-          <span className="inline-flex mt-1 rounded-full border border-zinc-700/60 bg-zinc-900/80 px-2 py-0.5 text-[10px] uppercase tracking-wide text-zinc-300">
+          <p className="text-sm font-black uppercase tracking-tight text-[#120f0a]">{payload.name}</p>
+          <span className="inline-flex mt-1.5 rounded-none border-2 border-[#120f0a] bg-[#fee9cf] px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wide text-[#120f0a]">
             {payload.role}
           </span>
         </div>
       </div>
-      <div className="mt-3 flex items-center gap-2">
-        {payload.socials?.github && (
-          <a
-            href={payload.socials.github}
-            target="_blank"
-            rel="noreferrer"
-            className="text-xs rounded-lg border border-zinc-700/70 px-2 py-1 text-zinc-200 hover:border-zinc-500"
-          >
-            GitHub
-          </a>
-        )}
-        {payload.socials?.linkedin && (
-          <a
-            href={payload.socials.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className="text-xs rounded-lg border border-zinc-700/70 px-2 py-1 text-zinc-200 hover:border-zinc-500"
-          >
-            LinkedIn
-          </a>
-        )}
-      </div>
+      {(payload.socials?.github || payload.socials?.linkedin) && (
+        <div className="mt-4 flex items-center gap-2">
+          {payload.socials.github && (
+            <a
+              href={payload.socials.github}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[10px] font-mono font-bold uppercase tracking-wider rounded-none border-2 border-[#120f0a] bg-white px-2.5 py-1 text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+            >
+              GitHub
+            </a>
+          )}
+          {payload.socials.linkedin && (
+            <a
+              href={payload.socials.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[10px] font-mono font-bold uppercase tracking-wider rounded-none border-2 border-[#120f0a] bg-white px-2.5 py-1 text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+            >
+              LinkedIn
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
 function ProjectCards({ ideas }: { ideas: ProjectIdea[] }) {
   return (
-    <div className="my-3 space-y-2">
+    <div className="my-4 space-y-4">
       {ideas.map((idea, idx) => (
         <div
           key={`${idea.title}-${idx}`}
-          className="rounded-xl border border-zinc-700/70 bg-zinc-950/90 p-3"
+          className="rounded-none border-3 border-[#120f0a] bg-white p-4 text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a]"
         >
-          <div className="flex items-center justify-between gap-2">
-            <p className="text-sm font-semibold text-white">{idea.title}</p>
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <p className="text-sm font-black uppercase tracking-tight text-[#120f0a]">{idea.title}</p>
             {idea.difficulty && (
-              <span className="text-[10px] uppercase tracking-wide rounded-full border border-zinc-700/70 bg-zinc-900/80 px-2 py-0.5 text-zinc-300">
+              <span className="text-[9px] font-mono font-bold uppercase tracking-wider rounded-none border-2 border-[#120f0a] bg-[#fee9cf] px-2 py-0.5 text-[#120f0a]">
                 {idea.difficulty}
               </span>
             )}
           </div>
-          <p className="mt-1 text-xs text-zinc-300">{idea.description}</p>
+          <p className="mt-2 text-xs font-semibold text-[#413f3b] leading-relaxed">{idea.description}</p>
           {Array.isArray(idea.tech_stack) && idea.tech_stack.length > 0 && (
-            <p className="mt-2 text-[11px] text-zinc-400">
+            <p className="mt-3 text-[10px] font-mono font-bold uppercase tracking-wider text-[#97192c]">
               Stack: {idea.tech_stack.join(" • ")}
             </p>
           )}
           {idea.why_it_fits_theme && (
-            <p className="mt-2 text-[11px] text-emerald-300">
+            <p className="mt-2 text-xs font-bold text-emerald-600 bg-emerald-50 border-2 border-emerald-500 rounded-none px-2.5 py-1.5 inline-block">
               Theme fit: {idea.why_it_fits_theme}
             </p>
           )}
@@ -386,8 +387,6 @@ const FloatingAiAssistant: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [voiceError, setVoiceError] = useState<string | null>(null);
-  const [isRecording, setIsRecording] = useState(false);
   const [modelName, setModelName] = useState("");
   const [hasHydrated, setHasHydrated] = useState(false);
   const [feedbackMap, setFeedbackMap] = useState<Record<number, FeedbackValue>>(
@@ -405,10 +404,9 @@ const FloatingAiAssistant: React.FC = () => {
   const ctaClickedRef = useRef(false);
 
   const chatRef = useRef<HTMLDivElement | null>(null);
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const promptBoxRef = useRef<PromptBoxRef | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const nextIdRef = useRef(1);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const streamControllerRef = useRef<AbortController | null>(null);
   const router = useRouter();
   const pathname = usePathname();
@@ -563,8 +561,7 @@ const FloatingAiAssistant: React.FC = () => {
     setMessage(prompt);
     setCharCount(prompt.length);
     setTimeout(() => {
-      textareaRef.current?.focus();
-      textareaRef.current?.setSelectionRange(prompt.length, prompt.length);
+      promptBoxRef.current?.focus();
     }, 0);
   };
 
@@ -1008,101 +1005,13 @@ const FloatingAiAssistant: React.FC = () => {
     };
   }, [pathname, isLoading]);
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      void handleSend();
-    }
-  };
-
-  const handleVoiceToggle = async () => {
-    setVoiceError(null);
-
-    // Stop recording if already active
-    if (isRecording) {
-      mediaRecorderRef.current?.stop();
-      return;
-    }
-
-    if (
-      typeof window === "undefined" ||
-      !navigator.mediaDevices?.getUserMedia
-    ) {
-      setVoiceError("Voice capture is not supported in this browser.");
-      return;
-    }
-
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(stream);
-      const chunks: BlobPart[] = [];
-
-      recorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          chunks.push(event.data);
-        }
-      };
-
-      recorder.onstop = async () => {
-        setIsRecording(false);
-        stream.getTracks().forEach((t) => t.stop());
-
-        if (!chunks.length) return;
-
-        const blob = new Blob(chunks, { type: "audio/webm" });
-        const formData = new FormData();
-        formData.append("audio", blob, "voice.webm");
-
-        try {
-          const res = await fetch("/api/assistant/voice", {
-            method: "POST",
-            body: formData,
-          });
-
-          const data = (await res.json()) as { text?: string; error?: string };
-
-          if (!res.ok || data.error) {
-            const message =
-              data.error ??
-              "Failed to transcribe audio. Voice transcription may not be enabled for this project.";
-            setVoiceError(message);
-            return;
-          }
-
-          const text = data.text ?? "";
-
-          if (text) {
-            setMessage((prev) => {
-              const prefix = prev ? (prev.endsWith("\n") ? "" : "\n") : "";
-              const combined = `${prev ?? ""}${prefix}${text}`;
-              setCharCount(combined.length);
-              return combined;
-            });
-          }
-        } catch (err) {
-          console.error(err);
-          setVoiceError("Could not transcribe your audio. Please try again.");
-        }
-      };
-
-      mediaRecorderRef.current = recorder;
-      recorder.start();
-      setIsRecording(true);
-    } catch (err) {
-      console.error(err);
-      setVoiceError(
-        "Could not access your microphone. Please check permissions.",
-      );
-    }
-  };
-
   const handleToggle = (e: ReactMouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setIsChatOpen((open) => {
       const next = !open;
       if (next) {
         setTimeout(() => {
-          textareaRef.current?.focus();
+          promptBoxRef.current?.focus();
         }, 0);
       } else {
         streamControllerRef.current?.abort();
@@ -1116,14 +1025,14 @@ const FloatingAiAssistant: React.FC = () => {
       <div className="relative">
         {/* Proactive tooltip */}
         {showProactive && !isChatOpen && (
-          <div className="absolute bottom-full right-0 mb-4 w-[200px] rounded-xl border border-zinc-700/60 bg-zinc-900/95 px-3 py-2.5 shadow-lg shadow-black/30 animate-in slide-in-from-bottom-3 fade-in duration-400">
+          <div className="absolute bottom-full right-0 mb-4 w-[200px] border-3 border-[#120f0a] bg-white text-[#120f0a] px-3 py-2.5 shadow-[4px_4px_0px_0px_#120f0a] rounded-none animate-in slide-in-from-bottom-3 fade-in duration-400">
             <button
               onClick={() => setShowProactive(false)}
-              className="absolute top-1.5 right-1.5 p-0.5 text-zinc-600 hover:text-zinc-300 transition-colors"
+              className="absolute top-1.5 right-1.5 p-0.5 text-[#120f0a]/60 hover:text-[#120f0a] transition-colors"
             >
               <X className="h-2.5 w-2.5" />
             </button>
-            <p className="text-[0.7rem] text-zinc-300 pr-3 leading-snug">
+            <p className="text-[0.7rem] text-[#120f0a] font-semibold pr-3 leading-snug">
               {pathname === "/events"
                 ? "Want help registering for an event? 🎟️"
                 : pathname === "/join"
@@ -1132,13 +1041,13 @@ const FloatingAiAssistant: React.FC = () => {
                     ? "Need to reach someone specific? Ask me! 👋"
                     : "Hey! Want to know what we do? 🚀"}
             </p>
-            <div className="absolute -bottom-[9px] right-4 h-2.5 w-2.5 rotate-45 border-b border-r border-zinc-700/60 bg-zinc-900/95" />
+            <div className="absolute -bottom-[7px] right-4 h-2.5 w-2.5 rotate-45 border-b-3 border-r-3 border-[#120f0a] bg-white" />
           </div>
         )}
 
         {/* Floating AI button */}
         <button
-          className={`floating-ai-button relative ml-auto flex h-11 w-11 sm:h-13 sm:w-13 items-center justify-center rounded-full border border-white/30 bg-[var(--brand-pink)] shadow-lg shadow-[#e45a92]/30 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-105 active:scale-[0.93] ${
+          className={`floating-ai-button relative ml-auto flex h-12 w-12 items-center justify-center rounded-none border-3 border-[#120f0a] bg-[#fc920d] text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] transition-all duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none cursor-pointer ${
             isChatOpen ? "rotate-90" : "rotate-0"
           }`}
           onClick={handleToggle}
@@ -1150,12 +1059,11 @@ const FloatingAiAssistant: React.FC = () => {
         >
           <div className="relative z-10 flex items-center justify-center">
             {isChatOpen ? (
-              <X className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+              <X className="h-5 w-5 text-[#120f0a]" />
             ) : (
-              <Bot className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+              <Bot className="h-5 w-5 text-[#120f0a]" />
             )}
           </div>
-          <div className="pointer-events-none absolute inset-0 rounded-full bg-[#e45a92]/30 opacity-50 blur-md" />
         </button>
 
         {/* Chat panel */}
@@ -1164,16 +1072,16 @@ const FloatingAiAssistant: React.FC = () => {
             ref={chatRef}
             className="fixed inset-4 bottom-[4.5rem] sm:absolute sm:inset-auto sm:bottom-16 sm:right-0 w-auto sm:w-[360px] origin-bottom-right animate-slide-in-up flex flex-col justify-end"
           >
-            <div className="relative flex w-full max-h-[80vh] sm:max-h-[500px] flex-col overflow-hidden rounded-2xl border border-zinc-800/70 bg-zinc-950 shadow-2xl">
+            <div className="relative flex w-full max-h-[80vh] sm:max-h-[500px] flex-col overflow-hidden rounded-none border-4 border-[#120f0a] bg-white shadow-[8px_8px_0px_0px_#120f0a]">
               {/* Header — single clean row */}
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-zinc-800/70">
+              <div className="flex items-center justify-between px-4 py-2.5 border-b-4 border-[#120f0a] bg-[#fee9cf] text-[#120f0a]">
                 <div className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-xs font-medium text-zinc-200">
+                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                  <span className="text-xs font-black uppercase tracking-tight font-sans">
                     bits&bytes™ Assistant
                   </span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1.5">
                   {messages.length > 0 && (
                     <button
                       onClick={() => {
@@ -1182,7 +1090,7 @@ const FloatingAiAssistant: React.FC = () => {
                         setMessage("");
                         window.localStorage.removeItem(STORAGE_KEY);
                       }}
-                      className="inline-flex h-6 w-6 items-center justify-center rounded-md text-zinc-600 hover:text-zinc-300 hover:bg-zinc-800/60 transition-colors"
+                      className="inline-flex h-6 w-6 items-center justify-center rounded-none border-2 border-[#120f0a] bg-white text-[#120f0a] shadow-[1px_1px_0px_0px_#120f0a] hover:bg-[#fc920d] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
                       aria-label="Clear chat"
                       title="Clear chat"
                     >
@@ -1194,7 +1102,7 @@ const FloatingAiAssistant: React.FC = () => {
                       streamControllerRef.current?.abort();
                       setIsChatOpen(false);
                     }}
-                    className="inline-flex h-6 w-6 items-center justify-center rounded-md text-zinc-600 hover:text-zinc-300 hover:bg-zinc-800/60 transition-colors"
+                    className="inline-flex h-6 w-6 items-center justify-center rounded-none border-2 border-[#120f0a] bg-white text-[#120f0a] shadow-[1px_1px_0px_0px_#120f0a] hover:bg-[#fc920d] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
                     aria-label="Close assistant"
                   >
                     <X className="h-3 w-3" />
@@ -1203,19 +1111,19 @@ const FloatingAiAssistant: React.FC = () => {
               </div>
 
               {/* Messages */}
-              <div className="flex flex-col gap-2.5 overflow-y-auto px-3 py-3 text-sm text-zinc-100">
+              <div className="flex flex-col gap-2.5 overflow-y-auto px-3 py-3 text-sm text-[#120f0a] bg-white [scrollbar-width:thin] scrollbar-color-[#97192c]_[#eae8e4]">
                 {messages.length === 0 && (
-                  <div className="flex flex-col gap-2">
-                    <p className="text-[0.7rem] text-zinc-500 px-1">
+                  <div className="flex flex-col gap-2.5">
+                    <p className="text-[0.7rem] font-mono font-bold uppercase tracking-wider text-[#716f6c] px-1">
                       Ask about our team, hackathons, or how to get involved.
                     </p>
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-2">
                       {QUICK_PROMPTS.map((prompt) => (
                         <button
                           key={prompt}
                           type="button"
                           onClick={() => handleQuickPrompt(prompt)}
-                          className="rounded-full border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-[0.65rem] text-zinc-400 transition-colors hover:border-[#e45a92]/60 hover:text-zinc-200"
+                          className="rounded-none border-2 border-[#120f0a] bg-white px-2.5 py-1 text-[0.65rem] text-[#120f0a] font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_0px_#120f0a] hover:bg-[#fee9cf] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
                         >
                           {prompt}
                         </button>
@@ -1229,10 +1137,10 @@ const FloatingAiAssistant: React.FC = () => {
                     className={`flex flex-col ${m.role === "user" ? "items-end" : "items-start"}`}
                   >
                     <div
-                      className={`max-w-[85%] rounded-2xl px-3 py-2 text-[0.75rem] leading-relaxed sm:max-w-[80%] ${
+                      className={`max-w-[85%] rounded-none px-3 py-2 text-[0.75rem] leading-relaxed sm:max-w-[80%] border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] ${
                         m.role === "user"
-                          ? "bg-[#e45a92] text-white"
-                          : "border border-zinc-700/70 bg-zinc-900/80 text-zinc-100 prose prose-invert prose-p:my-1 prose-headings:my-2 prose-ul:my-1 prose-li:my-0.5 max-w-none"
+                          ? "bg-[#97192c] text-white"
+                          : "bg-[#eae8e4] text-[#120f0a] prose prose-p:my-1 prose-headings:my-2 prose-ul:my-1 prose-li:my-0.5 max-w-none font-semibold"
                       }`}
                     >
                       {m.role === "user" ? (
@@ -1325,7 +1233,7 @@ const FloatingAiAssistant: React.FC = () => {
                               </li>
                             ),
                             strong: ({ children }) => (
-                              <strong className="font-semibold">
+                              <strong className="font-bold">
                                 {children}
                               </strong>
                             ),
@@ -1334,7 +1242,7 @@ const FloatingAiAssistant: React.FC = () => {
                                 return (
                                   <a
                                     href={href}
-                                    className="inline-flex mt-2 mb-1 w-full sm:w-auto items-center justify-center rounded-xl bg-[var(--brand-pink)] px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-[#e45a92]/30 transition-transform transition-colors transition-opacity hover:scale-105 hover:shadow-xl hover:shadow-[#e45a92]/40 text-center"
+                                    className="inline-flex mt-2 mb-1 w-full sm:w-auto items-center justify-center rounded-none bg-[#fc920d] border-2 border-[#120f0a] px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all text-center"
                                     {...props}
                                   >
                                     {children}
@@ -1351,7 +1259,7 @@ const FloatingAiAssistant: React.FC = () => {
                                         : String(children);
                                       handleQuickPrompt(promptText);
                                     }}
-                                    className="block w-full mt-2 text-left rounded-xl border border-zinc-700/80 bg-zinc-800/50 px-3 py-2.5 text-xs text-zinc-300 transition-transform transition-colors transition-opacity hover:border-[#e45a92] hover:bg-zinc-800 hover:text-white"
+                                    className="block w-full mt-2 text-left rounded-none border-2 border-[#120f0a] bg-white px-3 py-2 text-xs text-[#120f0a] font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_0px_#120f0a] hover:bg-[#fee9cf] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
                                   >
                                     ↳ {children}
                                   </button>
@@ -1361,7 +1269,7 @@ const FloatingAiAssistant: React.FC = () => {
                                 return (
                                   <a
                                     href={href}
-                                    className="text-[#e45a92] underline decoration-[#e45a92]/30 underline-offset-2 hover:decoration-[#e45a92] transition-colors"
+                                    className="text-[#97192c] underline decoration-[#97192c]/30 underline-offset-2 hover:decoration-[#97192c] transition-colors font-bold"
                                     {...props}
                                   >
                                     {children}
@@ -1371,7 +1279,7 @@ const FloatingAiAssistant: React.FC = () => {
                               return (
                                 <a
                                   href={href}
-                                  className="text-emerald-400 hover:text-emerald-300 underline decoration-emerald-400/30 underline-offset-2 hover:decoration-emerald-400 transition-colors"
+                                  className="text-[#97192c] hover:text-[#fc920d] underline decoration-[#97192c]/30 underline-offset-2 hover:decoration-[#fc920d] transition-colors font-black"
                                   target="_blank"
                                   rel="noreferrer"
                                   {...props}
@@ -1399,7 +1307,7 @@ const FloatingAiAssistant: React.FC = () => {
                                   const data = safeJsonParse<any[]>(rawData, "generic", []);
                                   if (Array.isArray(data) && data.length > 0) {
                                     return (
-                                      <div className="my-4 h-52 w-full rounded-xl bg-zinc-950/80 p-3 border border-zinc-800/80 shadow-inner">
+                                      <div className="my-4 h-52 w-full border-3 border-[#120f0a] bg-white p-3 shadow-[4px_4px_0px_0px_#120f0a] rounded-none text-[#120f0a]">
                                         <ResponsiveContainer
                                           width="100%"
                                           height="100%"
@@ -1418,27 +1326,27 @@ const FloatingAiAssistant: React.FC = () => {
                                               fontSize={10}
                                               tickLine={false}
                                               axisLine={false}
-                                              stroke="#a1a1aa"
+                                              stroke="#120f0a"
+                                              fontWeight="bold"
                                             />
                                             <Tooltip
-                                              cursor={{
-                                                fill: "#27272a",
-                                                opacity: 0.4,
-                                              }}
                                               contentStyle={{
-                                                backgroundColor: "#18181b",
-                                                border: "1px solid #3f3f46",
-                                                borderRadius: "8px",
-                                                fontSize: "12px",
-                                                color: "#f4f4f5",
+                                                background: "white",
+                                                border: "2px solid #120f0a",
+                                                borderRadius: "0px",
+                                                boxShadow: "2px 2px 0px 0px #120f0a",
+                                                fontSize: "10px",
+                                                fontFamily: "monospace",
+                                                fontWeight: "bold",
+                                                color: "#120f0a"
                                               }}
-                                              itemStyle={{ color: "#e45a92" }}
                                             />
                                             <Bar
                                               dataKey="value"
-                                              fill="#e45a92"
-                                              radius={[4, 4, 0, 0]}
-                                              maxBarSize={40}
+                                              fill="#97192c"
+                                              radius={[0, 0, 0, 0]}
+                                              stroke="#120f0a"
+                                              strokeWidth={2}
                                             />
                                           </BarChart>
                                         </ResponsiveContainer>
@@ -1446,91 +1354,72 @@ const FloatingAiAssistant: React.FC = () => {
                                     );
                                   }
                                 } catch (e) {
-                                  console.error(
-                                    "Failed to parse chart data",
-                                    e,
-                                  );
-                                  return (
-                                    <div className="my-2 p-2 rounded bg-red-950/30 border border-red-900/50 text-red-400 text-xs">
-                                      Error visualizing chart data.
-                                    </div>
-                                  );
+                                  console.error("Failed to parse chart data", e);
                                 }
+                                return (
+                                  <div className="my-2 p-2 rounded-none bg-red-100 border-2 border-red-600 text-red-800 text-xs font-bold font-mono">
+                                    Error loading chart data.
+                                  </div>
+                                );
                               }
 
                               if (isCountdown) {
                                 try {
-                                  const payload = safeJsonParse<CountdownPayload | null>(
-                                    String(children).replace(/\n$/, ""),
-                                    "countdown",
-                                    null
+                                  const rawData = String(children).replace(
+                                    /\n$/,
+                                    "",
                                   );
-                                  if (payload?.event && payload?.date) {
+                                  const payload = safeJsonParse<CountdownPayload | null>(rawData, "generic", null);
+                                  if (payload) {
                                     return <CountdownCard payload={payload} />;
                                   }
                                 } catch (e) {
-                                  console.error(
-                                    "Failed to parse countdown data",
-                                    e,
-                                  );
+                                  console.error("Failed to parse countdown data", e);
                                 }
                                 return (
-                                  <div className="my-2 p-2 rounded bg-red-950/30 border border-red-900/50 text-red-400 text-xs">
-                                    Error visualizing countdown data.
+                                  <div className="my-2 p-2 rounded-none bg-red-100 border-2 border-red-600 text-red-800 text-xs font-bold font-mono">
+                                    Error loading countdown.
                                   </div>
                                 );
                               }
 
                               if (isMemberCard) {
                                 try {
-                                  const payload = safeJsonParse<MemberCardPayload | null>(
-                                    String(children).replace(/\n$/, ""),
-                                    "member_card",
-                                    null
+                                  const rawData = String(children).replace(
+                                    /\n$/,
+                                    "",
                                   );
-                                  if (payload?.name && payload?.role) {
+                                  const payload = safeJsonParse<MemberCardPayload | null>(rawData, "generic", null);
+                                  if (payload) {
                                     return <TeamMemberCard payload={payload} />;
                                   }
                                 } catch (e) {
-                                  console.error(
-                                    "Failed to parse member card data",
-                                    e,
-                                  );
+                                  console.error("Failed to parse member card data", e);
                                 }
                                 return (
-                                  <div className="my-2 p-2 rounded bg-red-950/30 border border-red-900/50 text-red-400 text-xs">
-                                    Error visualizing team member card.
+                                  <div className="my-2 p-2 rounded-none bg-red-100 border-2 border-red-600 text-red-800 text-xs font-bold font-mono">
+                                    Error loading team member details.
                                   </div>
                                 );
                               }
 
                               if (isProjectCard) {
                                 try {
-                                  const payload = safeJsonParse<any>(
-                                    String(children).replace(/\n$/, ""),
-                                    "project_card",
-                                    null
+                                  const rawData = String(children).replace(
+                                    /\n$/,
+                                    "",
                                   );
-                                  const ideas: ProjectIdea[] = Array.isArray(
-                                    payload,
-                                  )
-                                    ? payload
-                                    : Array.isArray(payload?.ideas)
-                                      ? payload.ideas
-                                      : [];
+                                  const ideas = safeJsonParse<ProjectIdea[]>(rawData, "generic", []);
                                   if (ideas.length > 0) {
                                     return (
                                       <ProjectCards ideas={ideas.slice(0, 3)} />
                                     );
                                   }
                                 } catch (e) {
-                                  console.error(
-                                    "Failed to parse project card data",
-                                    e,
-                                  );
+                                  console.error("Failed to parse project card data", e);
                                 }
                                 return (
-                                  <div className="my-2 p-2 rounded bg-red-950/30 border border-red-900/50 text-red-400 text-xs">
+                                  <div className="my-2 p-2 rounded-none bg-red-100 border-2 border-red-600 text-red-800 text-xs font-bold font-mono">
                                     Error visualizing project ideas.
                                   </div>
                                 );
@@ -1541,8 +1430,8 @@ const FloatingAiAssistant: React.FC = () => {
                                 <code
                                   className={`${
                                     isInline
-                                      ? "rounded bg-zinc-800 px-1 py-0.5 text-[0.7rem]"
-                                      : "block rounded-xl bg-zinc-950 p-3 text-[0.75rem] overflow-x-auto border border-zinc-800/80 text-zinc-300 mt-2 mb-2"
+                                      ? "bg-[#eae8e4] text-[#97192c] border border-[#120f0a]/20 px-1 py-0.5 text-[0.7rem] rounded-none font-mono font-bold"
+                                      : "block rounded-none bg-[#120f0a] p-3 text-[0.75rem] overflow-x-auto border-3 border-[#120f0a] text-white mt-2 mb-2 font-mono shadow-[2px_2px_0px_0px_#120f0a]"
                                   } ${className || ""}`}
                                   {...props}
                                 >
@@ -1566,15 +1455,15 @@ const FloatingAiAssistant: React.FC = () => {
                       m.content &&
                       m.content.length > 0 &&
                       !isLoading && (
-                        <div className="flex items-center gap-1 mt-1 ml-1">
+                        <div className="flex items-center gap-1.5 mt-1.5 ml-1">
                           <button
                             onClick={() =>
                               handleFeedback(m.id, "up", m.content)
                             }
-                            className={`group/fb inline-flex items-center justify-center h-6 w-6 rounded-md transition-transform transition-colors transition-opacity ${
+                            className={`group/fb inline-flex items-center justify-center h-6 w-6 rounded-none border border-[#120f0a] bg-white text-[#120f0a] shadow-[1px_1px_0px_0px_#120f0a] hover:bg-[#fee9cf] transition-all duration-150 ${
                               feedbackMap[m.id] === "up"
-                                ? "bg-emerald-500/20 text-emerald-400"
-                                : "text-zinc-600 hover:text-emerald-400 hover:bg-zinc-800/80"
+                                ? "bg-[#fee9cf] border-2 border-[#120f0a] font-bold"
+                                : ""
                             }`}
                             aria-label="Good response"
                             title="Good response"
@@ -1585,10 +1474,10 @@ const FloatingAiAssistant: React.FC = () => {
                             onClick={() =>
                               handleFeedback(m.id, "down", m.content)
                             }
-                            className={`group/fb inline-flex items-center justify-center h-6 w-6 rounded-md transition-transform transition-colors transition-opacity ${
+                            className={`group/fb inline-flex items-center justify-center h-6 w-6 rounded-none border border-[#120f0a] bg-white text-[#120f0a] shadow-[1px_1px_0px_0px_#120f0a] hover:bg-[#fee9cf] transition-all duration-150 ${
                               feedbackMap[m.id] === "down"
-                                ? "bg-red-500/20 text-red-400"
-                                : "text-zinc-600 hover:text-red-400 hover:bg-zinc-800/80"
+                                ? "bg-red-100 border-2 border-red-600 font-bold"
+                                : ""
                             }`}
                             aria-label="Bad response"
                             title="Bad response"
@@ -1596,7 +1485,7 @@ const FloatingAiAssistant: React.FC = () => {
                             <ThumbsDown className="h-3 w-3" />
                           </button>
                           {feedbackMap[m.id] && (
-                            <span className="text-[0.6rem] text-zinc-500 ml-1 animate-in fade-in">
+                            <span className="text-[0.6rem] text-[#97192c] font-mono font-bold ml-1.5 animate-in fade-in">
                               {feedbackMap[m.id] === "up"
                                 ? "Thanks!"
                                 : "Noted, we'll improve"}
@@ -1608,54 +1497,23 @@ const FloatingAiAssistant: React.FC = () => {
                 ))}
                 <div ref={messagesEndRef} />
                 {isLoading && (
-                  <div className="flex items-center gap-2 text-xs text-zinc-400">
-                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                  <div className="flex items-center gap-2 text-xs text-[#716f6c] font-mono font-bold">
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-600" />
                     Thinking...
                   </div>
                 )}
-                {error && <p className="text-xs text-red-400">{error}</p>}
-                {voiceError && (
-                  <p className="text-xs text-amber-400">{voiceError}</p>
-                )}
+                {error && <p className="text-xs text-red-600 font-mono font-bold">{error}</p>}
               </div>
 
               {/* Input */}
-              <div className="border-t border-zinc-800/70">
-                <div className="flex items-end gap-2 px-3 py-2.5">
-                  <textarea
-                    ref={textareaRef}
-                    value={message}
-                    onChange={handleInputChange}
-                    onKeyDown={handleKeyDown}
-                    rows={2}
-                    className="flex-1 resize-none bg-zinc-900/60 rounded-xl px-3 py-2 text-[0.8rem] text-zinc-100 outline-none placeholder:text-zinc-600 border border-zinc-800/60 focus:border-zinc-700 transition-colors"
-                    placeholder="Ask anything..."
-                  />
-                  <div className="flex flex-col items-center gap-1.5 shrink-0">
-                    <button
-                      type="button"
-                      onClick={() => void handleVoiceToggle()}
-                      className={`inline-flex h-8 w-8 items-center justify-center rounded-lg transition-colors ${
-                        isRecording
-                          ? "bg-red-500/20 text-red-400"
-                          : "text-zinc-600 hover:text-zinc-300 hover:bg-zinc-800/60"
-                      }`}
-                      aria-label="Voice input"
-                      title={isRecording ? "Stop recording" : "Voice input"}
-                    >
-                      <Mic className={`h-3.5 w-3.5 ${isRecording ? "animate-pulse" : ""}`} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => void handleSend()}
-                      disabled={!message.trim() || isLoading}
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--brand-pink)] text-white shadow-md shadow-[#e45a92]/20 transition-all hover:opacity-90 active:scale-[0.95] disabled:opacity-40 disabled:cursor-not-allowed"
-                      aria-label="Send"
-                    >
-                      <Send className="h-3.5 w-3.5" />
-                    </button>
-                  </div>
-                </div>
+              <div className="p-3.5 w-full bg-[#eae8e4] border-t-4 border-[#120f0a] shrink-0 relative z-20">
+                <PromptBox
+                  ref={promptBoxRef}
+                  value={message}
+                  onChange={handleInputChange}
+                  onSubmitMessage={(msg: string) => void handleSend(msg)}
+                  className="bg-white border-2 border-[#120f0a] focus-within:ring-0"
+                />
               </div>
             </div>
           </div>

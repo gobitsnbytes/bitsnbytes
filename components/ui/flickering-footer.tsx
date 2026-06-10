@@ -1,18 +1,11 @@
 "use client";
 
 import { ChevronRightIcon } from "@radix-ui/react-icons";
-import * as Color from "color-bits";
-import { motion } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
+import { KineticText } from "@/components/ui/kinetic-text";
 import {
   Github,
   Instagram,
@@ -21,243 +14,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-// Helper function to convert any CSS color to rgba
-export const getRGBA = (
-  cssColor: React.CSSProperties["color"],
-  fallback: string = "rgba(180, 180, 180)",
-): string => {
-  if (typeof window === "undefined") return fallback;
-  if (!cssColor) return fallback;
-
-  try {
-    if (typeof cssColor === "string" && cssColor.startsWith("var(")) {
-      const element = document.createElement("div");
-      element.style.color = cssColor;
-      document.body.appendChild(element);
-      const computedColor = window.getComputedStyle(element).color;
-      document.body.removeChild(element);
-      return Color.formatRGBA(Color.parse(computedColor));
-    }
-    return Color.formatRGBA(Color.parse(cssColor));
-  } catch (e) {
-    console.error("Color parsing failed:", e);
-    return fallback;
-  }
-};
-
-export const colorWithOpacity = (color: string, opacity: number): string => {
-  if (!color.startsWith("rgb")) return color;
-  return Color.formatRGBA(Color.alpha(Color.parse(color), opacity));
-};
-
-export function useMediaQuery(query: string) {
-  const [value, setValue] = useState(false);
-
-  useEffect(() => {
-    function checkQuery() {
-      const result = window.matchMedia(query);
-      setValue(result.matches);
-    }
-    checkQuery();
-    window.addEventListener("resize", checkQuery);
-    const mediaQuery = window.matchMedia(query);
-    mediaQuery.addEventListener("change", checkQuery);
-    return () => {
-      window.removeEventListener("resize", checkQuery);
-      mediaQuery.removeEventListener("change", checkQuery);
-    };
-  }, [query]);
-
-  return value;
-}
-
-interface FlickeringGridProps extends React.HTMLAttributes<HTMLDivElement> {
-  squareSize?: number;
-  gridGap?: number;
-  flickerChance?: number;
-  color?: string;
-  width?: number;
-  height?: number;
-  className?: string;
-  maxOpacity?: number;
-  text?: string;
-  fontSize?: number;
-  fontWeight?: number | string;
-}
-
-export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
-  squareSize = 3,
-  gridGap = 3,
-  flickerChance = 0.2,
-  color = "#B4B4B4",
-  width,
-  height,
-  className,
-  maxOpacity = 0.15,
-  text = "",
-  fontSize = 140,
-  fontWeight = 600,
-  ...props
-}) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(false);
-  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
-
-  const memoizedColor = useMemo(() => getRGBA(color), [color]);
-
-  const drawGrid = useCallback(
-    (
-      ctx: CanvasRenderingContext2D,
-      width: number,
-      height: number,
-      cols: number,
-      rows: number,
-      squares: Float32Array,
-      dpr: number,
-    ) => {
-      ctx.clearRect(0, 0, width, height);
-      const maskCanvas = document.createElement("canvas");
-      maskCanvas.width = width;
-      maskCanvas.height = height;
-      const maskCtx = maskCanvas.getContext("2d", { willReadFrequently: true });
-      if (!maskCtx) return;
-
-      if (text) {
-        maskCtx.save();
-        maskCtx.scale(dpr, dpr);
-        maskCtx.fillStyle = "white";
-        maskCtx.font = `${fontWeight} ${fontSize}px "Helvetica Now Display", "Helvetica Neue", Helvetica, Arial, sans-serif`;
-        maskCtx.textAlign = "center";
-        maskCtx.textBaseline = "middle";
-        maskCtx.fillText(text, width / (2 * dpr), height / (2 * dpr));
-        maskCtx.restore();
-      }
-
-      for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-          const x = i * (squareSize + gridGap) * dpr;
-          const y = j * (squareSize + gridGap) * dpr;
-          const squareWidth = squareSize * dpr;
-          const squareHeight = squareSize * dpr;
-          const maskData = maskCtx.getImageData(
-            x,
-            y,
-            squareWidth,
-            squareHeight,
-          ).data;
-          const hasText = maskData.some(
-            (value, index) => index % 4 === 0 && value > 0,
-          );
-          const opacity = squares[i * rows + j];
-          const finalOpacity = hasText
-            ? Math.min(1, opacity * 3 + 0.4)
-            : opacity;
-          ctx.fillStyle = colorWithOpacity(memoizedColor, finalOpacity);
-          ctx.fillRect(x, y, squareWidth, squareHeight);
-        }
-      }
-    },
-    [memoizedColor, squareSize, gridGap, text, fontSize, fontWeight],
-  );
-
-  const setupCanvas = useCallback(
-    (canvas: HTMLCanvasElement, width: number, height: number) => {
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      const cols = Math.ceil(width / (squareSize + gridGap));
-      const rows = Math.ceil(height / (squareSize + gridGap));
-      const squares = new Float32Array(cols * rows);
-      for (let i = 0; i < squares.length; i++) {
-        squares[i] = Math.random() * maxOpacity;
-      }
-      return { cols, rows, squares, dpr };
-    },
-    [squareSize, gridGap, maxOpacity],
-  );
-
-  const updateSquares = useCallback(
-    (squares: Float32Array, deltaTime: number) => {
-      for (let i = 0; i < squares.length; i++) {
-        if (Math.random() < flickerChance * deltaTime) {
-          squares[i] = Math.random() * maxOpacity;
-        }
-      }
-    },
-    [flickerChance, maxOpacity],
-  );
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const container = containerRef.current;
-    if (!canvas || !container) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let gridParams: ReturnType<typeof setupCanvas>;
-
-    const updateCanvasSize = () => {
-      const newWidth = width || container.clientWidth;
-      const newHeight = height || container.clientHeight;
-      setCanvasSize({ width: newWidth, height: newHeight });
-      gridParams = setupCanvas(canvas, newWidth, newHeight);
-    };
-    updateCanvasSize();
-
-    let lastTime = 0;
-    const animate = (time: number) => {
-      if (!isInView) return;
-      const deltaTime = (time - lastTime) / 1000;
-      lastTime = time;
-      updateSquares(gridParams.squares, deltaTime);
-      drawGrid(
-        ctx,
-        canvas.width,
-        canvas.height,
-        gridParams.cols,
-        gridParams.rows,
-        gridParams.squares,
-        gridParams.dpr,
-      );
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    const resizeObserver = new ResizeObserver(() => updateCanvasSize());
-    resizeObserver.observe(container);
-
-    const intersectionObserver = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0 },
-    );
-    intersectionObserver.observe(canvas);
-
-    if (isInView) animationFrameId = requestAnimationFrame(animate);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      resizeObserver.disconnect();
-      intersectionObserver.disconnect();
-    };
-  }, [setupCanvas, updateSquares, drawGrid, width, height, isInView]);
-
-  return (
-    <div
-      ref={containerRef}
-      className={cn("h-full w-full", className)}
-      {...props}
-    >
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none"
-        style={{ width: canvasSize.width, height: canvasSize.height }}
-      />
-    </div>
-  );
-};
+// IMPECCABLE_PREFLIGHT: context=pass product=pass command_reference=pass shape=not_required image_gate=skipped:using_css_styling_no_new_image_assets_needed mutation=open
 
 const DiscordIcon = ({ className, ...props }: React.ComponentProps<"svg">) => (
   <svg
@@ -341,73 +98,83 @@ const legalLinks = [
 ];
 
 
-
 export function FlickeringFooter() {
-  const tablet = useMediaQuery("(max-width: 1024px)");
-
   return (
     <footer
       id="footer"
-      className="w-full pb-0 mt-12 sm:mt-16 border-t border-[rgba(208,207,206,0.16)] bg-[rgba(18,15,10,0.78)] backdrop-blur-xl"
+      className="w-full pb-0 mt-16 sm:mt-24 border-t-4 border-border bg-background text-foreground relative z-10 selection:bg-accent/30 selection:text-foreground"
     >
-      <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(151,25,44,0.24),rgba(252,146,13,0.08)_48%,rgba(18,15,10,0.72))] p-5 shadow-[var(--shadow-card)] sm:p-6">
-          <div className="absolute inset-0 bg-grid-faint opacity-25" />
-          <div className="relative grid gap-6 lg:grid-cols-[18rem_1fr] lg:items-start">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-white/72">
-                <ShieldCheck className="h-3.5 w-3.5 text-[var(--bb-orange-100)]" />
+      {/* Background stipple texture */}
+      <div className="absolute inset-0 bg-noise-texture opacity-[0.05] pointer-events-none z-0" />
+
+      <div className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Trust Center Panel - Styled as a bold Neobrutalist block */}
+        <div className="relative overflow-hidden border-4 border-border bg-card p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)] rounded-none">
+          <div className="relative grid gap-6 lg:grid-cols-[20rem_1fr] lg:items-start">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 border-2 border-border bg-accent text-accent-foreground px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider shadow-[3px_3px_0px_0px_var(--border)] rounded-none">
+                <ShieldCheck className="h-4 w-4 shrink-0" />
                 Trust Center
               </div>
-              <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/68">
+              <p className="text-sm leading-relaxed text-foreground/80 font-semibold max-w-xs">
                 The public rules for a teen-led network: safety, privacy, brand stewardship, and participation standards.
               </p>
             </div>
-            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+            
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
               {legalLinks.map((link) => (
                 <Link
                   key={link.url}
                   href={link.url}
-                  className="group rounded-xl border border-white/10 bg-black/15 p-3 text-left transition-[background-color,border-color,transform] duration-200 ease-out hover:border-white/22 hover:bg-white/[0.075] active:scale-[0.98]"
+                  className="group border-3 border-border bg-card p-4 text-left shadow-[4px_4px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-150 rounded-none text-foreground flex flex-col justify-between"
                 >
-                  <span className="flex items-center justify-between gap-2 text-sm font-bold text-white">
-                    {link.title}
-                    <ChevronRightIcon className="h-4 w-4 text-white/44 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
-                  </span>
-                  <span className="mt-2 block text-xs leading-snug text-white/54">
-                    {link.label}
-                  </span>
+                  <div>
+                    <span className="flex items-center justify-between gap-2 text-sm font-black uppercase tracking-tight text-foreground">
+                      {link.title}
+                      <ChevronRightIcon className="h-4 w-4 text-foreground/50 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
+                    </span>
+                    <span className="mt-2 block text-xs leading-snug text-foreground/70">
+                      {link.label}
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row md:items-start md:justify-between p-6 sm:p-10 max-w-6xl mx-auto">
+
+      {/* Main Footer Sitemap / Links Section */}
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between p-6 sm:p-10 max-w-6xl mx-auto relative z-10 gap-8 md:gap-4 mt-8">
+        
+        {/* Brand Description Column */}
         <div className="flex flex-col items-start justify-start gap-y-4 max-w-xs">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="relative grid h-10 w-10 place-items-center rounded-[10px] border border-[rgba(208,207,206,0.16)] bg-[var(--bb-neutral-100)] text-white shadow-[0_8px_24px_rgba(151,25,44,0.24)]">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative grid h-10 w-10 place-items-center border-3 border-border bg-card text-foreground shadow-[3px_3px_0px_0px_var(--border)] rounded-none group-hover:bg-accent group-hover:-translate-y-0.5 group-hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all">
               <Image
                 src="/logo.svg"
                 alt="bits&bytes™ logo"
-                width={30}
-                height={30}
-                className="h-7 w-7 object-contain"
+                width={28}
+                height={28}
+                className="h-6 w-6 object-contain invert dark:invert-0"
                 priority
               />
             </div>
             <div>
-              <p className="font-display text-base font-semibold text-foreground">
+              <p className="font-sans text-lg font-black text-foreground leading-none uppercase tracking-tight">
                 bits&bytes™
               </p>
-              <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+              <p className="text-[10px] uppercase font-mono font-bold tracking-[0.25em] text-primary dark:text-accent mt-0.5">
                 Teen-led
               </p>
             </div>
           </Link>
-          <p className="tracking-tight text-muted-foreground text-sm leading-relaxed">
+          <p className="text-foreground/80 text-sm leading-relaxed font-semibold">
             India's independent, teen-led builder network. Connecting the country's most ambitious teenage developers and designers to ship software from scratch.
           </p>
+          
+          {/* Social Badges */}
           <div className="flex flex-wrap gap-2 mt-2">
             {socialLinks.map(({ href, label, icon: Icon }) => (
               <Link
@@ -415,100 +182,78 @@ export function FlickeringFooter() {
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(208,207,206,0.18)] bg-[rgba(151,25,44,0.16)] px-3 py-1.5 text-xs text-white/72 backdrop-blur-md transition-colors hover:border-[rgba(252,146,13,0.36)] hover:text-white"
+                className="inline-flex items-center gap-1.5 border-2 border-border bg-card text-foreground px-3 py-1.5 text-xs font-mono font-bold shadow-[3px_3px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_var(--border)] hover:bg-accent hover:text-accent-foreground active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all rounded-none"
               >
-                <Icon className="h-3.5 w-3.5" />
+                <Icon className="h-3.5 w-3.5 shrink-0" />
                 <span>{label}</span>
               </Link>
             ))}
           </div>
         </div>
-        <div className="pt-6 md:pt-0 md:w-1/2">
-          <div className="flex flex-col items-start justify-start md:flex-row md:items-start md:justify-end gap-8 lg:gap-16">
+
+        {/* Directory Columns */}
+        <div className="pt-4 md:pt-0 md:w-1/2">
+          <div className="flex flex-col sm:flex-row items-start justify-start md:justify-end gap-8 lg:gap-16">
             {footerLinks.map((column, columnIndex) => (
-              <ul key={columnIndex} className="flex flex-col gap-y-2">
-                <li className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-foreground">
+              <ul key={columnIndex} className="flex flex-col gap-y-2.5 w-full sm:w-auto">
+                <li className="text-xs font-black uppercase tracking-[0.25em] text-primary dark:text-accent border-b border-border/15 pb-2 mb-2">
                   {column.title}
                 </li>
                 {column.links.map((link) => (
                   <li
                     key={link.id}
-                    className="group inline-flex cursor-pointer items-center justify-start gap-1 text-sm text-muted-foreground"
+                    className="group inline-flex cursor-pointer items-center justify-start gap-1 text-sm font-bold text-foreground/80 hover:text-accent hover:translate-x-1 transition-all duration-150"
                   >
-                    <Link
-                      href={link.url}
-                      className="transition-colors hover:text-foreground"
-                    >
+                    <Link href={link.url}>
                       {link.title}
                     </Link>
-                    <div className="flex size-4 items-center justify-center border border-border rounded translate-x-0 transform opacity-0 transition-transform transition-colors transition-opacity duration-300 ease-out group-hover:translate-x-1 group-hover:opacity-100">
-                      <ChevronRightIcon className="h-3 w-3" />
-                    </div>
                   </li>
                 ))}
               </ul>
             ))}
-            <div className="flex flex-col gap-y-2">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-foreground">
+            
+            <div className="flex flex-col gap-y-2.5 w-full sm:w-auto">
+              <p className="text-xs font-black uppercase tracking-[0.25em] text-primary dark:text-accent border-b border-border/15 pb-2 mb-2">
                 Connect
               </p>
               <a
                 href="mailto:hello@gobitsnbytes.org"
-                className="text-white/70 hover:text-white transition-colors"
+                className="text-sm font-mono font-bold text-foreground underline hover:text-accent transition-colors"
               >
                 hello@gobitsnbytes.org
               </a>
-              <p className="flex items-center gap-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 shrink-0" />
-                India
+              <p className="flex items-center gap-2 text-sm font-semibold text-foreground/80">
+                <MapPin className="h-4 w-4 shrink-0 text-primary dark:text-accent" />
+                Lucknow, India
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="w-full h-24 sm:h-32 md:h-48 relative mt-8 z-0">
-        <div className="absolute inset-0 bg-gradient-to-t from-transparent to-background z-10 from-40%" />
-        <div className="absolute inset-0 mx-4">
-          <FlickeringGrid
-            text="bits&bytes™"
-            fontSize={tablet ? 50 : 80}
-            className="absolute inset-0 h-full w-full"
-            squareSize={2}
-            gridGap={tablet ? 2 : 3}
-            color="var(--brand-pink)"
-            maxOpacity={0.22}
-            flickerChance={0.08}
-          />
-          <FlickeringGrid
-            text="bits&bytes™"
-            fontSize={tablet ? 50 : 80}
-            className="absolute inset-0 h-full w-full"
-            squareSize={2}
-            gridGap={tablet ? 2 : 3}
-            color="var(--brand-coral)"
-            maxOpacity={0.32}
-            flickerChance={0.12}
-          />
-          <FlickeringGrid
-            text="bits&bytes™"
-            fontSize={tablet ? 50 : 80}
-            className="absolute inset-0 h-full w-full"
-            squareSize={2}
-            gridGap={tablet ? 2 : 3}
-            color="var(--brand-amber)"
-            maxOpacity={0.18}
-            flickerChance={0.06}
+
+      {/* Neobrutalist Kinetic Text Footer Banner */}
+      <div className="w-full py-10 sm:py-16 md:py-20 mt-8 border-t-4 border-border bg-card overflow-hidden relative z-10 flex items-center justify-center select-none">
+        <div className="w-full max-w-6xl px-4 sm:px-6 lg:px-8 flex justify-center">
+          <KineticText
+            text="bits&bytes"
+            className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-foreground justify-center cursor-default select-none"
           />
         </div>
       </div>
-      <div className="border-t border-[rgba(208,207,206,0.12)] py-4 px-4 w-full text-muted-foreground bg-[rgba(18,15,10,0.42)]">
+
+      {/* Copyright bottom bar - Solid Deep Charcoal */}
+      <div className="border-t-4 border-border py-6 px-4 w-full bg-[#120f0a] dark:bg-card text-zinc-300 dark:text-foreground/70 relative z-10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs text-center md:text-left">
-          <div className="flex flex-col items-center md:items-start gap-1">
-            <p className="font-bold text-foreground">bits&amp;bytes™ by GOBITSNBYTES FOUNDATION</p>
-            <p>© {new Date().getFullYear()} GOBITSNBYTES FOUNDATION. All rights reserved. | gobitsnbytes.org</p>
+          <div className="flex flex-col items-center md:items-start gap-1 font-mono">
+            <p className="font-black text-white dark:text-foreground uppercase tracking-tight">
+              bits&amp;bytes™ by GOBITSNBYTES FOUNDATION
+            </p>
+            <p className="text-zinc-400 dark:text-foreground/60">
+              © {new Date().getFullYear()} GOBITSNBYTES FOUNDATION. All rights reserved. | gobitsnbytes.org
+            </p>
           </div>
-          <p className="max-w-2xl text-[9px] sm:text-[10px] opacity-80 leading-relaxed text-center md:text-right">
-            bits&amp;bytes™ is a student-led builder network operated by GOBITSNBYTES FOUNDATION, a Section 8 non-profit company in India.
+          <p className="max-w-2xl text-[9px] sm:text-[10px] opacity-90 leading-relaxed font-serif text-zinc-400 dark:text-foreground/60 text-center md:text-right">
+            bits&amp;bytes™ is a student-led builder network operated by GOBITSNBYTES FOUNDATION, a Section 8 non-profit company registered in India.
           </p>
         </div>
       </div>

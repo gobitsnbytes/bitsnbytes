@@ -42,23 +42,23 @@
     --brand-midnight: var(--bb-burgundy-20);
     --brand-ink: var(--bb-neutral-100);
 
-    --background: var(--bb-burgundy-20);
-    --foreground: #f7f1ec;
-    --card: rgba(18, 15, 10, 0.86);
-    --card-foreground: #f8f2ed;
-    --popover: rgba(22, 16, 11, 0.96);
-    --popover-foreground: #f8f2ed;
-    --muted: rgba(247, 241, 236, 0.08);
-    --muted-foreground: rgba(247, 241, 236, 0.72);
-    --border: rgba(247, 241, 236, 0.12);
-    --input: rgba(247, 241, 236, 0.1);
+    --background: #eae8e4;
+    --foreground: #120f0a;
+    --card: #ffffff;
+    --card-foreground: #120f0a;
+    --popover: #ffffff;
+    --popover-foreground: #120f0a;
+    --muted: #eae8e4;
+    --muted-foreground: #716f6c;
+    --border: #120f0a;
+    --input: #ffffff;
 
     --primary: var(--bb-burgundy-100);
     --primary-foreground: #fff9f4;
-    --secondary: rgba(151, 25, 44, 0.2);
-    --secondary-foreground: #fff4ea;
+    --secondary: #fee9cf;
+    --secondary-foreground: #120f0a;
     --accent: var(--bb-orange-100);
-    --accent-foreground: #2a0804;
+    --accent-foreground: #120f0a;
     --destructive: #f04438;
     --destructive-foreground: #ffffff;
 
@@ -69,38 +69,39 @@
     --glow-soft: 0 10px 32px rgba(151, 25, 44, 0.28);
     --shadow-card: 0 20px 60px rgba(18, 15, 10, 0.5);
 
+
     --chart-1: oklch(0.646 0.222 41.116);
     --chart-2: oklch(0.6 0.118 184.704);
     --chart-3: oklch(0.398 0.07 227.392);
     --chart-4: oklch(0.828 0.189 84.429);
     --chart-5: oklch(0.769 0.188 70.08);
 
-    --sidebar: rgba(14, 8, 6, 0.82);
-    --sidebar-foreground: #f7f1ec;
+    --sidebar: #eae8e4;
+    --sidebar-foreground: #120f0a;
     --sidebar-primary: var(--brand-pink);
     --sidebar-primary-foreground: #fff8f1;
     --sidebar-accent: rgba(255, 122, 27, 0.18);
     --sidebar-accent-foreground: #ffd6bd;
-    --sidebar-border: rgba(247, 241, 236, 0.1);
+    --sidebar-border: #120f0a;
     --sidebar-ring: rgba(255, 122, 27, 0.38);
 }
 
 .dark {
-    --background: #1e0509;
-    --foreground: #f7f1ec;
-    --card: rgba(16, 10, 7, 0.88);
-    --card-foreground: #f8f2ed;
-    --popover: rgba(12, 8, 6, 0.95);
-    --popover-foreground: #fffaf6;
-    --muted: rgba(247, 241, 236, 0.08);
-    --muted-foreground: rgba(247, 241, 236, 0.74);
-    --border: rgba(247, 241, 236, 0.1);
-    --input: rgba(247, 241, 236, 0.12);
+    --background: #120f0a;
+    --foreground: #fee9cf;
+    --card: #1e0509;
+    --card-foreground: #fee9cf;
+    --popover: #1e0509;
+    --popover-foreground: #fee9cf;
+    --muted: #1e0509;
+    --muted-foreground: #a09f9d;
+    --border: #fee9cf;
+    --input: #1e0509;
 
     --primary: #fee9cf;
     --primary-foreground: #2a0804;
-    --secondary: rgba(247, 241, 236, 0.08);
-    --secondary-foreground: #f8f2ed;
+    --secondary: #97192c;
+    --secondary-foreground: #fee9cf;
     --accent: var(--bb-orange-100);
     --accent-foreground: #2a0804;
     --destructive: #f87171;
@@ -369,8 +370,8 @@
     }
 
     .bg-noise-texture {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='1' height='1' fill='rgba(255,255,255,0.25)'/%3E%3C/svg%3E");
-        background-size: 300px 300px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+        background-size: 200px 200px;
     }
 
     .dark .bg-grid-faint {
@@ -382,7 +383,33 @@
     }
 
     .dark .bg-noise-texture {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='1' height='1' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    /* Brand dither halftone dot-grid overlay */
+    .bb-halftone {
+        background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+        background-size: 8px 8px;
+        background-position: 0 0;
+        opacity: 0.08;
+    }
+
+    /* Brand dither grain — SVG turbulence noise as a layered overlay */
+    .bb-dither {
+        position: relative;
+        isolation: isolate;
+    }
+
+    .bb-dither::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23d)'/%3E%3C/svg%3E");
+        background-size: 300px 300px;
+        pointer-events: none;
+        z-index: 1;
+        mix-blend-mode: overlay;
+        border-radius: inherit;
     }
 }
 
@@ -591,6 +618,10 @@
 }
 
 @layer utilities {
+    .animate-spin-slow {
+        animation: rotate-slow 20s linear infinite;
+    }
+
     .fade-in {
         animation: fadeIn 0.6s ease-out forwards;
     }
@@ -731,5 +762,116 @@
         100% {
             offset-distance: 100%;
         }
+    }
+}
+
+/* ==========================================
+   DARK THEME SEMANTIC OVERRIDES FOR NEOBRUTALISM
+   This section overrides hardcoded light-mode values 
+   specifically when the .dark class is applied to html.
+   ========================================== */
+.dark {
+    /* Hardcoded background colors */
+    .bg-\[\#eae8e4\],
+    div.bg-\[\#eae8e4\] {
+        background-color: var(--background) !important;
+    }
+    
+    .bg-white:not(.static-white) {
+        background-color: var(--card) !important;
+    }
+    
+    .bg-\[\#f7f1ec\] {
+        background-color: color-mix(in srgb, var(--primary) 8%, var(--card)) !important;
+    }
+    
+    /* Hardcoded text colors */
+    .text-\[\#120f0a\],
+    span.text-\[\#120f0a\],
+    p.text-\[\#120f0a\],
+    a.text-\[\#120f0a\],
+    h1.text-\[\#120f0a\],
+    h2.text-\[\#120f0a\],
+    h3.text-\[\#120f0a\] {
+        color: var(--foreground) !important;
+    }
+    
+    .text-\[\#413f3b\] {
+        color: var(--muted-foreground) !important;
+    }
+    
+    .text-\[\#716f6c\] {
+        color: var(--muted-foreground) !important;
+        opacity: 0.8;
+    }
+    
+    /* Hardcoded brand burgundy text */
+    .text-\[\#97192c\],
+    span.text-\[\#97192c\],
+    p.text-\[\#97192c\],
+    h2.text-\[\#97192c\] {
+        color: var(--accent) !important; /* soft orange brand accent */
+    }
+    
+    /* Hardcoded borders */
+    .border-\[\#120f0a\],
+    .border-2.border-\[\#120f0a\],
+    .border-3.border-\[\#120f0a\],
+    .border-4.border-\[\#120f0a\] {
+        border-color: var(--border) !important;
+    }
+    .border-t-\[\#120f0a\], .border-t-4.border-\[\#120f0a\] {
+        border-top-color: var(--border) !important;
+    }
+    .border-b-\[\#120f0a\], .border-b-4.border-\[\#120f0a\] {
+        border-bottom-color: var(--border) !important;
+    }
+    .border-l-\[\#120f0a\], .border-l-4.border-\[\#120f0a\] {
+        border-left-color: var(--border) !important;
+    }
+    .border-r-\[\#120f0a\], .border-r-4.border-\[\#120f0a\] {
+        border-right-color: var(--border) !important;
+    }
+    .border-\[\#120f0a\]\/15 {
+        border-color: rgba(254, 233, 207, 0.15) !important;
+    }
+    
+    /* Hardcoded neobrutalist shadows */
+    .shadow-\[2px_2px_0px_0px_\#120f0a\],
+    .group:hover .shadow-\[2px_2px_0px_0px_\#120f0a\] {
+        box-shadow: 2px 2px 0px 0px var(--border) !important;
+    }
+    .shadow-\[3px_3px_0px_0px_\#120f0a\],
+    .hover\:shadow-\[3px_3px_0px_0px_\#120f0a\]:hover,
+    .group:hover .shadow-\[3px_3px_0px_0px_\#120f0a\] {
+        box-shadow: 3px 3px 0px 0px var(--border) !important;
+    }
+    .shadow-\[4px_4px_0px_0px_\#120f0a\],
+    .hover\:shadow-\[4px_4px_0px_0px_\#120f0a\]:hover,
+    .group:hover .shadow-\[4px_4px_0px_0px_\#120f0a\] {
+        box-shadow: 4px 4px 0px 0px var(--border) !important;
+    }
+    .shadow-\[6px_6px_0px_0px_\#120f0a\] {
+        box-shadow: 6px 6px 0px 0px var(--border) !important;
+    }
+    .shadow-\[8px_8px_0px_0px_\#120f0a\],
+    .hover\:shadow-\[8px_8px_0px_0px_\#120f0a\]:hover,
+    .group:hover .shadow-\[8px_8px_0px_0px_\#120f0a\] {
+        box-shadow: 8px 8px 0px 0px var(--border) !important;
+    }
+    
+    /* Neobrutalist background card tints */
+    .bg-\[\#fee9cf\] {
+        background-color: color-mix(in srgb, var(--accent) 15%, var(--card)) !important;
+        color: var(--foreground) !important;
+    }
+    .bg-\[\#f4d9d1\] {
+        background-color: color-mix(in srgb, var(--primary) 15%, var(--card)) !important;
+        color: var(--foreground) !important;
+    }
+    
+    /* Subtler decorative text tints */
+    .text-\[\#413f3b\] {
+        color: var(--muted-foreground) !important;
     }
 }
