@@ -361,7 +361,7 @@ export default function About() {
 
         {/* 2x2 Grid of Core Values */}
         <section className="mb-16">
-          <h2 className="text-3xl font-black uppercase tracking-tight mb-8 font-mono border-b-2 border-[#120f0a]/15 pb-2">
+          <h2 className="text-3xl font-black uppercase tracking-tight mb-8 font-sans border-b-2 border-[#120f0a]/15 pb-2">
             Core Beliefs
           </h2>
           <div className="grid gap-6 md:grid-cols-2">
@@ -376,7 +376,7 @@ export default function About() {
                     <span className={`p-2 border-2 border-[#120f0a] ${section.color} shadow-[2px_2px_0px_0px_#120f0a]`}>
                       <Icon className="w-5 h-5 text-[#120f0a]" />
                     </span>
-                    <h3 className="text-xl font-black uppercase font-mono tracking-tight">{section.title}</h3>
+                    <h3 className="text-xl font-black uppercase font-sans tracking-tight text-[#120f0a]">{section.title}</h3>
                   </div>
                   <p className="font-serif-brand text-sm leading-relaxed text-[#413f3b]">
                     {section.description}
@@ -391,7 +391,7 @@ export default function About() {
         <section className="mb-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-[#120f0a]/15 pb-4 mb-8 gap-4">
             <div>
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight font-mono">
+              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight font-sans">
                 Meet The Agents
               </h2>
               <p className="text-sm font-serif-brand text-[#716f6c] mt-1">
@@ -425,7 +425,7 @@ export default function About() {
           {/* Founders Subsection */}
           {(activeTab === "all" || activeTab === "founders") && (
             <div className="mb-12">
-              <div className="bg-[#fc920d] text-[#120f0a] border-[3px] border-[#120f0a] px-4 py-1 shadow-[3px_3px_0px_0px_#120f0a] font-mono text-xs uppercase font-bold w-max mb-6">
+              <div className="bg-[#fc920d] text-[#120f0a] border-[3px] border-[#120f0a] px-4 py-1 shadow-[3px_3px_0px_0px_#120f0a] font-sans text-xs uppercase font-black tracking-wider w-max mb-6">
                 Co-Founders
               </div>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -439,7 +439,7 @@ export default function About() {
           {/* Leadership Leads Subsection */}
           {(activeTab === "all" || activeTab === "leadership") && (
             <div className="mb-12">
-              <div className="bg-[#97192c] text-white border-[3px] border-[#120f0a] px-4 py-1 shadow-[3px_3px_0px_0px_#120f0a] font-mono text-xs uppercase font-bold w-max mb-6">
+              <div className="bg-[#97192c] text-white border-[3px] border-[#120f0a] px-4 py-1 shadow-[3px_3px_0px_0px_#120f0a] font-sans text-xs uppercase font-black tracking-wider w-max mb-6">
                 Executive & Track Leads
               </div>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -453,7 +453,7 @@ export default function About() {
           {/* Volunteers / Contributors Track */}
           {(activeTab === "all" || activeTab === "volunteers") && (
             <div>
-              <div className="bg-[#120f0a] text-white border-[3px] border-[#120f0a] px-4 py-1 shadow-[3px_3px_0px_0px_#120f0a] font-mono text-xs uppercase font-bold w-max mb-6">
+              <div className="bg-[#120f0a] text-white border-[3px] border-[#120f0a] px-4 py-1 shadow-[3px_3px_0px_0px_#120f0a] font-sans text-xs uppercase font-black tracking-wider w-max mb-6">
                 Contributors
               </div>
               
@@ -465,12 +465,12 @@ export default function About() {
 
                   return (
                     <div key={trackName} className="bg-white border-3 border-[#120f0a] p-5 shadow-[4px_4px_0px_0px_#120f0a]">
-                      <h4 className="text-sm font-mono font-bold uppercase tracking-wider text-[#97192c] border-b border-[#120f0a]/10 pb-2 mb-4">
+                      <h4 className="text-sm font-sans font-black uppercase tracking-wider text-[#97192c] border-b-2 border-[#120f0a]/10 pb-2 mb-4">
                         {trackName} Track
                       </h4>
-                      <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                      <div className="flex flex-wrap gap-x-8 gap-y-6 justify-center sm:justify-start">
                         {trackVolunteers.map(v => (
-                          <div key={v.id} className="flex flex-col items-center text-center group">
+                          <div key={v.id} className="flex flex-col items-center text-center group w-[110px] sm:w-[120px] shrink-0">
                             <div className="relative w-16 h-16 rounded-full border-2 border-[#120f0a] overflow-hidden bg-neutral-100 mb-2 shadow-[2px_2px_0px_0px_#120f0a] group-hover:scale-105 transition-transform duration-150">
                               {v.image ? (
                                 <Image
@@ -484,14 +484,14 @@ export default function About() {
                                 <User className="w-full h-full p-2 text-[#a09f9d]" />
                               )}
                             </div>
-                            <h5 className="font-mono text-xs font-bold truncate w-full">{v.name}</h5>
-                            <span className="text-[10px] text-[#716f6c] truncate w-full">{v.role || "Contributor"}</span>
+                            <h5 className="font-sans text-xs font-black uppercase tracking-tight truncate w-full text-[#120f0a]">{v.name}</h5>
+                            <span className="text-[10px] font-bold text-[#716f6c] truncate w-full leading-tight">{v.role || "Contributor"}</span>
                             {v.linkedin && (
                               <a 
                                 href={v.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="mt-1 text-[#97192c] hover:text-[#fc920d] text-[10px] font-bold"
+                                className="mt-1 text-[#97192c] hover:text-[#fc920d] text-[10px] font-black uppercase tracking-wider"
                               >
                                 LinkedIn
                               </a>
@@ -594,10 +594,10 @@ function TeamCard({ member, isFounder = false }: { member: CoreTeamMember; isFou
 
         {/* Name & Role */}
         <div className="space-y-1">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#97192c]">
+          <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#97192c]">
             {member.role}
           </span>
-          <h3 className="text-xl font-black uppercase tracking-tight font-mono text-[#120f0a] leading-none">
+          <h3 className="text-xl font-black uppercase tracking-tight font-sans text-[#120f0a] leading-none">
             {member.name}
           </h3>
           {member.bio && (
