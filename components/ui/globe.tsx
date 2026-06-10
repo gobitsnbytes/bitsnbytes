@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import createGlobe, { type COBEOptions } from "cobe"
 import { useMotionValue, useSpring } from "motion/react"
 
@@ -47,7 +47,7 @@ export function Globe({
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const phiRef = useRef(0)
-  const widthRef = useRef(0)
+  const [width, setWidth] = useState<number>(0)
   const pointerInteracting = useRef<number | null>(null)
   const pointerInteractionMovement = useRef(0)
 
@@ -73,25 +73,39 @@ export function Globe({
     }
   }
 
+  // Observe container size
   useEffect(() => {
-    const onResize = () => {
-      if (canvasRef.current) {
-        widthRef.current = canvasRef.current.offsetWidth
+    if (!canvasRef.current) return
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const w = entry.contentRect.width
+        if (w > 0) {
+          setWidth(w)
+        }
       }
+    })
+
+    observer.observe(canvasRef.current)
+
+    return () => {
+      observer.disconnect()
     }
+  }, [])
 
-    window.addEventListener("resize", onResize)
-    onResize()
+  // Initialize Globe only when size is known (> 0)
+  useEffect(() => {
+    if (width <= 0 || !canvasRef.current) return
 
-    const globe = createGlobe(canvasRef.current!, {
+    const globe = createGlobe(canvasRef.current, {
       ...config,
-      width: widthRef.current * 2,
-      height: widthRef.current * 2,
+      width: width * 2,
+      height: width * 2,
       onRender: (state) => {
         if (!pointerInteracting.current) phiRef.current += 0.005
         state.phi = phiRef.current + rs.get()
-        state.width = widthRef.current * 2
-        state.height = widthRef.current * 2
+        state.width = width * 2
+        state.height = width * 2
       },
     })
 
@@ -100,11 +114,11 @@ export function Globe({
         canvasRef.current.style.opacity = "1"
       }
     }, 0)
+
     return () => {
       globe.destroy()
-      window.removeEventListener("resize", onResize)
     }
-  }, [rs, config])
+  }, [width, rs, config])
 
   return (
     <div
