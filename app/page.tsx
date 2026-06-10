@@ -68,21 +68,21 @@ export default function Home() {
           title="Shipped, not just taught"
           description="A teen-led builders network. Workshops and hackathons that end with something shipped, not just something learned."
         >
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:gap-6 grid-cols-2 lg:grid-cols-4">
             {stats.map((stat, idx) => (
               <div
                 key={stat.label}
-                className="bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] p-8 transition-all hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_var(--border)] duration-200"
+                className="bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] p-5 sm:p-8 transition-all hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_var(--border)] duration-200"
               >
-                <div className="space-y-4 text-card-foreground">
-                  <p className="text-4xl font-black text-foreground tracking-tight uppercase">
+                <div className="space-y-2 sm:space-y-4 text-card-foreground">
+                  <p className="text-3xl sm:text-4xl font-black text-foreground tracking-tight uppercase">
                     {stat.value}
                   </p>
                   <div>
-                    <h3 className="text-lg font-black text-foreground uppercase tracking-tight">
+                    <h3 className="text-base sm:text-lg font-black text-foreground uppercase tracking-tight">
                       {stat.label}
                     </h3>
-                    <div className="text-sm text-muted-foreground font-semibold mt-1">
+                    <div className="text-xs sm:text-sm text-muted-foreground font-semibold mt-1">
                       {stat.detail}
                     </div>
                   </div>
