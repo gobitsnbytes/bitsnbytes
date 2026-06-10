@@ -242,17 +242,17 @@ export function FlickeringFooter() {
       </div>
 
       {/* Copyright bottom bar - Solid Deep Charcoal */}
-      <div className="border-t-4 border-border py-6 px-4 w-full bg-[#120f0a] dark:bg-card text-[#d0cfce] dark:text-muted-foreground relative z-10">
+      <div className="border-t-4 border-border py-6 px-4 w-full bg-[#120f0a] dark:bg-card text-zinc-300 dark:text-foreground/70 relative z-10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs text-center md:text-left">
           <div className="flex flex-col items-center md:items-start gap-1 font-mono">
             <p className="font-black text-white dark:text-foreground uppercase tracking-tight">
               bits&amp;bytes™ by GOBITSNBYTES FOUNDATION
             </p>
-            <p className="text-[#a09f9d] dark:text-muted-foreground/80">
+            <p className="text-zinc-400 dark:text-foreground/60">
               © {new Date().getFullYear()} GOBITSNBYTES FOUNDATION. All rights reserved. | gobitsnbytes.org
             </p>
           </div>
-          <p className="max-w-2xl text-[9px] sm:text-[10px] opacity-80 leading-relaxed font-serif text-[#a09f9d] dark:text-muted-foreground/80 text-center md:text-right">
+          <p className="max-w-2xl text-[9px] sm:text-[10px] opacity-90 leading-relaxed font-serif text-zinc-400 dark:text-foreground/60 text-center md:text-right">
             bits&amp;bytes™ is a student-led builder network operated by GOBITSNBYTES FOUNDATION, a Section 8 non-profit company registered in India.
           </p>
         </div>
