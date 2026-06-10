@@ -3,12 +3,7 @@
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import Image from "next/image";
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
 import {
   Github,
@@ -19,267 +14,6 @@ import {
 } from "lucide-react";
 
 // IMPECCABLE_PREFLIGHT: context=pass product=pass command_reference=pass shape=not_required image_gate=skipped:using_css_styling_no_new_image_assets_needed mutation=open
-
-interface FlickeringGridProps extends React.HTMLAttributes<HTMLDivElement> {
-  squareSize?: number;
-  gridGap?: number;
-  flickerChance?: number;
-  className?: string;
-  text?: string;
-  fontSize?: number;
-  fontWeight?: number | string;
-}
-
-export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
-  squareSize = 10,
-  gridGap = 2,
-  flickerChance = 0.8,
-  className,
-  text = "",
-  fontSize = 90,
-  fontWeight = 900,
-  ...props
-}) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isInViewRef = useRef(false);
-  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
-
-  // Holds animation state to prevent trigger updates / re-renders
-  const stateRef = useRef<{
-    cols: number;
-    rows: number;
-    squares: Float32Array;
-    hasTextGrid: Uint8Array;
-    dpr: number;
-  }>({
-    cols: 0,
-    rows: 0,
-    squares: new Float32Array(0),
-    hasTextGrid: new Uint8Array(0),
-    dpr: 1,
-  });
-
-  const setupCanvas = useCallback(() => {
-    const canvas = canvasRef.current;
-    const container = containerRef.current;
-    if (!canvas || !container) return;
-
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-    if (width === 0 || height === 0) return;
-
-    const dpr = window.devicePixelRatio || 1;
-
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-
-    const cols = Math.ceil(width / (squareSize + gridGap));
-    const rows = Math.ceil(height / (squareSize + gridGap));
-
-    const squares = new Float32Array(cols * rows);
-    for (let i = 0; i < squares.length; i++) {
-      squares[i] = Math.random();
-    }
-
-    // Generate offscreen text mask to sample active pixels
-    const hasTextGrid = new Uint8Array(cols * rows);
-    if (text) {
-      const maskCanvas = document.createElement("canvas");
-      maskCanvas.width = canvas.width;
-      maskCanvas.height = canvas.height;
-      const maskCtx = maskCanvas.getContext("2d");
-      if (maskCtx) {
-        maskCtx.fillStyle = "white";
-        // Using brand primary font Helvetica Now or Arial Black for clean readability in grid
-        maskCtx.font = `${fontWeight} ${fontSize * dpr}px "Helvetica Now", "Arial Black", -apple-system, sans-serif`;
-        // Apply letter spacing to prevent pixel overlap in low-res grid
-        if ("letterSpacing" in maskCtx) {
-          (maskCtx as any).letterSpacing = `${12 * dpr}px`;
-        }
-        maskCtx.textAlign = "center";
-        maskCtx.textBaseline = "middle";
-        maskCtx.fillText(text, maskCanvas.width / 2, maskCanvas.height / 2);
-
-        const maskData = maskCtx.getImageData(0, 0, maskCanvas.width, maskCanvas.height).data;
-
-        for (let i = 0; i < cols; i++) {
-          for (let j = 0; j < rows; j++) {
-            const xStart = Math.floor(i * (squareSize + gridGap) * dpr);
-            const xEnd = Math.floor((i * (squareSize + gridGap) + squareSize) * dpr);
-            const yStart = Math.floor(j * (squareSize + gridGap) * dpr);
-            const yEnd = Math.floor((j * (squareSize + gridGap) + squareSize) * dpr);
-
-            let totalAlpha = 0;
-            let count = 0;
-
-            for (let x = xStart; x < xEnd; x++) {
-              for (let y = yStart; y < yEnd; y++) {
-                if (x >= 0 && x < maskCanvas.width && y >= 0 && y < maskCanvas.height) {
-                  const idx = (y * maskCanvas.width + x) * 4;
-                  totalAlpha += maskData[idx + 3];
-                  count++;
-                }
-              }
-            }
-
-            const avgAlpha = count > 0 ? totalAlpha / count : 0;
-            // A cell is active if average alpha is above threshold
-            hasTextGrid[i * rows + j] = avgAlpha > 45 ? 1 : 0;
-          }
-        }
-      }
-    }
-
-    stateRef.current = { cols, rows, squares, hasTextGrid, dpr };
-    setCanvasSize({ width, height });
-  }, [squareSize, gridGap, text, fontSize, fontWeight]);
-
-  const drawGrid = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const { cols, rows, squares, hasTextGrid, dpr } = stateRef.current;
-    if (cols === 0 || rows === 0) return;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Curated Neobrutalist Brandkit colors
-    const brandColors = [
-      "#97192c", // Burgundy base
-      "#fc920d", // Orange pop
-      "#fee9cf", // Light warm orange/cream
-      "#120f0a", // Core Charcoal/Black
-      "#df8e74", // Warm Accent range
-    ];
-
-    const actualSquareSize = squareSize * dpr;
-
-    for (let i = 0; i < cols; i++) {
-      for (let j = 0; j < rows; j++) {
-        const x = i * (squareSize + gridGap) * dpr;
-        const y = j * (squareSize + gridGap) * dpr;
-
-        const idx = i * rows + j;
-        const isText = hasTextGrid[idx] === 1;
-        const val = squares[idx];
-
-        if (isText) {
-          // Inside text mask: 85% chance of colorful active state
-          if (val > 0.15) {
-            const colorIdx = Math.floor(((val - 0.15) / 0.85) * brandColors.length);
-            const color = brandColors[Math.min(colorIdx, brandColors.length - 1)];
-
-            ctx.fillStyle = color;
-            ctx.fillRect(x, y, actualSquareSize, actualSquareSize);
-
-            // Bold crisp outline
-            ctx.strokeStyle = "#120f0a";
-            ctx.lineWidth = 1 * dpr;
-            ctx.strokeRect(x, y, actualSquareSize, actualSquareSize);
-          } else {
-            // Faint grid tile for empty bits inside text
-            ctx.strokeStyle = "rgba(18, 15, 10, 0.08)";
-            ctx.lineWidth = 0.5 * dpr;
-            ctx.strokeRect(x, y, actualSquareSize, actualSquareSize);
-          }
-        } else {
-          // Outside text mask: 1.5% chance of standalone highlights
-          if (val > 0.985) {
-            const colorIdx = Math.floor(((val - 0.985) / 0.015) * brandColors.length);
-            const color = brandColors[Math.min(colorIdx, brandColors.length - 1)];
-
-            ctx.fillStyle = color;
-            ctx.fillRect(x, y, actualSquareSize, actualSquareSize);
-
-            ctx.strokeStyle = "#120f0a";
-            ctx.lineWidth = 1 * dpr;
-            ctx.strokeRect(x, y, actualSquareSize, actualSquareSize);
-          } else {
-            // Normal empty grid tile
-            ctx.strokeStyle = "rgba(18, 15, 10, 0.04)";
-            ctx.lineWidth = 0.5 * dpr;
-            ctx.strokeRect(x, y, actualSquareSize, actualSquareSize);
-          }
-        }
-      }
-    }
-  }, [squareSize, gridGap]);
-
-  const updateSquares = useCallback((deltaTime: number) => {
-    const { squares } = stateRef.current;
-    for (let i = 0; i < squares.length; i++) {
-      if (Math.random() < flickerChance * deltaTime) {
-        squares[i] = Math.random();
-      }
-    }
-  }, [flickerChance]);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    const canvas = canvasRef.current;
-    if (!container || !canvas) return;
-
-    setupCanvas();
-
-    let animationFrameId: number;
-    let lastTime = 0;
-
-    const animate = (time: number) => {
-      // Capped deltaTime to prevent jumps when backgrounded
-      const deltaTime = lastTime === 0 ? 0.016 : (time - lastTime) / 1000;
-      const cappedDelta = Math.min(deltaTime, 0.1);
-      lastTime = time;
-
-      if (isInViewRef.current) {
-        updateSquares(cappedDelta);
-        drawGrid();
-      }
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-
-    const resizeObserver = new ResizeObserver(() => {
-      setupCanvas();
-      drawGrid();
-    });
-    resizeObserver.observe(container);
-
-    const intersectionObserver = new IntersectionObserver(
-      ([entry]) => {
-        isInViewRef.current = entry.isIntersecting;
-      },
-      { threshold: 0 }
-    );
-    intersectionObserver.observe(canvas);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      resizeObserver.disconnect();
-      intersectionObserver.disconnect();
-    };
-  }, [setupCanvas, drawGrid, updateSquares]);
-
-  return (
-    <div
-      ref={containerRef}
-      className={cn("h-full w-full", className)}
-      {...props}
-    >
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none"
-        style={{ width: canvasSize.width, height: canvasSize.height }}
-      />
-    </div>
-  );
-};
 
 const DiscordIcon = ({ className, ...props }: React.ComponentProps<"svg">) => (
   <svg
@@ -362,18 +96,17 @@ const legalLinks = [
   },
 ];
 
+const marqueeItems = [
+  "BITS&BYTES",
+  "TEEN-LED BUILDER NETWORK",
+  "SHIP REAL PRODUCTS",
+  "LUCKNOW",
+  "INDIA",
+  "NO LIMITS",
+  "GOBITSNBYTES",
+];
+
 export function FlickeringFooter() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    function checkSize() {
-      setIsMobile(window.innerWidth < 768);
-    }
-    checkSize();
-    window.addEventListener("resize", checkSize);
-    return () => window.removeEventListener("resize", checkSize);
-  }, []);
-
   return (
     <footer
       id="footer"
@@ -506,17 +239,45 @@ export function FlickeringFooter() {
         </div>
       </div>
 
-      {/* Chunky Neobrutalist Halftone / Pixel Display Grid */}
-      <div className="w-full h-32 sm:h-44 md:h-56 relative mt-8 z-0 border-t-4 border-[#120f0a] bg-white overflow-hidden">
-        <div className="absolute inset-0 mx-0">
-          <FlickeringGrid
-            text="BITS&BYTES"
-            fontSize={isMobile ? 55 : 95}
-            className="absolute inset-0 h-full w-full bg-white"
-            squareSize={isMobile ? 8 : 12}
-            gridGap={2}
-            flickerChance={0.7}
-          />
+      {/* Infinite Horizontal Scrolling Neobrutalist Marquee */}
+      <div className="w-full py-6 sm:py-8 mt-8 border-t-4 border-[#120f0a] bg-[#fc920d] overflow-hidden whitespace-nowrap select-none relative z-10 flex">
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee-loop {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+          }
+          .animate-marquee-loop:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
+        <div className="animate-marquee-loop gap-8 sm:gap-12 flex items-center">
+          {/* First group */}
+          <div className="flex items-center gap-8 sm:gap-12">
+            {marqueeItems.map((item, idx) => (
+              <React.Fragment key={idx}>
+                <span className="font-display text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tighter text-[#120f0a]">
+                  {item}
+                </span>
+                <span className="h-4 w-4 sm:h-6 sm:w-6 bg-[#120f0a] rotate-45 shrink-0" />
+              </React.Fragment>
+            ))}
+          </div>
+          {/* Second group (duplicate for seamless loop) */}
+          <div className="flex items-center gap-8 sm:gap-12" aria-hidden="true">
+            {marqueeItems.map((item, idx) => (
+              <React.Fragment key={`dup-${idx}`}>
+                <span className="font-display text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tighter text-[#120f0a]">
+                  {item}
+                </span>
+                <span className="h-4 w-4 sm:h-6 sm:w-6 bg-[#120f0a] rotate-45 shrink-0" />
+              </React.Fragment>
+            ))}
+          </div>
         </div>
       </div>
 
