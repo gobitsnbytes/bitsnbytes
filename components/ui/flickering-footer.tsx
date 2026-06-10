@@ -110,9 +110,9 @@ export function FlickeringFooter() {
       <div className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8 relative z-10">
         
         {/* Trust Center Panel - Styled as a bold Neobrutalist block */}
-        <div className="relative overflow-hidden border-4 border-border bg-card p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)] rounded-none">
-          <div className="relative grid gap-6 lg:grid-cols-[20rem_1fr] lg:items-start">
-            <div className="space-y-4">
+        <div className="relative overflow-hidden border-4 border-border bg-card p-5 sm:p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)] rounded-none">
+          <div className="relative grid gap-6 lg:grid-cols-[18rem_1fr] lg:items-start">
+            <div className="space-y-3 sm:space-y-4">
               <div className="inline-flex items-center gap-2 border-2 border-border bg-accent text-accent-foreground px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider shadow-[3px_3px_0px_0px_var(--border)] rounded-none">
                 <ShieldCheck className="h-4 w-4 shrink-0" />
                 Trust Center
@@ -122,19 +122,19 @@ export function FlickeringFooter() {
               </p>
             </div>
             
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
               {legalLinks.map((link) => (
                 <Link
                   key={link.url}
                   href={link.url}
-                  className="group border-3 border-border bg-card p-4 text-left shadow-[4px_4px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-150 rounded-none text-foreground flex flex-col justify-between"
+                  className="group border-3 border-border bg-card p-3 sm:p-4 text-left shadow-[4px_4px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-150 rounded-none text-foreground flex flex-col justify-between"
                 >
                   <div>
-                    <span className="flex items-center justify-between gap-2 text-sm font-black uppercase tracking-tight text-foreground">
+                    <span className="flex items-center justify-between gap-1 text-xs sm:text-sm font-black uppercase tracking-tight text-foreground">
                       {link.title}
-                      <ChevronRightIcon className="h-4 w-4 text-foreground/50 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
+                      <ChevronRightIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-foreground/50 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
                     </span>
-                    <span className="mt-2 block text-xs leading-snug text-foreground/70">
+                    <span className="mt-1.5 sm:mt-2 block text-[10px] sm:text-xs leading-snug text-foreground/70 hidden sm:block">
                       {link.label}
                     </span>
                   </div>
@@ -146,7 +146,7 @@ export function FlickeringFooter() {
       </div>
 
       {/* Main Footer Sitemap / Links Section */}
-      <div className="flex flex-col md:flex-row md:items-start md:justify-between p-6 sm:p-10 max-w-6xl mx-auto relative z-10 gap-8 md:gap-4 mt-8">
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between p-5 sm:p-6 md:p-10 max-w-6xl mx-auto relative z-10 gap-6 sm:gap-8 md:gap-4 mt-6 sm:mt-8">
         
         {/* Brand Description Column */}
         <div className="flex flex-col items-start justify-start gap-y-4 max-w-xs">
@@ -232,11 +232,11 @@ export function FlickeringFooter() {
       </div>
 
       {/* Neobrutalist Kinetic Text Footer Banner */}
-      <div className="w-full py-10 sm:py-16 md:py-20 mt-8 border-t-4 border-border bg-card overflow-hidden relative z-10 flex items-center justify-center select-none">
+      <div className="w-full py-8 sm:py-10 md:py-16 lg:py-20 mt-8 border-t-4 border-border bg-card overflow-hidden relative z-10 flex items-center justify-center select-none">
         <div className="w-full max-w-6xl px-4 sm:px-6 lg:px-8 flex justify-center">
           <KineticText
             text="bits&bytes"
-            className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-foreground justify-center cursor-default select-none"
+            className="font-display text-4xl xs:text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-foreground justify-center cursor-default select-none"
           />
         </div>
       </div>
