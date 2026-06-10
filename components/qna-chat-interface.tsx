@@ -67,7 +67,7 @@ function CountdownCard({ payload }: { payload: CountdownPayload }) {
 
   if (!Number.isFinite(target)) {
     return (
-      <div className="my-2 p-2 rounded bg-red-950/30 border border-red-900/50 text-red-400 text-xs">
+      <div className="my-2 p-3 rounded-none bg-red-100 border-2 border-red-500 text-red-700 text-xs font-bold font-mono">
         Invalid countdown date format.
       </div>
     );
@@ -75,13 +75,13 @@ function CountdownCard({ payload }: { payload: CountdownPayload }) {
 
   const remaining = formatRemaining(target - now);
   return (
-    <div className="my-3 rounded-xl border border-zinc-700/70 bg-zinc-950/90 p-3">
-      <p className="text-[11px] uppercase tracking-widest text-zinc-400">
+    <div className="my-3 rounded-none border-3 border-[#120f0a] bg-white p-4 text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a]">
+      <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#97192c]">
         Event Countdown
       </p>
-      <h4 className="mt-1 text-sm font-semibold text-white">{payload.event}</h4>
+      <h4 className="mt-1 text-sm font-black uppercase tracking-tight text-[#120f0a]">{payload.event}</h4>
       {remaining.done ? (
-        <p className="mt-2 text-xs text-emerald-400">This event has started.</p>
+        <p className="mt-2 text-xs font-bold text-emerald-600">This event has started.</p>
       ) : (
         <div className="mt-3 grid grid-cols-4 gap-2 text-center">
           {[
@@ -92,10 +92,10 @@ function CountdownCard({ payload }: { payload: CountdownPayload }) {
           ].map((item) => (
             <div
               key={item.label}
-              className="rounded-lg border border-zinc-700/60 bg-zinc-900/80 px-2 py-2"
+              className="rounded-none border-2 border-[#120f0a] bg-[#fee9cf] px-2 py-2 shadow-[2px_2px_0px_0px_#120f0a]"
             >
-              <div className="text-sm font-bold text-white">{item.value}</div>
-              <div className="text-[10px] text-zinc-400">{item.label}</div>
+              <div className="text-base font-black text-[#120f0a]">{item.value}</div>
+              <div className="text-[9px] font-mono font-bold text-[#413f3b] uppercase">{item.label}</div>
             </div>
           ))}
         </div>
@@ -106,74 +106,76 @@ function CountdownCard({ payload }: { payload: CountdownPayload }) {
 
 function TeamMemberCard({ payload }: { payload: MemberCardPayload }) {
   return (
-    <div className="my-3 rounded-xl border border-zinc-700/70 bg-zinc-950/90 p-3">
+    <div className="my-3 rounded-none border-3 border-[#120f0a] bg-white p-4 text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a]">
       <div className="flex items-center gap-3">
         {payload.photo ? (
           <img
             src={payload.photo}
             alt={payload.name}
-            className="h-12 w-12 rounded-full object-cover border border-zinc-700/70"
+            className="h-12 w-12 rounded-none object-cover border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]"
           />
         ) : (
-          <div className="h-12 w-12 rounded-full border border-zinc-700/70 bg-zinc-900/70" />
+          <div className="h-12 w-12 rounded-none border-2 border-[#120f0a] bg-[#fee9cf] shadow-[2px_2px_0px_0px_#120f0a]" />
         )}
         <div>
-          <p className="text-sm font-semibold text-white">{payload.name}</p>
-          <span className="inline-flex mt-1 rounded-full border border-zinc-700/60 bg-zinc-900/80 px-2 py-0.5 text-[10px] uppercase tracking-wide text-zinc-300">
+          <p className="text-sm font-black uppercase tracking-tight text-[#120f0a]">{payload.name}</p>
+          <span className="inline-flex mt-1.5 rounded-none border-2 border-[#120f0a] bg-[#fee9cf] px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wide text-[#120f0a]">
             {payload.role}
           </span>
         </div>
       </div>
-      <div className="mt-3 flex items-center gap-2">
-        {payload.socials?.github && (
-          <a
-            href={payload.socials.github}
-            target="_blank"
-            rel="noreferrer"
-            className="text-xs rounded-lg border border-zinc-700/70 px-2 py-1 text-zinc-200 hover:border-zinc-500"
-          >
-            GitHub
-          </a>
-        )}
-        {payload.socials?.linkedin && (
-          <a
-            href={payload.socials.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className="text-xs rounded-lg border border-zinc-700/70 px-2 py-1 text-zinc-200 hover:border-zinc-500"
-          >
-            LinkedIn
-          </a>
-        )}
-      </div>
+      {(payload.socials?.github || payload.socials?.linkedin) && (
+        <div className="mt-4 flex items-center gap-2">
+          {payload.socials.github && (
+            <a
+              href={payload.socials.github}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[10px] font-mono font-bold uppercase tracking-wider rounded-none border-2 border-[#120f0a] bg-white px-2.5 py-1 text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+            >
+              GitHub
+            </a>
+          )}
+          {payload.socials.linkedin && (
+            <a
+              href={payload.socials.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[10px] font-mono font-bold uppercase tracking-wider rounded-none border-2 border-[#120f0a] bg-white px-2.5 py-1 text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+            >
+              LinkedIn
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
 function ProjectCards({ ideas }: { ideas: ProjectIdea[] }) {
   return (
-    <div className="my-3 space-y-2">
+    <div className="my-4 space-y-4">
       {ideas.map((idea, idx) => (
         <div
           key={`${idea.title}-${idx}`}
-          className="rounded-xl border border-zinc-700/70 bg-zinc-950/90 p-3"
+          className="rounded-none border-3 border-[#120f0a] bg-white p-4 text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a]"
         >
-          <div className="flex items-center justify-between gap-2">
-            <p className="text-sm font-semibold text-white">{idea.title}</p>
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <p className="text-sm font-black uppercase tracking-tight text-[#120f0a]">{idea.title}</p>
             {idea.difficulty && (
-              <span className="text-[10px] uppercase tracking-wide rounded-full border border-zinc-700/70 bg-zinc-900/80 px-2 py-0.5 text-zinc-300">
+              <span className="text-[9px] font-mono font-bold uppercase tracking-wider rounded-none border-2 border-[#120f0a] bg-[#fee9cf] px-2 py-0.5 text-[#120f0a]">
                 {idea.difficulty}
               </span>
             )}
           </div>
-          <p className="mt-1 text-xs text-zinc-300">{idea.description}</p>
+          <p className="mt-2 text-xs font-semibold text-[#413f3b] leading-relaxed">{idea.description}</p>
           {Array.isArray(idea.tech_stack) && idea.tech_stack.length > 0 && (
-            <p className="mt-2 text-[11px] text-zinc-400">
+            <p className="mt-3 text-[10px] font-mono font-bold uppercase tracking-wider text-[#97192c]">
               Stack: {idea.tech_stack.join(" • ")}
             </p>
           )}
           {idea.why_it_fits_theme && (
-            <p className="mt-2 text-[11px] text-emerald-300">
+            <p className="mt-2 text-xs font-bold text-emerald-600 bg-emerald-50 border-2 border-emerald-500 rounded-none px-2.5 py-1.5 inline-block">
               Theme fit: {idea.why_it_fits_theme}
             </p>
           )}
@@ -639,7 +641,7 @@ export function QnAChatInterface() {
                   className={`w-fit max-w-[90%] sm:max-w-[85%] md:max-w-[75%] rounded-none px-5 py-3.5 text-[0.95rem] leading-relaxed border-2 border-[#120f0a] shadow-[3px_3px_0px_0px_#120f0a] break-words ${
                     m.role === "user"
                       ? "bg-[#97192c] text-white"
-                      : "bg-[#eae8e4] text-[#120f0a] prose prose-p:my-2 prose-headings:my-3 prose-ul:my-2 prose-li:my-1 max-w-none font-semibold"
+                      : "bg-[#eae8e4] text-[#120f0a] prose prose-p:my-2 prose-headings:my-3 prose-headings:text-[#120f0a] prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight prose-strong:text-[#120f0a] prose-strong:font-black prose-ul:my-2 prose-li:my-1 max-w-none font-semibold"
                   }`}
                 >
                   {m.role === "user" ? (
@@ -655,33 +657,23 @@ export function QnAChatInterface() {
                             : String(children);
                           if (text.includes("%%GENERATE_LOADER%%")) {
                             return (
-                              <div className="relative overflow-hidden rounded-xl bg-zinc-800/80 w-full aspect-video border border-zinc-700/50 flex items-center justify-center p-4 my-2">
-                                <div
-                                  className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-[#e45a92]/20 to-transparent animate-[scan_2s_ease-in-out_infinite]"
-                                  style={{ animationName: "scan" }}
-                                />
-                                <style>{`
-                                                        @keyframes scan {
-                                                          0% { transform: translateX(-100%); }
-                                                          100% { transform: translateX(50%); }
-                                                        }
-                                                      `}</style>
+                              <div className="relative overflow-hidden rounded-none bg-white w-full aspect-video border-3 border-[#120f0a] flex items-center justify-center p-4 my-2 shadow-[4px_4px_0px_0px_#120f0a]">
                                 <div className="flex flex-col items-center gap-3 relative z-10">
                                   <div className="flex gap-1.5 justify-center">
                                     <div
-                                      className="h-2 w-2 rounded-full bg-[var(--brand-pink)] animate-bounce"
+                                      className="h-2.5 w-2.5 rounded-none bg-[#97192c] border border-[#120f0a] animate-bounce"
                                       style={{ animationDelay: "0ms" }}
                                     />
                                     <div
-                                      className="h-2 w-2 rounded-full bg-[var(--brand-pink)] animate-bounce"
+                                      className="h-2.5 w-2.5 rounded-none bg-[#fc920d] border border-[#120f0a] animate-bounce"
                                       style={{ animationDelay: "150ms" }}
                                     />
                                     <div
-                                      className="h-2 w-2 rounded-full bg-[var(--brand-pink)] animate-bounce"
+                                      className="h-2.5 w-2.5 rounded-none bg-[#97192c] border border-[#120f0a] animate-bounce"
                                       style={{ animationDelay: "300ms" }}
                                     />
                                   </div>
-                                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--brand-pink)] animate-pulse shadow-black drop-shadow-md">
+                                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] animate-pulse">
                                     Synthesizing Pixels
                                   </span>
                                 </div>
@@ -694,7 +686,7 @@ export function QnAChatInterface() {
                           <img
                             src={src}
                             alt={alt}
-                            className="rounded-xl border border-zinc-700/50 shadow-lg shadow-black/20 w-full object-cover my-2 hover:scale-[1.02] transition-transform duration-300"
+                            className="rounded-none border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] w-full object-cover my-3 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_0px_#120f0a] active:translate-x-0 active:translate-y-0 active:shadow-none transition-all duration-150"
                           />
                         ),
                         a: ({ href, title, children, ...props }) => {
@@ -732,7 +724,7 @@ export function QnAChatInterface() {
                             return (
                               <a
                                 href={href}
-                                className="text-[#e45a92] font-medium hover:underline underline-offset-4"
+                                className="text-[#97192c] hover:text-[#fc920d] font-black underline decoration-2 underline-offset-2 transition-colors"
                                 {...props}
                               >
                                 {children}
@@ -749,17 +741,17 @@ export function QnAChatInterface() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Open venue on Google Maps"
-                                className="mt-4 mb-2 flex flex-col gap-2 rounded-2xl border border-zinc-700/50 bg-zinc-900/50 p-4 transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.01] active:scale-[0.98] hover:bg-zinc-800/80 hover:border-emerald-500/50 group no-underline"
+                                className="mt-4 mb-2 flex flex-col gap-2 rounded-none border-3 border-[#120f0a] bg-white p-4 shadow-[4px_4px_0px_0px_#120f0a] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none group no-underline text-[#120f0a]"
                               >
                                 <div className="flex items-center gap-3">
-                                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors">
-                                    <MapPin className="h-5 w-5 text-emerald-400" />
+                                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-none border-2 border-[#120f0a] bg-[#fee9cf] text-[#120f0a]">
+                                    <MapPin className="h-5 w-5" />
                                   </div>
                                   <div>
-                                    <h4 className="font-semibold text-zinc-100 m-0">
+                                    <h4 className="font-black uppercase tracking-tight text-sm m-0">
                                       View Venue on Map
                                     </h4>
-                                    <p className="text-xs text-zinc-400 m-0 mt-0.5 group-hover:text-zinc-300 transition-colors">
+                                    <p className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#97192c] m-0 mt-0.5">
                                       Opens in Google Maps
                                     </p>
                                   </div>
@@ -770,7 +762,7 @@ export function QnAChatInterface() {
                           return (
                             <a
                               href={href}
-                              className="text-emerald-400 hover:text-emerald-300 font-medium hover:underline underline-offset-4"
+                              className="text-[#97192c] hover:text-[#fc920d] font-black underline decoration-2 underline-offset-2 transition-colors"
                               target="_blank"
                               rel="noreferrer"
                               {...props}
@@ -791,8 +783,8 @@ export function QnAChatInterface() {
                           if (isDiscordWidget) {
                             const serverId = String(children).trim();
                             return (
-                              <div className="my-4 rounded-2xl overflow-hidden border border-[#5865F2]/30 bg-zinc-900/60">
-                                <div className="flex items-center gap-2 px-4 py-2.5 bg-[#5865F2]/10 border-b border-[#5865F2]/20">
+                              <div className="my-4 rounded-none overflow-hidden border-3 border-[#120f0a] bg-white shadow-[4px_4px_0px_0px_#120f0a]">
+                                <div className="flex items-center gap-2 px-4 py-2.5 bg-[#5865F2]/10 border-b-3 border-[#120f0a]">
                                   <svg
                                     className="w-4 h-4 text-[#5865F2]"
                                     viewBox="0 0 24 24"
@@ -800,7 +792,7 @@ export function QnAChatInterface() {
                                   >
                                     <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.001.022.015.04.034.048a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z" />
                                   </svg>
-                                  <span className="text-sm font-semibold text-[#5865F2]">
+                                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#5865F2]">
                                     India Innovates · Discord
                                   </span>
                                 </div>
@@ -821,7 +813,7 @@ export function QnAChatInterface() {
                               const data = safeJsonParse<any[]>(rawData, "generic", []);
                               if (Array.isArray(data) && data.length > 0) {
                                 return (
-                                  <div className="my-6 h-64 w-full rounded-2xl bg-zinc-950 p-4 border border-zinc-800 px-2 sm:px-4">
+                                  <div className="my-6 h-64 w-full rounded-none bg-white p-4 border-3 border-[#120f0a] px-2 sm:px-4 shadow-[4px_4px_0px_0px_#120f0a]">
                                     <ResponsiveContainer
                                       width="100%"
                                       height="100%"
@@ -840,25 +832,30 @@ export function QnAChatInterface() {
                                           fontSize={12}
                                           tickLine={false}
                                           axisLine={false}
-                                          stroke="#a1a1aa"
+                                          stroke="#120f0a"
                                         />
                                         <Tooltip
                                           cursor={{
-                                            fill: "#27272a",
-                                            opacity: 0.4,
+                                            fill: "#eae8e4",
+                                            opacity: 0.5,
                                           }}
                                           contentStyle={{
-                                            backgroundColor: "#18181b",
-                                            border: "1px solid #3f3f46",
-                                            borderRadius: "8px",
-                                            color: "#f4f4f5",
+                                            backgroundColor: "white",
+                                            border: "2px solid #120f0a",
+                                            borderRadius: "0px",
+                                            color: "#120f0a",
+                                            fontFamily: "monospace",
+                                            fontSize: "11px",
+                                            fontWeight: "bold",
+                                            boxShadow: "2px 2px 0px 0px #120f0a",
                                           }}
-                                          itemStyle={{ color: "#e45a92" }}
+                                          itemStyle={{ color: "#97192c" }}
                                         />
                                         <Bar
                                           dataKey="value"
-                                          fill="#e45a92"
-                                          radius={[6, 6, 0, 0]}
+                                          fill="#fc920d"
+                                          stroke="#120f0a"
+                                          strokeWidth={2}
                                           maxBarSize={50}
                                         />
                                       </BarChart>
@@ -868,7 +865,7 @@ export function QnAChatInterface() {
                               }
                             } catch (e) {
                               return (
-                                <div className="my-2 p-3 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 text-sm">
+                                <div className="my-2 p-3 rounded-none bg-red-100 border-2 border-red-500 text-red-700 text-sm font-bold font-mono">
                                   Error visualizing chart data
                                 </div>
                               );
@@ -889,7 +886,7 @@ export function QnAChatInterface() {
                               console.error("Failed to parse countdown data", e);
                             }
                             return (
-                              <div className="my-2 p-3 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 text-sm">
+                              <div className="my-2 p-3 rounded-none bg-red-100 border-2 border-red-500 text-red-700 text-sm font-bold font-mono">
                                 Error visualizing countdown data
                               </div>
                             );
@@ -912,7 +909,7 @@ export function QnAChatInterface() {
                               );
                             }
                             return (
-                              <div className="my-2 p-3 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 text-sm">
+                              <div className="my-2 p-3 rounded-none bg-red-100 border-2 border-red-500 text-red-700 text-sm font-bold font-mono">
                                 Error visualizing member card data
                               </div>
                             );
@@ -940,7 +937,7 @@ export function QnAChatInterface() {
                               );
                             }
                             return (
-                              <div className="my-2 p-3 rounded-lg bg-red-950/40 border border-red-900/60 text-red-400 text-sm">
+                              <div className="my-2 p-3 rounded-none bg-red-100 border-2 border-red-500 text-red-700 text-sm font-bold font-mono">
                                 Error visualizing project card data
                               </div>
                             );
@@ -951,8 +948,8 @@ export function QnAChatInterface() {
                             <code
                               className={`${
                                 isInline
-                                  ? "rounded-md bg-zinc-800/80 px-1.5 py-0.5 text-[0.85em] font-medium"
-                                  : "block rounded-2xl bg-[#0d0d0f] p-4 text-[0.85em] overflow-x-auto border border-zinc-800 text-zinc-300 my-4 shadow-inner custom-scrollbar"
+                                  ? "rounded-none bg-white border border-[#120f0a] px-1.5 py-0.5 text-[0.85em] font-mono font-bold text-[#97192c]"
+                                  : "block rounded-none bg-[#120f0a] p-4 text-[0.85em] overflow-x-auto border-2 border-[#120f0a] text-white my-4 shadow-none custom-scrollbar font-mono"
                               } ${className || ""}`}
                               {...props}
                             >

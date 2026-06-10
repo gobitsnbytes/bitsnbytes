@@ -17,7 +17,7 @@ const strategicPartners = [
       "One Awesome API for everything AI. Route to OpenAI, Anthropic, Google & 14+ LLM providers.",
     features: ["Universal Router", "Multi-model", "Fast Inference"],
     color: "blue",
-    icon: <Cpu className="w-5 h-5 text-[#120f0a]" />,
+    icon: <Cpu className="w-5 h-5 text-foreground" />,
     logoWrapClass: "w-36",
     logoImageClass: "scale-[0.98]",
   },
@@ -30,7 +30,7 @@ const strategicPartners = [
       "Supporting scientific research and early-career researchers through fellowships.",
     features: ["Research Hub", "Fellowships", "Open Science"],
     color: "purple",
-    icon: <Sparkles className="w-5 h-5 text-[#120f0a]" />,
+    icon: <Sparkles className="w-5 h-5 text-foreground" />,
     logoWrapClass: "w-32",
     logoImageClass: "scale-105",
   },
@@ -43,7 +43,7 @@ const strategicPartners = [
       "Chat experiences and language model integrations for developers.",
     features: ["Neural Chat", "LLM Native", "Agentic IC"],
     color: "pink",
-    icon: <Zap className="w-5 h-5 text-[#120f0a]" />,
+    icon: <Zap className="w-5 h-5 text-foreground" />,
     logoWrapClass: "w-24",
     logoImageClass: "scale-[1.08]",
   },
@@ -59,7 +59,7 @@ const strategicPartners = [
       "A DevSecOps platform for planning, coding, securing, and shipping software.",
     features: ["CI/CD Pipelines", "DevSecOps", "Open Source"],
     color: "purple",
-    icon: <GitBranch className="w-5 h-5 text-[#120f0a]" />,
+    icon: <GitBranch className="w-5 h-5 text-foreground" />,
     logoWrapClass: "w-28",
     logoImageClass: "scale-[1.04]",
   },
@@ -78,7 +78,7 @@ export function Partners() {
         {strategicPartners.map((partner) => (
           <div
             key={partner.name}
-            className="bg-white border-4 border-[#120f0a] shadow-[6px_6px_0px_0px_#120f0a] p-8 flex flex-col min-h-[500px] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_#120f0a] duration-200"
+            className="bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] p-8 flex flex-col min-h-[500px] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_var(--border)] duration-200 text-card-foreground"
           >
             <div className="mb-6 h-12 relative flex items-center">
               <div className={`h-12 relative ${partner.logoWrapClass ?? "w-40"}`}>
@@ -88,13 +88,13 @@ export function Partners() {
                       src={partner.logo}
                       alt={partner.name}
                       fill
-                      className={`hidden sm:block object-contain object-left ${partner.logoImageClass ?? ""}`}
+                      className={`hidden sm:block object-contain object-left dark:brightness-125 dark:contrast-125 ${partner.logoImageClass ?? ""}`}
                     />
                     <Image
                       src={partner.mobileLogo}
                       alt={partner.name}
                       fill
-                      className={`sm:hidden object-contain object-left ${partner.logoImageClass ?? ""}`}
+                      className={`sm:hidden object-contain object-left dark:brightness-125 dark:contrast-125 ${partner.logoImageClass ?? ""}`}
                     />
                   </>
                 ) : (
@@ -102,21 +102,21 @@ export function Partners() {
                     src={partner.logo}
                     alt={partner.name}
                     fill
-                    className={`object-contain object-left ${partner.logoImageClass ?? ""}`}
+                    className={`object-contain object-left dark:brightness-125 dark:contrast-125 ${partner.logoImageClass ?? ""}`}
                   />
                 )}
               </div>
             </div>
 
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#97192c]">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary dark:text-accent">
               {partner.role}
             </p>
 
-            <h3 className="text-3xl font-black text-[#120f0a] tracking-tight mt-2 min-h-[72px] leading-[1.05] uppercase">
+            <h3 className="text-2xl sm:text-[28px] lg:text-[22px] xl:text-3xl font-black text-foreground tracking-tight mt-2 min-h-[60px] lg:min-h-[66px] leading-[1.05] uppercase">
               {partner.name}
             </h3>
 
-            <p className="text-sm text-[#413f3b] leading-relaxed font-semibold min-h-[120px] line-clamp-6">
+            <p className="text-sm text-foreground/80 leading-relaxed font-semibold min-h-[120px] line-clamp-6">
               {partner.description}
             </p>
 
@@ -124,7 +124,7 @@ export function Partners() {
               {partner.features.map((feat) => (
                 <span
                   key={feat}
-                  className="text-[10px] px-2.5 py-1 border-2 border-[#120f0a] bg-[#fee9cf] text-[#120f0a] font-mono font-bold uppercase tracking-wider"
+                  className="text-[10px] px-2.5 py-1 border-2 border-border bg-secondary text-secondary-foreground font-mono font-bold uppercase tracking-wider"
                 >
                   {feat}
                 </span>
@@ -137,7 +137,7 @@ export function Partners() {
                   href={partner.learnMoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-mono font-black uppercase tracking-wider text-[#97192c] hover:underline"
+                  className="text-xs font-mono font-black uppercase tracking-wider text-primary dark:text-accent hover:underline"
                 >
                   {partner.learnMoreLabel}
                 </Link>
@@ -151,11 +151,11 @@ export function Partners() {
               )}
             </div>
 
-            <div className="flex justify-between items-center mt-auto pt-6 border-t-2 border-[#120f0a]/10">
+            <div className="flex justify-between items-center mt-auto pt-6 border-t-2 border-border/15">
               <Button
                 variant="outline"
                 size="sm"
-                className="min-w-[150px] h-11 justify-center rounded-none border-2 border-[#120f0a] bg-white text-[#120f0a] font-black uppercase tracking-wider shadow-[3px_3px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#120f0a] hover:bg-[#fc920d] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+                className="min-w-[150px] h-11 justify-center rounded-none border-2 border-border bg-card text-foreground font-black uppercase tracking-wider shadow-[3px_3px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_var(--border)] hover:bg-[#fc920d] hover:text-[#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
                 asChild
               >
                 <Link
@@ -167,7 +167,7 @@ export function Partners() {
                   <Globe className="w-3.5 h-3.5 ml-2" />
                 </Link>
               </Button>
-              <div className="p-2.5 border-2 border-[#120f0a] bg-[#fee9cf] text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]">
+              <div className="p-2.5 border-2 border-border bg-secondary text-secondary-foreground shadow-[2px_2px_0px_0px_var(--border)]">
                 {partner.icon}
               </div>
             </div>

@@ -47,17 +47,17 @@ export function PageSection({
           )}
         >
           {eyebrow && (
-            <span className="section-eyebrow text-[0.6rem] sm:text-[0.7rem] px-3 sm:px-4">
+            <span className="inline-flex items-center justify-center border-2 border-[#120f0a] bg-[#fee9cf] text-[#97192c] text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest px-3 py-1.5 shadow-[2px_2px_0px_0px_#120f0a] mb-2">
               {eyebrow}
             </span>
           )}
           {title && (
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+            <h2 className="font-sans text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-[#120f0a]">
               {title}
             </h2>
           )}
           {description && (
-            <p className="max-w-3xl text-sm sm:text-base md:text-lg text-foreground/90 font-medium px-2 sm:px-0">
+            <p className="max-w-3xl text-sm sm:text-base md:text-lg text-[#413f3b] font-bold px-2 sm:px-0 mt-1">
               {description}
             </p>
           )}

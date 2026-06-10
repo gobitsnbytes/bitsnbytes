@@ -458,7 +458,7 @@ export default function About() {
               </div>
               
               {/* Grouped by Section */}
-              <div className="space-y-8">
+              <div className="grid gap-6 md:grid-cols-2">
                 {["Operations", "Outreach", "Creative", "Tech"].map((trackName) => {
                   const trackVolunteers = volunteers.filter(v => v.section === trackName);
                   if (trackVolunteers.length === 0) return null;

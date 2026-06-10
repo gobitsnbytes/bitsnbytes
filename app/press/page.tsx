@@ -159,7 +159,7 @@ export default function PressKit() {
                 {/* SVG Logo */}
                 <div className="border-3 border-[#120f0a] rounded-none p-6 bg-[#fee9cf]/20 flex flex-col items-center justify-between gap-6 shadow-[4px_4px_0px_0px_#120f0a]">
                   <div className="relative flex h-32 w-32 items-center justify-center border-3 border-[#120f0a] bg-white shadow-inner rounded-none">
-                    <Image src={logoSvg} alt="bits&bytes logo SVG" fill className="p-4 object-contain -translate-y-[5px]" />
+                    <Image src={logoSvg} alt="bits&bytes logo SVG" fill className="p-4 object-contain -translate-y-[5px] invert" />
                   </div>
                   <div className="text-center w-full relative">
                     <h3 className="font-black text-[#120f0a] text-lg uppercase tracking-tight">Vector SVG Logo</h3>
@@ -178,7 +178,7 @@ export default function PressKit() {
                 {/* PNG Logo */}
                 <div className="border-3 border-[#120f0a] rounded-none p-6 bg-[#fee9cf]/20 flex flex-col items-center justify-between gap-6 shadow-[4px_4px_0px_0px_#120f0a]">
                   <div className="relative flex h-32 w-32 items-center justify-center border-3 border-[#120f0a] bg-white shadow-inner rounded-none">
-                    <Image src="/logo.png" alt="bits&bytes logo PNG" fill className="p-4 object-contain -translate-y-[5px]" />
+                    <Image src="/logo.png" alt="bits&bytes logo PNG" fill className="p-4 object-contain -translate-y-[5px] invert" />
                   </div>
                   <div className="text-center w-full relative">
                     <h3 className="font-black text-[#120f0a] text-lg uppercase tracking-tight">Raster PNG Logo</h3>
