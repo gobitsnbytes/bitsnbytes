@@ -734,3 +734,114 @@
         }
     }
 }
+
+/* ==========================================
+   DARK THEME SEMANTIC OVERRIDES FOR NEOBRUTALISM
+   This section overrides hardcoded light-mode values 
+   specifically when the .dark class is applied to html.
+   ========================================== */
+.dark {
+    /* Hardcoded background colors */
+    .bg-\[\#eae8e4\],
+    div.bg-\[\#eae8e4\] {
+        background-color: var(--background) !important;
+    }
+    
+    .bg-white:not(.static-white) {
+        background-color: var(--card) !important;
+    }
+    
+    .bg-\[\#f7f1ec\] {
+        background-color: color-mix(in srgb, var(--primary) 8%, var(--card)) !important;
+    }
+    
+    /* Hardcoded text colors */
+    .text-\[\#120f0a\],
+    span.text-\[\#120f0a\],
+    p.text-\[\#120f0a\],
+    a.text-\[\#120f0a\],
+    h1.text-\[\#120f0a\],
+    h2.text-\[\#120f0a\],
+    h3.text-\[\#120f0a\] {
+        color: var(--foreground) !important;
+    }
+    
+    .text-\[\#413f3b\] {
+        color: var(--muted-foreground) !important;
+    }
+    
+    .text-\[\#716f6c\] {
+        color: var(--muted-foreground) !important;
+        opacity: 0.8;
+    }
+    
+    /* Hardcoded brand burgundy text */
+    .text-\[\#97192c\],
+    span.text-\[\#97192c\],
+    p.text-\[\#97192c\],
+    h2.text-\[\#97192c\] {
+        color: var(--accent) !important; /* soft orange brand accent */
+    }
+    
+    /* Hardcoded borders */
+    .border-\[\#120f0a\],
+    .border-2.border-\[\#120f0a\],
+    .border-3.border-\[\#120f0a\],
+    .border-4.border-\[\#120f0a\] {
+        border-color: var(--border) !important;
+    }
+    .border-t-\[\#120f0a\], .border-t-4.border-\[\#120f0a\] {
+        border-top-color: var(--border) !important;
+    }
+    .border-b-\[\#120f0a\], .border-b-4.border-\[\#120f0a\] {
+        border-bottom-color: var(--border) !important;
+    }
+    .border-l-\[\#120f0a\], .border-l-4.border-\[\#120f0a\] {
+        border-left-color: var(--border) !important;
+    }
+    .border-r-\[\#120f0a\], .border-r-4.border-\[\#120f0a\] {
+        border-right-color: var(--border) !important;
+    }
+    .border-\[\#120f0a\]\/15 {
+        border-color: rgba(254, 233, 207, 0.15) !important;
+    }
+    
+    /* Hardcoded neobrutalist shadows */
+    .shadow-\[2px_2px_0px_0px_\#120f0a\],
+    .group:hover .shadow-\[2px_2px_0px_0px_\#120f0a\] {
+        box-shadow: 2px 2px 0px 0px var(--border) !important;
+    }
+    .shadow-\[3px_3px_0px_0px_\#120f0a\],
+    .hover\:shadow-\[3px_3px_0px_0px_\#120f0a\]:hover,
+    .group:hover .shadow-\[3px_3px_0px_0px_\#120f0a\] {
+        box-shadow: 3px 3px 0px 0px var(--border) !important;
+    }
+    .shadow-\[4px_4px_0px_0px_\#120f0a\],
+    .hover\:shadow-\[4px_4px_0px_0px_\#120f0a\]:hover,
+    .group:hover .shadow-\[4px_4px_0px_0px_\#120f0a\] {
+        box-shadow: 4px 4px 0px 0px var(--border) !important;
+    }
+    .shadow-\[6px_6px_0px_0px_\#120f0a\] {
+        box-shadow: 6px 6px 0px 0px var(--border) !important;
+    }
+    .shadow-\[8px_8px_0px_0px_\#120f0a\],
+    .hover\:shadow-\[8px_8px_0px_0px_\#120f0a\]:hover,
+    .group:hover .shadow-\[8px_8px_0px_0px_\#120f0a\] {
+        box-shadow: 8px 8px 0px 0px var(--border) !important;
+    }
+    
+    /* Neobrutalist background card tints */
+    .bg-\[\#fee9cf\] {
+        background-color: color-mix(in srgb, var(--accent) 15%, var(--card)) !important;
+        color: var(--foreground) !important;
+    }
+    .bg-\[\#f4d9d1\] {
+        background-color: color-mix(in srgb, var(--primary) 15%, var(--card)) !important;
+        color: var(--foreground) !important;
+    }
+    
+    /* Subtler decorative text tints */
+    .text-\[\#413f3b\] {
+        color: var(--muted-foreground) !important;
+    }
+}
