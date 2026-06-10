@@ -74,11 +74,11 @@ export function Partners() {
       align="center"
       className="pb-24 relative overflow-hidden"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-4 max-w-7xl mx-auto px-4 relative z-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mt-4 max-w-7xl mx-auto px-4 relative z-10">
         {strategicPartners.map((partner) => (
           <div
             key={partner.name}
-            className="bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] p-8 flex flex-col min-h-[500px] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_var(--border)] duration-200 text-card-foreground"
+            className="bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] p-6 sm:p-8 flex flex-col min-h-[420px] sm:min-h-[500px] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_var(--border)] duration-200 text-card-foreground"
           >
             <div className="mb-6 h-12 relative flex items-center">
               <div className={`h-12 relative ${partner.logoWrapClass ?? "w-40"}`}>
