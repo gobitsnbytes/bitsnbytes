@@ -124,9 +124,14 @@ async function run() {
   }
   console.log("Upstash Vector Index cleared successfully.")
 
+  const rootDir = process.cwd()
+  const mdFiles = fs.readdirSync(rootDir).filter(f => f.endsWith(".md"))
+  const publicDir = path.join(rootDir, "public")
+  const txtFiles = fs.existsSync(publicDir) ? fs.readdirSync(publicDir).filter(f => f.endsWith(".txt")) : []
+
   const filePaths = [
-    { absPath: path.resolve(process.cwd(), "public/llms.txt"), endpoint: "/llms.txt" },
-    { absPath: path.resolve(process.cwd(), "AGENTS.md"), endpoint: "/AGENTS.md" }
+    ...mdFiles.map(f => ({ absPath: path.resolve(rootDir, f), endpoint: `/${f}` })),
+    ...txtFiles.map(f => ({ absPath: path.resolve(publicDir, f), endpoint: `/${f}` }))
   ]
 
   let siteContent: SiteChunk[] = []

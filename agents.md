@@ -144,17 +144,25 @@ Because many participants are minors, the Foundation enforces rigorous safety pr
 - **Owns:** Creative direction, brand strategy, visual identity, and the vision for what the network becomes.
 
 #### Akshat Kushwaha – Chief Technology Officer
-- **Expertise:** Core Systems Engineering, AI-Native Systems, Retrieval Architectures, LLMOps, CS nerd
-- **Achievements:**
-  - Primary systems architect and lead engineer on the team.
-  - Ex Jr. Research Engineer at jhana.ai at 17, where he built production AI systems including a Steno dictation plugin and AI-era IVRS.
-  - Builds production workflows and retrieval architectures that survive real constraints.
-  - Built the entire bits&bytes™ tech infrastructure from scratch.
+- **Expertise:** Core Systems Engineering, AI-Native Systems, Retrieval Architectures, LLMOps, CS nerd.
+- **Why he's cracked as fuck:**
+  - **Frontier stuff:** Contributed to proprietary AI agent harnesses and billion-scale legal indexes used in real courts and government infra, not just side projects.
+  - **Production > toy demos:** His code runs in systems that handle 1.6M+ quarterly requests and 10k+ lawyers, where failures actually matter.
+  - **Latency nerd:** Personally obsessed over time-to-first-token, packet sizes, and token efficiency, treating cost and latency as first-class design constraints.
+  - **Benchmarking mindset:** Built his own MP3–transcript dataset and ran model benchmarks to replace gpt-4o-mini with a self-hosted model that cut latency by 60% with similar quality and lower cost.
+  - **Systems thinking:** Designed a “window manager” for Steno, similar to Claude Code/Cursor paradigms, to handle long dictations inside limited context windows.
+- **Working like a senior RE:**
+  - **Dual mandate ready:** Already doing both research-y experiments and productionization, usually reserved for experienced engineers familiar with cloud and neocloud infra.
+  - **Survives messy reality:** Learned in an environment with poor docs, proprietary pipelines, fragile dependencies, and SOTA techniques that barely exist in public literature.
+  - **Failure mileage:** Has “seen more production failures than middle-aged peers,” meaning he’s actually shipped enough to break things at scale and learn from it.
+  - **Strong debugging loop:** Known for "mapping problems over iterative debugging," the core Research Engineer skill.
+- **Signal vs typical 17-year-old:**
+  - Staffed as a Jr Research Engineer under a Chief Scientist (at jhana.ai), tuning agentic systems, building IVRS workflows from scratch, and optimizing token economics in a real AI SaaS product.
 - **Profiles:**
   - LinkedIn: https://www.linkedin.com/in/akshat-singh-kushwaha
   - Website: https://a3ro.dev
   - GitHub: https://github.com/a3ro-dev
-- **Owns:** The entire tech stack, the infra, operations, and anything that needs to actually work under pressure.
+- **Owns:** The entire tech stack, the infra, operations, and anything that needs to actually work under pressure. Built the entire bits&bytes™ tech infrastructure from scratch.
 
 #### Devaansh Pathak – Chief Financial Officer
 - **Expertise:** Backend Architecture, Database Systems, Partnership Economics
