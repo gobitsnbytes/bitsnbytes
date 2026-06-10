@@ -885,7 +885,7 @@ export default function Events() {
 
                       <div className="border-t border-[#120f0a]/10 pt-6 space-y-4">
                         <p className="font-serif-brand text-base font-bold text-[#120f0a]">
-                          India Innovates 2026 is now archived. bits&bytes™ (GobitsnBytes) acted as the Official Executive Partner for the finale.
+                          India Innovates 2026 is now archived. bits&bytes™ acted as the Official Executive Partner for the finale.
                         </p>
                         <h3 className="text-lg font-black uppercase font-mono tracking-tight text-[#120f0a] pt-2">
                           Event Summary
