@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { Users, Award, ShieldAlert, Sparkles, Globe, ArrowUpRight } from "lucide-react";
 import { LoadingInline } from "@/components/loading-wrapper";
+import { cn } from "@/lib/utils";
 
 // IMPECCABLE_PREFLIGHT: context=pass product=pass command_reference=pass shape=not_required image_gate=skipped:using_css_styling_no_new_image_assets_needed mutation=open
 
