@@ -94,7 +94,7 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
       if (maskCtx) {
         maskCtx.fillStyle = "white";
         // Using Anton / bold sans-serif display font
-        maskCtx.font = `black ${fontWeight} ${fontSize * dpr}px "Anton", "Helvetica Now Display", "Helvetica Neue", Arial, sans-serif`;
+        maskCtx.font = `${fontWeight} ${fontSize * dpr}px "Anton", "Helvetica Now Display", "Helvetica Neue", Arial, sans-serif`;
         maskCtx.textAlign = "center";
         maskCtx.textBaseline = "middle";
         maskCtx.fillText(text, maskCanvas.width / 2, maskCanvas.height / 2);
