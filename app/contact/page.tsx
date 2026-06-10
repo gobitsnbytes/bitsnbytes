@@ -30,19 +30,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { GlassContainer } from "@/components/ui/glass-container";
 
-// Lazy load WebGL shader
-const WebGLShader = dynamic(
-  () =>
-    import("@/components/ui/web-gl-shader").then((mod) => ({
-      default: mod.WebGLShader,
-    })),
-  {
-    loading: () => (
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0908] via-[#2f0a13] to-[#8f2d0c]" />
-    ),
-    ssr: false,
-  },
-);
+
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -136,65 +124,20 @@ export default function Contact() {
   };
 
   return (
-    <div className="relative min-h-screen text-white overflow-hidden bg-background">
-      {/* Precision design engineering custom styles block */}
-      <style jsx global>{`
-        /* Gate hover rules with pointer query to avoid sticky states on mobile tap */
-        @media (hover: hover) and (pointer: fine) {
-          .btn-hover-effect:hover {
-            transform: translateY(-2px) scale(1.015);
-            background-color: var(--bb-pink) !important;
-            box-shadow: 0 0 45px rgba(228, 90, 146, 0.55);
-          }
-          .btn-hover-effect:hover .arrow-icon {
-            transform: translateX(3px);
-          }
-          .icon-hover-effect:hover {
-            transform: scale(1.1) rotate(6deg);
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-          }
-          .email-row-hover:hover {
-            background-color: rgba(255, 255, 255, 0.02);
-            border-color: rgba(228, 90, 146, 0.2);
-          }
-        }
-
-        /* Snappy press animations mimicking spring physics on click */
-        .active-press:active {
-          transform: translateY(0) scale(0.97) !important;
-          transition: transform 120ms cubic-bezier(0.23, 1, 0.32, 1) !important;
-        }
-
-        /* Explicit performance-optimized transitions. No transition-all */
-        .custom-transition {
-          transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1), 
-                      opacity 180ms cubic-bezier(0.23, 1, 0.32, 1), 
-                      border-color 180ms cubic-bezier(0.23, 1, 0.32, 1), 
-                      box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1),
-                      background-color 180ms cubic-bezier(0.23, 1, 0.32, 1),
-                      filter 180ms cubic-bezier(0.23, 1, 0.32, 1);
-        }
-      `}</style>
-
-      {/* Hero Section - Matching /impact and /press pages */}
-      <section className="relative min-h-[40vh] sm:min-h-[45vh] flex items-center justify-center overflow-hidden text-white pt-24 md:pt-32">
-        <WebGLShader />
+    <div className="relative min-h-screen text-[#120f0a] overflow-hidden bg-transparent">
+      {/* Hero Section - Neobrutalist Header */}
+      <section className="relative flex items-center justify-center overflow-hidden text-[#120f0a] pt-24 md:pt-32">
         <div className="relative z-10 w-full mx-auto max-w-5xl px-4 sm:px-6 py-8 sm:py-12">
-          <div className="px-6 py-8 sm:px-10 lg:px-16 text-center">
+          <div className="px-6 py-8 text-center">
             <div className="flex flex-col items-center gap-6">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs uppercase tracking-[0.35em] font-semibold text-white/90 backdrop-blur-md shadow-inner">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--brand-pink)] opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--brand-pink)]" />
-                </span>
+              <span className="inline-flex items-center gap-2 border-2 border-[#120f0a] bg-[#fc920d] px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[3px_3px_0px_0px_#120f0a]">
                 Contact
               </span>
-              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl leading-tight font-black text-white tracking-tighter drop-shadow-2xl">
+              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#120f0a] uppercase tracking-tight leading-none">
                 Let&apos;s build something <br className="hidden sm:block" />{" "}
                 together
               </h1>
-              <p className="max-w-2xl text-white/80 text-sm sm:text-base md:text-lg font-medium leading-relaxed">
+              <p className="max-w-2xl text-[#413f3b] text-base sm:text-lg font-semibold leading-relaxed">
                 Partner with us on hackathons, workshops, or school programs across Lucknow.
               </p>
             </div>
@@ -207,17 +150,17 @@ export default function Contact() {
         <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
           
           {/* Dashboard Split Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch w-full">
             
             {/* Left Column: Connection Cards */}
             <div className="lg:col-span-5 flex flex-col gap-6 h-full justify-between">
               
               {/* Brand & Organization Identity Card */}
-              <GlassContainer className="p-6 md:p-8 flex flex-col gap-4" glowColor="pink">
+              <div className="bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-6 md:p-8 flex flex-col gap-4 text-[#120f0a] rounded-none">
                 <div className="flex items-center gap-4">
                   {/* Responsive interactive logo monogram based on SVG */}
-                  <div className="h-12 w-12 shrink-0 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-black/30">
-                    <svg viewBox="28 54 146 146" className="w-9 h-9 text-white fill-current" id="svg-logo" xmlns="http://www.w3.org/2000/svg">
+                  <div className="h-12 w-12 shrink-0 bg-[#fee9cf] rounded-none border-2 border-[#120f0a] flex items-center justify-center shadow-[2px_2px_0px_0px_#120f0a]">
+                    <svg viewBox="28 54 146 146" className="w-9 h-9 text-[#120f0a] fill-current" id="svg-logo" xmlns="http://www.w3.org/2000/svg">
                       <mask id="cube-mask">
                         <path fill="#ffffff" d="m 101.27586,64.293104 56.89655,32.810343 V 161.5862 L 101.46552,194.01724 44.568964,161.5862 44.75862,96.534482 Z" />
                         <path fill="#000000" d="m 49.025862,107.06034 v 51.58621 l 46.086207,25.69828 v -20.29311 l -7.681037,-4.36207 0.189656,11 L 56.61207,154 56.51724,142.52586 87.620688,159.68965 87.431032,149.5431 56.61207,133.0431 v -12.51724 l 31.008618,16.87931 -0.189656,12.42241 7.586208,4.07759 0.09483,-21.81034 z" />
@@ -229,44 +172,44 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-display text-lg font-black tracking-tight text-white">
+                    <h3 className="font-display text-lg font-black tracking-tight text-[#120f0a] uppercase">
                       bits&amp;bytes™
                     </h3>
-                    <span className="text-[10px] font-bold text-white/40 tracking-wider uppercase block">
+                    <span className="text-[10px] font-black text-[#716f6c] tracking-wider uppercase block">
                       GOBITSNBYTES FOUNDATION
                     </span>
-                    <span className="text-[9px] font-mono text-white/30 block mt-0.5">
+                    <span className="text-[9px] font-mono font-bold text-[#a09f9d] block mt-0.5">
                       CIN: U85500UP2026NPL248652
                     </span>
                   </div>
                 </div>
                 
-                <div className="h-px bg-white/10 w-full my-1" />
+                <div className="h-[2px] bg-[#120f0a]/10 w-full my-1" />
                 
-                <p className="text-sm text-white/80 leading-relaxed font-medium">
+                <p className="text-sm text-[#413f3b] leading-relaxed font-semibold">
                   bits&amp;bytes™ is an independent, student-led network helping ambitious teenagers build products and get their ideas out into the world. Taste, engineering standards, and high agency guide everything we ship.
                 </p>
-              </GlassContainer>
+              </div>
 
               {/* Direct Contact Info Card */}
-              <GlassContainer className="p-6 md:p-8" glowColor="none">
-                <h4 className="font-display text-xs font-black uppercase tracking-widest text-white/40 mb-5">
+              <div className="bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-6 md:p-8 text-[#120f0a] rounded-none">
+                <h4 className="font-display text-xs font-black uppercase tracking-widest text-[#97192c] mb-5">
                   Direct Channels
                 </h4>
                 
-                <div className="space-y-5">
+                <div className="space-y-6">
                   {/* Email Item */}
-                  <div className="group/item flex items-start gap-4 p-3 rounded-xl border border-transparent custom-transition email-row-hover">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-[var(--bb-pink)] shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center border-2 border-[#120f0a] bg-[#fee9cf] text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] rounded-none">
                       <Mail className="h-5 w-5" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+                      <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#716f6c]">
                         Email Address
                       </p>
                       <a
                         href="mailto:hello@gobitsnbytes.org"
-                        className="text-base font-black text-white hover:text-[var(--bb-pink)] transition-colors break-all mt-0.5 block"
+                        className="text-base font-black text-[#120f0a] hover:text-[#fc920d] transition-colors break-all mt-0.5 block"
                       >
                         hello@gobitsnbytes.org
                       </a>
@@ -275,7 +218,7 @@ export default function Contact() {
                       <div className="flex gap-3 mt-2">
                         <button
                           onClick={handleCopyEmail}
-                          className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-[var(--bb-pink)] hover:text-white transition-colors cursor-pointer active-press"
+                          className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-wider text-[#97192c] hover:text-[#fc920d] transition-colors cursor-pointer"
                         >
                           {isCopied ? (
                             <>
@@ -289,10 +232,10 @@ export default function Contact() {
                             </>
                           )}
                         </button>
-                        <span className="text-white/20 text-xs font-light">|</span>
+                        <span className="text-[#120f0a]/20 text-xs font-light">|</span>
                         <a
                           href="mailto:hello@gobitsnbytes.org"
-                          className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white transition-colors active-press"
+                          className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-wider text-[#97192c] hover:text-[#fc920d] transition-colors"
                         >
                           Send Email
                           <ExternalLink className="h-3 w-3" />
@@ -302,51 +245,51 @@ export default function Contact() {
                   </div>
 
                   {/* Location Item */}
-                  <div className="flex items-start gap-4 p-3 rounded-xl border border-transparent">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-[var(--brand-coral)] shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center border-2 border-[#120f0a] bg-[#fee9cf] text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] rounded-none">
                       <MapPin className="h-5 w-5" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+                      <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#716f6c]">
                         HQ Location
                       </p>
-                      <p className="text-base font-black text-white mt-0.5">
+                      <p className="text-base font-black text-[#120f0a] mt-0.5">
                         Lucknow, India
                       </p>
-                      <p className="text-xs font-medium text-white/60 mt-0.5">
+                      <p className="text-xs font-semibold text-[#413f3b] mt-0.5">
                         Fiduciary &amp; operational base in UP
                       </p>
                     </div>
                   </div>
 
                   {/* Timeline Item */}
-                  <div className="flex items-start gap-4 p-3 rounded-xl border border-transparent">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-[var(--brand-pink)] shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center border-2 border-[#120f0a] bg-[#fee9cf] text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] rounded-none">
                       <Clock className="h-5 w-5" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+                      <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#716f6c]">
                         Status
                       </p>
-                      <p className="text-base font-black text-white mt-0.5">
+                      <p className="text-base font-black text-[#120f0a] mt-0.5">
                         Teen-led since 2025
                       </p>
-                      <p className="text-xs font-medium text-white/60 mt-0.5">
+                      <p className="text-xs font-semibold text-[#413f3b] mt-0.5">
                         Independent student community
                       </p>
                     </div>
                   </div>
                 </div>
-              </GlassContainer>
+              </div>
 
               {/* Social Links Card */}
-              <GlassContainer className="p-5" glowColor="purple">
+              <div className="bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-5 text-[#120f0a] rounded-none">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
-                    <h4 className="font-display text-[10px] font-black uppercase tracking-widest text-white/40">
+                    <h4 className="font-display text-[10px] font-black uppercase tracking-widest text-[#716f6c]">
                       Follow the Builds
                     </h4>
-                    <p className="text-xs font-medium text-white/70 mt-0.5">
+                    <p className="text-xs font-semibold text-[#413f3b] mt-0.5">
                       Connect on our channels
                     </p>
                   </div>
@@ -357,19 +300,19 @@ export default function Contact() {
                         icon: Github,
                         label: "GitHub",
                         href: "https://github.com/gobitsnbytes",
-                        color: "hover:text-white hover:bg-white/10 hover:border-white/20",
+                        color: "hover:bg-[#fc920d]",
                       },
                       {
                         icon: Linkedin,
                         label: "LinkedIn",
                         href: "https://www.linkedin.com/company/gobitsbytes",
-                        color: "hover:text-[#0077b5] hover:bg-[#0077b5]/10 hover:border-[#0077b5]/20",
+                        color: "hover:bg-[#fc920d]",
                       },
                       {
                         icon: Instagram,
                         label: "Instagram",
                         href: "https://www.instagram.com/bitsnbytes.lko",
-                        color: "hover:text-[#e1306c] hover:bg-[#e1306c]/10 hover:border-[#e1306c]/20",
+                        color: "hover:bg-[#fc920d]",
                       },
                     ].map((social) => (
                       <a
@@ -377,11 +320,11 @@ export default function Contact() {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/btn active-press"
+                        className="group/btn"
                         aria-label={social.label}
                       >
                         <div className={cn(
-                          "flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white/70 custom-transition icon-hover-effect",
+                          "flex h-10 w-10 items-center justify-center border-2 border-[#120f0a] bg-white text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none rounded-none cursor-pointer",
                           social.color
                         )}>
                           <social.icon className="h-5 w-5" />
@@ -390,31 +333,31 @@ export default function Contact() {
                     ))}
                   </div>
                 </div>
-              </GlassContainer>
+              </div>
             </div>
 
             {/* Right Column: Contact Form */}
             <div className="lg:col-span-7 h-full">
               
               {/* Main Interactive Contact Container */}
-              <GlassContainer className="p-0 h-full overflow-hidden" glowColor="both">
+              <div className="bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] rounded-none p-0 h-full overflow-hidden text-[#120f0a]">
                 <AnimatePresence mode="wait">
                   {!isSuccess ? (
                     <motion.div
                       key="contact-form"
-                      initial={{ opacity: 0, scale: 0.96, filter: "blur(4px)" }}
-                      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, scale: 0.96, filter: "blur(4px)" }}
-                      transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-                      className="p-6 sm:p-8 md:p-10 flex flex-col justify-between h-full w-full"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="p-6 sm:p-8 md:p-10 flex flex-col justify-between h-full w-full bg-white"
                     >
                       <div>
                         <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                           <div>
-                            <h3 className="font-display text-2xl font-black text-white uppercase tracking-tight">
+                            <h3 className="font-display text-2xl font-black text-[#120f0a] uppercase tracking-tight">
                               Send Message
                             </h3>
-                            <p className="text-xs font-semibold text-white/50 tracking-wider mt-1 uppercase">
+                            <p className="text-xs font-black text-[#716f6c] tracking-widest mt-1 uppercase">
                               Reach the bits&amp;bytes™ crew
                             </p>
                           </div>
@@ -430,16 +373,16 @@ export default function Contact() {
                             <div className="space-y-2 w-full">
                               <Label
                                 htmlFor="name"
-                                className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/50"
+                                className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a]"
                               >
-                                <User className="h-3.5 w-3.5 text-[var(--brand-pink)]" />
+                                <User className="h-3.5 w-3.5 text-[#97192c]" />
                                 Name
                               </Label>
                               <Input
                                 id="name"
                                 name="name"
                                 placeholder="Your name"
-                                className="h-12 w-full bg-white/5 border-white/10 rounded-xl px-4 text-sm text-white placeholder:text-white/20 focus-visible:outline-none focus-visible:border-[var(--brand-pink)] focus-visible:ring-2 focus-visible:ring-[var(--brand-pink)]/20 focus-visible:shadow-[0_0_15px_rgba(228,90,146,0.15)] transition-all"
+                                className="h-12 w-full bg-white border-3 border-[#120f0a] rounded-none px-4 text-sm text-[#120f0a] placeholder:text-[#a09f9d] shadow-[2px_2px_0px_0px_#120f0a] focus-visible:bg-[#fee9cf] focus-visible:border-[#120f0a] focus-visible:ring-0 focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all font-semibold"
                                 required
                               />
                             </div>
@@ -447,9 +390,9 @@ export default function Contact() {
                             <div className="space-y-2 w-full">
                               <Label
                                 htmlFor="email"
-                                className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/50"
+                                className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a]"
                               >
-                                <Mail className="h-3.5 w-3.5 text-[var(--brand-pink)]" />
+                                <Mail className="h-3.5 w-3.5 text-[#97192c]" />
                                 Email
                               </Label>
                               <Input
@@ -457,7 +400,7 @@ export default function Contact() {
                                 name="email"
                                 type="email"
                                 placeholder="you@email.com"
-                                className="h-12 w-full bg-white/5 border-white/10 rounded-xl px-4 text-sm text-white placeholder:text-white/20 focus-visible:outline-none focus-visible:border-[var(--brand-pink)] focus-visible:ring-2 focus-visible:ring-[var(--brand-pink)]/20 focus-visible:shadow-[0_0_15px_rgba(228,90,146,0.15)] transition-all"
+                                className="h-12 w-full bg-white border-3 border-[#120f0a] rounded-none px-4 text-sm text-[#120f0a] placeholder:text-[#a09f9d] shadow-[2px_2px_0px_0px_#120f0a] focus-visible:bg-[#fee9cf] focus-visible:border-[#120f0a] focus-visible:ring-0 focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all font-semibold"
                                 required
                               />
                             </div>
@@ -467,16 +410,16 @@ export default function Contact() {
                           <div className="space-y-2 w-full">
                             <Label
                               htmlFor="subject"
-                              className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/50"
+                              className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a]"
                             >
-                              <FileText className="h-3.5 w-3.5 text-[var(--brand-pink)]" />
+                              <FileText className="h-3.5 w-3.5 text-[#97192c]" />
                               Subject
                             </Label>
                             <Input
                               id="subject"
                               name="subject"
                               placeholder="Reason for reaching out"
-                              className="h-12 w-full bg-white/5 border-white/10 rounded-xl px-4 text-sm text-white placeholder:text-white/20 focus-visible:outline-none focus-visible:border-[var(--brand-pink)] focus-visible:ring-2 focus-visible:ring-[var(--brand-pink)]/20 focus-visible:shadow-[0_0_15px_rgba(228,90,146,0.15)] transition-all"
+                              className="h-12 w-full bg-white border-3 border-[#120f0a] rounded-none px-4 text-sm text-[#120f0a] placeholder:text-[#a09f9d] shadow-[2px_2px_0px_0px_#120f0a] focus-visible:bg-[#fee9cf] focus-visible:border-[#120f0a] focus-visible:ring-0 focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] transition-all font-semibold"
                             />
                           </div>
                           
@@ -484,9 +427,9 @@ export default function Contact() {
                           <div className="space-y-2 w-full">
                             <Label
                               htmlFor="message"
-                              className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/50"
+                              className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a]"
                             >
-                              <MessageSquare className="h-3.5 w-3.5 text-[var(--brand-pink)]" />
+                              <MessageSquare className="h-3.5 w-3.5 text-[#97192c]" />
                               Message
                             </Label>
                             <Textarea
@@ -494,7 +437,7 @@ export default function Contact() {
                               name="message"
                               rows={4}
                               placeholder="Tell us what's on your mind..."
-                              className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-white placeholder:text-white/20 focus-visible:outline-none focus-visible:border-[var(--brand-pink)] focus-visible:ring-2 focus-visible:ring-[var(--brand-pink)]/20 focus-visible:shadow-[0_0_15px_rgba(228,90,146,0.15)] min-h-[110px] resize-none transition-all"
+                              className="w-full bg-white border-3 border-[#120f0a] rounded-none p-4 text-sm text-[#120f0a] placeholder:text-[#a09f9d] shadow-[2px_2px_0px_0px_#120f0a] focus-visible:bg-[#fee9cf] focus-visible:border-[#120f0a] focus-visible:ring-0 focus-visible:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] min-h-[110px] resize-none transition-all font-semibold"
                               required
                             />
                           </div>
@@ -507,7 +450,7 @@ export default function Contact() {
                                   ref={captchaRef}
                                   sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
                                   reCaptchaCompat={false}
-                                  theme="dark"
+                                  theme="light"
                                   onVerify={setCaptchaToken}
                                 />
                               )}
@@ -518,7 +461,7 @@ export default function Contact() {
                           <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="group w-full h-14 rounded-full bg-[var(--brand-pink)] text-white text-sm font-semibold tracking-wider transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border border-white/10 cursor-pointer active-press btn-hover-effect shadow-lg shadow-[rgba(151,25,44,0.35)] hover:scale-[1.02] active:scale-[0.97]"
+                            className="w-full h-14 rounded-none bg-[#97192c] text-white border-3 border-[#120f0a] text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer hover:bg-[#fc920d] hover:text-[#120f0a] flex items-center justify-center gap-2"
                           >
                             {isSubmitting ? (
                               <>
@@ -537,12 +480,12 @@ export default function Contact() {
                           <AnimatePresence>
                             {status && status.type === "error" && (
                               <motion.p
-                                initial={{ opacity: 0, height: 0, filter: "blur(4px)" }}
-                                animate={{ opacity: 1, height: "auto", filter: "blur(0px)" }}
-                                exit={{ opacity: 0, height: 0, filter: "blur(4px)" }}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
                                 role="alert"
                                 aria-live="polite"
-                                className="text-xs font-bold text-center p-3.5 rounded-xl overflow-hidden bg-red-500/10 text-red-400 border border-red-500/20"
+                                className="text-xs font-bold text-center p-3.5 rounded-none bg-red-50 border-2 border-red-500 text-red-600"
                               >
                                 {status.message}
                               </motion.p>
@@ -555,21 +498,21 @@ export default function Contact() {
                     /* Success Dashboard State - Adhering to Brand Colors */
                     <motion.div
                       key="success-state"
-                      initial={{ opacity: 0, scale: 0.96, filter: "blur(8px)" }}
-                      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, scale: 0.96, filter: "blur(8px)" }}
-                      transition={{ type: "spring", duration: 0.5, bounce: 0 }}
-                      className="p-8 sm:p-12 md:p-16 flex flex-col items-center justify-center text-center space-y-6 h-full w-full"
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.3 }}
+                      className="p-8 sm:p-12 md:p-16 flex flex-col items-center justify-center text-center space-y-6 h-full w-full bg-white"
                     >
-                      <div className="flex items-center justify-center h-20 w-20 rounded-full bg-[var(--brand-pink)]/10 border border-[var(--brand-pink)]/30 text-[var(--bb-pink)] shadow-[0_0_40px_rgba(151,25,44,0.3)] animate-pulse-glow">
+                      <div className="flex items-center justify-center h-20 w-20 border-3 border-[#120f0a] bg-[#fee9cf] text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] rounded-none">
                         <Check className="h-10 w-10" />
                       </div>
                       
                       <div className="space-y-3">
-                        <h3 className="font-display text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+                        <h3 className="font-display text-2xl sm:text-3xl font-black text-[#120f0a] uppercase tracking-tight">
                           Transmission Dispatched
                         </h3>
-                        <p className="text-sm sm:text-base text-white/70 max-w-sm mx-auto leading-relaxed font-medium">
+                        <p className="text-sm sm:text-base text-[#413f3b] max-w-sm mx-auto leading-relaxed font-semibold">
                           Your message has been beamed to the bits&amp;bytes™ crew. We&apos;ve logged the request, and we&apos;ll get back to you within 24-48 hours.
                         </p>
                       </div>
@@ -577,7 +520,7 @@ export default function Contact() {
                       <div className="pt-4">
                         <button
                           onClick={handleResetForm}
-                          className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[var(--brand-pink)]/20 bg-[var(--brand-pink)]/5 hover:bg-[var(--brand-pink)]/10 hover:border-[var(--brand-pink)]/30 text-xs font-bold uppercase tracking-widest text-[var(--bb-pink)] hover:text-white transition-all cursor-pointer active-press"
+                          className="inline-flex items-center gap-2 px-6 py-3 rounded-none border-2 border-[#120f0a] bg-white hover:bg-[#fc920d] text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none cursor-pointer"
                         >
                           Send another transmission
                         </button>
@@ -585,7 +528,7 @@ export default function Contact() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </GlassContainer>
+              </div>
             </div>
           </div>
         </div>
