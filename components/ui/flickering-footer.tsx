@@ -93,8 +93,12 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
       const maskCtx = maskCanvas.getContext("2d");
       if (maskCtx) {
         maskCtx.fillStyle = "white";
-        // Using Anton / bold sans-serif display font
-        maskCtx.font = `${fontWeight} ${fontSize * dpr}px "Anton", "Helvetica Now Display", "Helvetica Neue", Arial, sans-serif`;
+        // Using brand primary font Helvetica Now or Arial Black for clean readability in grid
+        maskCtx.font = `${fontWeight} ${fontSize * dpr}px "Helvetica Now", "Arial Black", -apple-system, sans-serif`;
+        // Apply letter spacing to prevent pixel overlap in low-res grid
+        if ("letterSpacing" in maskCtx) {
+          (maskCtx as any).letterSpacing = `${8 * dpr}px`;
+        }
         maskCtx.textAlign = "center";
         maskCtx.textBaseline = "middle";
         maskCtx.fillText(text, maskCanvas.width / 2, maskCanvas.height / 2);
@@ -492,7 +496,7 @@ export function FlickeringFooter() {
       <div className="w-full h-32 sm:h-44 md:h-56 relative mt-8 z-0 border-t-4 border-[#120f0a] bg-white overflow-hidden">
         <div className="absolute inset-0 mx-0">
           <FlickeringGrid
-            text="bits&bytes™"
+            text="bitsnbytes"
             fontSize={isMobile ? 55 : 95}
             className="absolute inset-0 h-full w-full bg-white"
             squareSize={isMobile ? 8 : 12}
