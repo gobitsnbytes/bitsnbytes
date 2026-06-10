@@ -95,15 +95,15 @@ export function MiniNavbar() {
     return (
         <header suppressHydrationWarning={true}
             className={cn(
-                "fixed top-6 z-50",
+                "fixed top-4 sm:top-6 z-50",
                 "flex flex-col items-center",
-                "px-5 py-2.5",
+                "px-4 sm:px-5 py-2.5",
                 "rounded-none",
                 "border-3 border-border",
                 "bg-background text-foreground",
                 "shadow-[4px_4px_0px_0px_var(--border)]",
                 // Positioning: fixed padding on mobile, centered on desktop
-                "left-4 right-4 md:left-1/2 md:right-auto md:w-auto",
+                "left-3 right-3 sm:left-4 sm:right-4 md:left-1/2 md:right-auto md:w-auto md:max-w-[calc(100vw-2rem)]",
                 "transform translate-x-0 md:-translate-x-1/2",
                 "transition-[border-radius,background-color,left,right,transform] duration-300 ease",
                 "will-change-transform"
