@@ -30,7 +30,7 @@ export function PageSection({
   return (
     <Component
       className={cn(
-        "section-shell py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-x-hidden",
+        "section-shell py-6 sm:py-10 md:py-14 px-4 sm:px-6 lg:px-8 overflow-x-hidden",
         bleed && "max-w-none px-0 sm:px-6",
         className,
       )}
