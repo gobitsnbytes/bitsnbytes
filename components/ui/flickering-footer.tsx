@@ -97,7 +97,7 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
         maskCtx.font = `${fontWeight} ${fontSize * dpr}px "Helvetica Now", "Arial Black", -apple-system, sans-serif`;
         // Apply letter spacing to prevent pixel overlap in low-res grid
         if ("letterSpacing" in maskCtx) {
-          (maskCtx as any).letterSpacing = `${8 * dpr}px`;
+          (maskCtx as any).letterSpacing = `${12 * dpr}px`;
         }
         maskCtx.textAlign = "center";
         maskCtx.textBaseline = "middle";
@@ -107,13 +107,27 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
 
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
-            const cx = Math.floor((i * (squareSize + gridGap) + squareSize / 2) * dpr);
-            const cy = Math.floor((j * (squareSize + gridGap) + squareSize / 2) * dpr);
-            if (cx >= 0 && cx < maskCanvas.width && cy >= 0 && cy < maskCanvas.height) {
-              const idx = (cy * maskCanvas.width + cx) * 4;
-              // If pixel is set (opaque alpha), mark it as part of text
-              hasTextGrid[i * rows + j] = maskData[idx + 3] > 60 ? 1 : 0;
+            const xStart = Math.floor(i * (squareSize + gridGap) * dpr);
+            const xEnd = Math.floor((i * (squareSize + gridGap) + squareSize) * dpr);
+            const yStart = Math.floor(j * (squareSize + gridGap) * dpr);
+            const yEnd = Math.floor((j * (squareSize + gridGap) + squareSize) * dpr);
+
+            let totalAlpha = 0;
+            let count = 0;
+
+            for (let x = xStart; x < xEnd; x++) {
+              for (let y = yStart; y < yEnd; y++) {
+                if (x >= 0 && x < maskCanvas.width && y >= 0 && y < maskCanvas.height) {
+                  const idx = (y * maskCanvas.width + x) * 4;
+                  totalAlpha += maskData[idx + 3];
+                  count++;
+                }
+              }
             }
+
+            const avgAlpha = count > 0 ? totalAlpha / count : 0;
+            // A cell is active if average alpha is above threshold
+            hasTextGrid[i * rows + j] = avgAlpha > 45 ? 1 : 0;
           }
         }
       }
@@ -496,7 +510,7 @@ export function FlickeringFooter() {
       <div className="w-full h-32 sm:h-44 md:h-56 relative mt-8 z-0 border-t-4 border-[#120f0a] bg-white overflow-hidden">
         <div className="absolute inset-0 mx-0">
           <FlickeringGrid
-            text="bitsnbytes"
+            text="BITS&BYTES"
             fontSize={isMobile ? 55 : 95}
             className="absolute inset-0 h-full w-full bg-white"
             squareSize={isMobile ? 8 : 12}
