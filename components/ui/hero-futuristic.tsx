@@ -102,7 +102,7 @@ export const HeroFuturistic = () => {
 
   return (
     <section
-      className="relative text-foreground w-full max-w-full py-8 md:py-12 overflow-hidden"
+      className="relative text-foreground w-full max-w-full pt-20 sm:pt-24 md:pt-28 pb-8 md:pb-12 overflow-hidden"
       aria-labelledby="home-hero-title"
     >
       <AnimatedGridPattern
@@ -115,10 +115,10 @@ export const HeroFuturistic = () => {
           "absolute inset-0 h-full w-full fill-[#120f0a]/5 stroke-[#120f0a]/5 dark:fill-[#fee9cf]/5 dark:stroke-[#fee9cf]/5"
         )}
       />
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-6 md:gap-8 lg:gap-10 px-4 pt-4 sm:px-6 lg:flex-row lg:items-stretch lg:gap-10 box-border">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-10 px-4 sm:px-6 lg:flex-row lg:items-stretch box-border">
         {/* Left content card */}
         <div className="flex-1 min-w-0">
-          <div className="h-full bg-card border-4 border-border shadow-[8px_8px_0px_0px_var(--border)] p-6 sm:p-8 md:p-10 flex flex-col gap-6 sm:gap-8">
+          <div className="h-full bg-card border-4 border-border shadow-[8px_8px_0px_0px_var(--border)] p-5 sm:p-8 md:p-10 flex flex-col gap-4 sm:gap-6 md:gap-8">
             <div className="flex flex-col h-full gap-6 sm:gap-8">
               {/* Teen-led badge */}
               <span className="inline-flex w-fit items-center gap-2 border-2 border-border bg-[#fc920d] px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[3px_3px_0px_0px_var(--border)]">
@@ -130,7 +130,7 @@ export const HeroFuturistic = () => {
               <div className="space-y-4">
                 <h1
                   id="home-hero-title"
-                  className="font-display text-4xl sm:text-5xl md:text-6xl font-black leading-none text-foreground tracking-tight uppercase"
+                  className="font-display text-[2.25rem] sm:text-5xl md:text-6xl xl:text-7xl font-black leading-none text-foreground tracking-tight uppercase"
                 >
                   India&apos;s{" "}
                   <LineShadowText className="italic" shadowColor={shadowColor}>
@@ -142,17 +142,17 @@ export const HeroFuturistic = () => {
                 <p className="text-xs sm:text-sm font-mono font-bold uppercase tracking-[0.2em] text-[#97192c] dark:text-[#fc920d]">
                   innovate. collaborate. hack.
                 </p>
-                <p className="text-sm sm:text-base md:text-lg text-foreground/80 max-w-xl leading-relaxed font-semibold">
+                <p className="text-sm sm:text-base md:text-lg xl:text-xl text-foreground/80 max-w-xl leading-relaxed font-semibold">
                   Hackathons, dev squads, and launches. Fully student-led, fully
                   independent. No adults in the room.
                 </p>
               </div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col gap-4 sm:flex-row w-full mt-2">
+              <div className="flex flex-col gap-3 sm:flex-row w-full mt-1 sm:mt-2">
                 <Button
                   asChild
-                  className="w-full sm:flex-1 h-14 rounded-none bg-[#97192c] text-sm font-black uppercase tracking-wider text-white border-3 border-border shadow-[4px_4px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+                  className="w-full sm:flex-1 h-12 sm:h-14 rounded-none bg-[#97192c] text-sm font-black uppercase tracking-wider text-white border-3 border-border shadow-[4px_4px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
                 >
                   <Link
                     href="/join"
@@ -164,7 +164,7 @@ export const HeroFuturistic = () => {
                 </Button>
                 <Button
                   variant="outline"
-                  className="w-full sm:flex-1 h-14 rounded-none bg-card text-sm font-black uppercase tracking-wider text-foreground border-3 border-border shadow-[4px_4px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+                  className="w-full sm:flex-1 h-12 sm:h-14 rounded-none bg-card text-sm font-black uppercase tracking-wider text-foreground border-3 border-border shadow-[4px_4px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
                   onClick={openMovie}
                   aria-haspopup="dialog"
                   aria-expanded={isMovieOpen}
@@ -177,8 +177,8 @@ export const HeroFuturistic = () => {
               </div>
 
               {/* Stats Grid */}
-              <div className="mt-auto border-t-4 border-border pt-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="mt-auto border-t-4 border-border pt-4 sm:pt-6">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                   {stats.map((stat, idx) => {
                     const isFork = stat.value === "5+ Forks";
                     return (
@@ -190,7 +190,7 @@ export const HeroFuturistic = () => {
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 * idx }}
                       >
-                        <p className="text-2xl sm:text-3xl font-black text-foreground leading-none uppercase">
+                        <p className="text-xl sm:text-2xl md:text-3xl font-black text-foreground leading-none uppercase">
                           {isFork ? (
                             <Link href="/fork" className="hover:text-[#fc920d] transition-colors underline decoration-border decoration-2">
                               5+ Forks
@@ -199,7 +199,7 @@ export const HeroFuturistic = () => {
                             stat.value
                           )}
                         </p>
-                        <p className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.1em] text-muted-foreground font-black mt-1.5">
+                        <p className="text-[9px] sm:text-[10px] md:text-[11px] font-mono uppercase tracking-[0.08em] sm:tracking-[0.1em] text-muted-foreground font-black mt-1 sm:mt-1.5">
                           {stat.label}
                         </p>
                       </motion.div>
@@ -217,7 +217,7 @@ export const HeroFuturistic = () => {
           className="relative flex-1 min-w-0 block group focus-visible:outline-none rounded-none transition-transform duration-300 active:scale-[0.99]"
           aria-label={`View details for ${heroEvents[activeSlide].title}`}
         >
-          <div className="h-full aspect-[3/4] sm:aspect-[4/5] lg:aspect-auto border-4 border-border bg-card shadow-[8px_8px_0px_0px_var(--border)] relative overflow-hidden transition-transform duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-[10px_10px_0px_0px_var(--border)]">
+          <div className="h-full aspect-[4/3] xs:aspect-[3/4] sm:aspect-[4/5] lg:aspect-auto min-h-[260px] sm:min-h-[340px] border-4 border-border bg-card shadow-[8px_8px_0px_0px_var(--border)] relative overflow-hidden transition-transform duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-[10px_10px_0px_0px_var(--border)]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeSlide}
@@ -259,7 +259,7 @@ export const HeroFuturistic = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
 
             {/* Sticker / Card Info Box Overlay */}
-            <div className="absolute bottom-6 left-6 right-6 bg-card border-3 border-border p-5 shadow-[4px_4px_0px_0px_var(--border)] z-20 space-y-3">
+            <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 bg-card border-3 border-border p-4 sm:p-5 shadow-[4px_4px_0px_0px_var(--border)] z-20 space-y-2 sm:space-y-3">
               <span
                 className={`inline-flex items-center gap-1.5 px-3 py-1 border-2 border-border text-[10px] font-mono font-bold uppercase tracking-widest ${
                   heroEvents[activeSlide].status === "upcoming"
@@ -277,7 +277,7 @@ export const HeroFuturistic = () => {
                 {heroEvents[activeSlide].badge}
               </span>
               <div>
-                <h3 className="font-display text-2xl font-black text-foreground uppercase tracking-tight flex items-center gap-2 leading-none">
+                <h3 className="font-display text-xl sm:text-2xl font-black text-foreground uppercase tracking-tight flex items-center gap-2 leading-none">
                   {heroEvents[activeSlide].title}
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </h3>
