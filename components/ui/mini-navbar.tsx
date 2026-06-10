@@ -117,22 +117,22 @@ export function MiniNavbar() {
     return (
         <header suppressHydrationWarning={true}
             className={cn(
-                "fixed top-6 z-50",
+                "fixed top-4 sm:top-5 md:top-6 z-50",
                 "flex flex-col items-center",
-                "px-4 md:px-6 py-2.5",
+                "px-3 sm:px-4 md:px-5 py-2.5",
                 "backdrop-blur-none md:backdrop-blur-lg", // Disable blur on mobile for performance
                 headerShapeClass,
                 "border border-white/10 bg-black/95 md:bg-black/70 shadow-2xl",
                 // Positioning: fixed padding on mobile, centered on desktop
-                "left-4 right-4 md:left-1/2 md:right-auto md:w-auto",
+                "left-3 right-3 sm:left-4 sm:right-4 md:left-1/2 md:right-auto md:w-auto md:max-w-[calc(100vw-2rem)]",
                 "transform translate-x-0 md:-translate-x-1/2",
                 "transition-[border-radius,background-color,left,right,transform] duration-300 ease",
                 "will-change-transform" // Hardware acceleration hint
             )}
         >
-            <div className="flex items-center justify-between w-full gap-x-6 md:gap-x-10">
+            <div className="flex items-center justify-between w-full gap-x-4 md:gap-x-7 lg:gap-x-8">
                 <Link href="/" className="flex items-center">
-                    <div className="relative flex h-9 w-9 items-center justify-center rounded-[10px] border border-[rgba(208,207,206,0.16)] bg-[var(--bb-neutral-100)] p-1 shadow-[0_8px_24px_rgba(151,25,44,0.24)]">
+                    <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-[rgba(208,207,206,0.16)] bg-[var(--bb-neutral-100)] p-1 shadow-[0_8px_24px_rgba(151,25,44,0.24)]">
                         <Image
                             src="/logo.svg"
                             alt="bits&bytes™ logo"
@@ -143,7 +143,7 @@ export function MiniNavbar() {
                     </div>
                 </Link>
 
-                <nav className="hidden md:flex items-center space-x-5 lg:space-x-6">
+                <nav className="hidden md:flex items-center gap-4 lg:gap-5">
                     {NAV_LINKS.map((link) => (
                         <AnimatedNavLink key={link.href} href={link.href}>
                             {link.label}

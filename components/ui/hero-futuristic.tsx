@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useCallback } from "react";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { createPortal } from "react-dom";
+import { ArrowRight, Play, Sparkles, Volume2, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import dynamic from "next/dynamic";
@@ -30,15 +31,82 @@ const stats = [
 
 export const HeroFuturistic = () => {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [loadedSlides, setLoadedSlides] = useState<Record<number, boolean>>({});
+  const [isMovieOpen, setIsMovieOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const nextSlide = useCallback(() => {
     setActiveSlide((prev) => (prev + 1) % heroEvents.length);
+  }, []);
+
+  const playMovie = useCallback(() => {
+    const video = videoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    video.muted = false;
+    video.play().catch(() => {});
+  }, []);
+
+  const openMovie = useCallback(() => {
+    setIsMovieOpen(true);
+    playMovie();
+  }, [playMovie]);
+
+  const closeMovie = useCallback(() => {
+    setIsMovieOpen(false);
+
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
   }, []);
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
   }, [nextSlide]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const nextIndex = (activeSlide + 1) % heroEvents.length;
+    const nextEvent = heroEvents[nextIndex];
+    const sources = [nextEvent.image, nextEvent.imageMobile].filter(Boolean);
+
+    sources.forEach((src) => {
+      const img = new window.Image();
+      img.decoding = "async";
+      img.src = src as string;
+    });
+  }, [activeSlide]);
+
+  useEffect(() => {
+    if (!isMovieOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.setTimeout(playMovie, 0);
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeMovie();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [closeMovie, isMovieOpen, playMovie]);
 
   return (
     <section
@@ -47,7 +115,7 @@ export const HeroFuturistic = () => {
     >
       <WebGLShader />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-10 px-4 pb-6 pt-16 sm:px-6 sm:pb-8 sm:pt-16 md:px-6 md:pb-12 md:pt-20 lg:pb-16 lg:pt-24 lg:flex-row lg:items-stretch lg:gap-10 box-border">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-10 px-4 pb-6 pt-[7.75rem] sm:px-6 sm:pb-8 sm:pt-[8.25rem] md:px-6 md:pb-12 md:pt-[8.75rem] lg:pb-16 lg:pt-[9rem] lg:flex-row lg:items-stretch lg:gap-10 box-border">
         {/* Left content card */}
         <div className="flex-1 min-w-0">
           <GlassContainer
@@ -94,16 +162,16 @@ export const HeroFuturistic = () => {
                   </Link>
                 </Button>
                 <Button
-                  asChild
                   variant="outline"
                   className="w-full sm:flex-1 h-10 sm:h-12 px-5 sm:px-6 rounded-full border-white/20 bg-white/5 text-xs sm:text-sm font-semibold text-white backdrop-blur-md hover:bg-white/10 transition-transform transition-colors transition-opacity hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/20"
+                  onClick={openMovie}
+                  aria-haspopup="dialog"
+                  aria-expanded={isMovieOpen}
                 >
-                  <Link
-                    href="/impact"
-                    className="flex items-center justify-center"
-                  >
-                    See what we&apos;ve built
-                  </Link>
+                  <span className="flex items-center justify-center gap-2">
+                    <Play className="h-4 w-4 shrink-0 fill-current" />
+                    Watch movie
+                  </span>
                 </Button>
               </div>
 
@@ -161,27 +229,38 @@ export const HeroFuturistic = () => {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeSlide}
-                  initial={{ opacity: 0, x: 20, filter: "blur(4px)" }}
+                  initial={{ opacity: 0, x: 16, filter: "blur(3px)" }}
                   animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                   exit={{ opacity: 0, x: -20, filter: "blur(4px)" }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  transition={{ duration: 0.42, ease: [0.23, 1, 0.32, 1] }}
                   className="absolute inset-0 bg-[#0a0a0d]"
                 >
+                  <div className="absolute inset-0 bg-dither-brand opacity-70" />
                   <Image
                     src={heroEvents[activeSlide].image}
                     alt={heroEvents[activeSlide].alt}
                     fill
                     sizes="(max-width: 639px) 0px, (max-width: 1023px) 100vw, 42vw"
-                    className="hidden sm:block object-cover"
-                    priority
+                    className={`hidden sm:block object-cover transition-opacity duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                      loadedSlides[activeSlide] ? "opacity-100" : "opacity-0"
+                    }`}
+                    priority={activeSlide === 0}
+                    onLoad={() =>
+                      setLoadedSlides((slides) => ({ ...slides, [activeSlide]: true }))
+                    }
                   />
                   <Image
                     src={heroEvents[activeSlide].imageMobile ?? heroEvents[activeSlide].image}
                     alt={heroEvents[activeSlide].alt}
                     fill
                     sizes="100vw"
-                    className="block sm:hidden object-cover"
-                    priority
+                    className={`block sm:hidden object-cover transition-opacity duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                      loadedSlides[activeSlide] ? "opacity-100" : "opacity-0"
+                    }`}
+                    priority={activeSlide === 0}
+                    onLoad={() =>
+                      setLoadedSlides((slides) => ({ ...slides, [activeSlide]: true }))
+                    }
                   />
                 </motion.div>
               </AnimatePresence>
@@ -244,6 +323,68 @@ export const HeroFuturistic = () => {
           </GlassContainer>
         </Link>
       </div>
+
+      {isMounted &&
+        createPortal(
+          <motion.div
+            className={`fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(18,15,10,0.86)] px-3 py-5 backdrop-blur-md sm:px-6 ${
+              isMovieOpen ? "pointer-events-auto" : "pointer-events-none"
+            }`}
+            role="dialog"
+            aria-modal="true"
+            aria-hidden={!isMovieOpen}
+            aria-label="bits&bytes movie"
+            initial={false}
+            animate={{ opacity: isMovieOpen ? 1 : 0 }}
+            transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+            onClick={closeMovie}
+          >
+            <motion.div
+              className="relative w-full max-w-5xl"
+              initial={false}
+              animate={{
+                opacity: isMovieOpen ? 1 : 0,
+                y: isMovieOpen ? 0 : 18,
+                scale: isMovieOpen ? 1 : 0.98,
+                filter: isMovieOpen ? "blur(0px)" : "blur(6px)",
+              }}
+              transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="absolute -inset-2 rounded-[1.75rem] bg-[linear-gradient(135deg,rgba(151,25,44,0.9),rgba(252,146,13,0.78),rgba(30,5,9,0.9))] opacity-90 blur-sm" />
+              <div className="relative overflow-hidden rounded-[1.35rem] border border-[rgba(254,233,207,0.24)] bg-[var(--bb-neutral-100)] p-2 shadow-[0_28px_90px_rgba(18,15,10,0.7)] sm:p-3">
+                <div className="pointer-events-none absolute inset-0 bg-dither-brand opacity-20" />
+                <div className="relative overflow-hidden rounded-[1rem] bg-black">
+                  <video
+                    ref={videoRef}
+                    src="/movie/bnb-movie.mp4"
+                    className="block aspect-video max-h-[78vh] w-full object-contain"
+                    playsInline
+                    controls={false}
+                    muted={false}
+                    preload="metadata"
+                  />
+                  <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between bg-gradient-to-b from-black/70 to-transparent px-3 py-3 sm:px-4">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/80 backdrop-blur-md">
+                      <Volume2 className="h-3.5 w-3.5 text-[var(--brand-coral)]" />
+                      Audio on
+                    </span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="absolute right-4 top-4 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/55 text-white transition-[background-color,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-black/75 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  onClick={closeMovie}
+                  aria-label="Close movie"
+                  tabIndex={isMovieOpen ? 0 : -1}
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>,
+          document.body,
+        )}
     </section>
   );
 };

@@ -373,6 +373,15 @@
         background-size: 300px 300px;
     }
 
+    .bg-dither-brand {
+        background-color: var(--bb-neutral-100);
+        background-image:
+            radial-gradient(circle at 1px 1px, rgba(252, 146, 13, 0.2) 1px, transparent 0),
+            radial-gradient(circle at 9px 9px, rgba(151, 25, 44, 0.28) 1px, transparent 0),
+            linear-gradient(135deg, rgba(30, 5, 9, 0.96), rgba(91, 15, 26, 0.72));
+        background-size: 12px 12px, 12px 12px, 100% 100%;
+    }
+
     .dark .bg-grid-faint {
         background-image:
             linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
