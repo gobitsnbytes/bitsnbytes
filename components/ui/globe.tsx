@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import createGlobe, { type COBEOptions } from "cobe"
 import { useMotionValue, useSpring } from "motion/react"
+import { useTheme } from "next-themes"
 
 import { cn } from "@/lib/utils"
 
@@ -45,6 +46,8 @@ export function Globe({
   className?: string
   config?: COBEOptions
 }) {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const phiRef = useRef(0)
   const [width, setWidth] = useState<number>(0)
@@ -57,6 +60,12 @@ export function Globe({
     damping: 30,
     stiffness: 100,
   })
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const isDark = mounted && resolvedTheme === "dark"
 
   const updatePointerInteraction = (value: number | null) => {
     pointerInteracting.current = value
@@ -93,21 +102,35 @@ export function Globe({
     }
   }, [])
 
-  // Initialize Globe only when size is known (> 0)
+  // Initialize Globe only when size is known (> 0) and theme is resolved
   useEffect(() => {
     if (width <= 0 || !canvasRef.current) return
 
-    const globe = createGlobe(canvasRef.current, {
+    const activeConfig = {
       ...config,
       width: width * 2,
       height: width * 2,
+      dark: isDark ? 1 : 0,
+      diffuse: isDark ? 1.2 : 0.8, // Brighter diffuse lighting in light mode
+      mapBrightness: isDark ? 6.0 : 6.0, // High brightness makes dots highly visible in both modes
+      baseColor: isDark 
+        ? [18 / 255, 15 / 255, 10 / 255]      // #120f0a (brand black)
+        : [255 / 255, 255 / 255, 255 / 255],  // #ffffff (white)
+      glowColor: isDark 
+        ? [151 / 255, 25 / 255, 44 / 255]     // #97192c (burgundy glow)
+        : [254 / 255, 211 / 255, 158 / 255], // #fed39e (cream/orange glow)
+      markerColor: isDark 
+        ? [252 / 255, 146 / 255, 13 / 255]     // #fc920d (orange markers)
+        : [151 / 255, 25 / 255, 44 / 255],    // #97192c (burgundy markers)
       onRender: (state) => {
         if (!pointerInteracting.current) phiRef.current += 0.005
         state.phi = phiRef.current + rs.get()
         state.width = width * 2
         state.height = width * 2
       },
-    })
+    }
+
+    const globe = createGlobe(canvasRef.current, activeConfig)
 
     setTimeout(() => {
       if (canvasRef.current) {
@@ -118,7 +141,7 @@ export function Globe({
     return () => {
       globe.destroy()
     }
-  }, [width, rs, config])
+  }, [width, rs, config, isDark])
 
   return (
     <div
