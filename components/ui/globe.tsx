@@ -1,427 +1,173 @@
-"use client";
-import { useEffect, useRef, useMemo, useState } from "react";
-import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from "three";
-import ThreeGlobe from "three-globe";
-import { useThree, Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import countries from "@public/globe.json";
+"use client"
 
-const RING_PROPAGATION_SPEED = 3;
-const aspect = 1.2;
-const cameraZ = 300;
+import { useEffect, useRef, useState } from "react"
+import createGlobe, { type COBEOptions } from "cobe"
+import { useMotionValue, useSpring } from "motion/react"
+import { useTheme } from "next-themes"
 
-// Detect Safari/Firefox or Mobile for performance adjustments
-const isMobile =
-  typeof navigator !== "undefined" &&
-  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  );
-const isSafari =
-  typeof navigator !== "undefined" &&
-  /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-const isFirefox =
-  typeof navigator !== "undefined" &&
-  navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
-const isLowPerfBrowser = isSafari || isFirefox || isMobile;
+import { cn } from "@/lib/utils"
 
-type Position = {
-  order: number;
-  startLat: number;
-  startLng: number;
-  endLat: number;
-  endLng: number;
-  arcAlt: number;
-  color: string;
-};
+const MOVEMENT_DAMPING = 1400
 
-export type GlobeConfig = {
-  pointSize?: number;
-  globeColor?: string;
-  showAtmosphere?: boolean;
-  atmosphereColor?: string;
-  atmosphereAltitude?: number;
-  emissive?: string;
-  emissiveIntensity?: number;
-  shininess?: number;
-  polygonColor?: string;
-  ambientLight?: string;
-  directionalLeftLight?: string;
-  directionalTopLight?: string;
-  pointLight?: string;
-  arcTime?: number;
-  arcLength?: number;
-  rings?: number;
-  maxRings?: number;
-  initialPosition?: {
-    lat: number;
-    lng: number;
-  };
-  autoRotate?: boolean;
-  autoRotateSpeed?: number;
-};
-
-interface WorldProps {
-  globeConfig: GlobeConfig;
-  data: Position[];
+const GLOBE_CONFIG: COBEOptions = {
+  width: 800,
+  height: 800,
+  onRender: () => {},
+  devicePixelRatio: 2,
+  phi: 0,
+  theta: 0.3,
+  dark: 0,
+  diffuse: 0.4,
+  mapSamples: 16000,
+  mapBrightness: 1.2,
+  baseColor: [1, 1, 1],
+  markerColor: [151 / 255, 25 / 255, 44 / 255], // Burgundy core #97192c
+  glowColor: [254 / 255, 211 / 255, 158 / 255], // Cream pop glow
+  markers: [
+    { location: [26.8467, 80.9462], size: 0.1 }, // Lucknow (Core Hub)
+    { location: [25.4358, 81.8463], size: 0.08 }, // Prayagraj
+    { location: [12.9716, 77.5946], size: 0.08 }, // Bangalore
+    { location: [28.6139, 77.2090], size: 0.08 }, // Delhi
+    { location: [22.5726, 88.3639], size: 0.08 }, // Kolkata
+    { location: [26.2345, 81.2329], size: 0.06 }, // Raebareli
+    { location: [21.1702, 72.8311], size: 0.06 }, // Surat
+    { location: [30.9010, 75.8573], size: 0.06 }, // Ludhiana
+    { location: [13.0827, 80.2707], size: 0.06 }, // Chennai
+    { location: [19.0760, 72.8777], size: 0.08 }, // Mumbai
+    { location: [26.9124, 75.7873], size: 0.06 }, // Jaipur
+    { location: [17.3850, 78.4867], size: 0.06 }, // Hyderabad
+  ],
 }
 
-export function Globe({ globeConfig, data }: WorldProps) {
-  const { scene } = useThree();
-  const globeRef = useRef<ThreeGlobe | null>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const frameCountRef = useRef(0);
+export function Globe({
+  className,
+  config = GLOBE_CONFIG,
+}: {
+  className?: string
+  config?: COBEOptions
+}) {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const phiRef = useRef(0)
+  const [width, setWidth] = useState<number>(0)
+  const pointerInteracting = useRef<number | null>(null)
+  const pointerInteractionMovement = useRef(0)
 
-  // Reduce quality on Safari/Firefox
-  const defaultProps = useMemo(
-    () => ({
-      pointSize: isLowPerfBrowser ? 0.5 : 1,
-      atmosphereColor: "#ffffff",
-      showAtmosphere: !isLowPerfBrowser, // Disable atmosphere on low-perf browsers
-      atmosphereAltitude: 0.1,
-      polygonColor: "rgba(255,255,255,0.7)",
-      globeColor: "#1d072e",
-      emissive: "#000000",
-      emissiveIntensity: 0.1,
-      shininess: 0.9,
-      arcTime: isLowPerfBrowser ? 3000 : 2000, // Slower animations
-      arcLength: 0.9,
-      rings: isLowPerfBrowser ? 0 : 1, // Disable rings on low-perf browsers
-      maxRings: isLowPerfBrowser ? 1 : 3,
-      ...globeConfig,
-    }),
-    [globeConfig],
-  );
+  const r = useMotionValue(0)
+  const rs = useSpring(r, {
+    mass: 1,
+    damping: 30,
+    stiffness: 100,
+  })
 
-  // Throttle rendering on low-perf browsers
-  useFrame(() => {
-    if (isLowPerfBrowser) {
-      frameCountRef.current++;
-      // Skip every other frame on Safari/Firefox
-      if (frameCountRef.current % 2 !== 0) return;
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const isDark = mounted && resolvedTheme === "dark"
+
+  const updatePointerInteraction = (value: number | null) => {
+    pointerInteracting.current = value
+    if (canvasRef.current) {
+      canvasRef.current.style.cursor = value !== null ? "grabbing" : "grab"
     }
-  });
-
-  // Initialize globe once
-  useEffect(() => {
-    if (globeRef.current) return; // Already initialized
-
-    const globe = new ThreeGlobe({
-      waitForGlobeReady: true,
-      animateIn: true,
-    });
-
-    globeRef.current = globe;
-
-    // Set material properties
-    const globeMaterial = globe.globeMaterial() as any;
-    globeMaterial.color = new Color(defaultProps.globeColor);
-    globeMaterial.emissive = new Color(defaultProps.emissive);
-    globeMaterial.emissiveIntensity = defaultProps.emissiveIntensity;
-    globeMaterial.shininess = defaultProps.shininess;
-
-    scene.add(globe);
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-
-      if (globeRef.current) {
-        scene.remove(globeRef.current);
-        globeRef.current = null;
-      }
-    };
-  }, [
-    scene,
-    defaultProps.globeColor,
-    defaultProps.emissive,
-    defaultProps.emissiveIntensity,
-    defaultProps.shininess,
-  ]);
-
-  useEffect(() => {
-    if (!globeRef.current || !data) return;
-
-    const globe = globeRef.current;
-
-    // Prepare points data
-    let points: any[] = [];
-    for (let i = 0; i < data.length; i++) {
-      const arc = data[i];
-      points.push({
-        size: defaultProps.pointSize,
-        order: arc.order,
-        color: arc.color,
-        lat: arc.startLat,
-        lng: arc.startLng,
-      });
-      points.push({
-        size: defaultProps.pointSize,
-        order: arc.order,
-        color: arc.color,
-        lat: arc.endLat,
-        lng: arc.endLng,
-      });
-    }
-
-    // Filter duplicate points
-    const filteredPoints = points.filter(
-      (v, i, a) =>
-        a.findIndex((v2) =>
-          ["lat", "lng"].every(
-            (k) => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"],
-          ),
-        ) === i,
-    );
-
-    // Configure globe
-    globe
-      .hexPolygonsData(countries.features)
-      .hexPolygonResolution(isLowPerfBrowser ? 1 : 2) // Lower resolution for better performance
-      .hexPolygonMargin(0.7)
-      .showAtmosphere(defaultProps.showAtmosphere)
-      .atmosphereColor(defaultProps.atmosphereColor)
-      .atmosphereAltitude(defaultProps.atmosphereAltitude)
-      .hexPolygonColor(() => defaultProps.polygonColor);
-
-    globe
-      .arcsData(data)
-      .arcStartLat((d: any) => d.startLat)
-      .arcStartLng((d: any) => d.startLng)
-      .arcEndLat((d: any) => d.endLat)
-      .arcEndLng((d: any) => d.endLng)
-      .arcColor((e: any) => e.color)
-      .arcAltitude((e: any) => e.arcAlt)
-      .arcStroke(() => [0.32, 0.28, 0.3][Math.round(Math.random() * 2)])
-      .arcDashLength(defaultProps.arcLength)
-      .arcDashInitialGap((e: any) => e.order)
-      .arcDashGap(15)
-      .arcDashAnimateTime(() => defaultProps.arcTime);
-
-    globe
-      .pointsData(filteredPoints)
-      .pointColor((e: any) => e.color)
-      .pointsMerge(true)
-      .pointAltitude(0.0)
-      .pointRadius(2);
-
-    globe
-      .ringsData([])
-      .ringColor(() => defaultProps.polygonColor)
-      .ringMaxRadius(defaultProps.maxRings)
-      .ringPropagationSpeed(RING_PROPAGATION_SPEED)
-      .ringRepeatPeriod(
-        (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings,
-      );
-  }, [data, defaultProps]);
-
-  // Rings animation
-  useEffect(() => {
-    if (!globeRef.current || !data || data.length === 0) return;
-
-    // Clear any existing interval
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-
-    intervalRef.current = setInterval(() => {
-      if (!globeRef.current || !data) return;
-
-      const newNumbersOfRings = genRandomNumbers(
-        0,
-        data.length,
-        Math.floor((data.length * 4) / 5),
-      );
-
-      const ringsData = data
-        .filter((d, i) => newNumbersOfRings.includes(i))
-        .map((d) => ({
-          lat: d.startLat,
-          lng: d.startLng,
-          color: d.color,
-        }));
-
-      globeRef.current.ringsData(ringsData);
-    }, 2000);
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    };
-  }, [data]);
-
-  return null;
-}
-
-export function WebGLRendererConfig() {
-  const { gl, size } = useThree();
-
-  useEffect(() => {
-    // Reduce pixel ratio on Safari/Firefox for better performance
-    const pixelRatio = isLowPerfBrowser
-      ? Math.min(window.devicePixelRatio, 1)
-      : Math.min(window.devicePixelRatio, 1.5);
-    gl.setPixelRatio(pixelRatio);
-    gl.setSize(size.width, size.height);
-    gl.setClearColor(0xffaaff, 0);
-  }, [gl, size]);
-
-  return null;
-}
-
-export function World(props: WorldProps) {
-  const { globeConfig } = props;
-  const [isVisible, setIsVisible] = useState(true);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Intersection observer to pause when not visible
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 },
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const scene = useMemo(() => {
-    const s = new Scene();
-    s.fog = new Fog(0xffffff, 400, 2000);
-    return s;
-  }, []);
-
-  const camera = useMemo(
-    () => new PerspectiveCamera(50, aspect, 180, 1800),
-    [],
-  );
-
-  // Don't render canvas if not visible (saves resources)
-  if (!isVisible) {
-    return (
-      <div
-        ref={containerRef}
-        className="w-full h-full flex items-center justify-center"
-        style={{
-          background: "radial-gradient(circle, #3E1E68 0%, #1d072e 100%)",
-          borderRadius: "inherit",
-        }}
-      >
-        <div className="text-white/50 text-sm">Globe paused</div>
-      </div>
-    );
   }
+
+  const updateMovement = (clientX: number) => {
+    if (pointerInteracting.current !== null) {
+      const delta = clientX - pointerInteracting.current
+      pointerInteractionMovement.current = delta
+      r.set(r.get() + delta / MOVEMENT_DAMPING)
+    }
+  }
+
+  // Observe container size
+  useEffect(() => {
+    if (!canvasRef.current) return
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const w = entry.contentRect.width
+        if (w > 0) {
+          setWidth(w)
+        }
+      }
+    })
+
+    observer.observe(canvasRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+
+  // Initialize Globe only when size is known (> 0) and theme is resolved
+  useEffect(() => {
+    if (width <= 0 || !canvasRef.current) return
+
+    const activeConfig = {
+      ...config,
+      width: width * 2,
+      height: width * 2,
+      dark: isDark ? 1 : 0,
+      diffuse: isDark ? 1.2 : 0.8, // Brighter diffuse lighting in light mode
+      mapBrightness: isDark ? 6.0 : 6.0, // High brightness makes dots highly visible in both modes
+      baseColor: isDark 
+        ? [18 / 255, 15 / 255, 10 / 255]      // #120f0a (brand black)
+        : [255 / 255, 255 / 255, 255 / 255],  // #ffffff (white)
+      glowColor: isDark 
+        ? [151 / 255, 25 / 255, 44 / 255]     // #97192c (burgundy glow)
+        : [254 / 255, 211 / 255, 158 / 255], // #fed39e (cream/orange glow)
+      markerColor: isDark 
+        ? [252 / 255, 146 / 255, 13 / 255]     // #fc920d (orange markers)
+        : [151 / 255, 25 / 255, 44 / 255],    // #97192c (burgundy markers)
+      onRender: (state) => {
+        if (!pointerInteracting.current) phiRef.current += 0.005
+        state.phi = phiRef.current + rs.get()
+        state.width = width * 2
+        state.height = width * 2
+      },
+    }
+
+    const globe = createGlobe(canvasRef.current, activeConfig)
+
+    setTimeout(() => {
+      if (canvasRef.current) {
+        canvasRef.current.style.opacity = "1"
+      }
+    }, 0)
+
+    return () => {
+      globe.destroy()
+    }
+  }, [width, rs, config, isDark])
 
   return (
-    <div ref={containerRef} className="w-full h-full">
-      <Canvas
-        scene={scene}
-        camera={camera}
-        gl={{
-          antialias: !isLowPerfBrowser, // Disable antialiasing on Safari/Firefox
-          alpha: true,
-          powerPreference: isLowPerfBrowser ? "low-power" : "default",
+    <div
+      className={cn(
+        "absolute inset-0 mx-auto aspect-square w-full max-w-150",
+        className
+      )}
+    >
+      <canvas
+        className={cn(
+          "size-full opacity-0 transition-opacity duration-500 contain-[layout_paint_size]"
+        )}
+        ref={canvasRef}
+        onPointerDown={(e) => {
+          pointerInteracting.current = e.clientX
+          updatePointerInteraction(e.clientX)
         }}
-        dpr={isLowPerfBrowser ? [1, 1] : [1, 2]}
-        frameloop={isLowPerfBrowser ? "demand" : "always"}
-      >
-        <WebGLRendererConfig />
-        <ambientLight color={globeConfig.ambientLight} intensity={0.6} />
-        <directionalLight
-          color={globeConfig.directionalLeftLight}
-          position={new Vector3(-400, 100, 400)}
-        />
-        <directionalLight
-          color={globeConfig.directionalTopLight}
-          position={new Vector3(-200, 500, 200)}
-        />
-        <pointLight
-          color={globeConfig.pointLight}
-          position={new Vector3(-200, 500, 200)}
-          intensity={0.8}
-        />
-        <Globe {...props} />
-        <OrbitControls
-          enablePan={false}
-          enableZoom={false}
-          minDistance={cameraZ}
-          maxDistance={cameraZ}
-          autoRotateSpeed={
-            globeConfig.autoRotateSpeed ?? (isLowPerfBrowser ? 0.5 : 1)
-          }
-          autoRotate={globeConfig.autoRotate ?? true}
-          minPolarAngle={Math.PI / 3.5}
-          maxPolarAngle={Math.PI - Math.PI / 3}
-          target={[0, 0, 0]}
-        />
-        <InitialRotation
-          lat={globeConfig.initialPosition?.lat ?? 26.8467}
-          lng={globeConfig.initialPosition?.lng ?? 80.9462}
-        />
-      </Canvas>
+        onPointerUp={() => updatePointerInteraction(null)}
+        onPointerOut={() => updatePointerInteraction(null)}
+        onMouseMove={(e) => updateMovement(e.clientX)}
+        onTouchMove={(e) =>
+          e.touches[0] && updateMovement(e.touches[0].clientX)
+        }
+      />
     </div>
-  );
+  )
 }
 
-// Component to set initial globe rotation to focus on a longitude and latitude
-function InitialRotation({ lat, lng }: { lat: number; lng: number }) {
-  const { camera, scene } = useThree();
-  const initialized = useRef(false);
-
-  useEffect(() => {
-    if (!initialized.current) {
-      // Convert lat/lng to radians
-      const phi = (90 - lat) * (Math.PI / 180);
-      const theta = (lng + 280) * (Math.PI / 180);
-      // 280 degree hardcode to spawn globe directly at lucknow
-
-      // Calculate camera position to face the target (opposite side)
-      const radius = cameraZ;
-      const x = radius * Math.sin(phi) * Math.cos(theta);
-      const y = radius * Math.cos(phi);
-      const z = radius * Math.sin(phi) * Math.sin(theta);
-
-      camera.position.set(x, y, z);
-      camera.lookAt(0, 0, 0);
-      camera.updateProjectionMatrix();
-
-      initialized.current = true;
-    }
-  }, [camera, scene, lat, lng]);
-
-  return null;
-}
-
-export function hexToRgb(hex: string) {
-  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-  hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-    return r + r + g + g + b + b;
-  });
-
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16),
-    }
-    : null;
-}
-
-export function genRandomNumbers(min: number, max: number, count: number) {
-  const arr = [];
-  while (arr.length < count) {
-    const r = Math.floor(Math.random() * (max - min)) + min;
-    if (arr.indexOf(r) === -1) arr.push(r);
-  }
-
-  return arr;
-}
+export default Globe

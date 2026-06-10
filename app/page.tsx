@@ -16,12 +16,6 @@ import { Suspense } from "react";
 import { HeroFuturistic } from "@/components/ui/hero-futuristic";
 import { PageSection } from "@/components/page-section";
 import { Features } from "@/components/ui/features-8";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LoadingInline } from "@/components/loading-wrapper";
 import { Partners } from "@/components/partners";
@@ -50,7 +44,7 @@ const stats = [
         city chapters — view at{" "}
         <a 
           href="/fork" 
-          className="text-[var(--brand-coral)] underline hover:text-white transition-colors"
+          className="text-primary dark:text-accent underline hover:text-accent dark:hover:text-primary transition-colors font-bold"
         >
           gobitsnbytes.org/fork
         </a>
@@ -62,8 +56,6 @@ const stats = [
 ];
 
 // Focus Areas are now handled within the Features component
-
-import { GlassContainer } from "@/components/ui/glass-container";
 
 export default function Home() {
   return (
@@ -78,27 +70,24 @@ export default function Home() {
         >
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((stat, idx) => (
-              <GlassContainer
+              <div
                 key={stat.label}
-                className="p-8"
-                glowColor={idx % 2 === 0 ? "pink" : "purple"}
-                delay={idx * 0.1}
-                interactive
+                className="bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] p-8 transition-all hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_var(--border)] duration-200"
               >
-                <div className="space-y-4">
-                  <p className="text-4xl font-black text-white tracking-tighter">
+                <div className="space-y-4 text-card-foreground">
+                  <p className="text-4xl font-black text-foreground tracking-tight uppercase">
                     {stat.value}
                   </p>
                   <div>
-                    <h3 className="text-lg font-bold text-white uppercase tracking-tight">
+                    <h3 className="text-lg font-black text-foreground uppercase tracking-tight">
                       {stat.label}
                     </h3>
-                    <div className="text-sm text-white/60 font-medium mt-1">
+                    <div className="text-sm text-muted-foreground font-semibold mt-1">
                       {stat.detail}
                     </div>
                   </div>
                 </div>
-              </GlassContainer>
+              </div>
             ))}
           </div>
         </PageSection>

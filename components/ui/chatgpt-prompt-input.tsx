@@ -113,7 +113,7 @@ export const PromptBox = React.forwardRef<PromptBoxRef, PromptBoxProps>(
         }
 
         return (
-            <div className={cn("flex flex-col rounded-3xl p-2.5 shadow-md transition-colors bg-zinc-900 border border-zinc-700/60 focus-within:border-[var(--brand-pink)] focus-within:ring-1 focus-within:ring-[var(--brand-pink)] shadow-xl w-full", className)}>
+            <div className={cn("flex flex-col rounded-none p-2.5 transition-colors bg-white border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] w-full", className)}>
                 <textarea
                     ref={internalTextareaRef}
                     rows={1}
@@ -121,7 +121,7 @@ export const PromptBox = React.forwardRef<PromptBoxRef, PromptBoxProps>(
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     placeholder="Type your message here..."
-                    className="custom-scrollbar w-full resize-none border-0 bg-transparent px-3 py-2 text-zinc-100 placeholder:text-zinc-500 focus:ring-0 focus-visible:outline-none min-h-[44px] max-h-32 text-base sm:text-sm"
+                    className="custom-scrollbar w-full resize-none border-0 bg-transparent px-3 py-2 text-[#120f0a] placeholder:text-[#a09f9d] focus:ring-0 focus-visible:outline-none min-h-[44px] max-h-32 text-base sm:text-sm font-semibold"
                     {...props}
                 />
 
@@ -135,16 +135,16 @@ export const PromptBox = React.forwardRef<PromptBoxRef, PromptBoxProps>(
                                             type="button"
                                             onClick={() => handleSubmit()}
                                             disabled={!hasValue}
-                                            className="flex h-9 w-9 md:h-10 md:w-10 md:px-3 md:rounded-xl md:w-auto items-center justify-center rounded-full text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none bg-[var(--brand-pink)] text-white hover:bg-[#d44c84] disabled:opacity-50"
+                                            className="flex h-9 w-9 md:h-10 md:w-10 md:px-4 md:rounded-none md:w-auto items-center justify-center rounded-none text-xs font-mono font-bold uppercase tracking-wider transition-all focus-visible:outline-none disabled:pointer-events-none bg-[#97192c] text-white border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none disabled:opacity-50 cursor-pointer"
                                         >
                                             <SendIcon className="h-5 w-5 md:mr-1.5" />
                                             <span className="hidden md:inline">Ask</span>
                                             <span className="sr-only">Send message</span>
                                         </button>
                                     </TooltipTrigger>
-                                    <TooltipContent side="top" showArrow={true}><p>Send</p></TooltipContent>
+                                    <TooltipContent side="top" showArrow={true} className="bg-white border-2 border-[#120f0a] text-[#120f0a] font-bold uppercase font-mono"><p>Send</p></TooltipContent>
                                 </Tooltip>
-                            </div>
+                             </div>
                         </div>
                     </TooltipProvider>
                 </div>

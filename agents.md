@@ -144,7 +144,7 @@ Because many participants are minors, the Foundation enforces rigorous safety pr
 - **Owns:** Creative direction, brand strategy, visual identity, and the vision for what the network becomes.
 
 #### Akshat Kushwaha – Chief Technology Officer
-- **Expertise:** Core Systems Engineering, AI-Native Systems, Retrieval Architectures, LLMOps
+- **Expertise:** Core Systems Engineering, AI-Native Systems, Retrieval Architectures, LLMOps, CS nerd
 - **Achievements:**
   - Primary systems architect and lead engineer on the team.
   - Ex Jr. Research Engineer at jhana.ai at 17, where he built production AI systems including a Steno dictation plugin and AI-era IVRS.
