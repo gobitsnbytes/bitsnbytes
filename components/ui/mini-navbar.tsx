@@ -119,7 +119,7 @@ export function MiniNavbar() {
                             alt="bits&bytes™ logo"
                             width={26}
                             height={26}
-                            className="object-contain invert dark:invert-0"
+                            className="object-contain dark:invert"
                         />
                     </div>
                 </Link>
