@@ -41,7 +41,7 @@ export const hack4goodEvent = {
   dateLabel: "Apr 2, 2026 – May 3, 2026",
   venueLabel: "Cubispace, Lucknow",
   formatLabel: "Agentic AI Hackathon (24 Hours)",
-  statusLabel: "Registration Closed",
+  statusLabel: "Archived",
   teamSizeLabel: "1–4 members",
   prizePoolLabel: "₹35,000",
   impressionsLabel: "4,117",

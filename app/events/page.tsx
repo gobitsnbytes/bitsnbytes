@@ -36,7 +36,7 @@ const WebGLShader = dynamic(
 
 export default function Events() {
   const [activeEvent, setActiveEvent] = useState<
-    "all" | "lucknow-build-guild" | "copilot" | "execron" | "india-innovates"
+    "all" | "hack4good" | "lucknow-build-guild" | "copilot" | "execron" | "india-innovates"
   >("all");
 
   return (
@@ -96,6 +96,19 @@ export default function Events() {
             }`}
           >
             All Events
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveEvent("hack4good")}
+            aria-selected={activeEvent === "hack4good"}
+            role="tab"
+            className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.02] active:scale-[0.96] ${
+              activeEvent === "hack4good"
+                ? "bg-(--brand-pink) text-white shadow-[0_0_20px_rgba(228,90,146,0.3)]"
+                : "text-white/70 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            Archived: Hack4Good
           </button>
           <button
             type="button"
