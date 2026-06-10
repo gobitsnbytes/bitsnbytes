@@ -77,7 +77,7 @@ export function MiniNavbar() {
             href="https://github.com/gobitsnbytes"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold border-2 border-border bg-card text-foreground shadow-[2px_2px_0px_0px_var(--border)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-y-0.5 active:shadow-none transition-all duration-150 rounded-none w-full md:w-auto font-mono"
+            className="flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold border-2 border-border bg-card text-foreground shadow-[2px_2px_0px_0px_var(--border)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-y-0.5 active:shadow-none transition-all duration-150 rounded-none w-full lg:w-auto font-mono"
         >
             <Github className="w-3.5 h-3.5" />
             GitHub
@@ -87,7 +87,7 @@ export function MiniNavbar() {
     const signupButtonElement = (
         <Link
             href="/join"
-            className="flex items-center justify-center gap-1.5 px-5 py-2 text-xs font-black border-2 border-border bg-[#fc920d] text-[#120f0a] shadow-[2px_2px_0px_0px_var(--border)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-y-0.5 active:shadow-none transition-all duration-150 rounded-none w-full md:w-auto uppercase tracking-wider"
+            className="flex items-center justify-center gap-1.5 px-5 py-2 text-xs font-black border-2 border-border bg-[#fc920d] text-[#120f0a] shadow-[2px_2px_0px_0px_var(--border)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-y-0.5 active:shadow-none transition-all duration-150 rounded-none w-full lg:w-auto uppercase tracking-wider"
         >
             Join Now
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -111,7 +111,7 @@ export function MiniNavbar() {
                 "will-change-transform"
             )}
         >
-            <div className="flex items-center justify-between w-full gap-x-6 md:gap-x-10">
+            <div className="flex items-center justify-between w-full gap-x-6 lg:gap-x-10">
                 <Link href="/" className="flex items-center">
                     <div className="relative flex h-9 w-9 items-center justify-center border-2 border-border bg-card p-1 shadow-[2px_2px_0px_0px_var(--border)] rounded-none hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_var(--border)] transition-all">
                         <Image
@@ -119,12 +119,13 @@ export function MiniNavbar() {
                             alt="bits&bytes™ logo"
                             width={26}
                             height={26}
-                            className="object-contain invert dark:invert-0"
+                            suppressHydrationWarning
+                            className="object-contain invert"
                         />
                     </div>
                 </Link>
 
-                <nav className="hidden md:flex items-center space-x-5 lg:space-x-6">
+                <nav className="hidden lg:flex items-center space-x-5 lg:space-x-6">
                     {NAV_LINKS.map((link) => (
                         <AnimatedNavLink 
                             key={link.href} 
@@ -136,7 +137,7 @@ export function MiniNavbar() {
                     ))}
                 </nav>
 
-                <div className="hidden md:flex items-center gap-2 lg:gap-3">
+                <div className="hidden lg:flex items-center gap-2 lg:gap-3">
                     {mounted && (
                         <AnimatedThemeToggler
                             variant="star"
@@ -148,7 +149,7 @@ export function MiniNavbar() {
                     {signupButtonElement}
                 </div>
 
-                <div className="flex items-center gap-2 md:hidden">
+                <div className="flex items-center gap-2 lg:hidden">
                     {mounted && (
                         <AnimatedThemeToggler
                             variant="star"
@@ -186,7 +187,7 @@ export function MiniNavbar() {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.25, ease: "easeInOut" }}
-                        className="md:hidden flex flex-col items-center w-full overflow-hidden"
+                        className="lg:hidden flex flex-col items-center w-full overflow-hidden"
                     >
                         <nav className="flex flex-col items-center space-y-3 w-full pt-6 border-t border-border/15 mt-3">
                             {NAV_LINKS.map((link) => {
