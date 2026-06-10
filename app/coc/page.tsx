@@ -4,6 +4,8 @@ import { Shield } from "lucide-react";
 
 import { LegalPolicyPage } from "@/components/legal-policy-page";
 
+// IMPECCABLE_PREFLIGHT: context=pass product=pass command_reference=pass shape=not_required image_gate=skipped:using_components mutation=open
+
 const cocMarkdown = `<aside>
 This Code of Conduct applies to everyone in bits&bytes™ spaces: participants, volunteers, Fork Leads, organizers, mentors, sponsors, guests, contributors, and executive team members.
 </aside>
