@@ -117,7 +117,7 @@ export function FlickeringFooter() {
                 <ShieldCheck className="h-4 w-4 shrink-0" />
                 Trust Center
               </div>
-              <p className="text-sm leading-relaxed text-muted-foreground font-semibold max-w-xs">
+              <p className="text-sm leading-relaxed text-foreground/80 font-semibold max-w-xs">
                 The public rules for a teen-led network: safety, privacy, brand stewardship, and participation standards.
               </p>
             </div>
@@ -134,7 +134,7 @@ export function FlickeringFooter() {
                       {link.title}
                       <ChevronRightIcon className="h-4 w-4 text-foreground/50 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
                     </span>
-                    <span className="mt-2 block text-xs leading-snug text-muted-foreground/80">
+                    <span className="mt-2 block text-xs leading-snug text-foreground/70">
                       {link.label}
                     </span>
                   </div>
@@ -157,7 +157,7 @@ export function FlickeringFooter() {
                 alt="bits&bytes™ logo"
                 width={28}
                 height={28}
-                className="h-6 w-6 object-contain dark:invert"
+                className="h-6 w-6 object-contain invert dark:invert-0"
                 priority
               />
             </div>
@@ -170,7 +170,7 @@ export function FlickeringFooter() {
               </p>
             </div>
           </Link>
-          <p className="text-muted-foreground text-sm leading-relaxed font-semibold">
+          <p className="text-foreground/80 text-sm leading-relaxed font-semibold">
             India's independent, teen-led builder network. Connecting the country's most ambitious teenage developers and designers to ship software from scratch.
           </p>
           
@@ -202,7 +202,7 @@ export function FlickeringFooter() {
                 {column.links.map((link) => (
                   <li
                     key={link.id}
-                    className="group inline-flex cursor-pointer items-center justify-start gap-1 text-sm font-bold text-muted-foreground hover:text-accent hover:translate-x-1 transition-all duration-150"
+                    className="group inline-flex cursor-pointer items-center justify-start gap-1 text-sm font-bold text-foreground/80 hover:text-accent hover:translate-x-1 transition-all duration-150"
                   >
                     <Link href={link.url}>
                       {link.title}
@@ -222,7 +222,7 @@ export function FlickeringFooter() {
               >
                 hello@gobitsnbytes.org
               </a>
-              <p className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
+              <p className="flex items-center gap-2 text-sm font-semibold text-foreground/80">
                 <MapPin className="h-4 w-4 shrink-0 text-primary dark:text-accent" />
                 Lucknow, India
               </p>
