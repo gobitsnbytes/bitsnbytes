@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import { cn } from "@/lib/utils";
+import { KineticText } from "@/components/ui/kinetic-text";
 import {
   Github,
   Instagram,
@@ -96,15 +97,6 @@ const legalLinks = [
   },
 ];
 
-const marqueeItems = [
-  "BITS&BYTES",
-  "TEEN-LED BUILDER NETWORK",
-  "SHIP REAL PRODUCTS",
-  "LUCKNOW",
-  "INDIA",
-  "NO LIMITS",
-  "GOBITSNBYTES",
-];
 
 export function FlickeringFooter() {
   return (
@@ -165,7 +157,7 @@ export function FlickeringFooter() {
                 alt="bits&bytes™ logo"
                 width={28}
                 height={28}
-                className="h-6 w-6 object-contain"
+                className="h-6 w-6 object-contain invert"
                 priority
               />
             </div>
@@ -239,45 +231,13 @@ export function FlickeringFooter() {
         </div>
       </div>
 
-      {/* Infinite Horizontal Scrolling Neobrutalist Marquee */}
-      <div className="w-full py-6 sm:py-8 mt-8 border-t-4 border-[#120f0a] bg-[#fc920d] overflow-hidden whitespace-nowrap select-none relative z-10 flex">
-        <style>{`
-          @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-          }
-          .animate-marquee-loop {
-            display: flex;
-            width: max-content;
-            animation: marquee 25s linear infinite;
-          }
-          .animate-marquee-loop:hover {
-            animation-play-state: paused;
-          }
-        `}</style>
-        <div className="animate-marquee-loop gap-8 sm:gap-12 flex items-center">
-          {/* First group */}
-          <div className="flex items-center gap-8 sm:gap-12">
-            {marqueeItems.map((item, idx) => (
-              <React.Fragment key={idx}>
-                <span className="font-display text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tighter text-[#120f0a]">
-                  {item}
-                </span>
-                <span className="h-4 w-4 sm:h-6 sm:w-6 bg-[#120f0a] rotate-45 shrink-0" />
-              </React.Fragment>
-            ))}
-          </div>
-          {/* Second group (duplicate for seamless loop) */}
-          <div className="flex items-center gap-8 sm:gap-12" aria-hidden="true">
-            {marqueeItems.map((item, idx) => (
-              <React.Fragment key={`dup-${idx}`}>
-                <span className="font-display text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tighter text-[#120f0a]">
-                  {item}
-                </span>
-                <span className="h-4 w-4 sm:h-6 sm:w-6 bg-[#120f0a] rotate-45 shrink-0" />
-              </React.Fragment>
-            ))}
-          </div>
+      {/* Neobrutalist Kinetic Text Footer Banner */}
+      <div className="w-full py-10 sm:py-16 md:py-20 mt-8 border-t-4 border-[#120f0a] bg-white overflow-hidden relative z-10 flex items-center justify-center select-none">
+        <div className="w-full max-w-6xl px-4 sm:px-6 lg:px-8 flex justify-center">
+          <KineticText
+            text="bits&bytes"
+            className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-[#120f0a] justify-center cursor-default select-none"
+          />
         </div>
       </div>
 
