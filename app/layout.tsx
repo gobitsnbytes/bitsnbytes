@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteChrome } from "@/components/site-chrome";
+import { SmoothCursor } from "@/components/ui/smooth-cursor";
 
 const anton = Anton({
   subsets: ["latin"],
@@ -307,6 +308,7 @@ export default function RootLayout({
           }}
         />
         <ThemeProvider>
+          <SmoothCursor />
           <SiteChrome>{children}</SiteChrome>
           <Analytics />
           <SpeedInsights />

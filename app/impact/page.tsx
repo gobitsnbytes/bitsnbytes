@@ -108,7 +108,7 @@ export default function Impact() {
               <Sparkles className="h-3.5 w-3.5 text-[#fc920d]" />
               Impact Record
             </span>
-            <span className="text-xs font-mono text-[#716f6c] font-semibold">
+            <span className="text-xs font-mono text-[#413f3b] font-bold">
               GOBITSNBYTES FOUNDATION
             </span>
           </div>
@@ -135,7 +135,7 @@ export default function Impact() {
                     <Globe className="h-6 w-6 text-[#97192c]" />
                     Teen-led squads, shipped outcomes
                   </h2>
-                  <p className="text-sm text-[#716f6c] font-medium mt-1">
+                  <p className="text-sm sm:text-base text-[#413f3b] font-bold mt-1">
                     Workshops and hackathons that give you hands-on practice, access to mentors, and a chance to deploy things people actually use.
                   </p>
                 </div>
@@ -193,7 +193,7 @@ export default function Impact() {
                     <Award className="h-6 w-6 text-[#fc920d]" />
                     Culture & Core Principles
                   </h2>
-                  <p className="text-sm text-[#716f6c] font-medium mt-1">
+                  <p className="text-sm sm:text-base text-[#413f3b] font-bold mt-1">
                     These aren't wall posters. This is how we actually operate every day.
                   </p>
                 </div>
