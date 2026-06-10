@@ -541,31 +541,31 @@ export function QnAChatInterface() {
 
   return (
     <div
-      className="flex flex-col w-full h-[70vh] min-h-[520px] rounded-2xl overflow-hidden border border-white/10 bg-[rgba(13,7,9,0.86)] shadow-[0_30px_80px_rgba(7,3,4,0.75)] backdrop-blur-2xl relative"
+      className="flex flex-col w-full h-[70vh] min-h-[520px] rounded-none border-4 border-[#120f0a] bg-white shadow-[8px_8px_0px_0px_#120f0a] relative"
       role="region"
       aria-label="bits&bytes™ chat assistant"
     >
-      <div className="flex flex-wrap items-center justify-between gap-3 px-6 pt-5 pb-4 border-b border-white/10 bg-[rgba(18,9,12,0.7)] shrink-0">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-6 pt-5 pb-4 border-b-4 border-[#120f0a] bg-[#fee9cf] text-[#120f0a] shrink-0">
         <div className="flex items-center gap-3">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-full bg-[var(--brand-pink)] shadow-lg shadow-[rgba(151,25,44,0.4)]">
-            <Bot className="w-5 h-5 text-white" />
+          <div className="relative flex items-center justify-center w-10 h-10 border-2 border-[#120f0a] bg-white text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] rounded-none">
+            <Bot className="w-5 h-5 text-current" />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
+            <h1 className="text-base sm:text-lg font-black text-[#120f0a] uppercase tracking-tight flex items-center gap-2 leading-none">
               bits&bytes™ QnA
               <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400/70 opacity-70"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
               </span>
             </h1>
-            <span className="text-xs text-white/60">
+            <span className="text-xs text-[#413f3b] font-bold mt-1">
               Verified from public project sources
             </span>
           </div>
         </div>
         <div className="flex items-center gap-3">
           {messages.length > 0 && (
-            <span className="hidden sm:inline-block rounded-full bg-white/5 px-3 py-1 text-[10px] font-medium text-white/70 border border-white/10">
+            <span className="hidden sm:inline-block border-2 border-[#120f0a] bg-white px-3 py-1 text-[10px] font-mono font-bold text-[#120f0a] rounded-none">
               Model: {modelName}
             </span>
           )}
@@ -576,7 +576,7 @@ export function QnAChatInterface() {
               setMessage("");
               window.localStorage.removeItem(STORAGE_KEY);
             }}
-            className={`flex h-9 items-center justify-center gap-2 rounded-xl bg-white/5 px-3 text-xs font-medium border transition-transform transition-colors transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-pink)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b0608] ${messages.length === 0 ? "opacity-0 invisible" : "text-white/70 hover:bg-white/10 hover:text-red-300 border-white/10 hover:border-red-500/40"}`}
+            className={`flex h-9 items-center justify-center gap-2 rounded-none bg-white px-3 text-xs font-mono font-bold uppercase border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all focus-visible:outline-none cursor-pointer ${messages.length === 0 ? "opacity-0 invisible" : "text-[#120f0a] hover:bg-[#fc920d]"}`}
             aria-label="Clear chat session"
             title="Clear chat session"
             disabled={messages.length === 0}
@@ -593,25 +593,25 @@ export function QnAChatInterface() {
         aria-relevant="additions text"
       >
         {messages.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full text-center px-4 max-w-3xl mx-auto space-y-6">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/75 shadow-[0_16px_40px_rgba(7,3,4,0.45)]">
-              <p className="mb-3 text-base font-semibold text-white">
+          <div className="flex flex-col items-center justify-center h-full text-center px-4 max-w-3xl mx-auto space-y-6 pt-6">
+            <div className="border-3 border-[#120f0a] bg-[#fee9cf] p-6 text-sm text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] rounded-none">
+              <p className="mb-3 text-base font-black uppercase tracking-tight">
                 Start with a real question, get a grounded answer.
               </p>
-              <p>
+              <p className="font-semibold text-sm">
                 Ask about events, team, partnerships, or how bits&bytes™ actually
                 runs. Every reply is anchored in public site sources.
               </p>
             </div>
-            <div className="grid w-full gap-3 sm:grid-cols-2">
+            <div className="grid w-full gap-4 sm:grid-cols-2">
               {QUICK_PROMPTS.map((prompt) => (
                 <button
                   key={prompt}
                   type="button"
                   onClick={() => handleQuickPrompt(prompt)}
-                  className="rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white/75 text-left transition hover:border-[rgba(151,25,44,0.6)] hover:bg-[rgba(151,25,44,0.18)] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-pink)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b0608] group flex items-start gap-3"
+                  className="rounded-none border-2 border-[#120f0a] bg-white p-4 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] text-left transition shadow-[2px_2px_0px_0px_#120f0a] hover:bg-[#fee9cf] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] focus-visible:outline-none group flex items-start gap-3 cursor-pointer"
                 >
-                  <span className="text-[var(--brand-pink)] opacity-70 group-hover:opacity-100 mt-0.5">
+                  <span className="text-[#97192c] font-black group-hover:translate-x-0.5 transition-transform">
                     ↳
                   </span>
                   <span>{prompt}</span>
@@ -625,21 +625,21 @@ export function QnAChatInterface() {
             {messages.map((m) => (
               <motion.div
                 key={m.id}
-                initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ type: "spring", duration: 0.4, bounce: 0 }}
                 className={`flex w-full ${m.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 {m.role === "assistant" && (
-                  <div className="hidden sm:flex self-end mr-3 mb-1 w-8 h-8 rounded-full bg-zinc-800 items-center justify-center border border-zinc-700/50 flex-shrink-0">
-                    <Bot className="w-4 h-4 text-[var(--brand-pink)]" />
+                  <div className="hidden sm:flex self-end mr-3 mb-1 w-8 h-8 rounded-none bg-[#fee9cf] items-center justify-center border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] flex-shrink-0">
+                    <Bot className="w-4 h-4 text-[#120f0a]" />
                   </div>
                 )}
                 <div
-                  className={`w-fit max-w-[90%] sm:max-w-[85%] md:max-w-[75%] rounded-2xl px-5 py-3.5 text-[0.95rem] leading-relaxed shadow-sm break-words ${
+                  className={`w-fit max-w-[90%] sm:max-w-[85%] md:max-w-[75%] rounded-none px-5 py-3.5 text-[0.95rem] leading-relaxed border-2 border-[#120f0a] shadow-[3px_3px_0px_0px_#120f0a] break-words ${
                     m.role === "user"
-                      ? "bg-[var(--brand-pink)] text-white rounded-br-sm"
-                      : "border border-white/10 bg-[rgba(18,9,12,0.9)] text-white/90 rounded-bl-sm prose prose-invert prose-p:my-2 prose-headings:my-3 prose-ul:my-2 prose-li:my-1 max-w-none"
+                      ? "bg-[#97192c] text-white"
+                      : "bg-[#eae8e4] text-[#120f0a] prose prose-p:my-2 prose-headings:my-3 prose-ul:my-2 prose-li:my-1 max-w-none font-semibold"
                   }`}
                 >
                   {m.role === "user" ? (
@@ -702,7 +702,7 @@ export function QnAChatInterface() {
                             return (
                               <a
                                 href={href}
-                                className="inline-flex my-2 w-full sm:w-auto items-center justify-center rounded-xl bg-[var(--brand-pink)] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#e45a92]/30 transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-105 active:scale-[0.97] hover:shadow-xl hover:shadow-[#e45a92]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
+                                className="inline-flex my-2 w-full sm:w-auto items-center justify-center rounded-none bg-[#fc920d] border-2 border-[#120f0a] px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all focus-visible:outline-none cursor-pointer"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 {...props}
@@ -722,7 +722,7 @@ export function QnAChatInterface() {
                                     : String(children);
                                   handleQuickPrompt(promptText);
                                 }}
-                                className="block w-full mt-3 text-left rounded-xl border border-zinc-700/80 bg-zinc-800/60 px-4 py-3 text-sm text-zinc-200 transition-all duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:scale-[1.01] active:scale-[0.98] hover:border-[#e45a92] hover:bg-zinc-800 hover:text-white"
+                                className="block w-full mt-3 text-left rounded-none border-2 border-[#120f0a] bg-white px-4 py-3 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:bg-[#fee9cf] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
                               >
                                 ↳ {children}
                               </button>
@@ -972,25 +972,25 @@ export function QnAChatInterface() {
           <div ref={messagesEndRef} />
           {isLoading && (
             <motion.div 
-              initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
               className="flex justify-start"
             >
-              <div className="hidden sm:flex self-end mr-3 mb-1 w-8 h-8 rounded-full bg-zinc-800 items-center justify-center border border-zinc-700/50 flex-shrink-0">
-                <Bot className="w-4 h-4 text-[#e45a92]" />
+              <div className="hidden sm:flex self-end mr-3 mb-1 w-8 h-8 rounded-none bg-[#fee9cf] items-center justify-center border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] flex-shrink-0">
+                <Bot className="w-4 h-4 text-[#120f0a]" />
               </div>
-              <div className="rounded-2xl border border-zinc-700/60 bg-zinc-900/90 rounded-bl-sm px-6 py-4 flex items-center gap-2 text-sm text-zinc-400">
-                <span className="flex items-center gap-1">
+              <div className="rounded-none border-2 border-[#120f0a] bg-white px-6 py-4 flex items-center gap-2 text-sm text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]">
+                <span className="flex items-center gap-1.5">
                   <span
-                    className="h-1.5 w-1.5 rounded-full bg-[#e45a92] animate-bounce"
+                    className="h-2 w-2 rounded-full bg-[#97192c] animate-bounce"
                     style={{ animationDelay: "0ms" }}
                   />
                   <span
-                    className="h-1.5 w-1.5 rounded-full bg-[#e45a92] animate-bounce"
+                    className="h-2 w-2 rounded-full bg-[#97192c] animate-bounce"
                     style={{ animationDelay: "150ms" }}
                   />
                   <span
-                    className="h-1.5 w-1.5 rounded-full bg-[#e45a92] animate-bounce"
+                    className="h-2 w-2 rounded-full bg-[#97192c] animate-bounce"
                     style={{ animationDelay: "300ms" }}
                   />
                 </span>
@@ -998,20 +998,20 @@ export function QnAChatInterface() {
             </motion.div>
           )}
           {error && (
-            <div className="p-3 mx-auto w-full max-w-sm text-center rounded-xl bg-red-950/50 border border-red-900/50 text-sm text-red-400">
+            <div className="p-4 mx-auto w-full max-w-sm text-center rounded-none bg-red-100 border-2 border-red-500 text-sm text-red-600 font-bold">
               {error}
             </div>
           )}
         </div>
       </div>
 
-      <div className="p-4 w-full bg-zinc-950/95 shrink-0 relative z-20">
+      <div className="p-4 w-full bg-[#eae8e4] border-t-4 border-[#120f0a] shrink-0 relative z-20">
         <PromptBox
           ref={promptBoxRef}
           value={message}
           onChange={handleInputChange}
           onSubmitMessage={(msg: string) => handleSend(msg)}
-          className="bg-[rgba(18,9,12,0.95)] border border-white/10 focus-within:ring-[var(--brand-pink)]"
+          className="bg-white border-2 border-[#120f0a] focus-within:ring-0"
         />
       </div>
     </div>
