@@ -6,21 +6,21 @@ export function Features() {
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6">
       <div className="relative">
-        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 sm:gap-6">
           {/* Card 1: 1400+ Members */}
           <div
-            className="col-span-full lg:col-span-2 bg-card border-4 border-border shadow-[8px_8px_0px_0px_var(--border)] flex flex-col items-center justify-center p-8 md:p-12 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_var(--border)] duration-200"
+            className="col-span-full lg:col-span-2 bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] sm:shadow-[8px_8px_0px_0px_var(--border)] flex flex-col items-center justify-center p-6 sm:p-8 md:p-12 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_var(--border)] duration-200"
           >
             <div className="relative m-auto h-full w-full flex flex-col items-center justify-center">
-              <div className="relative border-3 border-border bg-secondary px-6 py-4 shadow-[4px_4px_0px_0px_var(--border)] transition-transform group-hover:scale-105 group-hover:-rotate-1">
-                <span className="mx-auto block w-fit text-5xl md:text-6xl font-black text-foreground tracking-tighter font-mono">
+              <div className="relative border-3 border-border bg-secondary px-5 py-3 sm:px-6 sm:py-4 shadow-[4px_4px_0px_0px_var(--border)] transition-transform group-hover:scale-105 group-hover:-rotate-1">
+                <span className="mx-auto block w-fit text-4xl sm:text-5xl md:text-6xl font-black text-foreground tracking-tighter font-mono">
                   1400+
                 </span>
                 <span className="absolute -top-3 -right-3 border-2 border-border bg-[#fc920d] text-[#120f0a] dark:text-[#120f0a] px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider shadow-[1.5px_1.5px_0px_0px_var(--border)]">
                   LIVE
                 </span>
               </div>
-              <h2 className="mt-8 text-center text-2xl font-black text-foreground uppercase tracking-widest">
+              <h2 className="mt-6 sm:mt-8 text-center text-xl sm:text-2xl font-black text-foreground uppercase tracking-widest">
                 Members
               </h2>
             </div>
@@ -28,16 +28,16 @@ export function Features() {
 
           {/* Card 2: Workshops */}
           <div
-            className="col-span-full sm:col-span-3 lg:col-span-2 bg-card border-4 border-border shadow-[8px_8px_0px_0px_var(--border)] p-8 md:p-12 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_var(--border)] duration-200"
+            className="col-span-full sm:col-span-3 lg:col-span-2 bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] sm:shadow-[8px_8px_0px_0px_var(--border)] p-6 sm:p-8 md:p-12 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_var(--border)] duration-200"
           >
-            <div className="relative mx-auto flex aspect-square size-24 items-center justify-center border-3 border-border bg-secondary shadow-[4px_4px_0px_0px_var(--border)] transition-transform group-hover:scale-105 group-hover:rotate-2">
-              <Lightbulb className="h-10 w-10 text-primary dark:text-accent" />
+            <div className="relative mx-auto flex aspect-square size-20 sm:size-24 items-center justify-center border-3 border-border bg-secondary shadow-[4px_4px_0px_0px_var(--border)] transition-transform group-hover:scale-105 group-hover:rotate-2">
+              <Lightbulb className="h-9 w-9 sm:h-10 sm:w-10 text-primary dark:text-accent" />
               <span className="absolute -top-2.5 -right-2.5 border-2 border-border bg-primary text-primary-foreground px-2 py-0.5 text-[8px] font-mono font-bold uppercase tracking-wider shadow-[1.5px_1.5px_0px_0px_var(--border)]">
                 NEW
               </span>
             </div>
-            <div className="relative z-10 mt-8 space-y-3 text-center">
-              <h2 className="text-2xl font-black text-foreground uppercase tracking-tight">Workshops</h2>
+            <div className="relative z-10 mt-6 sm:mt-8 space-y-2 sm:space-y-3 text-center">
+              <h2 className="text-xl sm:text-2xl font-black text-foreground uppercase tracking-tight">Workshops</h2>
               <p className="text-sm text-muted-foreground font-semibold">
                 Dev tools and AI, one weekend at a time.
               </p>
@@ -46,16 +46,16 @@ export function Features() {
 
           {/* Card 3: 5+ Forks */}
           <div
-            className="col-span-full sm:col-span-3 lg:col-span-2 bg-card border-4 border-border shadow-[8px_8px_0px_0px_var(--border)] p-8 md:p-12 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_var(--border)] duration-200"
+            className="col-span-full sm:col-span-3 lg:col-span-2 bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] sm:shadow-[8px_8px_0px_0px_var(--border)] p-6 sm:p-8 md:p-12 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_var(--border)] duration-200"
           >
-            <div className="relative mx-auto flex aspect-square size-24 items-center justify-center border-3 border-border bg-secondary shadow-[4px_4px_0px_0px_var(--border)] transition-transform group-hover:scale-105 group-hover:-rotate-2">
-              <CodeXml className="h-10 w-10 text-primary dark:text-accent" />
+            <div className="relative mx-auto flex aspect-square size-20 sm:size-24 items-center justify-center border-3 border-border bg-secondary shadow-[4px_4px_0px_0px_var(--border)] transition-transform group-hover:scale-105 group-hover:-rotate-2">
+              <CodeXml className="h-9 w-9 sm:h-10 sm:w-10 text-primary dark:text-accent" />
               <span className="absolute -top-2.5 -right-2.5 border-2 border-border bg-[#fc920d] text-[#120f0a] dark:text-[#120f0a] px-2 py-0.5 text-[8px] font-mono font-bold uppercase tracking-wider shadow-[1.5px_1.5px_0px_0px_var(--border)]">
                 CITY
               </span>
             </div>
-            <div className="relative z-10 mt-8 space-y-3 text-center">
-              <h2 className="text-2xl font-black text-foreground uppercase tracking-tight">
+            <div className="relative z-10 mt-6 sm:mt-8 space-y-2 sm:space-y-3 text-center">
+              <h2 className="text-xl sm:text-2xl font-black text-foreground uppercase tracking-tight">
                 5+ Forks
               </h2>
               <p className="text-sm text-muted-foreground font-semibold">
@@ -66,15 +66,15 @@ export function Features() {
 
           {/* Card 4: Innovation */}
           <div
-            className="col-span-full lg:col-span-3 bg-card border-4 border-border shadow-[8px_8px_0px_0px_var(--border)] p-8 md:p-10 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_var(--border)] duration-200"
+            className="col-span-full lg:col-span-3 bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] sm:shadow-[8px_8px_0px_0px_var(--border)] p-6 sm:p-8 md:p-10 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_var(--border)] duration-200"
           >
-            <div className="grid sm:grid-cols-2 h-full gap-6">
-              <div className="relative z-10 flex flex-col justify-between space-y-8 h-full">
-                <div className="relative flex aspect-square size-14 items-center justify-center border-3 border-border bg-secondary shadow-[3px_3px_0px_0px_var(--border)]">
-                  <Rocket className="size-7 text-primary dark:text-accent" />
+            <div className="grid sm:grid-cols-2 h-full gap-5 sm:gap-6">
+              <div className="relative z-10 flex flex-col justify-between space-y-6 sm:space-y-8 h-full">
+                <div className="relative flex aspect-square size-12 sm:size-14 items-center justify-center border-3 border-border bg-secondary shadow-[3px_3px_0px_0px_var(--border)]">
+                  <Rocket className="size-6 sm:size-7 text-primary dark:text-accent" />
                 </div>
-                <div className="space-y-3">
-                  <h2 className="text-3xl font-black text-foreground uppercase tracking-tight">
+                <div className="space-y-2 sm:space-y-3">
+                  <h2 className="text-2xl sm:text-3xl font-black text-foreground uppercase tracking-tight">
                     Innovation
                   </h2>
                   <p className="text-sm text-muted-foreground font-semibold leading-relaxed">
@@ -130,15 +130,15 @@ export function Features() {
 
           {/* Card 5: Team & Mentorship */}
           <div
-            className="col-span-full lg:col-span-3 bg-card border-4 border-border shadow-[8px_8px_0px_0px_var(--border)] p-8 md:p-10 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_var(--border)] duration-200"
+            className="col-span-full lg:col-span-3 bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] sm:shadow-[8px_8px_0px_0px_var(--border)] p-6 sm:p-8 md:p-10 group transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[10px_10px_0px_0px_var(--border)] duration-200"
           >
-            <div className="grid sm:grid-cols-2 h-full gap-6">
-              <div className="relative z-10 flex flex-col justify-between space-y-8 h-full">
-                <div className="relative flex aspect-square size-14 items-center justify-center border-3 border-border bg-secondary shadow-[3px_3px_0px_0px_var(--border)]">
-                  <Users className="m-auto size-7 text-primary dark:text-accent" />
+            <div className="grid sm:grid-cols-2 h-full gap-5 sm:gap-6">
+              <div className="relative z-10 flex flex-col justify-between space-y-6 sm:space-y-8 h-full">
+                <div className="relative flex aspect-square size-12 sm:size-14 items-center justify-center border-3 border-border bg-secondary shadow-[3px_3px_0px_0px_var(--border)]">
+                  <Users className="m-auto size-6 sm:size-7 text-primary dark:text-accent" />
                 </div>
-                <div className="space-y-3">
-                  <h2 className="text-3xl font-black text-foreground uppercase tracking-tight">
+                <div className="space-y-2 sm:space-y-3">
+                  <h2 className="text-2xl sm:text-3xl font-black text-foreground uppercase tracking-tight">
                     Team & Mentorship
                   </h2>
                   <p className="text-sm text-muted-foreground font-semibold leading-relaxed">
