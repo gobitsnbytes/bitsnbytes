@@ -11,7 +11,7 @@ type KineticTextProps = React.HTMLAttributes<HTMLElement> & {
 
 export function KineticText({
   text,
-  as: Tag = "h1",
+  as: Tag = "span",
   className = "",
   style,
   ...rest

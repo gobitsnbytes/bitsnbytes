@@ -27,6 +27,17 @@ const DiscordIcon = ({ className, ...props }: React.ComponentProps<"svg">) => (
   </svg>
 );
 
+const TwitterIcon = ({ className, ...props }: React.ComponentProps<"svg">) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    {...props}
+  >
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
 const socialLinks = [
   {
     href: "https://www.linkedin.com/company/gobitsbytes",
@@ -43,6 +54,11 @@ const socialLinks = [
     href: "https://www.instagram.com/gobitsnbytes",
     label: "Instagram",
     icon: Instagram,
+  },
+  {
+    href: "https://twitter.com/bitsnbytes_lko",
+    label: "Twitter / X",
+    icon: TwitterIcon,
   },
 ];
 
@@ -235,6 +251,7 @@ export function FlickeringFooter() {
       <div className="w-full py-8 sm:py-10 md:py-16 lg:py-20 mt-8 border-t-4 border-border bg-card overflow-hidden relative z-10 flex items-center justify-center select-none">
         <div className="w-full max-w-6xl px-4 sm:px-6 lg:px-8 flex justify-center">
           <KineticText
+            as="p"
             text="bits&bytes"
             className="font-display text-4xl xs:text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-foreground justify-center cursor-default select-none"
           />

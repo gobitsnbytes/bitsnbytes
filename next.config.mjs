@@ -69,11 +69,6 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/favicon.ico',
-        destination: '/logo.svg',
-        permanent: true,
-      },
-      {
         source: '/:path*',
         has: [
           {

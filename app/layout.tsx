@@ -37,12 +37,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://gobitsnbytes.org"),
   manifest: "/manifest.webmanifest",
   title: {
-    default:
-      "bits&bytes™ - India's Youth-Led Builder Network | Hackathons & Tech Community",
+    default: "bits&bytes™ - India's Youth-Led Builder Network",
     template: "%s | bits&bytes™",
   },
   description:
-    "Innovate. Collaborate. Hack. Join India's boldest youth-led builder network. Build real projects, attend hackathons, and grow as a developer. 1500+ active members and 2700+ participant submissions evaluated in 3 days.",
+    "Join India's boldest youth-led builder network. Build real projects, attend hackathons, and grow with 1500+ teen developers.",
   keywords: [
     "bits&bytes™",
     "bits&bytes",
@@ -93,10 +92,9 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://gobitsnbytes.org",
     siteName: "bits&bytes™",
-    title:
-      "bits&bytes™ - India's Youth-Led Builder Network | Hackathons & Tech Community",
+    title: "bits&bytes™ - India's Youth-Led Builder Network",
     description:
-      "Join India's boldest youth-led builder network. Build real projects, attend hackathons, and grow as a developer. 1500+ active members.",
+      "Join India's boldest youth-led builder network. Build real projects, attend hackathons, and grow with 1500+ teen developers.",
     images: [
       {
         url: "/og-image.png",
@@ -111,7 +109,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "bits&bytes™ - India's Youth-Led Builder Network",
     description:
-      "Join India's boldest youth-led builder network. 1500+ active members building and shipping real products.",
+      "Join India's boldest youth-led builder network. Build real projects, attend hackathons, and grow with 1500+ teen developers.",
     images: ["/og-image.png"],
     creator: "@bitsnbytes_lko",
     site: "@bitsnbytes_lko",
@@ -128,8 +126,15 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-status-bar-style": "black-translucent",
   },
   icons: {
-    icon: [{ url: "/logo.svg", type: "image/svg+xml" }],
-    shortcut: [{ url: "/logo.svg", type: "image/svg+xml" }],
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 
