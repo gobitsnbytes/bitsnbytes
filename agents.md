@@ -70,10 +70,11 @@ Quick reference for "who to ping for what".
 | **Akshat Kushwaha** | Chief Technology Officer (CTO) | Production Infrastructure, AI/LLMOps, System Reliability, Operations |
 | **Aadrika Maurya** | Chief Creative Officer (CCO) & Chief Operating Officer (COO) | Neuroscience Research (EEG), Brand Strategy, Creative Direction |
 | **Devaansh Pathak** | Chief Financial Officer (CFO) | Backend Architecture, Partnership Economics |
-| **Drishti Arora** | Chief Marketing Officer (CMO) | Marketing Strategy, Brand Growth, Campaign Management |
+| **Drishti Arora** | Chief Growth Officer (CGO) | Growth Strategy, Brand Growth, Campaign Management |
 | **Raghwender Vasisth** | Head of Operations | Operations Management, Process Optimization, Resource Logistics |
 | **Maryam Fatima** | Head of Brand & Media | Visual Design, Campaign Strategy, Social |
 | **Srishti Singh** | Head of Partnerships & Institutional Relations | Logistics, Internal Comms, Coordination |
+| **Angel** | Head of Research & Strategy | Research & Analysis, Strategic Planning, Community Development |
 
 ### Volunteers (Operations, Outreach, Creative, Tech)
 
@@ -100,7 +101,7 @@ The Board of Directors holds ultimate legal, fiduciary, financial, and safeguard
 
 ### 3.2 Executive Officers (Operational Team)
 Executive Officers are appointed by the Board under Article 28 of the e-Articles of Association (e-AOA) for day-to-day operations.
-- **Operational Status:** Titles like CEO, CTO, COO, CFO, and CMO represent specific operational management domains.
+- **Operational Status:** Titles like CEO, CTO, COO, CFO, and CGO represent specific operational management domains.
 - **Signing & Fiduciary Limits:** Because bits&bytes™ is intentionally youth-led and includes minors, the designation of an Executive Officer **does not** automatically confer statutory directorship, legal membership, signature authority, banking access, or the power to bind the Foundation. All formal commitments, contracts, and bank operations must be routed through written Board authorizations.
 
 ### 3.3 Fork Network Model
@@ -143,26 +144,24 @@ Because many participants are minors, the Foundation enforces rigorous safety pr
   - GitHub: https://github.com/Aadrika08
 - **Owns:** Creative direction, brand strategy, visual identity, and the vision for what the network becomes.
 
-#### Akshat Kushwaha – Chief Technology Officer
-- **Expertise:** Core Systems Engineering, AI-Native Systems, Retrieval Architectures, LLMOps, CS nerd.
-- **Why he's cracked as fuck:**
-  - **Frontier stuff:** Contributed to proprietary AI agent harnesses and billion-scale legal indexes used in real courts and government infra, not just side projects.
-  - **Production > toy demos:** His code runs in systems that handle 1.6M+ quarterly requests and 10k+ lawyers, where failures actually matter.
-  - **Latency nerd:** Personally obsessed over time-to-first-token, packet sizes, and token efficiency, treating cost and latency as first-class design constraints.
-  - **Benchmarking mindset:** Built his own MP3–transcript dataset and ran model benchmarks to replace gpt-4o-mini with a self-hosted model that cut latency by 60% with similar quality and lower cost.
-  - **Systems thinking:** Designed a “window manager” for Steno, similar to Claude Code/Cursor paradigms, to handle long dictations inside limited context windows.
-- **Working like a senior RE:**
-  - **Dual mandate ready:** Already doing both research-y experiments and productionization, usually reserved for experienced engineers familiar with cloud and neocloud infra.
-  - **Survives messy reality:** Learned in an environment with poor docs, proprietary pipelines, fragile dependencies, and SOTA techniques that barely exist in public literature.
-  - **Failure mileage:** Has “seen more production failures than middle-aged peers,” meaning he’s actually shipped enough to break things at scale and learn from it.
-  - **Strong debugging loop:** Known for "mapping problems over iterative debugging," the core Research Engineer skill.
-- **Signal vs typical 17-year-old:**
-  - Staffed as a Jr Research Engineer under a Chief Scientist (at jhana.ai), tuning agentic systems, building IVRS workflows from scratch, and optimizing token economics in a real AI SaaS product.
+#### Akshat Kushwaha - Chief Technology Officer
+- **Expertise:** Systems Engineering, AI-Native Architecture, LLMOps, Retrieval Systems, Product Engineering.
+- **Role at bits&bytes:** The primary technical lead. Built and owns the entire stack from scratch. First point of contact for anything technical.
+- **Production background:**
+  - Jr. Research Engineer at jhana.ai (India's leading legal AI lab, 10k+ lawyers): replaced GPT-4o-mini with a self-hosted model cutting TTFT by 60% without accuracy loss; built a context-window manager for long dictations; shipped automated WhatsApp IVRS case onboarding.
+  - Contributed to AI systems handling 1.6M+ quarterly requests across real government and legal infrastructure.
+  - Built Lexana: multi-agent legal intelligence platform (semantic caching cutting LLM costs by 60%, real-time WebSocket editing, RAG pipeline); expanded to Nepal.
+  - Built HybridMind: custom hybrid retrieval engine combining FAISS vector search, GraphSAGE-style graph relationships, and SQLite WAL persistence.
+  - Started a design studio at 12, scaled to 30 people and 500+ orders in one year.
+- **Core stack:** Next.js, React, TypeScript, Python, FastAPI, Docker, PostgreSQL, Redis, Prisma, Tailwind CSS, Framer Motion.
+- **Interests:** Agents, LLMOps, Retrieval, System Design, NLP, Product Thinking, DX, Agentic Workflows, Machine Learning.
 - **Profiles:**
   - LinkedIn: https://www.linkedin.com/in/akshat-singh-kushwaha
   - Website: https://a3ro.dev
   - GitHub: https://github.com/a3ro-dev
-- **Owns:** The entire tech stack, the infra, operations, and anything that needs to actually work under pressure. Built the entire bits&bytes™ tech infrastructure from scratch.
+  - Calendar: https://calendly.com/a3ro-dev
+  - Email: akshatsingh14372@outlook.com
+- **Owns:** The entire tech stack and infrastructure. Any question about how bits&bytes works technically starts with Akshat.
 
 #### Devaansh Pathak – Chief Financial Officer
 - **Expertise:** Backend Architecture, Database Systems, Partnership Economics
@@ -173,17 +172,24 @@ Because many participants are minors, the Foundation enforces rigorous safety pr
   - LinkedIn: https://www.linkedin.com/in/devaanshpa/
 - **Owns:** Financial operations, partnership economics, and backend architecture.
 
-#### Drishti Arora – Chief Marketing Officer
-- **Expertise:** Marketing Strategy, Brand Growth, Campaign Management, Audience Development
+#### Drishti Arora – Chief Growth Officer
+- **Expertise:** Growth Strategy, Brand Growth, Campaign Management, Audience Development
 - **Profiles:**
   - LinkedIn: https://www.linkedin.com/in/drish-arora
-- **Owns:** Marketing strategy, brand growth, and audience development across all channels.
+- **Owns:** Growth strategy, brand growth, and audience development across all channels.
 
 #### Raghwender Vasisth – Head of Operations
 - **Expertise:** Operations Management, Process Optimization, Resource Logistics, Team Coordination
 - **Profiles:**
   - LinkedIn: https://www.linkedin.com/in/raghwender-vasisth/
 - **Owns:** Operational excellence, process optimization, and keeping the organization running at scale.
+
+#### Angel – Head of Research & Strategy
+- **Expertise:** Research & Analysis, Strategic Planning, Community Development
+- **Profiles:**
+  - LinkedIn: https://www.linkedin.com/in/angelp-online/
+  - Instagram: https://www.instagram.com/rightangeled/
+- **Owns:** Strategic research, community insights, and organizational growth frameworks.
 
 ---
 

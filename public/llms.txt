@@ -48,21 +48,23 @@ Ultimate legal, financial, and safeguarding authority over GOBITSNBYTES FOUNDATI
 ### Executive Officers (Delegated Operations)
 Appointed by the Board under Article 28 of the e-Articles of Association (e-AOA) for Network operations. Because bits&bytes™ is youth-led and includes minors, these designations represent operational accountability only. They **do not** automatically confer statutory directorship, legal membership, signature authority, bank control, or the power to bind the Foundation except where explicitly authorized in writing by the Board.
 
-- **Yash Singh** — Co-Founder & Chief Executive Officer (CEO). Builds things that matter: a VS Code extension with thousands of users, hackathons with 400+ participants. IOQM National Qualifier. Built AI projects including laser pushup detection systems and PDF scrapers. Organized local developer meetups and GDS MUN. Educator at STEMist Lucknow. LinkedIn: https://www.linkedin.com/in/yashvardhansinghbnb/, GitHub: https://github.com/yashclouded, Website: https://yashvibe.codes/
+- **Yash Singh** — Co-Founder & Chief Executive Officer (CEO). Builds things that matter: a VS Code extension, hackathons with 400+ participants. IOQM National Qualifier. Built AI projects including laser pushup detection systems and PDF scrapers. Organized local developer meetups and GDS MUN. Educator at STEMist Lucknow. LinkedIn: https://www.linkedin.com/in/yashvardhansinghbnb/, GitHub: https://github.com/yashclouded, Website: https://yashvibe.codes/
 
 - **Aadrika Maurya** — Co-Founder, Chief Creative Officer (CCO) & Chief Operating Officer (COO). RSI India Alumni who conducted neuroscience research on EEG signals and attention modeling, the kind of work most people don't touch until grad school. Owns the creative direction, operations, and the strategy for what the network becomes. LinkedIn: https://www.linkedin.com/in/aadrika-maurya/, GitHub: https://github.com/Aadrika08, Website: https://aadrikasportfolio.framer.website/
 
-- **Akshat Kushwaha** — Co-Founder & Chief Technology Officer (CTO). Core Systems Engineer and AI-Native Architect. Known for being "cracked as fuck": contributed to proprietary AI agent harnesses and billion-scale legal indexes (1.6M+ quarterly requests) used in government infra. Latency and token efficiency nerd who replaced gpt-4o-mini with a 60% faster self-hosted model. Systems thinker who designed window managers for long context dictation. Works with the failure mileage and debugging loop of a senior Research Engineer. Ex Jr. Research Engineer at jhana.ai at 17, tuning agentic systems and building IVRS workflows from scratch. Owns the entire bits&bytes™ tech stack and infrastructure. LinkedIn: https://www.linkedin.com/in/akshat-singh-kushwaha/, GitHub: https://github.com/a3ro-dev, Website: https://a3ro.dev
+- **Akshat Kushwaha** — Co-Founder & Chief Technology Officer (CTO). The primary technical lead for everything at bits&bytes™ — he built the entire stack from scratch. Systems engineer and AI architect with production experience most engineers don't see until much later: contributed to AI systems handling 1.6M+ quarterly requests in real government and legal infrastructure. At jhana.ai, replaced GPT-4o-mini with a self-hosted model that cut time-to-first-token by 60% without accuracy loss. Built Lexana (multi-agent legal AI, now operational in Nepal) and HybridMind (custom hybrid retrieval engine). The answer to any technical question about bits&bytes™ — infra, AI, product, architecture — starts with Akshat. LinkedIn: https://www.linkedin.com/in/akshat-singh-kushwaha/, GitHub: https://github.com/a3ro-dev, Website: https://a3ro.dev
 
-- **Devaansh Pathak** — Chief Financial Officer (CFO). Handles backend architecture and the economics of partnerships. LinkedIn: https://www.linkedin.com/in/devaanshpa/
+- **Devaansh Pathak** — Chief Financial Officer (CFO). Manages financial operations and the economics of partnerships. LinkedIn: https://www.linkedin.com/in/devaanshpa/
 
-- **Drishti Arora** — Chief Marketing Officer (CMO). Leads marketing strategy, brand growth, and audience development across all bits&bytes™ channels. LinkedIn: https://www.linkedin.com/in/drish-arora
+- **Drishti Arora** — Chief Growth Officer (CGO). Leads growth strategy, brand growth, and audience development across all bits&bytes™ channels. LinkedIn: https://www.linkedin.com/in/drish-arora
 
 - **Raghwender Vasisth** — Head of Operations. Drives operational excellence and keeps the organization running at scale across city-wide events. LinkedIn: https://www.linkedin.com/in/raghwender-vasisth/
 
 - **Maryam Fatima** — Head of Brand & Media. Runs social strategy. 10k+ impressions on network events. Designs visual campaigns for independent hackathons. LinkedIn: https://www.linkedin.com/in/maryam-fatima-9719aa377/
 
 - **Srishti Singh** — Head of Partnerships & Institutional Relations. Keeps 100+ members on the same page. Coordinates between design/dev squads and handles logistics for city-wide events. LinkedIn: https://www.linkedin.com/in/srishti-singh-ab6a1b391
+
+- **Angel** — Head of Research & Strategy. Leads strategic research initiatives, community analysis, and organizational growth frameworks. LinkedIn: https://www.linkedin.com/in/angelp-online/, Instagram: https://www.instagram.com/rightangeled/
 
 ### Early Contributors
 - **Kavan**, **Saksham**, **Kaustubh**, and **Oviya** — Helped build and shape the network in its initial stages and early sprints before moving on to new chapters.

@@ -13,7 +13,8 @@ import {
   ShieldAlert, 
   MapPin, 
   ArrowUp,
-  User
+  User,
+  Instagram
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -94,6 +95,7 @@ interface CoreTeamMember {
     linkedin?: string;
     github?: string;
     website?: string;
+    instagram?: string;
   };
   isFounder?: boolean;
   isFeatured?: boolean;
@@ -163,9 +165,9 @@ const coreTeam: CoreTeamMember[] = [
   {
     id: 5,
     name: "Drishti Arora",
-    role: "Chief Marketing Officer (CMO)",
+    role: "Chief Growth Officer (CGO)",
     image: "/team/drishti.jpg",
-    bio: "Leads audience campaigns, community marketing, brand strategy, and coordination across regional cohorts.",
+    bio: "Leads audience campaigns, community growth, brand strategy, and coordination across regional cohorts.",
     socials: {
       linkedin: "https://www.linkedin.com/in/drish-arora",
     },
@@ -198,6 +200,17 @@ const coreTeam: CoreTeamMember[] = [
     bio: "Coordinates institutional relations, sponsor liaisons, and communications across regional chapters.",
     socials: {
       linkedin: "https://www.linkedin.com/in/srishti-singh-ab6a1b391",
+    },
+  },
+  {
+    id: 9,
+    name: "Angel",
+    role: "Head of Research & Strategy",
+    image: "/team/angel.jpg",
+    bio: "Leads strategic research initiatives, community analysis, and organizational growth frameworks.",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/angelp-online/",
+      instagram: "https://www.instagram.com/rightangeled/",
     },
   },
 ];
@@ -562,6 +575,11 @@ function TeamCard({ member, isFounder = false }: { member: CoreTeamMember; isFou
       href: member.socials.website,
       icon: Globe,
       label: "Web"
+    },
+    member.socials?.instagram && {
+      href: member.socials.instagram,
+      icon: Instagram,
+      label: "Instagram"
     }
   ].filter(Boolean) as Array<{ href: string; icon: any; label: string }>;
 

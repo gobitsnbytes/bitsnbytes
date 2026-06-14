@@ -16,6 +16,7 @@ export interface TeamMember {
     linkedin?: string;
     github?: string;
     website?: string;
+    instagram?: string;
   };
 }
 
@@ -91,25 +92,27 @@ export const TEAM_MEMBERS: TeamMember[] = [
       website: "https://a3ro.dev",
     },
     superpowers: [
-      "Systems Engineering",
-      "LLMOps & RAG Architecture",
-      "Agentic Workflows",
-      "Next.js 16 / React 19",
-      "System Design",
+      "Systems Engineering & Architecture",
+      "LLMOps, RAG & Retrieval Systems",
+      "Agentic Workflow Design",
+      "AI-Native Product Engineering",
+      "Latency Optimization & Token Efficiency",
+      "Next.js / React / Python / FastAPI",
     ],
     achievements: [
-      "Primary systems architect and lead engineer on the team",
-      "AI-native systems engineer; lead architect for the entire bits&bytes™ production-grade tech infrastructure",
-      "Designed high-performance efficient retrieval systems for complex AI workflows",
-      "Developed reliable long-running autonomous execution stacks for complex tool orchestration",
-      "Chapter Lead @ STEMist Education, founding builder-focused STEM culture at Boys High School, Prayagraj",
-      "Project Lead for the bits&bytes™ Platform, turning community operations into durable infrastructure",
+      "Built and owns the entire bits&bytes™ technical infrastructure from scratch — every system, every stack decision",
+      "Jr. Research Engineer at jhana.ai (India's leading legal AI lab): cut time-to-first-token by 60% by replacing GPT-4o-mini with a self-hosted model, built IVRS automation, and shipped a context-window manager for long dictations",
+      "Built Lexana: multi-agent legal intelligence platform with semantic caching (60% LLM cost reduction), real-time WebSocket editing, and RAG pipeline — expanded to Nepal",
+      "Built HybridMind: custom hybrid retrieval engine combining FAISS vector search with GraphSAGE-style graph relationships and SQLite WAL persistence",
+      "Contributed to production AI systems handling 1.6M+ quarterly requests across real government and legal infrastructure",
+      "Started a design studio at 12, scaled to 30 people and 500+ orders in one year",
     ],
     talkToMeWhen: [
-      "You care about the edge cases where AI systems usually break and want to build for real constraints",
-      "You're building complex agentic workflows, LLMOps pipelines, or local-first AI software",
-      "You want to discuss how technical execution and systems thinking overlap to ship meaningful product",
-      "You want to close the gap between ambition and the first build for young developers",
+      "You have any technical question — architecture, AI systems, retrieval, infrastructure, or product engineering",
+      "You're building agentic workflows, LLMOps pipelines, or RAG systems and want to avoid the common failure modes",
+      "You want to talk about latency, token efficiency, or making AI systems work reliably under real constraints",
+      "You're building anything that needs to survive contact with production",
+      "You want to discuss system design, backend architecture, or AI-native product development",
     ],
     department: "Engineering",
   },
@@ -121,40 +124,39 @@ export const TEAM_MEMBERS: TeamMember[] = [
       linkedin: "https://www.linkedin.com/in/devaanshpa/",
     },
     superpowers: [
-      "Backend Architecture",
-      "Database Systems",
       "Partnership Economics",
+      "Financial Operations",
+      "Backend Support",
     ],
     achievements: [
-      "Co-Architected the high-performance backend systems for the bits&bytes™ platform",
+      "Manages financial operations and sponsor economics for bits&bytes™",
       "Executed partnerships that delivered genuine ROI for sponsors across multiple cities",
     ],
     talkToMeWhen: [
-      "You are designing scalable database schemas or backend APIs",
-      "You want to talk about how we treat participants like high-agency builders",
-      "You're interested in the economics of sustainable tech communities",
+      "You have questions about sponsorship tiers, partnership economics, or event finances",
+      "You're interested in the financial side of running a student-led nonprofit",
     ],
-    department: "Engineering",
+    department: "Operations",
   },
   {
     name: "Drishti Arora",
-    role: "Chief Marketing Officer",
+    role: "Chief Growth Officer",
     photo: "/team/drishti.jpg",
     socials: {
       linkedin: "https://www.linkedin.com/in/drish-arora",
     },
     superpowers: [
-      "Marketing Strategy",
+      "Growth Strategy",
       "Brand Growth",
       "Campaign Management",
       "Audience Development",
     ],
     achievements: [
-      "Leads marketing strategy and brand growth across all bits&bytes™ channels",
+      "Leads growth strategy and brand growth across all bits&bytes™ channels",
       "Drives audience development and campaign management for community growth",
     ],
     talkToMeWhen: [
-      "You need marketing strategy for a launch or campaign",
+      "You need growth strategy for a launch or campaign",
       "You want to grow audience reach and engagement",
       "You have questions about brand positioning and growth",
     ],
@@ -235,6 +237,29 @@ export const TEAM_MEMBERS: TeamMember[] = [
     department: "Operations",
   },
   {
+    name: "Angel",
+    role: "Head of Research & Strategy",
+    photo: "/team/angel.jpg",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/angelp-online/",
+      instagram: "https://www.instagram.com/rightangeled/",
+    },
+    superpowers: [
+      "Research & Analysis",
+      "Strategic Planning",
+      "Community Development",
+    ],
+    achievements: [
+      "Leads strategic research initiatives to identify emerging tech trends and builder opportunities",
+      "Develops frameworks for project evaluation and community growth metrics",
+    ],
+    talkToMeWhen: [
+      "You want to discuss tech trends, user research, or project strategy",
+      "You need help structuring research frameworks or evaluating strategic growth paths",
+    ],
+    department: "Leadership",
+  },
+  {
     name: "Shantanu Joshi",
     role: "Creative Contributor",
     superpowers: [
@@ -294,11 +319,23 @@ export function recommendRoles(skills: string[], interests: string[]): string {
         k.includes("python") ||
         k.includes("js") ||
         k.includes("ai") ||
-        k.includes("cloud"),
+        k.includes("cloud") ||
+        k.includes("backend") ||
+        k.includes("frontend") ||
+        k.includes("llm") ||
+        k.includes("rag") ||
+        k.includes("agent") ||
+        k.includes("infra") ||
+        k.includes("system") ||
+        k.includes("tech") ||
+        k.includes("engineering") ||
+        k.includes("api") ||
+        k.includes("database") ||
+        k.includes("architecture"),
     )
   ) {
     recommendations.push(
-      "Engineering Team (Talk to Akshat Kushwaha or Devansh)",
+      "Engineering Team (Talk to Akshat Kushwaha — CTO and the primary technical lead for everything infra, AI, and product)",
     );
   }
   if (
