@@ -142,7 +142,7 @@ export const HeroFuturistic = () => {
                 <p className="text-xs sm:text-sm font-mono font-bold uppercase tracking-[0.2em] text-[#97192c] dark:text-[#fc920d]">
                   innovate. collaborate. hack.
                 </p>
-                <p className="text-sm sm:text-base md:text-lg xl:text-xl text-foreground/80 max-w-xl leading-relaxed font-semibold">
+                <p className="text-sm sm:text-base md:text-lg xl:text-xl text-foreground max-w-xl leading-relaxed font-semibold">
                   Hackathons, dev squads, and launches. Fully student-led, fully
                   independent. No adults in the room.
                 </p>
@@ -199,7 +199,7 @@ export const HeroFuturistic = () => {
                             stat.value
                           )}
                         </p>
-                        <p className="text-[9px] sm:text-[10px] md:text-[11px] font-mono uppercase tracking-[0.08em] sm:tracking-[0.1em] text-muted-foreground font-black mt-1 sm:mt-1.5">
+                        <p className="text-[9px] sm:text-[10px] md:text-[11px] font-mono uppercase tracking-[0.08em] sm:tracking-[0.1em] text-foreground/80 font-black mt-1 sm:mt-1.5">
                           {stat.label}
                         </p>
                       </motion.div>
@@ -281,7 +281,7 @@ export const HeroFuturistic = () => {
                   {heroEvents[activeSlide].title}
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </h3>
-                <p className="text-muted-foreground text-sm font-semibold mt-1">
+                <p className="text-foreground/80 text-sm font-semibold mt-1">
                   {heroEvents[activeSlide].subtitle}
                 </p>
               </div>
@@ -353,7 +353,7 @@ export const HeroFuturistic = () => {
                     preload="metadata"
                   />
                   <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between bg-gradient-to-b from-black/70 to-transparent px-3 py-3 sm:px-4">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/80 backdrop-blur-md">
+                    <span className="inline-flex items-center gap-2 rounded-none border-2 border-white/20 bg-black/35 px-3 py-1.5 text-[0.65rem] font-black uppercase tracking-[0.2em] text-white backdrop-blur-md">
                       <Volume2 className="h-3.5 w-3.5 text-[var(--brand-coral)]" />
                       Audio on
                     </span>
@@ -361,7 +361,7 @@ export const HeroFuturistic = () => {
                 </div>
                 <button
                   type="button"
-                  className="absolute right-4 top-4 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/55 text-white transition-[background-color,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-black/75 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  className="absolute right-4 top-4 z-20 inline-flex h-10 w-10 items-center justify-center rounded-none border-2 border-white/20 bg-black/55 text-white transition-[background-color,transform] duration-100 ease-out hover:bg-black/75 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                   onClick={closeMovie}
                   aria-label="Close movie"
                   tabIndex={isMovieOpen ? 0 : -1}

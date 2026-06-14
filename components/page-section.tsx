@@ -47,7 +47,7 @@ export function PageSection({
           )}
         >
           {eyebrow && (
-            <span className="inline-flex items-center justify-center border-2 border-border bg-accent text-primary text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest px-3 py-1.5 shadow-[2px_2px_0px_0px_var(--border)] mb-2">
+            <span className="inline-flex items-center justify-center border-2 border-border bg-accent text-accent-foreground text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest px-3 py-1.5 shadow-[2px_2px_0px_0px_var(--border)] mb-2">
               {eyebrow}
             </span>
           )}
@@ -57,7 +57,7 @@ export function PageSection({
             </h2>
           )}
           {description && (
-            <p className="max-w-3xl text-sm sm:text-base md:text-lg text-foreground/70 font-bold px-2 sm:px-0 mt-1">
+            <p className="max-w-3xl text-sm sm:text-base md:text-lg text-foreground font-bold px-2 sm:px-0 mt-1">
               {description}
             </p>
           )}

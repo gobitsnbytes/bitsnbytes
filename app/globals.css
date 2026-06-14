@@ -295,7 +295,7 @@
     }
 
     .section-eyebrow {
-        @apply mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-secondary px-4 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.35em] text-secondary-foreground;
+        @apply mb-4 inline-flex items-center gap-2 rounded-none border-2 border-border bg-secondary px-4 py-1.5 text-[0.7rem] font-black uppercase tracking-[0.35em] text-secondary-foreground shadow-[2px_2px_0px_0px_var(--border)];
     }
 
     .glass-panel {
@@ -350,7 +350,7 @@
     }
 
     .tag-chip {
-        @apply rounded-full border border-white/10 bg-secondary px-3 py-1 text-xs font-semibold uppercase tracking-wide text-secondary-foreground shadow-[var(--glow-soft)];
+        @apply rounded-none border-2 border-border bg-secondary px-3 py-1.5 text-xs font-black uppercase tracking-wide text-secondary-foreground shadow-[2px_2px_0px_0px_var(--border)];
     }
 
     .section-divider {
@@ -640,7 +640,7 @@
     }
 
     .explore-btn {
-        @apply pointer-events-auto inline-flex items-center justify-center rounded-full border border-white/30 bg-primary/80 px-5 py-2 text-xs font-semibold text-white shadow-lg shadow-black/30 backdrop-blur-md md:text-sm;
+        @apply pointer-events-auto inline-flex items-center justify-center rounded-none border-2 border-border bg-primary px-5 py-2.5 text-xs font-black uppercase tracking-wider text-primary-foreground shadow-[4px_4px_0px_0px_var(--border)] transition-transform duration-100 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none md:text-sm;
     }
 
     .explore-arrow {

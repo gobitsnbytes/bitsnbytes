@@ -732,7 +732,7 @@ export default function Events() {
                   {/* Banner header placeholder */}
                   <div className="relative w-full aspect-[21/9] sm:aspect-[3/1] border-b-4 border-[#120f0a] overflow-hidden bg-[#fee9cf] flex items-center justify-center p-6 text-center">
                     <div className="space-y-2 max-w-lg">
-                      <div className="inline-flex p-3 border-2 border-black bg-white rounded-full shadow-[2px_2px_0px_0px_#000] mb-2">
+                      <div className="inline-flex p-3 border-2 border-black bg-white rounded-none shadow-[2px_2px_0px_0px_#000] mb-2">
                         <Activity className="w-8 h-8 text-[#97192c]" />
                       </div>
                       <h3 className="text-2xl font-black uppercase font-mono tracking-tight">Execron 1.0</h3>

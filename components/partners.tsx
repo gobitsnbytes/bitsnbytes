@@ -116,7 +116,7 @@ export function Partners() {
               {partner.name}
             </h3>
 
-            <p className="text-sm text-foreground/80 leading-relaxed font-semibold min-h-[120px] line-clamp-6">
+            <p className="text-sm text-foreground leading-relaxed font-semibold min-h-[120px] line-clamp-6">
               {partner.description}
             </p>
 

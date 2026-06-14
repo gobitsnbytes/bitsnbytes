@@ -117,7 +117,7 @@ export function FlickeringFooter() {
                 <ShieldCheck className="h-4 w-4 shrink-0" />
                 Trust Center
               </div>
-              <p className="text-sm leading-relaxed text-foreground/80 font-semibold max-w-xs">
+              <p className="text-sm leading-relaxed text-foreground font-semibold max-w-xs">
                 The public rules for a teen-led network: safety, privacy, brand stewardship, and participation standards.
               </p>
             </div>
@@ -134,7 +134,7 @@ export function FlickeringFooter() {
                       {link.title}
                       <ChevronRightIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-foreground/50 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
                     </span>
-                    <span className="mt-1.5 sm:mt-2 block text-[10px] sm:text-xs leading-snug text-foreground/70 hidden sm:block">
+                    <span className="mt-1.5 sm:mt-2 block text-[10px] sm:text-xs leading-snug text-foreground hidden sm:block">
                       {link.label}
                     </span>
                   </div>
@@ -170,7 +170,7 @@ export function FlickeringFooter() {
               </p>
             </div>
           </Link>
-          <p className="text-foreground/80 text-sm leading-relaxed font-semibold">
+          <p className="text-foreground text-sm leading-relaxed font-semibold">
             India's independent, teen-led builder network. Connecting the country's most ambitious teenage developers and designers to ship software from scratch.
           </p>
           
@@ -202,7 +202,7 @@ export function FlickeringFooter() {
                 {column.links.map((link) => (
                   <li
                     key={link.id}
-                    className="group inline-flex cursor-pointer items-center justify-start gap-1 text-sm font-bold text-foreground/80 hover:text-accent hover:translate-x-1 transition-all duration-150"
+                    className="group inline-flex cursor-pointer items-center justify-start gap-1 text-sm font-bold text-foreground hover:text-accent hover:translate-x-1 transition-all duration-150"
                   >
                     <Link href={link.url}>
                       {link.title}
@@ -222,7 +222,7 @@ export function FlickeringFooter() {
               >
                 hello@gobitsnbytes.org
               </a>
-              <p className="flex items-center gap-2 text-sm font-semibold text-foreground/80">
+              <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
                 <MapPin className="h-4 w-4 shrink-0 text-primary dark:text-accent" />
                 Lucknow, India
               </p>
@@ -242,17 +242,17 @@ export function FlickeringFooter() {
       </div>
 
       {/* Copyright bottom bar - Solid Deep Charcoal */}
-      <div className="border-t-4 border-border py-6 px-4 w-full bg-[#120f0a] dark:bg-card text-zinc-300 dark:text-foreground/70 relative z-10">
+      <div className="border-t-4 border-border py-6 px-4 w-full bg-[#120f0a] dark:bg-card text-zinc-200 dark:text-foreground relative z-10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs text-center md:text-left">
           <div className="flex flex-col items-center md:items-start gap-1 font-mono">
             <p className="font-black text-white dark:text-foreground uppercase tracking-tight">
               bits&amp;bytes™ by GOBITSNBYTES FOUNDATION
             </p>
-            <p className="text-zinc-400 dark:text-foreground/60">
+            <p className="text-zinc-300 dark:text-foreground/80">
               © {new Date().getFullYear()} GOBITSNBYTES FOUNDATION. All rights reserved. | gobitsnbytes.org
             </p>
           </div>
-          <p className="max-w-2xl text-[9px] sm:text-[10px] opacity-90 leading-relaxed font-serif text-zinc-400 dark:text-foreground/60 text-center md:text-right">
+          <p className="max-w-2xl text-[9px] sm:text-[10px] opacity-90 leading-relaxed font-serif text-zinc-300 dark:text-foreground/80 text-center md:text-right">
             bits&amp;bytes™ is a student-led builder network operated by GOBITSNBYTES FOUNDATION, a Section 8 non-profit company registered in India.
           </p>
         </div>

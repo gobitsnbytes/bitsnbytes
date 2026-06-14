@@ -128,7 +128,7 @@ export function Testimonial() {
                     <p className="text-base font-black text-foreground uppercase tracking-tight">
                       {current.author}
                     </p>
-                    <p className="text-xs font-mono font-bold text-foreground/50 uppercase tracking-wider">
+                    <p className="text-xs font-mono font-bold text-[#716f6c] dark:text-[#a09f9d] uppercase tracking-wider">
                       {current.role}
                     </p>
                   </div>
@@ -148,7 +148,7 @@ export function Testimonial() {
                 </button>
 
                 {/* Progress indicator */}
-                <div className="flex items-center gap-1 text-xs font-mono text-foreground/50 font-black">
+                <div className="flex items-center gap-1 text-xs font-mono text-[#716f6c] dark:text-[#a09f9d] font-black">
                   <span className="text-foreground">
                     {String(activeIndex + 1).padStart(2, "0")}
                   </span>

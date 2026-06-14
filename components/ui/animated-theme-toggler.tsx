@@ -258,12 +258,12 @@ export const AnimatedThemeToggler = ({
       ref={buttonRef}
       onClick={toggleTheme}
       className={cn(
-        "flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center border-2 border-[#120f0a] bg-white text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all rounded-none cursor-pointer",
+        "flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center border-2 border-border bg-card text-foreground shadow-[2px_2px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all rounded-none cursor-pointer",
         className
       )}
       {...props}
     >
-      {isDark ? <Sun className="h-5.5 w-5.5 text-amber-500 fill-amber-500" /> : <Moon className="h-5.5 w-5.5 text-[#120f0a]" />}
+      {isDark ? <Sun className="h-5.5 w-5.5 text-amber-500 fill-amber-500" /> : <Moon className="h-5.5 w-5.5 text-foreground" />}
       <span className="sr-only">Toggle theme</span>
     </button>
   )

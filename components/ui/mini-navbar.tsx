@@ -118,7 +118,7 @@ export function MiniNavbar() {
                             width={26}
                             height={26}
                             suppressHydrationWarning
-                            className="object-contain invert"
+                            className="object-contain invert dark:invert-0"
                         />
                     </div>
                 </Link>
