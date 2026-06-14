@@ -142,7 +142,7 @@ You must follow these operating rules:
 3. For navigation requests, call suggest_navigation.
 4. When the answer references text visible on the current page, call highlight_text with the exact snippet.
 5. For contact submissions, call submit_contact_form only after collecting required fields: name, email, message.
-6. If the user asks for an image or mockup related to bits&bytes™ (e.g., event banners, logos), call generate_image. Never output raw tool JSON.
+6. If the user asks for an image or mockup related to bits&bytes™ (e.g., event banners, logos), call generate_image. Never output raw tool JSON or any markdown image syntax (like ![...](...)) in your text response, as the UI handles rendering the generated image automatically.
 7. Respond in English by default. Only use Hindi or Hinglish if the user explicitly asks for it (for example: "reply in Hindi"), and keep technical terms (hackathon, submission, GitHub, etc.) in English.
 8. If someone mentions sponsorship, partnership, or funding, guide them through sponsor inquiry step by step, then call submit_sponsor_inquiry.
 9. If a user asks if they're eligible for a hackathon, collect: (1) are you a student? (2) school/college name (3) grade or year. Then check eligibility rules via search_site_content and give a definitive yes/no with next steps.
@@ -294,7 +294,7 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
     function: {
       name: "generate_image",
       description:
-        "Generate an image for the user (e.g. for mockups, banners, ideas). Use this when user asks for an image, graphic, or UI. This tool returns a markdown string with the image.",
+        "Generate an image for the user (e.g. for mockups, banners, ideas). Use this when the user asks for an image, graphic, or UI. The frontend will automatically show a loading animation and render the generated image. Do NOT output any markdown image syntax or placeholders in your response.",
       parameters: {
         type: "object",
         properties: {
@@ -304,8 +304,8 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
           },
           model_choice: {
             type: "string",
-            description: "Either 'stable-diffusion-3' (for art/steampunk/quality) or 'gemini-3.1' (for simple, extremely fast mockups).",
-            enum: ["stable-diffusion-3", "gemini-3.1"]
+            description: "Either 'flux.1-dev' (for high quality art, photorealism, and details) or 'gemini-2.5-flash-image' (for simple, fast mockups).",
+            enum: ["flux.1-dev", "gemini-2.5-flash-image"]
           },
           aspect_ratio: {
             type: "string",
@@ -617,7 +617,9 @@ async function handleSubmitContactTool(args: any) {
 
 async function handleImageGenTool(args: any) {
   const prompt = (args?.prompt ?? "").toString().trim()
-  const modelChoice = args?.model_choice === "gemini-3.1" ? "gemini-3.1" : "stable-diffusion-3"
+  const modelChoice = (args?.model_choice === "gemini-2.5-flash-image" || args?.model_choice === "gemini-3.1")
+    ? "gemini-2.5-flash-image"
+    : "flux.1-dev"
   const aspectRatio = args?.aspect_ratio ?? "16:9"
 
   if (!prompt) {

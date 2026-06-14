@@ -15,6 +15,7 @@ import type {
 import { useRouter, usePathname } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { motion, AnimatePresence } from "framer-motion";
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { safeJsonParse } from "@/lib/safe-json";
 import { PromptBox, PromptBoxRef } from "@/components/ui/chatgpt-prompt-input";
@@ -401,6 +402,8 @@ const FloatingAiAssistant: React.FC = () => {
     return newId;
   });
   const [showProactive, setShowProactive] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
+  const [activeLightboxImage, setActiveLightboxImage] = useState<string | null>(null);
   const ctaClickedRef = useRef(false);
 
   const chatRef = useRef<HTMLDivElement | null>(null);
@@ -926,6 +929,267 @@ const FloatingAiAssistant: React.FC = () => {
     }
   };
 
+  const markdownComponents = useMemo(() => ({
+    p: ({ children }: any) => {
+      const text = Array.isArray(children)
+        ? children.join("")
+        : String(children);
+      if (text.includes("%%GENERATE_LOADER%%")) {
+        return (
+          <div className="relative overflow-hidden rounded-none bg-white w-full aspect-video border-3 border-[#120f0a] flex items-center justify-center p-4 my-2 shadow-[4px_4px_0px_0px_#120f0a]">
+            <div className="flex flex-col items-center gap-3 relative z-10">
+              <div className="flex gap-1.5 justify-center">
+                <div
+                  className="h-2.5 w-2.5 rounded-none bg-[#97192c] border border-[#120f0a] animate-bounce"
+                  style={{ animationDelay: "0ms" }}
+                />
+                <div
+                  className="h-2.5 w-2.5 rounded-none bg-[#fc920d] border border-[#120f0a] animate-bounce"
+                  style={{ animationDelay: "150ms" }}
+                />
+                <div
+                  className="h-2.5 w-2.5 rounded-none bg-[#97192c] border border-[#120f0a] animate-bounce"
+                  style={{ animationDelay: "300ms" }}
+                />
+              </div>
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] animate-pulse">
+                Synthesizing Pixels
+              </span>
+            </div>
+          </div>
+        );
+      }
+      return <p className="my-1 text-[0.75rem]">{children}</p>;
+    },
+    img: ({ src, alt }: any) => {
+      if (!src) return null;
+      const isLoaded = loadedImages[src];
+      return (
+        <div 
+          className="relative overflow-hidden border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] my-3 w-full aspect-video bg-[#fee9cf]/20 cursor-zoom-in group hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_0px_#120f0a] active:translate-x-0 active:translate-y-0 active:shadow-none transition-all duration-150"
+          onClick={() => setActiveLightboxImage(src)}
+        >
+          {!isLoaded && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#eae8e4] animate-pulse z-10">
+              <div className="flex gap-1.5 justify-center mb-2">
+                <div className="h-2 w-2 rounded-none bg-[#97192c] animate-ping" />
+                <div className="h-2 w-2 rounded-none bg-[#fc920d] animate-ping [animation-delay:0.2s]" />
+              </div>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#120f0a]">
+                Decoding Image...
+              </span>
+            </div>
+          )}
+          <img
+            src={src}
+            alt={alt || "Generated visual"}
+            onLoad={() => {
+              setLoadedImages(prev => ({ ...prev, [src]: true }));
+            }}
+            className={`w-full h-full object-cover transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          />
+        </div>
+      );
+    },
+    h1: ({ children }: any) => (
+      <h1 className="my-2 text-sm font-bold">
+        {children}
+      </h1>
+    ),
+    h2: ({ children }: any) => (
+      <h2 className="my-2 text-sm font-semibold">
+        {children}
+      </h2>
+    ),
+    h3: ({ children }: any) => (
+      <h3 className="my-1.5 text-xs font-semibold">
+        {children}
+      </h3>
+    ),
+    ul: ({ children }: any) => (
+      <ul className="my-1 list-disc pl-4">
+        {children}
+      </ul>
+    ),
+    ol: ({ children }: any) => (
+      <ol className="my-1 list-decimal pl-4">
+        {children}
+      </ol>
+    ),
+    li: ({ children }: any) => (
+      <li className="my-0.5 text-[0.75rem]">
+        {children}
+      </li>
+    ),
+    strong: ({ children }: any) => (
+      <strong className="font-bold">
+        {children}
+      </strong>
+    ),
+    a: ({ href, title, children, ...props }: any) => {
+      if (title === "button" || title === "cta") {
+        return (
+          <a
+            href={href}
+            className="inline-flex mt-2 mb-1 w-full sm:w-auto items-center justify-center rounded-none bg-[#fc920d] border-2 border-[#120f0a] px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all text-center"
+            {...props}
+          >
+            {children}
+          </a>
+        );
+      }
+      if (title === "follow-up") {
+        return (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              const promptText = Array.isArray(children)
+                ? children.join("")
+                : String(children);
+              handleQuickPrompt(promptText);
+            }}
+            className="block w-full mt-2 text-left rounded-none border-2 border-[#120f0a] bg-white px-3 py-2 text-xs text-[#120f0a] font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_0px_#120f0a] hover:bg-[#fee9cf] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+          >
+            ↳ {children}
+          </button>
+        );
+      }
+      if (href?.startsWith("#")) {
+        return (
+          <a
+            href={href}
+            className="text-[#97192c] underline decoration-[#97192c]/30 underline-offset-2 hover:decoration-[#97192c] transition-colors font-bold"
+            {...props}
+          >
+            {children}
+          </a>
+        );
+      }
+      return (
+        <a
+          href={href}
+          className="text-[#97192c] hover:text-[#fc920d] underline decoration-[#97192c]/30 underline-offset-2 hover:decoration-[#fc920d] transition-colors font-black"
+          target="_blank"
+          rel="noreferrer"
+          {...props}
+        >
+          {children}
+        </a>
+      );
+    },
+    code: ({ className, children, ...props }: any) => {
+      const match = /language-([\w-]+)/.exec(className || "");
+      const language = match?.[1];
+      const isChart = language === "chart";
+      const isCountdown = language === "countdown";
+      const isMemberCard = language === "member_card";
+      const isProjectCard = language === "project_card";
+
+      if (isChart) {
+        try {
+          const rawData = String(children).replace(/\n$/, "");
+          const data = safeJsonParse<any[]>(rawData, "generic", []);
+          if (Array.isArray(data) && data.length > 0) {
+            return (
+              <div className="my-4 h-52 w-full border-3 border-[#120f0a] bg-white p-3 shadow-[4px_4px_0px_0px_#120f0a] rounded-none text-[#120f0a]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                    <XAxis dataKey="name" fontSize={10} tickLine={false} axisLine={false} stroke="#120f0a" fontWeight="bold" />
+                    <Tooltip
+                      contentStyle={{
+                        background: "white",
+                        border: "2px solid #120f0a",
+                        borderRadius: "0px",
+                        boxShadow: "2px 2px 0px 0px #120f0a",
+                        fontSize: "10px",
+                        fontFamily: "monospace",
+                        fontWeight: "bold",
+                        color: "#120f0a"
+                      }}
+                    />
+                    <Bar dataKey="value" fill="#97192c" radius={[0, 0, 0, 0]} stroke="#120f0a" strokeWidth={2} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            );
+          }
+        } catch (e) {
+          console.error("Failed to parse chart data", e);
+        }
+        return (
+          <div className="my-2 p-2 rounded-none bg-red-100 border-2 border-red-600 text-red-800 text-xs font-bold font-mono">
+            Error loading chart data.
+          </div>
+        );
+      }
+
+      if (isCountdown) {
+        try {
+          const rawData = String(children).replace(/\n$/, "");
+          const payload = safeJsonParse<CountdownPayload | null>(rawData, "generic", null);
+          if (payload) {
+            return <CountdownCard payload={payload} />;
+          }
+        } catch (e) {
+          console.error("Failed to parse countdown data", e);
+        }
+        return (
+          <div className="my-2 p-2 rounded-none bg-red-100 border-2 border-red-600 text-red-800 text-xs font-bold font-mono">
+            Error loading countdown.
+          </div>
+        );
+      }
+
+      if (isMemberCard) {
+        try {
+          const rawData = String(children).replace(/\n$/, "");
+          const payload = safeJsonParse<MemberCardPayload | null>(rawData, "generic", null);
+          if (payload) {
+            return <TeamMemberCard payload={payload} />;
+          }
+        } catch (e) {
+          console.error("Failed to parse member card data", e);
+        }
+        return (
+          <div className="my-2 p-2 rounded-none bg-red-100 border-2 border-red-600 text-red-800 text-xs font-bold font-mono">
+            Error loading team member details.
+          </div>
+        );
+      }
+
+      if (isProjectCard) {
+        try {
+          const rawData = String(children).replace(/\n$/, "");
+          const ideas = safeJsonParse<ProjectIdea[]>(rawData, "generic", []);
+          if (ideas.length > 0) {
+            return <ProjectCards ideas={ideas.slice(0, 3)} />;
+          }
+        } catch (e) {
+          console.error("Failed to parse project card data", e);
+        }
+        return (
+          <div className="my-2 p-2 rounded-none bg-red-100 border-2 border-red-600 text-red-800 text-xs font-bold font-mono">
+            Error visualizing project ideas.
+          </div>
+        );
+      }
+
+      const isInline = !match;
+      return (
+        <code
+          className={`${
+            isInline
+              ? "bg-[#eae8e4] text-[#97192c] border border-[#120f0a]/20 px-1 py-0.5 text-[0.7rem] rounded-none font-mono font-bold"
+              : "block rounded-none bg-[#120f0a] p-3 text-[0.75rem] overflow-x-auto border-3 border-[#120f0a] text-white mt-2 mb-2 font-mono shadow-[2px_2px_0px_0px_#120f0a]"
+          } ${className || ""}`}
+          {...props}
+        >
+          {children}
+        </code>
+      );
+    }
+  }), [loadedImages, setActiveLightboxImage, handleQuickPrompt]);
+
   const sendMessage = (text: string) => {
     setIsChatOpen(true);
     void handleSend(text);
@@ -1149,297 +1413,7 @@ const FloatingAiAssistant: React.FC = () => {
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
                           urlTransform={(value) => value}
-                          components={{
-                            p: ({ children }) => {
-                              const text = Array.isArray(children)
-                                ? children.join("")
-                                : String(children);
-                              if (text.includes("%%GENERATE_LOADER%%")) {
-                                return (
-                                  <div className="relative overflow-hidden rounded-xl bg-zinc-800/80 w-full aspect-video border border-zinc-700/50 flex items-center justify-center p-4 my-2">
-                                    <div
-                                      className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-[#e45a92]/20 to-transparent animate-[scan_2s_ease-in-out_infinite]"
-                                      style={{ animationName: "scan" }}
-                                    />
-                                    <style>{`
-                                      @keyframes scan {
-                                        0% { transform: translateX(-100%); }
-                                        100% { transform: translateX(50%); }
-                                      }
-                                    `}</style>
-                                    <div className="flex flex-col items-center gap-3 relative z-10">
-                                      <div className="flex gap-1.5 justify-center">
-                                        <div
-                                          className="h-2 w-2 rounded-full bg-[var(--brand-pink)] animate-bounce"
-                                          style={{ animationDelay: "0ms" }}
-                                        />
-                                        <div
-                                          className="h-2 w-2 rounded-full bg-[var(--brand-pink)] animate-bounce"
-                                          style={{ animationDelay: "150ms" }}
-                                        />
-                                        <div
-                                          className="h-2 w-2 rounded-full bg-[var(--brand-pink)] animate-bounce"
-                                          style={{ animationDelay: "300ms" }}
-                                        />
-                                      </div>
-                                      <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--brand-pink)] animate-pulse shadow-black drop-shadow-md">
-                                        Synthesizing Pixels
-                                      </span>
-                                    </div>
-                                  </div>
-                                );
-                              }
-                              return (
-                                <p className="my-1 text-[0.75rem]">
-                                  {children}
-                                </p>
-                              );
-                            },
-                            img: ({ src, alt }) => (
-                              <img
-                                src={src}
-                                alt={alt}
-                                className="rounded-xl border border-zinc-700/50 shadow-lg shadow-black/20 w-full object-cover my-2 hover:scale-[1.02] transition-transform duration-300"
-                              />
-                            ),
-                            h1: ({ children }) => (
-                              <h1 className="my-2 text-sm font-bold">
-                                {children}
-                              </h1>
-                            ),
-                            h2: ({ children }) => (
-                              <h2 className="my-2 text-sm font-semibold">
-                                {children}
-                              </h2>
-                            ),
-                            h3: ({ children }) => (
-                              <h3 className="my-1.5 text-xs font-semibold">
-                                {children}
-                              </h3>
-                            ),
-                            ul: ({ children }) => (
-                              <ul className="my-1 list-disc pl-4">
-                                {children}
-                              </ul>
-                            ),
-                            ol: ({ children }) => (
-                              <ol className="my-1 list-decimal pl-4">
-                                {children}
-                              </ol>
-                            ),
-                            li: ({ children }) => (
-                              <li className="my-0.5 text-[0.75rem]">
-                                {children}
-                              </li>
-                            ),
-                            strong: ({ children }) => (
-                              <strong className="font-bold">
-                                {children}
-                              </strong>
-                            ),
-                            a: ({ href, title, children, ...props }) => {
-                              if (title === "button" || title === "cta") {
-                                return (
-                                  <a
-                                    href={href}
-                                    className="inline-flex mt-2 mb-1 w-full sm:w-auto items-center justify-center rounded-none bg-[#fc920d] border-2 border-[#120f0a] px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all text-center"
-                                    {...props}
-                                  >
-                                    {children}
-                                  </a>
-                                );
-                              }
-                              if (title === "follow-up") {
-                                return (
-                                  <button
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      const promptText = Array.isArray(children)
-                                        ? children.join("")
-                                        : String(children);
-                                      handleQuickPrompt(promptText);
-                                    }}
-                                    className="block w-full mt-2 text-left rounded-none border-2 border-[#120f0a] bg-white px-3 py-2 text-xs text-[#120f0a] font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_0px_#120f0a] hover:bg-[#fee9cf] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
-                                  >
-                                    ↳ {children}
-                                  </button>
-                                );
-                              }
-                              if (href?.startsWith("#")) {
-                                return (
-                                  <a
-                                    href={href}
-                                    className="text-[#97192c] underline decoration-[#97192c]/30 underline-offset-2 hover:decoration-[#97192c] transition-colors font-bold"
-                                    {...props}
-                                  >
-                                    {children}
-                                  </a>
-                                );
-                              }
-                              return (
-                                <a
-                                  href={href}
-                                  className="text-[#97192c] hover:text-[#fc920d] underline decoration-[#97192c]/30 underline-offset-2 hover:decoration-[#fc920d] transition-colors font-black"
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  {...props}
-                                >
-                                  {children}
-                                </a>
-                              );
-                            },
-                            code: ({ className, children, ...props }) => {
-                              const match = /language-([\w-]+)/.exec(
-                                className || "",
-                              );
-                              const language = match?.[1];
-                              const isChart = language === "chart";
-                              const isCountdown = language === "countdown";
-                              const isMemberCard = language === "member_card";
-                              const isProjectCard = language === "project_card";
-
-                              if (isChart) {
-                                try {
-                                  const rawData = String(children).replace(
-                                    /\n$/,
-                                    "",
-                                  );
-                                  const data = safeJsonParse<any[]>(rawData, "generic", []);
-                                  if (Array.isArray(data) && data.length > 0) {
-                                    return (
-                                      <div className="my-4 h-52 w-full border-3 border-[#120f0a] bg-white p-3 shadow-[4px_4px_0px_0px_#120f0a] rounded-none text-[#120f0a]">
-                                        <ResponsiveContainer
-                                          width="100%"
-                                          height="100%"
-                                        >
-                                          <BarChart
-                                            data={data}
-                                            margin={{
-                                              top: 10,
-                                              right: 10,
-                                              left: -20,
-                                              bottom: 0,
-                                            }}
-                                          >
-                                            <XAxis
-                                              dataKey="name"
-                                              fontSize={10}
-                                              tickLine={false}
-                                              axisLine={false}
-                                              stroke="#120f0a"
-                                              fontWeight="bold"
-                                            />
-                                            <Tooltip
-                                              contentStyle={{
-                                                background: "white",
-                                                border: "2px solid #120f0a",
-                                                borderRadius: "0px",
-                                                boxShadow: "2px 2px 0px 0px #120f0a",
-                                                fontSize: "10px",
-                                                fontFamily: "monospace",
-                                                fontWeight: "bold",
-                                                color: "#120f0a"
-                                              }}
-                                            />
-                                            <Bar
-                                              dataKey="value"
-                                              fill="#97192c"
-                                              radius={[0, 0, 0, 0]}
-                                              stroke="#120f0a"
-                                              strokeWidth={2}
-                                            />
-                                          </BarChart>
-                                        </ResponsiveContainer>
-                                      </div>
-                                    );
-                                  }
-                                } catch (e) {
-                                  console.error("Failed to parse chart data", e);
-                                }
-                                return (
-                                  <div className="my-2 p-2 rounded-none bg-red-100 border-2 border-red-600 text-red-800 text-xs font-bold font-mono">
-                                    Error loading chart data.
-                                  </div>
-                                );
-                              }
-
-                              if (isCountdown) {
-                                try {
-                                  const rawData = String(children).replace(
-                                    /\n$/,
-                                    "",
-                                  );
-                                  const payload = safeJsonParse<CountdownPayload | null>(rawData, "generic", null);
-                                  if (payload) {
-                                    return <CountdownCard payload={payload} />;
-                                  }
-                                } catch (e) {
-                                  console.error("Failed to parse countdown data", e);
-                                }
-                                return (
-                                  <div className="my-2 p-2 rounded-none bg-red-100 border-2 border-red-600 text-red-800 text-xs font-bold font-mono">
-                                    Error loading countdown.
-                                  </div>
-                                );
-                              }
-
-                              if (isMemberCard) {
-                                try {
-                                  const rawData = String(children).replace(
-                                    /\n$/,
-                                    "",
-                                  );
-                                  const payload = safeJsonParse<MemberCardPayload | null>(rawData, "generic", null);
-                                  if (payload) {
-                                    return <TeamMemberCard payload={payload} />;
-                                  }
-                                } catch (e) {
-                                  console.error("Failed to parse member card data", e);
-                                }
-                                return (
-                                  <div className="my-2 p-2 rounded-none bg-red-100 border-2 border-red-600 text-red-800 text-xs font-bold font-mono">
-                                    Error loading team member details.
-                                  </div>
-                                );
-                              }
-
-                              if (isProjectCard) {
-                                try {
-                                  const rawData = String(children).replace(
-                                    /\n$/,
-                                    "",
-                                  );
-                                  const ideas = safeJsonParse<ProjectIdea[]>(rawData, "generic", []);
-                                  if (ideas.length > 0) {
-                                    return (
-                                      <ProjectCards ideas={ideas.slice(0, 3)} />
-                                    );
-                                  }
-                                } catch (e) {
-                                  console.error("Failed to parse project card data", e);
-                                }
-                                return (
-                                  <div className="my-2 p-2 rounded-none bg-red-100 border-2 border-red-600 text-red-800 text-xs font-bold font-mono">
-                                    Error visualizing project ideas.
-                                  </div>
-                                );
-                              }
-
-                              const isInline = !match;
-                              return (
-                                <code
-                                  className={`${
-                                    isInline
-                                      ? "bg-[#eae8e4] text-[#97192c] border border-[#120f0a]/20 px-1 py-0.5 text-[0.7rem] rounded-none font-mono font-bold"
-                                      : "block rounded-none bg-[#120f0a] p-3 text-[0.75rem] overflow-x-auto border-3 border-[#120f0a] text-white mt-2 mb-2 font-mono shadow-[2px_2px_0px_0px_#120f0a]"
-                                  } ${className || ""}`}
-                                  {...props}
-                                >
-                                  {children}
-                                </code>
-                              );
-                            },
-                          }}
+                          components={markdownComponents}
                         >
                           {m.content +
                             (isLoading &&
@@ -1519,6 +1493,40 @@ const FloatingAiAssistant: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {activeLightboxImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveLightboxImage(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 cursor-zoom-out"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-5xl max-h-[90vh] overflow-hidden border-4 border-[#120f0a] bg-white p-2 shadow-[8px_8px_0px_0px_#120f0a]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={activeLightboxImage}
+                alt="Enlarged visualization"
+                className="max-w-full max-h-[80vh] object-contain block"
+              />
+              <button
+                onClick={() => setActiveLightboxImage(null)}
+                className="absolute top-4 right-4 bg-[#fc920d] border-2 border-[#120f0a] h-10 w-10 flex items-center justify-center font-bold text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+              >
+                ✕
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
