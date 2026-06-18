@@ -528,7 +528,7 @@ export default function About() {
               Early Contributors
             </h4>
             <p className="font-serif-brand text-sm text-[#413f3b] leading-relaxed">
-              We are grateful to our early team members and contributors who helped build and shape the network during its initial sprints before moving on to new chapters: <strong className="text-[#120f0a]">Kavan, Saksham, Kaustubh, Oviya</strong>.
+              We are grateful to our early team members and contributors who helped build and shape the network during its initial sprints before moving on to new chapters: <strong className="text-[#120f0a]">Saksham, Kaustubh, Oviya</strong>.
             </p>
           </div>
 
