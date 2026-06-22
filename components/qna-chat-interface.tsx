@@ -927,7 +927,9 @@ export function QnAChatInterface({ className }: { className?: string }) {
       </div>
 
       <div
-        className="flex-1 overflow-y-auto px-4 py-4 sm:px-6 relative text-zinc-100 scroll-smooth"
+        className={`flex-1 px-4 py-4 sm:px-6 relative text-[#120f0a] dark:text-[#faf8f5] scroll-smooth ${
+          messages.length === 0 ? "overflow-y-hidden" : "overflow-y-auto"
+        }`}
         aria-live="polite"
         aria-relevant="additions text"
       >

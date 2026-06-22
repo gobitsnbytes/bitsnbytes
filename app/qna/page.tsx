@@ -13,7 +13,7 @@ export default function QnAPage() {
 
     return (
         <main
-            className="flex flex-col w-full px-0 pt-20 sm:pt-24 lg:pt-28 pb-4 bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] transition-colors duration-300 min-h-screen lg:h-full lg:min-h-0 lg:overflow-hidden"
+            className="flex flex-col w-full px-0 pt-20 sm:pt-24 lg:pt-28 pb-4 bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] transition-colors duration-300 transform scale-110 origin-top-left min-h-screen lg:h-full lg:min-h-0 lg:overflow-hidden"
             aria-label="bits&bytes™ QnA Assistant"
         >
             <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 h-full flex flex-col lg:min-h-0 lg:overflow-hidden pb-4">
