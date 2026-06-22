@@ -47,17 +47,18 @@ export function PageSection({
           )}
         >
           {eyebrow && (
-            <span className="inline-flex items-center justify-center border-2 border-border bg-accent text-accent-foreground text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest px-3 py-1.5 shadow-[2px_2px_0px_0px_var(--border)] mb-2">
+            <span className="inline-flex items-center gap-1.5 border border-[#120f0a] dark:border-[#faf8f5] bg-[#faf8f5] dark:bg-[#120f0a] text-[9px] font-mono tracking-widest text-[#120f0a] dark:text-[#faf8f5] px-2.5 py-1.5 select-none mb-2">
+              <span className="h-1.5 w-1.5 bg-[#97192c] block animate-pulse" />
               {eyebrow}
             </span>
           )}
           {title && (
-            <h2 className="font-sans text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-foreground">
+            <h2 className="font-accent-sans text-3xl sm:text-4xl md:text-5xl font-normal uppercase tracking-tight text-[#120f0a] dark:text-[#faf8f5] select-none">
               {title}
             </h2>
           )}
           {description && (
-            <p className="max-w-3xl text-sm sm:text-base md:text-lg text-foreground font-bold px-2 sm:px-0 mt-1">
+            <p className="max-w-3xl text-sm sm:text-base md:text-lg text-[#120f0a]/80 dark:text-[#faf8f5]/80 font-serif-brand leading-relaxed px-2 sm:px-0 mt-1">
               {description}
             </p>
           )}

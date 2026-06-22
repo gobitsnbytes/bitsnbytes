@@ -884,3 +884,74 @@
         color: var(--muted-foreground) !important;
     }
 }
+
+/* ==========================================
+   MOVEMENT DESIGN SYSTEM (SWISS EDITORIAL)
+   ========================================== */
+:root {
+    --bb-off-white: #faf8f5;
+    --ease-movement: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.bg-movement-off-white {
+    background-color: var(--bb-off-white);
+}
+
+.text-movement-near-black {
+    color: #120f0a;
+}
+
+.text-movement-burgundy {
+    color: #97192c;
+}
+
+.border-movement-near-black {
+    border-color: #120f0a;
+}
+
+/* Blueprint dot grid */
+.blueprint-dot-grid {
+    background-image: radial-gradient(#120f0a 1px, transparent 1px);
+    background-size: 16px 16px;
+    opacity: 0.06;
+}
+.dark .blueprint-dot-grid {
+    background-image: radial-gradient(#faf8f5 1px, transparent 1px);
+    opacity: 0.04;
+}
+
+/* Precise 1px dimensions tick indicators */
+.blueprint-tick-x {
+    position: relative;
+}
+.blueprint-tick-x::before,
+.blueprint-tick-x::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    width: 1px;
+    background-color: currentColor;
+}
+.blueprint-tick-x::before { left: 0; }
+.blueprint-tick-x::after { right: 0; }
+
+.blueprint-tick-y {
+    position: relative;
+}
+.blueprint-tick-y::before,
+.blueprint-tick-y::after {
+    content: "";
+    position: absolute;
+    left: -3px;
+    right: -3px;
+    height: 1px;
+    background-color: currentColor;
+}
+.blueprint-tick-y::before { top: 0; }
+.blueprint-tick-y::after { bottom: 0; }
+
+/* Micro transition */
+.transition-movement {
+    transition: all 200ms var(--ease-movement);
+}

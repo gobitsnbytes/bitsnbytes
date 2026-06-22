@@ -5,7 +5,7 @@ import { generateEmbedding, searchSiteContent } from "@/lib/rag"
 import { detectFrustration } from "@/lib/sentiment"
 import { sendContactWebhook } from "@/lib/discord"
 const openai = new OpenAI({
-  apiKey: process.env.HACKCLUB_PROXY_API_KEY,
+  apiKey: process.env.HACKCLUB_PROXY_API_KEY || "placeholder-key",
   baseURL: "https://ai.hackclub.com/proxy/v1",
   defaultHeaders: {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"

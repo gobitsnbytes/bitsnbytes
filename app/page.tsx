@@ -16,7 +16,7 @@ import { Suspense, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-import { HeroFuturistic } from "@/components/ui/hero-futuristic";
+import { HeroMovement } from "@/components/ui/hero-movement";
 import { PageSection } from "@/components/page-section";
 import { Features } from "@/components/ui/features-8";
 import { Button } from "@/components/ui/button";
@@ -91,29 +91,33 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex flex-col w-full max-w-full overflow-x-hidden">
-        <HeroFuturistic />
+      <div className="flex flex-col w-full max-w-full overflow-x-hidden bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] transition-colors duration-300">
+        <HeroMovement />
 
         <PageSection
           eyebrow="Impact"
           title="Shipped, not just taught"
           description="A teen-led builders network. Workshops and hackathons that end with something shipped, not just something learned."
         >
-          <div className="grid gap-4 sm:gap-6 grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((stat, idx) => (
               <div
                 key={stat.label}
-                className="bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] p-5 sm:p-8 transition-all hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_var(--border)] duration-200"
+                className="bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a]/15 dark:border-[#faf8f5]/15 p-6 sm:p-8 relative flex flex-col justify-between hover:border-[#120f0a] dark:hover:border-[#faf8f5] transition-colors duration-200"
               >
-                <div className="space-y-2 sm:space-y-4 text-card-foreground">
-                  <p className="text-3xl sm:text-4xl font-black text-foreground tracking-tight uppercase">
+                {/* Technical coordinate marker */}
+                <span className="absolute top-2 right-3 text-[7px] font-mono text-[#120f0a]/30 dark:text-[#faf8f5]/30">
+                  [METRIC_0{idx + 1}]
+                </span>
+                <div className="space-y-4">
+                  <p className="font-accent-sans text-4xl sm:text-5xl text-[#120f0a] dark:text-[#faf8f5] leading-none tracking-tight">
                     {stat.value}
                   </p>
                   <div>
-                    <h3 className="text-base sm:text-lg font-black text-foreground uppercase tracking-tight">
+                    <h3 className="font-mono text-[10px] uppercase tracking-wider text-[#120f0a] dark:text-[#faf8f5] font-bold">
                       {stat.label}
                     </h3>
-                    <div className="text-xs sm:text-sm text-muted-foreground font-semibold mt-1">
+                    <div className="font-serif-brand text-xs sm:text-sm text-[#120f0a]/70 dark:text-[#faf8f5]/70 leading-relaxed mt-2">
                       {stat.detail}
                     </div>
                   </div>
@@ -141,29 +145,29 @@ export default function Home() {
           description="Everything you need to know about joining India's boldest builder network."
           align="center"
         >
-          <div className="mx-auto max-w-4xl space-y-4 text-left">
+          <div className="mx-auto max-w-4xl space-y-3 text-left">
             {homeFaqs.map((faq, index) => {
               const isOpen = openFaq === index;
 
               return (
                 <div
                   key={index}
-                  className="bg-card border-3 border-border shadow-[4px_4px_0px_0px_var(--border)]"
+                  className="bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a]/15 dark:border-[#faf8f5]/15 transition-all duration-200"
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="flex w-full items-center justify-between gap-4 p-5 sm:p-6 text-left transition-colors bg-card hover:bg-accent/10"
+                    className="flex w-full items-center justify-between gap-4 p-5 sm:p-6 text-left transition-colors hover:bg-[#120f0a]/5 dark:hover:bg-[#faf8f5]/5"
                   >
-                    <h3 className="text-base sm:text-lg font-black text-foreground pr-4 leading-tight uppercase tracking-tight">
+                    <h3 className="font-accent-sans text-lg sm:text-xl font-normal text-[#120f0a] dark:text-[#faf8f5] pr-4 uppercase tracking-tight">
                       {faq.question}
                     </h3>
                     <div
                       className={cn(
-                        "flex h-8 w-8 shrink-0 items-center justify-center border-2 border-border bg-card text-foreground transition-all duration-200 shadow-[2px_2px_0px_0px_var(--border)]",
-                        isOpen && "rotate-180 bg-[#fc920d] text-[#120f0a] shadow-none translate-x-[2px] translate-y-[2px]",
+                        "flex h-7 w-7 shrink-0 items-center justify-center border border-[#120f0a] dark:border-[#faf8f5] bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] transition-all duration-200",
+                        isOpen && "rotate-180 bg-[#120f0a] dark:bg-[#faf8f5] text-[#faf8f5] dark:text-[#120f0a]",
                       )}
                     >
-                      <ChevronDown className="h-5 w-5" />
+                      <ChevronDown className="h-4 w-4" />
                     </div>
                   </button>
                   <AnimatePresence>
@@ -175,8 +179,8 @@ export default function Home() {
                         transition={{ duration: 0.2, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <div className="px-5 sm:px-6 pb-5 sm:pb-6 border-t-2 border-border mt-1 pt-4 bg-card">
-                          <p className="text-sm sm:text-base text-muted-foreground font-semibold leading-relaxed">
+                        <div className="px-5 sm:px-6 pb-5 sm:pb-6 border-t border-[#120f0a]/10 dark:border-[#faf8f5]/10 mt-1 pt-4">
+                          <p className="font-serif-brand text-sm sm:text-base text-[#120f0a]/80 dark:text-[#faf8f5]/80 leading-relaxed">
                             {faq.answer}
                           </p>
                         </div>

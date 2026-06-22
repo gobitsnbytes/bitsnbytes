@@ -46,28 +46,30 @@ export function Testimonial() {
   const current = testimonials[activeIndex];
 
   return (
-    <div className="flex items-center justify-center py-6 md:py-12 overflow-hidden px-4 sm:px-6">
-      <div className="relative w-full max-w-5xl bg-card border-4 border-border shadow-[8px_8px_0px_0px_var(--border)] p-6 sm:p-10 md:p-14 overflow-hidden">
-        {/* Dither grain overlay */}
-        <div className="bb-dither pointer-events-none" aria-hidden="true" />
+    <div className="flex items-center justify-center py-6 md:py-12 overflow-hidden px-4 sm:px-6 select-none">
+      <div className="relative w-full max-w-5xl bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a]/15 dark:border-[#faf8f5]/15 p-6 sm:p-10 md:p-14 overflow-hidden">
+        {/* Blueprint Grid Overlay */}
+        <div className="absolute inset-0 blueprint-dot-grid pointer-events-none" aria-hidden="true" />
+        
         {/* Halftone accent — top right corner */}
         <div className="absolute -top-8 -right-8 w-32 h-32 bb-halftone opacity-10 pointer-events-none" aria-hidden="true" />
 
         {/* Main content - asymmetric layout */}
         <div className="relative flex flex-col md:flex-row gap-6 md:gap-10">
+          
           {/* Left column - vertical text */}
-          <div className="hidden md:flex flex-col items-center justify-center pr-10 border-r-2 border-border/20">
+          <div className="hidden md:flex flex-col items-center justify-center pr-10 border-r border-[#120f0a]/15 dark:border-[#faf8f5]/15">
             <span
-              className="text-xs font-mono font-black text-foreground/50 tracking-widest uppercase"
+              className="text-xs font-mono font-bold text-[#120f0a]/40 dark:text-[#faf8f5]/40 tracking-widest uppercase"
               style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
             >
               Testimonials
             </span>
 
             {/* Vertical progress line */}
-            <div className="relative h-24 w-1 bg-border mt-6">
+            <div className="relative h-24 w-[1px] bg-[#120f0a]/10 dark:bg-[#faf8f5]/10 mt-6">
               <motion.div
-                className="absolute top-0 left-0 w-full bg-primary"
+                className="absolute top-0 left-0 w-full bg-[#97192c]"
                 style={{ transformOrigin: "top" }}
                 animate={{
                   height: `${((activeIndex + 1) / testimonials.length) * 100}%`,
@@ -89,8 +91,8 @@ export function Testimonial() {
                 transition={{ duration: 0.2 }}
                 className="mb-4"
               >
-                <span className="inline-flex items-center gap-2 text-xs font-mono text-foreground bg-accent border-2 border-border px-3 py-1 shadow-[2px_2px_0px_0px_var(--border)] font-bold uppercase tracking-wider">
-                  <span className="w-1.5 h-1.5 bg-primary rounded-full" />
+                <span className="inline-flex items-center gap-2 text-[10px] font-mono text-[#120f0a] dark:text-[#faf8f5] bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a] dark:border-[#faf8f5] px-3 py-1 font-bold uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 bg-[#97192c] block animate-pulse" />
                   {current.company}
                 </span>
               </motion.div>
@@ -101,7 +103,7 @@ export function Testimonial() {
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={activeIndex}
-                  className="text-lg sm:text-xl md:text-2xl font-bold text-foreground leading-relaxed tracking-tight"
+                  className="text-lg sm:text-xl md:text-2xl font-serif-brand italic font-normal text-[#120f0a] dark:text-[#faf8f5] leading-relaxed tracking-tight"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
@@ -113,7 +115,7 @@ export function Testimonial() {
             </div>
 
             {/* Author row */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pt-6 border-t-2 border-border/20">
+            <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pt-6 border-t border-[#120f0a]/15 dark:border-[#faf8f5]/15">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
@@ -123,12 +125,12 @@ export function Testimonial() {
                   transition={{ duration: 0.3 }}
                   className="flex items-center gap-3"
                 >
-                  <div className="w-6 h-1 bg-primary" />
+                  <div className="w-6 h-[1px] bg-[#97192c]" />
                   <div>
-                    <p className="text-base font-black text-foreground uppercase tracking-tight">
+                    <p className="font-accent-sans text-lg font-normal text-[#120f0a] dark:text-[#faf8f5] uppercase tracking-tight">
                       {current.author}
                     </p>
-                    <p className="text-xs font-mono font-bold text-[#716f6c] dark:text-[#a09f9d] uppercase tracking-wider">
+                    <p className="text-[10px] font-mono font-bold text-[#120f0a]/60 dark:text-[#faf8f5]/60 uppercase tracking-wider">
                       {current.role}
                     </p>
                   </div>
@@ -139,17 +141,17 @@ export function Testimonial() {
               <div className="flex items-center gap-4">
                 <button
                   onClick={goPrev}
-                  className="w-11 h-11 rounded-none border-2 border-border bg-card text-foreground shadow-[2px_2px_0px_0px_var(--border)] flex items-center justify-center hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none hover:bg-[#fc920d] hover:text-[#120f0a] hover:border-border transition-all cursor-pointer"
+                  className="w-11 h-11 rounded-none border border-[#120f0a] dark:border-[#faf8f5] bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] flex items-center justify-center hover:bg-[#120f0a] dark:hover:bg-[#faf8f5] hover:text-[#faf8f5] dark:hover:text-[#120f0a] active:scale-[0.97] transition-movement cursor-pointer"
                   aria-label="Previous testimonial"
                 >
-                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="text-current">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-current">
                     <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
 
                 {/* Progress indicator */}
-                <div className="flex items-center gap-1 text-xs font-mono text-[#716f6c] dark:text-[#a09f9d] font-black">
-                  <span className="text-foreground">
+                <div className="flex items-center gap-1 text-[10px] font-mono text-[#120f0a]/50 dark:text-[#faf8f5]/50 font-bold">
+                  <span className="text-[#120f0a] dark:text-[#faf8f5]">
                     {String(activeIndex + 1).padStart(2, "0")}
                   </span>
                   <span>/</span>
@@ -158,10 +160,10 @@ export function Testimonial() {
 
                 <button
                   onClick={goNext}
-                  className="w-11 h-11 rounded-none border-2 border-border bg-card text-foreground shadow-[2px_2px_0px_0px_var(--border)] flex items-center justify-center hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none hover:bg-[#fc920d] hover:text-[#120f0a] hover:border-border transition-all cursor-pointer"
+                  className="w-11 h-11 rounded-none border border-[#120f0a] dark:border-[#faf8f5] bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] flex items-center justify-center hover:bg-[#120f0a] dark:hover:bg-[#faf8f5] hover:text-[#faf8f5] dark:hover:text-[#120f0a] active:scale-[0.97] transition-movement cursor-pointer"
                   aria-label="Next testimonial"
                 >
-                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="text-current">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-current">
                     <path d="M6 4L10 8L6 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
@@ -173,3 +175,5 @@ export function Testimonial() {
     </div>
   );
 }
+
+export default Testimonial;

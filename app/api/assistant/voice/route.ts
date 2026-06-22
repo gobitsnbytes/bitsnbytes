@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import OpenAI, { APIError } from "openai"
 
 const openai = new OpenAI({
-  apiKey: process.env.HACKCLUB_PROXY_API_KEY,
+  apiKey: process.env.HACKCLUB_PROXY_API_KEY || "placeholder-key",
   baseURL: "https://ai.hackclub.com/proxy/v1",
 })
 

@@ -1,35 +1,26 @@
 ---
 name: bits&bytes™ Design System
 colors:
-  background: "#1e0509"
-  foreground: "#f7f1ec"
+  background: "#faf8f5"
+  foreground: "#120f0a"
   primary: "#97192c"
-  primary-foreground: "#fff9f4"
-  secondary: "rgba(151, 25, 44, 0.2)"
-  secondary-foreground: "#fff4ea"
+  primary-foreground: "#faf8f5"
+  secondary: "#fee9cf"
+  secondary-foreground: "#120f0a"
   accent: "#fc920d"
-  accent-foreground: "#2a0804"
+  accent-foreground: "#120f0a"
   destructive: "#f04438"
   destructive-foreground: "#ffffff"
-  border: "rgba(247, 241, 236, 0.12)"
-  input: "rgba(247, 241, 236, 0.1)"
-  muted: "rgba(247, 241, 236, 0.08)"
-  muted-foreground: "rgba(247, 241, 236, 0.72)"
-  card: "rgba(20, 15, 10, 0.86)"
-  card-foreground: "#f8f2ed"
-  popover: "rgba(22, 16, 11, 0.96)"
-  ring: "rgba(255, 122, 27, 0.4)"
-  brand-purple: "#5e0f1a"
-  brand-plum: "#791423"
-  brand-pink: "#97192c"
-  brand-coral: "#fc920d"
-  brand-amber: "#fda83d"
-  brand-midnight: "#1e0509"
-  brand-ink: "#120f0a"
+  border: "rgba(18, 15, 10, 0.15)"
+  border-dark: "rgba(250, 248, 245, 0.15)"
+  brand-burgundy: "#97192c"
+  brand-warm-accent: "#fc920d"
+  brand-near-black: "#120f0a"
+  brand-off-white: "#faf8f5"
 typography:
   display:
-    fontFamily: "Helvetica Now Display, Helvetica Neue, sans-serif"
-    fontWeight: "700"
+    fontFamily: "Anton, Helvetica Now Display, Helvetica Neue, sans-serif"
+    fontWeight: "normal"
   sans:
     fontFamily: "Helvetica Now Text, Helvetica, sans-serif"
     fontWeight: "400"
@@ -39,63 +30,45 @@ typography:
     fontFamily: "Palm Club, cursive"
     fontWeight: "400"
 rounded:
-  sm: "12px"
-  md: "16px"
-  DEFAULT: "18px"
-  lg: "18px"
-  xl: "24px"
+  DEFAULT: "0px"
+  none: "0px"
 shadows:
-  glow-strong: "0 20px 70px rgba(255, 122, 27, 0.24)"
-  glow-soft: "0 10px 32px rgba(151, 25, 44, 0.22)"
-  shadow-card: "0 20px 60px rgba(7, 3, 2, 0.55)"
+  none: "none"
 ---
 
 ## Brand & Style
 
-The bits&bytes™ design system embraces a bold, production-friendly aesthetic for high-agency student builders. The interface balances high-impact energy with mature restraint, making the platform feel like a professional environment where real products are shipped, not a beginner-centric playground.
+The bits&bytes™ design system embraces a **Swiss editorial, museum poster, and architectural blueprint** "movement" aesthetic. The interface balances structural engineering restraint with raw student energy, making the platform feel like a blueprint drafting sheet where real products are designed and built.
 
-Deep burgundy surfaces, orange pops, dither/halftone texture, and crisp typography should project confidence without making the UI feel noisy.
+We reject standard, colorful neobrutalist offsets, cartoonish drop shadows, and futuristic SaaS gradients. Instead, we use thin 1px lines, coordinates, dot grids, and tick marks.
 
 ## Colors
 
-Our primary theme revolves around a neutral ink to midnight-burgundy base with controlled orange accents.
+The palette is limited and highly controlled. It supports light mode and dark mode transitions:
 
-- **Burgundy Core:** Deep, refined magentas and pinks (Brand Pink #97192C to Purple #5E0F1A) ground the brand.
-- **Warm Accents:** Energetic oranges (#FC920D → #FEE9CF) drive action and create dynamic pops across interactions and borders.
-- **Neutrals & Surfaces:** Almost universally dark, our surface layers rely on transparency (`rgba`) to blend smoothly with underneath textures. Text balances stark contrast by using slightly warm, off-white shades (`#F7F1EC`) for a sophisticated look that prevents eye strain.
+- **Primary Background:** Warm off-white (`#faf8f5`). In dark mode, it flips to near-black (`#120f0a`).
+- **Primary Text & Borders:** Near-black (`#120f0a`). In dark mode, it flips to off-white (`#faf8f5`).
+- **Burgundy Accent:** Deep burgundy (`#97192c`) is used for primary brand elements, badges, and key editorial highlights.
+- **Orange Pop:** Warm orange (`#fc920d`) is used strictly as a minor accent for state triggers, indicators, or active badge highlights.
 
 ## Typography
 
-Typography relies on a highly structured, editorial yet modern hierarchy combining Swiss pragmatism with stylized accents.
+Typography relies on a highly structured, editorial hierarchy:
 
-- **Primary Headings:** *Helvetica Now Display* commands attention through heavy weights.
-- **Copy & Long-form:** *Helvetica Now Text* or *Georgia Pro* for highly readable, dense information.
-- **Accents:** *Palm Club* (Script) and *Anton* (Display) provide rare, decorative moments for hero headers or marketing elements.
+- **Display & Headings:** *Anton* (Display) and *Helvetica Now Display* command attention in clean uppercase blocks.
+- **Copy & Explanations:** *Georgia Pro* (Serif) is preferred for descriptive paragraphs and body copy, giving it a premium print publication feel.
+- **System Labels:** Clean monospace is used for technical labels, indicators, status badges, coordinates, and viewport dimensions.
+- **Script Accents:** *Palm Club* (cursive) is used sparingly for handwritten editorial accents.
 
-## Logo
+## Shapes & Corners
 
-The brand mark is a geometric isometric cube with stylized B letterforms and a four-pointed star. `public/logo.svg` is white and should be placed on dark, burgundy, orange, or otherwise high-contrast surfaces. Use the logo route (`/logo`) for public embeds.
+- **Square Corners Only:** The border radius must be strictly `rounded-none` (`0px`) across all cards, buttons, input fields, and tags. Soft rounded radiuses are prohibited.
 
-Approved public spelling is **bits&bytes™**. Use **bitsnbytes** only where `&` is impractical, and reserve **GOBITSNBYTES FOUNDATION** for legal contexts.
+## Layout & Grid System
 
-## Layout & Spacing
+Layouts resemble print layouts or blueprint drawings:
 
-A centralized `app-shell` layout dictates a maximum width of `72rem/6xl` with sensible padding and consistent spacing. Fixed navigation requires explicit hero top offsets so the first viewport never overlaps.
-
-- **Negative Space:** We prefer dramatic breathing room between major sections to let the deep background colors and glowing effects resonate.
-- **Media Loading:** Use stable aspect ratios, eager loading only for the first viewport, preloading for imminent carousel images, and a quiet dither texture instead of heavy shimmer.
-- **Movie Frame:** The homepage movie opens as a focused in-page frame with autoplay after click, audio on, no visible player controls, and an obvious close action.
-
-## Elevation & Depth
-
-We avoid sharp, opaque borders. Instead, elevation uses a combination of deep, colored shadows and layered translucent surfaces to evoke depth without weight.
-
-- **Cards:** Semi-transparent backdrops (`var(--card)`) sit above a dark background to catch any moving gradients or star motifs underneath.
-- **Glows:** Two key glow levels—soft burgundy glow and a stronger, wider coral glow—help draw focus to active elements and primary call-to-actions.
-- **Texture:** Dither and halftone overlays can appear in hero loading states, video frames, and campaign surfaces at low opacity.
-
-## Shapes
-
-Shapes reflect an approachable but structured geometry.
-
-- We use soft corner radiuses (default `18px`) that are substantial without being pill-shaped. This geometric softening contrasts with the intense colors and adds tactile, "app-like" affordances to buttons and cards.
+- **Asymmetry:** Grid systems are offset (e.g., 60/40 hero grids) with generous whitespace.
+- **Dot Grids:** `.blueprint-dot-grid` is used as a light background pattern overlay.
+- **Dimension Lines:** Clean 1px lines, coordinates (`26.8467° N, 80.9462° E`), and tick markers (`blueprint-tick-x`, `blueprint-tick-y`) outline key boundaries.
+- **Asset Treatment:** Photographic assets should be grayscale (black-and-white) to preserve print identity, though structural frame hovers (offset translations and shadows) are encouraged to keep layouts responsive.

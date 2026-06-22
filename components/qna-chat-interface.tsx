@@ -75,11 +75,11 @@ function CountdownCard({ payload }: { payload: CountdownPayload }) {
 
   const remaining = formatRemaining(target - now);
   return (
-    <div className="my-3 rounded-none border-3 border-[#120f0a] bg-white p-4 text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a]">
+    <div className="my-3 rounded-none border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#faf8f5]/50 dark:bg-[#120f0a]/50 p-4 text-[#120f0a] dark:text-[#faf8f5]">
       <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#97192c]">
         Event Countdown
       </p>
-      <h4 className="mt-1 text-sm font-black uppercase tracking-tight text-[#120f0a]">{payload.event}</h4>
+      <h4 className="mt-1 text-sm font-normal font-accent-sans uppercase tracking-tight text-[#120f0a] dark:text-[#faf8f5]">{payload.event}</h4>
       {remaining.done ? (
         <p className="mt-2 text-xs font-bold text-emerald-600">This event has started.</p>
       ) : (
@@ -92,10 +92,10 @@ function CountdownCard({ payload }: { payload: CountdownPayload }) {
           ].map((item) => (
             <div
               key={item.label}
-              className="rounded-none border-2 border-[#120f0a] bg-[#fee9cf] px-2 py-2 shadow-[2px_2px_0px_0px_#120f0a]"
+              className="rounded-none border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#faf8f5] dark:bg-[#120f0a] px-2 py-2"
             >
-              <div className="text-base font-black text-[#120f0a]">{item.value}</div>
-              <div className="text-[9px] font-mono font-bold text-[#413f3b] uppercase">{item.label}</div>
+              <div className="text-base font-normal font-accent-sans text-[#120f0a] dark:text-[#faf8f5]">{item.value}</div>
+              <div className="text-[9px] font-mono font-bold text-[#120f0a]/60 dark:text-[#faf8f5]/60 uppercase">{item.label}</div>
             </div>
           ))}
         </div>
@@ -106,20 +106,20 @@ function CountdownCard({ payload }: { payload: CountdownPayload }) {
 
 function TeamMemberCard({ payload }: { payload: MemberCardPayload }) {
   return (
-    <div className="my-3 rounded-none border-3 border-[#120f0a] bg-white p-4 text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a]">
+    <div className="my-3 rounded-none border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#faf8f5]/50 dark:bg-[#120f0a]/50 p-4 text-[#120f0a] dark:text-[#faf8f5]">
       <div className="flex items-center gap-3">
         {payload.photo ? (
           <img
             src={payload.photo}
             alt={payload.name}
-            className="h-12 w-12 rounded-none object-cover border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]"
+            className="h-12 w-12 rounded-none object-cover border border-[#120f0a] dark:border-[#faf8f5] grayscale"
           />
         ) : (
-          <div className="h-12 w-12 rounded-none border-2 border-[#120f0a] bg-[#fee9cf] shadow-[2px_2px_0px_0px_#120f0a]" />
+          <div className="h-12 w-12 rounded-none border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#120f0a]/5 dark:bg-[#faf8f5]/5" />
         )}
         <div>
-          <p className="text-sm font-black uppercase tracking-tight text-[#120f0a]">{payload.name}</p>
-          <span className="inline-flex mt-1.5 rounded-none border-2 border-[#120f0a] bg-[#fee9cf] px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wide text-[#120f0a]">
+          <p className="text-sm font-normal font-accent-sans uppercase tracking-tight text-[#120f0a] dark:text-[#faf8f5]">{payload.name}</p>
+          <span className="inline-flex mt-1.5 rounded-none border border-[#120f0a]/30 dark:border-[#faf8f5]/30 bg-transparent px-2 py-0.5 text-[9px] font-mono tracking-widest uppercase text-[#97192c] dark:text-[#fc920d]">
             {payload.role}
           </span>
         </div>
@@ -131,7 +131,7 @@ function TeamMemberCard({ payload }: { payload: MemberCardPayload }) {
               href={payload.socials.github}
               target="_blank"
               rel="noreferrer"
-              className="text-[10px] font-mono font-bold uppercase tracking-wider rounded-none border-2 border-[#120f0a] bg-white px-2.5 py-1 text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+              className="text-[10px] font-mono font-bold uppercase tracking-wider rounded-none border border-[#120f0a] dark:border-[#faf8f5] bg-transparent px-2.5 py-1 text-[#120f0a] dark:text-[#faf8f5] hover:bg-[#120f0a] dark:hover:bg-[#faf8f5] hover:text-[#faf8f5] dark:hover:text-[#120f0a] active:scale-[0.98] transition-all duration-200"
             >
               GitHub
             </a>
@@ -141,7 +141,7 @@ function TeamMemberCard({ payload }: { payload: MemberCardPayload }) {
               href={payload.socials.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="text-[10px] font-mono font-bold uppercase tracking-wider rounded-none border-2 border-[#120f0a] bg-white px-2.5 py-1 text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+              className="text-[10px] font-mono font-bold uppercase tracking-wider rounded-none border border-[#120f0a] dark:border-[#faf8f5] bg-transparent px-2.5 py-1 text-[#120f0a] dark:text-[#faf8f5] hover:bg-[#120f0a] dark:hover:bg-[#faf8f5] hover:text-[#faf8f5] dark:hover:text-[#120f0a] active:scale-[0.98] transition-all duration-200"
             >
               LinkedIn
             </a>
@@ -158,24 +158,24 @@ function ProjectCards({ ideas }: { ideas: ProjectIdea[] }) {
       {ideas.map((idea, idx) => (
         <div
           key={`${idea.title}-${idx}`}
-          className="rounded-none border-3 border-[#120f0a] bg-white p-4 text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a]"
+          className="rounded-none border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#faf8f5]/50 dark:bg-[#120f0a]/50 p-4 text-[#120f0a] dark:text-[#faf8f5]"
         >
           <div className="flex items-center justify-between gap-2 flex-wrap">
-            <p className="text-sm font-black uppercase tracking-tight text-[#120f0a]">{idea.title}</p>
+            <p className="text-sm font-normal font-accent-sans uppercase tracking-tight text-[#120f0a] dark:text-[#faf8f5]">{idea.title}</p>
             {idea.difficulty && (
-              <span className="text-[9px] font-mono font-bold uppercase tracking-wider rounded-none border-2 border-[#120f0a] bg-[#fee9cf] px-2 py-0.5 text-[#120f0a]">
+              <span className="text-[9px] font-mono font-bold uppercase tracking-wider rounded-none border border-[#120f0a]/30 dark:border-[#faf8f5]/30 bg-transparent px-2 py-0.5 text-[#120f0a] dark:text-[#faf8f5]">
                 {idea.difficulty}
               </span>
             )}
           </div>
-          <p className="mt-2 text-xs font-semibold text-[#413f3b] leading-relaxed">{idea.description}</p>
+          <p className="mt-2 text-xs font-serif-brand text-[#120f0a]/80 dark:text-[#faf8f5]/80 leading-relaxed">{idea.description}</p>
           {Array.isArray(idea.tech_stack) && idea.tech_stack.length > 0 && (
-            <p className="mt-3 text-[10px] font-mono font-bold uppercase tracking-wider text-[#97192c]">
+            <p className="mt-3 text-[10px] font-mono uppercase tracking-widest text-[#97192c] dark:text-[#fc920d]">
               Stack: {idea.tech_stack.join(" • ")}
             </p>
           )}
           {idea.why_it_fits_theme && (
-            <p className="mt-2 text-xs font-bold text-emerald-600 bg-emerald-50 border-2 border-emerald-500 rounded-none px-2.5 py-1.5 inline-block">
+            <p className="mt-2 text-[10px] font-mono uppercase tracking-widest text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 rounded-none px-2.5 py-1.5 inline-block">
               Theme fit: {idea.why_it_fits_theme}
             </p>
           )}
@@ -212,8 +212,9 @@ type StoredAssistantState = {
 };
 
 import { PromptBox } from "@/components/ui/chatgpt-prompt-input";
+import { cn } from "@/lib/utils";
 
-export function QnAChatInterface() {
+export function QnAChatInterface({ className }: { className?: string }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -550,23 +551,23 @@ export function QnAChatInterface() {
         : String(children);
       if (text.includes("%%GENERATE_LOADER%%")) {
         return (
-          <div className="relative overflow-hidden rounded-none bg-white w-full aspect-video border-3 border-[#120f0a] flex items-center justify-center p-4 my-2 shadow-[4px_4px_0px_0px_#120f0a]">
+          <div className="relative overflow-hidden rounded-none bg-[#faf8f5] dark:bg-[#120f0a] w-full aspect-video border border-[#120f0a]/15 dark:border-[#faf8f5]/15 flex items-center justify-center p-4 my-2">
             <div className="flex flex-col items-center gap-3 relative z-10">
               <div className="flex gap-1.5 justify-center">
                 <div
-                  className="h-2.5 w-2.5 rounded-none bg-[#97192c] border border-[#120f0a] animate-bounce"
+                  className="h-2 w-2 rounded-none bg-[#97192c] dark:bg-[#fc920d] animate-bounce"
                   style={{ animationDelay: "0ms" }}
                 />
                 <div
-                  className="h-2.5 w-2.5 rounded-none bg-[#fc920d] border border-[#120f0a] animate-bounce"
+                  className="h-2 w-2 rounded-none bg-[#fc920d] animate-bounce"
                   style={{ animationDelay: "150ms" }}
                 />
                 <div
-                  className="h-2.5 w-2.5 rounded-none bg-[#97192c] border border-[#120f0a] animate-bounce"
+                  className="h-2 w-2 rounded-none bg-[#97192c] dark:bg-[#fc920d] animate-bounce"
                   style={{ animationDelay: "300ms" }}
                 />
               </div>
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] animate-pulse">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] dark:text-[#faf8f5] animate-pulse">
                 Synthesizing Pixels
               </span>
             </div>
@@ -580,16 +581,16 @@ export function QnAChatInterface() {
       const isLoaded = loadedImages[src];
       return (
         <div 
-          className="relative overflow-hidden border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] my-3 w-full aspect-video bg-[#fee9cf]/20 cursor-zoom-in group hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_0px_#120f0a] active:translate-x-0 active:translate-y-0 active:shadow-none transition-all duration-150"
+          className="relative overflow-hidden border border-[#120f0a] dark:border-[#faf8f5] shadow-[4px_4px_0px_0px_#120f0a] dark:shadow-[4px_4px_0px_0px_#faf8f5] hover:shadow-[5px_5px_0px_0px_#120f0a] dark:hover:shadow-[5px_5px_0px_0px_#faf8f5] my-3 w-full aspect-video bg-[#120f0a]/5 dark:bg-[#faf8f5]/5 cursor-zoom-in group hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]"
           onClick={() => setActiveLightboxImage(src)}
         >
           {!isLoaded && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#eae8e4] animate-pulse z-10">
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#faf8f5] dark:bg-[#120f0a] animate-pulse z-10">
               <div className="flex gap-1.5 justify-center mb-2">
                 <div className="h-2 w-2 rounded-none bg-[#97192c] animate-ping" />
                 <div className="h-2 w-2 rounded-none bg-[#fc920d] animate-ping [animation-delay:0.2s]" />
               </div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#120f0a]">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#120f0a] dark:text-[#faf8f5]">
                 Decoding Image...
               </span>
             </div>
@@ -600,7 +601,7 @@ export function QnAChatInterface() {
             onLoad={() => {
               setLoadedImages(prev => ({ ...prev, [src]: true }));
             }}
-            className={`w-full h-full object-cover transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+            className={`w-full h-full object-cover transition-opacity duration-300 grayscale ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
         </div>
       );
@@ -610,7 +611,7 @@ export function QnAChatInterface() {
         return (
           <a
             href={href}
-            className="inline-flex my-2 w-full sm:w-auto items-center justify-center rounded-none bg-[#fc920d] border-2 border-[#120f0a] px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all focus-visible:outline-none cursor-pointer"
+            className="inline-flex my-2 w-full sm:w-auto items-center justify-center rounded-none bg-[#97192c] hover:bg-[#fc920d] text-white hover:text-[#120f0a] border border-[#120f0a] dark:border-[#faf8f5] px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 active:scale-[0.98] focus-visible:outline-none cursor-pointer"
             target="_blank"
             rel="noopener noreferrer"
             {...props}
@@ -630,7 +631,7 @@ export function QnAChatInterface() {
                 : String(children);
               handleQuickPrompt(promptText);
             }}
-            className="block w-full mt-3 text-left rounded-none border-2 border-[#120f0a] bg-white px-4 py-3 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:bg-[#fee9cf] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+            className="block w-full mt-3 text-left rounded-none border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#faf8f5] dark:bg-[#120f0a] px-4 py-3 text-xs font-mono font-bold uppercase tracking-tight text-[#120f0a] dark:text-[#faf8f5] hover:border-[#120f0a] dark:hover:border-[#faf8f5] transition-all duration-200 active:scale-[0.98] cursor-pointer"
           >
             ↳ {children}
           </button>
@@ -640,7 +641,7 @@ export function QnAChatInterface() {
         return (
           <a
             href={href}
-            className="text-[#97192c] hover:text-[#fc920d] font-black underline decoration-2 underline-offset-2 transition-colors"
+            className="text-[#97192c] dark:text-[#fc920d] hover:underline font-mono font-bold transition-colors"
             {...props}
           >
             {children}
@@ -657,17 +658,17 @@ export function QnAChatInterface() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open venue on Google Maps"
-            className="mt-4 mb-2 flex flex-col gap-2 rounded-none border-3 border-[#120f0a] bg-white p-4 shadow-[4px_4px_0px_0px_#120f0a] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none group no-underline text-[#120f0a]"
+            className="mt-4 mb-2 flex flex-col gap-2 rounded-none border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#faf8f5]/50 dark:bg-[#120f0a]/50 p-4 text-[#120f0a] dark:text-[#faf8f5] transition-all duration-200 active:scale-[0.98] group no-underline"
           >
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-none border-2 border-[#120f0a] bg-[#fee9cf] text-[#120f0a]">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-none border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#120f0a]/5 dark:bg-[#faf8f5]/5 text-[#120f0a] dark:text-[#faf8f5]">
                 <MapPin className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="font-black uppercase tracking-tight text-sm m-0">
+                <h4 className="font-normal font-accent-sans uppercase tracking-tight text-sm m-0 text-[#120f0a] dark:text-[#faf8f5]">
                   View Venue on Map
                 </h4>
-                <p className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#97192c] m-0 mt-0.5">
+                <p className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#97192c] dark:text-[#fc920d] m-0 mt-0.5">
                   Opens in Google Maps
                 </p>
               </div>
@@ -678,7 +679,7 @@ export function QnAChatInterface() {
       return (
         <a
           href={href}
-          className="text-[#97192c] hover:text-[#fc920d] font-black underline decoration-2 underline-offset-2 transition-colors"
+          className="text-[#97192c] dark:text-[#fc920d] hover:underline font-mono font-bold transition-colors"
           target="_blank"
           rel="noreferrer"
           {...props}
@@ -699,8 +700,8 @@ export function QnAChatInterface() {
       if (isDiscordWidget) {
         const serverId = String(children).trim();
         return (
-          <div className="my-4 rounded-none overflow-hidden border-3 border-[#120f0a] bg-white shadow-[4px_4px_0px_0px_#120f0a]">
-            <div className="flex items-center gap-2 px-4 py-2.5 bg-[#5865F2]/10 border-b-3 border-[#120f0a]">
+          <div className="my-4 rounded-none overflow-hidden border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#faf8f5] dark:bg-[#120f0a]">
+            <div className="flex items-center gap-2 px-4 py-2.5 bg-[#5865F2]/10 border-b border-[#120f0a]/15 dark:border-[#faf8f5]/15">
               <svg
                 className="w-4 h-4 text-[#5865F2]"
                 viewBox="0 0 24 24"
@@ -729,7 +730,7 @@ export function QnAChatInterface() {
           const data = safeJsonParse<any[]>(rawData, "generic", []);
           if (Array.isArray(data) && data.length > 0) {
             return (
-              <div className="my-6 h-64 w-full rounded-none bg-white p-4 border-3 border-[#120f0a] px-2 sm:px-4 shadow-[4px_4px_0px_0px_#120f0a]">
+              <div className="my-6 h-64 w-full rounded-none bg-[#faf8f5] dark:bg-[#120f0a] p-4 border border-[#120f0a]/15 dark:border-[#faf8f5]/15 px-2 sm:px-4 relative">
                 <ResponsiveContainer
                   width="100%"
                   height="100%"
@@ -748,30 +749,29 @@ export function QnAChatInterface() {
                       fontSize={12}
                       tickLine={false}
                       axisLine={false}
-                      stroke="#120f0a"
+                      stroke="currentColor"
                     />
                     <Tooltip
                       cursor={{
-                        fill: "#eae8e4",
-                        opacity: 0.5,
+                        fill: "currentColor",
+                        opacity: 0.1,
                       }}
                       contentStyle={{
-                        backgroundColor: "white",
-                        border: "2px solid #120f0a",
+                        backgroundColor: "var(--background)",
+                        border: "1px solid var(--border)",
                         borderRadius: "0px",
-                        color: "#120f0a",
+                        color: "var(--foreground)",
                         fontFamily: "monospace",
                         fontSize: "11px",
                         fontWeight: "bold",
-                        boxShadow: "2px 2px 0px 0px #120f0a",
                       }}
                       itemStyle={{ color: "#97192c" }}
                     />
                     <Bar
                       dataKey="value"
                       fill="#fc920d"
-                      stroke="#120f0a"
-                      strokeWidth={2}
+                      stroke="currentColor"
+                      strokeWidth={1.5}
                       maxBarSize={50}
                     />
                   </BarChart>
@@ -864,8 +864,8 @@ export function QnAChatInterface() {
         <code
           className={`${
             isInline
-              ? "rounded-none bg-white border border-[#120f0a] px-1.5 py-0.5 text-[0.85em] font-mono font-bold text-[#97192c]"
-              : "block rounded-none bg-[#120f0a] p-4 text-[0.85em] overflow-x-auto border-2 border-[#120f0a] text-white my-4 shadow-none custom-scrollbar font-mono"
+              ? "rounded-none bg-[#120f0a]/5 dark:bg-[#faf8f5]/5 border border-[#120f0a]/10 dark:border-[#faf8f5]/10 px-1.5 py-0.5 text-[0.85em] font-mono text-[#97192c] dark:text-[#fc920d]"
+              : "block rounded-none bg-[#120f0a] dark:bg-[#1e0509]/30 p-4 text-[0.85em] overflow-x-auto border border-[#120f0a]/15 dark:border-[#faf8f5]/15 text-[#faf8f5] my-4 shadow-none custom-scrollbar font-mono"
           } ${className || ""}`}
           {...props}
         >
@@ -877,31 +877,34 @@ export function QnAChatInterface() {
 
   return (
     <div
-      className="flex flex-col w-full h-[70vh] min-h-[520px] rounded-none border-4 border-[#120f0a] bg-white shadow-[8px_8px_0px_0px_#120f0a] relative"
+      className={cn(
+        "flex flex-col w-full h-[55vh] min-h-[420px] lg:h-[60vh] lg:min-h-[460px] xl:h-[65vh] xl:min-h-[500px] rounded-none border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] relative",
+        className
+      )}
       role="region"
       aria-label="bits&bytes™ chat assistant"
     >
-      <div className="flex flex-wrap items-center justify-between gap-3 px-6 pt-5 pb-4 border-b-4 border-[#120f0a] bg-[#fee9cf] text-[#120f0a] shrink-0">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4 border-b border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] shrink-0">
         <div className="flex items-center gap-3">
-          <div className="relative flex items-center justify-center w-10 h-10 border-2 border-[#120f0a] bg-white text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] rounded-none">
+          <div className="relative flex items-center justify-center w-10 h-10 border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] rounded-none select-none">
             <Bot className="w-5 h-5 text-current" />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-base sm:text-lg font-black text-[#120f0a] uppercase tracking-tight flex items-center gap-2 leading-none">
+            <h1 className="text-base sm:text-lg font-normal font-accent-sans text-[#120f0a] dark:text-[#faf8f5] uppercase tracking-tight flex items-center gap-2 leading-none">
               bits&bytes™ QnA
               <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
               </span>
             </h1>
-            <span className="text-xs text-[#413f3b] font-bold mt-1">
+            <span className="text-[10px] font-mono tracking-widest text-[#120f0a]/65 dark:text-[#faf8f5]/65 uppercase mt-1">
               Verified from public project sources
             </span>
           </div>
         </div>
         <div className="flex items-center gap-3">
           {messages.length > 0 && (
-            <span className="hidden sm:inline-block border-2 border-[#120f0a] bg-white px-3 py-1 text-[10px] font-mono font-bold text-[#120f0a] rounded-none">
+            <span className="hidden sm:inline-block border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-transparent px-3 py-1 text-[9px] font-mono text-[#120f0a] dark:text-[#faf8f5] rounded-none">
               Model: {modelName}
             </span>
           )}
@@ -912,7 +915,7 @@ export function QnAChatInterface() {
               setMessage("");
               window.localStorage.removeItem(STORAGE_KEY);
             }}
-            className={`flex h-9 items-center justify-center gap-2 rounded-none bg-white px-3 text-xs font-mono font-bold uppercase border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all focus-visible:outline-none cursor-pointer ${messages.length === 0 ? "opacity-0 invisible" : "text-[#120f0a] hover:bg-[#fc920d]"}`}
+            className={`flex h-9 items-center justify-center gap-2 rounded-none bg-[#faf8f5] dark:bg-[#120f0a] px-3 text-xs font-mono font-bold uppercase border border-[#120f0a] dark:border-[#faf8f5] transition-all duration-200 active:scale-[0.98] focus-visible:outline-none cursor-pointer ${messages.length === 0 ? "opacity-0 invisible" : "text-[#120f0a] dark:text-[#faf8f5] hover:bg-[#120f0a] dark:hover:bg-[#faf8f5] hover:text-[#faf8f5] dark:hover:text-[#120f0a]"}`}
             aria-label="Clear chat session"
             title="Clear chat session"
             disabled={messages.length === 0}
@@ -924,30 +927,30 @@ export function QnAChatInterface() {
       </div>
 
       <div
-        className="flex-1 overflow-y-auto px-4 py-6 sm:px-6 relative text-zinc-100 scroll-smooth"
+        className="flex-1 overflow-y-auto px-4 py-4 sm:px-6 relative text-zinc-100 scroll-smooth"
         aria-live="polite"
         aria-relevant="additions text"
       >
         {messages.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full text-center px-4 max-w-3xl mx-auto space-y-6 pt-6">
-            <div className="border-3 border-[#120f0a] bg-[#fee9cf] p-6 text-sm text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] rounded-none">
-              <p className="mb-3 text-base font-black uppercase tracking-tight">
+          <div className="flex flex-col items-center justify-center h-full text-center px-2 max-w-3xl mx-auto gap-3.5 pt-2 sm:pt-4">
+            <div className="w-full border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#faf8f5]/50 dark:bg-[#120f0a]/50 p-4 text-xs text-[#120f0a] dark:text-[#faf8f5] rounded-none relative">
+              <p className="mb-1.5 text-sm font-normal font-accent-sans uppercase tracking-tight text-[#97192c] dark:text-[#fc920d] leading-none">
                 Start with a real question, get a grounded answer.
               </p>
-              <p className="font-semibold text-sm">
+              <p className="font-serif-brand text-[#120f0a]/80 dark:text-[#faf8f5]/80 text-[11px] leading-relaxed">
                 Ask about events, team, partnerships, or how bits&bytes™ actually
                 runs. Every reply is anchored in public site sources.
               </p>
             </div>
-            <div className="grid w-full gap-4 sm:grid-cols-2">
+            <div className="grid w-full gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {QUICK_PROMPTS.map((prompt) => (
                 <button
                   key={prompt}
                   type="button"
                   onClick={() => handleQuickPrompt(prompt)}
-                  className="rounded-none border-2 border-[#120f0a] bg-white p-4 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] text-left transition shadow-[2px_2px_0px_0px_#120f0a] hover:bg-[#fee9cf] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] focus-visible:outline-none group flex items-start gap-3 cursor-pointer"
+                  className="rounded-none border border-[#120f0a]/15 dark:border-[#faf8f5]/15 bg-[#faf8f5] dark:bg-[#120f0a] py-2 px-3 text-[10px] font-mono font-bold uppercase tracking-tight text-[#120f0a] dark:text-[#faf8f5] text-left transition hover:border-[#120f0a] dark:hover:border-[#faf8f5] focus-visible:outline-none group flex items-start gap-2 cursor-pointer active:scale-[0.98]"
                 >
-                  <span className="text-[#97192c] font-black group-hover:translate-x-0.5 transition-transform">
+                  <span className="text-[#97192c] dark:text-[#fc920d] font-bold group-hover:translate-x-0.5 transition-transform shrink-0">
                     ↳
                   </span>
                   <span>{prompt}</span>
@@ -967,15 +970,15 @@ export function QnAChatInterface() {
                 className={`flex w-full ${m.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 {m.role === "assistant" && (
-                  <div className="hidden sm:flex self-end mr-3 mb-1 w-8 h-8 rounded-none bg-[#fee9cf] items-center justify-center border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] flex-shrink-0">
-                    <Bot className="w-4 h-4 text-[#120f0a]" />
+                  <div className="hidden sm:flex self-end mr-3 mb-1 w-8 h-8 rounded-none bg-[#faf8f5] dark:bg-[#120f0a] items-center justify-center border border-[#120f0a] dark:border-[#faf8f5] flex-shrink-0 select-none">
+                    <Bot className="w-4 h-4 text-[#120f0a] dark:text-[#faf8f5]" />
                   </div>
                 )}
                 <div
-                  className={`w-fit max-w-[90%] sm:max-w-[85%] md:max-w-[75%] rounded-none px-5 py-3.5 text-[0.95rem] leading-relaxed border-2 border-[#120f0a] shadow-[3px_3px_0px_0px_#120f0a] break-words ${
+                  className={`w-fit max-w-[90%] sm:max-w-[85%] md:max-w-[75%] rounded-none px-5 py-3.5 text-sm leading-relaxed border border-[#120f0a] dark:border-[#faf8f5] break-words ${
                     m.role === "user"
-                      ? "bg-[#97192c] text-white"
-                      : "bg-[#eae8e4] text-[#120f0a] prose prose-p:my-2 prose-headings:my-3 prose-headings:text-[#120f0a] prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight prose-strong:text-[#120f0a] prose-strong:font-black prose-ul:my-2 prose-li:my-1 max-w-none font-semibold"
+                      ? "bg-[#97192c] text-[#faf8f5]"
+                      : "bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] prose dark:prose-invert prose-p:my-2 prose-headings:my-3 prose-headings:text-[#120f0a] dark:prose-headings:text-[#faf8f5] prose-headings:font-normal prose-headings:font-accent-sans prose-headings:uppercase prose-headings:tracking-tight prose-strong:text-[#120f0a] dark:prose-strong:text-[#faf8f5] prose-ul:my-2 prose-li:my-1 max-w-none font-serif-brand"
                   }`}
                 >
                   {m.role === "user" ? (
@@ -1000,10 +1003,10 @@ export function QnAChatInterface() {
               animate={{ opacity: 1, y: 0 }}
               className="flex justify-start"
             >
-              <div className="hidden sm:flex self-end mr-3 mb-1 w-8 h-8 rounded-none bg-[#fee9cf] items-center justify-center border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] flex-shrink-0">
-                <Bot className="w-4 h-4 text-[#120f0a]" />
+              <div className="hidden sm:flex self-end mr-3 mb-1 w-8 h-8 rounded-none bg-[#faf8f5] dark:bg-[#120f0a] items-center justify-center border border-[#120f0a] dark:border-[#faf8f5] flex-shrink-0 select-none">
+                <Bot className="w-4 h-4 text-[#120f0a] dark:text-[#faf8f5]" />
               </div>
-              <div className="rounded-none border-2 border-[#120f0a] bg-white px-6 py-4 flex items-center gap-2 text-sm text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]">
+              <div className="rounded-none border border-[#120f0a] dark:border-[#faf8f5] bg-[#faf8f5] dark:bg-[#120f0a] px-6 py-4 flex items-center gap-2 text-sm text-[#120f0a] dark:text-[#faf8f5]">
                 <span className="flex items-center gap-1.5">
                   <span
                     className="h-2 w-2 rounded-full bg-[#97192c] animate-bounce"
@@ -1022,20 +1025,20 @@ export function QnAChatInterface() {
             </motion.div>
           )}
           {error && (
-            <div className="p-4 mx-auto w-full max-w-sm text-center rounded-none bg-red-100 border-2 border-red-500 text-sm text-red-600 font-bold">
+            <div className="p-4 mx-auto w-full max-w-sm text-center rounded-none bg-red-100 border border-red-500 text-sm text-red-600 font-bold">
               {error}
             </div>
           )}
         </div>
       </div>
 
-      <div className="p-4 w-full bg-[#eae8e4] border-t-4 border-[#120f0a] shrink-0 relative z-20">
+      <div className="p-3 sm:p-4 w-full bg-[#faf8f5] dark:bg-[#120f0a] border-t border-[#120f0a]/15 dark:border-[#faf8f5]/15 shrink-0 relative z-20">
         <PromptBox
           ref={promptBoxRef}
           value={message}
           onChange={handleInputChange}
           onSubmitMessage={(msg: string) => handleSend(msg)}
-          className="bg-white border-2 border-[#120f0a] focus-within:ring-0"
+          className="bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a] dark:border-[#faf8f5] focus-within:ring-0 text-[#120f0a] dark:text-[#faf8f5]"
         />
       </div>
 
@@ -1050,21 +1053,21 @@ export function QnAChatInterface() {
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 cursor-zoom-out"
           >
             <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative max-w-5xl max-h-[90vh] overflow-hidden border-4 border-[#120f0a] bg-white p-2 shadow-[8px_8px_0px_0px_#120f0a]"
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
               onClick={(e) => e.stopPropagation()}
+              className="relative max-w-5xl max-h-[90vh] overflow-hidden border border-[#120f0a] dark:border-[#faf8f5] bg-[#faf8f5] dark:bg-[#120f0a] p-2"
             >
               <img
                 src={activeLightboxImage}
-                alt="Enlarged visualization"
-                className="max-w-full max-h-[80vh] object-contain block"
+                alt="Enlarged view"
+                className="max-w-full max-h-[80vh] object-contain"
               />
               <button
+                type="button"
                 onClick={() => setActiveLightboxImage(null)}
-                className="absolute top-4 right-4 bg-[#fc920d] border-2 border-[#120f0a] h-10 w-10 flex items-center justify-center font-bold text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+                className="absolute top-4 right-4 bg-[#97192c] hover:bg-[#fc920d] border border-[#120f0a] dark:border-[#faf8f5] h-10 w-10 flex items-center justify-center font-bold text-white shadow-none hover:shadow-none transition-colors duration-200 cursor-pointer active:scale-95"
               >
                 ✕
               </button>

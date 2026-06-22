@@ -11,6 +11,7 @@ import { FloatingAiAssistant } from "@/components/client-only-components";
 export function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isPosterRoute = pathname === "/fork";
+  const isQnARoute = pathname === "/qna";
 
   if (isPosterRoute) {
     return <>{children}</>;
@@ -19,12 +20,12 @@ export function SiteChrome({ children }: { children: ReactNode }) {
   return (
     <>
       <PageBackground />
-      <div className="relative z-10 flex min-h-screen flex-col overflow-x-hidden">
+      <div className={`relative z-10 flex min-h-screen flex-col overflow-x-hidden ${isQnARoute ? "h-screen overflow-hidden min-h-0" : ""}`}>
         <Navigation />
-        <main className="flex-1 w-full overflow-x-hidden">{children}</main>
-        <Footer />
+        <main className={`flex-1 w-full overflow-x-hidden ${isQnARoute ? "h-full overflow-hidden" : ""}`}>{children}</main>
+        {!isQnARoute && <Footer />}
         <Suspense fallback={null}>
-          <FloatingAiAssistant />
+          {!isQnARoute && <FloatingAiAssistant />}
         </Suspense>
       </div>
     </>

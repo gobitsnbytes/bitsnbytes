@@ -17,7 +17,7 @@ const strategicPartners = [
       "One Awesome API for everything AI. Route to OpenAI, Anthropic, Google & 14+ LLM providers.",
     features: ["Universal Router", "Multi-model", "Fast Inference"],
     color: "blue",
-    icon: <Cpu className="w-5 h-5 text-foreground" />,
+    icon: <Cpu className="w-4 h-4 text-current" />,
     logoWrapClass: "w-36",
     logoImageClass: "scale-[0.98]",
   },
@@ -30,7 +30,7 @@ const strategicPartners = [
       "Supporting scientific research and early-career researchers through fellowships.",
     features: ["Research Hub", "Fellowships", "Open Science"],
     color: "purple",
-    icon: <Sparkles className="w-5 h-5 text-foreground" />,
+    icon: <Sparkles className="w-4 h-4 text-current" />,
     logoWrapClass: "w-32",
     logoImageClass: "scale-105",
   },
@@ -43,7 +43,7 @@ const strategicPartners = [
       "Chat experiences and language model integrations for developers.",
     features: ["Neural Chat", "LLM Native", "Agentic IC"],
     color: "pink",
-    icon: <Zap className="w-5 h-5 text-foreground" />,
+    icon: <Zap className="w-4 h-4 text-current" />,
     logoWrapClass: "w-24",
     logoImageClass: "scale-[1.08]",
   },
@@ -59,7 +59,7 @@ const strategicPartners = [
       "A DevSecOps platform for planning, coding, securing, and shipping software.",
     features: ["CI/CD Pipelines", "DevSecOps", "Open Source"],
     color: "purple",
-    icon: <GitBranch className="w-5 h-5 text-foreground" />,
+    icon: <GitBranch className="w-4 h-4 text-current" />,
     logoWrapClass: "w-28",
     logoImageClass: "scale-[1.04]",
   },
@@ -75,12 +75,17 @@ export function Partners() {
       className="pb-24 relative overflow-hidden"
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mt-4 max-w-7xl mx-auto px-4 relative z-10">
-        {strategicPartners.map((partner) => (
+        {strategicPartners.map((partner, idx) => (
           <div
             key={partner.name}
-            className="bg-card border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] p-6 sm:p-8 flex flex-col min-h-[420px] sm:min-h-[500px] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_var(--border)] duration-200 text-card-foreground"
+            className="bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a]/15 dark:border-[#faf8f5]/15 p-6 sm:p-8 flex flex-col min-h-[420px] sm:min-h-[500px] hover:border-[#120f0a] dark:hover:border-[#faf8f5] transition-colors duration-200 text-[#120f0a] dark:text-[#faf8f5] relative select-none"
           >
-            <div className="mb-6 h-12 relative flex items-center">
+            {/* Technical coordinate marker */}
+            <span className="absolute top-2 right-3 text-[7px] font-mono text-[#120f0a]/30 dark:text-[#faf8f5]/30">
+              [REF_PARTNER_0{idx + 1}]
+            </span>
+
+            <div className="mb-6 h-12 relative flex items-center mt-2">
               <div className={`h-12 relative ${partner.logoWrapClass ?? "w-40"}`}>
                 {partner.mobileLogo ? (
                   <>
@@ -108,15 +113,15 @@ export function Partners() {
               </div>
             </div>
 
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary dark:text-accent">
+            <p className="font-mono text-[9px] uppercase tracking-widest text-[#97192c] dark:text-[#fc920d] font-bold">
               {partner.role}
             </p>
 
-            <h3 className="text-2xl sm:text-[28px] lg:text-[22px] xl:text-3xl font-black text-foreground tracking-tight mt-2 min-h-[60px] lg:min-h-[66px] leading-[1.05] uppercase">
+            <h3 className="font-accent-sans text-2xl sm:text-[28px] lg:text-[22px] xl:text-3xl font-normal tracking-tight mt-2 min-h-[60px] lg:min-h-[66px] leading-[1.05] uppercase">
               {partner.name}
             </h3>
 
-            <p className="text-sm text-foreground leading-relaxed font-semibold min-h-[120px] line-clamp-6">
+            <p className="font-serif-brand text-sm text-[#120f0a]/80 dark:text-[#faf8f5]/80 leading-relaxed min-h-[120px] line-clamp-6">
               {partner.description}
             </p>
 
@@ -124,20 +129,20 @@ export function Partners() {
               {partner.features.map((feat) => (
                 <span
                   key={feat}
-                  className="text-[10px] px-2.5 py-1 border-2 border-border bg-secondary text-secondary-foreground font-mono font-bold uppercase tracking-wider"
+                  className="text-[9px] px-2.5 py-1 border border-[#120f0a]/20 dark:border-[#faf8f5]/20 bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] font-mono tracking-widest uppercase select-none"
                 >
                   {feat}
                 </span>
               ))}
             </div>
 
-            <div className="mt-4 min-h-5 mb-6">
+            <div className="mt-2 min-h-5 mb-4">
               {partner.learnMoreUrl ? (
                 <Link
                   href={partner.learnMoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-mono font-black uppercase tracking-wider text-primary dark:text-accent hover:underline"
+                  className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#97192c] dark:text-[#fc920d] hover:underline"
                 >
                   {partner.learnMoreLabel}
                 </Link>
@@ -151,11 +156,10 @@ export function Partners() {
               )}
             </div>
 
-            <div className="flex justify-between items-center mt-auto pt-6 border-t-2 border-border/15">
+            <div className="flex justify-between items-center mt-auto pt-6 border-t border-[#120f0a]/15 dark:border-[#faf8f5]/15">
               <Button
                 variant="outline"
-                size="sm"
-                className="min-w-[150px] h-11 justify-center rounded-none border-2 border-border bg-card text-foreground font-black uppercase tracking-wider shadow-[3px_3px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_var(--border)] hover:bg-[#fc920d] hover:text-[#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+                className="min-w-[140px] h-11 justify-center rounded-none border border-[#120f0a] dark:border-[#faf8f5] bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] hover:bg-[#120f0a] dark:hover:bg-[#faf8f5] hover:text-[#faf8f5] dark:hover:text-[#120f0a] font-black uppercase tracking-wider shadow-none hover:shadow-none hover:-translate-x-0 hover:-translate-y-0 active:scale-[0.97] transition-movement cursor-pointer"
                 asChild
               >
                 <Link
@@ -167,7 +171,7 @@ export function Partners() {
                   <Globe className="w-3.5 h-3.5 ml-2" />
                 </Link>
               </Button>
-              <div className="p-2.5 border-2 border-border bg-secondary text-secondary-foreground shadow-[2px_2px_0px_0px_var(--border)]">
+              <div className="p-2 border border-[#120f0a] dark:border-[#faf8f5] bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] select-none">
                 {partner.icon}
               </div>
             </div>
@@ -177,3 +181,5 @@ export function Partners() {
     </PageSection>
   );
 }
+
+export default Partners;
