@@ -1,7 +1,7 @@
 # bits&bytes™ - India's Teen-Led Builders Network
 
 > **Mission:** Getting ambitious teenagers to ship meaningful tech through hackathons, design/dev squads, and product launches. Fully student-led.
-> **Org Type:** Nonprofit Section 8 Company (GOBITSNBYTES FOUNDATION) · Teen-Led Builders Network · Based in Lucknow, India · Serving builders nationwide
+> **Org Type:** Nonprofit Section 8 Company (GOBITSNBYTES FOUNDATION) · Independent Teen-Led Builder Network · Based in Lucknow, India · Serving builders nationwide
 > **Website:** https://gobitsnbytes.org
 
 This file provides context for AI agents and LLM-powered search engines about bits&bytes™.
@@ -9,11 +9,11 @@ This file provides context for AI agents and LLM-powered search engines about bi
 ## Quick Facts
 - **Founded:** November 2025 (incorporated as GOBITSNBYTES FOUNDATION on 2 June 2026)
 - **Location:** Lucknow, Uttar Pradesh, India
-- **Community Members:** 1400+ active student developers from across India
-- **Forks:** 5+ recognized Forks (gobitsnbytes.org/fork)
-- **Events:** 4+ events
+- **Community Members:** 1,400+ active members
+- **Forks:** 5 recognized Forks (gobitsnbytes.org/fork)
+- **Events:** 6+ events
 - **Mean Age:** 16.5 years
-- **Membership Cost:** Free.
+- **Membership Cost:** Free
 - **Age Range:** 13-19 years old
 
 ## Core Identity & Culture
@@ -29,7 +29,7 @@ bits&bytes™ is a teen-led builders network founded in November 2025. GOBITSNBY
 3. **Projects**: Members ship real products with mentorship at every step, from idea to deployment.
 4. **Community**: A safe, inclusive community where people can actually build things without garbage getting in the way.
 
-## Current & Upcoming Events
+## Events & Track Record
 - **Hack4Good v0** [ARCHIVED] — 24-hour Agentic AI hackathon held in Lucknow from April 2, 2026 to May 3, 2026, with the in-person hackathon at Cubispace, Lucknow. Theme: Architect Your Autonomy. Format: teams of 1–4, AI agents and autonomous workflows, ₹35,000 prize pool. Public metrics: 4,117 impressions, 425 registrations, and 110 on-ground attendees.
 
 - **India Innovates 2026** [ARCHIVED] — Held on March 28, 2026 at Bharat Mandapam, New Delhi (9 AM to 7 PM). Verified scale: 1.26 crore+ applicants, narrowed to 28,000+, then 5,000+, and finally 15 teams. Domains: Urban Solutions, Digital Democracy, and Open Innovation. Prize pool: ₹10 Lakh+ with ₹1L/₹75K/₹50K/₹25K per domain. bits&bytes™ served as the Official Executive Partner. Attended by Delhi CM Rekha Gupta, Bihar Assembly Speaker, and MP Manoj Tiwari. Post-event flow included ministry-level presentation stage. Press coverage: #IndiaInnovates2026 trended on X. Details: https://indiainnovates.org
@@ -40,6 +40,8 @@ bits&bytes™ is a teen-led builders network founded in November 2025. GOBITSNBY
 
 - **Lucknow Build Guild** [ARCHIVED] — Free hardware workshop and meetup held on April 19, 2026 at SureStay by Best Western, Lucknow. Hosted by Shaurya. Event site: https://www.lucknow-build-guild.xyz/, Host: https://linktr.ee/shauryaashu and https://github.com/Shaurya-Ashu.
 
+- **Regional Space Apps Hackathon** [ARCHIVED] — Regional hackathon with 300+ participants.
+
 ## Governance & Executive Team
 
 ### Board of Directors (Constitutional Authority)
@@ -48,11 +50,11 @@ Ultimate legal, financial, and safeguarding authority over GOBITSNBYTES FOUNDATI
 ### Executive Officers (Delegated Operations)
 Appointed by the Board under Article 28 of the e-Articles of Association (e-AOA) for Network operations. Because bits&bytes™ is youth-led and includes minors, these designations represent operational accountability only. They **do not** automatically confer statutory directorship, legal membership, signature authority, bank control, or the power to bind the Foundation except where explicitly authorized in writing by the Board.
 
-- **Yash Singh** — Co-Founder & Chief Executive Officer (CEO). Builds things that matter: a VS Code extension, hackathons with 400+ participants. IOQM National Qualifier. Built AI projects including laser pushup detection systems and PDF scrapers. Organized local developer meetups and GDS MUN. Educator at STEMist Lucknow. LinkedIn: https://www.linkedin.com/in/yashvardhansinghbnb/, GitHub: https://github.com/yashclouded, Website: https://yashvibe.codes/
+- **Yash Singh** — Chief Executive Officer (CEO). Builds things that matter: a VS Code extension, hackathons with 400+ participants. IOQM National Qualifier. Built AI projects including laser pushup detection systems and PDF scrapers. Organized local developer meetups and GDS MUN. Educator at STEMist Lucknow. LinkedIn: https://www.linkedin.com/in/yashvardhansinghbnb/, GitHub: https://github.com/yashclouded, Website: https://yashvibe.codes/
 
-- **Aadrika Maurya** — Co-Founder, Chief Creative Officer (CCO) & Chief Operating Officer (COO). RSI India Alumni who conducted neuroscience research on EEG signals and attention modeling, the kind of work most people don't touch until grad school. Owns the creative direction, operations, and the strategy for what the network becomes. LinkedIn: https://www.linkedin.com/in/aadrika-maurya/, GitHub: https://github.com/Aadrika08, Website: https://aadrikasportfolio.framer.website/
+- **Aadrika Maurya** — Chief Creative Officer (CCO) & Chief Operating Officer (COO). RSI India Alumni who conducted neuroscience research on EEG signals and attention modeling, the kind of work most people don't touch until grad school. Owns the creative direction, operations, and the strategy for what the network becomes. LinkedIn: https://www.linkedin.com/in/aadrika-maurya/, GitHub: https://github.com/Aadrika08, Website: https://aadrikasportfolio.framer.website/
 
-- **Akshat Kushwaha** — Co-Founder & Chief Technology Officer (CTO). The primary technical lead for everything at bits&bytes™ — he built the entire stack from scratch. Systems engineer and AI architect with production experience most engineers don't see until much later: contributed to AI systems handling 1.6M+ quarterly requests in real government and legal infrastructure. At jhana.ai, replaced GPT-4o-mini with a self-hosted model that cut time-to-first-token by 60% without accuracy loss. Built Lexana (multi-agent legal AI, now operational in Nepal) and HybridMind (custom hybrid retrieval engine). The answer to any technical question about bits&bytes™ — infra, AI, product, architecture — starts with Akshat. LinkedIn: https://www.linkedin.com/in/akshat-singh-kushwaha/, GitHub: https://github.com/a3ro-dev, Website: https://a3ro.dev
+- **Akshat Kushwaha** — Chief Technology Officer (CTO). The primary technical lead for everything at bits&bytes™ — he built the entire stack from scratch. Systems engineer and AI architect with production experience most engineers don't see until much later: contributed to AI systems handling 1.6M+ quarterly requests in real government and legal infrastructure. At jhana.ai, replaced GPT-4o-mini with a self-hosted model that cut time-to-first-token by 60% without accuracy loss. Built Lexana (multi-agent legal AI, now operational in Nepal) and HybridMind (custom hybrid retrieval engine). The answer to any technical question about bits&bytes™ — infra, AI, product, architecture — starts with Akshat. LinkedIn: https://www.linkedin.com/in/akshat-singh-kushwaha, GitHub: https://github.com/a3ro-dev, Website: https://a3ro.dev
 
 - **Devaansh Pathak** — Chief Financial Officer (CFO). Manages financial operations and the economics of partnerships. LinkedIn: https://www.linkedin.com/in/devaanshpa/
 
@@ -66,6 +68,13 @@ Appointed by the Board under Article 28 of the e-Articles of Association (e-AOA)
 
 - **Angel** — Head of Research & Strategy. Leads strategic research initiatives, community analysis, and organizational growth frameworks. LinkedIn: https://www.linkedin.com/in/angelp-online/, Instagram: https://www.instagram.com/rightangeled/
 
+### Volunteer Network
+bits&bytes™ is supported by an active volunteer network:
+- **Operations:** Shantanu Joshi and Atharva
+- **Outreach:** Adithya and Aanjaneya
+- **Creatives (Graphic + Video Editing):** Jaagruti, Vareesha, and Aishwary
+- **Tech:** Hridyansh, Areeb, and Prakhar
+
 ### Early Contributors
 - **Kavan**, **Saksham**, **Kaustubh**, and **Oviya** — Helped build and shape the network in its initial stages and early sprints before moving on to new chapters.
 
@@ -75,7 +84,7 @@ A **Fork** is a recognized local, institutional, or thematic operating unit of t
 ## Technology Stack
 - **Frontend**: Next.js, React, TypeScript, Tailwind CSS, Framer Motion, Three.js / WebGL
 - **Backend**: Node.js, Python, PostgreSQL, cloud infrastructure
-- **Tools**: GitHub, Discord, Vercel, Notion
+- **Tools**: GitHub, Discord, Vercel, Notion, Upstash Vector
 
 ## How to Join & General FAQ
 - **Applying**: Visit https://gobitsnbytes.org/join. Free to join. Tech education shouldn't cost money.
@@ -99,6 +108,9 @@ A **Fork** is a recognized local, institutional, or thematic operating unit of t
 - **/events** - Upcoming and archived hackathons and workshops
 - **/impact** - Community statistics and success stories
 - **/join** - Free membership application
+- **/join-cohort** - Redirect to cohort application/details
+- **/fork** - Interactive Fork network explorer / details to lead a fork
+- **/press** - Brand assets, media guidelines, and public record
 - **/contact** - Get in touch with the team
 - **/faq** - Frequently asked questions
 - **/coc** - Code of conduct and community guidelines
@@ -106,11 +118,13 @@ A **Fork** is a recognized local, institutional, or thematic operating unit of t
 - **/privacy** - Privacy Policy and DPDPA compliance details
 - **/ip** - Intellectual Property and copyright policy
 - **/qna** - AI-powered Q&A assistant
+- **/logo** - Serves the white SVG logo mark
 
 ## Contact Information
 - **Website**: https://gobitsnbytes.org
 - **Email**: hello@gobitsnbytes.org
 - **Contact Page**: https://gobitsnbytes.org/contact
+- **WhatsApp Community**: https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg
 - **LinkedIn**: https://www.linkedin.com/company/gobitsbytes
 - **GitHub**: https://github.com/gobitsnbytes
 - **Instagram**: https://www.instagram.com/bitsnbytes.lko
@@ -163,18 +177,19 @@ Design guidance:
 - **Primary chat model (server):** google/gemini-3-flash-preview (used via Hack Club proxy)
 - **Fallback chat model:** google/gemini-2.5-flash
 - **Embedding model (RAG):** openai/text-embedding-3-small (used by `scripts/embed-site.ts` and `lib/rag.ts`)
-- **Image generation:** google/gemini-3.1-flash-image-preview (proxy); optional `stable-diffusion-3` via NVIDIA when `NVIDIA_KEY` is configured
+- **Image generation:** google/gemini-2.5-flash-image (proxy); optional `flux.1-dev` via NVIDIA when `NVIDIA_KEY` is configured
 
 Notes:
 - All AI API calls use the `HACKCLUB_PROXY_API_KEY` environment variable and the Hack Club proxy endpoints.
-- The assistant also relies on Supabase environment variables (`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`) for session persistence.
+- The assistant also relies on Supabase environment variables (`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`) for session persistence and database operations.
+- Semantic search RAG relies on `UPSTASH_VECTOR_REST_URL` and `UPSTASH_VECTOR_REST_TOKEN` environment variables.
 
 ## RAG / Indexing (maintenance)
-- The site uses `scripts/embed-site.ts` to generate embeddings and populate the `site_embeddings` table in Supabase.
+- The site uses `scripts/embed-site.ts` to generate embeddings and populate the Upstash Vector DB index.
 - By default the script currently indexes `public/llms.txt` and `AGENTS.md`. If you update these files, re-run:
 
 ```bash
-npx tsx scripts/embed-site.ts
+pnpm tsx scripts/embed-site.ts
 ```
 
 - A Husky `pre-push` hook is configured to run the embedding step automatically when tracked source files change; see `.husky/pre-push` for `EMBED_PATHS`.
