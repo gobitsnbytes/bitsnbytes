@@ -309,7 +309,7 @@ const volunteers: Volunteer[] = [
   {
     id: 7,
     name: "Areeb",
-    role: "Internal Tools Dev",
+    role: "Dev and Project Manager",
     image: "/team/areeb.png",
     linkedin: "https://www.linkedin.com/in/areeb-ahmad-066547315/",
     section: "Tech",
