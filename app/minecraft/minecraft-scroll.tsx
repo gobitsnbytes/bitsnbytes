@@ -57,6 +57,8 @@ function useLiveStats() {
     tps = tpsData.tps;
   }
 
+  const mspt = typeof tpsData?.mspt === "number" ? tpsData.mspt : null;
+
   const uptime = typeof tpsData?.uptime === "string" 
     ? tpsData.uptime 
     : (typeof tpsData?.uptime === "number" ? `${tpsData.uptime}%` : "99.98%");
@@ -69,6 +71,7 @@ function useLiveStats() {
     players: activePlayers,
     maxPlayers,
     tps,
+    mspt,
     uptime,
     worldAge,
   };
@@ -80,15 +83,15 @@ function Scene({
   progress,
   start,
   end,
+  ramp = 0.08,
   children,
 }: {
   progress: MotionValue<number>;
   start: number;
   end: number;
+  ramp?: number;
   children: ReactNode;
 }) {
-  const ramp = 0.10;
-  
   // If start is 0, we don't want any fade-in ramp at the beginning, it should just be fully visible from <= 0.
   const inputRamps = start === 0 
     ? [0, 0, end, end + ramp] 
@@ -227,7 +230,7 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
     <main
       ref={stageRef}
       className="relative bg-[#0c0406] text-[#faf8f5]"
-      style={{ minHeight: "700svh" }}
+      style={{ minHeight: "1000svh" }}
     >
       {/* Skip link for keyboard / screen-reader users. */}
       <a
@@ -273,7 +276,7 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
         </div>
 
         {/* 1 — Hero: logo, 1 line, 1 phrase */}
-        <Scene progress={progress} start={0} end={0.12}>
+        <Scene progress={progress} start={0} end={0.08} ramp={0.08}>
           <div className="flex flex-col items-center justify-center">
             <Image
               src="/logo.svg"
@@ -284,9 +287,9 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
               className="opacity-90 brightness-110 drop-shadow-[0_0_24px_rgba(254,233,207,0.15)]"
             />
             <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.3em] text-[#fee9cf]/60">
-              The vanilla survival server engineered for high agency builders.
+              Java + Bedrock crossplay survival. Powered by GOBITSNBYTES FOUNDATION.
             </p>
-            <h1 className="mt-6 font-accent-sans text-[clamp(3rem,9vw,7.5rem)] font-normal uppercase leading-[0.9] tracking-tighter text-[#faf8f5]">
+            <h1 className="mt-6 font-accent-sans text-[clamp(3.5rem,10vw,8.5rem)] font-normal uppercase leading-[0.9] tracking-tighter text-[#faf8f5]">
               Build. Explore. Belong.
             </h1>
             <div className="mt-16 flex flex-col items-center gap-2">
@@ -298,115 +301,112 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
           </div>
         </Scene>
 
-        {/* 2 — Technical Readout */}
-        <Scene progress={progress} start={0.22} end={0.37}>
-          <div className="w-full max-w-4xl flex flex-col items-start px-4 text-left">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#fc920d]/80 mb-8">
-              System Readout
+        {/* 2 — Telemetry 1: TPS */}
+        <Scene progress={progress} start={0.22} end={0.30} ramp={0.06}>
+          <div className="flex flex-col items-center justify-center font-mono">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-[#fee9cf]/40 mb-4">
+              System Tickrate
             </span>
-            <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-8 text-left font-mono">
-              <div className="flex flex-col gap-1 border-l border-[#fee9cf]/10 pl-4 py-2">
-                <span className="text-[10px] uppercase tracking-widest text-[#fee9cf]/40">Active Nodes</span>
-                <span className="text-xl font-normal text-[#faf8f5]">
-                  {stats.players !== null ? `${stats.players} / ${stats.maxPlayers}` : "12 / 50"}
-                </span>
-              </div>
-              <div className="flex flex-col gap-1 border-l border-[#fee9cf]/10 pl-4 py-2">
-                <span className="text-[10px] uppercase tracking-widest text-[#fee9cf]/40">System Tickrate</span>
-                <span className="text-xl font-normal text-[#faf8f5]">
-                  {stats.tps !== null ? `${Number(stats.tps).toFixed(2)} TPS` : "20.00 TPS"}
-                </span>
-              </div>
-              <div className="flex flex-col gap-1 border-l border-[#fee9cf]/10 pl-4 py-2">
-                <span className="text-[10px] uppercase tracking-widest text-[#fee9cf]/40">Deployment Uptime</span>
-                <span className="text-xl font-normal text-[#faf8f5]">{stats.uptime}</span>
-              </div>
-              <div className="flex flex-col gap-1 border-l border-[#fee9cf]/10 pl-4 py-2">
-                <span className="text-[10px] uppercase tracking-widest text-[#fee9cf]/40">World Chronology</span>
-                <span className="text-xl font-normal text-[#faf8f5]">{stats.worldAge ?? "148d"}</span>
-              </div>
-              <div className="flex flex-col gap-1 border-l border-[#fee9cf]/10 pl-4 py-2">
-                <span className="text-[10px] uppercase tracking-widest text-[#fee9cf]/40">Crossplay Core</span>
-                <span className="text-xl font-normal text-[#faf8f5]">Java + Bedrock</span>
-              </div>
-              <div className="flex flex-col gap-1 border-l border-[#fee9cf]/10 pl-4 py-2">
-                <span className="text-[10px] uppercase tracking-widest text-[#fee9cf]/40">Version Release</span>
-                <span className="text-xl font-normal text-[#faf8f5]">Purpur 1.21.1</span>
-              </div>
+            <div className="text-[clamp(4.8rem,13vw,11.5rem)] font-normal text-[#faf8f5] tracking-tight leading-none">
+              {stats.tps !== null ? `${Number(stats.tps).toFixed(2)}` : "20.00"}
+              <span className="text-[clamp(1.5rem,4vw,3.2rem)] text-[#fee9cf]/30 ml-2">TPS</span>
             </div>
           </div>
         </Scene>
 
-        {/* 3 — Infrastructure / Architecture */}
-        <Scene progress={progress} start={0.47} end={0.62}>
-          <div className="w-full max-w-4xl flex flex-col items-start px-4 text-left">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#fc920d]/80 mb-8 block">
-              The Infrastructure
+        {/* 3 — Telemetry 2: MSPT */}
+        <Scene progress={progress} start={0.42} end={0.50} ramp={0.06}>
+          <div className="flex flex-col items-center justify-center font-mono">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-[#fee9cf]/40 mb-4">
+              Average Tick Time
             </span>
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 font-mono">
-              <div>
-                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold mb-2">// 01 / ENGINE</h3>
-                <p className="text-[11px] text-[#fee9cf]/60 leading-relaxed">
-                  Purpur server engine (Paper fork) optimized with custom flags. Async chunk loading, G1GC garbage collection tuning, and a 3000-radius pre-generated world border.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold mb-2">// 02 / AUTOMATION</h3>
-                <p className="text-[11px] text-[#fee9cf]/60 leading-relaxed">
-                  Continuous integration via host bootstrap shell. Daily zstd-compressed backups with a 14-day retention cycle pushed automatically to remote secure object storage.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold mb-2">// 03 / MODERATION</h3>
-                <p className="text-[11px] text-[#fee9cf]/60 leading-relaxed">
-                  Database-backed block logging and rollbacks via CoreProtect. Custom gatekeeper plugin bridges player consents and permissions, ensuring clean, grief-free vanilla play.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold mb-2">// 04 / CHAT BRIDGE</h3>
-                <p className="text-[11px] text-[#fee9cf]/60 leading-relaxed">
-                  Bidirectional Discord-to-Minecraft chat bridge with verified authentication. In-game messages are instantly relayed to secure community channels.
-                </p>
-              </div>
+            <div className="text-[clamp(4.8rem,13vw,11.5rem)] font-normal text-[#faf8f5] tracking-tight leading-none">
+              {stats.mspt !== null ? `${Number(stats.mspt).toFixed(1)}` : "8.4"}
+              <span className="text-[clamp(1.5rem,4vw,3.2rem)] text-[#fee9cf]/30 ml-2">MSPT</span>
             </div>
           </div>
         </Scene>
 
-        {/* 4 — Org / Trust */}
-        <Scene progress={progress} start={0.72} end={0.87}>
-          <div className="w-full max-w-3xl flex flex-col items-start px-4 text-left">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#fc920d]/80 mb-8 block">
-              The Governance
+        {/* 4 — Telemetry 3: Active Nodes / Players */}
+        <Scene progress={progress} start={0.62} end={0.70} ramp={0.06}>
+          <div className="flex flex-col items-center justify-center font-mono">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-[#fee9cf]/40 mb-4">
+              Active Nodes
             </span>
-            <p className="font-serif-brand text-[clamp(1.3rem,2.8vw,1.85rem)] font-normal leading-relaxed text-[#faf8f5] mb-8">
-              Governed by GOBITSNBYTES FOUNDATION, a registered Section 8 nonprofit network. We prioritize minor safeguarding, privacy compliance, and absolute transparency.
-            </p>
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 font-mono text-[10px] text-[#fee9cf]/50 uppercase tracking-widest">
-              <div className="flex items-center gap-2.5">
-                <span className="h-1.5 w-1.5 bg-[#fc920d] rounded-full" />
-                <span>POCSO &amp; DPDP Act Compliant</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <span className="h-1.5 w-1.5 bg-[#fc920d] rounded-full" />
-                <span>No Pay-to-Win or Commercial Ads</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <span className="h-1.5 w-1.5 bg-[#fc920d] rounded-full" />
-                <span>Parental Consent Safeguards</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <span className="h-1.5 w-1.5 bg-[#fc920d] rounded-full" />
-                <span>Mojang Commercial EULA Compliant</span>
-              </div>
+            <div className="text-[clamp(4.8rem,13vw,11.5rem)] font-normal text-[#faf8f5] tracking-tight leading-none">
+              {stats.players !== null ? `${stats.players}` : "12"}
+              <span className="text-[clamp(1.5rem,4vw,3.2rem)] text-[#fee9cf]/30 ml-2">
+                / {stats.maxPlayers}
+              </span>
             </div>
           </div>
         </Scene>
 
-        {/* 5 — Final CTA & Minimal Connection */}
-        <Scene progress={progress} start={0.97} end={1.05}>
+        {/* 5 — Operations & Specifications */}
+        <Scene progress={progress} start={0.82} end={0.90} ramp={0.06}>
+          <div className="w-full max-w-5xl flex flex-col items-start px-4 text-left">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#fc920d]/80 mb-10">
+              Operations &amp; Specs
+            </span>
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-12 gap-y-10 font-mono text-left">
+              
+              {/* Col 1: Runtime */}
+              <div className="flex flex-col gap-5">
+                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold border-b border-[#fee9cf]/10 pb-2">// Runtime</h3>
+                <div className="flex flex-col gap-3 text-[11px] text-[#fee9cf]/60">
+                  <div className="flex justify-between"><span>Core:</span><span className="text-[#faf8f5]">Purpur 1.21.1</span></div>
+                  <div className="flex justify-between"><span>Compiler:</span><span className="text-[#faf8f5]">Java 21</span></div>
+                  <div className="flex justify-between"><span>GC:</span><span className="text-[#faf8f5]">G1GC Tuned</span></div>
+                  <div className="flex justify-between"><span>Pre-Gen:</span><span className="text-[#faf8f5]">3000 chunks</span></div>
+                  <div className="flex justify-between"><span>Mods:</span><span className="text-[#faf8f5]">0 required</span></div>
+                </div>
+              </div>
+
+              {/* Col 2: Infrastructure */}
+              <div className="flex flex-col gap-5">
+                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold border-b border-[#fee9cf]/10 pb-2">// Infrastructure</h3>
+                <div className="flex flex-col gap-3 text-[11px] text-[#fee9cf]/60">
+                  <div className="flex justify-between"><span>Host:</span><span className="text-[#faf8f5]">Azure B2s</span></div>
+                  <div className="flex justify-between"><span>Compute:</span><span className="text-[#faf8f5]">4 vCPU</span></div>
+                  <div className="flex justify-between"><span>Memory:</span><span className="text-[#faf8f5]">8 GB RAM</span></div>
+                  <div className="flex justify-between"><span>Backups:</span><span className="text-[#faf8f5]">Daily snapshot</span></div>
+                  <div className="flex justify-between"><span>Sponsor:</span><span className="text-[#faf8f5]"><a href="https://misbahkhursheed.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-[#fc920d] transition-colors">Misbah Khursheed</a></span></div>
+                </div>
+              </div>
+
+              {/* Col 3: Protection */}
+              <div className="flex flex-col gap-5">
+                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold border-b border-[#fee9cf]/10 pb-2">// Protection</h3>
+                <div className="flex flex-col gap-3 text-[11px] text-[#fee9cf]/60">
+                  <div className="flex justify-between"><span>Engine:</span><span className="text-[#faf8f5]">CoreProtect</span></div>
+                  <div className="flex justify-between"><span>History:</span><span className="text-[#faf8f5]">1.4M events</span></div>
+                  <div className="flex justify-between"><span>Rollback:</span><span className="text-[#faf8f5]">7 days</span></div>
+                  <div className="flex justify-between"><span>Chat bridge:</span><span className="text-[#faf8f5]">DiscordSRV</span></div>
+                  <div className="flex justify-between"><span>Audit:</span><span className="text-[#faf8f5]">JSON logs</span></div>
+                </div>
+              </div>
+
+              {/* Col 4: Organization */}
+              <div className="flex flex-col gap-5">
+                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold border-b border-[#fee9cf]/10 pb-2">// Organization</h3>
+                <div className="flex flex-col gap-3 text-[11px] text-[#fee9cf]/60">
+                  <div className="flex justify-between"><span>Legal:</span><span className="text-[#faf8f5]">Section 8 Org</span></div>
+                  <div className="flex justify-between"><span>Founded:</span><span className="text-[#faf8f5]">2025</span></div>
+                  <div className="flex justify-between"><span>Management:</span><span className="text-[#faf8f5]">Student-run</span></div>
+                  <div className="flex justify-between"><span>Source:</span><span className="text-[#faf8f5]">Open source</span></div>
+                  <div className="flex justify-between"><span>Region:</span><span className="text-[#faf8f5]">India</span></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </Scene>
+
+        {/* 6 — Final CTA & Minimal Connection */}
+        <Scene progress={progress} start={0.98} end={1.05} ramp={0.02}>
           <div className="flex flex-col items-center justify-center min-h-[60vh] py-12">
             <div className="flex flex-col items-center">
-              <h2 className="font-accent-sans text-[clamp(3.5rem,10vw,8.5rem)] font-normal uppercase leading-[0.85] tracking-tighter text-[#faf8f5] text-center">
+              <h2 className="font-accent-sans text-[clamp(4rem,11vw,9.5rem)] font-normal uppercase leading-[0.8] tracking-tighter text-[#faf8f5] text-center">
                 See you<br />
                 <em className="not-italic text-[#fc920d]">in-game.</em>
               </h2>
@@ -423,9 +423,20 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
             </div>
 
             {/* Minimal footer */}
-            <div className="mt-24 flex flex-col items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.15em] text-[#fee9cf]/25 select-none text-center">
+            <div className="mt-24 flex flex-col items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.15em] text-[#fee9cf]/25 text-center">
               <span className="normal-case">bits&amp;bytes™ by GOBITSNBYTES FOUNDATION</span>
               <span>© 2026 GOBITSNBYTES FOUNDATION. ALL RIGHTS RESERVED.</span>
+              <span className="normal-case opacity-80 mt-1">
+                Infrastructure sponsored by{" "}
+                <a
+                  href="https://misbahkhursheed.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#fc920d] transition-colors pointer-events-auto font-semibold"
+                >
+                  Misbah Khursheed
+                </a>
+              </span>
             </div>
           </div>
         </Scene>
