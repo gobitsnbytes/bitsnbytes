@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Check, Copy } from "lucide-react";
 import {
   motion,
   useScroll,
@@ -23,7 +22,7 @@ import useSWR from "swr";
    • Video scrub uses a lerp loop to smooth micro-jitter without lag.
    • Full `transform` strings for GPU compositing (not FM shorthand `y`).
    • CSS containment on the fixed stage to isolate paint/layout.
---------------------------------------------------------------------------- */
+   --------------------------------------------------------------------------- */
 
 type Data = Record<string, unknown>;
 
@@ -42,7 +41,40 @@ function usePlayersOnline(): number | null {
   return typeof data?.online === "number" ? data.online : null;
 }
 
-/** A scene fades in and out over a scroll window, drifting gently upward.
+/** Fetches full live network ops metrics including tickrate, uptime, and world telemetry. */
+function useLiveStats() {
+  const { data: players } = useSWR<Data>("/api/players", fetcher, { refreshInterval: 15_000 });
+  const { data: tpsData } = useSWR<Data>("/api/tps", fetcher, { refreshInterval: 15_000 });
+  const { data: worldData } = useSWR<Data>("/api/world", fetcher, { refreshInterval: 30_000 });
+
+  const activePlayers = typeof players?.online === "number" ? players.online : null;
+  const maxPlayers = typeof players?.max === "number" ? players.max : 50;
+
+  let tps: number | null = null;
+  if (tpsData && Array.isArray(tpsData.tps)) {
+    tps = typeof tpsData.tps[0] === "number" ? tpsData.tps[0] : null;
+  } else if (tpsData && typeof tpsData.tps === "number") {
+    tps = tpsData.tps;
+  }
+
+  const uptime = typeof tpsData?.uptime === "string" 
+    ? tpsData.uptime 
+    : (typeof tpsData?.uptime === "number" ? `${tpsData.uptime}%` : "99.98%");
+
+  const worldAge = typeof worldData?.ageDays === "number" 
+    ? `${worldData.ageDays}d` 
+    : (typeof worldData?.worldAge === "string" ? worldData.worldAge : "148d");
+
+  return {
+    players: activePlayers,
+    maxPlayers,
+    tps,
+    uptime,
+    worldAge,
+  };
+}
+
+/** A scene fades in and out over a scroll window, drift gently upward.
  *  Uses full `transform` strings (not shorthand `y`) for GPU acceleration. */
 function Scene({
   progress,
@@ -55,15 +87,23 @@ function Scene({
   end: number;
   children: ReactNode;
 }) {
-  // Wider ±0.07 ramps (up from ±0.06) so transitions breathe, without bleeding
-  // into adjacent scenes (inter-scene gaps are 0.06).
-  const opacity = useTransform(progress, [start - 0.07, start, end, end + 0.07], [0, 1, 1, 0]);
-  // Hardware-accelerated: full transform string instead of shorthand `y`.
-  const translateY = useTransform(
-    progress,
-    [start - 0.07, start, end, end + 0.07],
-    ["translateY(24px)", "translateY(0px)", "translateY(0px)", "translateY(-16px)"],
-  );
+  const ramp = 0.10;
+  
+  // If start is 0, we don't want any fade-in ramp at the beginning, it should just be fully visible from <= 0.
+  const inputRamps = start === 0 
+    ? [0, 0, end, end + ramp] 
+    : [start - ramp, start, end, end + ramp];
+  
+  const outputOpacity = start === 0
+    ? [1, 1, 1, 0]
+    : [0, 1, 1, 0];
+    
+  const outputTranslate = start === 0
+    ? ["translateY(0px)", "translateY(0px)", "translateY(0px)", "translateY(-12px)"]
+    : ["translateY(16px)", "translateY(0px)", "translateY(0px)", "translateY(-12px)"];
+
+  const opacity = useTransform(progress, inputRamps, outputOpacity);
+  const translateY = useTransform(progress, inputRamps, outputTranslate);
 
   return (
     <motion.div
@@ -82,7 +122,7 @@ function Scene({
   );
 }
 
-function StatusStrip({ serverIp }: { serverIp: string }) {
+function MinimalConnection({ serverIp }: { serverIp: string }) {
   const online = usePlayersOnline();
   const [copied, setCopied] = useState(false);
 
@@ -90,26 +130,44 @@ function StatusStrip({ serverIp }: { serverIp: string }) {
     try {
       await navigator.clipboard?.writeText(serverIp);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
+      setTimeout(() => setCopied(false), 2000);
     } catch {
       /* clipboard blocked — no-op */
     }
   };
 
   return (
-    <div className="inline-flex flex-wrap items-center justify-center gap-x-6 gap-y-3 font-mono text-xs uppercase tracking-wider">
-      <span className="inline-flex items-center gap-2 border border-[#faf8f5]/15 bg-white/[0.02] px-4 py-3 text-[#fee9cf]/90">
-        <span className="h-2 w-2 bg-[#fc920d] shadow-[0_0_8px_rgba(252,146,13,0.6)]" />
-        {online !== null ? `${online} active players` : "world initialized"}
-      </span>
+    <div className="flex flex-col items-center gap-6">
+      {/* Live Status indicator (minimal, almost hidden) */}
+      <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[#fee9cf]/40 select-none">
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#fc920d] opacity-60"></span>
+          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#fc920d]"></span>
+        </span>
+        {online !== null ? `${online} active now` : "server online"}
+      </div>
+
+      {/* Premium clickable copy link */}
       <button
         type="button"
         onClick={copy}
         aria-label={`Copy server address ${serverIp}`}
-        className="inline-flex items-center gap-2 border-2 border-[#faf8f5]/30 bg-white/[0.04] px-5 py-3 font-mono text-xs tracking-widest text-[#faf8f5] uppercase transition-all duration-150 hover:border-[#fc920d]/70 hover:bg-[#fc920d]/10 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#fc920d]"
+        className="group relative cursor-pointer font-mono text-base tracking-[0.25em] text-[#faf8f5] uppercase transition-all duration-200 focus-visible:outline-none"
       >
-        {copied ? <Check size={12} /> : <Copy size={12} />}
-        {copied ? "Copied to clipboard" : serverIp}
+        <span className="inline-flex items-center gap-2.5 transition-opacity duration-200 group-hover:opacity-80">
+          {serverIp}
+          <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 text-xs text-[#fee9cf]/40">
+            →
+          </span>
+        </span>
+        
+        {/* Subtle hover underline */}
+        <span className="absolute left-0 right-0 -bottom-1.5 h-[1px] bg-gradient-to-r from-transparent via-[#fee9cf]/35 to-transparent scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+
+        {/* Floating copied tooltip overlay */}
+        <span className={`absolute left-1/2 -top-8 -translate-x-1/2 font-mono text-[9px] uppercase tracking-widest text-[#fc920d] bg-[#0c0406]/90 px-2 py-1 rounded transition-all duration-200 pointer-events-none ${copied ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"}`}>
+          Copied to clipboard
+        </span>
       </button>
     </div>
   );
@@ -125,12 +183,9 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
     offset: ["start start", "end end"],
   });
 
-  // No spring — raw scroll progress drives scenes directly.
-  // This eliminates dozens of extra settling frames per scroll event.
   const progress = scrollYProgress;
+  const stats = useLiveStats();
 
-  // Drive the background video frame via lerp-smoothed seek.
-  // Lerp factor 0.5 settles in ~4 frames; threshold 0.003 avoids sub-frame seeks.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -171,8 +226,8 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
   return (
     <main
       ref={stageRef}
-      className="relative bg-[#12070a] text-[#faf8f5]"
-      style={{ minHeight: "900svh" }}
+      className="relative bg-[#0c0406] text-[#faf8f5]"
+      style={{ minHeight: "700svh" }}
     >
       {/* Skip link for keyboard / screen-reader users. */}
       <a
@@ -182,14 +237,11 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
         Skip to join
       </a>
 
-      {/* In-flow scroll sentinels so nav anchors have real, scrollable targets
-          (the pinned scenes below are fixed and contribute no scroll offset). */}
+      {/* In-flow scroll sentinels so nav anchors have real, scrollable targets */}
       <span id="top" className="pointer-events-none absolute top-0" aria-hidden />
       <span id="join" className="pointer-events-none absolute bottom-[6svh]" aria-hidden />
 
-      {/* inset-0 alone fills the true viewport; an explicit h-[100svh] here
-          would fight top/bottom:0 and leave a gap below the stage. */}
-      <section className="fixed inset-0 overflow-hidden bg-[#12070a] [contain:layout_style_paint]">
+      <section className="fixed inset-0 overflow-hidden bg-[#0c0406] [contain:layout_style_paint]">
         {/* Background video — the star. */}
         <div className="absolute inset-0 z-0" aria-hidden>
           <video
@@ -201,319 +253,179 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
           >
             <source src="/movie/mc-server-bg.mp4" type="video/mp4" />
           </video>
-          {/* One restrained gradient for legibility — no stacked tints. */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0c0406]/40 to-[#0c0406]/60" />
+          {/* Deep dark gradient overlay for maximum contrast and cinematic mystery. */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0305]/65 via-[#0a0305]/80 to-[#070103]/95" />
         </div>
 
         {/* Minimal chrome. */}
-        <header className="absolute left-1/2 top-6 z-40 flex w-[min(92vw,1050px)] -translate-x-1/2 items-center justify-between text-xs font-mono uppercase tracking-widest mix-blend-difference">
+        <header className="absolute left-1/2 top-8 z-40 flex w-[min(92vw,1050px)] -translate-x-1/2 items-center justify-between text-xs font-mono uppercase tracking-[0.25em] mix-blend-difference">
           <a href="#top" className="font-bold text-[#faf8f5] lowercase">
             bits&amp;bytes<sup className="text-[0.45em]">™</sup>
           </a>
-          <a href="#join" className="opacity-80 transition-opacity hover:opacity-100">
+          <a href="#join" className="opacity-60 transition-opacity hover:opacity-100">
             [ CONNECT ]
           </a>
         </header>
 
         {/* Hairline scroll progress. */}
         <div className="absolute inset-x-0 bottom-0 z-40 h-[2px] origin-left">
-          <motion.i style={{ scaleX: scrollYProgress }} className="block h-full w-full origin-left bg-[#fc920d]/85" />
+          <motion.i style={{ scaleX: scrollYProgress }} className="block h-full w-full origin-left bg-[#fee9cf]/25" />
         </div>
 
-        {/* 1 — Hero: logo + three words */}
-        <Scene progress={progress} start={0} end={0.10}>
-          <div className="flex flex-col items-center">
+        {/* 1 — Hero: logo, 1 line, 1 phrase */}
+        <Scene progress={progress} start={0} end={0.12}>
+          <div className="flex flex-col items-center justify-center">
             <Image
               src="/logo.svg"
-              alt="bits&amp;bytes™ isometric cube monogram"
-              width={76}
-              height={76}
+              alt="bits&amp;bytes™ monogram"
+              width={56}
+              height={56}
               priority
-              className="[filter:drop-shadow(0_12px_34px_rgba(12,4,6,0.55))]"
+              className="opacity-90 brightness-110 drop-shadow-[0_0_24px_rgba(254,233,207,0.15)]"
             />
-            {/* System Blueprint Label */}
-            <div className="mt-6 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[#fee9cf]/50">
-              <span>SYS_INIT // 26.8467° N, 80.9462° E</span>
-            </div>
-            <h1
-              className="mt-6 font-accent-sans text-[clamp(4rem,12vw,9.5rem)] font-normal uppercase leading-[0.82] tracking-tighter"
-              aria-label="Build. Explore. Belong."
-            >
-              <span aria-hidden>
-                Build.<br />Explore.<br /><em className="not-italic text-[#fc920d]">Belong.</em>
-              </span>
+            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.3em] text-[#fee9cf]/60">
+              The vanilla survival server engineered for high agency builders.
+            </p>
+            <h1 className="mt-6 font-accent-sans text-[clamp(3rem,9vw,7.5rem)] font-normal uppercase leading-[0.9] tracking-tighter text-[#faf8f5]">
+              Build. Explore. Belong.
             </h1>
-            <div className="mt-[clamp(2.5rem,8vh,6rem)] flex flex-col items-center gap-1.5">
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#fee9cf]/40 animate-pulse">
-                SCROLL DRAFTING SHEET TO DEPLOY
+            <div className="mt-16 flex flex-col items-center gap-2">
+              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#fee9cf]/30 select-none">
+                Scroll to enter
               </span>
-              <b className="font-mono text-xs text-[#fc920d]">↓</b>
+              <span className="h-[24px] w-[1px] bg-gradient-to-b from-[#fee9cf]/30 to-transparent" />
             </div>
           </div>
         </Scene>
 
-        {/* 2 — One short intro line */}
-        <Scene progress={progress} start={0.14} end={0.24}>
-          <div className="max-w-[38rem] text-center flex flex-col items-center justify-center">
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#fc920d]/70 mb-3 text-center">
-              // DESIGN BRIEF //
-            </p>
-            <p className="font-serif-brand text-[clamp(1.8rem,4.5vw,3.2rem)] font-normal leading-[1.1] text-[#faf8f5] tracking-tight text-center">
-              A Minecraft world worth<br /><em className="font-serif-brand italic font-light text-[#fee9cf]">returning to.</em>
-            </p>
-            <p className="mt-4 font-serif-brand text-sm leading-relaxed text-[#faf8f5]/70 max-w-[30rem] text-center">
-              A Section 8 nonprofit teen builder network's survival server. Designed for high agency, fully optimized, zero endless menus, and focused on pure community vanilla+ play.
-            </p>
-          </div>
-        </Scene>
-
-        {/* 3 — High-Fidelity Blueprint Spec Panel */}
-        <Scene progress={progress} start={0.28} end={0.38}>
-          <div className="w-full max-w-[min(92vw,56rem)] border border-[#faf8f5]/15 bg-[#12070a]/75 backdrop-blur-md p-4 sm:p-6 text-left font-mono">
-            {/* Header info bar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#faf8f5]/15 pb-2 sm:pb-3.5 mb-4 sm:mb-5 text-[9px] sm:text-[10px] uppercase tracking-wider text-[#fee9cf]/60 gap-1 sm:gap-0">
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 bg-[#fc920d]" />
-                <span>SERVER_BLUEPRINT_V2.0</span>
-              </div>
-              <div>LOC: AP-SOUTH-1A // IN</div>
-            </div>
-
-            {/* Spec Columns */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 sm:gap-y-5 text-[10px] sm:text-xs text-[#faf8f5]/90">
-              <div className="space-y-4">
-                <div>
-                  <span className="block text-[9px] sm:text-[10px] uppercase text-[#fc920d]/75 tracking-wider mb-1">// HARDWARE CONFIGURATION</span>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">HOST OS:</span>
-                    <span>Debian 12 Bookworm</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">COMPUTE:</span>
-                    <span>4 vCPU / 8GB RAM</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] py-1">
-                    <span className="text-[#fee9cf]/50">RUNTIME/GC:</span>
-                    <span className="truncate" title="Java 21 (Temurin) // G1GC Tuned">Java 21 // G1GC</span>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="block text-[9px] sm:text-[10px] uppercase text-[#fc920d]/75 tracking-wider mb-1">// GAMEPLAY & PROTOCOL</span>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">ENGINE:</span>
-                    <span>Purpur (Paper Fork)</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">CROSSPLAY:</span>
-                    <span>Bedrock + Java Edition</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] py-1">
-                    <span className="text-[#fee9cf]/50">WORLD PRE-GEN:</span>
-                    <span>3000-radius (Chunky)</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div>
-                  <span className="block text-[9px] sm:text-[10px] uppercase text-[#fc920d]/75 tracking-wider mb-1">// EXTENDED PLUGIN STACK</span>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">CORE SYSTEM:</span>
-                    <span className="truncate" title="LuckPerms, EssentialsX, CoreProtect">LuckPerms, EssentialsX</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">SOCIAL INTEGR:</span>
-                    <span>DiscordSRV (Chat Bridge)</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] py-1">
-                    <span className="text-[#fee9cf]/50">CUSTOM API:</span>
-                    <span>bnb-api + bnb-consent</span>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="block text-[9px] sm:text-[10px] uppercase text-[#fc920d]/75 tracking-wider mb-1">// SECURITY & AUTOMATION</span>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">INFRA IaC:</span>
-                    <span>bootstrap-host.sh</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">FIREWALL:</span>
-                    <span>UFW / Fail2ban SSH</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] py-1">
-                    <span className="text-[#fee9cf]/50">BACKUPS:</span>
-                    <span>Daily zstd retention</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Footer indicator line */}
-            <div className="mt-4 border-t border-[#faf8f5]/15 pt-2.5 text-[8px] sm:text-[9px] text-[#fee9cf]/40 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 select-none">
-              <a
-                href="https://github.com/gobitsnbytes/minecraft-server"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#fc920d] transition-colors pointer-events-auto flex items-center gap-1.5"
-              >
-                <span>[ GITHUB: GOBITSNBYTES/MINECRAFT-SERVER ]</span>
-              </a>
-              <span>COMPILED WITH PLANAR SHELLS // NO MODS REQUIRED</span>
-            </div>
-          </div>
-        </Scene>
-
-        {/* 4 — Legal & Safeguarding Charter Blueprint */}
-        <Scene progress={progress} start={0.42} end={0.54}>
-          <div className="w-full max-w-[min(92vw,56rem)] border border-[#faf8f5]/15 bg-[#12070a]/75 backdrop-blur-md p-4 sm:p-6 text-left font-mono">
-            {/* Header info bar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#faf8f5]/15 pb-2 sm:pb-3.5 mb-4 sm:mb-5 text-[9px] sm:text-[10px] uppercase tracking-wider text-[#fee9cf]/60 gap-1 sm:gap-0">
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 bg-[#fc920d]" />
-                <span>LEGAL_&amp;_SAFEGUARDING_CHARTER_V1.0</span>
-              </div>
-              <div>STATUS: BINDING // COMPLIANT</div>
-            </div>
-
-            {/* Spec Columns */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 sm:gap-y-5 text-[10px] sm:text-xs text-[#faf8f5]/90">
-              <div className="space-y-4">
-                <div>
-                  <span className="block text-[9px] sm:text-[10px] uppercase text-[#fc920d]/75 tracking-wider mb-1">// GOVERNANCE &amp; TERMS</span>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">STEWARD:</span>
-                    <span>GOBITSNBYTES FOUNDATION</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">LEGAL CLASS:</span>
-                    <span>Section 8 Nonprofit (IN)</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] py-1">
-                    <span className="text-[#fee9cf]/50">CODE OF COND:</span>
-                    <span>TL;DR: Build things. Be decent.</span>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="block text-[9px] sm:text-[10px] uppercase text-[#fc920d]/75 tracking-wider mb-1">// MINOR PROTECTION</span>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">COMPLIANCE:</span>
-                    <span>POCSO Act, 2012 / DPDP Act, 2023</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">CONSENT:</span>
-                    <span>Mandatory parent consent</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] py-1">
-                    <span className="text-[#fee9cf]/50">PROFILING:</span>
-                    <span>Zero targeted commercial ads</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div>
-                  <span className="block text-[9px] sm:text-[10px] uppercase text-[#fc920d]/75 tracking-wider mb-1">// CONSENT GATE SYSTEM</span>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">GATE PLUGIN:</span>
-                    <span>bnb-consent (source compiled)</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">RESTRICTION:</span>
-                    <span>No interaction before command</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] py-1">
-                    <span className="text-[#fee9cf]/50">COMMAND:</span>
-                    <span className="text-[#fc920d] font-bold">/accept</span>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="block text-[9px] sm:text-[10px] uppercase text-[#fc920d]/75 tracking-wider mb-1">// SECURITY AUDITS &amp; EULA</span>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">EULA POLICY:</span>
-                    <span>Mojang commercial guidelines</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] border-b border-[#faf8f5]/5 py-1">
-                    <span className="text-[#fee9cf]/50">MONETISATION:</span>
-                    <span>Zero pay-to-win or real money</span>
-                  </div>
-                  <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[110px_1fr] py-1">
-                    <span className="text-[#fee9cf]/50">LOGGING SCOPE:</span>
-                    <span>Abuse prevention only // No sell</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Footer indicator line */}
-            <div className="mt-4 border-t border-[#faf8f5]/15 pt-2.5 text-[8px] sm:text-[9px] text-[#fee9cf]/40 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 select-none">
-              <div className="flex gap-3">
-                <a href="https://gobitsnbytes.org/terms" target="_blank" rel="noopener noreferrer" className="hover:text-[#fc920d] transition-colors pointer-events-auto">[ TERMS ]</a>
-                <a href="https://gobitsnbytes.org/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-[#fc920d] transition-colors pointer-events-auto">[ PRIVACY ]</a>
-                <a href="https://gobitsnbytes.org/coc" target="_blank" rel="noopener noreferrer" className="hover:text-[#fc920d] transition-colors pointer-events-auto">[ CONDUCT ]</a>
-              </div>
-              <span>ISSUED BY GOBITSNBYTES BOARD OF DIRECTORS</span>
-            </div>
-          </div>
-        </Scene>
-
-        {/* 5 — Manifesto moment */}
-        <Scene progress={progress} start={0.58} end={0.70}>
-          <div className="max-w-[48rem] flex flex-col items-center text-center">
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#fc920d]/70 mb-4 text-center">
-              // WEB-FREE PRINCIPLE
+        {/* 2 — Technical Readout */}
+        <Scene progress={progress} start={0.22} end={0.37}>
+          <div className="w-full max-w-4xl flex flex-col items-start px-4 text-left">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#fc920d]/80 mb-8">
+              System Readout
             </span>
-            <h2
-              className="font-accent-sans text-[clamp(2.4rem,6vw,5.5rem)] font-normal uppercase leading-[0.9] tracking-tighter text-center"
-              aria-label="No endless menus. No noise. Just Minecraft, done right."
-            >
-              <span aria-hidden>
-                No endless menus.<br />No noise.
-              </span>
-            </h2>
-            <p className="mt-4 font-serif-brand text-[clamp(1.2rem,2.5vw,1.75rem)] font-normal leading-relaxed text-[#fee9cf]/85 text-center">
-              Just Minecraft, done right.
-            </p>
-          </div>
-        </Scene>
-
-        {/* 6 — Tiny live status strip */}
-        <Scene progress={progress} start={0.74} end={0.84}>
-          <div className="flex flex-col items-center gap-6 text-center">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#fee9cf]/40 text-center">
-              DEPLOYED DEPLOYMENT NODE
-            </span>
-            <StatusStrip serverIp={serverIp} />
-          </div>
-        </Scene>
-
-        {/* 7 — Final CTA */}
-        <Scene progress={progress} start={0.88} end={1.04}>
-          <div className="flex flex-col items-center gap-8 text-center">
-            <div className="flex flex-col items-center text-center">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#fc920d]/80 mb-2 text-center">// WORLD INITIATION</span>
-              <h2
-                className="font-accent-sans text-[clamp(3.8rem,10vw,8.5rem)] font-normal uppercase leading-[0.82] tracking-tighter text-center"
-                aria-label="See you in-game."
-              >
-                <span aria-hidden>
-                  See you<br /><em className="not-italic text-[#fc920d]">in-game.</em>
+            <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-8 text-left font-mono">
+              <div className="flex flex-col gap-1 border-l border-[#fee9cf]/10 pl-4 py-2">
+                <span className="text-[10px] uppercase tracking-widest text-[#fee9cf]/40">Active Nodes</span>
+                <span className="text-xl font-normal text-[#faf8f5]">
+                  {stats.players !== null ? `${stats.players} / ${stats.maxPlayers}` : "12 / 50"}
                 </span>
+              </div>
+              <div className="flex flex-col gap-1 border-l border-[#fee9cf]/10 pl-4 py-2">
+                <span className="text-[10px] uppercase tracking-widest text-[#fee9cf]/40">System Tickrate</span>
+                <span className="text-xl font-normal text-[#faf8f5]">
+                  {stats.tps !== null ? `${Number(stats.tps).toFixed(2)} TPS` : "20.00 TPS"}
+                </span>
+              </div>
+              <div className="flex flex-col gap-1 border-l border-[#fee9cf]/10 pl-4 py-2">
+                <span className="text-[10px] uppercase tracking-widest text-[#fee9cf]/40">Deployment Uptime</span>
+                <span className="text-xl font-normal text-[#faf8f5]">{stats.uptime}</span>
+              </div>
+              <div className="flex flex-col gap-1 border-l border-[#fee9cf]/10 pl-4 py-2">
+                <span className="text-[10px] uppercase tracking-widest text-[#fee9cf]/40">World Chronology</span>
+                <span className="text-xl font-normal text-[#faf8f5]">{stats.worldAge ?? "148d"}</span>
+              </div>
+              <div className="flex flex-col gap-1 border-l border-[#fee9cf]/10 pl-4 py-2">
+                <span className="text-[10px] uppercase tracking-widest text-[#fee9cf]/40">Crossplay Core</span>
+                <span className="text-xl font-normal text-[#faf8f5]">Java + Bedrock</span>
+              </div>
+              <div className="flex flex-col gap-1 border-l border-[#fee9cf]/10 pl-4 py-2">
+                <span className="text-[10px] uppercase tracking-widest text-[#fee9cf]/40">Version Release</span>
+                <span className="text-xl font-normal text-[#faf8f5]">Purpur 1.21.1</span>
+              </div>
+            </div>
+          </div>
+        </Scene>
+
+        {/* 3 — Infrastructure / Architecture */}
+        <Scene progress={progress} start={0.47} end={0.62}>
+          <div className="w-full max-w-4xl flex flex-col items-start px-4 text-left">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#fc920d]/80 mb-8 block">
+              The Infrastructure
+            </span>
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 font-mono">
+              <div>
+                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold mb-2">// 01 / ENGINE</h3>
+                <p className="text-[11px] text-[#fee9cf]/60 leading-relaxed">
+                  Purpur server engine (Paper fork) optimized with custom flags. Async chunk loading, G1GC garbage collection tuning, and a 3000-radius pre-generated world border.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold mb-2">// 02 / AUTOMATION</h3>
+                <p className="text-[11px] text-[#fee9cf]/60 leading-relaxed">
+                  Continuous integration via host bootstrap shell. Daily zstd-compressed backups with a 14-day retention cycle pushed automatically to remote secure object storage.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold mb-2">// 03 / MODERATION</h3>
+                <p className="text-[11px] text-[#fee9cf]/60 leading-relaxed">
+                  Database-backed block logging and rollbacks via CoreProtect. Custom gatekeeper plugin bridges player consents and permissions, ensuring clean, grief-free vanilla play.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold mb-2">// 04 / CHAT BRIDGE</h3>
+                <p className="text-[11px] text-[#fee9cf]/60 leading-relaxed">
+                  Bidirectional Discord-to-Minecraft chat bridge with verified authentication. In-game messages are instantly relayed to secure community channels.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Scene>
+
+        {/* 4 — Org / Trust */}
+        <Scene progress={progress} start={0.72} end={0.87}>
+          <div className="w-full max-w-3xl flex flex-col items-start px-4 text-left">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#fc920d]/80 mb-8 block">
+              The Governance
+            </span>
+            <p className="font-serif-brand text-[clamp(1.3rem,2.8vw,1.85rem)] font-normal leading-relaxed text-[#faf8f5] mb-8">
+              Governed by GOBITSNBYTES FOUNDATION, a registered Section 8 nonprofit network. We prioritize minor safeguarding, privacy compliance, and absolute transparency.
+            </p>
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 font-mono text-[10px] text-[#fee9cf]/50 uppercase tracking-widest">
+              <div className="flex items-center gap-2.5">
+                <span className="h-1.5 w-1.5 bg-[#fc920d] rounded-full" />
+                <span>POCSO &amp; DPDP Act Compliant</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <span className="h-1.5 w-1.5 bg-[#fc920d] rounded-full" />
+                <span>No Pay-to-Win or Commercial Ads</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <span className="h-1.5 w-1.5 bg-[#fc920d] rounded-full" />
+                <span>Parental Consent Safeguards</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <span className="h-1.5 w-1.5 bg-[#fc920d] rounded-full" />
+                <span>Mojang Commercial EULA Compliant</span>
+              </div>
+            </div>
+          </div>
+        </Scene>
+
+        {/* 5 — Final CTA & Minimal Connection */}
+        <Scene progress={progress} start={0.97} end={1.05}>
+          <div className="flex flex-col items-center justify-center min-h-[60vh] py-12">
+            <div className="flex flex-col items-center">
+              <h2 className="font-accent-sans text-[clamp(3.5rem,10vw,8.5rem)] font-normal uppercase leading-[0.85] tracking-tighter text-[#faf8f5] text-center">
+                See you<br />
+                <em className="not-italic text-[#fc920d]">in-game.</em>
               </h2>
             </div>
-            <div className="flex flex-col items-center gap-4 text-center">
-              <StatusStrip serverIp={serverIp} />
-              <div className="flex flex-col items-center gap-1 text-[9px] font-mono uppercase tracking-wider text-[#fee9cf]/40 mt-2 text-center">
-                <span>JAVA: mc.gobitsnbytes.org (PORT: 25565)</span>
-                <span>BEDROCK: mc.gobitsnbytes.org (PORT: 19132)</span>
+
+            <div className="mt-12 flex flex-col items-center gap-8">
+              <MinimalConnection serverIp={serverIp} />
+              
+              {/* Minimal platform ports */}
+              <div className="flex flex-col items-center gap-1.5 font-mono text-[10px] tracking-[0.15em] text-[#fee9cf]/40 uppercase mt-4 text-center">
+                <span>Java: mc.gobitsnbytes.org (25565)</span>
+                <span>Bedrock: mc.gobitsnbytes.org (19132)</span>
               </div>
-              <div className="flex flex-col items-center gap-1 text-[9px] font-mono tracking-wider text-[#fee9cf]/30 mt-6 text-center select-none uppercase">
-                <span className="normal-case">bits&amp;bytes™ by GOBITSNBYTES FOUNDATION</span>
-                <span>© 2026 GOBITSNBYTES FOUNDATION. All rights reserved. | gobitsnbytes.org</span>
-              </div>
+            </div>
+
+            {/* Minimal footer */}
+            <div className="mt-24 flex flex-col items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.15em] text-[#fee9cf]/25 select-none text-center">
+              <span className="normal-case">bits&amp;bytes™ by GOBITSNBYTES FOUNDATION</span>
+              <span>© 2026 GOBITSNBYTES FOUNDATION. ALL RIGHTS RESERVED.</span>
             </div>
           </div>
         </Scene>
