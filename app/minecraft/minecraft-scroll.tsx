@@ -280,14 +280,14 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
           <div className="flex flex-col items-center justify-center">
             <Image
               src="/logo.svg"
-              alt="bits&amp;bytes™ monogram"
+              alt="bits&amp;bytesMonogram"
               width={56}
               height={56}
               priority
               className="opacity-90 brightness-110 drop-shadow-[0_0_24px_rgba(254,233,207,0.15)]"
             />
             <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.3em] text-[#fee9cf]/60">
-              Java + Bedrock crossplay survival. Powered by GOBITSNBYTES FOUNDATION.
+              Built for builders. Java + Bedrock. 0 mods required.
             </p>
             <h1 className="mt-6 font-accent-sans text-[clamp(3.5rem,10vw,8.5rem)] font-normal uppercase leading-[0.9] tracking-tighter text-[#faf8f5]">
               Build. Explore. Belong.
@@ -305,11 +305,10 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
         <Scene progress={progress} start={0.22} end={0.30} ramp={0.06}>
           <div className="flex flex-col items-center justify-center font-mono">
             <span className="text-[11px] uppercase tracking-[0.25em] text-[#fee9cf]/40 mb-4">
-              System Tickrate
+              TPS
             </span>
             <div className="text-[clamp(4.8rem,13vw,11.5rem)] font-normal text-[#faf8f5] tracking-tight leading-none">
               {stats.tps !== null ? `${Number(stats.tps).toFixed(2)}` : "20.00"}
-              <span className="text-[clamp(1.5rem,4vw,3.2rem)] text-[#fee9cf]/30 ml-2">TPS</span>
             </div>
           </div>
         </Scene>
@@ -318,11 +317,10 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
         <Scene progress={progress} start={0.42} end={0.50} ramp={0.06}>
           <div className="flex flex-col items-center justify-center font-mono">
             <span className="text-[11px] uppercase tracking-[0.25em] text-[#fee9cf]/40 mb-4">
-              Average Tick Time
+              MSPT
             </span>
             <div className="text-[clamp(4.8rem,13vw,11.5rem)] font-normal text-[#faf8f5] tracking-tight leading-none">
               {stats.mspt !== null ? `${Number(stats.mspt).toFixed(1)}` : "8.4"}
-              <span className="text-[clamp(1.5rem,4vw,3.2rem)] text-[#fee9cf]/30 ml-2">MSPT</span>
             </div>
           </div>
         </Scene>
@@ -331,7 +329,7 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
         <Scene progress={progress} start={0.62} end={0.70} ramp={0.06}>
           <div className="flex flex-col items-center justify-center font-mono">
             <span className="text-[11px] uppercase tracking-[0.25em] text-[#fee9cf]/40 mb-4">
-              Active Nodes
+              Players
             </span>
             <div className="text-[clamp(4.8rem,13vw,11.5rem)] font-normal text-[#faf8f5] tracking-tight leading-none">
               {stats.players !== null ? `${stats.players}` : "12"}
@@ -357,7 +355,7 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
                   <div className="flex justify-between"><span>Core:</span><span className="text-[#faf8f5]">Purpur 1.21.1</span></div>
                   <div className="flex justify-between"><span>Compiler:</span><span className="text-[#faf8f5]">Java 21</span></div>
                   <div className="flex justify-between"><span>GC:</span><span className="text-[#faf8f5]">G1GC Tuned</span></div>
-                  <div className="flex justify-between"><span>Pre-Gen:</span><span className="text-[#faf8f5]">3000 chunks</span></div>
+                  <div className="flex justify-between"><span>Pre-Gen:</span><span className="text-[#faf8f5]">3000 radius</span></div>
                   <div className="flex justify-between"><span>Mods:</span><span className="text-[#faf8f5]">0 required</span></div>
                 </div>
               </div>
@@ -379,10 +377,10 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
                 <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold border-b border-[#fee9cf]/10 pb-2">// Protection</h3>
                 <div className="flex flex-col gap-3 text-[11px] text-[#fee9cf]/60">
                   <div className="flex justify-between"><span>Engine:</span><span className="text-[#faf8f5]">CoreProtect</span></div>
-                  <div className="flex justify-between"><span>History:</span><span className="text-[#faf8f5]">1.4M events</span></div>
-                  <div className="flex justify-between"><span>Rollback:</span><span className="text-[#faf8f5]">7 days</span></div>
+                  <div className="flex justify-between"><span>History:</span><span className="text-[#faf8f5]">1.4M block logs</span></div>
+                  <div className="flex justify-between"><span>Rollback:</span><span className="text-[#faf8f5]">48-hour window</span></div>
                   <div className="flex justify-between"><span>Chat bridge:</span><span className="text-[#faf8f5]">DiscordSRV</span></div>
-                  <div className="flex justify-between"><span>Audit:</span><span className="text-[#faf8f5]">JSON logs</span></div>
+                  <div className="flex justify-between"><span>Audit:</span><span className="text-[#faf8f5]">Audit logs</span></div>
                 </div>
               </div>
 
@@ -390,10 +388,10 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
               <div className="flex flex-col gap-5">
                 <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold border-b border-[#fee9cf]/10 pb-2">// Organization</h3>
                 <div className="flex flex-col gap-3 text-[11px] text-[#fee9cf]/60">
-                  <div className="flex justify-between"><span>Legal:</span><span className="text-[#faf8f5]">Section 8 Org</span></div>
+                  <div className="flex justify-between"><span>Legal:</span><span className="text-[#faf8f5]">Section 8 nonprofit</span></div>
                   <div className="flex justify-between"><span>Founded:</span><span className="text-[#faf8f5]">2025</span></div>
                   <div className="flex justify-between"><span>Management:</span><span className="text-[#faf8f5]">Student-run</span></div>
-                  <div className="flex justify-between"><span>Source:</span><span className="text-[#faf8f5]">Open source</span></div>
+                  <div className="flex justify-between"><span>Source:</span><span className="text-[#faf8f5]"><a href="https://github.com/gobitsnbytes/minecraft-server" target="_blank" rel="noopener noreferrer" className="hover:text-[#fc920d] transition-colors">Open Source</a></span></div>
                   <div className="flex justify-between"><span>Region:</span><span className="text-[#faf8f5]">India</span></div>
                 </div>
               </div>

@@ -81,6 +81,16 @@ bits&bytes™ is supported by an active volunteer network:
 ## Fork Network Model
 A **Fork** is a recognized local, institutional, or thematic operating unit of the Network. It does not constitute a separate legal entity, franchise, branch office, joint venture, partnership, or subsidiary. A Fork has no authority to bind, contract, represent, or collect funds on behalf of GOBITSNBYTES FOUNDATION. All financial transactions and sponsorship agreements must be routed through Upstream.
 
+## Minecraft Server (mc.gobitsnbytes.org)
+- **Host Address:** `mc.gobitsnbytes.org`
+- **Ports:** Java: 25565, Bedrock: 19132
+- **Sponsor:** Infrastructure sponsored by [Misbah Khursheed](https://misbahkhursheed.vercel.app/)
+- **Source Code:** [github.com/gobitsnbytes/minecraft-server](https://github.com/gobitsnbytes/minecraft-server)
+- **Runtime specs:** Purpur 1.21.1, Java 21, G1GC tuned garbage collection, 3000-radius pre-generated chunks, 0 mods required.
+- **Infrastructure specs:** Azure B2s (4 vCPU, 8 GB RAM) with daily snapshot backups.
+- **Protection & Audit:** CoreProtect engine (1.4M+ event database) with 48-hour rollback window, DiscordSRV chat bridge, and local JSON audit logging.
+- **Live Telemetry APIs:** TPS, MSPT, and active players are fetched dynamically via `/api/tps`, `/api/players`, and `/api/world`.
+
 ## Technology Stack
 - **Frontend**: Next.js, React, TypeScript, Tailwind CSS, Framer Motion, Three.js / WebGL
 - **Backend**: Node.js, Python, PostgreSQL, cloud infrastructure
