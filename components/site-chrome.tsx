@@ -11,9 +11,10 @@ import { FloatingAiAssistant } from "@/components/client-only-components";
 export function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isPosterRoute = pathname === "/fork";
+  const isCinematicRoute = pathname === "/minecraft";
   const isQnARoute = pathname === "/qna";
 
-  if (isPosterRoute) {
+  if (isPosterRoute || isCinematicRoute) {
     return <>{children}</>;
   }
 

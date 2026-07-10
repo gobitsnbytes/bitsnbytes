@@ -2,6 +2,7 @@
 
 import { FC, useEffect, useRef, useState } from "react"
 import { motion, useSpring } from "framer-motion"
+import { usePathname } from "next/navigation"
 
 interface Position {
   x: number
@@ -95,6 +96,8 @@ export function SmoothCursor({
     restDelta: 0.001,
   },
 }: SmoothCursorProps) {
+  const pathname = usePathname()
+  const isCinematicRoute = pathname === "/minecraft"
   const lastMousePos = useRef<Position>({ x: 0, y: 0 })
   const velocity = useRef<Position>({ x: 0, y: 0 })
   const lastUpdateTime = useRef(Date.now())
@@ -137,7 +140,7 @@ export function SmoothCursor({
   }, [])
 
   useEffect(() => {
-    if (!isEnabled) {
+    if (!isEnabled || isCinematicRoute) {
       return
     }
 
@@ -226,9 +229,9 @@ export function SmoothCursor({
         clearTimeout(timeout)
       }
     }
-  }, [cursorX, cursorY, rotation, scale, isEnabled])
+  }, [cursorX, cursorY, rotation, scale, isEnabled, isCinematicRoute])
 
-  if (!isEnabled) {
+  if (!isEnabled || isCinematicRoute) {
     return null
   }
 

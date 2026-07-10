@@ -7,9 +7,13 @@ export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const shouldReduceMotion = useReducedMotion();
 
+  // These routes pin a full-viewport `position: fixed` stage. The transform on
+  // the motion.div below would become their containing block and break the
+  // fixed positioning, so they opt out of the page transition entirely.
   const isPosterRoute = pathname === "/fork";
+  const isCinematicRoute = pathname === "/minecraft";
 
-  if (isPosterRoute) {
+  if (isPosterRoute || isCinematicRoute) {
     return <>{children}</>;
   }
 
