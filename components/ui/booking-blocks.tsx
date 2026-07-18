@@ -66,17 +66,28 @@ export function BookingHostGrid({ hosts }: { hosts: BookingHost[] }) {
         >
           <div className="relative w-9 h-9 rounded-full border-2 border-[#120f0a] overflow-hidden bg-neutral-100 shrink-0">
             {h.avatar ? (
-              <Image src={h.avatar} alt={h.username} fill className="object-cover" sizes="36px" />
+              <Image
+                src={
+                  h.avatar.startsWith("http") || h.avatar.startsWith("/")
+                    ? h.avatar
+                    : `https://cdn.discordapp.com/avatars/${h.discord_id}/${h.avatar}.webp?size=64`
+                }
+                alt={h.title ?? h.username}
+                fill
+                className="object-cover"
+                sizes="36px"
+                unoptimized
+              />
             ) : (
               <User className="w-full h-full p-2 text-[#a09f9d]" />
             )}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-black text-xs text-[#120f0a] truncate">{h.username}</p>
-            {h.title && <p className="text-[10px] font-mono text-[#716f6c] truncate">{h.title}</p>}
+            <p className="font-black text-xs text-[#120f0a] truncate">{h.title ?? h.username}</p>
+            {h.title && <p className="text-[10px] font-mono text-[#a09f9d] truncate">@{h.username}</p>}
           </div>
           <button
-            onClick={() => dispatchPrompt(`Book a call with ${h.username}`)}
+            onClick={() => dispatchPrompt(`Book a call with ${h.title ?? h.username}`)}
             className={`${btnBase} px-3 py-1.5 bg-[#97192c] text-white text-[9px] hover:bg-[#791423]`}
           >
             Book
