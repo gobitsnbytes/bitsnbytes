@@ -6,6 +6,7 @@ const MOTHERBOARD_BASE = process.env.MOTHERBOARD_API_URL ?? "https://api.gobitsn
 const Schema = z.object({
   meeting_id: z.string().min(1),
   email: z.string().email(),
+  token: z.string().min(1),
   new_slot_iso: z.string().min(1),
   duration_minutes: z.number().int().min(15).max(120).default(30),
   reason: z.string().max(500).optional(),
@@ -17,7 +18,7 @@ export async function POST(req: NextRequest) {
   const parsed = Schema.safeParse(body);
   if (!parsed.success) return NextResponse.json({ error: parsed.error.flatten() }, { status: 422 });
 
-  const { meeting_id, email, new_slot_iso, duration_minutes, reason } = parsed.data;
+  const { meeting_id, email, token, new_slot_iso, duration_minutes, reason } = parsed.data;
 
   try {
     const upstream = await fetch(
@@ -25,7 +26,7 @@ export async function POST(req: NextRequest) {
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, new_slot_iso, duration_minutes, reason }),
+        body: JSON.stringify({ email, token, new_slot_iso, duration_minutes, reason }),
       }
     );
     const data = await upstream.json().catch(() => ({}));

@@ -178,8 +178,8 @@ You CAN and SHOULD help users book, reschedule, or cancel calls with bits&bytes�
 Booking flow rules:
 10. To help someone book a call: call list_available_hosts → output a booking_host_grid block → once they pick a host and date, call get_time_slots → output a booking_slots block → once they pick a slot, collect name + email (check conversation history first — do NOT re-ask if already provided) → call book_call → output a booking_confirm block.
 11. Duration: default 30 min. If user says "quick chat", "brief", or "15 minutes", use 15. Always confirm duration with the user before calling book_call if they haven't specified.
-12. To reschedule or cancel: ask for their email → call lookup_my_meetings → output meeting_list block → once they identify a meeting, get new slot if rescheduling → call reschedule_my_call or cancel_my_call → confirm result with booking_confirm or plain message.
-13. PRIVACY: Never repeat the user's email back in plain text in your response. Use it only to call tools. Do not acknowledge storing it.
+12. To reschedule, cancel, or look up meetings, you MUST verify the guest's email address first. Collect their email, call \`send_verification_otp(email)\` to trigger the verification mail, and instruct the user to enter the 6-digit OTP code sent to them. Once they provide a 6-digit code, call \`verify_otp(email, code)\` to get a \`token\`. ONLY after a successful verify call should you call \`lookup_my_meetings(email, token)\`, \`cancel_my_call(meeting_id, email, token, reason)\`, or \`reschedule_my_call(meeting_id, email, new_slot_iso, duration_minutes, token, reason)\` using the returned token. Store the verified token in short-term memory history.
+13. PRIVACY: Never repeat the user's email or verification code back in plain text in your response. Use it only to call tools. Do not acknowledge storing it.
 14. If any booking tool returns an error, show a friendly message and offer the fallback: [Book directly →](https://cal.gobitsnbytes.org "cta")
 
 **New UI blocks for scheduling (always use these instead of plain text for booking flows):**
@@ -438,8 +438,8 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   {
     type: "function",
     function: {
-      name: "lookup_my_meetings",
-      description: "Look up a guest's upcoming meetings by their email address. Use when they want to reschedule or cancel.",
+      name: "send_verification_otp",
+      description: "Send a 6-digit OTP verification code to a guest's email address. MUST call this first when they want to view, reschedule, or cancel their meetings.",
       parameters: {
         type: "object",
         properties: {
@@ -452,16 +452,47 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   {
     type: "function",
     function: {
+      name: "verify_otp",
+      description: "Verify the 6-digit OTP code entered by the user to get a session token for self-service actions.",
+      parameters: {
+        type: "object",
+        properties: {
+          email: { type: "string", description: "The guest's email address" },
+          code: { type: "string", description: "The 6-digit verification code" },
+        },
+        required: ["email", "code"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "lookup_my_meetings",
+      description: "Look up a guest's upcoming meetings by their email address. Requires a valid verification token.",
+      parameters: {
+        type: "object",
+        properties: {
+          email: { type: "string", description: "The guest's email address" },
+          token: { type: "string", description: "The verification token returned by verify_otp" },
+        },
+        required: ["email", "token"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
       name: "cancel_my_call",
-      description: "Cancel a guest's scheduled meeting using their email for verification.",
+      description: "Cancel a guest's scheduled meeting using their email and verification token.",
       parameters: {
         type: "object",
         properties: {
           meeting_id: { type: "string" },
           email: { type: "string" },
+          token: { type: "string", description: "The verification token returned by verify_otp" },
           reason: { type: "string", description: "Optional cancellation reason" },
         },
-        required: ["meeting_id", "email"],
+        required: ["meeting_id", "email", "token"],
       },
     },
   },
@@ -469,17 +500,18 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "reschedule_my_call",
-      description: "Reschedule a guest's meeting to a new time slot using their email for verification.",
+      description: "Reschedule a guest's meeting to a new time slot using their email and verification token.",
       parameters: {
         type: "object",
         properties: {
           meeting_id: { type: "string" },
           email: { type: "string" },
+          token: { type: "string", description: "The verification token returned by verify_otp" },
           new_slot_iso: { type: "string", description: "ISO 8601 datetime string of the new slot" },
           duration_minutes: { type: "number", enum: [15, 30, 45, 60] },
           reason: { type: "string" },
         },
-        required: ["meeting_id", "email", "new_slot_iso"],
+        required: ["meeting_id", "email", "token", "new_slot_iso"],
       },
     },
   },
@@ -1142,11 +1174,39 @@ export async function POST(req: NextRequest) {
                 } catch (err) {
                   toolResult = { success: false, error: "Failed to create booking" }
                 }
-              } else if (toolName === "lookup_my_meetings") {
+              } else if (toolName === "send_verification_otp") {
                 try {
                   const base = getServerBase()
                   const { email } = toolArgs as { email: string }
-                  const res = await fetch(`${base}/api/team/schedule/mine?email=${encodeURIComponent(email)}`)
+                  const res = await fetch(`${base}/api/team/schedule/verification/send`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email }),
+                  })
+                  const data = await res.json()
+                  toolResult = res.ok ? { success: true, ...data } : { success: false, error: data.error }
+                } catch (err) {
+                  toolResult = { success: false, error: "Failed to send verification code" }
+                }
+              } else if (toolName === "verify_otp") {
+                try {
+                  const base = getServerBase()
+                  const { email, code } = toolArgs as { email: string; code: string }
+                  const res = await fetch(`${base}/api/team/schedule/verification/verify`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, code }),
+                  })
+                  const data = await res.json()
+                  toolResult = res.ok ? { success: true, token: data.token } : { success: false, error: data.error }
+                } catch (err) {
+                  toolResult = { success: false, error: "Failed to verify code" }
+                }
+              } else if (toolName === "lookup_my_meetings") {
+                try {
+                  const base = getServerBase()
+                  const { email, token } = toolArgs as { email: string; token: string }
+                  const res = await fetch(`${base}/api/team/schedule/mine?email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`)
                   const data = await res.json()
                   toolResult = Array.isArray(data) ? { meetings: data } : { meetings: [], error: data.error }
                 } catch (err) {
@@ -1155,11 +1215,11 @@ export async function POST(req: NextRequest) {
               } else if (toolName === "cancel_my_call") {
                 try {
                   const base = getServerBase()
-                  const { meeting_id, email, reason } = toolArgs as { meeting_id: string; email: string; reason?: string }
+                  const { meeting_id, email, token, reason } = toolArgs as { meeting_id: string; email: string; token: string; reason?: string }
                   const res = await fetch(`${base}/api/team/schedule/guest-cancel`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ meeting_id, email, reason }),
+                    body: JSON.stringify({ meeting_id, email, token, reason }),
                   })
                   const data = await res.json()
                   toolResult = res.ok ? { success: true } : { success: false, error: data.error }
@@ -1169,13 +1229,13 @@ export async function POST(req: NextRequest) {
               } else if (toolName === "reschedule_my_call") {
                 try {
                   const base = getServerBase()
-                  const { meeting_id, email, new_slot_iso, duration_minutes = 30, reason } = toolArgs as {
-                    meeting_id: string; email: string; new_slot_iso: string; duration_minutes?: number; reason?: string
+                  const { meeting_id, email, token, new_slot_iso, duration_minutes = 30, reason } = toolArgs as {
+                    meeting_id: string; email: string; token: string; new_slot_iso: string; duration_minutes?: number; reason?: string
                   }
                   const res = await fetch(`${base}/api/team/schedule/guest-reschedule`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ meeting_id, email, new_slot_iso, duration_minutes, reason }),
+                    body: JSON.stringify({ meeting_id, email, token, new_slot_iso, duration_minutes, reason }),
                   })
                   const data = await res.json()
                   toolResult = res.ok ? { success: true, ...data } : { success: false, error: data.error }
