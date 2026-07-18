@@ -575,7 +575,18 @@ function BookingDialog({
             <div className="flex items-center gap-3">
               <div className="relative w-10 h-10 rounded-full border-2 border-[#120f0a] overflow-hidden bg-neutral-100 shrink-0 shadow-[2px_2px_0px_0px_#120f0a]">
                 {host.avatar ? (
-                  <Image src={host.avatar} alt={hostName} fill className="object-cover" sizes="40px" />
+                  <Image
+                    src={
+                      host.avatar.startsWith("http") || host.avatar.startsWith("/")
+                        ? host.avatar
+                        : `https://cdn.discordapp.com/avatars/${host.discord_id}/${host.avatar}.webp?size=128`
+                    }
+                    alt={hostName}
+                    fill
+                    className="object-cover"
+                    sizes="40px"
+                    unoptimized
+                  />
                 ) : (
                   <User className="w-full h-full p-2 text-[#a09f9d]" />
                 )}
