@@ -837,7 +837,7 @@ function BookingSection() {
       .then((r) => r.json())
       .then((data: MotherboardHost[] | { error: string }) => {
         if (Array.isArray(data)) {
-          setHosts(data.filter((h) => h.is_active));
+          setHosts(data);
         } else {
           setError("Could not load team availability.");
         }
