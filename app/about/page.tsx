@@ -824,159 +824,14 @@ function BookingDialog({
   );
 }
 
-// ─── Booking Section ──────────────────────────────────────────────────────────
-
-function BookingSection() {
-  const [hosts, setHosts] = useState<MotherboardHost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [activeHost, setActiveHost] = useState<MotherboardHost | null>(null);
-
-  useEffect(() => {
-    fetch("/api/team/schedule/hosts")
-      .then((r) => r.json())
-      .then((data: MotherboardHost[] | { error: string }) => {
-        if (Array.isArray(data)) {
-          setHosts(data);
-        } else {
-          setError("Could not load team availability.");
-        }
-      })
-      .catch(() => setError("Could not load team availability."))
-      .finally(() => setLoading(false));
-  }, []);
-
-  return (
-    <section className="mb-16" id="book-a-call">
-      <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-[#120f0a]/15 pb-4 mb-8 gap-4">
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center gap-1.5 bg-[#97192c] text-white border-2 border-[#120f0a] px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_0px_#120f0a]">
-              <Phone className="w-3 h-3" />
-              Book a Call
-            </span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight font-sans">
-            Talk to Us
-          </h2>
-          <p className="text-sm font-serif-brand text-[#716f6c] mt-1 max-w-[50ch]">
-            Pick a team member, find an open slot, and book a 30-minute session directly on their calendar.
-          </p>
-        </div>
-        <a
-          href="https://cal.gobitsnbytes.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 border-2 border-[#120f0a] bg-white px-4 py-2 text-xs font-black uppercase tracking-wider shadow-[3px_3px_0px_0px_#120f0a] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:shadow-none transition-all shrink-0"
-        >
-          <ExternalLink className="w-3.5 h-3.5" />
-          Open cal.gobitsnbytes.org
-        </a>
-      </div>
-
-      {loading && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="bg-white border-4 border-[#120f0a]/20 p-4 shadow-[4px_4px_0px_0px_#120f0a]/20 animate-pulse h-44" />
-          ))}
-        </div>
-      )}
-
-      {error && (
-        <div className="bg-[#f4d9d1] border-4 border-[#97192c] p-5 shadow-[4px_4px_0px_0px_#97192c]">
-          <p className="font-black uppercase text-sm text-[#97192c]">{error}</p>
-          <p className="text-xs font-mono text-[#413f3b] mt-1">
-            You can still reach us directly at{" "}
-            <a href="https://cal.gobitsnbytes.org" className="underline font-bold">cal.gobitsnbytes.org</a>.
-          </p>
-        </div>
-      )}
-
-      {!loading && !error && hosts.length === 0 && (
-        <div className="bg-white border-4 border-[#120f0a] p-8 text-center shadow-[6px_6px_0px_0px_#120f0a]">
-          <Calendar className="w-10 h-10 text-[#a09f9d] mx-auto mb-3" />
-          <p className="font-black uppercase text-sm text-[#413f3b]">No team members have opened their calendar yet.</p>
-          <p className="text-xs font-mono text-[#716f6c] mt-2">
-            Try reaching us directly at{" "}
-            <a href="https://cal.gobitsnbytes.org" className="underline text-[#97192c] font-bold">cal.gobitsnbytes.org</a>.
-          </p>
-        </div>
-      )}
-
-      {!loading && !error && hosts.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {hosts.map((host, i) => {
-            const realName = host.title ?? host.booking_link;
-            const handle = host.username ? `@${host.username}` : null;
-            const firstName = realName.split(" ")[0];
-            const desc = host.description?.trim() || "Available for a 30-minute call.";
-            // Discord CDN avatar URL — avatar field is the hash, discord_id is the snowflake
-            const avatarUrl = host.avatar
-              ? `https://cdn.discordapp.com/avatars/${host.discord_id}/${host.avatar}.webp?size=128`
-              : null;
-
-            return (
-              <motion.div
-                key={host.discord_id}
-                className="bg-white border-4 border-[#120f0a] p-4 flex flex-col shadow-[6px_6px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_#120f0a] transition-all"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.04 }}
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="relative w-11 h-11 rounded-full border-2 border-[#120f0a] overflow-hidden bg-neutral-100 shrink-0 shadow-[2px_2px_0px_0px_#120f0a]">
-                    {avatarUrl ? (
-                      <Image src={avatarUrl} alt={realName} fill className="object-cover" sizes="44px" unoptimized />
-                    ) : (
-                      <User className="w-full h-full p-2.5 text-[#a09f9d]" />
-                    )}
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="font-black text-sm tracking-tight font-sans text-[#120f0a] truncate leading-tight">{realName}</h3>
-                    {handle && (
-                      <span className="text-[10px] font-mono text-[#a09f9d] truncate block">{handle}</span>
-                    )}
-                  </div>
-                </div>
-
-                <p className="text-xs font-serif-brand text-[#413f3b] leading-relaxed mb-4 flex-1 line-clamp-3">
-                  {desc}
-                </p>
-
-                <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#716f6c] mb-3">
-                  <Clock className="w-3 h-3 shrink-0" />
-                  30 min · Discord VC · IST
-                </div>
-
-                <button
-                  onClick={() => setActiveHost(host)}
-                  className="w-full border-2 border-[#120f0a] bg-[#97192c] text-white font-black uppercase text-xs tracking-wider py-2.5 shadow-[3px_3px_0px_0px_#120f0a] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:bg-[#791423] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
-                >
-                  Book with {firstName}
-                </button>
-              </motion.div>
-            );
-          })}
-        </div>
-      )}
-
-      {/* Booking Dialog */}
-      {activeHost && (
-        <BookingDialog
-          host={activeHost}
-          open={!!activeHost}
-          onClose={() => setActiveHost(null)}
-        />
-      )}
-    </section>
-  );
-}
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function About() {
   const [showScrollTop, setShowScrollTop] = React.useState(false);
   const [activeTab, setActiveTab] = useState<"all" | "founders" | "leadership" | "volunteers">("all");
+  const [hosts, setHosts] = useState<MotherboardHost[]>([]);
+  const [activeHost, setActiveHost] = useState<MotherboardHost | null>(null);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -984,6 +839,17 @@ export default function About() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  React.useEffect(() => {
+    fetch("/api/team/schedule/hosts")
+      .then((r) => r.json())
+      .then((data: MotherboardHost[] | { error: string }) => {
+        if (Array.isArray(data)) {
+          setHosts(data);
+        }
+      })
+      .catch((err) => console.error("Could not load hosts", err));
   }, []);
 
   const founders = coreTeam.filter(m => m.isFounder);
@@ -1101,7 +967,7 @@ export default function About() {
               </div>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {founders.map((member) => (
-                  <TeamCard member={member} key={member.id} isFounder />
+                  <TeamCard member={member} key={member.id} isFounder hosts={hosts} onBookCall={setActiveHost} />
                 ))}
               </div>
             </div>
@@ -1115,7 +981,7 @@ export default function About() {
               </div>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {leadership.map((member) => (
-                  <TeamCard member={member} key={member.id} />
+                  <TeamCard member={member} key={member.id} hosts={hosts} onBookCall={setActiveHost} />
                 ))}
               </div>
             </div>
@@ -1140,35 +1006,49 @@ export default function About() {
                         {trackName} Track
                       </h4>
                       <div className="flex flex-wrap gap-x-8 gap-y-6 justify-center sm:justify-start">
-                        {trackVolunteers.map(v => (
-                          <div key={v.id} className="flex flex-col items-center text-center group w-[110px] sm:w-[120px] shrink-0">
-                            <div className="relative w-16 h-16 rounded-full border-2 border-[#120f0a] overflow-hidden bg-neutral-100 mb-2 shadow-[2px_2px_0px_0px_#120f0a] group-hover:scale-105 transition-transform duration-150">
-                              {v.image ? (
-                                <Image
-                                  src={v.image}
-                                  alt={v.name}
-                                  fill
-                                  sizes="64px"
-                                  className="object-cover"
-                                />
-                              ) : (
-                                <User className="w-full h-full p-2 text-[#a09f9d]" />
-                              )}
+                        {trackVolunteers.map(v => {
+                          const matchingHost = findHostForMember(v.name, hosts);
+                          return (
+                            <div key={v.id} className="flex flex-col items-center text-center group w-[110px] sm:w-[120px] shrink-0">
+                              <div className="relative w-16 h-16 rounded-full border-2 border-[#120f0a] overflow-hidden bg-neutral-100 mb-2 shadow-[2px_2px_0px_0px_#120f0a] group-hover:scale-105 transition-transform duration-150">
+                                {v.image ? (
+                                  <Image
+                                    src={v.image}
+                                    alt={v.name}
+                                    fill
+                                    sizes="64px"
+                                    className="object-cover"
+                                  />
+                                ) : (
+                                  <User className="w-full h-full p-2 text-[#a09f9d]" />
+                                )}
+                              </div>
+                              <h5 className="font-sans text-xs font-black uppercase tracking-tight truncate w-full text-[#120f0a]">{v.name}</h5>
+                              <span className="text-[10px] font-bold text-[#716f6c] truncate w-full leading-tight">{v.role || "Contributor"}</span>
+                              <div className="flex flex-col items-center gap-1 mt-1">
+                                {v.linkedin && (
+                                  <a 
+                                    href={v.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[#97192c] hover:text-[#fc920d] text-[10px] font-black uppercase tracking-wider"
+                                  >
+                                    LinkedIn
+                                  </a>
+                                )}
+                                {matchingHost && (
+                                  <button
+                                    onClick={() => setActiveHost(matchingHost)}
+                                    className="text-[10px] font-black uppercase tracking-wider text-[#fc920d] hover:text-[#97192c] transition-colors flex items-center justify-center gap-0.5 mt-0.5"
+                                  >
+                                    <Calendar className="w-2.5 h-2.5" />
+                                    Book Call
+                                  </button>
+                                )}
+                              </div>
                             </div>
-                            <h5 className="font-sans text-xs font-black uppercase tracking-tight truncate w-full text-[#120f0a]">{v.name}</h5>
-                            <span className="text-[10px] font-bold text-[#716f6c] truncate w-full leading-tight">{v.role || "Contributor"}</span>
-                            {v.linkedin && (
-                              <a 
-                                href={v.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="mt-1 text-[#97192c] hover:text-[#fc920d] text-[10px] font-black uppercase tracking-wider"
-                              >
-                                LinkedIn
-                              </a>
-                            )}
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                   );
@@ -1195,10 +1075,16 @@ export default function About() {
           </p>
         </section>
 
-        {/* Book a Call Section */}
-        <BookingSection />
-
       </div>
+
+      {/* Booking Dialog */}
+      {activeHost && (
+        <BookingDialog
+          host={activeHost}
+          open={!!activeHost}
+          onClose={() => setActiveHost(null)}
+        />
+      )}
 
       {/* Floating Scroll Top Button */}
       <AnimatePresence>
@@ -1219,10 +1105,53 @@ export default function About() {
   );
 }
 
+// ─── Host Matcher Helper ──────────────────────────────────────────────────────
+
+function findHostForMember(name: string, hosts: MotherboardHost[]): MotherboardHost | undefined {
+  const norm = (s: string) => s.toLowerCase().replace(/[^a-z]/g, "");
+  const mNorm = norm(name);
+  if (!mNorm) return undefined;
+  
+  // Try exact normalized match first on title (real name)
+  let match = hosts.find(h => h.title && norm(h.title) === mNorm);
+  if (match) return match;
+
+  // Try exact normalized match on booking_link
+  match = hosts.find(h => h.booking_link && norm(h.booking_link) === mNorm);
+  if (match) return match;
+
+  // Try substring match on title
+  match = hosts.find(h => {
+    if (!h.title) return false;
+    const hNorm = norm(h.title);
+    return hNorm.includes(mNorm) || mNorm.includes(hNorm);
+  });
+  if (match) return match;
+
+  // Try username matching (e.g. "baakisabmast")
+  match = hosts.find(h => {
+    if (!h.username) return false;
+    const uNorm = norm(h.username);
+    return uNorm.includes(mNorm) || mNorm.includes(uNorm);
+  });
+  return match;
+}
+
 // ─── Neobrutalist Core Team Card ──────────────────────────────────────────────
 
-function TeamCard({ member, isFounder = false }: { member: CoreTeamMember; isFounder?: boolean }) {
+function TeamCard({
+  member,
+  isFounder = false,
+  hosts,
+  onBookCall,
+}: {
+  member: CoreTeamMember;
+  isFounder?: boolean;
+  hosts: MotherboardHost[];
+  onBookCall: (host: MotherboardHost) => void;
+}) {
   const email = getTeamEmail(member.name);
+  const matchingHost = findHostForMember(member.name, hosts);
 
   const socialLinks = [
     member.socials?.linkedin && {
@@ -1296,36 +1225,49 @@ function TeamCard({ member, isFounder = false }: { member: CoreTeamMember; isFou
         </div>
       </div>
 
-      {/* Email address display */}
-      <a
-        href={`mailto:${email}`}
-        className="mt-3 flex items-center gap-1.5 text-[10px] font-mono text-[#716f6c] hover:text-[#97192c] transition-colors group"
-        title={`Email ${member.name}`}
-      >
-        <Mail className="w-3 h-3 shrink-0 text-[#a09f9d] group-hover:text-[#97192c] transition-colors" />
-        <span className="truncate">{email}</span>
-      </a>
+      <div>
+        {/* Email address display */}
+        <a
+          href={`mailto:${email}`}
+          className="mt-3 flex items-center gap-1.5 text-[10px] font-mono text-[#716f6c] hover:text-[#97192c] transition-colors group"
+          title={`Email ${member.name}`}
+        >
+          <Mail className="w-3 h-3 shrink-0 text-[#a09f9d] group-hover:text-[#97192c] transition-colors" />
+          <span className="truncate">{email}</span>
+        </a>
 
-      {/* Social Links */}
-      {socialLinks.length > 0 && (
-        <div className="flex gap-2 mt-3 pt-3 border-t border-[#120f0a]/10">
-          {socialLinks.map((link) => {
-            const Icon = link.icon;
-            return (
-              <a
-                key={link.label}
-                href={link.href}
-                target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                className="w-7 h-7 flex items-center justify-center border-2 border-[#120f0a] bg-white shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[0.5px] hover:translate-y-[0.5px] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
-                title={`${member.name}'s ${link.label}`}
-              >
-                <Icon className="w-3.5 h-3.5 text-[#120f0a]" />
-              </a>
-            );
-          })}
-        </div>
-      )}
+        {/* Social Links */}
+        {socialLinks.length > 0 && (
+          <div className="flex gap-2 mt-3 pt-3 border-t border-[#120f0a]/10">
+            {socialLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                  className="w-7 h-7 flex items-center justify-center border-2 border-[#120f0a] bg-white shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[0.5px] hover:translate-y-[0.5px] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+                  title={`${member.name}'s ${link.label}`}
+                >
+                  <Icon className="w-3.5 h-3.5 text-[#120f0a]" />
+                </a>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Book a Call Button directly on the card */}
+        {matchingHost && (
+          <button
+            onClick={() => onBookCall(matchingHost)}
+            className="mt-4 w-full border-2 border-[#120f0a] bg-[#97192c] text-white font-black uppercase text-xs tracking-wider py-2.5 shadow-[3px_3px_0px_0px_#120f0a] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:bg-[#791423] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all flex items-center justify-center gap-1.5"
+          >
+            <Calendar className="w-3.5 h-3.5 shrink-0" />
+            Book a Call
+          </button>
+        )}
+      </div>
     </div>
   );
 }
