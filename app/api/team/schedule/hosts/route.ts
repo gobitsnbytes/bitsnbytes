@@ -5,13 +5,12 @@ const MOTHERBOARD_BASE = process.env.MOTHERBOARD_API_URL ?? "https://api.gobitsn
 export async function GET() {
   try {
     const upstream = await fetch(`${MOTHERBOARD_BASE}/api/meetings/public/hosts`, {
-      // No auth — this is a public endpoint
-      next: { revalidate: 60 }, // Cache for 60 s on the server
+      next: { revalidate: 60 },
     });
 
     if (!upstream.ok) {
       return NextResponse.json(
-        { error: "Failed to fetch hosts from Motherboard" },
+        { error: "Failed to fetch hosts" },
         { status: upstream.status }
       );
     }
@@ -19,7 +18,7 @@ export async function GET() {
     const data = await upstream.json();
     return NextResponse.json(data);
   } catch (err) {
-    console.error("[/api/booking/hosts] upstream error:", err);
+    console.error("[/api/team/schedule/hosts] upstream error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

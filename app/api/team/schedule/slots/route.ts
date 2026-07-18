@@ -15,18 +15,17 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  // Validate date format
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return NextResponse.json({ error: "date must be in YYYY-MM-DD format" }, { status: 400 });
   }
 
   try {
     const url = `${MOTHERBOARD_BASE}/api/meetings/public/availability/${encodeURIComponent(bookingLink)}/slots?date=${date}&duration=${duration}`;
-    const upstream = await fetch(url, { next: { revalidate: 0 } }); // Never cache — real-time availability
+    const upstream = await fetch(url, { next: { revalidate: 0 } });
 
     if (!upstream.ok) {
       return NextResponse.json(
-        { error: "Failed to fetch slots from Motherboard" },
+        { error: "Failed to fetch availability" },
         { status: upstream.status }
       );
     }
@@ -34,7 +33,7 @@ export async function GET(req: NextRequest) {
     const data = await upstream.json();
     return NextResponse.json(data);
   } catch (err) {
-    console.error("[/api/booking/slots] upstream error:", err);
+    console.error("[/api/team/schedule/slots] upstream error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

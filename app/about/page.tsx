@@ -484,7 +484,7 @@ function BookingDialog({
     setSlotsError(null);
     setSlots([]);
 
-    fetch(`/api/booking/slots?bookingLink=${encodeURIComponent(host.booking_link)}&date=${selectedDate}&duration=${duration}`)
+    fetch(`/api/team/schedule/slots?bookingLink=${encodeURIComponent(host.booking_link)}&date=${selectedDate}&duration=${duration}`)
       .then((r) => r.json())
       .then((data: string[] | { error: string }) => {
         if (Array.isArray(data)) {
@@ -518,7 +518,7 @@ function BookingDialog({
 
     setSubmitting(true);
     try {
-      const res = await fetch("/api/booking/create", {
+      const res = await fetch("/api/team/schedule/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -833,7 +833,7 @@ function BookingSection() {
   const [activeHost, setActiveHost] = useState<MotherboardHost | null>(null);
 
   useEffect(() => {
-    fetch("/api/booking/hosts")
+    fetch("/api/team/schedule/hosts")
       .then((r) => r.json())
       .then((data: MotherboardHost[] | { error: string }) => {
         if (Array.isArray(data)) {

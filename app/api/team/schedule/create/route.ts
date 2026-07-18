@@ -4,22 +4,20 @@ import { z } from "zod";
 const MOTHERBOARD_BASE = process.env.MOTHERBOARD_API_URL ?? "https://api.gobitsnbytes.org";
 const MOTHERBOARD_API_KEY = process.env.MOTHERBOARD_API_KEY ?? "";
 
-const BookingRequestSchema = z.object({
+const RequestSchema = z.object({
   bookingLink: z.string().min(1),
   hostDiscordId: z.string().min(1),
   guestName: z.string().min(1).max(120),
   guestEmail: z.string().email(),
   message: z.string().max(500).optional(),
-  slotISO: z.string().datetime(), // UTC ISO-8601
+  slotISO: z.string().datetime(),
   duration: z.number().int().min(15).max(120).default(30),
 });
 
 export async function POST(req: NextRequest) {
-  // Require an API key to be configured — fail loudly in development if missing
   if (!MOTHERBOARD_API_KEY) {
-    console.error("[/api/booking/create] MOTHERBOARD_API_KEY is not set");
     return NextResponse.json(
-      { error: "Booking service is not configured. Please contact the team directly." },
+      { error: "Scheduling service not configured. Please contact the team directly." },
       { status: 503 }
     );
   }
@@ -31,28 +29,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const parsed = BookingRequestSchema.safeParse(body);
+  const parsed = RequestSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 422 });
   }
 
   const { hostDiscordId, guestName, guestEmail, message, slotISO, duration } = parsed.data;
-
   const scheduledTimeMs = new Date(slotISO).getTime();
   const endTimeMs = scheduledTimeMs + duration * 60 * 1000;
 
-  const meetingTitle = `Meeting with ${guestName}`;
-  const meetingDescription = message
-    ? `External booking request.\n\nMessage from guest:\n${message}`
-    : "External booking request via gobitsnbytes.org/about.";
-
   const payload = {
-    title: meetingTitle,
-    description: meetingDescription,
+    title: `Meeting with ${guestName}`,
+    description: message
+      ? `External request.\n\nMessage:\n${message}`
+      : "External request via gobitsnbytes.org/about.",
     scheduled_time: scheduledTimeMs,
     end_time: endTimeMs,
     creator_id: hostDiscordId,
-    location_details: "Discord VC (link will be sent via email)",
+    location_details: "Discord VC (link sent via email)",
     external_emails: guestEmail,
     attendees: [{ discord_id: hostDiscordId, attendee_type: "user" }],
   };
@@ -67,19 +61,18 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify(payload),
     });
 
-    const responseBody = await upstream.json().catch(() => ({}));
+    const data = await upstream.json().catch(() => ({}));
 
     if (!upstream.ok) {
-      console.error("[/api/booking/create] Motherboard error:", upstream.status, responseBody);
       return NextResponse.json(
-        { error: (responseBody as { detail?: string }).detail ?? "Failed to create booking" },
+        { error: (data as { detail?: string }).detail ?? "Failed to create session" },
         { status: upstream.status }
       );
     }
 
-    return NextResponse.json({ success: true, meeting: responseBody }, { status: 201 });
+    return NextResponse.json({ success: true, meeting: data }, { status: 201 });
   } catch (err) {
-    console.error("[/api/booking/create] upstream error:", err);
+    console.error("[/api/team/schedule/create] upstream error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
