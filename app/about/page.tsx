@@ -559,7 +559,7 @@ function BookingDialog({
     else setCalMonth(m => m + 1);
   };
 
-  const hostName = host.username ?? host.booking_link;
+  const hostName = host.title ?? host.username ?? host.booking_link;
   const hostTitle = host.title ?? "bits&bytes™ Team";
 
   return (
@@ -905,35 +905,42 @@ function BookingSection() {
 
       {!loading && !error && hosts.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {hosts.map((host) => {
-            const displayName = host.username ?? host.booking_link;
-            const displayTitle = host.title ?? "bits&bytes™ Team";
-            const displayDesc = host.description ?? "Available for a 30-minute call.";
+          {hosts.map((host, i) => {
+            const realName = host.title ?? host.booking_link;
+            const handle = host.username ? `@${host.username}` : null;
+            const firstName = realName.split(" ")[0];
+            const desc = host.description?.trim() || "Available for a 30-minute call.";
+            // Discord CDN avatar URL — avatar field is the hash, discord_id is the snowflake
+            const avatarUrl = host.avatar
+              ? `https://cdn.discordapp.com/avatars/${host.discord_id}/${host.avatar}.webp?size=128`
+              : null;
 
             return (
               <motion.div
                 key={host.discord_id}
-                className="bg-white border-4 border-[#120f0a] p-4 flex flex-col shadow-[6px_6px_0px_0px_#120f0a] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_#120f0a]"
-                initial={{ opacity: 0, y: 10 }}
+                className="bg-white border-4 border-[#120f0a] p-4 flex flex-col shadow-[6px_6px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_#120f0a] transition-all"
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.05 }}
+                transition={{ delay: i * 0.04 }}
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="relative w-12 h-12 rounded-full border-2 border-[#120f0a] overflow-hidden bg-neutral-100 shrink-0 shadow-[2px_2px_0px_0px_#120f0a]">
-                    {host.avatar ? (
-                      <Image src={host.avatar} alt={displayName} fill className="object-cover" sizes="48px" />
+                  <div className="relative w-11 h-11 rounded-full border-2 border-[#120f0a] overflow-hidden bg-neutral-100 shrink-0 shadow-[2px_2px_0px_0px_#120f0a]">
+                    {avatarUrl ? (
+                      <Image src={avatarUrl} alt={realName} fill className="object-cover" sizes="44px" unoptimized />
                     ) : (
                       <User className="w-full h-full p-2.5 text-[#a09f9d]" />
                     )}
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-black uppercase text-sm tracking-tight font-sans text-[#120f0a] truncate">{displayName}</h3>
-                    <span className="text-[10px] font-bold text-[#97192c] uppercase tracking-wider truncate block">{displayTitle}</span>
+                    <h3 className="font-black text-sm tracking-tight font-sans text-[#120f0a] truncate leading-tight">{realName}</h3>
+                    {handle && (
+                      <span className="text-[10px] font-mono text-[#a09f9d] truncate block">{handle}</span>
+                    )}
                   </div>
                 </div>
 
                 <p className="text-xs font-serif-brand text-[#413f3b] leading-relaxed mb-4 flex-1 line-clamp-3">
-                  {displayDesc}
+                  {desc}
                 </p>
 
                 <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#716f6c] mb-3">
@@ -943,9 +950,9 @@ function BookingSection() {
 
                 <button
                   onClick={() => setActiveHost(host)}
-                  className="w-full border-2 border-[#120f0a] bg-[#fc920d] text-[#120f0a] font-black uppercase text-xs tracking-wider py-2.5 shadow-[3px_3px_0px_0px_#120f0a] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
+                  className="w-full border-2 border-[#120f0a] bg-[#97192c] text-white font-black uppercase text-xs tracking-wider py-2.5 shadow-[3px_3px_0px_0px_#120f0a] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:bg-[#791423] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
                 >
-                  Book with {displayName.split(" ")[0]}
+                  Book with {firstName}
                 </button>
               </motion.div>
             );
