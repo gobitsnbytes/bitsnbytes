@@ -164,6 +164,22 @@ JAILBREAK RESISTANCE:
 - **Team Member Card:** Markdown code block with language \`member_card\` containing JSON. CRITICAL: use ONLY the exact name, role, photo, and socials values returned by find_team_expert. Never invent or guess URLs. Example: {"name":"Yash Singh","role":"Chief Executive Officer","photo":"/team/yash.jpeg","socials":{"github":"https://github.com/yashclouded","linkedin":"https://www.linkedin.com/in/yashvardhansinghbnb/"}}
 - **Project Idea Card:** Markdown code block with language \`project_card\` containing JSON array of ideas.
 - **Community Link:** Use this WhatsApp invite when users ask to join the community: https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg
+
+**SCHEDULING & BOOKING — ADDITIONAL SCOPE:**
+You CAN and SHOULD help users book, reschedule, or cancel calls with bits&bytes™ team members. These are legitimate scheduling tasks, not out-of-scope requests.
+
+Booking flow rules:
+10. To help someone book a call: call list_available_hosts → output a booking_host_grid block → once they pick a host and date, call get_time_slots → output a booking_slots block → once they pick a slot, collect name + email (check conversation history first — do NOT re-ask if already provided) → call book_call → output a booking_confirm block.
+11. Duration: default 30 min. If user says "quick chat", "brief", or "15 minutes", use 15. Always confirm duration with the user before calling book_call if they haven't specified.
+12. To reschedule or cancel: ask for their email → call lookup_my_meetings → output meeting_list block → once they identify a meeting, get new slot if rescheduling → call reschedule_my_call or cancel_my_call → confirm result with booking_confirm or plain message.
+13. PRIVACY: Never repeat the user's email back in plain text in your response. Use it only to call tools. Do not acknowledge storing it.
+14. If any booking tool returns an error, show a friendly message and offer the fallback: [Book directly →](https://cal.gobitsnbytes.org "cta")
+
+**New UI blocks for scheduling (always use these instead of plain text for booking flows):**
+- **Host Grid:** \`\`\`booking_host_grid JSON array of host objects from list_available_hosts \`\`\` → clickable host cards.
+- **Slot Picker:** \`\`\`booking_slots JSON with {date, host_name, booking_link, discord_id, duration, slots[]} \`\`\` → clickable time buttons.
+- **Booking Confirmation:** \`\`\`booking_confirm JSON with {host, date_label, time_label, duration, meeting_id?} \`\`\` → confirmed session card.
+- **Meeting List:** \`\`\`meeting_list JSON array of meeting objects from lookup_my_meetings \`\`\` → meetings with Reschedule/Cancel buttons.
 `
 
 const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
@@ -365,6 +381,98 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
           goals: { type: "string" },
         },
         required: ["company_name", "contact_name", "email", "sponsor_type", "goals"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "list_available_hosts",
+      description: "Fetch all bits&bytes™ team members who have opened their calendar for external bookings. Call this first when a user wants to book a call with the team.",
+      parameters: { type: "object", properties: {}, required: [] },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_time_slots",
+      description: "Get available time slots for a specific host on a given date. Call after the user has picked a host and a date.",
+      parameters: {
+        type: "object",
+        properties: {
+          booking_link: { type: "string", description: "The host's booking_link slug returned by list_available_hosts" },
+          date: { type: "string", description: "Date in YYYY-MM-DD format (IST)" },
+          duration: { type: "number", description: "Session duration in minutes. Default 30.", enum: [15, 30, 45, 60] },
+        },
+        required: ["booking_link", "date"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "book_call",
+      description: "Book a call with a team member. Only call after collecting: guest name, guest email, host booking_link + discord_id, chosen slot ISO string, and confirmed duration.",
+      parameters: {
+        type: "object",
+        properties: {
+          booking_link: { type: "string" },
+          host_discord_id: { type: "string" },
+          guest_name: { type: "string" },
+          guest_email: { type: "string" },
+          slot_iso: { type: "string", description: "ISO 8601 datetime string of the chosen slot" },
+          duration: { type: "number", enum: [15, 30, 45, 60] },
+          message: { type: "string", description: "Optional message from the guest to the host" },
+        },
+        required: ["booking_link", "host_discord_id", "guest_name", "guest_email", "slot_iso", "duration"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "lookup_my_meetings",
+      description: "Look up a guest's upcoming meetings by their email address. Use when they want to reschedule or cancel.",
+      parameters: {
+        type: "object",
+        properties: {
+          email: { type: "string", description: "The guest's email address" },
+        },
+        required: ["email"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "cancel_my_call",
+      description: "Cancel a guest's scheduled meeting using their email for verification.",
+      parameters: {
+        type: "object",
+        properties: {
+          meeting_id: { type: "string" },
+          email: { type: "string" },
+          reason: { type: "string", description: "Optional cancellation reason" },
+        },
+        required: ["meeting_id", "email"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "reschedule_my_call",
+      description: "Reschedule a guest's meeting to a new time slot using their email for verification.",
+      parameters: {
+        type: "object",
+        properties: {
+          meeting_id: { type: "string" },
+          email: { type: "string" },
+          new_slot_iso: { type: "string", description: "ISO 8601 datetime string of the new slot" },
+          duration_minutes: { type: "number", enum: [15, 30, 45, 60] },
+          reason: { type: "string" },
+        },
+        required: ["meeting_id", "email", "new_slot_iso"],
       },
     },
   },
@@ -991,6 +1099,82 @@ export async function POST(req: NextRequest) {
                 }
               } else if (toolName === "submit_sponsor_inquiry") {
                 toolResult = await handleSubmitSponsorInquiryTool(toolArgs)
+              } else if (toolName === "list_available_hosts") {
+                try {
+                  const base = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  const res = await fetch(`${base}/api/team/schedule/hosts`)
+                  const data = await res.json()
+                  toolResult = Array.isArray(data) ? { hosts: data } : { hosts: [], error: data.error }
+                } catch (err) {
+                  toolResult = { hosts: [], error: "Failed to fetch hosts" }
+                }
+              } else if (toolName === "get_time_slots") {
+                try {
+                  const base = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  const { booking_link, date, duration = 30 } = toolArgs as { booking_link: string; date: string; duration?: number }
+                  const res = await fetch(`${base}/api/team/schedule/slots?bookingLink=${encodeURIComponent(booking_link)}&date=${date}&duration=${duration}`)
+                  const data = await res.json()
+                  toolResult = Array.isArray(data) ? { slots: data, date, booking_link, duration } : { slots: [], error: data.error }
+                } catch (err) {
+                  toolResult = { slots: [], error: "Failed to fetch slots" }
+                }
+              } else if (toolName === "book_call") {
+                try {
+                  const base = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  const { booking_link, host_discord_id, guest_name, guest_email, slot_iso, duration, message } = toolArgs as {
+                    booking_link: string; host_discord_id: string; guest_name: string; guest_email: string;
+                    slot_iso: string; duration: number; message?: string
+                  }
+                  const res = await fetch(`${base}/api/team/schedule/create`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ bookingLink: booking_link, hostDiscordId: host_discord_id, guestName: guest_name, guestEmail: guest_email, slotISO: slot_iso, duration, message }),
+                  })
+                  const data = await res.json()
+                  toolResult = res.ok ? { success: true, meeting: data.meeting } : { success: false, error: data.error }
+                } catch (err) {
+                  toolResult = { success: false, error: "Failed to create booking" }
+                }
+              } else if (toolName === "lookup_my_meetings") {
+                try {
+                  const base = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  const { email } = toolArgs as { email: string }
+                  const res = await fetch(`${base}/api/team/schedule/mine?email=${encodeURIComponent(email)}`)
+                  const data = await res.json()
+                  toolResult = Array.isArray(data) ? { meetings: data } : { meetings: [], error: data.error }
+                } catch (err) {
+                  toolResult = { meetings: [], error: "Failed to lookup meetings" }
+                }
+              } else if (toolName === "cancel_my_call") {
+                try {
+                  const base = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  const { meeting_id, email, reason } = toolArgs as { meeting_id: string; email: string; reason?: string }
+                  const res = await fetch(`${base}/api/team/schedule/guest-cancel`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ meeting_id, email, reason }),
+                  })
+                  const data = await res.json()
+                  toolResult = res.ok ? { success: true } : { success: false, error: data.error }
+                } catch (err) {
+                  toolResult = { success: false, error: "Failed to cancel meeting" }
+                }
+              } else if (toolName === "reschedule_my_call") {
+                try {
+                  const base = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  const { meeting_id, email, new_slot_iso, duration_minutes = 30, reason } = toolArgs as {
+                    meeting_id: string; email: string; new_slot_iso: string; duration_minutes?: number; reason?: string
+                  }
+                  const res = await fetch(`${base}/api/team/schedule/guest-reschedule`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ meeting_id, email, new_slot_iso, duration_minutes, reason }),
+                  })
+                  const data = await res.json()
+                  toolResult = res.ok ? { success: true, ...data } : { success: false, error: data.error }
+                } catch (err) {
+                  toolResult = { success: false, error: "Failed to reschedule meeting" }
+                }
               } else {
                 toolResult = { success: false, message: `Unknown tool: ${toolName}` }
               }

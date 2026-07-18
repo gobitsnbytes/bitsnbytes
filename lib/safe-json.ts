@@ -150,7 +150,7 @@ export function fallbackParseProjectCard(str: string): any[] | null {
 /**
  * Robust JSON parser wrapper that cleans relaxed JSON and falls back to regex extractors if it still fails.
  */
-export function safeJsonParse<T>(str: string, type: "member_card" | "countdown" | "project_card" | "generic", fallback: T): T {
+export function safeJsonParse<T>(str: string, type: "member_card" | "countdown" | "project_card" | "booking_host_grid" | "booking_slots" | "booking_confirm" | "meeting_list" | "generic", fallback: T): T {
   if (!str) return fallback;
 
   // Step 1: Clean and format JSON string

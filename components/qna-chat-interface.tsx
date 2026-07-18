@@ -10,6 +10,16 @@ import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { safeJsonParse } from "@/lib/safe-json";
 
 import { Bot, Trash, MapPin } from "lucide-react";
+import {
+  BookingHostGrid,
+  SlotPicker,
+  BookingConfirmCard,
+  MeetingList,
+  type BookingHost,
+  type BookingSlotBlock,
+  type BookingConfirmBlock,
+  type MeetingItem,
+} from "@/components/ui/booking-blocks";
 
 interface ChatMessage {
   id: number;
@@ -696,6 +706,10 @@ export function QnAChatInterface({ className }: { className?: string }) {
       const isCountdown = language === "countdown";
       const isMemberCard = language === "member_card";
       const isProjectCard = language === "project_card";
+      const isBookingHostGrid = language === "booking_host_grid";
+      const isBookingSlots = language === "booking_slots";
+      const isBookingConfirm = language === "booking_confirm";
+      const isMeetingList = language === "meeting_list";
 
       if (isDiscordWidget) {
         const serverId = String(children).trim();
@@ -857,6 +871,38 @@ export function QnAChatInterface({ className }: { className?: string }) {
             Error visualizing project card data
           </div>
         );
+      }
+
+      if (isBookingHostGrid) {
+        try {
+          const raw = safeJsonParse<BookingHost[]>(String(children).replace(/\n$/, ""), "booking_host_grid", []);
+          if (Array.isArray(raw)) return <BookingHostGrid hosts={raw} />;
+        } catch { /* fall through */ }
+        return <div className="my-2 p-3 bg-red-100 border-2 border-red-500 text-red-700 text-xs font-mono">Error rendering host grid</div>;
+      }
+
+      if (isBookingSlots) {
+        try {
+          const raw = safeJsonParse<BookingSlotBlock | null>(String(children).replace(/\n$/, ""), "booking_slots", null);
+          if (raw) return <SlotPicker data={raw} />;
+        } catch { /* fall through */ }
+        return <div className="my-2 p-3 bg-red-100 border-2 border-red-500 text-red-700 text-xs font-mono">Error rendering slot picker</div>;
+      }
+
+      if (isBookingConfirm) {
+        try {
+          const raw = safeJsonParse<BookingConfirmBlock | null>(String(children).replace(/\n$/, ""), "booking_confirm", null);
+          if (raw) return <BookingConfirmCard data={raw} />;
+        } catch { /* fall through */ }
+        return <div className="my-2 p-3 bg-red-100 border-2 border-red-500 text-red-700 text-xs font-mono">Error rendering booking confirm</div>;
+      }
+
+      if (isMeetingList) {
+        try {
+          const raw = safeJsonParse<MeetingItem[]>(String(children).replace(/\n$/, ""), "meeting_list", []);
+          if (Array.isArray(raw)) return <MeetingList meetings={raw} />;
+        } catch { /* fall through */ }
+        return <div className="my-2 p-3 bg-red-100 border-2 border-red-500 text-red-700 text-xs font-mono">Error rendering meeting list</div>;
       }
 
       const isInline = !match;
