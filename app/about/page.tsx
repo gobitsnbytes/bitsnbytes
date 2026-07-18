@@ -1,24 +1,32 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { 
-  Github, 
-  Linkedin, 
-  Globe, 
-  ArrowUpRight, 
-  Users, 
-  Sparkles, 
-  Heart, 
-  ShieldAlert, 
-  MapPin, 
+import {
+  Github,
+  Linkedin,
+  Globe,
+  Users,
+  Sparkles,
+  Heart,
+  ShieldAlert,
+  MapPin,
   ArrowUp,
   User,
-  Instagram
+  Instagram,
+  Mail,
+  Calendar,
+  Clock,
+  ChevronLeft,
+  ChevronRight,
+  CheckCircle,
+  Loader2,
+  X,
+  ExternalLink,
+  Phone,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-// IMPECCABLE_PREFLIGHT: context=pass product=pass command_reference=pass shape=not_required image_gate=skipped:using_css_styling_no_new_image_assets_needed mutation=open
+import * as Dialog from "@radix-ui/react-dialog";
 
 // Starburst component for branding/retro aesthetics
 const Starburst = ({ className = "text-[#97192c]", size = 32 }: { className?: string; size?: number }) => (
@@ -84,6 +92,15 @@ const aboutContent = {
   ],
 };
 
+// ─── Email helper ────────────────────────────────────────────────────────────
+// Derives team member email from their display name: "Aadrika Maurya" → "aadrika@gobitsnbytes.org"
+function getTeamEmail(name: string): string {
+  const first = name.trim().split(/\s+/)[0].toLowerCase();
+  return `${first}@gobitsnbytes.org`;
+}
+
+// ─── Types ───────────────────────────────────────────────────────────────────
+
 interface CoreTeamMember {
   id: number;
   name: string;
@@ -110,7 +127,21 @@ interface Volunteer {
   role?: string;
 }
 
-// Executive Leadership & Department Leads
+interface MotherboardHost {
+  discord_id: string;
+  booking_link: string;
+  timezone: string;
+  weekly_hours: string | null;
+  is_active: boolean;
+  // Extended fields from the availability endpoint
+  username?: string;
+  title?: string;
+  description?: string;
+  avatar?: string;
+}
+
+// ─── Core team data ───────────────────────────────────────────────────────────
+
 const coreTeam: CoreTeamMember[] = [
   {
     id: 1,
@@ -315,6 +346,626 @@ const volunteers: Volunteer[] = [
     section: "Tech",
   },
 ];
+
+// ─── Booking Dialog ───────────────────────────────────────────────────────────
+
+type BookingStep = "date" | "slots" | "form" | "confirm";
+
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+const DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+
+function formatSlot(iso: string): string {
+  return new Date(iso).toLocaleTimeString("en-IN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Asia/Kolkata",
+    hour12: true,
+  });
+}
+
+function formatDateHeader(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-IN", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "Asia/Kolkata",
+  });
+}
+
+function CalendarGrid({
+  year,
+  month,
+  selected,
+  onSelect,
+}: {
+  year: number;
+  month: number;
+  selected: string | null;
+  onSelect: (date: string) => void;
+}) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const cells: (number | null)[] = [];
+  for (let i = 0; i < firstDay; i++) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+  while (cells.length % 7 !== 0) cells.push(null);
+
+  return (
+    <div className="w-full">
+      <div className="grid grid-cols-7 mb-1">
+        {DAYS.map((d) => (
+          <div key={d} className="text-center text-[10px] font-black uppercase text-[#716f6c] py-1">
+            {d}
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-7 gap-0.5">
+        {cells.map((day, idx) => {
+          if (!day) return <div key={idx} />;
+          const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+          const dateObj = new Date(year, month, day);
+          const isPast = dateObj < today;
+          const isSelected = selected === dateStr;
+
+          return (
+            <button
+              key={idx}
+              disabled={isPast}
+              onClick={() => onSelect(dateStr)}
+              className={`
+                aspect-square flex items-center justify-center text-sm font-bold border-2 transition-all
+                ${isPast ? "text-[#d0cfce] border-transparent cursor-not-allowed" : "cursor-pointer border-transparent hover:border-[#120f0a] hover:bg-[#fee9cf]"}
+                ${isSelected ? "!bg-[#fc920d] !border-[#120f0a] text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]" : ""}
+              `}
+            >
+              {day}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function BookingDialog({
+  host,
+  open,
+  onClose,
+}: {
+  host: MotherboardHost;
+  open: boolean;
+  onClose: () => void;
+}) {
+  const today = new Date();
+  const [step, setStep] = useState<BookingStep>("date");
+  const [calYear, setCalYear] = useState(today.getFullYear());
+  const [calMonth, setCalMonth] = useState(today.getMonth());
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [slots, setSlots] = useState<string[]>([]);
+  const [slotsLoading, setSlotsLoading] = useState(false);
+  const [slotsError, setSlotsError] = useState<string | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+  const [duration, setDuration] = useState<15 | 30 | 45 | 60>(30);
+
+  // Form state
+  const [guestName, setGuestName] = useState("");
+  const [guestEmail, setGuestEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [formError, setFormError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const resetAll = useCallback(() => {
+    setStep("date");
+    setSelectedDate(null);
+    setSlots([]);
+    setSlotsError(null);
+    setSelectedSlot(null);
+    setDuration(30);
+    setGuestName("");
+    setGuestEmail("");
+    setMessage("");
+    setFormError(null);
+    setCalYear(today.getFullYear());
+    setCalMonth(today.getMonth());
+  }, []);
+
+  // Fetch slots when a date is picked
+  useEffect(() => {
+    if (!selectedDate || !host.booking_link) return;
+    setSlotsLoading(true);
+    setSlotsError(null);
+    setSlots([]);
+
+    fetch(`/api/booking/slots?bookingLink=${encodeURIComponent(host.booking_link)}&date=${selectedDate}&duration=${duration}`)
+      .then((r) => r.json())
+      .then((data: string[] | { error: string }) => {
+        if (Array.isArray(data)) {
+          setSlots(data);
+          setStep("slots");
+        } else {
+          setSlotsError("Could not load availability for this date.");
+        }
+      })
+      .catch(() => setSlotsError("Network error fetching slots."))
+      .finally(() => setSlotsLoading(false));
+  }, [selectedDate, host.booking_link, duration]);
+
+  const handleDateSelect = (date: string) => {
+    setSelectedDate(date);
+    setSelectedSlot(null);
+  };
+
+  const handleSlotSelect = (slot: string) => {
+    setSelectedSlot(slot);
+    setStep("form");
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormError(null);
+
+    if (!guestName.trim()) { setFormError("Your name is required."); return; }
+    if (!guestEmail.trim() || !guestEmail.includes("@")) { setFormError("A valid email is required."); return; }
+    if (!selectedSlot) { setFormError("No time slot selected."); return; }
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/booking/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          bookingLink: host.booking_link,
+          hostDiscordId: host.discord_id,
+          guestName: guestName.trim(),
+          guestEmail: guestEmail.trim(),
+          message: message.trim() || undefined,
+          slotISO: selectedSlot,
+          duration,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setFormError(
+          typeof data.error === "string"
+            ? data.error
+            : "Failed to book the call. Please try again or email us directly."
+        );
+        return;
+      }
+
+      setStep("confirm");
+    } catch {
+      setFormError("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const prevMonth = () => {
+    if (calMonth === 0) { setCalYear(y => y - 1); setCalMonth(11); }
+    else setCalMonth(m => m - 1);
+  };
+  const nextMonth = () => {
+    if (calMonth === 11) { setCalYear(y => y + 1); setCalMonth(0); }
+    else setCalMonth(m => m + 1);
+  };
+
+  const hostName = host.username ?? host.booking_link;
+  const hostTitle = host.title ?? "bits&bytes™ Team";
+
+  return (
+    <Dialog.Root open={open} onOpenChange={(v) => { if (!v) { resetAll(); onClose(); } }}>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-50" />
+        <Dialog.Content
+          className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-[#eae8e4] border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] focus:outline-none"
+          aria-describedby="booking-dialog-desc"
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between border-b-4 border-[#120f0a] p-4 bg-white sticky top-0 z-10">
+            <div className="flex items-center gap-3">
+              <div className="relative w-10 h-10 rounded-full border-2 border-[#120f0a] overflow-hidden bg-neutral-100 shrink-0 shadow-[2px_2px_0px_0px_#120f0a]">
+                {host.avatar ? (
+                  <Image src={host.avatar} alt={hostName} fill className="object-cover" sizes="40px" />
+                ) : (
+                  <User className="w-full h-full p-2 text-[#a09f9d]" />
+                )}
+              </div>
+              <div>
+                <Dialog.Title className="font-black uppercase text-sm tracking-tight font-sans text-[#120f0a]">
+                  Book with {hostName}
+                </Dialog.Title>
+                <p id="booking-dialog-desc" className="text-[10px] font-mono text-[#716f6c]">
+                  {hostTitle} · {duration} min · Discord VC
+                </p>
+              </div>
+            </div>
+            <Dialog.Close asChild>
+              <button
+                className="border-2 border-[#120f0a] p-1.5 bg-white shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+                aria-label="Close"
+              >
+                <X className="w-4 h-4 text-[#120f0a]" />
+              </button>
+            </Dialog.Close>
+          </div>
+
+          {/* Step Indicator */}
+          {step !== "confirm" && (
+            <div className="flex border-b-2 border-[#120f0a]/10 bg-white px-4 pb-3 pt-2 gap-1">
+              {(["date", "slots", "form"] as BookingStep[]).map((s, i) => (
+                <React.Fragment key={s}>
+                  <div className={`flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider font-mono ${step === s ? "text-[#97192c]" : (["slots", "form"].indexOf(step) > ["slots", "form"].indexOf(s)) ? "text-[#120f0a]" : "text-[#a09f9d]"}`}>
+                    <span className={`w-4 h-4 border-2 flex items-center justify-center text-[8px] ${step === s ? "border-[#97192c] bg-[#97192c] text-white" : "border-[#a09f9d] text-[#a09f9d]"}`}>{i + 1}</span>
+                    <span className="hidden sm:inline">{s === "date" ? "Pick Date" : s === "slots" ? "Pick Time" : "Your Details"}</span>
+                  </div>
+                  {i < 2 && <div className="flex-1 border-t-2 border-[#120f0a]/10 self-center mx-1" />}
+                </React.Fragment>
+              ))}
+            </div>
+          )}
+
+          <div className="p-5">
+            <AnimatePresence mode="wait">
+              {/* ── Step: date ── */}
+              {step === "date" && (
+                <motion.div key="date" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.18 }}>
+                  <div className="flex items-center justify-between mb-4">
+                    <button onClick={prevMonth} className="border-2 border-[#120f0a] p-1 bg-white shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <h3 className="font-black uppercase font-sans text-sm tracking-wide">
+                      {MONTHS[calMonth]} {calYear}
+                    </h3>
+                    <button onClick={nextMonth} className="border-2 border-[#120f0a] p-1 bg-white shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                  {/* Duration picker */}
+                  <div className="mb-5">
+                    <p className="text-[10px] font-black uppercase tracking-wider text-[#716f6c] mb-2">Session duration</p>
+                    <div className="flex gap-2">
+                      {([15, 30, 45, 60] as const).map((d) => (
+                        <button
+                          key={d}
+                          onClick={() => { setDuration(d); setSelectedDate(null); setSlots([]); }}
+                          className={`flex-1 border-2 border-[#120f0a] py-1.5 text-xs font-black font-mono transition-all shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#120f0a] active:shadow-none ${
+                            duration === d ? "bg-[#fc920d] text-[#120f0a]" : "bg-white text-[#413f3b] hover:bg-[#fee9cf]"
+                          }`}
+                        >
+                          {d}m
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <CalendarGrid
+                    year={calYear}
+                    month={calMonth}
+                    selected={selectedDate}
+                    onSelect={handleDateSelect}
+                  />
+
+                  {slotsLoading && (
+                    <div className="mt-4 flex items-center gap-2 text-sm font-mono text-[#716f6c]">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Loading availability…
+                    </div>
+                  )}
+                  {slotsError && (
+                    <p className="mt-4 text-xs font-bold text-[#97192c] bg-[#f4d9d1] border-2 border-[#97192c] p-2">
+                      {slotsError}
+                    </p>
+                  )}
+
+                  <p className="mt-4 text-[10px] font-mono text-[#716f6c]">
+                    All times shown in IST (Asia/Kolkata).
+                  </p>
+                </motion.div>
+              )}
+
+              {/* ── Step: slots ── */}
+              {step === "slots" && (
+                <motion.div key="slots" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.18 }}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <button onClick={() => setStep("date")} className="border-2 border-[#120f0a] p-1 bg-white shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#120f0a] active:shadow-none transition-all">
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <h3 className="font-black uppercase font-sans text-xs tracking-wide text-[#413f3b]">
+                      {selectedDate ? formatDateHeader(selectedDate + "T00:00:00+05:30") : ""}
+                    </h3>
+                  </div>
+
+                  {slots.length === 0 ? (
+                    <div className="bg-white border-4 border-[#120f0a] p-6 text-center shadow-[4px_4px_0px_0px_#120f0a]">
+                      <Calendar className="w-8 h-8 text-[#a09f9d] mx-auto mb-2" />
+                      <p className="font-black uppercase text-sm text-[#413f3b]">No open slots</p>
+                      <p className="text-xs font-mono text-[#716f6c] mt-1">Try a different date.</p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                      {slots.map((slot) => (
+                        <button
+                          key={slot}
+                          onClick={() => handleSlotSelect(slot)}
+                          className={`border-2 border-[#120f0a] py-2 text-xs font-black font-mono transition-all shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#120f0a] active:shadow-none ${selectedSlot === slot ? "bg-[#fc920d] text-[#120f0a]" : "bg-white hover:bg-[#fee9cf]"}`}
+                        >
+                          {formatSlot(slot)}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  <p className="mt-4 text-[10px] font-mono text-[#716f6c]">
+                    Each session is {duration} minutes via Discord voice channel.
+                  </p>
+                </motion.div>
+              )}
+
+              {/* ── Step: form ── */}
+              {step === "form" && (
+                <motion.div key="form" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.18 }}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <button onClick={() => setStep("slots")} className="border-2 border-[#120f0a] p-1 bg-white shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#120f0a] active:shadow-none transition-all">
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <div>
+                      <p className="text-[10px] font-mono text-[#716f6c]">Selected time</p>
+                      <p className="font-black text-sm text-[#120f0a]">
+                        {selectedSlot ? formatSlot(selectedSlot) : ""} · {selectedDate ? formatDateHeader(selectedDate + "T00:00:00+05:30") : ""}
+                      </p>
+                    </div>
+                  </div>
+
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="space-y-1">
+                      <label className="block text-[10px] font-black uppercase tracking-wider text-[#97192c]">Your Name</label>
+                      <input
+                        type="text"
+                        required
+                        value={guestName}
+                        onChange={(e) => setGuestName(e.target.value)}
+                        placeholder="Full name"
+                        className="w-full border-2 border-[#120f0a] bg-white p-2.5 text-sm font-mono text-[#120f0a] placeholder:text-[#a09f9d] focus:outline-none focus:border-[#97192c] shadow-[2px_2px_0px_0px_#120f0a]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="block text-[10px] font-black uppercase tracking-wider text-[#97192c]">Email Address</label>
+                      <input
+                        type="email"
+                        required
+                        value={guestEmail}
+                        onChange={(e) => setGuestEmail(e.target.value)}
+                        placeholder="you@example.com"
+                        className="w-full border-2 border-[#120f0a] bg-white p-2.5 text-sm font-mono text-[#120f0a] placeholder:text-[#a09f9d] focus:outline-none focus:border-[#97192c] shadow-[2px_2px_0px_0px_#120f0a]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="block text-[10px] font-black uppercase tracking-wider text-[#97192c]">
+                        What do you want to talk about? <span className="text-[#a09f9d] normal-case">(optional)</span>
+                      </label>
+                      <textarea
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="Brief context — partnership, collaboration, advice, etc."
+                        rows={3}
+                        maxLength={500}
+                        className="w-full border-2 border-[#120f0a] bg-white p-2.5 text-sm font-mono text-[#120f0a] placeholder:text-[#a09f9d] focus:outline-none focus:border-[#97192c] shadow-[2px_2px_0px_0px_#120f0a] resize-none"
+                      />
+                      <p className="text-[9px] font-mono text-right text-[#a09f9d]">{message.length}/500</p>
+                    </div>
+
+                    {formError && (
+                      <p className="text-xs font-bold text-[#97192c] bg-[#f4d9d1] border-2 border-[#97192c] p-2">
+                        {formError}
+                      </p>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="w-full flex items-center justify-center gap-2 border-2 border-[#120f0a] bg-[#fc920d] text-[#120f0a] font-black uppercase text-sm tracking-wide py-3 shadow-[4px_4px_0px_0px_#120f0a] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#120f0a] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                      {submitting ? (
+                        <><Loader2 className="w-4 h-4 animate-spin" /> Booking…</>
+                      ) : (
+                        <>Confirm Booking</>
+                      )}
+                    </button>
+
+                    <p className="text-[9px] font-mono text-[#716f6c] text-center">
+                      A confirmation email will be sent to your address. The Discord VC link will be included.
+                    </p>
+                  </form>
+                </motion.div>
+              )}
+
+              {/* ── Step: confirm ── */}
+              {step === "confirm" && (
+                <motion.div
+                  key="confirm"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.25 }}
+                  className="text-center py-6"
+                >
+                  <div className="w-16 h-16 bg-[#fc920d] border-4 border-[#120f0a] flex items-center justify-center mx-auto mb-4 shadow-[4px_4px_0px_0px_#120f0a]">
+                    <CheckCircle className="w-8 h-8 text-[#120f0a]" />
+                  </div>
+                  <h3 className="text-2xl font-black uppercase font-sans text-[#120f0a] mb-2">You're booked!</h3>
+                  <p className="text-sm font-serif-brand text-[#413f3b] leading-relaxed max-w-xs mx-auto mb-1">
+                    Your call with <strong>{hostName}</strong> on <strong>{selectedDate}</strong> at <strong>{selectedSlot ? formatSlot(selectedSlot) : ""} IST</strong> is confirmed.
+                  </p>
+                  <p className="text-xs font-mono text-[#716f6c] mt-2 mb-6">
+                    Check your inbox for the calendar invite with the Discord VC link.
+                  </p>
+                  <button
+                    onClick={() => { resetAll(); onClose(); }}
+                    className="border-2 border-[#120f0a] bg-white px-6 py-2.5 font-black uppercase text-sm shadow-[3px_3px_0px_0px_#120f0a] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:shadow-none transition-all"
+                  >
+                    Close
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+
+// ─── Booking Section ──────────────────────────────────────────────────────────
+
+function BookingSection() {
+  const [hosts, setHosts] = useState<MotherboardHost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [activeHost, setActiveHost] = useState<MotherboardHost | null>(null);
+
+  useEffect(() => {
+    fetch("/api/booking/hosts")
+      .then((r) => r.json())
+      .then((data: MotherboardHost[] | { error: string }) => {
+        if (Array.isArray(data)) {
+          setHosts(data.filter((h) => h.is_active));
+        } else {
+          setError("Could not load team availability.");
+        }
+      })
+      .catch(() => setError("Could not load team availability."))
+      .finally(() => setLoading(false));
+  }, []);
+
+  return (
+    <section className="mb-16" id="book-a-call">
+      <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-[#120f0a]/15 pb-4 mb-8 gap-4">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="inline-flex items-center gap-1.5 bg-[#97192c] text-white border-2 border-[#120f0a] px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_0px_#120f0a]">
+              <Phone className="w-3 h-3" />
+              Book a Call
+            </span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight font-sans">
+            Talk to Us
+          </h2>
+          <p className="text-sm font-serif-brand text-[#716f6c] mt-1 max-w-[50ch]">
+            Pick a team member, find an open slot, and book a 30-minute session directly on their calendar.
+          </p>
+        </div>
+        <a
+          href="https://cal.gobitsnbytes.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 border-2 border-[#120f0a] bg-white px-4 py-2 text-xs font-black uppercase tracking-wider shadow-[3px_3px_0px_0px_#120f0a] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:shadow-none transition-all shrink-0"
+        >
+          <ExternalLink className="w-3.5 h-3.5" />
+          Open cal.gobitsnbytes.org
+        </a>
+      </div>
+
+      {loading && (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="bg-white border-4 border-[#120f0a]/20 p-4 shadow-[4px_4px_0px_0px_#120f0a]/20 animate-pulse h-44" />
+          ))}
+        </div>
+      )}
+
+      {error && (
+        <div className="bg-[#f4d9d1] border-4 border-[#97192c] p-5 shadow-[4px_4px_0px_0px_#97192c]">
+          <p className="font-black uppercase text-sm text-[#97192c]">{error}</p>
+          <p className="text-xs font-mono text-[#413f3b] mt-1">
+            You can still reach us directly at{" "}
+            <a href="https://cal.gobitsnbytes.org" className="underline font-bold">cal.gobitsnbytes.org</a>.
+          </p>
+        </div>
+      )}
+
+      {!loading && !error && hosts.length === 0 && (
+        <div className="bg-white border-4 border-[#120f0a] p-8 text-center shadow-[6px_6px_0px_0px_#120f0a]">
+          <Calendar className="w-10 h-10 text-[#a09f9d] mx-auto mb-3" />
+          <p className="font-black uppercase text-sm text-[#413f3b]">No team members have opened their calendar yet.</p>
+          <p className="text-xs font-mono text-[#716f6c] mt-2">
+            Try reaching us directly at{" "}
+            <a href="https://cal.gobitsnbytes.org" className="underline text-[#97192c] font-bold">cal.gobitsnbytes.org</a>.
+          </p>
+        </div>
+      )}
+
+      {!loading && !error && hosts.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {hosts.map((host) => {
+            const displayName = host.username ?? host.booking_link;
+            const displayTitle = host.title ?? "bits&bytes™ Team";
+            const displayDesc = host.description ?? "Available for a 30-minute call.";
+
+            return (
+              <motion.div
+                key={host.discord_id}
+                className="bg-white border-4 border-[#120f0a] p-4 flex flex-col shadow-[6px_6px_0px_0px_#120f0a] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_#120f0a]"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 }}
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="relative w-12 h-12 rounded-full border-2 border-[#120f0a] overflow-hidden bg-neutral-100 shrink-0 shadow-[2px_2px_0px_0px_#120f0a]">
+                    {host.avatar ? (
+                      <Image src={host.avatar} alt={displayName} fill className="object-cover" sizes="48px" />
+                    ) : (
+                      <User className="w-full h-full p-2.5 text-[#a09f9d]" />
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="font-black uppercase text-sm tracking-tight font-sans text-[#120f0a] truncate">{displayName}</h3>
+                    <span className="text-[10px] font-bold text-[#97192c] uppercase tracking-wider truncate block">{displayTitle}</span>
+                  </div>
+                </div>
+
+                <p className="text-xs font-serif-brand text-[#413f3b] leading-relaxed mb-4 flex-1 line-clamp-3">
+                  {displayDesc}
+                </p>
+
+                <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#716f6c] mb-3">
+                  <Clock className="w-3 h-3 shrink-0" />
+                  30 min · Discord VC · IST
+                </div>
+
+                <button
+                  onClick={() => setActiveHost(host)}
+                  className="w-full border-2 border-[#120f0a] bg-[#fc920d] text-[#120f0a] font-black uppercase text-xs tracking-wider py-2.5 shadow-[3px_3px_0px_0px_#120f0a] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
+                >
+                  Book with {displayName.split(" ")[0]}
+                </button>
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Booking Dialog */}
+      {activeHost && (
+        <BookingDialog
+          host={activeHost}
+          open={!!activeHost}
+          onClose={() => setActiveHost(null)}
+        />
+      )}
+    </section>
+  );
+}
+
+// ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function About() {
   const [showScrollTop, setShowScrollTop] = React.useState(false);
@@ -537,6 +1188,9 @@ export default function About() {
           </p>
         </section>
 
+        {/* Book a Call Section */}
+        <BookingSection />
+
       </div>
 
       {/* Floating Scroll Top Button */}
@@ -558,8 +1212,11 @@ export default function About() {
   );
 }
 
-// Neobrutalist Core Team Card
+// ─── Neobrutalist Core Team Card ──────────────────────────────────────────────
+
 function TeamCard({ member, isFounder = false }: { member: CoreTeamMember; isFounder?: boolean }) {
+  const email = getTeamEmail(member.name);
+
   const socialLinks = [
     member.socials?.linkedin && {
       href: member.socials.linkedin,
@@ -580,7 +1237,13 @@ function TeamCard({ member, isFounder = false }: { member: CoreTeamMember; isFou
       href: member.socials.instagram,
       icon: Instagram,
       label: "Instagram"
-    }
+    },
+    // Email is always present for core team
+    {
+      href: `mailto:${email}`,
+      icon: Mail,
+      label: "Email"
+    },
   ].filter(Boolean) as Array<{ href: string; icon: any; label: string }>;
 
   return (
@@ -626,17 +1289,27 @@ function TeamCard({ member, isFounder = false }: { member: CoreTeamMember; isFou
         </div>
       </div>
 
+      {/* Email address display */}
+      <a
+        href={`mailto:${email}`}
+        className="mt-3 flex items-center gap-1.5 text-[10px] font-mono text-[#716f6c] hover:text-[#97192c] transition-colors group"
+        title={`Email ${member.name}`}
+      >
+        <Mail className="w-3 h-3 shrink-0 text-[#a09f9d] group-hover:text-[#97192c] transition-colors" />
+        <span className="truncate">{email}</span>
+      </a>
+
       {/* Social Links */}
       {socialLinks.length > 0 && (
-        <div className="flex gap-2 mt-4 pt-3 border-t border-[#120f0a]/10">
+        <div className="flex gap-2 mt-3 pt-3 border-t border-[#120f0a]/10">
           {socialLinks.map((link) => {
             const Icon = link.icon;
             return (
               <a
                 key={link.label}
                 href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                 className="w-7 h-7 flex items-center justify-center border-2 border-[#120f0a] bg-white shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[0.5px] hover:translate-y-[0.5px] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
                 title={`${member.name}'s ${link.label}`}
               >
