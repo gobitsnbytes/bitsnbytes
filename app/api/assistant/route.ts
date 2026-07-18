@@ -12,6 +12,12 @@ const openai = new OpenAI({
   }
 })
 
+// Server-side base URL — works on Vercel (VERCEL_URL) and locally (localhost:3000)
+function getServerBase(): string {
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
+  return process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+}
+
 const PRIMARY_MODEL = "google/gemini-3-flash-preview"
 const FALLBACK_MODEL = "google/gemini-2.5-flash"
 
@@ -146,6 +152,7 @@ You must follow these operating rules:
 7. Respond in English by default. Only use Hindi or Hinglish if the user explicitly asks for it (for example: "reply in Hindi"), and keep technical terms (hackathon, submission, GitHub, etc.) in English.
 8. If someone mentions sponsorship, partnership, or funding, guide them through sponsor inquiry step by step, then call submit_sponsor_inquiry.
 9. If a user asks if they're eligible for a hackathon, collect: (1) are you a student? (2) school/college name (3) grade or year. Then check eligibility rules via search_site_content and give a definitive yes/no with next steps.
+0. For casual greetings or small talk ("hi", "hello", "hey", "sup", "what's up", "how are you", etc.), respond warmly in 1-2 sentences WITHOUT calling any tools. Then invite them to ask about bits&bytes™.
 
 Response style:
 - Be concise, direct, and helpful.
@@ -1101,7 +1108,7 @@ export async function POST(req: NextRequest) {
                 toolResult = await handleSubmitSponsorInquiryTool(toolArgs)
               } else if (toolName === "list_available_hosts") {
                 try {
-                  const base = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  const base = getServerBase()
                   const res = await fetch(`${base}/api/team/schedule/hosts`)
                   const data = await res.json()
                   toolResult = Array.isArray(data) ? { hosts: data } : { hosts: [], error: data.error }
@@ -1110,7 +1117,7 @@ export async function POST(req: NextRequest) {
                 }
               } else if (toolName === "get_time_slots") {
                 try {
-                  const base = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  const base = getServerBase()
                   const { booking_link, date, duration = 30 } = toolArgs as { booking_link: string; date: string; duration?: number }
                   const res = await fetch(`${base}/api/team/schedule/slots?bookingLink=${encodeURIComponent(booking_link)}&date=${date}&duration=${duration}`)
                   const data = await res.json()
@@ -1120,7 +1127,7 @@ export async function POST(req: NextRequest) {
                 }
               } else if (toolName === "book_call") {
                 try {
-                  const base = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  const base = getServerBase()
                   const { booking_link, host_discord_id, guest_name, guest_email, slot_iso, duration, message } = toolArgs as {
                     booking_link: string; host_discord_id: string; guest_name: string; guest_email: string;
                     slot_iso: string; duration: number; message?: string
@@ -1137,7 +1144,7 @@ export async function POST(req: NextRequest) {
                 }
               } else if (toolName === "lookup_my_meetings") {
                 try {
-                  const base = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  const base = getServerBase()
                   const { email } = toolArgs as { email: string }
                   const res = await fetch(`${base}/api/team/schedule/mine?email=${encodeURIComponent(email)}`)
                   const data = await res.json()
@@ -1147,7 +1154,7 @@ export async function POST(req: NextRequest) {
                 }
               } else if (toolName === "cancel_my_call") {
                 try {
-                  const base = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  const base = getServerBase()
                   const { meeting_id, email, reason } = toolArgs as { meeting_id: string; email: string; reason?: string }
                   const res = await fetch(`${base}/api/team/schedule/guest-cancel`, {
                     method: "POST",
@@ -1161,7 +1168,7 @@ export async function POST(req: NextRequest) {
                 }
               } else if (toolName === "reschedule_my_call") {
                 try {
-                  const base = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  const base = getServerBase()
                   const { meeting_id, email, new_slot_iso, duration_minutes = 30, reason } = toolArgs as {
                     meeting_id: string; email: string; new_slot_iso: string; duration_minutes?: number; reason?: string
                   }
