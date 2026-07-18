@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-const MOTHERBOARD_BASE = process.env.MOTHERBOARD_API_URL ?? "https://motherboard.gobitsnbytes.org";
+const MOTHERBOARD_BASE = process.env.MOTHERBOARD_API_URL ?? "https://api.gobitsnbytes.org";
 const MOTHERBOARD_API_KEY = process.env.MOTHERBOARD_API_KEY ?? "";
 
 const BookingRequestSchema = z.object({

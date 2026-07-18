@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const MOTHERBOARD_BASE = process.env.MOTHERBOARD_API_URL ?? "https://motherboard.gobitsnbytes.org";
+const MOTHERBOARD_BASE = process.env.MOTHERBOARD_API_URL ?? "https://api.gobitsnbytes.org";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
