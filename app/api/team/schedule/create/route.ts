@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
   };
 
   try {
-    const upstream = await fetch(`${MOTHERBOARD_BASE}/api/meetings`, {
+    const upstream = await fetch(`${MOTHERBOARD_BASE}/api/meetings/schedule`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
