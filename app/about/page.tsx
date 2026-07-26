@@ -1112,6 +1112,37 @@ export default function About() {
           </motion.button>
         )}
       </AnimatePresence>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "mainEntity": {
+              "@type": "ItemList",
+              "itemListElement": coreTeam.map((member, idx) => ({
+                "@type": "ListItem",
+                "position": idx + 1,
+                "item": {
+                  "@type": "Person",
+                  "name": member.name,
+                  "jobTitle": member.role,
+                  "description": member.bio,
+                  "image": `https://gobitsnbytes.org${member.image}`,
+                  "worksFor": {
+                    "@type": "Organization",
+                    "name": "bits&bytes™",
+                    "legalName": "GOBITSNBYTES FOUNDATION",
+                    "url": "https://gobitsnbytes.org",
+                  },
+                  "sameAs": Object.values(member.socials || {}).filter(Boolean),
+                },
+              })),
+            },
+          }),
+        }}
+      />
     </div>
   );
 }
