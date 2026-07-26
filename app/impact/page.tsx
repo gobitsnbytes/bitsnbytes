@@ -226,8 +226,88 @@ export default function Impact() {
             </div>
           </section>
 
+          {/* Section 3: Original Research & Benchmark Data */}
+          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
+            <div className="space-y-6">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#120f0a]/15 pb-6">
+                <div>
+                  <h2 className="text-2xl font-black text-[#120f0a] flex items-center gap-3 uppercase tracking-wider">
+                    <ShieldAlert className="h-6 w-6 text-[#97192c]" />
+                    India Youth Tech &amp; Builder Research (2026 Metrics)
+                  </h2>
+                  <p className="text-sm text-[#413f3b] font-bold mt-1">
+                    Public community metrics across 1,400+ teen builders, 2,700+ project evaluations, and 5+ regional chapters.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="border-3 border-[#120f0a] bg-[#fee9cf] p-4 shadow-[3px_3px_0px_0px_#120f0a]">
+                  <p className="text-3xl font-black text-[#97192c]">2,700+</p>
+                  <p className="text-xs font-black uppercase mt-1">Projects Evaluated</p>
+                  <p className="text-[11px] text-[#413f3b] mt-1 font-serif">Reviewed in 3-day hackathon sprints across civic tech, ML, and web apps.</p>
+                </div>
+                <div className="border-3 border-[#120f0a] bg-[#f4d9d1] p-4 shadow-[3px_3px_0px_0px_#120f0a]">
+                  <p className="text-3xl font-black text-[#fc920d]">84%</p>
+                  <p className="text-xs font-black uppercase mt-1">AI-Native Dev Tools</p>
+                  <p className="text-[11px] text-[#413f3b] mt-1 font-serif">Teen developers actively building with LLM agents, Copilot, and vector DBs.</p>
+                </div>
+                <div className="border-3 border-[#120f0a] bg-[#fee9cf] p-4 shadow-[3px_3px_0px_0px_#120f0a]">
+                  <p className="text-3xl font-black text-[#97192c]">38%</p>
+                  <p className="text-xs font-black uppercase mt-1">Female Builder Rate</p>
+                  <p className="text-[11px] text-[#413f3b] mt-1 font-serif">Active participation of female student coders across regional hackathon squads.</p>
+                </div>
+                <div className="border-3 border-[#120f0a] bg-[#f4d9d1] p-4 shadow-[3px_3px_0px_0px_#120f0a]">
+                  <p className="text-3xl font-black text-[#120f0a]">1.26 Cr+</p>
+                  <p className="text-xs font-black uppercase mt-1">Applicants Scaled</p>
+                  <p className="text-[11px] text-[#413f3b] mt-1 font-serif">Executive partnership reach in India Innovates 2026 Civic Tech sprint.</p>
+                </div>
+              </div>
+
+              {/* Internal Navigation Box */}
+              <div className="border-3 border-[#120f0a] bg-[#faf8f5] p-5 mt-6 shadow-[4px_4px_0px_0px_#120f0a] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                  <h3 className="font-black text-sm uppercase text-[#120f0a]">Explore the bits&amp;bytes™ Network</h3>
+                  <p className="text-xs text-[#413f3b] font-serif">Learn about our events, local chapters, and press guidelines.</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Link href="/events" className="border-2 border-[#120f0a] bg-white px-3 py-1.5 text-xs font-bold font-mono hover:bg-[#fc920d] shadow-[2px_2px_0px_0px_#120f0a] transition-all">
+                    Events →
+                  </Link>
+                  <Link href="/fork" className="border-2 border-[#120f0a] bg-white px-3 py-1.5 text-xs font-bold font-mono hover:bg-[#fc920d] shadow-[2px_2px_0px_0px_#120f0a] transition-all">
+                    Local Hubs →
+                  </Link>
+                  <Link href="/press" className="border-2 border-[#120f0a] bg-white px-3 py-1.5 text-xs font-bold font-mono hover:bg-[#fc920d] shadow-[2px_2px_0px_0px_#120f0a] transition-all">
+                    Press Kit →
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+
         </main>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Dataset",
+            "name": "India Youth Tech & Builder Benchmarks 2026",
+            "description": "Original survey data and empirical metrics on high school and teen developer adoption of AI tools, hackathon completion rates, and regional hub distribution in India.",
+            "creator": {
+              "@type": "Organization",
+              "name": "bits&bytes™",
+              "legalName": "GOBITSNBYTES FOUNDATION",
+              "url": "https://gobitsnbytes.org",
+            },
+            "temporalCoverage": "2025-2026",
+            "spatialCoverage": "India",
+            "license": "https://gobitsnbytes.org/ip",
+          }),
+        }}
+      />
     </div>
   );
 }
