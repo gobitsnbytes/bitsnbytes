@@ -441,12 +441,109 @@ export default function PressKit() {
                     <ExternalLink className="h-3 w-3" />
                   </a>
                 </div>
+
+                <div className="pt-4 border-t border-[#120f0a]/10">
+                  <h4 className="text-xs font-black uppercase text-[#120f0a]">Boilerplate for Journalists</h4>
+                  <p className="text-xs text-[#413f3b] font-serif leading-relaxed mt-1 italic">
+                    "bits&amp;bytes™ is an independent, student-led youth builder network operated by GOBITSNBYTES FOUNDATION (Section 8 non-profit). Founded in Lucknow, India, it connects 1,400+ teenage developers to ship real-world software and run independent hackathons."
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Digital PR & Academic Citation Guide */}
+          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-black text-[#120f0a] flex items-center gap-3 uppercase tracking-wider border-b border-[#120f0a]/15 pb-4">
+                  <FileText className="h-6 w-6 text-[#fc920d]" />
+                  Citations &amp; Digital PR Guidelines
+                </h2>
+                <p className="text-sm text-[#716f6c] font-semibold mt-3">
+                  When citing bits&amp;bytes™ research, event metrics, or brand publications, please use the standard citations below:
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="border-2 border-[#120f0a] bg-[#fee9cf]/30 p-4 rounded-none shadow-[2px_2px_0px_0px_#120f0a]">
+                  <h3 className="text-xs font-mono font-black uppercase text-[#97192c]">APA Citation Format</h3>
+                  <p className="text-xs font-mono text-[#120f0a] mt-2 bg-white p-2.5 border border-[#120f0a] select-all">
+                    GOBITSNBYTES FOUNDATION. (2026). India Youth Tech &amp; Builder Research Metrics. bits&amp;bytes™. https://gobitsnbytes.org/impact
+                  </p>
+                </div>
+
+                <div className="border-2 border-[#120f0a] bg-[#f4d9d1]/30 p-4 rounded-none shadow-[2px_2px_0px_0px_#120f0a]">
+                  <h3 className="text-xs font-mono font-black uppercase text-[#97192c]">BibTeX Format</h3>
+                  <pre className="text-[10px] font-mono text-[#120f0a] mt-2 bg-white p-2.5 border border-[#120f0a] overflow-x-auto select-all">
+{`@misc{bitsnbytes2026,
+  author = {GOBITSNBYTES FOUNDATION},
+  title = {bits&bytes: India's Teen Builder Network},
+  year = {2026},
+  publisher = {GOBITSNBYTES FOUNDATION},
+  url = {https://gobitsnbytes.org}
+}`}
+                  </pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Backlink Badge Magnet Kit for External Blogs, Repos & Partners */}
+          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-black text-[#120f0a] flex items-center gap-3 uppercase tracking-wider border-b border-[#120f0a]/15 pb-4">
+                  <ExternalLink className="h-6 w-6 text-[#97192c]" />
+                  Embed Badges &amp; Link to Us (Backlink Kit)
+                </h2>
+                <p className="text-sm text-[#716f6c] font-semibold mt-3">
+                  Are you a partner, student builder, event organizer, or tech blogger? Add our official badge to your GitHub README or site to link back to bits&amp;bytes™.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="border-3 border-[#120f0a] bg-[#faf8f5] p-5 shadow-[4px_4px_0px_0px_#120f0a]">
+                  <h3 className="text-xs font-mono font-black uppercase text-[#120f0a] mb-2">Markdown Logo Link (GitHub READMEs)</h3>
+                  <div className="bg-white border-2 border-[#120f0a] p-3 text-[11px] font-mono select-all overflow-x-auto text-[#120f0a]">
+                    {`[![bits&bytes™ logo](https://gobitsnbytes.org/logo)](https://gobitsnbytes.org)`}
+                  </div>
+                  <p className="text-[10px] text-[#716f6c] mt-2 font-serif">Copy and paste into your project README.md file to link to us.</p>
+                </div>
+
+                <div className="border-3 border-[#120f0a] bg-[#faf8f5] p-5 shadow-[4px_4px_0px_0px_#120f0a]">
+                  <h3 className="text-xs font-mono font-black uppercase text-[#120f0a] mb-2">HTML Logo Badge (Websites &amp; Blogs)</h3>
+                  <div className="bg-white border-2 border-[#120f0a] p-3 text-[11px] font-mono select-all overflow-x-auto text-[#120f0a]">
+                    {`<a href="https://gobitsnbytes.org" target="_blank" rel="noopener"><img src="https://gobitsnbytes.org/logo" alt="bits&bytes™ - India's Youth Builder Network" height="36" /></a>`}
+                  </div>
+                  <p className="text-[10px] text-[#716f6c] mt-2 font-serif">Copy and paste into your website footer or partner section.</p>
+                </div>
               </div>
             </div>
           </section>
           
         </main>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Brand",
+            "name": "bits&bytes™",
+            "alternateName": ["bits&bytes", "bitsnbytes", "GOBITSNBYTES FOUNDATION"],
+            "url": "https://gobitsnbytes.org",
+            "logo": "https://gobitsnbytes.org/logo.svg",
+            "description": "Official brand assets, logos, public facts, and press guidelines for bits&bytes™ (GOBITSNBYTES FOUNDATION).",
+            "owner": {
+              "@type": "Organization",
+              "name": "GOBITSNBYTES FOUNDATION",
+              "url": "https://gobitsnbytes.org",
+            },
+          }),
+        }}
+      />
     </div>
   );
 }
