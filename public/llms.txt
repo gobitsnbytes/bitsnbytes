@@ -205,5 +205,11 @@ pnpm tsx scripts/embed-site.ts
 - A Husky `pre-push` hook is configured to run the embedding step automatically when tracked source files change; see `.husky/pre-push` for `EMBED_PATHS`.
 - To include additional pages in the RAG index, add them to `scripts/embed-site.ts` `filePaths` and update `.husky/pre-push` `EMBED_PATHS`.
 
+## SEO & Schema.org Metadata
+- **Structured Data Formats:** JSON-LD (`EducationalOrganization`, `NGO`, `LocalBusiness`, `FAQPage`, `Dataset`, `Event`, `Person`, `AboutPage`, `NewsArticle`, `BreadcrumbList`, `WebSite`, `SiteNavigationElement`)
+- **Primary Keywords:** bits&bytes™, teen builder network india, youth hackathons lucknow, student developer community, GOBITSNBYTES FOUNDATION, Section 8 non-profit, agentic AI hackathons
+- **Community Metrics & Research (2026):** 1,400+ active teen builders, 2,700+ project evaluations in 3-day sprints, 84% AI tool adoption, 38% female builder participation, 5+ regional forks.
+
 ---
-Last updated: June 2026
+Last updated: July 2026
+
