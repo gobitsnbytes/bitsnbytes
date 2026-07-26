@@ -222,6 +222,18 @@ export default function FAQ() {
                 <Link href="/join">Apply to Join</Link>
               </Button>
             </div>
+
+            <div className="mt-8 pt-6 border-t-2 border-[#120f0a]/15 flex flex-wrap justify-center gap-3 text-xs font-mono">
+              <Link href="/events" className="text-[#97192c] underline font-bold hover:text-[#fc920d]">Pan-India Hackathons</Link>
+              <span className="text-[#120f0a]/30">•</span>
+              <Link href="/fork" className="text-[#97192c] underline font-bold hover:text-[#fc920d]">Student Chapter Hubs (Forks)</Link>
+              <span className="text-[#120f0a]/30">•</span>
+              <Link href="/impact" className="text-[#97192c] underline font-bold hover:text-[#fc920d]">Community Metrics</Link>
+              <span className="text-[#120f0a]/30">•</span>
+              <Link href="/press" className="text-[#97192c] underline font-bold hover:text-[#fc920d]">Press &amp; Media Kit</Link>
+              <span className="text-[#120f0a]/30">•</span>
+              <Link href="/coc" className="text-[#97192c] underline font-bold hover:text-[#fc920d]">Code of Conduct</Link>
+            </div>
           </div>
         </PageSection>
       </main>

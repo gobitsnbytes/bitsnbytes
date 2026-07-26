@@ -67,20 +67,22 @@ const footerLinks = [
     title: "Explore",
     links: [
       { id: 1, title: "About", url: "/about" },
-      { id: 2, title: "Impact", url: "/impact" },
-      { id: 3, title: "Join", url: "/join" },
-      { id: 4, title: "Contact", url: "/contact" },
-      { id: 10, title: "Press Kit", url: "/press" },
+      { id: 2, title: "Impact & Research", url: "/impact" },
+      { id: 3, title: "Events & Hackathons", url: "/events" },
+      { id: 4, title: "Local Hubs (Forks)", url: "/fork" },
+      { id: 5, title: "Join Network", url: "/join" },
+      { id: 6, title: "Press Kit & Media", url: "/press" },
     ],
   },
   {
     title: "Legal & Safety",
     links: [
-      { id: 5, title: "FAQ", url: "/faq" },
-      { id: 6, title: "Code of Conduct", url: "/coc" },
-      { id: 7, title: "Terms of Service", url: "/terms" },
-      { id: 8, title: "Privacy Policy", url: "/privacy" },
-      { id: 9, title: "IP Policy", url: "/ip" },
+      { id: 7, title: "FAQ", url: "/faq" },
+      { id: 8, title: "AI Assistant", url: "/qna" },
+      { id: 9, title: "Code of Conduct", url: "/coc" },
+      { id: 10, title: "Terms of Service", url: "/terms" },
+      { id: 11, title: "Privacy Policy", url: "/privacy" },
+      { id: 12, title: "IP Policy", url: "/ip" },
     ],
   },
 ];
@@ -240,7 +242,7 @@ export function FlickeringFooter() {
               </a>
               <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
                 <MapPin className="h-4 w-4 shrink-0 text-primary dark:text-accent" />
-                Lucknow, India
+                Pan-India · HQ: Lucknow, India
               </p>
             </div>
           </div>
