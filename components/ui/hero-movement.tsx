@@ -41,7 +41,7 @@ interface HeroHeadlineProps {
 }
 export const HeroHeadline: React.FC<HeroHeadlineProps> = ({ emphasis }) => {
   return (
-    <div className="flex flex-col space-y-1 sm:space-y-1.5 font-accent-sans text-4xl sm:text-5xl md:text-6xl lg:text-[2.85rem] xl:text-[4.2rem] 2xl:text-7.5xl tracking-tight leading-[0.85] text-[#120f0a] dark:text-[#faf8f5] uppercase font-normal select-none w-full">
+    <h1 className="flex flex-col space-y-1 sm:space-y-1.5 font-accent-sans text-4xl sm:text-5xl md:text-6xl lg:text-[2.85rem] xl:text-[4.2rem] 2xl:text-7.5xl tracking-tight leading-[0.85] text-[#120f0a] dark:text-[#faf8f5] uppercase font-normal select-none w-full">
       <div className="flex items-center gap-4">
         <span>India's</span>
         <span className="text-[9px] font-mono tracking-widest text-[#120f0a]/40 dark:text-[#faf8f5]/40 font-normal hidden sm:inline-block">
@@ -64,7 +64,7 @@ export const HeroHeadline: React.FC<HeroHeadlineProps> = ({ emphasis }) => {
         <span>network</span>
         <span className="h-1 w-12 sm:w-20 bg-[#120f0a] dark:bg-[#faf8f5] mb-2 inline-block" />
       </div>
-    </div>
+    </h1>
   );
 };
 
