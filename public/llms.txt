@@ -96,6 +96,20 @@ A **Fork** is a recognized local, institutional, or thematic operating unit of t
 - **Backend**: Node.js, Python, PostgreSQL, cloud infrastructure
 - **Tools**: GitHub, Discord, Vercel, Notion, Upstash Vector
 
+## SparkCloud x bits&bytes™ Partnership
+- **Overview**: Free, high-performance cloud development spaces offered in partnership with Sparkden for verified bits&bytes™ teen builders.
+- **What Members Get**:
+  - **SparkCloud**: Free cloud development spaces — code, build, and host applications straight from any browser with zero local setup.
+  - **One Verified Account**: A single Spark Account signs members into every Sparkden service and tool.
+- **Platforms & FAQs**:
+  - Main platform: https://sparkden.org/
+  - SparkCloud app: https://cloud.sparkden.org/
+  - FAQ: https://cloud.sparkden.org/faq
+- **Organization Signup Link**: https://sparkden.org/org/gobitsnbytes-foundation (valid exclusively for Indian residents/citizens).
+- **Eligibility**: Reserved strictly for teenagers aged **13 to 19** residing in India.
+- **Legal Precedence**: Sparkden's Code of Conduct (https://sparkden.org/conduct), Terms of Service (https://sparkden.org/terms), Privacy Policy (https://sparkden.org/privacy), and Acceptable Use Policy (https://sparkden.org/acceptable-use) take legal precedence and strictly govern all activities, services, accounts, and infrastructure on SparkCloud. The bits&bytes™ Code of Conduct applies concurrently to network interactions, but Sparkden's legal terms supersede ours regarding their cloud platform.
+- **Strict Anti-Abuse Enforcement & Legal Notice**: Misuse, abuse, fraudulent registration, multi-accounting, VPN proxying, or attempting to bypass eligibility criteria (age 13-19 or geographic restriction) will result in immediate service termination, permanent blacklisting across networks, legal notice issuance, and formal prosecution under applicable Indian civil and criminal laws. Legal notices will be sent and strict legal action will be taken against anyone found to be abusing or misusing the service or offering.
+
 ## How to Join & General FAQ
 - **Applying**: Visit https://gobitsnbytes.org/join. Free to join. Tech education shouldn't cost money.
 - **Hackathons**: Either way works. Show up with a team or form one at the event. Solo is fine but most people have more fun on a team.
@@ -116,6 +130,7 @@ A **Fork** is a recognized local, institutional, or thematic operating unit of t
 - **/** - Homepage with overview and impact stats
 - **/about** - Team profiles and mission details
 - **/events** - Upcoming and archived hackathons and workshops
+- **/cloud** - SparkCloud partnership, free cloud development spaces, and policy verification portal
 - **/impact** - Community statistics and success stories
 - **/join** - Free membership application
 - **/join-cohort** - Redirect to cohort application/details

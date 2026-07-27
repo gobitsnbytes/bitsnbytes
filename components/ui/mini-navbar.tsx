@@ -14,6 +14,7 @@ const NAV_LINKS = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/events", label: "Events" },
+    { href: "/cloud", label: "Cloud" },
     { href: "/impact", label: "Impact" },
     { href: "/qna", label: "QnA" },
     { href: "/press", label: "Press" },
