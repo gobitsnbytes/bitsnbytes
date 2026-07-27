@@ -108,7 +108,7 @@ A **Fork** is a recognized local, institutional, or thematic operating unit of t
   - Philosophy: https://sparkden.org/philosophy
   - SparkCloud app: https://cloud.sparkden.org/
   - FAQ: https://cloud.sparkden.org/faq
-- **Organization Signup Link**: https://sparkden.org/org/gobitsnbytes-foundation (valid exclusively for Indian residents/citizens).
+- **Organization Signup Link**: https://sparkden.org/org/join/HJ6POGpRWhZRvT8jtEYqmMpMhmLiMOEo (valid exclusively for Indian residents/citizens).
 - **Eligibility**: Reserved strictly for teenagers aged **13 to 19** residing in India.
 - **Legal Precedence**: Sparkden's Code of Conduct (https://sparkden.org/conduct), Terms of Service (https://sparkden.org/terms), Privacy Policy (https://sparkden.org/privacy), and Acceptable Use Policy (https://sparkden.org/acceptable-use) take legal precedence and strictly govern all activities, services, accounts, and infrastructure on SparkCloud. The bits&bytes™ Code of Conduct applies concurrently to network interactions, but Sparkden's legal terms supersede ours regarding their cloud platform.
 - **Strict Anti-Abuse Enforcement & Legal Notice**: Misuse, abuse, fraudulent registration, multi-accounting, VPN proxying, or attempting to bypass eligibility criteria (age 13-19 or geographic restriction) will result in immediate service termination, permanent blacklisting across networks, legal notice issuance, and formal prosecution under applicable Indian civil and criminal laws. Legal notices will be sent and strict legal action will be taken against anyone found to be abusing or misusing the service or offering.

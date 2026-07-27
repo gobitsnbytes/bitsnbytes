@@ -408,7 +408,7 @@ export default function CloudPage() {
                   className="w-full text-center space-y-3"
                 >
                   <a
-                    href="https://sparkden.org/org/gobitsnbytes-foundation"
+                    href="https://sparkden.org/org/join/HJ6POGpRWhZRvT8jtEYqmMpMhmLiMOEo"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 text-base font-black uppercase tracking-wider border-3 border-border bg-[#fc920d] text-[#120f0a] shadow-[4px_4px_0px_0px_var(--border)] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_var(--border)] active:translate-y-0.5 active:shadow-none transition-all duration-150 rounded-none"
