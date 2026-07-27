@@ -36,12 +36,14 @@ export async function POST(req: NextRequest) {
       const errorText = await res.text().catch(() => "")
       console.error(`Motherboard cloud apply returned ${res.status}: ${errorText}`)
 
-      // Fallback: If Motherboard API URL is local/unreachable, attempt direct Discord Webhook dispatch
-      const webhookUrl = process.env.DISCORD_CLOUD_APPROVAL_WEBHOOK_URL
-      if (webhookUrl) {
+      // Fallback: post via Bot API so interactive buttons always render.
+      // Plain webhooks strip Discord components — we must use the Bot API.
+      const botToken = process.env.DISCORD_BOT_TOKEN
+      const channelId = process.env.DISCORD_CLOUD_CHANNEL_ID || "1507977827088207892"
+      if (botToken) {
         const fileArrayBuffer = await idFile.arrayBuffer()
         const discordFormData = new FormData()
-        
+
         const payloadJson = {
           embeds: [
             {
@@ -73,13 +75,14 @@ export async function POST(req: NextRequest) {
         discordFormData.append("payload_json", JSON.stringify(payloadJson))
         discordFormData.append("files[0]", new Blob([fileArrayBuffer], { type: idFile.type }), idFile.name)
 
-        const webhookRes = await fetch(webhookUrl, {
+        const botRes = await fetch(`https://discord.com/api/v10/channels/${channelId}/messages`, {
           method: "POST",
+          headers: { Authorization: `Bot ${botToken}` },
           body: discordFormData,
         })
 
-        if (webhookRes.ok) {
-          return NextResponse.json({ success: true, message: "Application submitted via direct webhook." })
+        if (botRes.ok) {
+          return NextResponse.json({ success: true, message: "Application submitted successfully for review." })
         }
       }
 
