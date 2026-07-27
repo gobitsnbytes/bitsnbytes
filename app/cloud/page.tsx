@@ -15,7 +15,14 @@ import {
   UserCheck,
   Scale,
   HelpCircle,
-  Globe
+  Globe,
+  Server,
+  Database,
+  Ticket,
+  HeartHandshake,
+  Zap,
+  Layers,
+  BookOpen
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -39,13 +46,16 @@ export default function CloudPage() {
           {/* Badges */}
           <div className="flex flex-wrap gap-2.5 mb-6">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-bold uppercase bg-primary text-primary-foreground border-2 border-border shadow-[2px_2px_0px_0px_var(--border)]">
-              <Cloud className="w-3.5 h-3.5" /> SparkCloud Integration
+              <Cloud className="w-3.5 h-3.5" /> SparkCloud PaaS
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-bold uppercase bg-[#fc920d] text-[#120f0a] border-2 border-border shadow-[2px_2px_0px_0px_var(--border)]">
               <UserCheck className="w-3.5 h-3.5" /> Teenagers Aged 13–19
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-bold uppercase bg-card text-foreground border-2 border-border shadow-[2px_2px_0px_0px_var(--border)]">
               <Globe className="w-3.5 h-3.5 text-emerald-500" /> India Only
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-bold uppercase bg-emerald-950/40 text-emerald-400 border-2 border-border shadow-[2px_2px_0px_0px_var(--border)]">
+              <HeartHandshake className="w-3.5 h-3.5" /> US 501(c)(3) Nonprofit Partner
             </span>
           </div>
 
@@ -99,18 +109,28 @@ export default function CloudPage() {
           </h1>
 
           <p className="text-base sm:text-lg text-foreground/80 font-medium max-w-3xl leading-relaxed mb-6">
-            Free, high-performance cloud development spaces designed for ambitious builders. Code, build, and host full-stack projects straight from your browser with zero local setup requirements.
+            Free, high-performance cloud development spaces designed for ambitious teen builders. Code, deploy, and host full-stack applications straight from your browser with zero credit cards or complex cloud setup.
           </p>
 
+          {/* Core Philosophy Banner */}
+          <div className="p-4 border-2 border-primary bg-primary/10 text-xs font-mono mb-6 space-y-1">
+            <span className="font-bold text-primary uppercase block tracking-wider">
+              Mission Philosophy: &quot;Learn By Building&quot;
+            </span>
+            <p className="text-foreground/90 font-sans text-sm italic">
+              &ldquo;Deploy. Break it. Fix it. Repeat. Every teenager should be able to deploy something real to the internet, instead of spending weeks learning complex cloud theory or corporate credit card requirements.&rdquo;
+            </p>
+          </div>
+
           {/* Quick Info Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
             <div className="border-2 border-border bg-background p-4 shadow-[3px_3px_0px_0px_var(--border)]">
               <div className="flex items-center gap-2.5 font-bold text-base mb-1.5">
                 <Terminal className="w-5 h-5 text-primary" />
                 <span>SparkCloud Environments</span>
               </div>
               <p className="text-xs text-muted-foreground leading-normal">
-                Free cloud development spaces — code, test, build, and host applications from any browser without hardware limitations.
+                Free cloud development spaces — code, test, build, and host containers and databases directly from any browser without hardware limitations.
               </p>
             </div>
 
@@ -146,6 +166,15 @@ export default function CloudPage() {
             </a>
             <span>•</span>
             <a
+              href="https://sparkden.org/philosophy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 hover:text-primary transition-colors underline decoration-2"
+            >
+              Our Philosophy <BookOpen className="w-3 h-3" />
+            </a>
+            <span>•</span>
+            <a
               href="https://cloud.sparkden.org/faq"
               target="_blank"
               rel="noopener noreferrer"
@@ -153,6 +182,63 @@ export default function CloudPage() {
             >
               SparkCloud FAQ <HelpCircle className="w-3 h-3" />
             </a>
+          </div>
+        </div>
+
+        {/* PLATFORM ARCHITECTURE & FEATURES GRID */}
+        <div className="border-4 border-border bg-card p-6 sm:p-10 shadow-[8px_8px_0px_0px_var(--border)] space-y-6">
+          <div className="border-b-2 border-border/20 pb-4">
+            <div className="flex items-center gap-2 mb-1">
+              <Layers className="w-6 h-6 text-primary" />
+              <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">
+                What SparkCloud Provides
+              </h2>
+            </div>
+            <p className="text-sm text-foreground/80 leading-relaxed">
+              Sparkden and SparkCloud are educational programs operated by <strong>The Spark Forward Foundation, Inc.</strong>, a US 501(c)(3) tax-exempt nonprofit corporation organized in <strong>New Jersey, USA (EIN: 42-2930302)</strong>.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="p-4 border-2 border-border bg-background shadow-[3px_3px_0px_0px_var(--border)] space-y-2">
+              <div className="flex items-center gap-2 font-bold text-sm text-primary">
+                <Server className="w-4 h-4" />
+                <span>Container Hosting</span>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Deploy containerized applications, Node/Python backends, REST APIs, and Discord bots with instant public URLs.
+              </p>
+            </div>
+
+            <div className="p-4 border-2 border-border bg-background shadow-[3px_3px_0px_0px_var(--border)] space-y-2">
+              <div className="flex items-center gap-2 font-bold text-sm text-[#fc920d]">
+                <Database className="w-4 h-4" />
+                <span>Managed Databases</span>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Provision high-performance database instances (PostgreSQL, data stores) for full-stack hackathon projects.
+              </p>
+            </div>
+
+            <div className="p-4 border-2 border-border bg-background shadow-[3px_3px_0px_0px_var(--border)] space-y-2">
+              <div className="flex items-center gap-2 font-bold text-sm text-emerald-500">
+                <Ticket className="w-4 h-4" />
+                <span>Tokens & Vouchers</span>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Transparent token-based billing funded through student grants & vouchers. Free tier stays real — tokens never expire.
+              </p>
+            </div>
+          </div>
+
+          <div className="p-4 border-2 border-border bg-background font-mono text-xs space-y-2 leading-relaxed">
+            <span className="font-bold text-foreground uppercase tracking-wider block flex items-center gap-1.5">
+              <Zap className="w-4 h-4 text-[#fc920d]" />
+              Zero Billing Friction for Students:
+            </span>
+            <p className="text-foreground/80">
+              Unlike AWS, GCP, or Azure, SparkCloud does not require credit cards, complex IAM permissions, or corporate billing accounts. It provides student builders with the agility of Render, Railway, Fly.io, and Vercel while keeping education and accessibility front and center.
+            </p>
           </div>
         </div>
 

@@ -97,12 +97,15 @@ A **Fork** is a recognized local, institutional, or thematic operating unit of t
 - **Tools**: GitHub, Discord, Vercel, Notion, Upstash Vector
 
 ## SparkCloud x bits&bytes™ Partnership
-- **Overview**: Free, high-performance cloud development spaces offered in partnership with Sparkden for verified bits&bytes™ teen builders.
+- **Organization & Mission**: Sparkden is an educational program owned and operated by **The Spark Forward Foundation, Inc.**, a US 501(c)(3) tax-exempt nonprofit corporation organized in New Jersey, USA in 2026 (EIN: **42-2930302**, contact: `hello@sparkden.org`). Their mission is to remove cloud deployment friction (credit card requirements, complex IAM, corporate billing) for teen builders (~13+) so they can ship real projects to the internet. Core philosophy: *"Learn by building — Deploy. Break it. Fix it. Repeat. Every teenager should be able to deploy something real."*
+- **Platform Architecture (SparkCloud)**: A student-tailored PaaS (at https://cloud.sparkden.org/) providing containerized application compute, managed databases (PostgreSQL, data stores), public URLs, and deployment environments for Discord bots, REST APIs, web apps, and hackathon projects — serving as an accessible alternative to Render, Railway, Fly.io, Vercel, and complex AWS/Azure setups.
+- **Token Grant Billing Model**: Uses a transparent token & voucher system for hourly container and database accounting. Vouchers and student grants fund token balances, ensuring free access stays real without expiring or requiring personal credit cards.
 - **What Members Get**:
   - **SparkCloud**: Free cloud development spaces — code, build, and host applications straight from any browser with zero local setup.
   - **One Verified Account**: A single Spark Account signs members into every Sparkden service and tool.
 - **Platforms & FAQs**:
   - Main platform: https://sparkden.org/
+  - Philosophy: https://sparkden.org/philosophy
   - SparkCloud app: https://cloud.sparkden.org/
   - FAQ: https://cloud.sparkden.org/faq
 - **Organization Signup Link**: https://sparkden.org/org/gobitsnbytes-foundation (valid exclusively for Indian residents/citizens).
