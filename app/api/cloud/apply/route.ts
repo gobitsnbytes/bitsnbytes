@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const motherboardUrl = process.env.MOTHERBOARD_API_URL || "https://motherboard.gobitsnbytes.org"
+    const motherboardUrl = process.env.MOTHERBOARD_API_URL || "https://api.gobitsnbytes.org"
     const targetUrl = `${motherboardUrl}/api/cloud/apply`
 
     // Create a new FormData payload to forward
