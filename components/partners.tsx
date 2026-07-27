@@ -4,10 +4,25 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { PageSection } from "@/components/page-section";
-import { Sparkles, Cpu, Zap, Globe, GitBranch } from "lucide-react";
+import { Sparkles, Cpu, Zap, Globe, GitBranch, Cloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const strategicPartners = [
+  {
+    name: "SparkCloud",
+    logo: "https://cloud.sparkden.org/sparkcloud-logo.png",
+    url: "/cloud",
+    learnMoreUrl: "/cloud",
+    learnMoreLabel: "Explore SparkCloud",
+    role: "Cloud Partner",
+    description:
+      "Free cloud development spaces for teen builders — code, build, and host applications from any browser with zero setup.",
+    features: ["Cloud IDE", "Browser Hosting", "Spark Account"],
+    color: "orange",
+    icon: <Cloud className="w-4 h-4 text-current" />,
+    logoWrapClass: "w-36",
+    logoImageClass: "scale-[1.02]",
+  },
   {
     name: "osmAPI",
     logo: "/partners/OSM-API-Light-BBO_4Eff.png",
@@ -74,7 +89,7 @@ export function Partners() {
       align="center"
       className="pb-24 relative overflow-hidden"
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mt-4 max-w-7xl mx-auto px-4 relative z-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-6 mt-4 max-w-[1400px] mx-auto px-4 relative z-10">
         {strategicPartners.map((partner, idx) => (
           <div
             key={partner.name}
