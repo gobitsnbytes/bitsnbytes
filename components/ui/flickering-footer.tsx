@@ -56,7 +56,7 @@ const socialLinks = [
     icon: Instagram,
   },
   {
-    href: "https://twitter.com/bitsnbytes_lko",
+    href: "https://x.com/gobitsnbytes",
     label: "Twitter / X",
     icon: TwitterIcon,
   },

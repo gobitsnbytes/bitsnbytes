@@ -16,10 +16,16 @@ export const metadata: Metadata = {
     canonical: "https://gobitsnbytes.org/faq",
   },
   openGraph: {
-    title: "FAQ - Frequently Asked Questions | bits&bytes™",
+    title: "FAQ | bits&bytes™ — Frequently Asked Questions",
     description: "Get answers about joining bits&bytes™, our hackathons, and what to expect from India's teen builders network.",
     url: "https://gobitsnbytes.org/faq",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "bits&bytes™ FAQ" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FAQ | bits&bytes™ — Frequently Asked Questions",
+    description: "Does bits&bytes™ cost money? Do I need experience? Can I bring a team? All answers here.",
   },
 };
 

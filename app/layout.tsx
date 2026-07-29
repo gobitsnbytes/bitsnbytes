@@ -109,8 +109,8 @@ export const metadata: Metadata = {
     description:
       "Join India's boldest pan-India youth-led builder network. Build real software, attend hackathons, and grow with 1400+ teen developers nationwide.",
     images: ["/og-image.png"],
-    creator: "@bitsnbytes_lko",
-    site: "@bitsnbytes_lko",
+    creator: "@gobitsnbytes",
+    site: "@gobitsnbytes",
   },
   verification: {
     google:
@@ -150,7 +150,7 @@ export default function RootLayout({
         "@id": "https://gobitsnbytes.org/#organization",
         name: "bits&bytes™",
         legalName: "GOBITSNBYTES FOUNDATION",
-        alternateName: ["bits&bytes", "bitsnbytes", "GOBITSNBYTES FOUNDATION"],
+        alternateName: ["bits&bytes", "bitsnbytes", "GOBITSNBYTES FOUNDATION", "bits&bytes India", "bits&bytes Builder Network"],
         url: "https://gobitsnbytes.org",
         logo: {
           "@type": "ImageObject",
@@ -160,7 +160,9 @@ export default function RootLayout({
         },
         image: "https://gobitsnbytes.org/og-image.png",
         description:
-          "India's boldest pan-India youth-led builder network operated by GOBITSNBYTES FOUNDATION (Section 8 non-profit). Running hackathons, workshops, and student hubs nationwide across Jaipur, Hyderabad, Bangalore, Kolkata, Noida, and Lucknow.",
+          "India's premier pan-India youth-led builder network operated by GOBITSNBYTES FOUNDATION (Section 8 non-profit). Organizing student hackathons, hardware meetups, AI sprints, and local builder hubs across India.",
+        disambiguatingDescription:
+          "Pan-India youth builder network and Section 8 non-profit organisation (GOBITSNBYTES FOUNDATION). Not affiliated with the PyTorch Python library bitsandbytes, BNB cryptocurrency/Binance, or Airbnb.",
         foundingDate: "2025-11-01",
         nonprofitStatus: "NonprofitSection8",
         email: "hello@gobitsnbytes.org",
@@ -208,7 +210,7 @@ export default function RootLayout({
         sameAs: [
           "https://www.linkedin.com/company/gobitsbytes",
           "https://github.com/gobitsnbytes",
-          "https://twitter.com/bitsnbytes_lko",
+          "https://x.com/gobitsnbytes",
           "https://www.instagram.com/gobitsnbytes",
           "https://discord.gg/rjqPfwKKTE",
         ],

@@ -2,16 +2,14 @@ import { Metadata } from "next";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "QnA Assistant - Ask bits&bytes™ AI Bot Questions",
+  title: "AI Assistant | Ask bits&bytes™ Anything",
   description:
-    "Chat with the official bits&bytes™ AI assistant. Ask questions about our events, team, projects, and teen coding community in India.",
-  keywords: [
-    "bits&bytes™ assistant",
-    "QnA chatbot",
-    "teen coding questions",
-    "AI assistant",
-    "bits&bytes™ support",
-  ],
+    "Chat live with the bits&bytes™ AI assistant. Ask about joining the network, upcoming events, Forks, how bits&bytes™ works, or anything else about our community.",
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: { index: false, follow: false },
+  },
   alternates: {
     canonical: "https://gobitsnbytes.org/qna",
   },
@@ -36,7 +34,7 @@ export const metadata: Metadata = {
     description:
       "Chat with the official bits&bytes™ AI assistant. Ask about our network, events, and community.",
     images: ["/og-image.png"],
-    creator: "@bitsnbytes_lko",
+    creator: "@gobitsnbytes",
   },
 };
 
