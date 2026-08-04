@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 const MOTHERBOARD_BASE = process.env.MOTHERBOARD_API_URL ?? "https://api.gobitsnbytes.org";
-const MOTHERBOARD_API_KEY = process.env.MOTHERBOARD_API_KEY ?? "";
+const MOTHERBOARD_API_KEY = process.env.MOTHERBOARD_API_KEY ?? process.env.INTERNAL_API_SECRET ?? "";
 
 const RequestSchema = z.object({
   bookingLink: z.string().min(1),
@@ -10,18 +10,13 @@ const RequestSchema = z.object({
   guestName: z.string().min(1).max(120),
   guestEmail: z.string().email(),
   message: z.string().max(500).optional(),
-  slotISO: z.string().datetime(),
+  slotISO: z.string().refine((val) => !isNaN(new Date(val).getTime()), {
+    message: "Invalid ISO date-time string",
+  }),
   duration: z.number().int().min(15).max(120).default(30),
 });
 
 export async function POST(req: NextRequest) {
-  if (!MOTHERBOARD_API_KEY) {
-    return NextResponse.json(
-      { error: "Scheduling service not configured. Please contact the team directly." },
-      { status: 503 }
-    );
-  }
-
   let body: unknown;
   try {
     body = await req.json();
@@ -53,14 +48,27 @@ export async function POST(req: NextRequest) {
   };
 
   try {
-    const upstream = await fetch(`${MOTHERBOARD_BASE}/api/meetings/schedule`, {
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    if (MOTHERBOARD_API_KEY) {
+      headers["Authorization"] = `Bearer ${MOTHERBOARD_API_KEY}`;
+    }
+
+    let upstream = await fetch(`${MOTHERBOARD_BASE}/api/meetings/schedule`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${MOTHERBOARD_API_KEY}`,
-      },
+      headers,
       body: JSON.stringify(payload),
     });
+
+    if (upstream.status === 401 || upstream.status === 404) {
+      // Fallback to public endpoint
+      upstream = await fetch(`${MOTHERBOARD_BASE}/api/meetings/public/schedule`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    }
 
     const data = await upstream.json().catch(() => ({}));
 

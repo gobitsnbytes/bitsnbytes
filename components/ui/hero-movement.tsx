@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 // Custom movement easing curve (Emil's ease-out)
-const EASE_MOVEMENT = [0.23, 1, 0.32, 1];
+const EASE_MOVEMENT = [0.23, 1, 0.32, 1] as const;
 
 // Pool of real community images from the event_pictures directory
 const COLLAGE_IMAGES = [
