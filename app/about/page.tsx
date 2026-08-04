@@ -1047,12 +1047,12 @@ export default function About() {
                                     LinkedIn
                                   </a>
                                 )}
-                                {matchingHost && (
+                                {(matchingHost || hosts.length > 0) && (
                                   <button
-                                    onClick={() => setActiveHost(matchingHost)}
-                                    className="text-[10px] font-black uppercase tracking-wider text-[#fc920d] hover:text-[#97192c] transition-colors flex items-center justify-center gap-0.5 mt-0.5"
+                                    onClick={() => setActiveHost(matchingHost || hosts[0])}
+                                    className="text-[10px] font-black uppercase tracking-wider text-[#fc920d] hover:text-[#97192c] transition-colors flex items-center justify-center gap-1 mt-0.5"
                                   >
-                                    <Calendar className="w-2.5 h-2.5" />
+                                    <Phone className="w-2.5 h-2.5" />
                                     Book Call
                                   </button>
                                 )}
@@ -1278,34 +1278,43 @@ function TeamCard({
           <span className="truncate">{email}</span>
         </a>
 
-        {/* Social Links */}
-        {socialLinks.length > 0 && (
-          <div className="flex gap-2 mt-3 pt-3 border-t border-[#120f0a]/10">
-            {socialLinks.map((link) => {
-              const Icon = link.icon;
-              return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                  rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                  className="w-7 h-7 flex items-center justify-center border-2 border-[#120f0a] bg-white shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[0.5px] hover:translate-y-[0.5px] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
-                  title={`${member.name}'s ${link.label}`}
-                >
-                  <Icon className="w-3.5 h-3.5 text-[#120f0a]" />
-                </a>
-              );
-            })}
-          </div>
-        )}
+        {/* Social Links & Call Icon */}
+        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-[#120f0a]/10">
+          {socialLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                className="w-7 h-7 flex items-center justify-center border-2 border-[#120f0a] bg-white shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[0.5px] hover:translate-y-[0.5px] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+                title={`${member.name}'s ${link.label}`}
+              >
+                <Icon className="w-3.5 h-3.5 text-[#120f0a]" />
+              </a>
+            );
+          })}
+
+          {/* Quick Call Icon Button */}
+          {(matchingHost || hosts.length > 0) && (
+            <button
+              onClick={() => onBookCall(matchingHost || hosts[0])}
+              className="w-7 h-7 flex items-center justify-center border-2 border-[#120f0a] bg-[#fc920d] shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[0.5px] hover:translate-y-[0.5px] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all ml-auto"
+              title={`Book a call with ${member.name}`}
+            >
+              <Phone className="w-3.5 h-3.5 text-[#120f0a]" />
+            </button>
+          )}
+        </div>
 
         {/* Book a Call Button directly on the card */}
-        {matchingHost && (
+        {(matchingHost || hosts.length > 0) && (
           <button
-            onClick={() => onBookCall(matchingHost)}
+            onClick={() => onBookCall(matchingHost || hosts[0])}
             className="mt-4 w-full border-2 border-[#120f0a] bg-[#97192c] text-white font-black uppercase text-xs tracking-wider py-2.5 shadow-[3px_3px_0px_0px_#120f0a] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:bg-[#791423] hover:shadow-[1.5px_1.5px_0px_0px_#120f0a] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all flex items-center justify-center gap-1.5"
           >
-            <Calendar className="w-3.5 h-3.5 shrink-0" />
+            <Phone className="w-3.5 h-3.5 shrink-0 text-[#fc920d]" />
             Book a Call
           </button>
         )}

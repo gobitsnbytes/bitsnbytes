@@ -36,19 +36,20 @@ export async function POST(req: NextRequest) {
 
   const { hostDiscordId, guestName, guestEmail, message, slotISO, duration } = parsed.data;
   const scheduledTimeMs = new Date(slotISO).getTime();
-  const endTimeMs = scheduledTimeMs + duration * 60 * 1000;
 
   const payload = {
     title: `Meeting with ${guestName}`,
     description: message
-      ? `External request.\n\nMessage:\n${message}`
-      : "External request via gobitsnbytes.org/about.",
+      ? `External request via gobitsnbytes.org.\n\nMessage:\n${message}`
+      : "External request via gobitsnbytes.org.",
     scheduled_time: scheduledTimeMs,
-    end_time: endTimeMs,
-    creator_id: hostDiscordId,
+    duration_minutes: duration || 30,
+    location_type: "discord_vc",
     location_details: "Discord VC (link sent via email)",
-    external_emails: guestEmail,
-    attendees: [{ discord_id: hostDiscordId, attendee_type: "user" }],
+    creator_id: hostDiscordId,
+    invitees: [{ id: hostDiscordId, type: "user" }],
+    external_emails: [guestEmail],
+    scope: "invite",
   };
 
   try {
