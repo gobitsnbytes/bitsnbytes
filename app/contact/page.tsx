@@ -311,7 +311,7 @@ export default function Contact() {
                       {
                         icon: Instagram,
                         label: "Instagram",
-                        href: "https://www.instagram.com/bitsnbytes.lko",
+                        href: "https://www.instagram.com/gobitsnbytes",
                         color: "hover:bg-[#fc920d]",
                       },
                     ].map((social) => (
