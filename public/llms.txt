@@ -32,6 +32,12 @@ bits&bytes™ is a teen-led builders network founded in November 2025. GOBITSNBY
 ## Events & Track Record
 - **Hack4Good v0** [ARCHIVED] — 24-hour Agentic AI hackathon held in Lucknow from April 2, 2026 to May 3, 2026, with the in-person hackathon at Cubispace, Lucknow. Theme: Architect Your Autonomy. Format: teams of 1–4, AI agents and autonomous workflows, ₹35,000 prize pool. Public metrics: 4,117 impressions, 425 registrations, and 110 on-ground attendees.
 
+- **HackerRank / Infinity Hacks 2026** [COMMUNITY PARTNERSHIP] — Community partnership recorded for Infinity Hacks 2026.
+
+- **Z.ai** [AI PARTNER] — Z.ai is an AI partner to bits&bytes™.
+
+- **GitLab** [SPONSOR] — GitLab sponsors bits&bytes™.
+
 - **India Innovates 2026** [ARCHIVED] — Held on March 28, 2026 at Bharat Mandapam, New Delhi (9 AM to 7 PM). Verified scale: 1.26 crore+ applicants, narrowed to 28,000+, then 5,000+, and finally 15 teams. Domains: Urban Solutions, Digital Democracy, and Open Innovation. Prize pool: ₹10 Lakh+ with ₹1L/₹75K/₹50K/₹25K per domain. bits&bytes™ served as the Official Executive Partner. Attended by Delhi CM Rekha Gupta, Bihar Assembly Speaker, and MP Manoj Tiwari. Post-event flow included ministry-level presentation stage. Press coverage: #IndiaInnovates2026 trended on X. Details: https://indiainnovates.org
 
 - **Execron 1.0** [ARCHIVED] — AI Hackathon & Workshop for Classes 9–12, held March 19–22, 2026 at IIT Kanpur. In collaboration with TechKriti '26. A 4-hour hands-on workshop followed by a 24-hour hackathon sprint. Topics: AI & ML, Web Development, App Development, Cybersecurity, Cloud Computing. Team sizes 1–4 members. Partners: ByteForge and bits&bytes™. Details: https://byteforge.paxus.in/
@@ -155,7 +161,7 @@ A **Fork** is a recognized local, institutional, or thematic operating unit of t
 - **WhatsApp Community**: https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg
 - **LinkedIn**: https://www.linkedin.com/company/gobitsbytes
 - **GitHub**: https://github.com/gobitsnbytes
-- **Instagram**: https://www.instagram.com/bitsnbytes.lko
+- **Instagram**: https://www.instagram.com/gobitsnbytes
 - **Location**: Lucknow, India
 
 ## Brand Kit
@@ -230,4 +236,3 @@ pnpm tsx scripts/embed-site.ts
 
 ---
 Last updated: July 2026
-
