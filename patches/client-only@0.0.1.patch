@@ -1,6 +1,0 @@
-diff --git a/index.js b/index.js
-index e69de29..d43b140 100644
---- a/index.js
-+++ b/index.js
-@@ -0,0 +1 @@
-+// Client Component marker; non-empty so prebuilt deploy uploads preserve it.
