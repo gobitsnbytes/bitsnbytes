@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { Play, Volume2, X, ArrowUpRight } from "lucide-react";
+import { Play, Volume2, X, ArrowUpRight, FileDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -248,7 +248,12 @@ export const HeroMovement: React.FC = () => {
   }, [closeMovie, isMovieOpen, playMovie]);
 
   return (
-    <section className="relative w-full bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] pt-24 pb-12 sm:pt-28 lg:pt-32 xl:pt-36 sm:pb-12 lg:pb-16 transition-colors duration-300 overflow-hidden">
+    <section
+      data-tour="page-hero"
+      data-cinematic-section
+      data-cinematic-title="the movement"
+      className="relative w-full bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] pt-24 pb-12 sm:pt-28 lg:pt-32 xl:pt-36 sm:pb-12 lg:pb-16 transition-colors duration-300 overflow-hidden"
+    >
       {/* Blueprint Grid Overlay */}
       <div className="absolute inset-0 blueprint-dot-grid pointer-events-none" />
 
@@ -302,6 +307,26 @@ export const HeroMovement: React.FC = () => {
               </span>
             </Button>
           </div>
+
+          <Link
+            href="/prospectus?download=1"
+            data-tour="prospectus"
+            className="group flex w-full max-w-md items-center gap-3 border-l-2 border-[#fc920d] px-3 py-2.5 font-mono text-[#120f0a] transition-[background-color,color,transform] duration-200 ease-out hover:translate-x-1 hover:bg-[#fc920d]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#97192c] focus-visible:ring-offset-2 dark:text-[#faf8f5] dark:focus-visible:ring-offset-[#120f0a]"
+            aria-label="Download the bits&bytes partnership prospectus"
+          >
+            <FileDown className="h-4 w-4 shrink-0 text-[#97192c] transition-transform duration-200 ease-out group-hover:translate-y-0.5 dark:text-[#fc920d]" />
+            <span className="min-w-0 flex-1 text-left">
+              <span className="block text-[10px] font-bold uppercase tracking-[0.18em] text-[#97192c] dark:text-[#fc920d]">
+                building a partnership?
+              </span>
+              <span className="block text-xs font-bold uppercase tracking-[0.08em] sm:text-[13px]">
+                download the 2026 prospectus
+              </span>
+            </span>
+            <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#120f0a]/50 dark:text-[#faf8f5]/50">
+              pdf
+            </span>
+          </Link>
 
           {/* Metrics / Stats Grid Row */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-[#120f0a]/15 mt-3 lg:mt-2 xl:mt-3">

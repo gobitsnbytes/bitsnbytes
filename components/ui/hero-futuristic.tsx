@@ -176,6 +176,29 @@ export const HeroFuturistic = () => {
                 </Button>
               </div>
 
+              <div className="flex flex-col gap-3 sm:flex-row w-full">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full sm:flex-1 h-11 rounded-none bg-transparent text-[11px] font-black uppercase tracking-[0.22em] text-foreground border-2 border-border shadow-[3px_3px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+                >
+                  <Link href="/prospectus" className="flex items-center justify-center gap-2">
+                    View prospectus
+                    <ArrowRight className="h-3.5 w-3.5 shrink-0" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full sm:flex-1 h-11 rounded-none bg-[#fda83d] text-[11px] font-black uppercase tracking-[0.22em] text-[#120f0a] border-2 border-border shadow-[3px_3px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+                >
+                  <Link href="/prospectus?download=1" download className="flex items-center justify-center gap-2">
+                    Download PDF
+                    <Sparkles className="h-3.5 w-3.5 shrink-0 fill-current" />
+                  </Link>
+                </Button>
+              </div>
+
               {/* Stats Grid */}
               <div className="mt-auto border-t-4 border-border pt-4 sm:pt-6">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
