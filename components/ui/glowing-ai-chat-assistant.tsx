@@ -1288,8 +1288,15 @@ const FloatingAiAssistant: React.FC = () => {
     <div className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-50">
       <div className="relative">
         {/* Proactive tooltip */}
-        {showProactive && !isChatOpen && (
-          <div className="absolute bottom-full right-0 mb-4 w-[200px] border-3 border-[#120f0a] bg-white text-[#120f0a] px-3 py-2.5 shadow-[4px_4px_0px_0px_#120f0a] rounded-none animate-in slide-in-from-bottom-3 fade-in duration-400">
+        <AnimatePresence initial={false}>
+          {showProactive && !isChatOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.98 }}
+            transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+            className="absolute bottom-full right-0 mb-4 w-[200px] border-3 border-[#120f0a] bg-white text-[#120f0a] px-3 py-2.5 shadow-[4px_4px_0px_0px_#120f0a] rounded-none"
+          >
             <button
               onClick={() => setShowProactive(false)}
               className="absolute top-1.5 right-1.5 p-0.5 text-[#120f0a]/60 hover:text-[#120f0a] transition-colors"
@@ -1306,8 +1313,9 @@ const FloatingAiAssistant: React.FC = () => {
                     : "Hey! Want to know what we do? 🚀"}
             </p>
             <div className="absolute -bottom-[7px] right-4 h-2.5 w-2.5 rotate-45 border-b-3 border-r-3 border-[#120f0a] bg-white" />
-          </div>
-        )}
+          </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Floating AI button */}
         <button
@@ -1331,11 +1339,16 @@ const FloatingAiAssistant: React.FC = () => {
         </button>
 
         {/* Chat panel */}
-        {isChatOpen && (
-          <div
-            ref={chatRef}
-            className="fixed inset-4 bottom-[4.5rem] sm:absolute sm:inset-auto sm:bottom-16 sm:right-0 w-auto sm:w-[360px] origin-bottom-right animate-slide-in-up flex flex-col justify-end"
-          >
+        <AnimatePresence initial={false}>
+          {isChatOpen && (
+            <motion.div
+              ref={chatRef}
+              initial={{ opacity: 0, y: 18, scale: 0.975 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 12, scale: 0.985 }}
+              transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
+              className="fixed inset-4 bottom-[4.5rem] sm:absolute sm:inset-auto sm:bottom-16 sm:right-0 w-auto sm:w-[360px] origin-bottom-right flex flex-col justify-end"
+            >
             <div className="relative flex w-full max-h-[80vh] sm:max-h-[500px] flex-col overflow-hidden rounded-none border-4 border-[#120f0a] bg-white shadow-[8px_8px_0px_0px_#120f0a]">
               {/* Header — single clean row */}
               <div className="flex items-center justify-between px-4 py-2.5 border-b-4 border-[#120f0a] bg-[#fee9cf] text-[#120f0a]">
@@ -1476,7 +1489,19 @@ const FloatingAiAssistant: React.FC = () => {
                     Thinking...
                   </div>
                 )}
-                {error && <p className="text-xs text-red-600 font-mono font-bold">{error}</p>}
+                <AnimatePresence initial={false}>
+                  {error && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -3 }}
+                      transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+                      className="text-xs text-red-600 font-mono font-bold"
+                    >
+                      {error}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Input */}
@@ -1490,8 +1515,9 @@ const FloatingAiAssistant: React.FC = () => {
                 />
               </div>
             </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Lightbox Modal */}

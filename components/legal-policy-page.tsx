@@ -173,7 +173,12 @@ export function LegalPolicyPage({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Banner with burst details */}
-        <header className="mb-12 border-b-4 border-[#120f0a] pb-10 relative">
+        <header
+          data-tour="page-hero"
+          data-cinematic-section
+          data-cinematic-title={title.toLowerCase()}
+          className="mb-12 border-b-4 border-[#120f0a] pb-10 relative"
+        >
           <div className="absolute -right-6 -top-6 hidden md:block animate-spin-slow">
             <Starburst size={90} className="text-[#97192c]" />
           </div>
@@ -235,7 +240,11 @@ export function LegalPolicyPage({
         </div>
 
         {/* Main Workspace Layout */}
-        <div className="grid gap-8 lg:grid-cols-[18rem_1fr] items-start">
+        <div
+          data-cinematic-section
+          data-cinematic-title="the public record"
+          className="grid gap-8 lg:grid-cols-[18rem_1fr] items-start"
+        >
           
           {/* Sidebar navigation */}
           <aside className="sticky top-28 hidden lg:block space-y-4">

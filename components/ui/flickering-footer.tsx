@@ -128,7 +128,10 @@ export function FlickeringFooter() {
       <div className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8 relative z-10">
         
         {/* Trust Center Panel - Styled as a bold Neobrutalist block */}
-        <div className="relative overflow-hidden border-4 border-border bg-card p-5 sm:p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)] rounded-none">
+        <div
+          data-tour="footer-trust"
+          className="relative overflow-hidden border-4 border-border bg-card p-5 sm:p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)] rounded-none"
+        >
           <div className="relative grid gap-6 lg:grid-cols-[18rem_1fr] lg:items-start">
             <div className="space-y-3 sm:space-y-4">
               <div className="inline-flex items-center gap-2 border-2 border-border bg-accent text-accent-foreground px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider shadow-[3px_3px_0px_0px_var(--border)] rounded-none">

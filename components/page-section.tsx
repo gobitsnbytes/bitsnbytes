@@ -29,6 +29,8 @@ export function PageSection({
 
   return (
     <Component
+      data-cinematic-section
+      data-cinematic-title={title ?? eyebrow}
       className={cn(
         "section-shell py-6 sm:py-10 md:py-14 px-4 sm:px-6 lg:px-8 overflow-x-hidden",
         bleed && "max-w-none px-0 sm:px-6",

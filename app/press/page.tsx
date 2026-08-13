@@ -112,7 +112,12 @@ export default function PressKit() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Hero Banner Header */}
-        <header className="mb-12 border-b-4 border-[#120f0a] pb-10 relative">
+        <header
+          data-tour="page-hero"
+          data-cinematic-section
+          data-cinematic-title="the official kit"
+          className="mb-12 border-b-4 border-[#120f0a] pb-10 relative"
+        >
           <div className="absolute -right-6 -top-6 hidden md:block animate-spin-slow">
             <Starburst size={80} className="text-[#fc920d]" />
           </div>
@@ -138,7 +143,7 @@ export default function PressKit() {
         </header>
 
         {/* Main Content Area */}
-        <main className="space-y-12">
+        <div className="space-y-12">
           
           {/* Logo Downloads */}
           <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
@@ -522,7 +527,7 @@ export default function PressKit() {
             </div>
           </section>
           
-        </main>
+        </div>
       </div>
 
       <script

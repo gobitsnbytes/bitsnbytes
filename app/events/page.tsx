@@ -113,7 +113,12 @@ export default function Events() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Hero Banner Header */}
-        <header className="mb-12 border-b-4 border-[#120f0a] pb-10 relative">
+        <header
+          data-tour="page-hero"
+          data-cinematic-section
+          data-cinematic-title="the event log"
+          className="mb-12 border-b-4 border-[#120f0a] pb-10 relative"
+        >
           <div className="absolute -right-6 -top-6 hidden md:block animate-spin-slow">
             <Starburst size={90} className="text-[#97192c]" />
           </div>
@@ -185,6 +190,8 @@ export default function Events() {
         <div className="space-y-12">
           <AnimatePresence mode="wait">
             <motion.div
+              data-cinematic-section
+              data-cinematic-title="the event archive"
               key={activeEvent}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}

@@ -12,7 +12,8 @@ export default function QnAPage() {
     };
 
     return (
-        <main
+        <section
+            data-tour="page-hero"
             className="flex flex-col w-full px-0 pt-20 sm:pt-24 lg:pt-28 pb-4 bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] transition-colors duration-300 transform scale-110 origin-top-left min-h-screen lg:h-full lg:min-h-0 lg:overflow-hidden"
             aria-label="bits&bytes™ QnA Assistant"
         >
@@ -129,6 +130,6 @@ export default function QnAPage() {
                     </div>
                 </div>
             </div>
-        </main>
+        </section>
     );
 }

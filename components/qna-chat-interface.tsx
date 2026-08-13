@@ -1072,11 +1072,19 @@ export function QnAChatInterface({ className }: { className?: string }) {
               </div>
             </motion.div>
           )}
-          {error && (
-            <div className="p-4 mx-auto w-full max-w-sm text-center rounded-none bg-red-100 border border-red-500 text-sm text-red-600 font-bold">
-              {error}
-            </div>
-          )}
+          <AnimatePresence initial={false}>
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+                className="p-4 mx-auto w-full max-w-sm text-center rounded-none bg-red-100 border border-red-500 text-sm text-red-600 font-bold"
+              >
+                {error}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 

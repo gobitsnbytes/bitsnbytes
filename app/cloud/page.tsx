@@ -109,7 +109,12 @@ export default function CloudPage() {
       <div className="max-w-5xl mx-auto space-y-6 sm:space-y-10">
 
         {/* ── HERO ── */}
-        <div className="relative border-4 border-border bg-card p-6 sm:p-10 shadow-[8px_8px_0px_0px_var(--border)] overflow-hidden">
+        <div
+          data-tour="page-hero"
+          data-cinematic-section
+          data-cinematic-title="cloud for builders"
+          className="relative border-4 border-border bg-card p-6 sm:p-10 shadow-[8px_8px_0px_0px_var(--border)] overflow-hidden"
+        >
           {/* Geometric accent — starburst, not blob */}
           <div
             className="absolute -top-8 -right-8 w-40 h-40 opacity-[0.07] pointer-events-none select-none"
@@ -216,7 +221,11 @@ export default function CloudPage() {
         </div>
 
         {/* ── WHAT SPARKCLOUD PROVIDES ── */}
-        <div className="border-4 border-border bg-card p-6 sm:p-10 shadow-[8px_8px_0px_0px_var(--border)] space-y-6">
+        <div
+          data-cinematic-section
+          data-cinematic-title="what you get"
+          className="border-4 border-border bg-card p-6 sm:p-10 shadow-[8px_8px_0px_0px_var(--border)] space-y-6"
+        >
           <div className="border-b-2 border-border/20 pb-4">
             <div className="flex items-center gap-2 mb-1">
               <Layers className="w-5 h-5 text-primary shrink-0" />
@@ -253,7 +262,11 @@ export default function CloudPage() {
         </div>
 
         {/* ── ANTI-ABUSE WARNING ── */}
-        <div className="border-4 border-[#97192c] bg-[#97192c]/10 p-6 sm:p-8 shadow-[8px_8px_0px_0px_#97192c]">
+        <div
+          data-cinematic-section
+          data-cinematic-title="the hard limits"
+          className="border-4 border-[#97192c] bg-[#97192c]/10 p-6 sm:p-8 shadow-[8px_8px_0px_0px_#97192c]"
+        >
           <div className="flex flex-col sm:flex-row items-start gap-4">
             <div className="p-2.5 bg-[#97192c] text-white border-2 border-border shadow-[2px_2px_0px_0px_var(--border)] shrink-0">
               <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -282,7 +295,11 @@ export default function CloudPage() {
         </div>
 
         {/* ── POLICY AGREEMENT & VERIFICATION GATE ── */}
-        <div className="border-4 border-border bg-card p-6 sm:p-10 shadow-[8px_8px_0px_0px_var(--border)] space-y-6 sm:space-y-8">
+        <div
+          data-cinematic-section
+          data-cinematic-title="verify and apply"
+          className="border-4 border-border bg-card p-6 sm:p-10 shadow-[8px_8px_0px_0px_var(--border)] space-y-6 sm:space-y-8"
+        >
           <div>
             <div className="flex items-center gap-2 mb-1.5">
               <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-500 shrink-0" />
