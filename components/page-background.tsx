@@ -2,19 +2,26 @@
 
 import { cn } from "@/lib/utils";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
+import { VantaBackdrop } from "@/components/vanta-backdrop";
+import { useExperience } from "@/components/experience-provider";
 
 type PageBackgroundProps = {
   className?: string;
 };
 
 export function PageBackground({ className }: PageBackgroundProps) {
+  const { motionEnabled } = useExperience();
+
   return (
     <div
       aria-hidden
       className={cn("pointer-events-none fixed inset-0 z-0 overflow-hidden bg-background transition-colors duration-300", className)}
     >
+      <VantaBackdrop />
+
       {/* Animated Neobrutalist coordinate grid */}
       <AnimatedGridPattern
+        isAnimated={motionEnabled}
         numSquares={30}
         maxOpacity={0.05}
         duration={3}

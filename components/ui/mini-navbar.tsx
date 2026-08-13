@@ -4,11 +4,20 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight, Github } from "lucide-react";
+import {
+    Menu,
+    X,
+    ArrowUpRight,
+    Github,
+    Map,
+    Pause,
+    Play,
+} from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { useTheme } from "next-themes";
+import { useExperience } from "@/components/experience-provider";
 
 const NAV_LINKS = [
     { href: "/", label: "Home" },
@@ -58,6 +67,7 @@ export function MiniNavbar() {
     const [isOpen, setIsOpen] = useState(false);
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    const { motionEnabled, startTour, toggleMotion } = useExperience();
 
     useEffect(() => {
         setMounted(true);
@@ -93,8 +103,41 @@ export function MiniNavbar() {
         </Link>
     );
 
+    const experienceControls = (
+        <div
+            className="flex items-center gap-2"
+            data-tour="experience-controls"
+        >
+            <button
+                type="button"
+                onClick={startTour}
+                className="flex h-10 min-w-10 items-center justify-center gap-2 border-2 border-border bg-card px-2.5 font-mono text-[10px] font-black uppercase tracking-wider text-foreground shadow-[2px_2px_0px_0px_var(--border)] transition-[transform,box-shadow,background-color,color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-secondary hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                aria-label="Start the site tour"
+                title="Start the site tour"
+            >
+                <Map className="h-4 w-4" aria-hidden="true" />
+                <span className="hidden 2xl:inline">Tour</span>
+            </button>
+            <button
+                type="button"
+                onClick={toggleMotion}
+                className="flex h-10 min-w-10 items-center justify-center border-2 border-border bg-card px-2 text-foreground shadow-[2px_2px_0px_0px_var(--border)] transition-[transform,box-shadow,background-color,color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-secondary hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                aria-label={`${motionEnabled ? "Pause" : "Play"} immersive motion`}
+                aria-pressed={!motionEnabled}
+                title={`${motionEnabled ? "Pause" : "Play"} immersive motion`}
+            >
+                {motionEnabled ? (
+                    <Pause className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                    <Play className="h-4 w-4 translate-x-px" aria-hidden="true" />
+                )}
+            </button>
+        </div>
+    );
+
     return (
         <header suppressHydrationWarning={true}
+            data-tour="navigation"
             className={cn(
                 "fixed top-4 sm:top-6 z-50",
                 "flex flex-col items-center",
@@ -118,13 +161,14 @@ export function MiniNavbar() {
                             alt="bits&bytes™ logo"
                             width={26}
                             height={26}
+                            priority
                             suppressHydrationWarning
                             className="object-contain invert dark:invert-0"
                         />
                     </div>
                 </Link>
 
-                <nav className="hidden lg:flex items-center space-x-5 lg:space-x-6">
+                <nav className="hidden xl:flex items-center space-x-5 xl:space-x-6">
                     {NAV_LINKS.map((link) => (
                         <AnimatedNavLink 
                             key={link.href} 
@@ -136,7 +180,8 @@ export function MiniNavbar() {
                     ))}
                 </nav>
 
-                <div className="hidden lg:flex items-center gap-2 lg:gap-3">
+                <div className="hidden xl:flex items-center gap-2 xl:gap-3">
+                    {experienceControls}
                     {mounted && (
                         <AnimatedThemeToggler
                             variant="star"
@@ -148,7 +193,7 @@ export function MiniNavbar() {
                     {signupButtonElement}
                 </div>
 
-                <div className="flex items-center gap-2 lg:hidden">
+                <div className="flex items-center gap-2 xl:hidden">
                     {mounted && (
                         <AnimatedThemeToggler
                             variant="star"
@@ -157,7 +202,7 @@ export function MiniNavbar() {
                         />
                     )}
                     <button
-                        className="flex items-center justify-center w-10 h-10 border-2 border-border bg-card text-foreground shadow-[2px_2px_0px_0px_var(--border)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_var(--border)] focus:outline-none active:translate-y-0.5 active:shadow-none transition-all relative overflow-hidden"
+                        className="flex items-center justify-center w-10 h-10 border-2 border-border bg-card text-foreground shadow-[2px_2px_0px_0px_var(--border)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_var(--border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:translate-y-0.5 active:shadow-none transition-[transform,box-shadow] relative overflow-hidden"
                         onClick={toggleMenu}
                         aria-label={isOpen ? "Close Menu" : "Open Menu"}
                     >
@@ -186,7 +231,7 @@ export function MiniNavbar() {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.25, ease: "easeInOut" }}
-                        className="lg:hidden flex flex-col items-center w-full overflow-hidden"
+                        className="xl:hidden flex flex-col items-center w-full overflow-hidden"
                     >
                         <nav className="flex flex-col items-center space-y-3 w-full pt-6 border-t border-border/15 mt-3">
                             {NAV_LINKS.map((link) => {
@@ -207,6 +252,7 @@ export function MiniNavbar() {
                             })}
                         </nav>
                         <div className="flex flex-col items-center gap-3 mt-6 pb-4 w-full">
+                            {experienceControls}
                             {signupButtonElement}
                             {loginButtonElement}
                         </div>
