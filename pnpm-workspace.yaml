@@ -7,3 +7,5 @@ allowBuilds:
   msw: true
   protobufjs: true
   sharp: true
+patchedDependencies:
+  client-only@0.0.1: patches/client-only@0.0.1.patch

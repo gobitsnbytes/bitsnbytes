@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  client-only@0.0.1: e81e55b4d5facbf4481784f48581ea94a5e74aca3a3c6a29c70df3f5d70218a5
+
 importers:
 
   .:
@@ -7185,7 +7188,7 @@ snapshots:
 
   cli-width@4.1.0: {}
 
-  client-only@0.0.1: {}
+  client-only@0.0.1(patch_hash=e81e55b4d5facbf4481784f48581ea94a5e74aca3a3c6a29c70df3f5d70218a5): {}
 
   cliui@8.0.1:
     dependencies:
@@ -9804,7 +9807,7 @@ snapshots:
 
   styled-jsx@5.1.6(@babel/core@7.29.0)(react@19.2.3):
     dependencies:
-      client-only: 0.0.1
+      client-only: 0.0.1(patch_hash=e81e55b4d5facbf4481784f48581ea94a5e74aca3a3c6a29c70df3f5d70218a5)
       react: 19.2.3
     optionalDependencies:
       '@babel/core': 7.29.0
