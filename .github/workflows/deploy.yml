@@ -15,10 +15,15 @@ jobs:
     if: github.repository == 'gobitsnbytes/bitsnbytes'
     steps:
       - uses: actions/checkout@v3
-      
-      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
         with:
-          version: 9
+          node-version: 22
+
+      - uses: pnpm/action-setup@v4
+
+      - name: Install project dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
