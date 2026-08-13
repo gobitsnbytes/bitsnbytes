@@ -17,7 +17,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import type { Driver, DriveStep } from "driver.js";
 
-const TOUR_STORAGE_KEY = "bnb-cinematic-tour-v1";
 const MOTION_STORAGE_KEY = "bnb-immersive-motion";
 
 type ExperienceContextValue = {
@@ -71,7 +70,6 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
   });
   const progressRef = useRef<HTMLDivElement>(null);
   const tourRef = useRef<Driver | null>(null);
-  const autoTourStartedRef = useRef(false);
 
   useEffect(() => {
     setSettledPath(null);
@@ -236,9 +234,9 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       {
         element: document.querySelector('[data-tour="navigation"]'),
         popover: {
-          title: "the map",
+          title: "Site navigation",
           description:
-            "seven doors, one network. move between the work, the people, and the public record from here.",
+            "Use these links to explore our events, programmes, impact, team, and press resources.",
           side: "bottom",
           align: "center",
         },
@@ -248,9 +246,9 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
           document.querySelector('[data-tour="page-hero"]') ??
           document.querySelector("main h1"),
         popover: {
-          title: "start with the claim",
+          title: "About this page",
           description:
-            "each page opens with the thing it can prove. the rest of the scroll is the evidence.",
+            "This introduction gives you the key information first. Scroll down for details and supporting work.",
           side: "bottom",
           align: "start",
         },
@@ -258,9 +256,9 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       {
         element: document.querySelector('[data-tour="prospectus"]'),
         popover: {
-          title: "take the full brief",
+          title: "Partnership prospectus",
           description:
-            "the partnership prospectus puts the whole story in one file. download it, forward it, and use it to start the serious conversation.",
+            "Download our 2026 prospectus for partnership opportunities, programmes, reach, and contact information.",
           side: "bottom",
           align: "start",
         },
@@ -268,9 +266,9 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       {
         element: getTopLevelSections()[1] ?? getTopLevelSections()[0] ?? null,
         popover: {
-          title: "follow the build",
+          title: "Scroll progress",
           description:
-            "the chapters sharpen as they enter the frame. scroll normally; the site keeps your place without taking over.",
+            "The page marker shows which section you are reading and how far you have progressed.",
           side: "top",
           align: "start",
         },
@@ -278,9 +276,9 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       {
         element: document.querySelector('[data-tour="footer-trust"]'),
         popover: {
-          title: "the rules are public",
+          title: "Trust center",
           description:
-            "safety, privacy, conduct, and brand stewardship live here. being teen-led still means being accountable.",
+            "Read our safety, privacy, conduct, and intellectual-property policies from the footer.",
           side: "top",
           align: "center",
         },
@@ -312,12 +310,11 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       popoverClass: "bnb-driver-popover",
       showProgress: true,
       progressText: "{{current}} / {{total}}",
-      nextBtnText: "next",
-      prevBtnText: "back",
-      doneBtnText: "done",
+      nextBtnText: "Next",
+      prevBtnText: "Back",
+      doneBtnText: "Done",
       steps,
       onDestroyed: () => {
-        window.localStorage.setItem(TOUR_STORAGE_KEY, "seen");
         tourRef.current = null;
       },
     });
@@ -325,21 +322,6 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
     tourRef.current = tour;
     tour.drive();
   }, [motionEnabled]);
-
-  useEffect(() => {
-    if (
-      pathname !== "/" ||
-      autoTourStartedRef.current ||
-      window.localStorage.getItem(TOUR_STORAGE_KEY) ||
-      window.innerWidth < 900
-    ) {
-      return;
-    }
-
-    autoTourStartedRef.current = true;
-    const timer = window.setTimeout(startTour, 1300);
-    return () => window.clearTimeout(timer);
-  }, [pathname, startTour]);
 
   useEffect(() => () => tourRef.current?.destroy(), [pathname]);
 
