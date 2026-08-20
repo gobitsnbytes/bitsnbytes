@@ -202,6 +202,30 @@ const minecraftJsonLd = {
       screenshot: "/og-image.png",
     },
     {
+      "@type": "HowTo",
+      "@id": "https://gobitsnbytes.org/minecraft#howto-connect",
+      name: "How to Join the bits&bytes™ Minecraft Server",
+      description: "Quick setup instructions to connect on PC (Java) or Mobile/Console (Bedrock) using IP mc.gobitsnbytes.org.",
+      totalTime: "PT2M",
+      step: [
+        {
+          "@type": "HowToStep",
+          name: "Launch Minecraft 1.21.1",
+          text: "Open Minecraft Java Edition or Bedrock Edition (PE / Windows / Console).",
+        },
+        {
+          "@type": "HowToStep",
+          name: "Add Server",
+          text: "Click Multiplayer -> Add Server. Set Server Address to mc.gobitsnbytes.org (Port 25565 for Java, 19132 for Bedrock).",
+        },
+        {
+          "@type": "HowToStep",
+          name: "Connect & Play",
+          text: "Double-click the server to join immediately with zero mods required.",
+        },
+      ],
+    },
+    {
       "@type": "FAQPage",
       "@id": "https://gobitsnbytes.org/minecraft#faq",
       mainEntity: [

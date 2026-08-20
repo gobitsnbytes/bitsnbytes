@@ -89,6 +89,8 @@ const culturePillars = [
   },
 ];
 
+import { Breadcrumbs } from "@/components/breadcrumb";
+
 export default function Impact() {
   return (
     <div className="w-full min-h-screen bg-[#eae8e4] text-[#120f0a] pt-28 pb-20 relative z-10 font-sans selection:bg-[#fc920d] selection:text-[#120f0a]">
@@ -96,7 +98,8 @@ export default function Impact() {
       <div className="absolute inset-0 bg-noise-texture opacity-[0.06] pointer-events-none z-0" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+        <Breadcrumbs items={[{ name: "Our Impact", href: "/impact" }]} />
+
         {/* Hero Banner Header */}
         <header
           data-tour="page-hero"
@@ -118,13 +121,13 @@ export default function Impact() {
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight text-[#120f0a] leading-none mb-6">
+          <h1 data-speakable="true" className="text-5xl md:text-7xl font-black uppercase tracking-tight text-[#120f0a] leading-none mb-6">
             Beyond the <br />
             <span className="bg-[#fc920d] px-2 py-0.5 border-[3px] border-[#120f0a] inline-block shadow-[4px_4px_0px_0px_#120f0a] -rotate-1">venue walls</span>
           </h1>
 
-          <p className="font-serif text-lg md:text-xl text-[#413f3b] max-w-[70ch] leading-relaxed">
-            From first-time hackathons to squads inside local schools, we build experiences that get teens building, and we ship the results publicly.
+          <p data-speakable="true" data-citation="true" className="font-serif text-lg md:text-xl text-[#413f3b] max-w-[70ch] leading-relaxed">
+            From first-time hackathons to squads inside local schools, we build experiences that get teens building, and we ship the results publicly across India.
           </p>
         </header>
 

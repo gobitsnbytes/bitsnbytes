@@ -58,6 +58,8 @@ export const metadata: Metadata = {
     "agentic ai hackathons india",
     "free tech events for teens",
     "section 8 non profit youth tech",
+    "sparkcloud free student compute",
+    "minecraft server india 1.21 crossplay",
   ],
   authors: [{ name: "bits&bytes™ Team", url: "https://gobitsnbytes.org/about" }],
   creator: "GOBITSNBYTES FOUNDATION",
@@ -69,8 +71,14 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://gobitsnbytes.org",
+    types: {
+      "application/rss+xml": "https://gobitsnbytes.org/rss.xml",
+      "application/atom+xml": "https://gobitsnbytes.org/feed.xml",
+    },
     languages: {
       "en-IN": "https://gobitsnbytes.org",
+      "en": "https://gobitsnbytes.org",
+      "x-default": "https://gobitsnbytes.org",
     },
   },
   robots: {
@@ -116,6 +124,9 @@ export const metadata: Metadata = {
   verification: {
     google:
       process.env.GOOGLE_SITE_VERIFICATION || "google-site-verification-code",
+    other: {
+      "msvalidate.01": process.env.BING_SITE_VERIFICATION || "msvalidate01-verification-token",
+    },
   },
   category: "education",
   classification: "Nonprofit Pan-India Youth Builder Network",
@@ -151,7 +162,13 @@ export default function RootLayout({
         "@id": "https://gobitsnbytes.org/#organization",
         name: "bits&bytes™",
         legalName: "GOBITSNBYTES FOUNDATION",
-        alternateName: ["bits&bytes", "bitsnbytes", "GOBITSNBYTES FOUNDATION", "bits&bytes India", "bits&bytes Builder Network"],
+        alternateName: [
+          "bits&bytes",
+          "bitsnbytes",
+          "GOBITSNBYTES FOUNDATION",
+          "bits&bytes India",
+          "bits&bytes Builder Network",
+        ],
         url: "https://gobitsnbytes.org",
         logo: {
           "@type": "ImageObject",
@@ -179,34 +196,13 @@ export default function RootLayout({
           longitude: 80.9462,
         },
         areaServed: [
-          {
-            "@type": "Country",
-            name: "India",
-          },
-          {
-            "@type": "City",
-            name: "Jaipur",
-          },
-          {
-            "@type": "City",
-            name: "Hyderabad",
-          },
-          {
-            "@type": "City",
-            name: "Bengaluru",
-          },
-          {
-            "@type": "City",
-            name: "Kolkata",
-          },
-          {
-            "@type": "City",
-            name: "Noida",
-          },
-          {
-            "@type": "City",
-            name: "Lucknow",
-          },
+          { "@type": "Country", name: "India" },
+          { "@type": "City", name: "Jaipur" },
+          { "@type": "City", name: "Hyderabad" },
+          { "@type": "City", name: "Bengaluru" },
+          { "@type": "City", name: "Kolkata" },
+          { "@type": "City", name: "Noida" },
+          { "@type": "City", name: "Lucknow" },
         ],
         sameAs: [
           "https://www.linkedin.com/company/gobitsbytes",
@@ -214,6 +210,7 @@ export default function RootLayout({
           "https://x.com/gobitsnbytes",
           "https://www.instagram.com/gobitsnbytes",
           "https://discord.gg/rjqPfwKKTE",
+          "https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg",
         ],
         contactPoint: [
           {
@@ -258,6 +255,52 @@ export default function RootLayout({
           name: "India",
         },
       },
+      {
+        "@type": "Dataset",
+        "@id": "https://gobitsnbytes.org/#national-youth-developer-data-2026",
+        name: "India Teen Builder & Youth Developer Benchmark 2026",
+        description:
+          "Proprietary benchmark and demographic research on 1,400+ Indian teen developers, hackathon shipping rates, and agentic AI adoption across regional builder hubs.",
+        creator: { "@id": "https://gobitsnbytes.org/#organization" },
+        temporalCoverage: "2025-11-01/2026-08-20",
+        spatialCoverage: "India",
+        variableMeasured: [
+          "Active Teen Builders (1,400+)",
+          "Hackathon Project Evaluation Rate (2,700+ submissions)",
+          "Mean Builder Age (16.5 Years)",
+          "Agentic AI Tool Adoption (84%)",
+          "Active Regional Forks (5+ Cities)",
+        ],
+        license: "https://creativecommons.org/licenses/by/4.0/",
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://gobitsnbytes.org/#howto-join",
+        name: "How to Join the bits&bytes™ Youth Builder Network",
+        description: "Step-by-step guide for teenagers aged 13-19 to join India's boldest developer community for free.",
+        totalTime: "PT5M",
+        estimatedCost: { "@type": "MonetaryAmount", currency: "INR", value: "0" },
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Apply Online",
+            text: "Fill out the free membership form at https://gobitsnbytes.org/join with your interests and GitHub/portfolio details.",
+            url: "https://gobitsnbytes.org/join",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Join the Discord & WhatsApp Community",
+            text: "Get onboarded into your regional pod, introduce yourself, and meet fellow teen builders.",
+            url: "https://discord.gg/rjqPfwKKTE",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Attend Hackathons & Ship Real Software",
+            text: "Participate in weekend sprints, deploy on SparkCloud, or compete in city hackathons.",
+            url: "https://gobitsnbytes.org/events",
+          },
+        ],
+      },
     ],
   };
 
@@ -282,6 +325,10 @@ export default function RootLayout({
       "query-input": "required name=search_term_string",
     },
     inLanguage: "en-IN",
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "h2", "[data-speakable='true']"],
+    },
   };
 
   // Breadcrumb for homepage
@@ -356,7 +403,6 @@ export default function RootLayout({
     ],
   };
 
-
   return (
     <html
       lang="en-IN"
@@ -364,9 +410,19 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="dns-prefetch" href="https://vercel.live" />
+        <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
+        <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
+        <link rel="preconnect" href="https://vitals.vercel-insights.com" crossOrigin="anonymous" />
+        <link rel="alternate" type="application/rss+xml" title="bits&bytes™ RSS Feed" href="https://gobitsnbytes.org/rss.xml" />
+        <link rel="alternate" type="application/atom+xml" title="bits&bytes™ Atom Feed" href="https://gobitsnbytes.org/feed.xml" />
       </head>
       <body className="font-sans antialiased bg-background text-foreground selection:bg-accent/30 selection:text-primary overflow-x-hidden">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:font-bold focus:shadow-[4px_4px_0px_0px_var(--border)] focus:outline-none"
+        >
+          Skip to main content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

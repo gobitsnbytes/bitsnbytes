@@ -21,6 +21,7 @@ import {
   ChevronDown
 } from "lucide-react";
 import { githubDevDayEvent, lucknowBuildGuildEvent, hack4goodEvent } from "@/lib/events-data";
+import { Breadcrumbs } from "@/components/breadcrumb";
 
 // IMPECCABLE_PREFLIGHT: context=pass product=pass command_reference=pass shape=not_required image_gate=skipped:using_css_styling_no_new_image_assets_needed mutation=open
 
@@ -111,6 +112,7 @@ export default function Events() {
       <div className="absolute inset-0 bg-noise-texture opacity-[0.06] pointer-events-none z-0" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <Breadcrumbs items={[{ name: "Events", href: "/events" }]} />
         
         {/* Hero Banner Header */}
         <header
@@ -136,13 +138,13 @@ export default function Events() {
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight text-[#120f0a] leading-none mb-6">
+          <h1 data-speakable="true" className="text-5xl md:text-7xl font-black uppercase tracking-tight text-[#120f0a] leading-none mb-6">
             Where code meets <br />
             <span className="bg-[#fc920d] px-2 py-0.5 border-[3px] border-[#120f0a] inline-block shadow-[4px_4px_0px_0px_#120f0a] -rotate-1">the real world</span>
           </h1>
 
-          <p className="font-serif-brand text-lg md:text-xl text-[#413f3b] max-w-[70ch] leading-relaxed">
-            Hackathons, summits, and workshops where teen builders actually ship things.
+          <p data-speakable="true" data-citation="true" className="font-serif-brand text-lg md:text-xl text-[#413f3b] max-w-[70ch] leading-relaxed">
+            Hackathons, summits, and workshops where teen builders actually ship things across India.
           </p>
 
           {/* Quick Highlight Cards */}

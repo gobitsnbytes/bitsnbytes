@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import * as Dialog from "@radix-ui/react-dialog";
+import { Breadcrumbs } from "@/components/breadcrumb";
 
 // Starburst component for branding/retro aesthetics
 const Starburst = ({ className = "text-[#97192c]", size = 32 }: { className?: string; size?: number }) => (
@@ -872,6 +873,7 @@ export default function About() {
       <div className="absolute inset-0 bg-noise-texture opacity-[0.06] pointer-events-none z-0" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <Breadcrumbs items={[{ name: "About", href: "/about" }]} />
         
         {/* Banner Title */}
         <header
@@ -894,11 +896,11 @@ export default function About() {
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight text-[#120f0a] leading-none mb-6">
+          <h1 data-speakable="true" className="text-5xl md:text-7xl font-black uppercase tracking-tight text-[#120f0a] leading-none mb-6">
             About <span className="bg-[#fc920d] px-2 py-0.5 border-[3px] border-[#120f0a] inline-block shadow-[4px_4px_0px_0px_#120f0a] -rotate-1">bits&bytes™</span>
           </h1>
 
-          <p className="font-serif-brand text-lg md:text-xl text-[#413f3b] max-w-[70ch] leading-relaxed">
+          <p data-speakable="true" data-citation="true" className="font-serif-brand text-lg md:text-xl text-[#413f3b] max-w-[70ch] leading-relaxed">
             {aboutContent.description}
           </p>
 

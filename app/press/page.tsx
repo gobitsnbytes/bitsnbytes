@@ -94,6 +94,8 @@ const departmentLeads = TEAM_MEMBERS.filter(
   (member) => member.role.startsWith("Head"),
 );
 
+import { Breadcrumbs } from "@/components/breadcrumb";
+
 export default function PressKit() {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
 
@@ -110,7 +112,8 @@ export default function PressKit() {
       <div className="absolute inset-0 bg-noise-texture opacity-[0.06] pointer-events-none z-0" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+        <Breadcrumbs items={[{ name: "Press & Media Kit", href: "/press" }]} />
+
         {/* Hero Banner Header */}
         <header
           data-tour="page-hero"
@@ -132,12 +135,12 @@ export default function PressKit() {
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight text-[#120f0a] leading-none mb-6">
+          <h1 data-speakable="true" className="text-5xl md:text-7xl font-black uppercase tracking-tight text-[#120f0a] leading-none mb-6">
             Press kit &amp; <br />
             <span className="bg-[#fc920d] px-2 py-0.5 border-[3px] border-[#120f0a] inline-block shadow-[4px_4px_0px_0px_#120f0a] -rotate-1">brand assets</span>
           </h1>
 
-          <p className="font-serif text-lg md:text-xl text-[#413f3b] max-w-[70ch] leading-relaxed">
+          <p data-speakable="true" data-citation="true" className="font-serif text-lg md:text-xl text-[#413f3b] max-w-[70ch] leading-relaxed">
             Official logos, color palettes, typography specs, public facts, and media contact paths for bits&bytes™.
           </p>
         </header>

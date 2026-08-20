@@ -50,7 +50,7 @@ const forkJsonLd = {
       "@type": "WebPage",
       "@id": "https://gobitsnbytes.org/fork#webpage",
       url: "https://gobitsnbytes.org/fork",
-      name: "Fork Network | bits&bytes™",
+      name: "Fork Network | Start a bits&bytes™ Hub in Your City",
       description: "Student-run local chapters of the bits&bytes™ network across India.",
       isPartOf: { "@id": "https://gobitsnbytes.org/#website" },
       breadcrumb: {
@@ -60,6 +60,53 @@ const forkJsonLd = {
           { "@type": "ListItem", position: 2, name: "Fork Network", item: "https://gobitsnbytes.org/fork" },
         ],
       },
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://gobitsnbytes.org/fork#howto-start-a-fork",
+      name: "How to Launch a bits&bytes™ Regional Fork Chapter",
+      description: "Instructions for high school and teenage builders to start a local hackathon and builder squad in their city.",
+      totalTime: "P14D",
+      step: [
+        {
+          "@type": "HowToStep",
+          name: "Submit Fork Application",
+          text: "Apply online at https://gobitsnbytes.org/fork with your city, team members, and proposed events.",
+          url: "https://gobitsnbytes.org/fork",
+        },
+        {
+          "@type": "HowToStep",
+          name: "Complete Interview & Board Review",
+          text: "Align with Upstream leadership on safety policies, brand standards, and community guidelines.",
+        },
+        {
+          "@type": "HowToStep",
+          name: "Receive Operational Kit & Host Kickoff",
+          text: "Get access to graphics, venue playbooks, sponsor introductions, and run your first local meetup.",
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://gobitsnbytes.org/fork#faq",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What is a bits&bytes™ Fork?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "A Fork is a recognized local or institutional chapter of the bits&bytes™ network where students run hackathons, workshops, and build squads under our non-profit governance.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can a Fork raise its own funds or sign contracts?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. Fork recognition is an operational and brand-use license. All legal agreements, sponsorship contracts, and fundraising must be executed through Upstream at GOBITSNBYTES FOUNDATION.",
+          },
+        },
+      ],
     },
   ],
 };

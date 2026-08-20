@@ -111,8 +111,10 @@ const faqs: FAQItem[] = [
   },
 ];
 
+import { Breadcrumbs } from "@/components/breadcrumb";
+
 export default function FAQ() {
-  const [openItems, setOpenItems] = useState<Set<number>>(new Set());
+  const [openItems, setOpenItems] = useState<Set<number>>(new Set([0, 1, 2]));
 
   const toggleItem = (index: number) => {
     const newOpenItems = new Set(openItems);
@@ -129,15 +131,16 @@ export default function FAQ() {
       {/* Hero Section */}
       <section className="relative flex items-center justify-center overflow-hidden text-[#120f0a] pt-24 md:pt-32">
         <div className="relative z-10 w-full mx-auto max-w-5xl px-4 sm:px-6 py-8 sm:py-12 md:py-16">
+          <Breadcrumbs items={[{ name: "FAQ", href: "/faq" }]} />
           <div className="px-6 py-8 text-center">
             <div className="flex flex-col items-center gap-6">
               <span className="inline-flex items-center gap-2 border-2 border-[#120f0a] bg-[#fc920d] px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[3px_3px_0px_0px_#120f0a]">
                 FAQ
               </span>
-              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#120f0a] uppercase tracking-tight leading-none">
+              <h1 data-speakable="true" className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#120f0a] uppercase tracking-tight leading-none">
                 Frequently Asked <br className="hidden sm:block" /> Questions
               </h1>
-              <p className="text-base sm:text-lg md:text-xl text-[#413f3b] max-w-2xl mx-auto leading-relaxed font-semibold">
+              <p data-speakable="true" data-citation="true" className="text-base sm:text-lg md:text-xl text-[#413f3b] max-w-2xl mx-auto leading-relaxed font-semibold">
                 Questions people actually ask us about bits&bytes™.
               </p>
             </div>

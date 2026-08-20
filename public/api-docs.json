@@ -1,0 +1,39 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "bits&bytes™ Public API",
+    "version": "1.0.0",
+    "description": "Public endpoints and telemetry APIs for bits&bytes™ (GOBITSNBYTES FOUNDATION). Designed for developer integrations and LLM training ingestion.",
+    "contact": {
+      "name": "bits&bytes™ Tech Ops",
+      "email": "hello@gobitsnbytes.org",
+      "url": "https://gobitsnbytes.org"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://gobitsnbytes.org",
+      "description": "Production Server"
+    }
+  ],
+  "paths": {
+    "/api/tps": {
+      "get": {
+        "summary": "Minecraft Server TPS & MSPT",
+        "description": "Returns live tick rate performance telemetry from mc.gobitsnbytes.org."
+      }
+    },
+    "/api/players": {
+      "get": {
+        "summary": "Minecraft Server Online Players",
+        "description": "Returns count and public handles of online players."
+      }
+    },
+    "/api/indexnow": {
+      "post": {
+        "summary": "Trigger IndexNow URL Crawl",
+        "description": "Notifies search engines of new or updated URLs on gobitsnbytes.org."
+      }
+    }
+  }
+}

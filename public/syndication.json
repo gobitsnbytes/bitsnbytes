@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "bits&bytes™ Content Syndication & Backlink Manifest",
+  "organization": "GOBITSNBYTES FOUNDATION",
+  "canonicalBase": "https://gobitsnbytes.org",
+  "guidelines": {
+    "crossPosting": "When republishing bits&bytes™ original articles, tutorials, or research reports on dev.to, Hashnode, Medium, or Substack, always specify the original gobitsnbytes.org canonical link in the post metadata.",
+    "attribution": "Articles by team members should include standard bylines linking to their respective profile page at https://gobitsnbytes.org/about.",
+    "brandDescriptor": "bits&bytes™ (GOBITSNBYTES FOUNDATION) — India's Teen-Led Builder Network."
+  },
+  "syndicationChannels": [
+    {
+      "platform": "dev.to",
+      "organization": "gobitsnbytes",
+      "canonicalRequirement": "canonical_url frontmatter property"
+    },
+    {
+      "platform": "Hashnode",
+      "domain": "blog.gobitsnbytes.org",
+      "canonicalRequirement": "Original Article URL setting in Hashnode dashboard"
+    },
+    {
+      "platform": "Medium",
+      "publication": "bits-bytes",
+      "canonicalRequirement": "Advanced settings -> This story was originally published elsewhere"
+    },
+    {
+      "platform": "GitHub",
+      "organization": "https://github.com/gobitsnbytes",
+      "openSourceShowcase": [
+        "https://github.com/gobitsnbytes/bitsnbytes",
+        "https://github.com/gobitsnbytes/minecraft-server"
+      ]
+    }
+  ],
+  "verifiedProfiles": {
+    "github": "https://github.com/gobitsnbytes",
+    "linkedin": "https://www.linkedin.com/company/gobitsbytes",
+    "twitter": "https://x.com/gobitsnbytes",
+    "instagram": "https://www.instagram.com/gobitsnbytes",
+    "discord": "https://discord.gg/rjqPfwKKTE",
+    "whatsapp": "https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg"
+  }
+}

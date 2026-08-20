@@ -34,6 +34,7 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Breadcrumbs } from "@/components/breadcrumb";
 
 export default function CloudPage() {
   const [checkedAge, setCheckedAge] = useState(false);
@@ -107,6 +108,7 @@ export default function CloudPage() {
       style={{ fontFamily: "'Helvetica Now', 'Helvetica Neue', Helvetica, Arial, sans-serif" }}
     >
       <div className="max-w-5xl mx-auto space-y-6 sm:space-y-10">
+        <Breadcrumbs items={[{ name: "SparkCloud", href: "/cloud" }]} />
 
         {/* ── HERO ── */}
         <div
@@ -162,11 +164,11 @@ export default function CloudPage() {
             </div>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-tight mb-3 leading-none">
+          <h1 data-speakable="true" className="text-3xl sm:text-5xl font-black uppercase tracking-tight mb-3 leading-none">
             SparkCloud <span className="text-[#fc920d]">× bits&bytes™</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-foreground/80 font-medium max-w-3xl leading-relaxed mb-6">
+          <p data-speakable="true" data-citation="true" className="text-sm sm:text-base text-foreground/80 font-medium max-w-3xl leading-relaxed mb-6">
             Free, high-performance cloud development spaces for ambitious teen builders. Code, deploy, and host full-stack applications from your browser — no credit card, no corporate account, no gatekeeping.
           </p>
 

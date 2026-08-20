@@ -86,6 +86,36 @@ const cloudPageJsonLd = {
         description: "Free cloud credits for qualifying bits&bytes™ members",
       },
     },
+    {
+      "@type": "FAQPage",
+      "@id": "https://gobitsnbytes.org/cloud#faq",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What is SparkCloud?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "SparkCloud is an educational PaaS operated in partnership with Sparkden (The Spark Forward Foundation, Inc.) that provides free cloud development spaces, container compute, and databases for teen builders without credit cards.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Who is eligible for SparkCloud credits?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Active bits&bytes™ community members who are Indian residents aged 13 to 19 with a verified GitHub account and Student ID.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does SparkCloud require a credit card?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. SparkCloud uses a transparent non-expiring student token grant billing model that eliminates credit card requirements and surprise cloud bills.",
+          },
+        },
+      ],
+    },
   ],
 };
 

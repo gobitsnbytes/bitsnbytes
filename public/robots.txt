@@ -1,53 +1,61 @@
-# Robots.txt for Bits&Bytes (gobitsnbytes.org)
-# SEO-optimized crawler directives
+# Robots.txt for bits&bytes™ (gobitsnbytes.org)
+# Managed by GOBITSNBYTES FOUNDATION
 
 User-agent: *
 Allow: /
-Allow: *.css$
-Allow: *.js$
-Allow: *.png$
-Allow: *.jpg$
-Allow: *.jpeg$
-Allow: *.gif$
-Allow: *.svg$
-Allow: *.webp$
-
-# Disallow paths that should not be indexed
 Disallow: /api/
-Disallow: /_next/
-Disallow: /.next/
-Disallow: /node_modules/
-Disallow: /public/
-Disallow: /*.json$
-Disallow: /*?*sort=
-Disallow: /*?*filter=
+Disallow: /private/
+Disallow: /admin/
 
-# Crawl delay for respectful scraping (optional)
-Crawl-delay: 1
-
-# Sitemap location
-Sitemap: https://gobitsnbytes.org/sitemap.xml
-Sitemap: https://gobitsnbytes.org/llms.txt
-
-# Bot-specific rules
-User-agent: Googlebot
+# AI and LLM Crawlers
+User-agent: GPTBot
 Allow: /
 
-User-agent: Bingbot
+User-agent: ChatGPT-User
 Allow: /
 
-User-agent: Slurp
+User-agent: OAI-SearchBot
 Allow: /
 
-User-agent: DuckDuckBot
+User-agent: ClaudeBot
 Allow: /
 
-# Block low-quality bots
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Block low-quality spam scrapers
 User-agent: MJ12bot
 Disallow: /
 
-User-agent: SemrushBot
-Disallow: /
+# Sitemap and LLM resources
+Sitemap: https://gobitsnbytes.org/sitemap.xml
+Sitemap: https://gobitsnbytes.org/rss.xml
+Sitemap: https://gobitsnbytes.org/llms.txt
 
-User-agent: AhrefsBot
-Disallow: /

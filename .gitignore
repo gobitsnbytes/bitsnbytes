@@ -35,3 +35,8 @@ notion-wiki/
 
 scratch/
 agreements/*
+tmp/
+**/__pycache__/
+*.pyc
+prospectus.html
+prospectus.pdf

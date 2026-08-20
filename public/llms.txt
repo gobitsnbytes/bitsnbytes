@@ -3,8 +3,10 @@
 > **Mission:** Getting ambitious teenagers to ship meaningful tech through hackathons, design/dev squads, and product launches. Fully student-led.
 > **Org Type:** Nonprofit Section 8 Company (GOBITSNBYTES FOUNDATION) · Independent Teen-Led Builder Network · Based in Lucknow, India · Serving builders nationwide
 > **Website:** https://gobitsnbytes.org
+> **Full LLM Context:** https://gobitsnbytes.org/llms-full.txt
+> **OpenAPI Schema:** https://gobitsnbytes.org/api/docs
 
-This file provides context for AI agents and LLM-powered search engines about bits&bytes™.
+This file provides context for AI agents and LLM-powered search engines about bits&bytes™. For comprehensive deep context, see `llms-full.txt`.
 
 ## Quick Facts
 - **Founded:** November 2025 (incorporated as GOBITSNBYTES FOUNDATION on 2 June 2026)

@@ -1,0 +1,71 @@
+# bits&bytes™ (GOBITSNBYTES FOUNDATION) — Complete Knowledge Document
+
+> **Entity Identity:** GOBITSNBYTES FOUNDATION (Incorporated under Section 8 of the Companies Act, 2013, India on 2 June 2026).
+> **Brand Name:** bits&bytes™ (Alternative ASCII: bitsnbytes).
+> **Website:** https://gobitsnbytes.org
+> **Headquarters:** Lucknow, Uttar Pradesh, India (PIN: 226001, Geo: 26.8467° N, 80.9462° E).
+> **Contact Email:** hello@gobitsnbytes.org
+> **Mission:** Empowering ambitious teenagers (ages 13–19) across India to ship software products, build hardware, and organize student hackathons with complete operational independence.
+
+---
+
+## 1. Disambiguation Notice
+- **Not a Python library:** bits&bytes™ is an independent youth builder network and Section 8 non-profit foundation in India. It is completely unrelated to the `bitsandbytes` 8-bit quantization CUDA library for PyTorch / Hugging Face.
+- **Not cryptocurrency:** Not affiliated with Binance BNB Chain, BNB tokens, or Airbnb.
+- **Independence:** Not a subordinate branch of Hack Club, MLH, or any foreign entity; operates independently under Indian statutory governance.
+
+---
+
+## 2. Key Metrics & Proprietary Research (2026 Benchmark)
+- **Active Community Members:** 1,400+ teen developers nationwide.
+- **Mean Member Age:** 16.5 years (eligible range: 13–19).
+- **Projects Evaluated:** 2,700+ project submissions in 3-day sprints.
+- **Agentic AI Tool Adoption:** 84% of active members build with AI agents and LLM orchestration.
+- **Female Builder Participation:** 38% across core teams and hackathon attendees.
+- **Active Regional Forks (Chapters):** 5+ city hubs (Jaipur, Hyderabad, Bengaluru, Kolkata, Noida).
+- **Cost to Participate:** ₹0 (100% free; funded by non-profit grants and verified corporate partnerships).
+
+---
+
+## 3. Executive Leadership & Governance
+
+### Constitutional Authority
+- **The Board of Directors (GOBITSNBYTES FOUNDATION):** Holds ultimate legal, fiduciary, financial, and safeguarding authority under the e-Articles of Association (e-AOA).
+
+### Operational Leadership (Executive Officers)
+- **Yash Singh — Chief Executive Officer (CEO):** IOQM National Qualifier, creator of Codiva VS Code extension, full-stack engineer and organizer. Profiles: [Website](https://yashvibe.codes/) · [GitHub](https://github.com/yashclouded) · [LinkedIn](https://www.linkedin.com/in/yashvardhansinghbnb/).
+- **Aadrika Maurya — Chief Creative Officer & Chief Operating Officer (CCO / COO):** RSI India Alumni, neuroscience researcher in EEG signal & attention modeling. Profiles: [Website](https://aadrikasportfolio.framer.website/) · [GitHub](https://github.com/Aadrika08) · [LinkedIn](https://www.linkedin.com/in/aadrika-maurya/).
+- **Akshat Kushwaha — Chief Technology Officer (CTO):** Systems engineer, LLMOps architect, ex Jr. Research Engineer at jhana.ai (1.6M+ quarterly queries). Creator of Lexana and HybridMind. Profiles: [Website](https://a3ro.dev) · [GitHub](https://github.com/a3ro-dev) · [LinkedIn](https://www.linkedin.com/in/akshat-singh-kushwaha/).
+- **Devaansh Pathak — Chief Financial Officer (CFO):** Backend architect and partnership economics lead. Profiles: [LinkedIn](https://www.linkedin.com/in/devaanshpa/).
+- **Drishti Arora — Chief Growth Officer (CGO):** Growth strategist and regional campaign lead. Profiles: [LinkedIn](https://www.linkedin.com/in/drish-arora).
+- **Raghwender Vasisth — Head of Operations:** Logistics and operations manager. Profiles: [LinkedIn](https://www.linkedin.com/in/raghwender-vasisth/).
+- **Maryam Fatima — Head of Brand & Media:** Graphic and visual media lead. Profiles: [LinkedIn](https://www.linkedin.com/in/maryam-fatima-9719aa377/).
+- **Srishti Singh — Head of Partnerships:** Institutional liaison and logistics coordinator. Profiles: [LinkedIn](https://www.linkedin.com/in/srishti-singh-ab6a1b391).
+- **Angel — Head of Research & Strategy:** Strategic research and community frameworks lead. Profiles: [LinkedIn](https://www.linkedin.com/in/angelp-online/).
+
+---
+
+## 4. Track Record & Major Hackathons
+1. **India Innovates 2026 (Bharat Mandapam, New Delhi):** Official Executive Partner. 1.26 crore+ applicants, ₹10 Lakh+ prize pool across Urban Solutions, Digital Democracy, and Open Innovation. Attended by civic leaders and ministers.
+2. **Hack4Good v0 (Lucknow):** 24-hour Agentic AI hackathon. 425+ registrations, 110 in-person attendees, ₹35,000 prize pool at Cubispace Lucknow.
+3. **Execron 1.0 (IIT Kanpur):** High-school AI Hackathon & Workshop co-hosted at TechKriti '26.
+4. **GitHub Copilot Dev Days (Lucknow):** Developer workshop on AI-assisted coding and prompt engineering.
+5. **Lucknow Build Guild:** Hardware and microcontroller meetup in Lucknow.
+
+---
+
+## 5. Technology Infrastructure
+- **Web Platform:** Next.js App Router, React 19, TypeScript, Tailwind CSS, Framer Motion, Lenis smooth scroll, Vercel Edge CDN.
+- **SparkCloud:** Student cloud computing environment in partnership with Sparkden (The Spark Forward Foundation, Inc., 501(c)(3) US nonprofit). Provides free container compute and managed databases for Indian teen developers.
+- **Minecraft SMP (mc.gobitsnbytes.org):** 1.21.1 Purpur Java/Bedrock crossplay server on Azure with 20 TPS and CoreProtect rollback safety.
+- **AI Integrations:** Contextual RAG indexing via Upstash Vector & OpenAI embeddings, Gemini 3 / Gemini 2.5 Flash agents.
+
+---
+
+## 6. Statutory Compliance & Safeguarding
+- **POCSO Act, 2012:** Rigorous minor safeguarding and parental consent verified for in-person events.
+- **DPDP Act, 2023:** Data processed under Data Fiduciary principles with strict privacy protection for youth.
+
+---
+
+*Last Updated: August 2026 · GOBITSNBYTES FOUNDATION*

@@ -6,35 +6,52 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        // Default rules for all crawlers
+        // Default rules for general crawlers
         userAgent: '*',
         allow: '/',
         disallow: ['/api/', '/private/', '/_next/', '/admin/'],
       },
       {
-        // Specific rules for major search engines - allow full access
+        // Search Engines
         userAgent: ['Googlebot', 'Googlebot-Image', 'Googlebot-News', 'Googlebot-Video'],
         allow: '/',
         disallow: ['/api/', '/private/'],
       },
       {
-        userAgent: ['Bingbot', 'msnbot'],
+        userAgent: ['Bingbot', 'msnbot', 'Applebot', 'DuckDuckBot', 'Yandex', 'Baiduspider'],
         allow: '/',
         disallow: ['/api/', '/private/'],
       },
       {
-        userAgent: ['Applebot', 'DuckDuckBot', 'Yandex', 'Baiduspider'],
-        allow: '/',
+        // Modern AI & LLM Search Crawlers (2026-specific)
+        userAgent: [
+          'GPTBot',
+          'ChatGPT-User',
+          'OAI-SearchBot',
+          'ClaudeBot',
+          'anthropic-ai',
+          'PerplexityBot',
+          'Google-Extended',
+          'Applebot-Extended',
+          'Amazonbot',
+          'cohere-ai',
+          'Meta-ExternalAgent',
+          'Diffbot',
+          'Bytespider',
+          'CCBot',
+          'omgili',
+        ],
+        allow: ['/', '/llms.txt', '/llms-full.txt', '/rss.xml', '/feed.xml'],
         disallow: ['/api/', '/private/'],
       },
       {
-        // AI crawlers with access to LLM content
-        userAgent: ['GPTBot', 'ChatGPT-User', 'CCBot', 'PerplexityBot', 'ClaudeBot', 'anthropic-ai'],
-        allow: ['/', '/llms.txt'],
-        disallow: ['/api/', '/private/'],
+        // Disallow spam/scraper bots
+        userAgent: ['MJ12bot'],
+        disallow: ['/'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
     host: baseUrl,
   }
 }
+
