@@ -222,16 +222,20 @@ export function LegalPolicyPage({
           <div className="bg-white border-[3px] border-[#120f0a] p-3 shadow-[4px_4px_0px_0px_#120f0a] flex items-center gap-3">
             <Search className="w-5 h-5 text-[#716f6c]" />
             <input 
+              id="policy-search"
               type="text" 
               placeholder={`Search ${title} guidelines...`} 
+              aria-label={`Search ${title} guidelines`}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full focus:outline-none bg-transparent font-mono text-sm text-[#120f0a] placeholder-[#a09f9d]"
+              className="w-full focus:outline-none bg-transparent font-mono text-sm text-[#120f0a] placeholder-[#716f6c]"
             />
             {searchQuery && (
               <button 
+                type="button"
                 onClick={() => setSearchQuery("")}
-                className="bg-[#eae8e4] border border-[#120f0a] text-xs font-mono font-bold px-2 py-0.5 hover:bg-neutral-200"
+                aria-label="Clear search input"
+                className="bg-[#eae8e4] border border-[#120f0a] text-xs font-mono font-bold px-2 py-0.5 hover:bg-neutral-200 cursor-pointer"
               >
                 Clear
               </button>

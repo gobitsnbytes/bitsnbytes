@@ -34,6 +34,7 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumb";
 
 export default function CloudPage() {
@@ -47,6 +48,7 @@ export default function CloudPage() {
   const [github, setGithub] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [idFile, setIdFile] = useState<File | null>(null);
+  const [consentedKyc, setConsentedKyc] = useState(false);
 
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -70,6 +72,11 @@ export default function CloudPage() {
     e.preventDefault();
     if (!fullName || !email || !github || !linkedin || !idFile) {
       setErrorMessage("Please fill out all fields and attach your Student ID / School ID.");
+      return;
+    }
+
+    if (!consentedKyc) {
+      setErrorMessage("Please consent to the identity verification and Privacy Policy to proceed.");
       return;
     }
 
@@ -468,10 +475,11 @@ export default function CloudPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-mono font-black uppercase flex items-center gap-1.5 tracking-widest">
+                      <label htmlFor="cloud-fullname" className="text-[10px] font-mono font-black uppercase flex items-center gap-1.5 tracking-widest">
                         <User className="w-3.5 h-3.5 text-primary" /> Full Name <span className="text-[#97192c]">*</span>
                       </label>
                       <input
+                        id="cloud-fullname"
                         type="text"
                         required
                         placeholder="e.g. Yash Singh"
@@ -482,10 +490,11 @@ export default function CloudPage() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-mono font-black uppercase flex items-center gap-1.5 tracking-widest">
+                      <label htmlFor="cloud-email" className="text-[10px] font-mono font-black uppercase flex items-center gap-1.5 tracking-widest">
                         <Mail className="w-3.5 h-3.5 text-primary" /> Email Address <span className="text-[#97192c]">*</span>
                       </label>
                       <input
+                        id="cloud-email"
                         type="email"
                         required
                         placeholder="yourname@gmail.com"
@@ -496,10 +505,11 @@ export default function CloudPage() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-mono font-black uppercase flex items-center gap-1.5 tracking-widest">
+                      <label htmlFor="cloud-github" className="text-[10px] font-mono font-black uppercase flex items-center gap-1.5 tracking-widest">
                         <Github className="w-3.5 h-3.5 text-primary" /> GitHub Profile URL <span className="text-[#97192c]">*</span>
                       </label>
                       <input
+                        id="cloud-github"
                         type="url"
                         required
                         placeholder="https://github.com/yourusername"
@@ -510,10 +520,11 @@ export default function CloudPage() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-mono font-black uppercase flex items-center gap-1.5 tracking-widest">
+                      <label htmlFor="cloud-linkedin" className="text-[10px] font-mono font-black uppercase flex items-center gap-1.5 tracking-widest">
                         <Linkedin className="w-3.5 h-3.5 text-primary" /> LinkedIn Profile URL <span className="text-[#97192c]">*</span>
                       </label>
                       <input
+                        id="cloud-linkedin"
                         type="url"
                         required
                         placeholder="https://linkedin.com/in/yourusername"
@@ -526,7 +537,7 @@ export default function CloudPage() {
 
                   {/* ID Upload — explicit guidance to stop cat photos */}
                   <div className="space-y-3 pt-1">
-                    <label className="text-[10px] font-mono font-black uppercase flex items-center gap-1.5 tracking-widest">
+                    <label htmlFor="cloud-id-file" className="text-[10px] font-mono font-black uppercase flex items-center gap-1.5 tracking-widest">
                       <IdCard className="w-3.5 h-3.5 text-[#fc920d]" /> ID Document <span className="text-[#97192c]">*</span>
                     </label>
 
@@ -537,20 +548,21 @@ export default function CloudPage() {
                       </p>
                       <ul className="space-y-0.5 text-foreground/70 pl-5 list-disc">
                         <li>School / College ID card (with your name and photo)</li>
-                        <li>Aadhaar card (you may redact your Aadhaar number — your name and photo are sufficient)</li>
+                        <li><strong>Masked Aadhaar card</strong> (first 8 digits masked — your name and photo are sufficient)</li>
                         <li>Passport (bio-data page only)</li>
                         <li>Any other government or institution-issued photo ID</li>
                       </ul>
                       <div className="mt-2 pt-2 border-t border-border/30 flex items-start gap-1.5 text-[#97192c]">
                         <TriangleAlert className="w-3.5 h-3.5 shrink-0 mt-0.5" />
                         <p className="font-black uppercase tracking-wide">
-                          Do NOT upload photos of pets, screenshots, blank images, or anything unrelated to identity verification. Fraudulent uploads result in immediate disqualification and may trigger legal action.
+                          Do NOT upload photos of pets, screenshots, blank images, or unmasked Aadhaar numbers. Fraudulent uploads result in immediate disqualification and permanent blacklisting.
                         </p>
                       </div>
                     </div>
 
                     <div className="border-2 border-dashed border-border bg-background p-5 text-center hover:border-primary transition-colors cursor-pointer relative">
                       <input
+                        id="cloud-id-file"
                         type="file"
                         accept="image/*,.pdf"
                         required
@@ -571,6 +583,25 @@ export default function CloudPage() {
                         )}
                       </div>
                     </div>
+                  </div>
+
+                  {/* DPDP Act 2023 Verification Consent */}
+                  <div className="p-3.5 border-2 border-border bg-background flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      id="cloud-consent"
+                      checked={consentedKyc}
+                      onChange={(e) => setConsentedKyc(e.target.checked)}
+                      required
+                      className="mt-0.5 h-4 w-4 rounded-none border-2 border-border focus:ring-0 accent-primary shrink-0 cursor-pointer"
+                    />
+                    <label htmlFor="cloud-consent" className="text-xs font-semibold leading-relaxed cursor-pointer select-none text-foreground/90">
+                      I consent to GOBITSNBYTES FOUNDATION processing my ID document solely for identity verification and anti-abuse protection on SparkCloud, in accordance with the{" "}
+                      <Link href="/privacy" target="_blank" className="font-bold underline text-primary hover:text-[#fc920d]">
+                        Privacy Policy
+                      </Link>
+                      . If under 18, I confirm I have obtained parental or guardian consent.
+                    </label>
                   </div>
 
                   <div className="pt-2 flex justify-end">

@@ -17,6 +17,7 @@ import {
   FileText,
   MessageSquare,
   ArrowRight,
+  ShieldCheck,
 } from "lucide-react";
 import { useState, FormEvent, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -41,6 +42,7 @@ export default function Contact() {
     message: string;
   }>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [hasConsented, setHasConsented] = useState(false);
   const [mounted, setMounted] = useState(false);
   const captchaRef = useRef<any>(null);
 
@@ -70,6 +72,15 @@ export default function Contact() {
     const email = (formData.get("email") as string) || "";
     const subject = (formData.get("subject") as string) || "";
     const message = (formData.get("message") as string) || "";
+
+    if (!hasConsented) {
+      setStatus({
+        type: "error",
+        message: "Please agree to the Terms of Service & Privacy Policy to send your message.",
+      });
+      setIsSubmitting(false);
+      return;
+    }
 
     if (!captchaToken) {
       setStatus({ type: "error", message: "Please complete the CAPTCHA." });
@@ -334,6 +345,31 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
+
+              {/* Statutory Entity & Grievance Redressal Card */}
+              <div className="bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-5 text-[#120f0a] rounded-none">
+                <div className="flex items-center gap-2 mb-2">
+                  <ShieldCheck className="h-4 w-4 text-[#97192c]" />
+                  <h4 className="font-display text-[10px] font-black uppercase tracking-widest text-[#716f6c]">
+                    Corporate Entity &amp; Grievances
+                  </h4>
+                </div>
+                <p className="text-xs font-black text-[#120f0a]">GOBITSNBYTES FOUNDATION</p>
+                <p className="text-[10px] font-mono text-primary dark:text-[#97192c] font-bold">CIN: U85500UP2026NPL248652</p>
+                <p className="text-[11px] font-semibold text-[#413f3b] mt-0.5">Section 8 Non-Profit Company · UP, India</p>
+                <p className="text-[10px] text-[#716f6c] mt-0.5">Regd. Office: 265/1 Patrakar Colony, Ashok Nagar, Prayagraj - 211001</p>
+                <div className="mt-3 pt-3 border-t border-[#120f0a]/15 text-[11px] space-y-1">
+                  <p className="text-[#413f3b]">
+                    <strong>Grievances:</strong>{" "}
+                    <a href="mailto:grievance@gobitsnbytes.org" className="underline font-mono text-[#97192c] hover:text-[#fc920d]">
+                      grievance@gobitsnbytes.org
+                    </a>
+                  </p>
+                  <p className="text-[10px] text-[#716f6c]">
+                    Statutory acknowledgment within 24 hours · Resolution within 15 days
+                  </p>
+                </div>
+              </div>
             </div>
 
             {/* Right Column: Contact Form */}
@@ -455,6 +491,30 @@ export default function Contact() {
                                 />
                               )}
                             </div>
+                          </div>
+
+                          {/* DPDP Act 2023 Consent Checkbox */}
+                          <div className="flex items-start gap-2.5 p-3.5 border-2 border-[#120f0a] bg-[#fee9cf]/30">
+                            <input
+                              type="checkbox"
+                              id="contact-consent"
+                              name="consent"
+                              checked={hasConsented}
+                              onChange={(e) => setHasConsented(e.target.checked)}
+                              required
+                              className="mt-0.5 h-4 w-4 rounded-none border-2 border-[#120f0a] accent-[#97192c] cursor-pointer shrink-0"
+                            />
+                            <label htmlFor="contact-consent" className="text-xs text-[#120f0a] leading-relaxed cursor-pointer font-medium select-none">
+                              I agree to the{" "}
+                              <Link href="/terms" target="_blank" className="font-bold underline text-[#97192c] hover:text-[#fc920d]">
+                                Terms of Service
+                              </Link>{" "}
+                              and{" "}
+                              <Link href="/privacy" target="_blank" className="font-bold underline text-[#97192c] hover:text-[#fc920d]">
+                                Privacy Policy
+                              </Link>
+                              , and consent to GOBITSNBYTES FOUNDATION processing my details to respond to this inquiry. If under 18, I confirm I have obtained parent or guardian consent.
+                            </label>
                           </div>
 
                           {/* Action Trigger Button */}

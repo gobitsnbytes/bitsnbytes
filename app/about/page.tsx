@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import * as Dialog from "@radix-ui/react-dialog";
+import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumb";
 
 // Starburst component for branding/retro aesthetics
@@ -740,8 +741,9 @@ function BookingDialog({
 
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-1">
-                      <label className="block text-[10px] font-black uppercase tracking-wider text-[#97192c]">Your Name</label>
+                      <label htmlFor="booking-name" className="block text-[10px] font-black uppercase tracking-wider text-[#97192c]">Your Name</label>
                       <input
+                        id="booking-name"
                         type="text"
                         required
                         value={guestName}
@@ -751,8 +753,9 @@ function BookingDialog({
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="block text-[10px] font-black uppercase tracking-wider text-[#97192c]">Email Address</label>
+                      <label htmlFor="booking-email" className="block text-[10px] font-black uppercase tracking-wider text-[#97192c]">Email Address</label>
                       <input
+                        id="booking-email"
                         type="email"
                         required
                         value={guestEmail}
@@ -762,10 +765,11 @@ function BookingDialog({
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="block text-[10px] font-black uppercase tracking-wider text-[#97192c]">
+                      <label htmlFor="booking-message" className="block text-[10px] font-black uppercase tracking-wider text-[#97192c]">
                         What do you want to talk about? <span className="text-[#a09f9d] normal-case">(optional)</span>
                       </label>
                       <textarea
+                        id="booking-message"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Brief context — partnership, collaboration, advice, etc."
@@ -774,6 +778,18 @@ function BookingDialog({
                         className="w-full border-2 border-[#120f0a] bg-white p-2.5 text-sm font-mono text-[#120f0a] placeholder:text-[#a09f9d] focus:outline-none focus:border-[#97192c] shadow-[2px_2px_0px_0px_#120f0a] resize-none"
                       />
                       <p className="text-[9px] font-mono text-right text-[#a09f9d]">{message.length}/500</p>
+                    </div>
+
+                    <div className="flex items-start gap-2 p-2.5 bg-white border-2 border-[#120f0a]">
+                      <input
+                        type="checkbox"
+                        id="booking-consent"
+                        required
+                        className="mt-0.5 h-3.5 w-3.5 border-2 border-[#120f0a] accent-[#97192c] cursor-pointer shrink-0"
+                      />
+                      <label htmlFor="booking-consent" className="text-[11px] text-[#413f3b] leading-tight cursor-pointer font-sans select-none">
+                        I agree to the <Link href="/terms" target="_blank" className="underline font-bold text-[#97192c]">Terms</Link> and <Link href="/privacy" target="_blank" className="underline font-bold text-[#97192c]">Privacy Policy</Link>, and consent to processing my contact details for this calendar booking.
+                      </label>
                     </div>
 
                     {formError && (
@@ -785,7 +801,7 @@ function BookingDialog({
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="w-full flex items-center justify-center gap-2 border-2 border-[#120f0a] bg-[#fc920d] text-[#120f0a] font-black uppercase text-sm tracking-wide py-3 shadow-[4px_4px_0px_0px_#120f0a] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#120f0a] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="w-full flex items-center justify-center gap-2 border-2 border-[#120f0a] bg-[#fc920d] text-[#120f0a] font-black uppercase text-sm tracking-wide py-3 shadow-[4px_4px_0px_0px_#120f0a] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#120f0a] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
                     >
                       {submitting ? (
                         <><Loader2 className="w-4 h-4 animate-spin" /> Booking…</>

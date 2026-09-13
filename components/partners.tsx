@@ -106,13 +106,13 @@ export function Partners() {
                   <>
                     <Image
                       src={partner.logo}
-                      alt={partner.name}
+                      alt={`${partner.name} partner logo`}
                       fill
                       className={`hidden sm:block object-contain object-left dark:brightness-125 dark:contrast-125 ${partner.logoImageClass ?? ""}`}
                     />
                     <Image
                       src={partner.mobileLogo}
-                      alt={partner.name}
+                      alt={`${partner.name} partner logo`}
                       fill
                       className={`sm:hidden object-contain object-left dark:brightness-125 dark:contrast-125 ${partner.logoImageClass ?? ""}`}
                     />
@@ -120,7 +120,7 @@ export function Partners() {
                 ) : (
                   <Image
                     src={partner.logo}
-                    alt={partner.name}
+                    alt={`${partner.name} partner logo`}
                     fill
                     className={`object-contain object-left dark:brightness-125 dark:contrast-125 ${partner.logoImageClass ?? ""}`}
                   />

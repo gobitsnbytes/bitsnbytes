@@ -82,7 +82,9 @@ const footerLinks = [
       { id: 9, title: "Code of Conduct", url: "/coc" },
       { id: 10, title: "Terms of Service", url: "/terms" },
       { id: 11, title: "Privacy Policy", url: "/privacy" },
-      { id: 12, title: "IP Policy", url: "/ip" },
+      { id: 12, title: "Cookie Policy", url: "/cookies" },
+      { id: 13, title: "Refund Policy", url: "/refund" },
+      { id: 14, title: "IP Policy", url: "/ip" },
     ],
   },
 ];
@@ -97,6 +99,16 @@ const legalLinks = [
     title: "Privacy",
     url: "/privacy",
     label: "Data handling, minors, and guardian requests",
+  },
+  {
+    title: "Cookies",
+    url: "/cookies",
+    label: "Essential storage, analytics, and telemetry",
+  },
+  {
+    title: "Refunds",
+    url: "/refund",
+    label: "Free events, donations, and billing rules",
   },
   {
     title: "Code of Conduct",
@@ -268,15 +280,41 @@ export function FlickeringFooter() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs text-center md:text-left">
           <div className="flex flex-col items-center md:items-start gap-1 font-mono">
             <p className="font-black text-white dark:text-foreground uppercase tracking-tight">
-              bits&amp;bytes™ by GOBITSNBYTES FOUNDATION
+              GOBITSNBYTES FOUNDATION · bits&amp;bytes™
             </p>
             <p className="text-zinc-300 dark:text-foreground/80">
-              © {new Date().getFullYear()} GOBITSNBYTES FOUNDATION. All rights reserved. | gobitsnbytes.org
+              © {new Date().getFullYear()} GOBITSNBYTES FOUNDATION. All rights reserved. | CIN: U85500UP2026NPL248652
+            </p>
+            <p className="text-zinc-400 dark:text-foreground/60 text-[9px]">
+              Regd. Office: 265/1 Patrakar Colony, Ashok Nagar, Prayagraj - 211001, UP, India · Section 8 Non-Profit
             </p>
           </div>
-          <p className="max-w-2xl text-[9px] sm:text-[10px] opacity-90 leading-relaxed font-serif text-zinc-300 dark:text-foreground/80 text-center md:text-right">
-            bits&amp;bytes™ is a student-led builder network operated by GOBITSNBYTES FOUNDATION, a Section 8 non-profit company registered in India.
-          </p>
+          <div className="flex flex-col items-center md:items-end gap-1 font-mono text-[10px] text-zinc-300 dark:text-foreground/80">
+            <p className="max-w-xl opacity-90 leading-relaxed font-serif text-center md:text-right">
+              Grievance Officer: <a href="mailto:grievance@gobitsnbytes.org" className="underline text-accent">grievance@gobitsnbytes.org</a> · Inquiries: <a href="mailto:hello@gobitsnbytes.org" className="underline text-accent">hello@gobitsnbytes.org</a>
+            </p>
+            <div className="flex items-center gap-3 mt-1">
+              <Link href="/privacy" className="hover:underline">Privacy</Link>
+              <span>·</span>
+              <Link href="/terms" className="hover:underline">Terms</Link>
+              <span>·</span>
+              <Link href="/cookies" className="hover:underline">Cookies</Link>
+              <span>·</span>
+              <Link href="/refund" className="hover:underline">Refunds</Link>
+              <span>·</span>
+              <button
+                type="button"
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    window.dispatchEvent(new CustomEvent("bnb-reopen-cookie-consent"));
+                  }
+                }}
+                className="underline text-accent hover:text-white dark:hover:text-foreground cursor-pointer font-mono"
+              >
+                Cookie Preferences
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

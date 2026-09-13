@@ -190,7 +190,7 @@ export function Features() {
                     <Image
                       className="size-full object-cover grayscale"
                       src="/team/yash.jpeg"
-                      alt="Yash"
+                      alt="Yash Singh, CEO and Founder"
                       fill
                       sizes="36px"
                     />
@@ -211,7 +211,7 @@ export function Features() {
                     <Image
                       className="size-full object-cover grayscale"
                       src="/team/akshat.jpg"
-                      alt="Akshat"
+                      alt="Akshat Kushwaha, CTO and System Architect"
                       fill
                       sizes="36px"
                     />
@@ -232,7 +232,7 @@ export function Features() {
                     <Image
                       className="size-full object-cover grayscale"
                       src="/team/aadrika.png"
-                      alt="Aadrika"
+                      alt="Aadrika Maurya, CCO and COO"
                       fill
                       sizes="36px"
                     />

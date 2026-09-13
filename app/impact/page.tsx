@@ -267,8 +267,8 @@ export default function Impact() {
                 </div>
                 <div className="border-3 border-[#120f0a] bg-[#f4d9d1] p-4 shadow-[3px_3px_0px_0px_#120f0a]">
                   <p className="text-3xl font-black text-[#120f0a]">1.26 Cr+</p>
-                  <p className="text-xs font-black uppercase mt-1">Applicants Scaled</p>
-                  <p className="text-[11px] text-[#413f3b] mt-1 font-serif">Executive partnership reach in India Innovates 2026 Civic Tech sprint.</p>
+                  <p className="text-xs font-black uppercase mt-1">Partner Reach</p>
+                  <p className="text-[11px] text-[#413f3b] mt-1 font-serif">Co-organized / executive partner reach in India Innovates 2026 civic tech hackathon.</p>
                 </div>
               </div>
 

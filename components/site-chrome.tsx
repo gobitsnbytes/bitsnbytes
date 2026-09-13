@@ -8,6 +8,7 @@ import Navigation from "@/components/navigation";
 import { PageBackground } from "@/components/page-background";
 import { FloatingAiAssistant } from "@/components/client-only-components";
 import { ExperienceProvider } from "@/components/experience-provider";
+import { CookieConsentBanner } from "@/components/cookie-consent-banner";
 
 export function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -16,7 +17,12 @@ export function SiteChrome({ children }: { children: ReactNode }) {
   const isQnARoute = pathname === "/qna";
 
   if (isPosterRoute || isCinematicRoute) {
-    return <>{children}</>;
+    return (
+      <>
+        {children}
+        <CookieConsentBanner />
+      </>
+    );
   }
 
   return (
@@ -34,6 +40,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
         <Suspense fallback={null}>
           {!isQnARoute && <FloatingAiAssistant />}
         </Suspense>
+        <CookieConsentBanner />
       </div>
     </ExperienceProvider>
   );
