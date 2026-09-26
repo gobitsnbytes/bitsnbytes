@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState, type ReactNode } from "react";
-import * as Dialog from "@radix-ui/react-dialog";
 import { Window } from "./window";
 
 type VideoProps = {
@@ -70,61 +69,5 @@ export function VideoFrame({ src, poster, title, captionsNote, className }: Vide
         <p className="border-t-3 border-line px-4 py-2 font-mono text-[11px] uppercase tracking-[0.1em]">{captionsNote}</p>
       ) : null}
     </Window>
-  );
-}
-
-export type VideoModalProps = VideoProps & {
-  poster?: string;
-  /** Trigger element (rendered via asChild), e.g. <Button variant="orange">Watch film</Button>. */
-  children: ReactNode;
-};
-
-/**
- * "Watch film" modal: Radix Dialog (focus trap, Esc closes, focus returns to the trigger).
- * Plays with sound on open; the video only loads once the dialog opens.
- */
-export function VideoModal({ src, poster, title, captionsNote, children }: VideoModalProps) {
-  return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>{children}</Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-[200] bg-ink/85 data-[state=open]:animate-in data-[state=open]:fade-in-0 motion-reduce:animate-none" />
-        <Dialog.Content
-          data-lenis-prevent
-          {...(captionsNote ? {} : { "aria-describedby": undefined })}
-          className="fixed left-1/2 top-1/2 z-[201] w-[min(92vw,1100px)] -translate-x-1/2 -translate-y-1/2 outline-none data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:duration-200 data-[state=open]:ease-riot motion-reduce:animate-none"
-        >
-          <div className="mb-3 flex justify-end">
-            <Dialog.Close className="cursor-pointer border-3 border-ink bg-paper px-3.5 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-ink shadow-[3px_3px_0_0_var(--orange)] transition-[transform,box-shadow] duration-100 ease-riot hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_var(--orange)] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none">
-              Close ✕
-            </Dialog.Close>
-          </div>
-          <Window
-            bar="orange"
-            bodyClassName="p-0"
-            title={
-              <Dialog.Title asChild>
-                <span>{title}</span>
-              </Dialog.Title>
-            }
-          >
-            <video
-              src={src}
-              poster={poster}
-              autoPlay
-              controls
-              playsInline
-              preload="metadata"
-              className="block aspect-video w-full bg-ink"
-            />
-            {captionsNote ? (
-              <Dialog.Description className="border-t-3 border-line px-4 py-2 font-mono text-[11px] uppercase tracking-[0.1em]">
-                {captionsNote}
-              </Dialog.Description>
-            ) : null}
-          </Window>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
   );
 }

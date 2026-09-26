@@ -15,6 +15,6 @@ export { Marquee, type MarqueeProps } from "./marquee";
 export { Stat, type StatProps } from "./stat";
 export { HalftoneImage, type HalftoneImageProps } from "./halftone-image";
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "./accordion";
-export { VideoFrame, VideoModal, type VideoFrameProps, type VideoModalProps } from "./video";
+export { VideoFrame, type VideoFrameProps } from "./video";
 export { CursorLabel } from "./cursor-label";
 export { ScrambleText, type ScrambleTextProps } from "./scramble-text";

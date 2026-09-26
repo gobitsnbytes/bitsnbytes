@@ -139,7 +139,7 @@ gsap, @gsap/react, three, @react-three/fiber, @react-three/drei, lenis, framer-m
 |---|---|
 | Home — first-visit intro | **kprverse** preloader + logo assembly: paper panel, hairline progress rule, `LOADING - NN%` + file-path ticker, the logo's pieces assembling, cut to the hero. Skippable, no sound gate. |
 | Home — everything after the intro | **buttermax** (hero, 3D logo cube, curtain reel, statement, works grid, poster footer) |
-| /events | **inkfish** (black playlist reel hero — the reel itself is the play target, one video at a time, no PiP; `[S.0N]`/`[NN]` bracket mono UI, barcode stripe rows, event archive as a list only, self-arranging uncropped photo masonry, contact "window" with fixed backdrop, custom fullscreen player) |
+| /events | **inkfish** (black playlist reel hero — the reel itself is the play target, one video at a time, no PiP; `[S.0N]`/`[NN]` bracket mono UI, barcode stripe rows, event archive as a list only, self-arranging justified rows of uncropped photos, contact "window" with fixed backdrop, custom fullscreen player) |
 | /about, /impact, /fork, legal docs | **Shopify Editions** (opening frame, chapter index, chapter heroes, torn paper, serif statements, card collages) |
 | /press | stripe.dev (kept: the user signed it off on 2026-09-26 — "it's very good"; the press.stripe.com WebGL shelf is shelved) |
 | /cloud, /join, /contact, /faq, /qna, /minecraft | **stripe.dev** (24-col hairline grid with `+` registration marks, pixel-block glyph titles, `/ LABEL` table headers, seeded "Fig. N" generative windows, feed tables with mono dates, sticky router figure, get-help grid, endless outlined footer word) |
