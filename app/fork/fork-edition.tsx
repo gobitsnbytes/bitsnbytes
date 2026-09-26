@@ -10,6 +10,7 @@ import {
   SerifStatement,
 } from "@/components/edition";
 import { Button, Chapter, ChapterHead, TornEdge } from "@/components/riot";
+import { Character } from "@/components/character/character";
 import { FORKS } from "@/lib/forks";
 import { cn } from "@/lib/utils";
 
@@ -106,11 +107,18 @@ export function ForkEdition({ applyUrl }: { applyUrl: string }) {
           Ship publicly.
         </p>
         <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
+          <div className="relative">
           <p className="mt-8 max-w-[52ch] font-serif text-lg leading-relaxed md:text-xl">
             On GitHub, a fork is your own copy of an upstream repo: you change it, run it your way, and it stays linked
             to the original so work flows back. A bits&amp;bytes™ fork is the same thing for a city or school. You take
             the playbook and brand from upstream, run your own room, and ship the work back.
           </p>
+            <Character
+              pose="fork"
+              sizes="(min-width: 1024px) 170px, 0px"
+              className="absolute bottom-0 right-0 hidden w-[clamp(120px,11vw,170px)] lg:block"
+            />
+          </div>
           <ul className="mt-12 grid gap-2 sm:grid-cols-3">
             {PHOTOS.slice(2).map((photo) => (
               <li key={photo.src}>
