@@ -18,11 +18,12 @@ const anton = Anton({
   display: "swap",
 });
 
-// Sans fallback after Helvetica Now / Helvetica Neue (font-sans)
+// Sans fallback after Helvetica Now / Helvetica Neue (font-sans). Variable
+// weight + width so the hero wordmark can go wide (font-stretch 125%).
 const archivo = Archivo({
   subsets: ["latin"],
   variable: "--font-archivo",
-  weight: ["400", "600", "800", "900"],
+  axes: ["wdth"],
   display: "swap",
 });
 
