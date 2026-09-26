@@ -54,7 +54,6 @@
 - **Infinity Hacks 2026** by HackerRank Campus Crew: Aug 15–16, 2026, online. 24-hour global hackathon with AI-first tracks (e.g. road safety, women safety, climate, wildlife protection), teams of 3–5. https://hrcc-infinityhacks.vercel.app/
 - **NexusHacks 2026** by Phaser: Jul 21–23, 2026, global online. 48 hours, AI × Robotics (Agentic AI and Embedded AI categories), ₹20,000 prize pool. https://phaser.in/nexushacks
 - **DoraHacks 2.0** by Dora DAO: 2026, global online. A 72-hour vibecoding sprint where builders from 15+ countries built AI products and launched them on Product Hunt and Peerlist. https://doradao.substack.com/p/dorahacks-20
-- **DoraHacks**: bits&bytes™ was a community partner of DoraHacks. https://dorahacks.io/
 
 ---
 

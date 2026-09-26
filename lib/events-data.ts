@@ -247,10 +247,10 @@ export const communityPartnerEvents: PartnerEvent[] = [
     id: "dorahacks-2-0",
     name: "DoraHacks 2.0",
     host: "Dora DAO",
-    // Dora DAO's own posts give different August 2026 ranges, so only the month is shown.
+    // Sources give conflicting dates, so only the year is shown.
     venue: "Online",
-    dateLabel: "2026.08",
-    startDate: "2026-08",
+    dateLabel: "2026",
+    startDate: "2026",
     format: "72-hour vibecoding sprint",
     description:
       "A 72-hour global online vibecoding sprint by Dora DAO. Teams build AI products and launch them on Product Hunt and Peerlist. bits&bytes™ was a community partner.",
@@ -281,15 +281,5 @@ export const communityPartnerEvents: PartnerEvent[] = [
     description:
       "A 48-hour global online AI × Robotics hackathon by Phaser, with Agentic AI and Embedded AI categories and a ₹20,000 prize pool. bits&bytes™ was a community partner.",
     url: "https://phaser.in/nexushacks",
-  },
-  {
-    // Its own partnership (dorahacks.io), separate from Dora DAO's DoraHacks 2.0. No event or date on record, so the
-    // row says only that.
-    id: "dorahacks",
-    name: "DoraHacks",
-    host: "DoraHacks",
-    venue: "dorahacks.io",
-    description: "bits&bytes™ was a community partner of DoraHacks.",
-    url: "https://dorahacks.io/",
   },
 ];
