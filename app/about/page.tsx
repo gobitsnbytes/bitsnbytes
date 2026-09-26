@@ -53,11 +53,10 @@ export default function About() {
     <>
       <div data-tour="page-hero">
         <EditionOpener
-          variant="expand"
+          variant="static"
           title={aboutContent.title}
           kicker="[S.00] Builder Network"
           chapters={CHAPTERS}
-          art={{ src: "/images/hero-img.jpeg", alt: "bits&bytes™ team members together" }}
         />
       </div>
 

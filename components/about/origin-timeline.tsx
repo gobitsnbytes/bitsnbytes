@@ -114,7 +114,7 @@ export function OriginTimeline() {
       >
         <div
           className={cn(
-            "sticky top-0 flex h-svh min-h-[560px] flex-col px-4 pb-5 pt-[104px] md:px-8",
+            "sticky top-0 flex h-svh min-h-[560px] flex-col px-4 pb-5 pt-[84px] md:px-8 md:pt-[clamp(84px,13svh,104px)]",
             "motion-reduce:static motion-reduce:h-auto motion-reduce:py-20 motion-off:static motion-off:h-auto motion-off:py-20",
             EDITION_GUTTER,
           )}
@@ -129,8 +129,8 @@ export function OriginTimeline() {
                   §01 — Timeline [{pad(STOPS.length)}]
                 </p>
                 <div>
-                  <h2 className={cn(WIDE, "text-[clamp(44px,6vw,96px)] uppercase leading-[0.86]")}>{origin.title}</h2>
-                  <p className="mt-6 max-w-[52ch] font-serif text-lg leading-relaxed md:text-xl">{origin.description}</p>
+                  <h2 className={cn(WIDE, "text-[clamp(40px,min(6vw,11svh),96px)] uppercase leading-[0.86]")}>{origin.title}</h2>
+                  <p className="mt-[clamp(12px,3svh,24px)] max-w-[52ch] font-serif text-base leading-relaxed md:text-[clamp(16px,2.6svh,20px)]">{origin.description}</p>
                 </div>
                 <p aria-hidden className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] motion-reduce:hidden motion-off:hidden">
                   Scroll →

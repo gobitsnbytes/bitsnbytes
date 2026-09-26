@@ -105,7 +105,12 @@ function ConstructionLines() {
 
 // Frame box: square-ish on desktop, portrait on phones. The art's clip-path is derived from the
 // same variables, so --p (0 → 1) opens the window from the frame to full-bleed.
-const FRAME_VARS = "[--fw:min(560px,calc(100vw-32px))] [--fh:min(78svh,520px)] md:[--fh:min(72svh,560px)]";
+// Static stages are 88svh tall, so their frame also stays ≥84px clear of the fixed nav on short laptop screens.
+const FRAME_VARS = {
+  expand: "[--fw:min(560px,calc(100vw-32px))] [--fh:min(78svh,520px)] md:[--fh:min(72svh,560px)]",
+  static:
+    "[--fw:min(560px,calc(100vw-32px))] [--fh:min(78svh,520px,calc(88svh-168px))] md:[--fh:min(72svh,560px,calc(88svh-168px))]",
+};
 const ART_CLIP = {
   "--p": 0,
   clipPath: "inset(calc((50% - var(--fh) / 2) * (1 - var(--p))) calc((50% - var(--fw) / 2) * (1 - var(--p))))",
@@ -199,7 +204,7 @@ export function EditionOpener({
       data-surface="ink"
       className={cn(
         "tone-ink relative",
-        FRAME_VARS,
+        expand ? FRAME_VARS.expand : FRAME_VARS.static,
         expand && "h-[250svh] motion-reduce:h-auto motion-off:h-auto",
         className,
       )}
@@ -234,7 +239,7 @@ export function EditionOpener({
                 overrides aren't needed) until the widest word fits: wraps between words only, never mid-word. */}
             <h1
               {...h1Props}
-              style={{ fontSize: fitTitle(title, "min(72px,14.3cqi)"), ...h1Props?.style }}
+              style={{ fontSize: fitTitle(title, "min(72px,14.3cqi,10svh)"), ...h1Props?.style }}
               className={cn(
                 "font-[family-name:var(--font-archivo)] font-black uppercase leading-[0.88] tracking-[-0.03em] text-balance [font-stretch:125%] [hyphens:manual] [overflow-wrap:normal]",
                 h1Props?.className,
