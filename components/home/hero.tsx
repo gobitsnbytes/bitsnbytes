@@ -288,7 +288,7 @@ export function HomeHero() {
             <div data-hero-caption="" className="max-w-[34ch] font-serif text-[clamp(16px,1.3vw,19px)] leading-snug">
               <p>Hackathons, build guilds, launches, and communities.</p>
               <p>Fully student-led. Fully independent.</p>
-              <p className="mt-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em]">No adults in the room.</p>
+              <p className="mt-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em]">No uncs in the room.</p>
             </div>
 
             <div className="flex flex-col gap-3 md:items-end">
