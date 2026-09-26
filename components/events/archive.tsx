@@ -554,9 +554,9 @@ const EVENTS: ArchiveEvent[] = [
   ...communityPartnerEvents.map((ev) => ({
     id: ev.id,
     name: ev.name,
-    format: `${ev.format} by ${ev.host}`,
-    date: ev.dateLabel,
-    venue: "Online",
+    format: ev.format && `${ev.format} by ${ev.host}`,
+    date: ev.dateLabel ?? "",
+    venue: ev.venue,
     status: "Community Partner",
     href: ev.url,
     external: true,

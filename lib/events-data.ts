@@ -222,20 +222,22 @@ export const eventPhotos: { event: string; photos: EventPhoto[] }[] = [
 ];
 
 /**
- * Events other teams ran, with bits&bytes™ as community partner (we are not the organiser). Newest first.
- * Text only: no partner logos (no licensed assets), never their images.
+ * Events other teams ran, with bits&bytes™ as community partner (we are not the organiser). Newest first, undated
+ * partnerships last. Text only: no partner logos (no licensed assets), never their images.
  */
 export type PartnerEvent = {
   id: string;
   name: string;
   /** The organiser. */
   host: string;
-  /** Archive list date, e.g. "2026.08.15 → 16". */
-  dateLabel: string;
-  /** ISO 8601 for JSON-LD (month precision where the day isn't confirmed). */
-  startDate: string;
+  /** Archive venue column. */
+  venue: string;
+  /** Archive list date, e.g. "2026.08.15 → 16"; left out when we don't know it. */
+  dateLabel?: string;
+  /** ISO 8601 for JSON-LD (month precision where the day isn't confirmed). No date: no Event in the JSON-LD. */
+  startDate?: string;
   endDate?: string;
-  format: string;
+  format?: string;
   description: string;
   url: string;
 };
@@ -246,6 +248,7 @@ export const communityPartnerEvents: PartnerEvent[] = [
     name: "DoraHacks 2.0",
     host: "Dora DAO",
     // Dora DAO's own posts give different August 2026 ranges, so only the month is shown.
+    venue: "Online",
     dateLabel: "2026.08",
     startDate: "2026-08",
     format: "72-hour vibecoding sprint",
@@ -257,6 +260,7 @@ export const communityPartnerEvents: PartnerEvent[] = [
     id: "infinity-hacks-2026",
     name: "Infinity Hacks 2026",
     host: "HackerRank Campus Crew",
+    venue: "Online",
     dateLabel: "2026.08.15 → 16",
     startDate: "2026-08-15",
     endDate: "2026-08-16",
@@ -269,6 +273,7 @@ export const communityPartnerEvents: PartnerEvent[] = [
     id: "nexushacks-2026",
     name: "NexusHacks 2026",
     host: "Phaser",
+    venue: "Online",
     dateLabel: "2026.07.21 → 23",
     startDate: "2026-07-21",
     endDate: "2026-07-23",
@@ -276,5 +281,15 @@ export const communityPartnerEvents: PartnerEvent[] = [
     description:
       "A 48-hour global online AI × Robotics hackathon by Phaser, with Agentic AI and Embedded AI categories and a ₹20,000 prize pool. bits&bytes™ was a community partner.",
     url: "https://phaser.in/nexushacks",
+  },
+  {
+    // Its own partnership (dorahacks.io), separate from Dora DAO's DoraHacks 2.0. No event or date on record, so the
+    // row says only that.
+    id: "dorahacks",
+    name: "DoraHacks",
+    host: "DoraHacks",
+    venue: "dorahacks.io",
+    description: "bits&bytes™ was a community partner of DoraHacks.",
+    url: "https://dorahacks.io/",
   },
 ];

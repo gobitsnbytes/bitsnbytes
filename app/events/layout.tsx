@@ -127,20 +127,22 @@ const eventsJsonLd = {
       organizer: { "@type": "Organization", name: "HN Group & MCD" },
     },
     // Other teams' events, with bits&bytes™ as community partner (contributor, not organiser).
-    ...communityPartnerEvents.map((ev) => ({
-      "@type": "Event",
-      "@id": `https://gobitsnbytes.org/events#${ev.id}`,
-      name: ev.name,
-      description: ev.description,
-      startDate: ev.startDate,
-      ...(ev.endDate ? { endDate: ev.endDate } : {}),
-      eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
-      eventStatus: "https://schema.org/EventScheduled",
-      location: { "@type": "VirtualLocation", url: ev.url },
-      url: ev.url,
-      organizer: { "@type": "Organization", name: ev.host },
-      contributor: { "@id": "https://gobitsnbytes.org/#organization" },
-    })),
+    ...communityPartnerEvents
+      .filter((ev) => ev.startDate)
+      .map((ev) => ({
+        "@type": "Event",
+        "@id": `https://gobitsnbytes.org/events#${ev.id}`,
+        name: ev.name,
+        description: ev.description,
+        startDate: ev.startDate,
+        ...(ev.endDate ? { endDate: ev.endDate } : {}),
+        eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+        eventStatus: "https://schema.org/EventScheduled",
+        location: { "@type": "VirtualLocation", url: ev.url },
+        url: ev.url,
+        organizer: { "@type": "Organization", name: ev.host },
+        contributor: { "@id": "https://gobitsnbytes.org/#organization" },
+      })),
   ],
 };
 
