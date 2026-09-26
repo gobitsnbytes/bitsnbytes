@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Cloud, Cpu, GitBranch, Globe, Sparkles, Zap } from "lucide-react";
+import { Cloud, Cpu, GitBranch, Globe, Zap } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Chapter, ChapterHead } from "@/components/riot/chapter";
@@ -29,15 +29,6 @@ const strategicPartners = [
     description: "One Awesome API for everything AI. Route to OpenAI, Anthropic, Google & 14+ LLM providers.",
     features: ["Universal Router", "Multi-model", "Fast Inference"],
     icon: <Cpu aria-hidden className={ICON} />,
-  },
-  {
-    name: "YRI Fellowship",
-    logo: "/partners/yri.png",
-    url: "https://www.yriscience.com/",
-    role: "Knowledge Partner",
-    description: "Supporting scientific research and early-career researchers through fellowships.",
-    features: ["Research Hub", "Fellowships", "Open Science"],
-    icon: <Sparkles aria-hidden className={ICON} />,
   },
   {
     name: "z.ai",
