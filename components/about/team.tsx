@@ -1,22 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { Github, Globe, Instagram, Linkedin, Mail, Phone } from "lucide-react";
+import { Github, Globe, Instagram, Linkedin, Mail } from "lucide-react";
 
 import { WIDE } from "@/components/chrome/wordmark";
 import { EDITION_GUTTER } from "@/components/edition";
-import { Button, Chapter, ChapterHead, HalftoneImage, Tag } from "@/components/riot";
+import { Chapter, ChapterHead, HalftoneImage, Tag } from "@/components/riot";
 import { cn } from "@/lib/utils";
-import { BookingDialog } from "./booking-dialog";
-import {
-  coreTeam,
-  findHostForMember,
-  getTeamEmail,
-  volunteers,
-  type CoreTeamMember,
-  type MotherboardHost,
-} from "./data";
+import { coreTeam, getTeamEmail, volunteers, type CoreTeamMember } from "./data";
 
 const TABS = [
   { id: "all", label: "All Squads" },
@@ -47,20 +39,8 @@ function GroupLabel({ tone, children, count }: { tone: "orange" | "burgundy" | "
   );
 }
 
-function TeamCard({
-  member,
-  isFounder = false,
-  hosts,
-  onBookCall,
-}: {
-  member: CoreTeamMember;
-  isFounder?: boolean;
-  hosts: MotherboardHost[];
-  onBookCall: (host: MotherboardHost) => void;
-}) {
+function TeamCard({ member, isFounder = false }: { member: CoreTeamMember; isFounder?: boolean }) {
   const email = getTeamEmail(member.name);
-  const matchingHost = findHostForMember(member.name, hosts);
-  const host = matchingHost || hosts[0];
 
   const socialLinks = [
     member.socials?.linkedin && { href: member.socials.linkedin, icon: Linkedin, label: "LinkedIn" },
@@ -136,14 +116,6 @@ function TeamCard({
             );
           })}
         </div>
-
-        {/* Book a Call Button directly on the card */}
-        {host && (
-          <Button variant="burgundy" size="sm" className="mt-4 w-full" onClick={() => onBookCall(host)}>
-            <Phone aria-hidden className="size-3.5 shrink-0 text-orange" />
-            Book a Call
-          </Button>
-        )}
       </div>
     </article>
   );
@@ -152,19 +124,6 @@ function TeamCard({
 /** ch.03: leadership as halftone portraits, contributors and early contributors as a names grid. */
 export function Team() {
   const [activeTab, setActiveTab] = useState<TabId>("all");
-  const [hosts, setHosts] = useState<MotherboardHost[]>([]);
-  const [activeHost, setActiveHost] = useState<MotherboardHost | null>(null);
-
-  useEffect(() => {
-    fetch("/api/team/schedule/hosts")
-      .then((r) => r.json())
-      .then((data: MotherboardHost[] | { error: string }) => {
-        if (Array.isArray(data)) {
-          setHosts(data);
-        }
-      })
-      .catch((err) => console.error("Could not load hosts", err));
-  }, []);
 
   const show = (tab: TabId) => activeTab === "all" || activeTab === tab;
 
@@ -200,7 +159,7 @@ export function Team() {
             </GroupLabel>
             <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {founders.map((member) => (
-                <TeamCard member={member} key={member.id} isFounder hosts={hosts} onBookCall={setActiveHost} />
+                <TeamCard member={member} key={member.id} isFounder />
               ))}
             </div>
           </div>
@@ -213,7 +172,7 @@ export function Team() {
             </GroupLabel>
             <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {leadership.map((member) => (
-                <TeamCard member={member} key={member.id} hosts={hosts} onBookCall={setActiveHost} />
+                <TeamCard member={member} key={member.id} />
               ))}
             </div>
           </div>
@@ -237,8 +196,6 @@ export function Team() {
                     </h4>
                     <ul className="grid grid-cols-2">
                       {trackVolunteers.map((v, i) => {
-                        const matchingHost = findHostForMember(v.name, hosts);
-                        const host = matchingHost || hosts[0];
                         return (
                           <li
                             key={v.id}
@@ -258,16 +215,6 @@ export function Team() {
                                 >
                                   LinkedIn
                                 </a>
-                              )}
-                              {host && (
-                                <button
-                                  type="button"
-                                  onClick={() => setActiveHost(host)}
-                                  className="flex items-center gap-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] hover:text-signal"
-                                >
-                                  <Phone aria-hidden className="size-2.5" />
-                                  Book Call
-                                </button>
                               )}
                             </span>
                           </li>
@@ -291,8 +238,6 @@ export function Team() {
 
         <p className="mt-8 font-mono text-xs text-fg/70">*Roles stay flexible as our team and network grow.</p>
       </div>
-
-      {activeHost && <BookingDialog host={activeHost} open={!!activeHost} onClose={() => setActiveHost(null)} />}
     </Chapter>
   );
 }

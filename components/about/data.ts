@@ -61,19 +61,6 @@ export interface Volunteer {
   role?: string;
 }
 
-export interface MotherboardHost {
-  discord_id: string;
-  booking_link: string;
-  timezone: string;
-  weekly_hours: string | null;
-  is_active: boolean;
-  // Extended fields from the availability endpoint
-  username?: string;
-  title?: string;
-  description?: string;
-  avatar?: string;
-}
-
 export const coreTeam: CoreTeamMember[] = [
   {
     id: 1,
@@ -277,33 +264,3 @@ export const volunteers: Volunteer[] = [
     section: "Tech",
   },
 ];
-
-export function findHostForMember(name: string, hosts: MotherboardHost[]): MotherboardHost | undefined {
-  const norm = (s: string) => s.toLowerCase().replace(/[^a-z]/g, "");
-  const mNorm = norm(name);
-  if (!mNorm) return undefined;
-
-  // Try exact normalized match first on title (real name)
-  let match = hosts.find((h) => h.title && norm(h.title) === mNorm);
-  if (match) return match;
-
-  // Try exact normalized match on booking_link
-  match = hosts.find((h) => h.booking_link && norm(h.booking_link) === mNorm);
-  if (match) return match;
-
-  // Try substring match on title
-  match = hosts.find((h) => {
-    if (!h.title) return false;
-    const hNorm = norm(h.title);
-    return hNorm.includes(mNorm) || mNorm.includes(hNorm);
-  });
-  if (match) return match;
-
-  // Try username matching (e.g. "baakisabmast")
-  match = hosts.find((h) => {
-    if (!h.username) return false;
-    const uNorm = norm(h.username);
-    return uNorm.includes(mNorm) || mNorm.includes(uNorm);
-  });
-  return match;
-}
