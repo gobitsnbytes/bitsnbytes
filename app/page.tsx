@@ -16,7 +16,7 @@ import { Suspense, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-import { HeroMovement } from "@/components/ui/hero-movement";
+import { HomeHero, HomeReel } from "@/components/home";
 import { PageSection } from "@/components/page-section";
 import { Features } from "@/components/ui/features-8";
 import { Button } from "@/components/ui/button";
@@ -92,7 +92,8 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col w-full max-w-full overflow-x-hidden bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] transition-colors duration-300">
-        <HeroMovement />
+        <HomeHero />
+        <HomeReel />
 
         <PageSection
           eyebrow="Impact"
