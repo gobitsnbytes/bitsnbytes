@@ -4,8 +4,8 @@ import { WIDE } from "@/components/chrome/wordmark";
 import { cn } from "@/lib/utils";
 
 export const metadata = {
-  title: "404 - Page Not Found | bits&bytes™",
-  description: "The requested page could not be found. Navigate back to India's boldest youth builder network.",
+  title: "404: page not found | bits&bytes™",
+  description: "Nothing lives at this address. Head back to bits&bytes™, the teen-led builder network across India.",
   robots: {
     index: false,
     follow: true,
@@ -13,12 +13,12 @@ export const metadata = {
 };
 
 const quickLinks = [
-  { title: "Home", href: "/", desc: "Return to homepage" },
-  { title: "Events & Hackathons", href: "/events", desc: "Upcoming student hackathons" },
-  { title: "About Us", href: "/about", desc: "Meet the student team" },
+  { title: "Home", href: "/", desc: "Start from the top" },
+  { title: "Events & Hackathons", href: "/events", desc: "What we run and what we back" },
+  { title: "About Us", href: "/about", desc: "The student team behind this" },
   { title: "SparkCloud", href: "/cloud", desc: "Free student compute" },
-  { title: "Fork Network", href: "/fork", desc: "Local builder chapters" },
-  { title: "Frequently Asked Questions", href: "/faq", desc: "Get quick answers" },
+  { title: "Fork Network", href: "/fork", desc: "Find or start a local chapter" },
+  { title: "Frequently Asked Questions", href: "/faq", desc: "Short answers, no fluff" },
 ];
 
 // buttermax-style poster: full-bleed orange campaign surface, giant wide 404, hairline destination list.
@@ -40,11 +40,11 @@ export default function NotFound() {
             Page Not Found
           </h1>
           <p className="mt-5 max-w-[46ch] font-serif text-lg leading-relaxed">
-            The page you are looking for has been moved, renamed, or does not exist in our build repository.
+            Nothing lives at this address. The page either moved or never shipped. Head home, or pick one from the list.
           </p>
           <Button asChild variant="burgundy" className="mt-8">
             <Link href="/">
-              <span aria-hidden>←</span> Back to Home
+              <span aria-hidden>←</span> Back to home
             </Link>
           </Button>
         </div>
@@ -54,7 +54,7 @@ export default function NotFound() {
             id="not-found-destinations"
             className="mb-3 font-mono text-xs font-bold uppercase tracking-[0.2em]"
           >
-            Suggested Destinations
+            Try one of these
           </h2>
           <ul className="border-t-2 border-ink">
             {quickLinks.map((link, i) => (
