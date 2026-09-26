@@ -115,6 +115,17 @@ export function RouteTransition() {
     });
   });
 
+  // app/loading.tsx marks its fallback: stay covered until the new page has replaced it (capped by the failsafe).
+  const revealWhenPainted = () => {
+    const start = performance.now();
+    const wait = () => {
+      if (document.querySelector("[data-route-loading]") && performance.now() - start < FAILSAFE_MS) {
+        requestAnimationFrame(wait);
+      } else reveal();
+    };
+    wait();
+  };
+
   const cover = contextSafe((href: string) => {
     const tiles = root.current?.children;
     if (!tiles) return;
@@ -180,10 +191,10 @@ export function RouteTransition() {
           if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
           else window.scrollTo(0, 0);
         }
-        reveal();
+        revealWhenPainted();
       } else if (back && phase.current === "idle" && live.current.motionEnabled && root.current) {
         gsap.set(root.current.children, { scaleY: 1 });
-        reveal();
+        revealWhenPainted();
       }
     },
     { dependencies: [pathname] },
