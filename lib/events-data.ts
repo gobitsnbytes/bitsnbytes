@@ -220,3 +220,61 @@ export const eventPhotos: { event: string; photos: EventPhoto[] }[] = [
     ],
   },
 ];
+
+/**
+ * Events other teams ran, with bits&bytes™ as community partner (we are not the organiser). Newest first.
+ * Text only: no partner logos (no licensed assets), never their images.
+ */
+export type PartnerEvent = {
+  id: string;
+  name: string;
+  /** The organiser. */
+  host: string;
+  /** Archive list date, e.g. "2026.08.15 → 16". */
+  dateLabel: string;
+  /** ISO 8601 for JSON-LD (month precision where the day isn't confirmed). */
+  startDate: string;
+  endDate?: string;
+  format: string;
+  description: string;
+  url: string;
+};
+
+export const communityPartnerEvents: PartnerEvent[] = [
+  {
+    id: "dorahacks-2-0",
+    name: "DoraHacks 2.0",
+    host: "Dora DAO",
+    // Dora DAO's own posts give different August 2026 ranges, so only the month is shown.
+    dateLabel: "2026.08",
+    startDate: "2026-08",
+    format: "72-hour vibecoding sprint",
+    description:
+      "A 72-hour global online vibecoding sprint by Dora DAO. Teams build AI products and launch them on Product Hunt and Peerlist. bits&bytes™ was a community partner.",
+    url: "https://doradao.substack.com/p/dorahacks-20",
+  },
+  {
+    id: "infinity-hacks-2026",
+    name: "Infinity Hacks 2026",
+    host: "HackerRank Campus Crew",
+    dateLabel: "2026.08.15 → 16",
+    startDate: "2026-08-15",
+    endDate: "2026-08-16",
+    format: "24-hour global hackathon",
+    description:
+      "A 24-hour global online hackathon by HackerRank Campus Crew, with AI-first tracks such as road safety, women safety, climate and wildlife protection, for teams of 3–5. bits&bytes™ was a community partner.",
+    url: "https://hrcc-infinityhacks.vercel.app/",
+  },
+  {
+    id: "nexushacks-2026",
+    name: "NexusHacks 2026",
+    host: "Phaser",
+    dateLabel: "2026.07.21 → 23",
+    startDate: "2026-07-21",
+    endDate: "2026-07-23",
+    format: "48-hour AI × Robotics hackathon",
+    description:
+      "A 48-hour global online AI × Robotics hackathon by Phaser, with Agentic AI and Embedded AI categories and a ₹20,000 prize pool. bits&bytes™ was a community partner.",
+    url: "https://phaser.in/nexushacks",
+  },
+];

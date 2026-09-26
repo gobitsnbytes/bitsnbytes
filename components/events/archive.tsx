@@ -5,6 +5,7 @@ import { ExternalLink } from "lucide-react";
 import { pad } from "@/components/edition/shared";
 import { Button, Tag, VideoFrame } from "@/components/riot";
 import {
+  communityPartnerEvents,
   githubDevDayEvent as copilot,
   hack4goodEvent as h4g,
   lucknowBuildGuildEvent as guild,
@@ -544,7 +545,8 @@ const execron = (
   </Detail>
 );
 
-// Newest first (by end date). Every label comes from the existing event data / copy.
+// Newest first (by end date). Every label comes from the event data. Community partnerships are list-only rows
+// that link out to the host's page.
 const EVENTS: ArchiveEvent[] = [
   {
     id: regional.id,
@@ -554,6 +556,16 @@ const EVENTS: ArchiveEvent[] = [
     status: regional.statusLabel,
     href: `#${regional.id}`,
   },
+  ...communityPartnerEvents.map((ev) => ({
+    id: ev.id,
+    name: ev.name,
+    format: `${ev.format} by ${ev.host}`,
+    date: ev.dateLabel,
+    venue: "Online",
+    status: "Community Partner",
+    href: ev.url,
+    external: true,
+  })),
   {
     id: "hack4good-v0",
     name: "Hack4Good v0",

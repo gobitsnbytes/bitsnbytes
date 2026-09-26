@@ -16,8 +16,10 @@ export type ArchiveEvent = {
   date: string;
   venue: string;
   status: string;
-  /** In-page link instead of a file (the upcoming series lives in [S.01]). */
+  /** Link instead of a file: in-page (the upcoming series lives in [S.01]) or, with `external`, another site. */
   href?: string;
+  /** `href` is another team's event page: opens in a new tab. */
+  external?: boolean;
   /** The full event file (every existing detail). */
   detail?: ReactNode;
 };
@@ -100,7 +102,7 @@ export function ArchiveIndex({ events }: { events: ArchiveEvent[] }) {
                 </span>
                 <span className="col-start-2 row-start-1 text-right tabular-nums md:col-start-auto md:row-start-auto">{ev.date}</span>
                 <span aria-hidden className="hidden text-right md:block">
-                  {ev.detail ? (open === ev.id ? "−" : "+") : "→"}
+                  {ev.detail ? (open === ev.id ? "−" : "+") : ev.external ? "↗" : "→"}
                 </span>
               </WipeCell>
             </>
@@ -118,6 +120,11 @@ export function ArchiveIndex({ events }: { events: ArchiveEvent[] }) {
                   >
                     {cells}
                   </button>
+                ) : ev.external ? (
+                  <a href={ev.href} target="_blank" rel="noopener noreferrer" className={ROW}>
+                    {cells}
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
                 ) : (
                   <a href={ev.href} className={ROW}>
                     {cells}
