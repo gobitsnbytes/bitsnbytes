@@ -196,7 +196,7 @@ Full teardowns (measurements, timings, mechanisms) live in `tmp/research-full.js
 - **Scramble labels** (revelatio/kprverse): `<ScrambleText>` for Space Mono labels only (eyebrows, chapter numbers, nav
   hover, coordinates, bracket counters); charset `01&#*+=/<>`; real text stays in the DOM (animate an aria-hidden mirror).
 - **Footer** (buttermax + kprverse): ink poster. Top row of 4 columns split by 2px paper rules (console column with routes +
-  `26.8467° N, 80.9462° E`, nav, socials, contact incl. legal/trust links), then a full-bleed
+  `20.5937° N, 78.9629° E` (centre of India: pan-India, no HQ), nav, socials, contact incl. legal/trust links), then a full-bleed
   giant `bits&bytes™` wordmark uncovered from a slot (counter-translated mask scrub), with the cube mark (inline logo.svg
   geometry, opaque paper body + ink cut-outs, ink knockout ring) locked into the "s"; its pieces snap into register in the same scrub. All existing footer links/text preserved.
 
@@ -217,7 +217,7 @@ Full teardowns (measurements, timings, mechanisms) live in `tmp/research-full.js
    halftone/dither screen, plus a sharp inset window playing it clean) uncovered as the hero scrolls up, then covered by
    the next paper panel (TornEdge top). `[ WATCH FILM ]` opens the FilmPlayer with sound. Plays only in view; none under reduced motion.
 3. **Statement** — "who we are" indented mega statement from existing mission copy; words fade 0.15→1 as you scroll.
-4. **Numbers** — Anton odometer stats (existing: 1400+ members, 5+ forks, 4+ events, 16.5 mean age), drawn 3px rules.
+4. ~~Numbers~~ — removed in round 3 (no aggregate numbers anywhere); the works grid follows the statement directly.
 5. **Works grid** — buttermax hairline grid → our "What we do" programs + events: 3 columns, 2px ink dividers, each cell a
    halftone-duotone photo "object" at 75%, label bottom-left in mono, small glyph bottom-right, cursor **lens** (circle
    clip-path reveals the full-colour photo under the pointer; keyboard focus shows it too).
@@ -242,12 +242,12 @@ Full teardowns (measurements, timings, mechanisms) live in `tmp/research-full.js
   (stripe.dev/inkfish: mono date column, barcode stripe-wipe row hover, expand for existing details) + photo galleries.
 - **/about**: origin story as a pinned horizontal timeline (July 2025 → mid-Aug 2025 cancellation → Nov 2025 founded →
   2 Jun 2026 incorporated) with a bracket scrubber `[NN%]`; principles as serif-italic statements; team with halftone portraits
-  (hover → colour, `VIEW BIO` cursor label) preserving the booking dialog + motherboard hosts; volunteers/early contributors;
+  (hover → colour, `VIEW BIO` cursor label; the Book a Call buttons and booking dialog were removed in round 3, the assistant keeps its booking tools); volunteers/early contributors;
   governance as a construction-line grid (Board → Executive Officers → Forks → Safeguarding).
-- **/impact**: opening frame → odometer mega-stats → "spotlight wall" of the track record (sticky list, focused item full
-  opacity + orange underline, others dim; cursor image trail on pointer:fine) → globe chapter (existing globe, arcs only
-  between places already in content: Lucknow → New Delhi, IIT Kanpur, IIT Bombay) → pillars as a sticky stack with a
-  floating window-card collage (Editions' Pulse collage) using existing stats.
+- **/impact**: opening frame → word stats (Community, Forks, Events, Teen-led; no numbers) → "spotlight wall" of the track record (sticky list, focused item full
+  opacity + orange underline, others dim; cursor image trail on pointer:fine) → globe chapter (existing globe marking the 10 forks from
+  `lib/forks.ts`, no arcs from a hub city) → pillars as a sticky stack beside a pinned event photo (the research metrics
+  collage was removed with the numbers).
 
 ### Explicitly not copied
 Their images, 3D models, Lottie files, fonts, copy, source; WebGL-rendered text; full-page fixed canvases or post-processing;
