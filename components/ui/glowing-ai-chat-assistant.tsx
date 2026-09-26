@@ -587,10 +587,12 @@ const FloatingAiAssistant = () => {
           >
             {messages.length === 0 && (
               <div className="flex flex-col gap-3 py-2">
-                <Character pose="headset" still sizes="88px" className="w-22 shrink-0" />
+                <div className="flex items-center gap-3">
+                  <Character pose="headset" still plain sizes="40px" className={AVATAR_RING + " size-10"} imgClassName={AVATAR_CROP} />
                 <p className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] opacity-85">
                   Ask about our team, hackathons, or how to get involved.
                 </p>
+                </div>
                 <PromptList prompts={QUICK_PROMPTS} onPick={handleQuickPrompt} />
               </div>
             )}
