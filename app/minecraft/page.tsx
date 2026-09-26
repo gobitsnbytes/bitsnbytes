@@ -1,6 +1,26 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 
-import { MinecraftScroll } from "./minecraft-scroll";
+import { ConsoleWindow } from "@/components/contact/console-window";
+import {
+  HollowWord,
+  LAB_HOVER,
+  LAB_TEXT,
+  LabCell,
+  LabFooterRows,
+  LabGlobe,
+  LabGrid,
+  LabHero,
+  LabLink,
+  LabTag,
+  LabTitle,
+  PixelGlyph,
+  TableHeader,
+} from "@/components/lab";
+import { Button } from "@/components/riot";
+import { cn } from "@/lib/utils";
+
+import { ConnectAddress, LiveStats, ServerReel } from "./minecraft-live";
 
 export const metadata: Metadata = {
   title: "Free Minecraft Survival Server India | Java + Bedrock | mc.gobitsnbytes.org",
@@ -290,6 +310,68 @@ const minecraftJsonLd = {
   ],
 };
 
+const SPONSOR_URL = "https://misbahkhursheed.vercel.app/";
+const LINK = cn("underline decoration-1 underline-offset-4", LAB_HOVER);
+
+const specs: { title: string; rows: [key: string, value: ReactNode][] }[] = [
+  {
+    title: "Runtime",
+    rows: [
+      ["Core:", "Purpur 1.21.1"],
+      ["Compiler:", "Java 21"],
+      ["GC:", "G1GC Tuned"],
+      ["Pre-Gen:", "3000 radius"],
+      ["Mods:", "0 required"],
+    ],
+  },
+  {
+    title: "Infrastructure",
+    rows: [
+      ["Host:", "Azure B2s"],
+      ["Compute:", "4 vCPU"],
+      ["Memory:", "8 GB RAM"],
+      ["Backups:", "Daily snapshot"],
+      [
+        "Sponsor:",
+        <LabLink key="sponsor" href={SPONSOR_URL} className={LINK}>
+          Misbah Khursheed
+        </LabLink>,
+      ],
+    ],
+  },
+  {
+    title: "Protection",
+    rows: [
+      ["Engine:", "CoreProtect"],
+      ["History:", "1.4M block logs"],
+      ["Rollback:", "48-hour window"],
+      ["Chat bridge:", "DiscordSRV"],
+      ["Audit:", "Audit logs"],
+    ],
+  },
+  {
+    title: "Organization",
+    rows: [
+      ["Legal:", "Section 8 nonprofit"],
+      ["Founded:", "2025"],
+      ["Management:", "Student-run"],
+      [
+        "Source:",
+        <LabLink key="source" href="https://github.com/gobitsnbytes/minecraft-server" className={LINK}>
+          Open Source
+        </LabLink>,
+      ],
+      ["Region:", "India"],
+    ],
+  },
+];
+
+const SECTION = "gap-y-10 pt-24 min-[760px]:pt-[136px]";
+// Three title lines: cap the hero type by height too, so the Connect button clears a 1280×650 fold.
+const HERO_FIT = "min-[760px]:[&_h1]:text-[length:min(calc(9.11458vw+12.5px),170px,15svh)]";
+// Short cells get a line box as tall as the value's first line (LAB_TEXT.md) and centre on it.
+const KEY_LINE = "flex h-[1.2em] items-center gap-[7px] text-[length:calc(0.5476vw+17.86px)]";
+
 export default function MinecraftPage() {
   return (
     <>
@@ -297,7 +379,130 @@ export default function MinecraftPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(minecraftJsonLd) }}
       />
-      <MinecraftScroll serverIp={SERVER_IP} />
+
+      <section
+        data-tour="page-hero"
+        data-cinematic-section=""
+        data-cinematic-title="Build. Explore. Belong."
+        data-surface="paper"
+      >
+        <LabHero
+          lines={["Build.", "Explore.", "Belong."]}
+          glyph={<PixelGlyph text="MC" decorative />}
+          aside={<LabGlobe />}
+          subtitle={<p>Built for builders. Java + Bedrock. 0 mods required.</p>}
+          className={HERO_FIT}
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <Button asChild variant="burgundy" size="sm">
+              <a href="#join">Connect</a>
+            </Button>
+            <LabTag>{SERVER_IP}</LabTag>
+          </div>
+        </LabHero>
+      </section>
+
+      {/* live readings beside the framed server reel */}
+      <LabGrid
+        as="section"
+        id="live"
+        data-cinematic-section=""
+        data-cinematic-title="Live"
+        data-surface="paper"
+        className={SECTION}
+      >
+        <TableHeader as="h2" label="Live" className="col-span-full" />
+        <ServerReel className="col-span-full self-start lg:col-[1/13]" />
+        <LiveStats className="col-span-full self-start lg:col-[14/25]" />
+      </LabGrid>
+
+      <LabGrid
+        as="section"
+        id="specs"
+        data-cinematic-section=""
+        data-cinematic-title="Operations & Specs"
+        data-surface="paper"
+        aria-labelledby="specs-title"
+        className={cn(SECTION, "gap-y-14")}
+      >
+        <LabCell>
+          <LabTitle id="specs-title" count={specs.length}>
+            Operations &amp; Specs
+          </LabTitle>
+        </LabCell>
+        {specs.map((group) => (
+          <article key={group.title} className="col-span-full grid grid-cols-subgrid content-start lg:col-span-12">
+            <TableHeader as="h3" label={group.title} className="col-span-full" />
+            <dl className="col-span-full grid grid-cols-subgrid">
+              {group.rows.map(([key, value]) => (
+                <div key={key} className="col-span-full grid grid-cols-subgrid items-start border-b border-line py-2.5">
+                  <dt className={cn(KEY_LINE, "col-[1/5] font-mono")}>
+                    <span aria-hidden className="size-2 shrink-0 bg-signal" />
+                    <span className="text-[12px] uppercase leading-none tracking-[-0.02em]">{key}</span>
+                  </dt>
+                  <dd className={cn(LAB_TEXT.md, "col-[5/-1] min-w-0")}>{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </article>
+        ))}
+      </LabGrid>
+
+      {/* connect: address + copy + ports in console chrome (#join keeps the old anchor) */}
+      <LabGrid
+        as="section"
+        id="join"
+        data-cinematic-section=""
+        data-cinematic-title="See you in-game."
+        data-surface="paper"
+        aria-labelledby="join-title"
+        className={SECTION}
+      >
+        <LabCell span="1/13">
+          <LabTitle id="join-title">
+            See you
+            <br />
+            <em className="bg-[var(--lab-hi,var(--marker))] not-italic text-ink">in-game.</em>
+          </LabTitle>
+        </LabCell>
+        <LabCell span="14/-1">
+          <ConsoleWindow title="Connect" bodyClassName="grid gap-6 p-5 md:p-8">
+            <ConnectAddress serverIp={SERVER_IP} />
+            <ul role="list" className="border-t border-dotted border-line font-mono text-[12px] uppercase leading-[1.2]">
+              <li className="border-b border-dotted border-line py-3">Java: mc.gobitsnbytes.org (25565)</li>
+              <li className="border-b border-dotted border-line py-3">Bedrock: mc.gobitsnbytes.org (19132)</li>
+            </ul>
+          </ConsoleWindow>
+        </LabCell>
+      </LabGrid>
+
+      <section
+        id="credits"
+        data-cinematic-section=""
+        data-cinematic-title="bits&bytes™"
+        data-surface="paper"
+        className="pt-24 min-[760px]:pt-[160px]"
+      >
+        <LabGrid>
+          <LabFooterRows>
+            <>
+              <LabCell span="1/13">
+                <p className={LAB_TEXT.sm}>
+                  Infrastructure sponsored by{" "}
+                  <LabLink href={SPONSOR_URL} className={cn(LINK, "font-semibold")}>
+                    Misbah Khursheed
+                  </LabLink>
+                </p>
+              </LabCell>
+              <LabCell span="14/-1" className="grid gap-1.5 font-mono text-[12px] uppercase leading-[1.4] min-[760px]:text-right">
+                <p className="normal-case">bits&amp;bytes™ by GOBITSNBYTES FOUNDATION</p>
+                <p>© 2026 GOBITSNBYTES FOUNDATION. ALL RIGHTS RESERVED.</p>
+              </LabCell>
+            </>
+          </LabFooterRows>
+        </LabGrid>
+        <HollowWord text="In-game." />
+      </section>
     </>
   );
 }
