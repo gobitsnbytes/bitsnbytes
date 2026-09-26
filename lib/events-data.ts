@@ -110,3 +110,41 @@ export const heroEvents: HeroEventSlide[] = [
     href: "/events",
   },
 ];
+
+/** /events hero playlist (inkfish reel). Only existing footage; labels come from existing copy. */
+export type ReelClip = {
+  event: string;
+  title: string;
+  src: string;
+  poster: string;
+  /** PiP label (tiny UI verb). */
+  cta: string;
+  /** Note under the fullscreen player. */
+  note?: string;
+};
+
+export const eventsReel: ReelClip[] = [
+  {
+    event: regionalSeriesEvent.title,
+    title: "Trailer",
+    src: regionalSeriesEvent.trailerSrc,
+    poster: regionalSeriesEvent.posterSrc,
+    cta: "View trailer",
+    note: "Captions burned in",
+  },
+  {
+    event: "India Innovates 2026",
+    title: "Event Video",
+    src: "/event_pictures/india-innovates-2026-stage-address.mp4",
+    poster: "/event_pictures/HEe923ub0AE-92F.jpg",
+    cta: "Watch",
+    note: "Stage highlights and on-floor moments from the finale.",
+  },
+  {
+    event: "bits&bytes™",
+    title: "Documentary Film",
+    src: "/movie/bnb-movie.mp4",
+    poster: "/movie/bnb-movie-poster.jpg",
+    cta: "Watch",
+  },
+];

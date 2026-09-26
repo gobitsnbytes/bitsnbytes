@@ -1,21 +1,10 @@
 import Script from "next/script";
 
-import { Breadcrumbs } from "@/components/breadcrumb";
-import { EditionOpener, EDITION_GUTTER } from "@/components/edition";
 import { EventArchive } from "@/components/events/archive";
+import { ContactWindow } from "@/components/events/contact-window";
 import { EventGallery } from "@/components/events/gallery";
+import { EventsReel } from "@/components/events/reel";
 import { RegionalSeries } from "@/components/events/regional-series";
-import { Tag, TornEdge } from "@/components/riot";
-import { regionalSeriesEvent } from "@/lib/events-data";
-import { cn } from "@/lib/utils";
-
-const CHAPTERS = [
-  { id: regionalSeriesEvent.id, title: regionalSeriesEvent.title },
-  { id: "archive", title: "The event archive" },
-  { id: "in-pictures", title: "In Pictures" },
-];
-
-const HIGHLIGHTS = ["High Agency Shipping", "IIT Kanpur & Delhi Summits", "National Scale Partners"];
 
 const pageJsonLd = {
   "@context": "https://schema.org",
@@ -80,41 +69,19 @@ const pageJsonLd = {
   ],
 };
 
+/**
+ * /events — inkfishnyc.com 1:1 in the bits&bytes™ brand (DESIGN.md reference allocation): playlist-reel
+ * hero with PiP monitor + fullscreen player, [S.01] series statement, [S.02] events index (grid / list),
+ * [S.03] photos, [S.04] contact window. No EditionOpener: inkfish pages bring their own hero.
+ */
 export default function EventsPage() {
   return (
     <>
-      <EditionOpener
-        title="Where code meets the real world"
-        kicker="Event Log · GOBITSNBYTES FOUNDATION"
-        chapters={CHAPTERS}
-        art={{ src: regionalSeriesEvent.posterSrc, alt: `${regionalSeriesEvent.title} trailer poster` }}
-      />
-
-      <div data-surface="ink" data-tour="page-hero" className="tone-ink relative overflow-x-clip pb-8 pt-20 md:pt-28">
-        <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
-          <Breadcrumbs items={[{ name: "Events", href: "/events" }]} className="mb-10" />
-          <p
-            data-speakable="true"
-            data-citation="true"
-            className="max-w-[26ch] font-serif text-[clamp(30px,4.4vw,68px)] italic leading-[1.05] tracking-[-0.02em] text-cream first-letter:pr-[0.04em] first-letter:font-script first-letter:text-[1.6em] first-letter:font-normal first-letter:not-italic first-letter:leading-[0] first-letter:text-orange"
-          >
-            Hackathons, summits, and workshops where teen builders actually ship things across India.
-          </p>
-          <ul className="mt-10 flex flex-wrap gap-3">
-            {HIGHLIGHTS.map((highlight) => (
-              <li key={highlight}>
-                <Tag tone="ink">{highlight}</Tag>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
+      <EventsReel />
       <RegionalSeries />
-      <TornEdge from="ink" to="paper" />
       <EventArchive />
-      <TornEdge from="paper" to="ink" flip />
       <EventGallery />
+      <ContactWindow />
 
       <Script id="luma-checkout" src="https://embed.lu.ma/checkout-button.js" strategy="afterInteractive" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }} />

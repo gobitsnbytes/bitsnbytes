@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, type PointerEvent } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
-import { DuotoneImage, EDITION_GUTTER } from "@/components/edition";
+import { DuotoneImage } from "@/components/edition";
 import { pad } from "@/components/edition/shared";
-import { Button, Chapter, ChapterHead } from "@/components/riot";
 import { cn } from "@/lib/utils";
+
+import { ParallaxMedia } from "./media";
+import { GiantCount, SPAN_CLASS, SectionHead, spansFor } from "./shared";
 
 type Shot = { src: string; title: string; description: string };
 
@@ -60,112 +62,120 @@ const GROUPS: { event: string; shots: Shot[] }[] = [
 ];
 
 const TOTAL = GROUPS.reduce((sum, group) => sum + group.shots.length, 0);
-const BIG = "(min-width: 1280px) 38vw, (min-width: 768px) 50vw, 100vw";
-const SMALL = "(min-width: 1280px) 19vw, (min-width: 768px) 25vw, 50vw";
-
-// Lens: a full-colour copy under the duotone, uncovered by a circle that follows the pointer.
-// "Full colour" (keyboard / touch parity) opens every lens at once.
-const LENS = cn(
-  "pointer-events-none absolute inset-0 [clip-path:circle(0px_at_var(--x,50%)_var(--y,50%))]",
-  "transition-[clip-path] duration-200 ease-riot motion-reduce:transition-none motion-off:transition-none",
-  "group-data-[lens=on]/tile:group-data-[colour=off]/gallery:[clip-path:circle(7.5rem_at_var(--x,50%)_var(--y,50%))]",
-  "group-data-[colour=on]/gallery:[clip-path:circle(150%_at_50%_50%)]",
-);
-
-const moveLens = (event: PointerEvent<HTMLDivElement>) => {
-  const box = event.currentTarget.getBoundingClientRect();
-  event.currentTarget.style.setProperty("--x", `${event.clientX - box.left}px`);
-  event.currentTarget.style.setProperty("--y", `${event.clientY - box.top}px`);
-};
-const lensOn = (event: PointerEvent<HTMLDivElement>) => {
-  if (event.pointerType === "touch") return;
-  moveLens(event);
-  event.currentTarget.dataset.lens = "on";
-};
-const lensOff = (event: PointerEvent<HTMLDivElement>) => {
-  delete event.currentTarget.dataset.lens;
+const SIZES: Record<number, string> = {
+  2: "(min-width: 1024px) 25vw, 50vw",
+  3: "(min-width: 1024px) 38vw, (min-width: 768px) 50vw, 100vw",
+  4: "(min-width: 768px) 50vw, 100vw",
+  8: "100vw",
 };
 
-/** /events ch.03: "In Pictures", every event gallery as a duotone grid with a colour lens. */
+/**
+ * /events [S.03] "In Pictures": every event gallery in the inkfish mixed-width rhythm (25 / 37.5 / 50%,
+ * rows closing to 8 columns; mobile: the lead shot(s) full width, the rest in pairs). Metadata row above
+ * each photo. Photos print as an ink/orange duotone and go full colour under the pointer, with the
+ * inverse parallax inside the mask; "Full colour" gives keyboard / touch parity.
+ */
 export function EventGallery() {
   const [colour, setColour] = useState(false);
 
   return (
-    <Chapter id="in-pictures" title="In Pictures" number={3} tone="ink">
-      <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
-        <ChapterHead number={3} label={`Photos [${pad(TOTAL)}]`} title="In Pictures" />
-        <Button variant="outline" size="sm" aria-pressed={colour} onClick={() => setColour((on) => !on)} className="mb-12">
+    <section
+      id="in-pictures"
+      data-cinematic-section=""
+      data-cinematic-title="In Pictures"
+      data-chapter-number="03"
+      data-surface="ink"
+      className="tone-ink relative overflow-x-clip px-4 pb-24 pt-20 md:px-5 md:pb-32 md:pt-28"
+    >
+      <SectionHead label={<p>Photos</p>} section={3} className="mb-10" />
+      <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-6">
+        <GiantCount count={TOTAL}>In Pictures</GiantCount>
+        <button
+          type="button"
+          aria-pressed={colour}
+          onClick={() => setColour((on) => !on)}
+          className="mb-2 inline-flex h-10 cursor-pointer items-center gap-2 border-2 border-line px-3 font-mono text-xs font-bold uppercase tracking-[0.1em] hover:bg-fg/10 aria-pressed:bg-fg aria-pressed:text-surface"
+        >
           <span aria-hidden className={cn("size-3 border-2 border-current", colour && "bg-orange")} />
           Full colour
-        </Button>
+        </button>
+      </div>
 
-        <div data-colour={colour ? "on" : "off"} className="group/gallery space-y-16 md:space-y-24">
-          {GROUPS.map((group, g) => {
-            const n = group.shots.length;
-            const [first] = group.shots;
-            const shared = group.shots.every((s) => s.title === first.title && s.description === first.description);
-            // One big tile for odd counts, two for even: the 4-col grid always closes without gaps.
-            const bigs = n % 2 === 0 ? 2 : 1;
-            return (
-              <section key={group.event} aria-labelledby={`gallery-${g}`}>
-                <header className="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b-2 border-line pb-3">
-                  <h3
-                    id={`gallery-${g}`}
-                    className="font-sans text-[clamp(22px,2.6vw,36px)] font-black uppercase leading-none tracking-[-0.02em] [font-stretch:125%]"
-                  >
-                    {group.event}
-                  </h3>
-                  <p className="font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-signal">
-                    [G.{pad(g + 1)}] · [{pad(n)}]
-                  </p>
-                  {shared ? <p className="basis-full font-serif text-base text-paper/80">{first.description}</p> : null}
-                </header>
-                <ul className="grid grid-flow-dense grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-                  {group.shots.map((shot, i) => {
-                    const big = i < bigs;
-                    const alt = shared ? `${shot.title}: ${shot.description} (photo ${i + 1} of ${n})` : `${shot.title}: ${shot.description}`;
-                    return (
-                      <li
-                        key={shot.src}
-                        className={cn("flex flex-col", big && "col-span-2 md:row-span-2", big && g % 2 === 1 && bigs === 1 && "md:col-start-3")}
-                      >
-                        <figure className="flex flex-1 flex-col">
-                          <div
-                            onPointerEnter={lensOn}
-                            onPointerMove={moveLens}
-                            onPointerLeave={lensOff}
-                            className={cn(
-                              "group/tile relative aspect-[4/3] overflow-hidden border-3 border-line",
-                              big && "md:aspect-auto md:min-h-0 md:flex-1",
-                            )}
-                          >
-                            <DuotoneImage src={shot.src} alt={alt} sizes={big ? BIG : SMALL} tone="ink-orange" className="absolute inset-0" />
-                            <div aria-hidden className={LENS}>
-                              <Image src={shot.src} alt="" fill sizes={big ? BIG : SMALL} className="object-cover" />
-                            </div>
-                          </div>
-                          <figcaption className="mt-2 font-mono text-[11px] font-bold uppercase tracking-[0.12em]">
-                            <span className="text-signal">[{pad(i + 1)}]</span>
-                            {shared ? null : (
+      <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">
+        {GROUPS.map((group, g) => {
+          const n = group.shots.length;
+          const [first] = group.shots;
+          const shared = group.shots.every((s) => s.title === first.title && s.description === first.description);
+          const spans = spansFor(n, g % 2 === 1);
+          // Mobile pairs: one lead shot for odd counts, two for even, so the 2-col grid always closes.
+          const leads = n % 2 === 0 ? 2 : 1;
+          return (
+            <section key={group.event} aria-labelledby={`gallery-${g}`}>
+              <header className="mb-8 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b-2 border-line pb-3">
+                <h3
+                  id={`gallery-${g}`}
+                  className="font-sans text-[clamp(22px,2.6vw,36px)] font-black uppercase leading-none tracking-[-0.02em] [font-stretch:125%]"
+                >
+                  {group.event}
+                </h3>
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.08em] text-signal">
+                  [G.{pad(g + 1)}] · [{pad(n)}]
+                </p>
+                {shared ? <p className="basis-full font-serif text-base text-paper/85">{first.description}</p> : null}
+              </header>
+              <ul className="-mx-2.5 grid grid-cols-2 gap-y-8 md:grid-cols-8 md:gap-y-[52px]">
+                {group.shots.map((shot, i) => {
+                  const span = spans[i];
+                  const alt = shared
+                    ? `${shot.title}: ${shot.description} (photo ${i + 1} of ${n})`
+                    : `${shot.title}: ${shot.description}`;
+                  return (
+                    <li key={shot.src} className={cn("px-2.5", i < leads ? "col-span-2" : "col-span-1", SPAN_CLASS[span])}>
+                      <figure data-card className="group">
+                        <figcaption className="flex items-start justify-between gap-3 pb-3 font-mono text-[11px] font-bold uppercase tracking-[0.08em]">
+                          <span className="min-w-0">
+                            {shared ? (
+                              group.event
+                            ) : (
                               <>
-                                {" "}
                                 {shot.title}
-                                <span className="mt-0.5 block font-serif text-sm font-normal normal-case tracking-normal text-paper/75">
+                                <span className="mt-0.5 block font-serif text-sm font-normal normal-case tracking-normal text-paper/80">
                                   {shot.description}
                                 </span>
                               </>
                             )}
-                          </figcaption>
-                        </figure>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </section>
-            );
-          })}
-        </div>
+                          </span>
+                          <span className="shrink-0 text-signal">
+                            [{pad(i + 1)}/{pad(n)}]
+                          </span>
+                        </figcaption>
+                        <ParallaxMedia
+                          className="aspect-[4/3] border-3 border-line"
+                          still={
+                            <>
+                              <DuotoneImage src={shot.src} alt={alt} sizes={SIZES[span]} tone="ink-orange" className="absolute inset-0" />
+                              <Image
+                                src={shot.src}
+                                alt=""
+                                fill
+                                sizes={SIZES[span]}
+                                className={cn(
+                                  "object-cover opacity-0 transition-opacity duration-300 ease-linear group-hover:opacity-100 motion-reduce:transition-none motion-off:transition-none",
+                                  colour && "opacity-100",
+                                )}
+                              />
+                            </>
+                          }
+                        />
+                      </figure>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          );
+        })}
       </div>
-    </Chapter>
+    </section>
   );
 }

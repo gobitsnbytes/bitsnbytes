@@ -2,11 +2,18 @@ import type { ComponentProps, ReactNode } from "react";
 import Image, { getImageProps } from "next/image";
 import { ExternalLink } from "lucide-react";
 
-import { EDITION_GUTTER, FeedList, FeedRow } from "@/components/edition";
 import { pad } from "@/components/edition/shared";
-import { Button, Chapter, ChapterHead, Tag, VideoFrame } from "@/components/riot";
-import { githubDevDayEvent as copilot, hack4goodEvent as h4g, lucknowBuildGuildEvent as guild } from "@/lib/events-data";
+import { Button, Tag, VideoFrame } from "@/components/riot";
+import {
+  githubDevDayEvent as copilot,
+  hack4goodEvent as h4g,
+  lucknowBuildGuildEvent as guild,
+  regionalSeriesEvent as regional,
+} from "@/lib/events-data";
 import { cn } from "@/lib/utils";
+
+import { ArchiveIndex, type ArchiveEvent } from "./archive-index";
+import { SectionHead } from "./shared";
 
 // Optimised poster URL (the source JPEGs are multi-MB) for <video poster>.
 const poster = (src: string) => getImageProps({ src, alt: "", width: 960, height: 540 }).props.src;
@@ -537,54 +544,89 @@ const execron = (
   </Detail>
 );
 
-// Newest first (by end date). Dates come from each event's existing labels.
-const ARCHIVE: { date: ReactNode; title: string; meta: string; detail: ReactNode }[] = [
+// Newest first (by end date). Every label comes from the existing event data / copy.
+const EVENTS: ArchiveEvent[] = [
   {
-    date: (
-      <>
-        2026.04.02
-        <br />→ 05.03
-      </>
-    ),
-    title: "Hack4Good v0",
-    meta: `${h4g.venueLabel} · ${h4g.statusLabel}`,
+    id: regional.id,
+    name: regional.title,
+    date: regional.finaleDateLabel,
+    venue: regional.finaleVenueLabel,
+    status: regional.statusLabel,
+    image: regional.posterSrc,
+    video: regional.trailerSrc,
+    href: `#${regional.id}`,
+  },
+  {
+    id: "hack4good-v0",
+    name: "Hack4Good v0",
+    format: h4g.formatLabel,
+    date: "2026.04.02 → 05.03",
+    venue: h4g.venueLabel,
+    status: h4g.statusLabel,
+    image: "/event_pictures/h4g/h4g.jpg",
+    video: "/event_pictures/h4g/h4g.mp4",
     detail: hack4good,
   },
-  { date: "2026.04.19", title: "Lucknow Build Guild", meta: `${guild.venueLabel} · ${guild.statusLabel}`, detail: buildGuild },
   {
+    id: "lucknow-build-guild",
+    name: "Lucknow Build Guild",
+    format: guild.formatLabel,
     date: "2026.04.19",
-    title: "GitHub Copilot Dev Days | Lucknow",
-    meta: `${copilot.venueLabel} · ${copilot.statusLabel}`,
+    venue: guild.venueLabel,
+    status: guild.statusLabel,
+    image: "/event_pictures/bd1.jpg",
+    detail: buildGuild,
+  },
+  {
+    id: "github-copilot-dev-days",
+    name: "GitHub Copilot Dev Days | Lucknow",
+    format: copilot.formatLabel,
+    date: "2026.04.19",
+    venue: copilot.venueLabel,
+    status: copilot.statusLabel,
+    image: "/images/github-copilot-hero-desktop.png",
     detail: copilotDevDays,
   },
-  { date: "2026.03.28", title: "India Innovates 2026", meta: "Bharat Mandapam, New Delhi · Concluded", detail: indiaInnovates },
   {
-    date: (
-      <>
-        2026.03.19
-        <br />→ 22
-      </>
-    ),
-    title: "Execron 1.0",
-    meta: "IIT Kanpur · Archived",
+    id: "india-innovates-2026",
+    name: "India Innovates 2026",
+    format: "World's Largest Civic Tech Hackathon",
+    date: "2026.03.28",
+    venue: "Bharat Mandapam, New Delhi",
+    status: "Concluded",
+    image: "/event_pictures/HEe923ub0AE-92F.jpg",
+    video: "/event_pictures/india-innovates-2026-stage-address.mp4",
+    detail: indiaInnovates,
+  },
+  {
+    id: "execron-1-0",
+    name: "Execron 1.0",
+    format: "AI Hackathon & Workshop for Teens",
+    date: "2026.03.19 → 22",
+    venue: "IIT Kanpur",
+    status: "Archived",
+    image: "/event_pictures/byteforge1.webp",
     detail: execron,
   },
 ];
 
-/** /events ch.02: the archive as a stripe.dev / inkfish feed. Each row expands into the full event file. */
+/**
+ * /events [S.02]: inkfish /work index. Giant "EVENTS [N]" + grid/list toggle; grid = mixed-width
+ * hover-to-play cards, list = barcode stripe-wipe rows with a sticky preview. Every archived event
+ * expands in place into its full file (all existing details); the series card links to [S.01].
+ */
 export function EventArchive() {
   return (
-    <Chapter id="archive" title="The event archive" number={2} tone="paper">
-      <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
-        <ChapterHead number={2} label={`Events [${pad(ARCHIVE.length)}]`} title="The event archive" />
-        <FeedList>
-          {ARCHIVE.map((row) => (
-            <FeedRow key={row.title} date={row.date} title={row.title} meta={row.meta}>
-              {row.detail}
-            </FeedRow>
-          ))}
-        </FeedList>
-      </div>
-    </Chapter>
+    <section
+      id="archive"
+      data-cinematic-section=""
+      data-cinematic-title="The event archive"
+      data-chapter-number="02"
+      data-surface="paper"
+      className="tone-paper relative overflow-x-clip px-4 pb-24 pt-20 md:px-5 md:pb-32 md:pt-28"
+    >
+      <SectionHead label={<p>The event archive</p>} section={2} className="mb-10" />
+      <ArchiveIndex events={EVENTS} />
+    </section>
   );
 }
