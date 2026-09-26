@@ -5,18 +5,18 @@ import { FORK_CITIES } from "@/lib/forks";
 export const aboutContent = {
   title: "About bits&bytes™",
   description:
-    "We are a youth-led builder network building the alternative to rigid, beginner-locked tech events. Run entirely by teenagers, built from scratch.",
-  highlights: ["100% Teen-Led", "High-Agency Builder Squads", "Permissionless Distributed Nodes"],
+    "We're a teen-led builder network across India, run entirely by teenagers. We built it from scratch as the alternative to rigid tech events pitched only at beginners.",
+  highlights: ["100% teen-led", "High-agency builder squads", "Local forks, one upstream"],
   sections: [
     {
       title: "The Origin Story",
       description:
-        "In July 2025, our team was organizing a major regional student hackathon under an external partner organization. When they cancelled the event at the last minute, we refused to quit. To build something independent and reliable, we founded bits&bytes™ in November 2025. Originally planning a single cope hackathon, we quickly grew into a sustainable nationwide teen builder network.",
+        "In July 2025, our team was organizing a major regional student hackathon under an external partner organization. By mid-August the partner had cancelled the event, and we refused to quit. We founded bits&bytes™ in November 2025 so our events would never depend on an outside group again. The plan was one 24-hour hackathon to make up for the lost one, and it grew into a teen builder network that runs across India.",
     },
     {
       title: "High Agency Only",
       description:
-        "We don't do hand-holding or rigid formats. bits&bytes™ is run entirely by and for teenagers. You'll be surrounded by people who want to write code and launch real projects, not just sit through lectures and collect certificates.",
+        "We don't hand-hold, and we don't run rigid formats. bits&bytes™ is run by teenagers, for teenagers. The people next to you came to write code and launch real projects, so nobody sits through lectures to collect a certificate.",
     },
     {
       title: "Distributed Forks",
@@ -26,7 +26,7 @@ export const aboutContent = {
     {
       title: "Ship Real Products",
       description:
-        "Our meetups and hack nights have to end with something launched, not just something learned. We don't build throwaway demos that only exist for a presentation slide. We build actual software that people use.",
+        "Our hackathons, and the workshops inside them, have to end with something shipped. A demo that only lives on a presentation slide doesn't count. We build software that people actually use.",
     },
   ],
 };
@@ -69,7 +69,7 @@ export const coreTeam: CoreTeamMember[] = [
     name: "Yash Singh",
     role: "Chief Executive Officer (CEO)",
     image: "/team/yash.jpeg",
-    bio: "Math qualifier (IOQM) & AI prototyping dev. Created Codiva (5-star VS Code extension with thousands of users) and lead community hardware sessions.",
+    bio: "National IOQM qualifier who prototypes with AI. Built Codiva, a 5-star VS Code extension with thousands of users, and leads community hardware sessions.",
     socials: {
       linkedin: "https://www.linkedin.com/in/yashvardhansinghbnb/",
       github: "https://github.com/yashclouded",
@@ -82,7 +82,7 @@ export const coreTeam: CoreTeamMember[] = [
     name: "Aadrika Maurya",
     role: "Chief Creative Officer & COO",
     image: "/team/aadrika.png",
-    bio: "RSI India Alumni who conducted neuroscience research on EEG signals and attention modeling. Leads brand visual voice and creative strategies.",
+    bio: "RSI India alumna who did neuroscience research on EEG signals and attention modeling. Leads our visual voice and creative strategy.",
     socials: {
       linkedin: "https://www.linkedin.com/in/aadrika-maurya/",
       github: "https://github.com/Aadrika08",
@@ -96,7 +96,7 @@ export const coreTeam: CoreTeamMember[] = [
     name: "Akshat Kushwaha",
     role: "Chief Technology Officer (CTO)",
     image: "/team/akshat.jpg",
-    bio: "Primary systems architect. Ex Jr. Research Engineer at jhana.ai. Builds high-performance retrieval pipelines and production infra.",
+    bio: "Built and runs our stack. Former Jr. Research Engineer at jhana.ai. Works on retrieval pipelines and production infrastructure.",
     socials: {
       linkedin: "https://www.linkedin.com/in/akshat-singh-kushwaha/",
       github: "https://github.com/a3ro-dev",
@@ -109,7 +109,7 @@ export const coreTeam: CoreTeamMember[] = [
     name: "Devaansh Pathak",
     role: "Chief Financial Officer (CFO)",
     image: "/team/devansh.jpeg",
-    bio: "Co-architected high-performance backend layers and manages partner accounts, sponsors, and budget logistics.",
+    bio: "Co-architected our backend. Manages partner accounts, sponsors and the budget.",
     socials: {
       linkedin: "https://www.linkedin.com/in/devaanshpa/",
     },
@@ -119,7 +119,7 @@ export const coreTeam: CoreTeamMember[] = [
     name: "Drishti Arora",
     role: "Chief Growth Officer (CGO)",
     image: "/team/drishti.jpg",
-    bio: "Leads audience campaigns, community growth, brand strategy, and coordination across regional cohorts.",
+    bio: "Runs growth: audience campaigns, brand strategy and coordination across regional cohorts.",
     socials: {
       linkedin: "https://www.linkedin.com/in/drish-arora",
     },
@@ -129,7 +129,7 @@ export const coreTeam: CoreTeamMember[] = [
     name: "Raghwender Vasisth",
     role: "Head of Operations",
     image: "/team/raghav.png",
-    bio: "Manages process automation, resource planning, logistical support, and team operations at scale.",
+    bio: "Keeps operations moving: process automation, resource planning and logistics for the team.",
     socials: {
       linkedin: "https://www.linkedin.com/in/raghwender-vasisth/",
     },
@@ -139,7 +139,7 @@ export const coreTeam: CoreTeamMember[] = [
     name: "Maryam Fatima",
     role: "Head of Brand & Media",
     image: "/team/maryam.jpeg",
-    bio: "Oversees media assets, visual content, graphic identity, and social media campaigns.",
+    bio: "Looks after our media, visual content, graphic identity and social campaigns.",
     socials: {
       linkedin: "https://www.linkedin.com/in/maryam-fatima-9719aa377/",
     },
@@ -149,7 +149,7 @@ export const coreTeam: CoreTeamMember[] = [
     name: "Srishti Singh",
     role: "Head of Partnerships",
     image: "/team/srishti.jpeg",
-    bio: "Coordinates institutional relations, sponsor liaisons, and communications across regional chapters.",
+    bio: "Handles institutional relations, sponsor contacts and communication with our regional chapters.",
     socials: {
       linkedin: "https://www.linkedin.com/in/srishti-singh-ab6a1b391",
     },
@@ -159,7 +159,7 @@ export const coreTeam: CoreTeamMember[] = [
     name: "Angel",
     role: "Head of Research & Strategy",
     image: "/team/angel.jpg",
-    bio: "Leads strategic research initiatives, community analysis, and organizational growth frameworks.",
+    bio: "Leads our research: studying the community and planning how the organization grows.",
     socials: {
       linkedin: "https://www.linkedin.com/in/angelp-online/",
       instagram: "https://www.instagram.com/rightangeled/",
