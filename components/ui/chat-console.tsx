@@ -628,10 +628,13 @@ export const keepUrl = (value: string) => value;
 export function ConsoleBar({
   title,
   titleId,
+  icon,
   children,
 }: {
   title: ReactNode;
   titleId?: string;
+  /** Decorative mark before the title (the assistant's avatar). */
+  icon?: ReactNode;
   children?: ReactNode;
 }) {
   return (
@@ -639,6 +642,7 @@ export function ConsoleBar({
       <span aria-hidden className="size-3 shrink-0 border-2 border-ink bg-burgundy" />
       <span aria-hidden className="size-3 shrink-0 border-2 border-ink bg-marker" />
       <span aria-hidden className="size-3 shrink-0 border-2 border-ink bg-slime" />
+      {icon}
       <p
         id={titleId}
         className="ml-1.5 min-w-0 flex-1 truncate font-mono text-[11px] font-bold uppercase tracking-[0.12em]"

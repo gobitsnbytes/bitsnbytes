@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ThumbsUp, ThumbsDown } from "lucide-react";
 
 import { useOptionalExperience } from "@/components/experience-provider";
+import { Character } from "@/components/character/character";
 import { PromptBox, type PromptBoxRef } from "@/components/ui/chatgpt-prompt-input";
 import { FORK_CITIES } from "@/lib/forks";
 import {
@@ -199,6 +200,10 @@ const HIGHLIGHT_STYLE =
  * own. It opens only on bnb:console-open (nav [C] chip, C key, menu entry; the chip and key toggle) or
  * bb:qna-prompt (prompt CTAs); Esc, ✕ or a click outside closes it. Only the transcript and draft persist.
  */
+/** Small circular avatar crop of a bust pose (face centred). */
+const AVATAR_RING = "block shrink-0 overflow-hidden rounded-full border-2 border-ink bg-cream";
+const AVATAR_CROP = "origin-[50%_28%] scale-[1.7]";
+
 const FloatingAiAssistant = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [message, setMessage] = useState("");
@@ -559,7 +564,11 @@ const FloatingAiAssistant = () => {
           transition={enter}
           className="tone-ink fixed inset-x-3 bottom-3 top-20 z-[60] flex origin-bottom-right flex-col border-3 border-line shadow-[8px_8px_0_0_var(--orange)] sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(560px,calc(100svh-7rem))] sm:w-[min(420px,calc(100vw-2rem))]"
         >
-          <ConsoleBar title="bits&bytes™ Assistant" titleId={titleId}>
+          <ConsoleBar
+            title="bits&bytes™ Assistant"
+            titleId={titleId}
+            icon={<Character pose="headset" still plain sizes="24px" className={AVATAR_RING + " size-6"} imgClassName={AVATAR_CROP} />}
+          >
             {messages.length > 0 && (
               <ConsoleButton onClick={clear} aria-label="Clear chat" title="Clear chat">
                 Clear
@@ -578,6 +587,7 @@ const FloatingAiAssistant = () => {
           >
             {messages.length === 0 && (
               <div className="flex flex-col gap-3 py-2">
+                <Character pose="headset" still sizes="88px" className="w-22 shrink-0" />
                 <p className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] opacity-85">
                   Ask about our team, hackathons, or how to get involved.
                 </p>
@@ -632,7 +642,14 @@ const FloatingAiAssistant = () => {
                 );
               })}
             </ol>
-            {isLoading && <StatusLine>Thinking...</StatusLine>}
+            {isLoading && (
+              <div className="flex items-center gap-2.5">
+                {!last?.content && (
+                  <Character pose="thinking" still plain sizes="36px" className={AVATAR_RING + " size-9"} imgClassName={AVATAR_CROP} />
+                )}
+                <StatusLine>Thinking...</StatusLine>
+              </div>
+            )}
             {error && <ErrorLine>{error}</ErrorLine>}
           </div>
 
