@@ -35,6 +35,7 @@ import { cn } from "@/lib/utils";
 import { CubeMark } from "@/components/chrome/wordmark";
 import { introCovering, whenReady } from "@/components/edition/shared";
 import { Wordmark } from "./wordmark";
+import { Character } from "@/components/character/character";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -347,6 +348,13 @@ export function HomeHero() {
             >
               20.5937° N, 78.9629° E
             </span>
+            {/* Points at the scroll arrow from the gap between the cube and the CTAs (both sized by min(vw, svh)). */}
+            <Character
+              pose="point-down"
+              priority
+              sizes="(min-width: 1024px) 100px, 0px"
+              className="absolute bottom-0 left-[calc(50%+min(21vw,21svh))] hidden w-[min(7vw,13svh)] lg:block"
+            />
           </div>
         </div>
       </div>
