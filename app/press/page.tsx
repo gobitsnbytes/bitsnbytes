@@ -24,6 +24,7 @@ import {
 } from "@/components/lab";
 import { Palette, type PaletteRow } from "@/components/press/palette";
 import { Button } from "@/components/riot";
+import { FORK_CITIES } from "@/lib/forks";
 import { TEAM_MEMBERS } from "@/lib/team-data";
 import { cn } from "@/lib/utils";
 
@@ -62,7 +63,7 @@ const colorPaletteRows: PaletteRow[] = [
     ],
   },
   {
-    title: "Gradients / Warm Accents",
+    title: "Gradients / warm accents",
     description: "Movement. Nothing here is static.",
     colors: [
       { step: "Base", hex: "#C94218" },
@@ -79,8 +80,8 @@ const departmentLeads = TEAM_MEMBERS.filter((member) => member.role.startsWith("
 
 const logos = [
   {
-    title: "Vector SVG Logo",
-    note: "Best for web layouts and high-resolution scaling.",
+    title: "Vector logo (SVG)",
+    note: "Use this one on the web and anywhere it has to scale.",
     src: logoSvg,
     alt: "bits&bytes logo SVG",
     href: "/logo.svg",
@@ -90,8 +91,8 @@ const logos = [
     variant: "orange",
   },
   {
-    title: "Raster PNG Logo",
-    note: "Raster image file with transparent background.",
+    title: "Raster logo (PNG)",
+    note: "Transparent background, for places that won't take an SVG.",
     src: "/logo.png",
     alt: "bits&bytes logo PNG",
     href: "/logo.png",
@@ -111,27 +112,27 @@ const stats = [
 ];
 
 const publicFacts = [
-  { key: "Public Brand", value: "bits&bytes™" },
+  { key: "Public brand", value: "bits&bytes™" },
   { key: "Operator", value: "GOBITSNBYTES FOUNDATION" },
   { key: "Structure", value: "Section 8 non-profit company in India" },
-  { key: "Use This Name", value: "bits&bytes™ in public copy, bitsnbytes where symbols are restricted." },
+  { key: "Name usage", value: "bits&bytes™ in public copy. bitsnbytes where the & symbol isn't allowed." },
 ];
 
 const usageRules = [
-  "Do not distort, recolor, rotate, or add effects to the logo.",
-  "Do not use bits&bytes™ branding for fundraising without approval.",
-  "Do not publish participant data, private chats, or minor photos without consent.",
-  "Use the Code of Conduct and Privacy Policy for safety-sensitive questions.",
+  "Don't stretch, recolor, rotate, or add effects to the logo.",
+  "Don't use bits&bytes™ branding to raise money without our approval.",
+  "Don't publish participant data, private chats, or photos of minors without consent.",
+  "For anything safety-related, go by our Code of Conduct and Privacy Policy.",
 ];
 
 const chapters = [
-  { id: "official-logos", title: "Official Logos" },
-  { id: "color-palettes", title: "Color Palettes" },
-  { id: "typography", title: "Typography Specimens" },
+  { id: "official-logos", title: "Official logos" },
+  { id: "color-palettes", title: "Color palettes" },
+  { id: "typography", title: "Typography specimens" },
   { id: "about", title: "About bits&bytes™" },
-  { id: "usage-rules", title: "Usage Rules" },
-  { id: "media-contact", title: "Media Contact" },
-  { id: "citations", title: "Citations & Digital PR Guidelines" },
+  { id: "usage-rules", title: "Usage rules" },
+  { id: "media-contact", title: "Media contact" },
+  { id: "citations", title: "Citations & digital PR" },
 ] as const;
 
 const SECTION = "gap-y-10 pt-24 min-[760px]:pt-[136px]";
@@ -197,13 +198,13 @@ export default function PressKit() {
           aside={<LabGlobe />}
           subtitle={
             <p data-speakable="true" data-citation="true">
-              Official logos, color palettes, typography specs, public facts, and media contact paths for bits&amp;bytes™.
+              What you need to write about bits&amp;bytes™: our logos, colors, type, public facts, and who to email.
             </p>
           }
         >
           <div className="flex flex-col items-start gap-4">
-            <Breadcrumbs items={[{ name: "Press & Media Kit", href: "/press" }]} className="mb-0" />
-            <LabTag>Brand Guidelines · GOBITSNBYTES FOUNDATION</LabTag>
+            <Breadcrumbs items={[{ name: "Press kit", href: "/press" }]} className="mb-0" />
+            <LabTag>Brand guidelines · GOBITSNBYTES FOUNDATION</LabTag>
           </div>
         </LabHero>
       </section>
@@ -212,11 +213,11 @@ export default function PressKit() {
       <PressSection index={0}>
         <LabCell>
           <LabTitle id="official-logos-title" count={logos.length}>
-            Official Logos
+            Official logos
           </LabTitle>
         </LabCell>
         <LabCell span="1/15">
-          <p className={LAB_TEXT.lg}>Download the official bits&amp;bytes™ cube monogram and wordmark assets.</p>
+          <p className={LAB_TEXT.lg}>The official bits&amp;bytes™ cube mark. The SVG is white, so set it on dark, burgundy, or orange.</p>
         </LabCell>
         {logos.map((logo, index) => (
           <article key={logo.href} className={cn(HALF, "gap-y-8", index > 0 && DIVIDER)}>
@@ -258,12 +259,12 @@ export default function PressKit() {
       <PressSection index={1}>
         <LabCell>
           <LabTitle id="color-palettes-title" count={colorPaletteRows.length}>
-            Color Palettes
+            Color palettes
           </LabTitle>
         </LabCell>
         <LabCell span="1/15">
           <p className={LAB_TEXT.lg}>
-            Click any color swatch to copy its HEX value. We default to Burgundy and Plum tones.
+            Click a swatch to copy its hex value. Burgundy and plum are the default. Orange is for emphasis.
           </p>
         </LabCell>
         <Palette rows={colorPaletteRows} />
@@ -273,12 +274,12 @@ export default function PressKit() {
       <PressSection index={2}>
         <LabCell>
           <LabTitle id="typography-title" className={WRAP}>
-            Typography Specimens
+            Typography specimens
           </LabTitle>
         </LabCell>
         <LabCell span="1/15">
           <p className={LAB_TEXT.lg}>
-            Our identity uses robust Helvetica Now headings combined with traditional Georgia Pro body elements.
+            Headings are set in Helvetica Now. Body copy and long reads are set in Georgia Pro.
           </p>
         </LabCell>
         <article className={HALF}>
@@ -287,18 +288,18 @@ export default function PressKit() {
             HEADING DISPLAY SPECIMEN
           </p>
           <p className={cn(LAB_TEXT.sm, "col-span-full min-[760px]:col-[1/11]")}>
-            Use heavier Helvetica Now weights for headings, events banner titles, and action items. Bold, striking, and
-            confident.
+            Use the heavier Helvetica Now weights for headings, event banner titles, and calls to action. Set it big and
+            let it be loud.
           </p>
         </article>
         <article className={cn(HALF, DIVIDER)}>
           <TableHeader as="h3" label="SECONDARY / BODY FONT" right="GEORGIA PRO" className="col-span-full" />
           <p className="col-span-full font-serif text-[clamp(22px,2.2vw,32px)] italic leading-snug">
-            &quot;This is a specimen of Georgia Pro. We use it for long-form reading, paragraphs, team profiles, and
-            descriptive documentation.&quot;
+            &quot;This is Georgia Pro. We use it for long-form reading, paragraphs, team profiles, and
+            documentation.&quot;
           </p>
           <p className="col-span-full font-serif text-base leading-relaxed min-[760px]:col-[1/11]">
-            Traditional, highly readable, and grounds the visual design in narrative clarity.
+            It stays easy to read over long stretches, and it calms the loud headings down.
           </p>
         </article>
       </PressSection>
@@ -310,10 +311,10 @@ export default function PressKit() {
         </LabCell>
         <LabCell span="1/18">
           <p className={LAB_TEXT.md}>
-            bits&amp;bytes™ is an independent, youth-led builder network that runs hackathons, developer meetups,
-            open-source squads, and cohort-based programs. Founded in November 2025 after a major partner hackathon was
-            cancelled, the team built a durable student-led alternative where teenagers ship real software, learn in
-            public, and organize with serious safety standards.
+            bits&amp;bytes™ is an independent, teen-led builder network. We run hackathons, developer meetups,
+            open-source squads, and cohort programs. We started in November 2025, after a partner organization cancelled
+            a hackathon we were organizing. So we built our own home for it, run by students, where teenagers ship real
+            software, learn in public, and organize with serious safety standards.
           </p>
         </LabCell>
         <ul role="list" className="col-span-full mt-6 grid grid-cols-subgrid gap-y-8">
@@ -352,13 +353,13 @@ export default function PressKit() {
       <PressSection index={4}>
         <LabCell>
           <LabTitle id="usage-rules-title" count={usageRules.length}>
-            Usage Rules
+            Usage rules
           </LabTitle>
         </LabCell>
         <LabCell span="1/18">
           <p className={LAB_TEXT.md}>
-            Press and partners may use official assets for accurate coverage of bits&amp;bytes™. Co-branded materials,
-            merch, sponsorship announcements, and anything implying endorsement need written approval.
+            Press and partners can use these assets to cover bits&amp;bytes™ accurately. Co-branded material, merch,
+            sponsorship announcements, or anything that implies we endorse you needs our written approval first.
           </p>
         </LabCell>
         <LabFeed labels={["No.", "Rule"]}>
@@ -373,16 +374,16 @@ export default function PressKit() {
       {/* §06 directory + sticky contact console */}
       <PressSection index={5}>
         <LabCell>
-          <LabTitle id="media-contact-title">Media Contact</LabTitle>
+          <LabTitle id="media-contact-title">Media contact</LabTitle>
         </LabCell>
         <div className="col-span-full grid content-start gap-12 lg:col-[1/15]">
-          <PeopleTable title="Executive Leadership" people={executiveLeadership} />
-          <PeopleTable title="Department Leads" people={departmentLeads} />
+          <PeopleTable title="Executive leadership" people={executiveLeadership} />
+          <PeopleTable title="Department leads" people={departmentLeads} />
         </div>
         <div className="col-span-full lg:col-[16/25]">
           <ConsoleWindow title="Contact" className={LAB_STICKY} bodyClassName="p-5 md:p-7">
             <p className={LAB_TEXT.sm}>
-              For press inquiries, brand permissions, partnership queries, or logo authorization:
+              Write to us about press, brand permissions, partnerships, or using the logo:
             </p>
             <LabLink
               href="mailto:hello@gobitsnbytes.org"
@@ -391,11 +392,11 @@ export default function PressKit() {
               <span className={LAB_MARKER}>hello@gobitsnbytes.org</span>
             </LabLink>
             <div className="mt-6">
-              <TableHeader as="h3" label="Boilerplate for Journalists" />
+              <TableHeader as="h3" label="Boilerplate for journalists" />
               <p className="mt-3 select-all font-serif text-base italic leading-relaxed">
-                &quot;bits&amp;bytes™ is an independent, student-led youth builder network operated by GOBITSNBYTES
-                FOUNDATION (Section 8 non-profit). Founded in November 2025, it is a pan-India community of teenage
-                developers who ship real-world software and run independent hackathons.&quot;
+                &quot;bits&amp;bytes™ is an independent, teen-led builder network operated by GOBITSNBYTES FOUNDATION
+                (Section 8 non-profit). Founded in November 2025, it is a pan-India community of builders aged 13–19,
+                with forks in {FORK_CITIES}. Its builders ship real software and run their own hackathons.&quot;
               </p>
             </div>
           </ConsoleWindow>
@@ -414,13 +415,12 @@ export default function PressKit() {
         <LabGrid className="gap-y-10">
           <LabCell>
             <LabTitle id="citations-title" className={WRAP}>
-              Citations &amp; Digital PR Guidelines
+              Citations &amp; digital PR
             </LabTitle>
           </LabCell>
           <LabCell span="1/15">
             <p className={LAB_TEXT.lg}>
-              When citing bits&amp;bytes™ research, event metrics, or brand publications, please use the standard
-              citations below:
+              Citing our research, event metrics, or brand publications? Use one of the formats below.
             </p>
           </LabCell>
           <LabCell span="1/13">
@@ -449,29 +449,29 @@ export default function PressKit() {
             <TableHeader label="Digital PR" />
           </LabCell>
           <LabCell span="1/19">
-            <h2 className={LAB_TEXT.title}>Embed Badges &amp; Link to Us (Backlink Kit)</h2>
+            <h2 className={LAB_TEXT.title}>Embed a badge and link to us</h2>
           </LabCell>
           <LabCell span="1/15">
             <p className={LAB_TEXT.sm}>
-              Are you a partner, student builder, event organizer, or tech blogger? Add our official badge to your GitHub
-              README or site to link back to bits&amp;bytes™.
+              Partner, student builder, event organizer, or tech blogger? Put our badge in your GitHub README or on
+              your site and link back to bits&amp;bytes™.
             </p>
           </LabCell>
           <LabCell span="1/13">
-            <ConsoleWindow title="Markdown Logo Link (GitHub READMEs)" bodyClassName="p-4">
+            <ConsoleWindow title="Markdown badge (GitHub READMEs)" bodyClassName="p-4">
               <p className={CODE}>{`[![bits&bytes™ logo](https://gobitsnbytes.org/logo)](https://gobitsnbytes.org)`}</p>
               <p className={cn(LAB_TEXT.xs, "mt-3 text-fg/80")}>
-                Copy and paste into your project README.md file to link to us.
+                Paste this into your project&apos;s README.md.
               </p>
             </ConsoleWindow>
           </LabCell>
           <LabCell span="13/-1">
-            <ConsoleWindow title="HTML Logo Badge (Websites & Blogs)" bodyClassName="p-4">
+            <ConsoleWindow title="HTML badge (websites & blogs)" bodyClassName="p-4">
               <p className={CODE}>
                 {`<a href="https://gobitsnbytes.org" target="_blank" rel="noopener"><img src="https://gobitsnbytes.org/logo" alt="bits&bytes™ - India's Youth Builder Network" height="36" /></a>`}
               </p>
               <p className={cn(LAB_TEXT.xs, "mt-3 text-fg/80")}>
-                Copy and paste into your website footer or partner section.
+                Paste this into your site footer or partner section.
               </p>
             </ConsoleWindow>
           </LabCell>

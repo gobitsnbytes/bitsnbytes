@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Press & Media Kit | bits&bytes™ Brand Assets",
+  title: "Press kit and brand assets | bits&bytes™",
   description:
-    "Download the official bits&bytes™ press kit: logos, brand colors, typography, leadership directory, fact sheet, and press contact. For journalists and media partners.",
+    "The bits&bytes™ press kit: logos, brand colors, typography, public facts, the leadership directory, and a press contact. For journalists and partners.",
   keywords: [
     "bits&bytes™ press kit",
     "GOBITSNBYTES FOUNDATION press",
@@ -15,17 +15,17 @@ export const metadata: Metadata = {
     canonical: "https://gobitsnbytes.org/press",
   },
   openGraph: {
-    title: "Press & Media Kit | bits&bytes™ Brand Assets",
+    title: "Press kit and brand assets | bits&bytes™",
     description:
-      "Download the official bits&bytes™ press kit: logos, brand colors, typography, and leadership directory. For journalists and media partners.",
+      "Logos, brand colors, typography, and the leadership directory for bits&bytes™. For journalists and media partners.",
     url: "https://gobitsnbytes.org/press",
     type: "website",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "bits&bytes™ Press & Media Kit" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "bits&bytes™ press kit" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Press & Media Kit | bits&bytes™ Brand Assets",
-    description: "Official logos, brand colors, typography, and press contact for bits&bytes™. Download here.",
+    title: "Press kit and brand assets | bits&bytes™",
+    description: "Official logos, brand colors, typography, and a press contact for bits&bytes™.",
   },
   robots: {
     index: true,
@@ -38,8 +38,8 @@ const pressPageJsonLd = {
   "@type": "WebPage",
   "@id": "https://gobitsnbytes.org/press#webpage",
   url: "https://gobitsnbytes.org/press",
-  name: "Press & Media Kit | bits&bytes™",
-  description: "Official press kit with logos, brand assets, and leadership directory for bits&bytes™.",
+  name: "Press kit | bits&bytes™",
+  description: "Official press kit with logos, brand assets, and the leadership directory for bits&bytes™.",
   isPartOf: { "@id": "https://gobitsnbytes.org/#website" },
   breadcrumb: {
     "@type": "BreadcrumbList",
