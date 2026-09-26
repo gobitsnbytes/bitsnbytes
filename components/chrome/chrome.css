@@ -1,7 +1,7 @@
 /*
  * Global chrome (nav, menu, route transition; the intro's CSS is intro/intro.css). Plain CSS because
  * these rules key off attributes ExperienceProvider writes on <html>:
- *   data-nav-surface = paper|ink|orange|cream   data-scrolled = true   data-scroll-dir = up|down
+ *   data-nav-surface = paper|ink|orange|cream|burgundy   data-scrolled = true   data-scroll-dir = up|down
  */
 
 /* In the components layer so Tailwind utilities (hidden, h-*, px-*) still override. */
@@ -29,6 +29,13 @@
         --nav-fg: var(--ink);
         --nav-bg: var(--cream);
         --focus-ring: var(--cobalt);
+    }
+
+    html[data-nav-surface="burgundy"] .bnb-nav {
+        --nav-fg: var(--cream);
+        --nav-bg: var(--burgundy);
+        /* cobalt on burgundy is < 3:1 */
+        --focus-ring: var(--marker);
     }
 
     html[data-nav-surface="ink"] .bnb-nav {

@@ -126,7 +126,8 @@ function LogoCube({ progress, anchor }: LogoCubeSceneProps) {
       layout.current = {
         x: a.left + a.width / 2 - (c.left + c.width / 2),
         y: c.top + c.height / 2 - (a.top + a.height / 2),
-        unit: Math.min(a.height * 0.5, c.width * 0.2, c.height * 0.17), // may overlap the type, as buttermax does
+        // Short screens squeeze the slot: keep a floor of 12% of the hero height so the cube still reads.
+        unit: Math.min(Math.max(a.height * 0.5, c.height * 0.12), c.width * 0.2, c.height * 0.17), // may overlap the type, as buttermax does
       };
     };
     measure();

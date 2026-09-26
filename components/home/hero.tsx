@@ -4,13 +4,13 @@
  * HomeHero — buttermax.net's hero, 1:1 in our brand (DESIGN.md "Homepage" 1; tmp/research-full.json → buttermax).
  *
  * Reference moves:
- *  - Full-bleed campaign-colour first viewport (orange for their #FFD600) with a giant edge-to-edge wordmark and
+ *  - Full-bleed campaign-colour first viewport (brand burgundy → orange ramp for their #FFD600) with a giant wordmark and
  *    a script accent, a tiny uppercase caption under its left side, and a 3D object floating in front.
  *  - Wordmark draw-on → here: letters rise from a clip mask (45ms stagger), the script "&bytes" wipes in after,
  *    then object → caption → actions. Starts on the loader's "bnb:ready" (or at once if html[data-loaded]) via
  *    whenReady (safety net 3800ms while the intro covers the page, else 1200ms). Skipped when the wordmark is
  *    already on screen, so it never flashes.
- *  - Scroll-velocity RGB split → riso misregistration: burgundy + orange-lt plates slip up to ±10px with scroll
+ *  - Scroll-velocity RGB split → riso misregistration: ink + orange plates slip up to ±10px with scroll
  *    velocity (gsap.quickTo) and snap back into register at rest.
  *  - Object that outruns the scroll + timed swap → LogoCubeScene (R3F): the cube mark (public/logo.svg) as a real
  *    3D cube, mounted after requestIdleCallback.
@@ -117,7 +117,7 @@ export function HomeHero() {
       }
 
       const tl = gsap.timeline({ paused: true, defaults: { ease: "power4.out" } });
-      // DOM order is burgundy plate, orange plate, ink: the plates lead by 35ms, a misregistered print pass.
+      // DOM order is ink plate, orange plate, cream copy: the plates lead by 35ms, a misregistered print pass.
       hero.querySelectorAll<HTMLElement>("[data-wm-layer]").forEach((layer, i) => {
         const at = i * 0.035;
         tl.fromTo(
@@ -221,105 +221,118 @@ export function HomeHero() {
     <section
       ref={heroRef}
       data-tour="page-hero"
-      data-surface="orange"
+      data-surface="burgundy"
       data-cinematic-section=""
       data-cinematic-title="the byte"
-      className="tone-orange relative isolate flex min-h-[100svh] flex-col"
+      className="relative isolate flex min-h-[100svh] flex-col bg-burgundy text-cream"
     >
       {motionOn && sceneOn ? <LogoCubeScene progress={progress} anchor={slotRef} /> : null}
 
-      <div className="relative flex flex-1 flex-col px-[4vw] pb-[clamp(18px,3vw,44px)] pt-[clamp(84px,9vw,132px)]">
-        {/* Wordmark: the h1 is the text alone (sr-only); the visual is three aria-hidden sibling copies, two riso
-            plates behind the ink copy, so the h1's text reads the name once. Knockout = the orange surface. */}
-        <div className="relative text-[clamp(64px,22vw,340px)] [--wm-knockout:var(--orange)]">
-          <h1 className="sr-only">bits&amp;bytes™ — India&apos;s boldest builder network</h1>
-          <Wordmark plate data-plate="" className="absolute inset-0 text-burgundy" />
-          <Wordmark plate data-plate="" className="absolute inset-0 text-orange-lt" />
-          <Wordmark className="relative" />
+      {/* Brand ramp (AGENTS.md: burgundy into orange warmth for hero surfaces): burgundy under the wordmark, the
+          gradient only behind the object slot (never under text), orange under the copy and actions. Every size is
+          height-aware so the whole first screen fits short laptop viewports (1280×650 up). */}
+      <div className="relative flex flex-1 flex-col">
+        <div className="px-[4vw] pt-[clamp(84px,min(9vw,14svh),132px)]">
+          {/* Wordmark: the h1 is the text alone (sr-only); the visual is three aria-hidden sibling copies, two riso
+              plates behind the cream copy, so the h1's text reads the name once. Knockout = the burgundy surface. */}
+          <div className="relative text-[clamp(64px,min(22vw,36svh),340px)] [--wm-knockout:var(--burgundy)]">
+            <h1 className="sr-only">bits&amp;bytes™ — India&apos;s boldest builder network</h1>
+            <Wordmark plate data-plate="" className="absolute inset-0 text-ink" />
+            <Wordmark plate data-plate="" className="absolute inset-0 text-orange" />
+            <Wordmark className="relative" />
+          </div>
+
+          <p
+            data-hero-caption=""
+            className="mt-[clamp(12px,min(1.6vw,2svh),24px)] pl-[0.4vw] sm:max-w-[48%] font-mono text-[11px] font-bold uppercase leading-[1.5] tracking-[0.16em] sm:text-xs"
+          >
+            <span className="block">India&apos;s boldest builder network.</span>
+            <span className="block">innovate &bull; collaborate &bull; hack</span>
+          </p>
         </div>
 
-        <p
-          data-hero-caption=""
-          className="mt-[clamp(16px,1.6vw,24px)] pl-[0.4vw] sm:max-w-[48%] font-mono text-[11px] font-bold uppercase leading-[1.5] tracking-[0.16em] sm:text-xs"
+        {/* Object slot: the cube (or its static mark) centres here, floating over the ramp. */}
+        <div
+          ref={slotRef}
+          className="relative mt-[clamp(8px,2svh,28px)] min-h-[14svh] flex-1 bg-[linear-gradient(to_bottom,var(--burgundy),var(--warm)_58%,var(--orange))]"
         >
-          <span className="block">India&apos;s boldest builder network.</span>
-          <span className="block">innovate &bull; collaborate &bull; hack</span>
-        </p>
-
-        {/* Object slot: the cube (or its static mark) centres here and overlaps the type a little. */}
-        <div ref={slotRef} className="relative my-[clamp(12px,2vw,28px)] min-h-[28svh] flex-1">
           <StaticCube
             className={cn(
-              "absolute left-1/2 top-1/2 hidden h-[92%] max-h-[320px] -translate-x-1/2 -translate-y-1/2 motion-reduce:grid motion-off:grid",
+              "absolute left-1/2 top-1/2 hidden h-[88%] max-h-[320px] -translate-x-1/2 -translate-y-1/2 motion-reduce:grid motion-off:grid",
               webgl === false && "grid",
             )}
           />
         </div>
 
-        <div className="relative z-20 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div data-hero-caption="" className="max-w-[34ch] font-serif text-[clamp(16px,1.3vw,19px)] leading-snug">
-            <p>Hackathons, build guilds, launches, and communities.</p>
-            <p>Fully student-led. Fully independent.</p>
-            <p className="mt-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em]">No adults in the room.</p>
-          </div>
-
-          <div className="flex flex-col gap-3 md:items-end">
-            <div data-hero-actions="" className="flex flex-wrap gap-3">
-              <Button asChild size="sm">
-                <Link href="/join">
-                  Join the crew
-                  <ArrowUpRight aria-hidden className="size-3.5" />
-                </Link>
-              </Button>
-              <VideoModal src={FILM} title="bits&bytes™ movie">
-                <Button variant="outline" size="sm" data-cursor-label="WATCH FILM">
-                  <Play aria-hidden className="size-3 fill-current" />
-                  Watch film
-                </Button>
-              </VideoModal>
+        <div
+          data-surface="orange"
+          className="tone-orange relative z-20 px-[4vw] pb-[clamp(14px,min(3vw,3svh),44px)] pt-[clamp(8px,1.5svh,20px)]"
+        >
+          <div className="flex flex-col gap-[clamp(12px,2.4svh,24px)] md:flex-row md:items-end md:justify-between">
+            <div data-hero-caption="" className="max-w-[34ch] font-serif text-[clamp(16px,1.3vw,19px)] leading-snug">
+              <p>Hackathons, build guilds, launches, and communities.</p>
+              <p>Fully student-led. Fully independent.</p>
+              <p className="mt-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em]">No adults in the room.</p>
             </div>
-            <Link
-              data-hero-actions=""
-              href="/prospectus?download=1"
-              data-tour="prospectus"
-              aria-label="Download the bits&bytes partnership prospectus"
-              className="group flex w-full max-w-xs items-center gap-3 border-l-3 border-ink py-1 pl-3 font-mono text-ink transition-colors duration-150 hover:bg-ink/5"
-            >
-              <FileDown
-                aria-hidden
-                className="size-4 shrink-0 transition-transform duration-150 ease-riot group-hover:translate-y-0.5 motion-reduce:transition-none"
-              />
-              <span className="min-w-0 flex-1">
-                <span className="block text-[10px] font-bold uppercase tracking-[0.18em]">building a partnership?</span>
-                <span className="block text-xs font-bold uppercase tracking-[0.08em]">download the 2026 prospectus</span>
-              </span>
-              <span className="text-[10px] font-bold uppercase tracking-[0.16em]">pdf</span>
-            </Link>
-          </div>
-        </div>
 
-        {/* Hero footer row (buttermax): dots left, arrow centre, coordinates right. */}
-        <div className="relative z-20 mt-[clamp(18px,2.4vw,36px)] grid grid-cols-[1fr_auto_1fr] items-center">
-          <span data-hero-actions="">
-            <ByteDots />
-          </span>
-          <button
-            data-hero-actions=""
-            type="button"
-            onClick={toReel}
-            aria-label="Scroll to the film"
-            className="grid size-11 cursor-pointer place-items-center border-2 border-ink transition-colors duration-150 hover:bg-ink hover:text-orange"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden className="size-5">
-              <path d="M12 3v17M5 13l7 7 7-7" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square" />
-            </svg>
-          </button>
-          <span
-            data-hero-actions=""
-            className="justify-self-end font-mono text-[10px] font-bold uppercase tracking-[0.16em] max-sm:hidden"
-          >
-            26.8467° N, 80.9462° E
-          </span>
+            <div className="flex flex-col gap-3 md:items-end">
+              <div data-hero-actions="" className="flex flex-wrap gap-3">
+                <Button asChild size="sm">
+                  <Link href="/join">
+                    Join the crew
+                    <ArrowUpRight aria-hidden className="size-3.5" />
+                  </Link>
+                </Button>
+                <VideoModal src={FILM} title="bits&bytes™ movie">
+                  <Button variant="outline" size="sm" data-cursor-label="WATCH FILM">
+                    <Play aria-hidden className="size-3 fill-current" />
+                    Watch film
+                  </Button>
+                </VideoModal>
+              </div>
+              <Link
+                data-hero-actions=""
+                href="/prospectus?download=1"
+                data-tour="prospectus"
+                aria-label="Download the bits&bytes partnership prospectus"
+                className="group flex w-full max-w-xs items-center gap-3 border-l-3 border-ink py-1 pl-3 font-mono text-ink transition-colors duration-150 hover:bg-ink/5"
+              >
+                <FileDown
+                  aria-hidden
+                  className="size-4 shrink-0 transition-transform duration-150 ease-riot group-hover:translate-y-0.5 motion-reduce:transition-none"
+                />
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.18em]">building a partnership?</span>
+                  <span className="block text-xs font-bold uppercase tracking-[0.08em]">download the 2026 prospectus</span>
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.16em]">pdf</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Hero footer row (buttermax): dots left, arrow centre, coordinates right. */}
+          <div className="mt-[clamp(10px,min(2.4vw,2.4svh),36px)] grid grid-cols-[1fr_auto_1fr] items-center">
+            <span data-hero-actions="">
+              <ByteDots />
+            </span>
+            <button
+              data-hero-actions=""
+              type="button"
+              onClick={toReel}
+              aria-label="Scroll to the film"
+              className="grid size-11 cursor-pointer place-items-center border-2 border-ink transition-colors duration-150 hover:bg-ink hover:text-orange"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden className="size-5">
+                <path d="M12 3v17M5 13l7 7 7-7" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square" />
+              </svg>
+            </button>
+            <span
+              data-hero-actions=""
+              className="justify-self-end font-mono text-[10px] font-bold uppercase tracking-[0.16em] max-sm:hidden"
+            >
+              26.8467° N, 80.9462° E
+            </span>
+          </div>
         </div>
       </div>
 
