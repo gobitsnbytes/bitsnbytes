@@ -415,7 +415,7 @@ def page_founder_letter(c, page):
     col = (W - 28) / 2
     letter = st(BODY, fontSize=11, leading=16.4)
     h1 = para(c, "In July 2025 we were organising a regional student hackathon under an external partner. By mid-August the partner had cancelled it. The easy move was to wait for someone else to hand us a new date. We were teenagers with a problem, and we still had a group of people who wanted to build.", M, y, col, letter)
-    h2 = para(c, "So we started bits&bytes™ in November 2025, at first to make one independent hackathon happen. Then the shape of the work got clearer. Young people don't need more reasons to consume technology. They need a place to use it, break it and ship it, next to other people doing the same.", M + col + 28, y, col, letter)
+    h2 = para(c, "So we started bits&bytes™ in November 2025, at first to make one independent hackathon happen. Then the shape of the work got clearer. Young people have plenty of reasons to consume technology. What they lack is a place to use it, break it and ship it, next to other people doing the same.", M + col + 28, y, col, letter)
     y -= max(h1, h2) + 16
     y -= para(c, "The network is still young, and that's part of the point. We're building the systems, standards and partnerships that let a teen-led organisation move fast without asking young people to carry adult legal or financial risk.", M, y, W, letter) + 34
     belief = "School can teach the map. Real projects teach you where the ground gives way."
@@ -441,8 +441,8 @@ def page_contents(c, page):
         (page_problem, "Why this needs to exist", "The gap between school and capability"),
         (page_thesis, "How we work", "Our mission, the method and the model we run"),
         (page_timeline, "The record so far", "From a cancelled event to a pan-India network"),
-        (page_fork, "Forks", "Local chapters that run their own rooms"),
-        (page_events, "Events and the next room", "What we've run, and the Regional Hackathon Series"),
+        (page_programs, "Programmes and forks", "The ways in, and local chapters that run their own rooms"),
+        (page_india_innovates, "Events and the next room", "India Innovates 2026, what we've run and the Regional Hackathon Series"),
         (page_collabs, "Collaborations", "Community partnerships and the names beside us"),
         (page_legal, "Trust is part of the product", "Legal structure, safeguarding and stewardship"),
         (page_why_partner, "Why partner", "University, corporate and institutional pathways"),
@@ -506,7 +506,7 @@ def page_problem(c, page):
         ("5.6%", "reported taking vocational training or related courses"),
         ("43.3%", "could solve a basic three-digit by one-digit division problem"),
     ]
-    note = "These numbers aren't a verdict on young people. They're a reminder that enrolment isn't readiness, and that access to content isn't access to practice."
+    note = "Read these as a description of the system around young people: enrolment doesn't make someone ready, and access to content doesn't give them practice."
     small = st(SMALL, textColor=FOG)
     ph = 24 + 3 * 44 + 14 + para_h(note, W - 50, small) + 22
     panel(c, M, y, W - 6, ph, INK, shade=BURGUNDY_DK)
@@ -609,7 +609,7 @@ def page_timeline(c, page):
         ("MAR 2026", "the scale", "As Official Executive Partner for India Innovates 2026, the team works inside a national civic-tech platform."),
         ("APR 2026", "the proof", "Hack4Good v0 turns agentic AI into a 24-hour build sprint in Lucknow."),
         ("JUN 2026", "the structure", "GOBITSNBYTES FOUNDATION is incorporated as a Section 8 non-profit, a permanent legal home for the network."),
-        ("2026", "the circuit", "We sign on as community partner for three global online hackathons: NexusHacks 2026, Infinity Hacks 2026 and DoraHacks 2.0."),
+        ("2026", "the circuit", "We sign on as community partner for global online hackathons: NexusHacks 2026, Infinity Hacks 2026 and DoraHacks 2.0."),
         ("DEC 2026", "the next room", "The Regional Hackathon Series: city qualifiers across India, then the finale at IIT Bombay on Dec 17–18."),
     ]
     lx, hx, bx = M + 86, M + 108, M + 236
@@ -741,7 +741,7 @@ def page_india_innovates(c, page):
     tag(c, "OFFICIAL EXECUTIVE PARTNER", M + 14, y - 188 + 14)
     y -= 188 + 30
     lw = W - 200
-    lh = para(c, "India Innovates 2026 was a national civic-tech platform held at Bharat Mandapam, New Delhi. The funnel went from 1.26 crore+ applicants to 28,000+, then 5,000+, and finally 15 teams. bits&bytes™ was the Official Executive Partner, working at a scale where coordination, participant experience and public trust mattered as much as the stage.", M, y, lw, st(BODY, fontSize=11.6, leading=17.6))
+    lh = para(c, "India Innovates 2026 was a national civic-tech platform held at Bharat Mandapam, New Delhi. The funnel went from 1.26 crore+ applicants to 28,000+, then 5,000+, and finally 15 teams. bits&bytes™ was the Official Executive Partner. At that scale, coordination, participant experience and public trust mattered as much as the stage.", M, y, lw, st(BODY, fontSize=11.6, leading=17.6))
     px, pw = M + lw + 24, W - lw - 30
     note = "A young team can carry serious responsibility when the system around the work is serious too."
     ns = st(SMALL, textColor=PAPER)
@@ -787,11 +787,12 @@ def page_events(c, page):
     y -= rp + 28
     events = [
         ("Hack4Good v0", "24-hour agentic AI hackathon", "Lucknow / 425 registrations / 110 on-ground"),
-        ("Execron 1.0", "AI workshop + hackathon", "IIT Kanpur / Classes 9–12 / 4h workshop + 24h sprint"),
+        # no-break spaces (U+00A0) keep closing words together, so no card ends on a one-word line
+        ("Execron 1.0", "AI workshop + hackathon", "IIT Kanpur / Classes 9–12 / 4h\u00a0workshop\u00a0+\u00a024h\u00a0sprint"),
         ("GitHub Copilot Dev Days", "responsible AI for developers", "Lucknow / Copilot workflows and responsible AI"),
-        ("Lucknow Build Guild", "hardware workshop + meetup", "A free hardware workshop and meetup in Lucknow"),
-        ("Regional Space Apps Hackathon", "regional builder sprint", "300+ participants / space, data and public problems"),
-        ("India Innovates 2026", "national civic-tech platform", "Official Executive Partner / Bharat Mandapam, New Delhi"),
+        ("Lucknow Build Guild", "hardware workshop + meetup", "A free hardware workshop and meetup\u00a0in\u00a0Lucknow"),
+        ("Regional Space Apps Hackathon", "regional builder sprint", "300+ participants / space, data and public\u00a0problems"),
+        ("India Innovates 2026", "national civic-tech platform", "Official Executive Partner / Bharat\u00a0Mandapam, New\u00a0Delhi"),
     ]
     cw = (W - 24) / 2
     ch = (y - FLOOR - 10 - 2 * 20) / 3  # three rows fill the rest of the page
@@ -975,7 +976,7 @@ def page_benefits(c, page):
         ("continuity", "A path from one event to a cohort, a fork, a research track or the alumni network."),
     ]
     y = grid(c, benefits, y)
-    pull = "We don't want to decorate a weak programme with a strong brand. We want the brand next to work that a participant, a partner and a sceptical reader can all inspect."
+    pull = "A strong brand on a weak programme helps nobody. We want the brand next to work that a participant, a partner and a sceptical reader can all inspect."
     s = st(SMALL, textColor=INK, fontSize=10, leading=14)
     ph = 26 + 30 + 16 + para_h(pull, W - 50, s) + 24
     top = FLOOR + 12 + ph  # the pull panel closes the page; a photo takes the space above it
@@ -1009,7 +1010,7 @@ def page_vision(c, page):
         b = display(c, [word], x + 14, y - 18, tw - 28, ds, [fg])
         para(c, caps(text), x + 14, b - 12, tw - 28, st(cap_s, textColor=fg))
     y -= th + 5 + 22
-    layer = "Alumni come back as mentors, reviewers, collaborators, funders, founders, researchers and hosts. It keeps the network from confusing age with authority: someone who has shipped more can make the first step less lonely for someone who hasn't."
+    layer = "An alumni layer lets people come back as mentors, reviewers, collaborators, funders, founders, researchers and hosts. It keeps the network from confusing age with authority: someone who has shipped more can make the first step less lonely for someone who hasn't."
     s = st(SMALL, textColor=PAPER, fontSize=10, leading=14)
     lines = ["alumni are distribution", "for the next builder."]
     al = display_size([caps(line) for line in lines], W - 50, 40)
@@ -1020,7 +1021,7 @@ def page_vision(c, page):
     y -= ph + 5 + 20
     cards = [
         ("the alumni network", "Mentorship, peer review, research collaborations, founder sessions and a way back into the rooms where people first started."),
-        ("the alumni fund", "A planned pool that recycles later success into first hardware parts, cloud credits, travel, prototypes and small grants for the next builders."),
+        ("the alumni fund", "A planned pool that recycles later success into first hardware parts, cloud credits, travel, prototypes and small grants for the next\u00a0builders."),
     ]
     cw = (W - 24) / 2
     cs = st(SMALL, textColor=INK, fontSize=9.6, leading=13.4)
@@ -1074,7 +1075,7 @@ def page_closing(c, page):
     mark(c, PAGE_W - M - 24, PAGE_H - 62, 26, PAPER)
     y = display(c, ["somewhere in india", "a teenager is trying", "to become useful."], M, PAGE_H - 96, W, 66, [PAPER, PAPER, ORANGE])
     y -= 30
-    y -= para(c, "They don't need a prophecy. They need a room, a problem, a few people who'll stay and a reason to put the first version out into the world.", M, y, 420, st(BODY, textColor=FOG, fontSize=12, leading=17)) + 44
+    y -= para(c, "What they need is ordinary: a room, a problem, a few people who'll stay and a reason to put the first version out into the world.", M, y, 420, st(BODY, textColor=FOG, fontSize=12, leading=17)) + 44
     draw(c, "We're building that room.", M, y, "Serif-Italic", 26, CREAM, max_w=W)
     y -= 40
     rule(c, M, y, W, PAPER, 3)
