@@ -11,6 +11,7 @@ import { useOptionalExperience } from "@/components/experience-provider";
 import { Character } from "@/components/character/character";
 import { PromptBox, type PromptBoxRef } from "@/components/ui/chatgpt-prompt-input";
 import { FORK_CITIES } from "@/lib/forks";
+import { play } from "@/components/chrome/sound/engine";
 import {
   Caret,
   ConsoleBar,
@@ -208,6 +209,7 @@ const FloatingAiAssistant = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const lastTickRef = useRef(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [modelName, setModelName] = useState("");
@@ -504,7 +506,14 @@ const FloatingAiAssistant = () => {
         controller.signal,
         {
           model: setModelName,
-          token: (chunk) => update((prev) => prev + chunk),
+          token: (chunk) => {
+            const now = performance.now();
+            if (now - lastTickRef.current >= 60) {
+              lastTickRef.current = now;
+              play("key");
+            }
+            update((prev) => prev + chunk);
+          },
           error: setError,
           done: (action) => {
             if (action?.type === "navigate" && typeof action.path === "string") {
