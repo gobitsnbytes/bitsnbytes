@@ -65,12 +65,12 @@ const strategicPartners = [
 const LOGO_SIZES = "(min-width: 1024px) 18vw, (min-width: 768px) 40vw, 80vw";
 
 /**
- * Partners chapter: a draggable ink ticker of every partner (entering straight off the ink "now showing"
- * chapter), then a clean logo grid split by 2px ink bones. All names, roles, copy and links as before.
+ * Partners chapter: a draggable ink ticker of every partner (entering straight off the paper works grid)
+ * then a clean logo grid split by 2px ink bones. All names, roles, copy and links as before.
  */
 export function Partners() {
   return (
-    <Chapter id="partners" title="partners" number={5} tone="paper" className="pt-0 md:pt-0">
+    <Chapter id="partners" title="partners" number={4} tone="paper" className="pt-0 md:pt-0">
       <DragMarquee
         items={strategicPartners.map((partner) => (
           <span key={partner.name} className="flex items-baseline gap-4">
@@ -82,7 +82,7 @@ export function Partners() {
 
       <div className="mt-16 px-[4vw] md:mt-24">
         <ChapterHead
-          number={5}
+          number={4}
           label="Ecosystem"
           title="Our partners"
           description="We work with these companies to give teen builders more to work with."

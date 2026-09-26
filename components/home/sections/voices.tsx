@@ -80,9 +80,9 @@ export function HomeVoices() {
   };
 
   return (
-    <Chapter id="voices" title="voices" number={7} tone="orange">
+    <Chapter id="voices" title="voices" number={6} tone="orange">
       <div className="px-[4vw]">
-        <ChapterHead number={7} label="Stories" title="Voices from the crew" />
+        <ChapterHead number={6} label="Stories" title="Voices from the crew" />
         <div className="-mt-4 mb-8 flex items-center justify-end gap-3">
           <Button variant="outline" size="icon" onClick={() => go(-1)} aria-label="Previous testimonial">
             <ArrowLeft aria-hidden className="size-4" />

@@ -1,7 +1,6 @@
 import {
   HomeFaq,
   HomeHero,
-  HomeNowShowing,
   HomeNumbers,
   HomeReel,
   HomeVoices,
@@ -36,7 +35,7 @@ const homeFaqs: HomeFaqItem[] = [
 ];
 
 // buttermax 1:1 in brand (DESIGN.md "Homepage"): orange hero → curtain reel → one long paper panel
-// (statement, numbers, works grid) torn over the reel → ink "now showing" → partners → FAQ → voices.
+// (statement, numbers, works grid) torn over the reel → partners → FAQ → voices.
 // No wrapper element: #film's fixed media needs ancestors without transform/filter.
 export default function Home() {
   return (
@@ -52,7 +51,6 @@ export default function Home() {
       <HomeNumbers />
       <HomeWorks />
 
-      <HomeNowShowing />
       <Partners />
       <HomeFaq faqs={homeFaqs} />
       <HomeVoices />
