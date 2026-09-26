@@ -218,11 +218,13 @@ export function Footer() {
                 shows through it; its ink ring traps it between "t" and "&" the same way the script is trapped. */}
             <div ref={markRef} className="relative flex text-[19vw] leading-none text-orange [--wm-knockout:var(--ink)]">
               <Wordmark />
+              {/* The wrapper owns position + translate(-50%); GSAP only transforms the svg inside (an svg has no
+                  offsetWidth, so GSAP would freeze a CSS translate into stale px once fit() resizes the type). */}
+              <span aria-hidden className="pointer-events-none absolute left-[46.4%] top-[56%] size-[0.9em] -translate-x-1/2 -translate-y-1/2">
               <svg
                 data-cube=""
-                aria-hidden
                 viewBox={LOGO_VIEWBOX}
-                className="pointer-events-none absolute left-[46.4%] top-[56%] size-[0.9em] -translate-x-1/2 -translate-y-1/2 overflow-visible"
+                className="size-full overflow-visible"
               >
                 <path
                   d={LOGO_HEX}
@@ -234,6 +236,7 @@ export function Footer() {
                   ))}
                 </g>
               </svg>
+              </span>
             </div>
           </div>
         </div>
