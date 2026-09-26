@@ -27,11 +27,12 @@ import { GROUPS } from "@/components/edition/edition-opener";
 
 gsap.registerPlugin(useGSAP);
 
-// /movie/bnb-trailer.mp4 cue points, measured from its frames (24fps). Re-measure if the edit changes timing.
+// /movie/bnb-trailer.mp4 cue points (the team's captioned cut, 30fps), measured from its frames. Re-measure if the
+// edit changes timing.
 const OPEN_AT = 6.9; // the cube rushes the lens
-const CUT = 173 / 24; // first frame of the black end card (7.208s)
+const CUT = 216 / 30; // first frame of the black end card (7.200s)
 // End-card logo hexagon inside the frame: centre and height as fractions of the frame.
-const CARD = { cx: 0.4992, cy: 0.5093, h: 0.863 };
+const CARD = { cx: 0.4995, cy: 0.5097, h: 0.8583 };
 // logo.svg hexagon bounding box (its viewBox is 28 54 146 146); pointy-top, so circumradius = height / 2.
 const HEX = { x: 44.568964, y: 64.293104, w: 113.603586, h: 129.724136 };
 const VIEW = { x: 28, y: 54, size: 146 };
