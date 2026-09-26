@@ -8,6 +8,7 @@ import "lenis/dist/lenis.css";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteChrome } from "@/components/site-chrome";
+import { FORKS } from "@/lib/forks";
 
 // Display (font-display / font-accent-sans)
 const anton = Anton({
@@ -62,7 +63,7 @@ export const metadata: Metadata = {
     template: "%s | bits&bytes™",
   },
   description:
-    "Join India's boldest pan-India youth-led builder network. Build real software, attend hackathons, and grow with 1400+ teen developers nationwide.",
+    "A pan-India builder network run by teenagers. Hackathons, forks in cities across India, and real software shipped in public.",
   keywords: [
     "bits&bytes™",
     "bits&bytes",
@@ -121,7 +122,7 @@ export const metadata: Metadata = {
     siteName: "bits&bytes™",
     title: "bits&bytes™ | Pan-India Youth-Led Builder Network & Hackathons",
     description:
-      "Join India's boldest pan-India youth-led builder network. Build real software, attend hackathons, and grow with 1400+ teen developers nationwide.",
+      "A pan-India builder network run by teenagers. Hackathons, forks in cities across India, and real software shipped in public.",
     images: [
       {
         url: "/og-image.png",
@@ -136,7 +137,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "bits&bytes™ | Pan-India Youth-Led Builder Network & Hackathons",
     description:
-      "Join India's boldest pan-India youth-led builder network. Build real software, attend hackathons, and grow with 1400+ teen developers nationwide.",
+      "A pan-India builder network run by teenagers. Hackathons, forks in cities across India, and real software shipped in public.",
     images: ["/og-image.png"],
     creator: "@gobitsnbytes",
     site: "@gobitsnbytes",
@@ -173,7 +174,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Organization + NGO + Pan-India LocalBusiness structured data for Knowledge Panel & Local SEO
+  // Organization + NGO structured data for the Knowledge Panel (pan-India: areaServed lists the forks)
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -206,23 +207,11 @@ export default function RootLayout({
         email: "hello@gobitsnbytes.org",
         address: {
           "@type": "PostalAddress",
-          addressLocality: "Lucknow",
-          addressRegion: "Uttar Pradesh",
           addressCountry: "IN",
-        },
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: 26.8467,
-          longitude: 80.9462,
         },
         areaServed: [
           { "@type": "Country", name: "India" },
-          { "@type": "City", name: "Jaipur" },
-          { "@type": "City", name: "Hyderabad" },
-          { "@type": "City", name: "Bengaluru" },
-          { "@type": "City", name: "Kolkata" },
-          { "@type": "City", name: "Noida" },
-          { "@type": "City", name: "Lucknow" },
+          ...FORKS.map((fork) => ({ "@type": "City", name: fork.city })),
         ],
         sameAs: [
           "https://www.linkedin.com/company/gobitsbytes",
@@ -250,48 +239,6 @@ export default function RootLayout({
           "Youth Coding Education",
           "Open Source",
         ],
-      },
-      {
-        "@type": "LocalBusiness",
-        "@id": "https://gobitsnbytes.org/#localbusiness",
-        name: "bits&bytes™ HQ (GOBITSNBYTES FOUNDATION)",
-        image: "https://gobitsnbytes.org/og-image.png",
-        url: "https://gobitsnbytes.org",
-        email: "hello@gobitsnbytes.org",
-        priceRange: "Free",
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Lucknow",
-          addressRegion: "Uttar Pradesh",
-          addressCountry: "IN",
-        },
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: 26.8467,
-          longitude: 80.9462,
-        },
-        areaServed: {
-          "@type": "Country",
-          name: "India",
-        },
-      },
-      {
-        "@type": "Dataset",
-        "@id": "https://gobitsnbytes.org/#national-youth-developer-data-2026",
-        name: "India Teen Builder & Youth Developer Benchmark 2026",
-        description:
-          "Proprietary benchmark and demographic research on 1,400+ Indian teen developers, hackathon shipping rates, and agentic AI adoption across regional builder hubs.",
-        creator: { "@id": "https://gobitsnbytes.org/#organization" },
-        temporalCoverage: "2025-11-01/2026-08-20",
-        spatialCoverage: "India",
-        variableMeasured: [
-          "Active Teen Builders (1,400+)",
-          "Hackathon Project Evaluation Rate (2,700+ submissions)",
-          "Mean Builder Age (16.5 Years)",
-          "Agentic AI Tool Adoption (84%)",
-          "Active Regional Forks (5+ Cities)",
-        ],
-        license: "https://creativecommons.org/licenses/by/4.0/",
       },
       {
         "@type": "HowTo",
@@ -387,7 +334,7 @@ export default function RootLayout({
       {
         "@type": "WebPage",
         name: "Impact",
-        description: "See our community impact - 1400+ students, 100% student-led",
+        description: "The events and forks behind bits&bytes™",
         url: "https://gobitsnbytes.org/impact",
       },
       {
@@ -411,7 +358,7 @@ export default function RootLayout({
       {
         "@type": "WebPage",
         name: "Contact",
-        description: "Get in touch with bits&bytes™ team in Lucknow",
+        description: "Get in touch with the bits&bytes™ team",
         url: "https://gobitsnbytes.org/contact",
       },
       {
