@@ -9,7 +9,7 @@ import { useExperience } from "@/components/experience-provider";
 import { ScrambleText } from "@/components/riot/scramble-text";
 import { cn } from "@/lib/utils";
 import { openConsole, setShortcutsEnabled, useShortcutsEnabled } from "./hotkeys/shortcuts";
-import { setSoundEnabled, useSoundEnabled } from "./sound/engine";
+import { getVolume, setSoundEnabled, setVolume, useSoundEnabled } from "./sound/engine";
 import { ROUTES, SOCIALS, isActive, pad } from "./links";
 import { CubeMark } from "./wordmark";
 
@@ -200,6 +200,20 @@ export function MenuPanel({ pathname, instant, onNavigate }: MenuPanelProps) {
                 >
                   Sound <Bracket>{sound ? "On" : "Off"}</Bracket>
                 </button>
+                {sound && (
+                  <label className="bnb-btn" style={{ gap: "0.5em", borderRadius: 0 }}>
+                    Volume
+                    <input
+                      type="range"
+                      min={0}
+                      max={100}
+                      step={5}
+                      defaultValue={Math.round(getVolume() * 100)}
+                      onChange={(e) => setVolume(Number(e.currentTarget.value) / 100)}
+                      style={{ accentColor: "currentColor", width: "6em", borderRadius: 0 }}
+                    />
+                  </label>
+                )}
                 <button
                   type="button"
                   className="bnb-btn"

@@ -241,6 +241,23 @@ let master: GainNode | null = null;
 let voices = 0;
 let idle: ReturnType<typeof setTimeout> | undefined;
 
+const VOLUME_KEY = "bnb-sound-volume";
+/** Master level 0..1, persisted in localStorage["bnb-sound-volume"] (default 0.6). */
+export function getVolume() {
+  let v = 0.6;
+  try {
+    v = Number(window.localStorage.getItem(VOLUME_KEY) ?? "0.6");
+  } catch {}
+  return Number.isFinite(v) ? Math.min(1, Math.max(0, v)) : 0.6;
+}
+export function setVolume(v: number) {
+  const next = Math.min(1, Math.max(0, v));
+  try {
+    window.localStorage.setItem(VOLUME_KEY, String(next));
+  } catch {}
+  if (master) master.gain.value = next;
+}
+
 /** Create (or resume) the context. Call only from a trusted user gesture, and only while sound is on. */
 export function unlock() {
   if (!isSoundEnabled()) return;
@@ -249,7 +266,7 @@ export function unlock() {
     if (!Ctor) return;
     ctx = new Ctor();
     master = ctx.createGain();
-    master.gain.value = 0.6;
+    master.gain.value = getVolume();
     const shaper = ctx.createWaveShaper();
     const curve = new Float32Array(1024);
     for (let i = 0; i < curve.length; i++) curve[i] = Math.tanh(1.5 * ((i / (curve.length - 1)) * 2 - 1));
