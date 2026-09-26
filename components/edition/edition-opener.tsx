@@ -48,9 +48,10 @@ export type EditionOpenerProps = BaseProps &
       }
   );
 
-// Cube-derived construction drawing (viewBox units, R = 300). Each entry is one draw group.
+// Cube-derived construction drawing (viewBox units, R = 300: the logo hexagon's circumradius). Each entry is one
+// draw group. Also drawn out of the film's end-card logo by components/home/film-player.tsx.
 const S = 259.81; // R·cos30
-const GROUPS: string[][] = [
+export const GROUPS: string[][] = [
   // 1. circumscribed circle + outer ring (drawn as two arcs so pathLength works like the lines)
   ["M300 0A300 300 0 1 1 -300 0A300 300 0 1 1 300 0", "M460 0A460 460 0 1 1 -460 0A460 460 0 1 1 460 0"],
   // 2. 30° isometric diagonals + vertical axis

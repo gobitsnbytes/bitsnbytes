@@ -29,7 +29,7 @@ import { useGSAP } from "@gsap/react";
 import { ArrowUpRight, FileDown, Play } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { VideoModal } from "@/components/riot/video";
+import { FilmPlayer } from "./film-player";
 import { useExperience } from "@/components/experience-provider";
 import { cn } from "@/lib/utils";
 import { CubeMark } from "@/components/chrome/wordmark";
@@ -103,20 +103,38 @@ export function HomeHero() {
   );
   const fromServer = useRef(hydrating);
 
-  // Intro choreography: wordmark → object → caption → actions. Runs once, at mount.
+  // Intro choreography: wordmark → object → caption → actions. Runs once at mount, and again when the film's
+  // end-card handoff (FilmPlayer) opens its iris onto the hero ("bnb:hero-replay").
   useGSAP(
-    () => {
+    (_, contextSafe) => {
       const hero = heroRef.current;
-      if (!hero) return;
+      if (!hero || !contextSafe) return;
+      const replay = contextSafe(() => {
+        if (motionAllowed()) introTimeline(hero).play();
+      });
+      window.addEventListener("bnb:hero-replay", replay);
+      const unlisten = () => window.removeEventListener("bnb:hero-replay", replay);
+
       // Hide-then-rise only while nothing has shown the wordmark yet: a client-side route mount (hidden before
       // first paint), or the first-visit intro (html[data-loader="on"], set during HTML parse; its CSS failsafe
       // drops the panel at 3.7s).
       const covered = !fromServer.current || (introCovering() && performance.now() < 3700);
       if (!motionAllowed() || !covered) {
         setObjectCue(true);
-        return;
+        return unlisten;
       }
 
+      const tl = introTimeline(hero);
+      const cancel = whenReady(() => tl.play());
+      return () => {
+        unlisten();
+        cancel?.();
+      };
+    },
+    { scope: heroRef },
+  );
+
+  function introTimeline(hero: HTMLElement) {
       const tl = gsap.timeline({ paused: true, defaults: { ease: "power4.out" } });
       // DOM order is ink plate, orange plate, cream copy: the plates lead by 35ms, a misregistered print pass.
       hero.querySelectorAll<HTMLElement>("[data-wm-layer]").forEach((layer, i) => {
@@ -151,11 +169,8 @@ export function HomeHero() {
       tl.call(() => setObjectCue(true), [], 0.75)
         .fromTo(hero.querySelectorAll("[data-hero-caption]"), ui, uiTo, 1.0)
         .fromTo(hero.querySelectorAll("[data-hero-actions]"), ui, uiTo, 1.12);
-
-      return whenReady(() => tl.play());
-    },
-    { scope: heroRef },
-  );
+      return tl;
+  }
 
   // Scroll: progress for the cube + riso plates driven by scroll velocity.
   useGSAP(
@@ -285,12 +300,12 @@ export function HomeHero() {
                     <ArrowUpRight aria-hidden className="size-3.5" />
                   </Link>
                 </Button>
-                <VideoModal src={FILM} poster={FILM_POSTER} title="bits&bytes™ movie">
-                  <Button variant="outline" size="sm" data-cursor-label="WATCH FILM">
+                <FilmPlayer src={FILM} poster={FILM_POSTER} title="bits&bytes™ movie">
+                  <Button variant="outline" size="sm" data-cursor-label="WATCH FILM" data-film-home="">
                     <Play aria-hidden className="size-3 fill-current" />
                     Watch film
                   </Button>
-                </VideoModal>
+                </FilmPlayer>
               </div>
               <Link
                 data-hero-actions=""
