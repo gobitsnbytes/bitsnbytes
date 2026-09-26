@@ -22,7 +22,10 @@ import { ChapterIndex, type EditionChapter } from "@/components/edition/chapter-
 gsap.registerPlugin(ScrollTrigger);
 
 const MOTION_STORAGE_KEY = "bnb-immersive-motion";
-/** Fixed nav clearance used when jumping to a chapter. */
+/**
+ * Fixed nav (~91px) clearance, applied once: as scroll-margin-top on every chapter. Lenis' scrollTo
+ * and native scrollIntoView both honour it, so never pass an extra offset for chapter jumps.
+ */
 const NAV_OFFSET = 96;
 /** Viewport line (px from the top) whose section decides html[data-nav-surface]. */
 const SURFACE_LINE = 40;
@@ -134,7 +137,7 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       easing: (time) => Math.min(1, 1.001 - Math.pow(2, -10 * time)),
       smoothWheel: true,
       syncTouch: false,
-      anchors: { offset: -NAV_OFFSET },
+      anchors: true, // hash targets are chapters: their scroll-margin-top clears the nav
       stopInertiaOnNavigate: true,
       prevent: (node) =>
         node instanceof HTMLElement &&
@@ -219,7 +222,7 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       setEditionTitle(edition ? (edition.dataset.editionTitle ?? "") : null);
       setActiveIndex(0);
 
-      // Native jumps (no Lenis) land below the fixed nav.
+      // Every jump (Lenis, anchors, scrollIntoView) lands below the fixed nav.
       const margined = sections.filter((section) => !section.style.scrollMarginTop);
       margined.forEach((section) => (section.style.scrollMarginTop = `${NAV_OFFSET}px`));
 
@@ -266,7 +269,7 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
 
       // Keyboard-initiated jumps don't animate.
       if (lenis) {
-        lenis.scrollTo(section, { offset: -NAV_OFFSET, immediate: viaKeyboard, onComplete: focusSection });
+        lenis.scrollTo(section, { immediate: viaKeyboard, onComplete: focusSection });
       } else {
         section.scrollIntoView({ behavior: motionEnabled && !viaKeyboard ? "smooth" : "auto", block: "start" });
         focusSection();

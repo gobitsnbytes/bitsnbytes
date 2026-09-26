@@ -7,8 +7,9 @@
  *  - Full-bleed campaign-colour first viewport (orange for their #FFD600) with a giant edge-to-edge wordmark and
  *    a script accent, a tiny uppercase caption under its left side, and a 3D object floating in front.
  *  - Wordmark draw-on → here: letters rise from a clip mask (45ms stagger), the script "&bytes" wipes in after,
- *    then object → caption → actions. Starts on the loader's "bnb:ready" (or at once if html[data-loaded]),
- *    with a 1200ms safety fallback. Skipped when the wordmark is already on screen, so it never flashes.
+ *    then object → caption → actions. Starts on the loader's "bnb:ready" (or at once if html[data-loaded]) via
+ *    whenReady (safety net 3800ms while the intro covers the page, else 1200ms). Skipped when the wordmark is
+ *    already on screen, so it never flashes.
  *  - Scroll-velocity RGB split → riso misregistration: burgundy + orange-lt plates slip up to ±10px with scroll
  *    velocity (gsap.quickTo) and snap back into register at rest.
  *  - Object that outruns the scroll + timed swap → LogoCubeScene (R3F): the cube mark (public/logo.svg) as a real
@@ -32,6 +33,7 @@ import { VideoModal } from "@/components/riot/video";
 import { useExperience } from "@/components/experience-provider";
 import { cn } from "@/lib/utils";
 import { CubeMark } from "@/components/chrome/wordmark";
+import { introCovering, whenReady } from "@/components/edition/shared";
 import { Wordmark } from "./wordmark";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -105,11 +107,10 @@ export function HomeHero() {
     () => {
       const hero = heroRef.current;
       if (!hero) return;
-      const html = document.documentElement;
       // Hide-then-rise only while nothing has shown the wordmark yet: a client-side route mount (hidden before
-      // first paint), or the first-visit loader curtain (html[data-loader="on"], set during HTML parse; its CSS
-      // failsafe drops the curtain at 2.4s).
-      const covered = !fromServer.current || (html.dataset.loader === "on" && performance.now() < 2400);
+      // first paint), or the first-visit intro (html[data-loader="on"], set during HTML parse; its CSS failsafe
+      // drops the panel at 3.7s).
+      const covered = !fromServer.current || (introCovering() && performance.now() < 3700);
       if (!motionAllowed() || !covered) {
         setObjectCue(true);
         return;
@@ -150,17 +151,7 @@ export function HomeHero() {
         .fromTo(hero.querySelectorAll("[data-hero-caption]"), ui, uiTo, 1.0)
         .fromTo(hero.querySelectorAll("[data-hero-actions]"), ui, uiTo, 1.12);
 
-      const play = () => tl.play();
-      if (html.dataset.loaded === "true") {
-        play();
-        return;
-      }
-      window.addEventListener("bnb:ready", play, { once: true });
-      const fallback = window.setTimeout(play, 1200);
-      return () => {
-        window.removeEventListener("bnb:ready", play);
-        window.clearTimeout(fallback);
-      };
+      return whenReady(() => tl.play());
     },
     { scope: heroRef },
   );
@@ -238,14 +229,13 @@ export function HomeHero() {
       {motionOn && sceneOn ? <LogoCubeScene progress={progress} anchor={slotRef} /> : null}
 
       <div className="relative flex flex-1 flex-col px-[4vw] pb-[clamp(18px,3vw,44px)] pt-[clamp(84px,9vw,132px)]">
-        {/* Wordmark: ink copy in the h1 on top, two riso plates behind it. */}
-        <div className="relative text-[clamp(64px,22vw,340px)]">
+        {/* Wordmark: the h1 is the text alone (sr-only); the visual is three aria-hidden sibling copies, two riso
+            plates behind the ink copy, so the h1's text reads the name once. Knockout = the orange surface. */}
+        <div className="relative text-[clamp(64px,22vw,340px)] [--wm-knockout:var(--orange)]">
+          <h1 className="sr-only">bits&amp;bytes™ — India&apos;s boldest builder network</h1>
           <Wordmark plate data-plate="" className="absolute inset-0 text-burgundy" />
           <Wordmark plate data-plate="" className="absolute inset-0 text-orange-lt" />
-          <h1 className="relative">
-            <span className="sr-only">bits&amp;bytes™ — India&apos;s boldest builder network</span>
-            <Wordmark />
-          </h1>
+          <Wordmark className="relative" />
         </div>
 
         <p

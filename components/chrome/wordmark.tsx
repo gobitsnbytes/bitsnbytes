@@ -7,22 +7,51 @@ import { cn } from "@/lib/utils";
  */
 export const WIDE = "font-[family-name:var(--font-archivo)] font-black [font-stretch:125%] tracking-[-0.04em]";
 
-export type WordmarkProps = ComponentProps<"span"> & { scriptClassName?: string };
+export type WordmarkProps = ComponentProps<"span"> & {
+  scriptClassName?: string;
+  /** Split "bits" into per-letter [data-wm-char] inline-blocks for animation. Hide split copies from AT (aria-hidden). */
+  split?: boolean;
+};
 
-/** bits&bytes™: lowercase wide "bits" + script "&bytes" dropping onto the baseline + small ™. Size via font-size. */
-export function Wordmark({ className, scriptClassName, ...props }: WordmarkProps) {
+/**
+ * bits&bytes™ lockup (buttermax's "Butter" + script "max") and the one source of truth for its geometry,
+ * used by the hero, nav, footer and intro: wide "bits", script "&bytes" at .86em tucked .12em into the "s"
+ * and dropped .16em below the baseline, ™ at .13em on the cap line. Live DOM text, no SVG: paints without JS.
+ * Size it with font-size (the lockup is ~4.1em wide).
+ *
+ * Where the script overlaps the "s" it is trapped with a knockout stroke in --wm-knockout: set that to the
+ * surface colour behind the mark (unset = no knockout).
+ * Hooks: [data-wm-layer], [data-wm-char] (split only), [data-wm-script], [data-wm-tm].
+ */
+export function Wordmark({ className, scriptClassName, split = false, ...props }: WordmarkProps) {
   return (
-    <span className={cn(WIDE, "inline-flex items-baseline whitespace-nowrap leading-none", className)} {...props}>
-      bits
+    <span data-wm-layer="" className={cn("block whitespace-nowrap leading-[0.8]", className)} {...props}>
+      <span className={cn(WIDE, "inline-block")}>
+        {split
+          ? ["b", "i", "t", "s"].map((ch, i) => (
+              <span key={i} data-wm-char="" className="inline-block">
+                {ch}
+              </span>
+            ))
+          : "bits"}
+      </span>
       <span
+        data-wm-script=""
         className={cn(
-          "-ml-[0.03em] inline-block translate-y-[0.1em] font-script text-[0.92em] font-normal tracking-normal [font-stretch:100%]",
+          "relative top-[0.16em] -ml-[0.12em] inline-block font-script text-[0.86em] font-normal leading-none tracking-normal [font-stretch:100%]",
+          "[paint-order:stroke_fill] [-webkit-text-stroke:0.05em_var(--wm-knockout,transparent)]",
           scriptClassName,
         )}
       >
         &amp;bytes
       </span>
-      <span className="ml-[0.04em] self-start text-[0.2em] font-bold tracking-normal">™</span>
+      {/* Floor keeps the ™ legible at nav size. */}
+      <span
+        data-wm-tm=""
+        className="ml-[0.1em] inline-block align-top font-[family-name:var(--font-archivo)] text-[max(0.13em,5px)] font-black"
+      >
+        ™
+      </span>
     </span>
   );
 }
@@ -31,6 +60,3 @@ export function Wordmark({ className, scriptClassName, ...props }: WordmarkProps
 export function CubeMark({ className }: { className?: string }) {
   return <span aria-hidden className={cn("bnb-cube", className)} />;
 }
-
-/** Brand four-point star (loader glyph). */
-export const STAR_PATH = "M50 0C53 31 69 47 100 50C69 53 53 69 50 100C47 69 31 53 0 50C31 47 47 31 50 0Z";

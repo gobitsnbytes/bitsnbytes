@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type CSSProperties } from "react";
+import { useRef, type ComponentProps, type CSSProperties } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -9,7 +9,7 @@ import { useOptionalExperience } from "@/components/experience-provider";
 import { cn } from "@/lib/utils";
 import { DuotoneImage, type DuotoneTone } from "./duotone-image";
 import type { EditionChapter } from "./chapter-index";
-import { whenReady } from "./shared";
+import { fitTitle, whenReady } from "./shared";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,9 +24,15 @@ type BaseProps = {
   chapters?: EditionChapter[];
   tone?: DuotoneTone;
   className?: string;
+  /** Extra attributes for the h1 (data-speakable, id…). */
+  h1Props?: ComponentProps<"h1">;
 };
 
+/** Anything else (data-tour, aria-*, id…) lands on the root <section>. */
+type RootProps = Omit<ComponentProps<"section">, "title" | "children" | "className" | "ref">;
+
 export type EditionOpenerProps = BaseProps &
+  RootProps &
   (
     | {
         /** expand (default): ~150vh sticky scrub, the frame's clip-path opens to full-bleed art. */
@@ -111,7 +117,17 @@ const ART_CLIP = {
  * title/list slide toward the chapter index. Renders data-edition + data-edition-title (the chapter
  * index only appears on pages that have one) and data-surface="ink".
  */
-export function EditionOpener({ title, kicker, chapters, art, variant = "expand", tone, className }: EditionOpenerProps) {
+export function EditionOpener({
+  title,
+  kicker,
+  chapters,
+  art,
+  variant = "expand",
+  tone,
+  className,
+  h1Props,
+  ...rest
+}: EditionOpenerProps) {
   const root = useRef<HTMLElement>(null);
   const experience = useOptionalExperience();
   const motion = experience?.motionEnabled ?? false;
@@ -176,6 +192,7 @@ export function EditionOpener({ title, kicker, chapters, art, variant = "expand"
 
   return (
     <section
+      {...rest}
       ref={root}
       data-edition=""
       data-edition-title={title}
@@ -207,13 +224,22 @@ export function EditionOpener({ title, kicker, chapters, art, variant = "expand"
         </div>
 
         <div data-content-pos className="absolute inset-0 m-auto h-(--fh) w-(--fw)">
-          <div data-content className="flex size-full flex-col justify-between gap-6 p-5 text-cream md:p-7">
+          <div data-content className="@container flex size-full flex-col justify-between gap-6 p-5 text-cream md:p-7">
             {kicker ? (
               <p className="font-mono text-[11px] font-bold uppercase tracking-[0.2em]">{kicker}</p>
             ) : (
               <span aria-hidden />
             )}
-            <h1 className="break-words font-sans text-[clamp(34px,5.2vw,72px)] font-black uppercase leading-[0.88] tracking-[-0.03em] [font-stretch:125%]">
+            {/* Scales with the frame (72px at its full 504px content width) and shrinks further (inline, so page
+                overrides aren't needed) until the widest word fits: wraps between words only, never mid-word. */}
+            <h1
+              {...h1Props}
+              style={{ fontSize: fitTitle(title, "min(72px,14.3cqi)"), ...h1Props?.style }}
+              className={cn(
+                "font-[family-name:var(--font-archivo)] font-black uppercase leading-[0.88] tracking-[-0.03em] text-balance [font-stretch:125%] [hyphens:manual] [overflow-wrap:normal]",
+                h1Props?.className,
+              )}
+            >
               {title}
             </h1>
             {list.length ? (

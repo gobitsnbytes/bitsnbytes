@@ -202,9 +202,9 @@ export function Footer() {
       {/* Wordmark slot: the clip box (slot) stays put, the window (outer) rises, the type (inner) counter-moves. */}
       <div ref={slotRef} className="overflow-clip">
         <div ref={outerRef} className="overflow-hidden">
-          <div ref={innerRef} className="flex justify-center px-[1.5vw] pb-[2.5vw] pt-[5vw]">
-            {/* Two-colour poster: orange type, so the white cube mark reads against the letters. */}
-            <div ref={markRef} className="relative flex text-[19vw] leading-none text-orange">
+          <div ref={innerRef} className="flex justify-center px-[1.5vw] pb-[5vw] pt-[5vw]">
+            {/* Two-colour poster: orange type, so the white cube mark reads against the letters; ink knockout. */}
+            <div ref={markRef} className="relative flex text-[19vw] leading-none text-orange [--wm-knockout:var(--ink)]">
               <Wordmark />
               <Image
                 src="/logo.svg"

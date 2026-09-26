@@ -19,6 +19,8 @@ export type FeedRowProps = {
   href?: string;
   /** Expandable details. Makes the row a disclosure button. */
   children?: ReactNode;
+  /** Expandable rows only: start open. */
+  defaultOpen?: boolean;
   className?: string;
 };
 
@@ -82,8 +84,8 @@ const onPointerLeave = (event: PointerEvent<HTMLLIElement>) => {
  * stripe-wipe with an inverted label revealed by clip-path. With children it's an accessible
  * disclosure (button + aria-expanded; the panel opens via grid-template-rows 0fr → 1fr).
  */
-export function FeedRow({ date, title, meta, href, children, className }: FeedRowProps) {
-  const [open, setOpen] = useState(false);
+export function FeedRow({ date, title, meta, href, children, defaultOpen = false, className }: FeedRowProps) {
+  const [open, setOpen] = useState(defaultOpen);
   const panelId = useId();
   const expandable = children !== undefined && children !== null;
 

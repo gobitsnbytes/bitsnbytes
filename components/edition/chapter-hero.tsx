@@ -9,7 +9,7 @@ import { useMotionEnabled } from "@/components/experience-provider";
 import { ScrambleText } from "@/components/riot/scramble-text";
 import { cn } from "@/lib/utils";
 import { DuotoneImage, type DuotoneTone } from "./duotone-image";
-import { EDITION_GUTTER, pad } from "./shared";
+import { EDITION_GUTTER, fitTitle, pad } from "./shared";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -97,16 +97,18 @@ export function ChapterHero({
       <div aria-hidden className="absolute inset-y-0 left-0 -z-10 hidden w-[340px] bg-linear-to-r from-ink/80 to-transparent xl:block" />
 
       <div className="bg-ink/80 py-8 md:py-12">
-        <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
+        <div className={cn("@container px-4 md:px-8", EDITION_GUTTER)}>
           <ScrambleText
             as="p"
             text={label}
             trigger="inview"
             className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-orange"
           />
+          {/* clamp(64px,13vw,200px), shrunk only when the widest word would not fit: no mid-word breaks. */}
           <h2
             data-title
-            className="mt-3 break-words font-sans text-[clamp(64px,13vw,200px)] font-black uppercase leading-[0.85] tracking-[-0.03em] text-cream [font-stretch:125%]"
+            style={{ fontSize: fitTitle(title, "clamp(64px,13vw,200px)") }}
+            className="mt-3 font-[family-name:var(--font-archivo)] font-black uppercase leading-[0.85] tracking-[-0.03em] text-balance text-cream [font-stretch:125%] [hyphens:manual] [overflow-wrap:normal]"
           >
             {title}
           </h2>

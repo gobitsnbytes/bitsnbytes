@@ -20,6 +20,8 @@ export type IndentStatementProps = {
   children: string;
   id?: string;
   surface?: SurfaceTone;
+  /** false drops EDITION_GUTTER (pages without the chapter index, e.g. the homepage). */
+  gutter?: boolean;
   className?: string;
 };
 
@@ -28,7 +30,15 @@ export type IndentStatementProps = {
  * §label sitting in the indent. Words scrub from 15% to full opacity with scroll (one ScrollTrigger).
  * Screen readers get the plain sentence once; the per-word spans are aria-hidden.
  */
-export function IndentStatement({ label, number, children, id, surface = "paper", className }: IndentStatementProps) {
+export function IndentStatement({
+  label,
+  number,
+  children,
+  id,
+  surface = "paper",
+  gutter = true,
+  className,
+}: IndentStatementProps) {
   const root = useRef<HTMLElement>(null);
   const motion = useMotionEnabled();
   const words = children.trim().split(/\s+/);
@@ -60,7 +70,7 @@ export function IndentStatement({ label, number, children, id, surface = "paper"
       data-surface={surface}
       className={cn(`tone-${surface}`, "relative overflow-x-clip py-24 md:py-40", className)}
     >
-      <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
+      <div className={cn("px-4 md:px-8", gutter && EDITION_GUTTER)}>
         <div className="relative">
           <p className="mb-4 font-mono text-xs font-bold uppercase tracking-[0.2em] text-signal md:absolute md:left-0 md:top-[0.6em] md:mb-0 md:max-w-[24%]">
             {number === undefined ? label : `§${pad(number)} — ${label}`}

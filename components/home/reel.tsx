@@ -6,7 +6,8 @@
  *
  * The section is a 100svh window with clip-path: inset(0); its media layer is position: fixed, so the clip moves
  * with the page while the picture stays put: the orange hero rises off it, and the next chapter (TornEdge top)
- * slides over it. Needs no transform/filter on any ancestor (template.tsx and SiteChrome keep none).
+ * slides over it. Needs no transform/filter on any ancestor (SiteChrome keeps none; the route transition is a
+ * fixed sibling overlay, never a wrapper).
  *
  * Media: /movie/bnb-movie.mp4 once, muted/looping, preload="none", playing only while the window is on screen.
  * Their darker full-bleed copy of the footage is our dither screen: each video frame is drawn into a 128×72 canvas,
