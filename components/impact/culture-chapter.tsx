@@ -17,7 +17,7 @@ export function CultureChapter() {
       src="/event_pictures/h4g/h4g3.jpg"
       alt="The crew huddled around a laptop at Hack4Good v0"
       sizes="(min-width: 1024px) 45vw, 100vw"
-      className="aspect-[4/5] border-3 border-ink shadow-[10px_10px_0_0_var(--ink)] lg:aspect-auto lg:h-full"
+      className="aspect-[4/5] border-3 border-line shadow-[10px_10px_0_0_var(--shadow-color)] lg:aspect-auto lg:h-full"
     />
   );
 
