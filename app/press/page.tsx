@@ -24,6 +24,7 @@ import {
 } from "@/components/lab";
 import { Palette, type PaletteRow } from "@/components/press/palette";
 import { Button } from "@/components/riot";
+import { Character } from "@/components/character/character";
 import { FORK_CITIES } from "@/lib/forks";
 import { TEAM_MEMBERS } from "@/lib/team-data";
 import { cn } from "@/lib/utils";
@@ -191,7 +192,14 @@ export default function PressKit() {
         data-cinematic-section=""
         data-cinematic-title="Press kit & brand assets"
         data-surface="paper"
+        className="relative"
       >
+        <Character
+          pose="megaphone"
+          priority
+          sizes="(min-width: 1024px) 150px, 0px"
+          className="absolute bottom-10 right-[6vw] hidden w-[clamp(110px,10vw,150px)] lg:block"
+        />
         <LabHero
           lines={["Press kit & ", "brand assets"]}
           glyph={<PixelGlyph text="PRESS" decorative />}
