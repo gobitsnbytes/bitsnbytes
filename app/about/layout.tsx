@@ -4,11 +4,11 @@ import type { ReactNode } from "react";
 export const metadata: Metadata = {
   title: "About bits&bytes™ | Teen-Led Builder Network, India",
   description:
-    "Meet the student team behind India's boldest youth tech network. Learn about our origin story, founding mission, and the 9 core team members driving bits&bytes™ across India.",
+    "Meet the teen team behind bits&bytes™, a pan-India builder network: our origin story, what we believe, and the people who run it.",
   keywords: [
     "about bits&bytes™",
     "teen builders network india",
-    "lucknow coding network",
+    "pan-india teen coding network",
     "student developers team",
     "youth tech organization india",
     "GOBITSNBYTES FOUNDATION",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About bits&bytes™ | Teen-Led Builder Network, India",
     description:
-      "Meet the student team behind India's boldest youth tech network. Learn about our origin story, founding mission, and the 9 core team members driving bits&bytes™ across India.",
+      "Meet the teen team behind bits&bytes™, a pan-India builder network: our origin story, what we believe, and the people who run it.",
     url: "https://gobitsnbytes.org/about",
     type: "website",
     images: [
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About bits&bytes™ | Teen-Led Builder Network, India",
     description:
-      "Meet the student team behind India's boldest youth tech network. Learn about our origin story, founding mission, and the 9 core team members driving bits&bytes™ across India.",
+      "Meet the teen team behind bits&bytes™, a pan-India builder network: our origin story, what we believe, and the people who run it.",
   },
 };
 
