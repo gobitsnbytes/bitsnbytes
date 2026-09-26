@@ -9,6 +9,7 @@ import { useTheme } from "next-themes";
 
 import { useMotionEnabled } from "@/components/experience-provider";
 import { LAB_TEXT } from "@/components/lab";
+import { play } from "@/components/chrome/sound/engine";
 import { Button } from "@/components/riot";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -131,6 +132,7 @@ export function ContactForm() {
       }
 
       setIsSuccess(true);
+      play("chord");
       setStatus({
         type: "success",
         message: "Sent. We'll get back to you soon.",
@@ -138,6 +140,7 @@ export function ContactForm() {
       form.reset();
     } catch (err: unknown) {
       console.error(err);
+      play("glitch");
       setStatus({
         type: "error",
         message:
