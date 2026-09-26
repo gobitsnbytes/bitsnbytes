@@ -71,7 +71,7 @@ export function FilmPlayer({ src, poster, title, children }: FilmPlayerProps) {
       <Dialog.Portal>
         <Dialog.Overlay
           data-film-overlay=""
-          className="fixed inset-0 z-[200] bg-ink/85 data-[state=open]:animate-in data-[state=open]:fade-in-0 motion-reduce:animate-none"
+          className="fixed inset-0 z-[200] bg-ink/85 data-[state=open]:animate-in data-[state=open]:fade-in-0 motion-reduce:animate-none motion-off:animate-none"
         />
         <Dialog.Content
           data-lenis-prevent
@@ -142,6 +142,8 @@ function FilmStage({ src, poster, title, onHandoff, onDone }: FilmStageProps) {
         opening = gsap
           .timeline({ defaults: { ease: "power2.in" } })
           .to([...q("[data-chrome]"), ...q("[data-frame] > div:first-child")], { opacity: 0, duration: 0.15 }, 0)
+          // the frame's border + hard shadow are cream in dark mode: drop them before they show in the side bars
+          .set(q("[data-frame]"), { borderColor: "transparent", boxShadow: "none" }, 0)
           .to(stage, { opacity: 1, duration: 0.25 }, 0)
           .to(
             win,
@@ -286,7 +288,7 @@ function FilmStage({ src, poster, title, onHandoff, onDone }: FilmStageProps) {
       <div className="absolute inset-0 grid place-items-center">
       <div
         data-win
-        className="pointer-events-auto w-[min(92vw,1100px,calc((100svh-8rem)*16/9))] animate-in fade-in-0 zoom-in-95 duration-200 ease-riot motion-reduce:animate-none"
+        className="pointer-events-auto w-[min(92vw,1100px,calc((100svh-8rem)*16/9))] animate-in fade-in-0 zoom-in-95 duration-200 ease-riot motion-reduce:animate-none motion-off:animate-none"
       >
         <div data-chrome className="mb-3 flex justify-end">
           <Dialog.Close className="cursor-pointer border-3 border-ink bg-paper px-3.5 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-ink shadow-[3px_3px_0_0_var(--orange)] transition-[transform,box-shadow] duration-100 ease-riot hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_var(--orange)] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none">
