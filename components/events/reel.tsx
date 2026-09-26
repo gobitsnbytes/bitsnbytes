@@ -178,6 +178,16 @@ export function EventsReel() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- listen/hush only touch refs and state setters
   }, [motion, ready, player, index]);
 
+  // The documentary's gradient stage drifts slowly while it's framed (transform only; nothing runs otherwise).
+  const drifting = motion && sound === "on" && clip.mode === "gradient";
+  useGSAP(
+    () => {
+      if (!drifting) return;
+      gsap.to("[data-drift]", { xPercent: 6, yPercent: -5, rotate: 10, scale: 1.1, duration: 16, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    },
+    { scope: rootRef, dependencies: [drifting], revertOnUpdate: true },
+  );
+
   // 0.5× parallax: the video drifts down half the scroll distance while the header leaves.
   useGSAP(
     () => {
@@ -302,7 +312,7 @@ export function EventsReel() {
       <div ref={mediaRef} aria-hidden className="absolute inset-0 -z-10">
         {clip.mode === "gradient" ? (
           <div className={cn("absolute inset-0 overflow-hidden bg-burgundy opacity-0", EASE, framed && "opacity-100")}>
-            <div className="absolute -inset-1/4" style={GRADIENT} />
+            <div data-drift className="absolute -inset-1/4" style={GRADIENT} />
             <div className="halftone absolute inset-0 opacity-25 mix-blend-multiply" />
             <div className="dither absolute inset-0 opacity-60" />
           </div>
