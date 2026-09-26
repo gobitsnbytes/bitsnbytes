@@ -1,34 +1,20 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useCallback, useState } from "react";
 import { usePathname } from "next/navigation";
+import { TileWipe, shouldWipe } from "@/components/chrome/tile-wipe";
 
+// Re-mounts on every navigation. No wrapper around children: a transform/filter here would break
+// ScrollTrigger pins and position:fixed stages (/fork, /minecraft), so the wipe is a fixed sibling.
 export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const shouldReduceMotion = useReducedMotion();
-
-  // These routes pin a full-viewport `position: fixed` stage. The transform on
-  // the motion.div below would become their containing block and break the
-  // fixed positioning, so they opt out of the page transition entirely.
-  const isPosterRoute = pathname === "/fork";
-  const isCinematicRoute = pathname === "/minecraft";
-
-  if (isPosterRoute || isCinematicRoute) {
-    return <>{children}</>;
-  }
+  const [wipe, setWipe] = useState(() => shouldWipe(pathname));
+  const done = useCallback(() => setWipe(false), []);
 
   return (
-    <motion.div
-      key={pathname}
-      initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, transform: "translateY(12px)" }}
-      animate={{ opacity: 1, transform: "translateY(0)" }}
-      transition={{
-        duration: 0.25,
-        ease: "easeOut",
-      }}
-    >
+    <>
       {children}
-    </motion.div>
+      {wipe ? <TileWipe onDone={done} /> : null}
+    </>
   );
 }
-

@@ -1,4 +1,2 @@
-// Re-export the new FlickeringFooter as the default Footer component
-// This ensures all pages that import Footer will use the new animated version
-
-export { FlickeringFooter as Footer, FlickeringFooter as default } from "@/components/ui/flickering-footer";
+// Global footer lives in components/chrome/footer.tsx; this path is kept for existing imports.
+export { Footer, Footer as default } from "@/components/chrome/footer";

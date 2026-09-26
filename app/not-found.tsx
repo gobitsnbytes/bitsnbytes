@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { ArrowLeft, Home, Compass, Sparkles, Terminal, FileQuestion } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { WIDE } from "@/components/chrome/wordmark";
+import { cn } from "@/lib/utils";
 
 export const metadata = {
   title: "404 - Page Not Found | bits&bytes™",
@@ -10,68 +12,73 @@ export const metadata = {
   },
 };
 
+const quickLinks = [
+  { title: "Home", href: "/", desc: "Return to homepage" },
+  { title: "Events & Hackathons", href: "/events", desc: "Upcoming student hackathons" },
+  { title: "About Us", href: "/about", desc: "Meet the student team" },
+  { title: "SparkCloud", href: "/cloud", desc: "Free student compute" },
+  { title: "Fork Network", href: "/fork", desc: "Local builder chapters" },
+  { title: "Frequently Asked Questions", href: "/faq", desc: "Get quick answers" },
+];
+
+// buttermax-style poster: full-bleed orange campaign surface, giant wide 404, hairline destination list.
 export default function NotFound() {
-  const quickLinks = [
-    { title: "Home", href: "/", desc: "Return to homepage", icon: Home },
-    { title: "Events & Hackathons", href: "/events", desc: "Upcoming student hackathons", icon: Sparkles },
-    { title: "About Us", href: "/about", desc: "Meet the student team", icon: Compass },
-    { title: "SparkCloud", href: "/cloud", desc: "Free student compute", icon: Terminal },
-    { title: "Fork Network", href: "/fork", desc: "Local builder chapters", icon: Compass },
-    { title: "Frequently Asked Questions", href: "/faq", desc: "Get quick answers", icon: FileQuestion },
-  ];
-
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-16">
-      <div className="max-w-2xl w-full text-center space-y-8">
-        <div className="inline-flex items-center gap-2 border-2 border-border bg-card px-4 py-1.5 font-mono text-xs font-bold uppercase tracking-widest text-primary dark:text-accent shadow-[3px_3px_0px_0px_var(--border)]">
-          [HTTP_STATUS: 404_NOT_FOUND]
-        </div>
+    <section
+      data-surface="orange"
+      className="tone-orange relative overflow-x-clip px-4 pb-20 pt-24 md:px-8 md:pt-28"
+    >
+      <p className="font-mono text-xs font-bold uppercase tracking-[0.2em]">[HTTP_STATUS: 404_NOT_FOUND]</p>
 
-        <div className="space-y-4">
-          <h1 className="font-accent-sans text-6xl sm:text-8xl tracking-tight text-foreground uppercase">
+      <p aria-hidden className={cn(WIDE, "-ml-[0.04em] select-none text-[clamp(140px,38vw,620px)] leading-[0.8]")}>
+        404
+      </p>
+
+      <div className="mt-8 grid gap-10 border-t-3 border-ink pt-6 lg:grid-cols-2">
+        <div>
+          <h1 className={cn(WIDE, "text-[clamp(40px,6vw,88px)] uppercase leading-[0.9] [font-stretch:112%]")}>
             Page Not Found
           </h1>
-          <p className="font-serif-brand text-base sm:text-lg text-foreground/80 max-w-lg mx-auto leading-relaxed">
+          <p className="mt-5 max-w-[46ch] font-serif text-lg leading-relaxed">
             The page you are looking for has been moved, renamed, or does not exist in our build repository.
           </p>
+          <Button asChild variant="burgundy" className="mt-8">
+            <Link href="/">
+              <span aria-hidden>←</span> Back to Home
+            </Link>
+          </Button>
         </div>
 
-        <div className="border-3 border-border bg-card p-6 shadow-[6px_6px_0px_0px_var(--border)] text-left">
-          <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-foreground/70 mb-4 border-b border-border/20 pb-2">
+        <nav aria-labelledby="not-found-destinations">
+          <h2
+            id="not-found-destinations"
+            className="mb-3 font-mono text-xs font-bold uppercase tracking-[0.2em]"
+          >
             Suggested Destinations
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {quickLinks.map((link) => {
-              const Icon = link.icon;
-              return (
+          <ul className="border-t-2 border-ink">
+            {quickLinks.map((link, i) => (
+              <li key={link.href} className="border-b-2 border-ink">
                 <Link
-                  key={link.href}
                   href={link.href}
-                  className="flex items-start gap-3 p-3 border-2 border-border/40 hover:border-border hover:bg-accent/10 transition-all shadow-[2px_2px_0px_0px_var(--border)] group"
+                  className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-3 px-1 py-3 transition-colors duration-200 hover:bg-ink hover:text-orange"
                 >
-                  <Icon className="h-5 w-5 text-primary dark:text-accent shrink-0 mt-0.5" />
-                  <div>
-                    <div className="font-bold text-sm text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors">
+                  <span className="font-mono text-[11px] font-bold">{String(i + 1).padStart(2, "0")}</span>
+                  <span>
+                    <span className="block font-[family-name:var(--font-archivo)] text-lg font-black uppercase leading-tight">
                       {link.title}
-                    </div>
-                    <div className="text-xs text-foreground/60">{link.desc}</div>
-                  </div>
+                    </span>
+                    <span className="block font-serif text-sm">{link.desc}</span>
+                  </span>
+                  <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">
+                    →
+                  </span>
                 </Link>
-              );
-            })}
-          </div>
-        </div>
-
-        <div>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 border-3 border-border bg-primary text-primary-foreground font-mono text-sm font-bold uppercase tracking-wider shadow-[4px_4px_0px_0px_var(--border)] hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_var(--border)] active:translate-y-0.5 active:shadow-none transition-all"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Home
-          </Link>
-        </div>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
-    </div>
+    </section>
   );
 }

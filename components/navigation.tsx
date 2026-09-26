@@ -1,7 +1,2 @@
-"use client";
-
-import { MiniNavbar } from "@/components/ui/mini-navbar";
-
-export default function Navigation() {
-  return <MiniNavbar />;
-}
+// Global nav lives in components/chrome/nav.tsx; this path is kept for existing imports.
+export { Nav as Navigation, Nav as default } from "@/components/chrome/nav";

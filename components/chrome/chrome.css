@@ -1,0 +1,255 @@
+/*
+ * Global chrome (nav, menu, loader, tile wipe). Plain CSS because these rules key off
+ * attributes ExperienceProvider / the loader write on <html>:
+ *   data-nav-surface = paper|ink|orange|cream   data-scrolled = true   data-scroll-dir = up|down
+ *   data-loader = on (first visit, set by the inline script in <Loader>)
+ */
+
+/* In the components layer so Tailwind utilities (hidden, h-*, px-*) still override. */
+@layer components {
+    /* ---------- Nav: colour follows the surface under it ---------- */
+    .bnb-nav {
+        --nav-fg: var(--fg);
+        --nav-bg: var(--page);
+        --wipe-fill: var(--nav-fg);
+        --wipe-ink: var(--nav-bg);
+        --wipe-bg: var(--nav-bg);
+        color: var(--nav-fg);
+        transition:
+            transform 0.75s cubic-bezier(0.215, 0.61, 0.355, 1),
+            color 0.3s ease;
+    }
+
+    html[data-nav-surface="orange"] .bnb-nav {
+        --nav-fg: var(--ink);
+        --nav-bg: var(--orange);
+        --focus-ring: var(--cobalt);
+    }
+
+    html[data-nav-surface="cream"] .bnb-nav {
+        --nav-fg: var(--ink);
+        --nav-bg: var(--cream);
+        --focus-ring: var(--cobalt);
+    }
+
+    html[data-nav-surface="ink"] .bnb-nav {
+        --nav-fg: var(--paper);
+        --nav-bg: var(--ink);
+        /* cobalt on ink is < 3:1 */
+        --focus-ring: var(--acid);
+    }
+
+    /* Hide on scroll down, back on scroll up; pinned while hovered, focused or the menu is open. */
+    html[data-scrolled="true"][data-scroll-dir="down"] .bnb-nav:not(:hover):not(:focus-within):not([data-menu-open]) {
+        transform: translate3d(0, -110%, 0);
+    }
+
+    /* ---------- Square outline button with a top-down fill wipe (buttermax pill, squared) ---------- */
+    .bnb-btn {
+        position: relative;
+        isolation: isolate;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        height: 36px;
+        padding: 0 12px;
+        border: 2px solid var(--wipe-fill, var(--fg));
+        background: var(--wipe-bg, transparent);
+        color: var(--wipe-fill, var(--fg));
+        font-family: var(--font-mono), ui-monospace, monospace;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        cursor: pointer;
+        transition:
+            color 0.45s cubic-bezier(0.215, 0.61, 0.355, 1),
+            border-color 0.3s ease,
+            background-color 0.3s ease;
+    }
+
+    .bnb-btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: var(--wipe-fill, var(--fg));
+        transform: scaleY(0);
+        transform-origin: 50% 100%;
+        transition: transform 0.45s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    /* Oversized invisible hit area in the nav (buttermax: ~150% x 300% of the pill). */
+    .bnb-nav .bnb-btn::after {
+        content: "";
+        position: absolute;
+        inset: -14px -3px;
+    }
+
+    @media (hover: hover) {
+        .bnb-btn:hover {
+            color: var(--wipe-ink, var(--page));
+        }
+
+        .bnb-btn:hover::before {
+            transform: scaleY(1);
+            transform-origin: 50% 0%;
+        }
+    }
+
+    .bnb-btn:focus-visible {
+        color: var(--wipe-ink, var(--page));
+    }
+
+    .bnb-btn:focus-visible::before {
+        transform: scaleY(1);
+        transform-origin: 50% 0%;
+    }
+
+    /* ---------- Pass-through block wipe for big menu links (kprverse) ---------- */
+    .bnb-pass {
+        position: relative;
+        isolation: isolate;
+        transition: color 0.35s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    .bnb-pass::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: var(--paper);
+        transform: scaleX(0);
+        transform-origin: 100% 50%;
+        transition: transform 0.35s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    @media (hover: hover) {
+        .bnb-pass:hover {
+            color: var(--ink);
+        }
+
+        .bnb-pass:hover::before {
+            transform: scaleX(1);
+            transform-origin: 0% 50%;
+        }
+    }
+
+    .bnb-pass:focus-visible {
+        color: var(--ink);
+    }
+
+    .bnb-pass:focus-visible::before {
+        transform: scaleX(1);
+        transform-origin: 0% 50%;
+    }
+
+    /* Cube mark in currentColor (public/logo.svg is a single-colour mark with cut-outs). */
+    .bnb-cube {
+        display: inline-block;
+        background: currentColor;
+        -webkit-mask: url("/logo.svg") center / contain no-repeat;
+        mask: url("/logo.svg") center / contain no-repeat;
+    }
+
+    /* Paper halftone underlay behind the menu (no glass, no blur). */
+    .bnb-menu-underlay {
+        background-color: color-mix(in srgb, var(--page) 86%, transparent);
+        background-image: radial-gradient(color-mix(in srgb, var(--fg) 26%, transparent) 1.2px, transparent 1.6px);
+        background-size: 7px 7px;
+    }
+
+    /* ---------- Loader (first visit per session) ---------- */
+    .bnb-loader {
+        display: none;
+    }
+
+    html[data-loader="on"] .bnb-loader {
+        display: flex;
+        /* CSS failsafe: never gates content if JS is late or broken. */
+        animation: bnb-loader-failsafe 0s linear 2.4s forwards;
+    }
+
+    .bnb-loader[data-state="exit"] {
+        pointer-events: none;
+        transform: translate3d(0, -100%, 0);
+        transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .bnb-loader[data-state="exit"] .bnb-loader-inner {
+        opacity: 0;
+        transform: translate3d(0, 50vh, 0);
+        transition:
+            transform 0.5s linear,
+            opacity 0.5s linear;
+    }
+
+    .bnb-breathe {
+        animation: bnb-breathe 1.1s ease-in-out infinite alternate;
+    }
+
+    @keyframes bnb-breathe {
+        from {
+            transform: scale(0.94);
+        }
+
+        to {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes bnb-loader-failsafe {
+        to {
+            visibility: hidden;
+            pointer-events: none;
+        }
+    }
+
+    /* ---------- Route tile wipe (reveal only; tiles retract upward) ---------- */
+    .bnb-tile {
+        margin: -1px;
+        transform-origin: 50% 0%;
+        animation: bnb-tile-out 380ms cubic-bezier(0.165, 0.84, 0.44, 1) both;
+    }
+
+    @keyframes bnb-tile-out {
+        from {
+            transform: scaleY(1);
+        }
+
+        to {
+            transform: scaleY(0);
+        }
+    }
+
+    /* ---------- Reduced motion + site motion toggle ---------- */
+    @media (prefers-reduced-motion: reduce) {
+        .bnb-nav,
+        .bnb-btn,
+        .bnb-btn::before,
+        .bnb-pass,
+        .bnb-pass::before {
+            transition: none;
+        }
+
+        .bnb-breathe {
+            animation: none;
+        }
+    }
+
+    html[data-immersive-motion="off"] .bnb-nav,
+    html[data-immersive-motion="off"] .bnb-btn,
+    html[data-immersive-motion="off"] .bnb-btn::before,
+    html[data-immersive-motion="off"] .bnb-pass,
+    html[data-immersive-motion="off"] .bnb-pass::before {
+        transition: none;
+    }
+}
+
+/* The layout's skip link must sit above the fixed chrome. */
+a[href="#main-content"]:focus {
+    z-index: 1300;
+}
