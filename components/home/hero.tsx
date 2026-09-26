@@ -266,9 +266,10 @@ export function HomeHero() {
 
         <div
           data-surface="orange"
-          className="tone-orange relative z-20 px-[4vw] pb-[clamp(14px,min(3vw,3svh),44px)] pt-[clamp(8px,1.5svh,20px)]"
+          className="tone-orange px-[4vw] pb-[clamp(14px,min(3vw,3svh),44px)] pt-[clamp(8px,1.5svh,20px)]"
         >
-          <div className="flex flex-col gap-[clamp(12px,2.4svh,24px)] md:flex-row md:items-end md:justify-between">
+          {/* The band's orange paints under the cube canvas (z-10); only its content rises above it. */}
+          <div className="relative z-20 flex flex-col gap-[clamp(12px,2.4svh,24px)] md:flex-row md:items-end md:justify-between">
             <div data-hero-caption="" className="max-w-[34ch] font-serif text-[clamp(16px,1.3vw,19px)] leading-snug">
               <p>Hackathons, build guilds, launches, and communities.</p>
               <p>Fully student-led. Fully independent.</p>
@@ -311,7 +312,7 @@ export function HomeHero() {
           </div>
 
           {/* Hero footer row (buttermax): dots left, arrow centre, coordinates right. */}
-          <div className="mt-[clamp(10px,min(2.4vw,2.4svh),36px)] grid grid-cols-[1fr_auto_1fr] items-center">
+          <div className="relative z-20 mt-[clamp(10px,min(2.4vw,2.4svh),36px)] grid grid-cols-[1fr_auto_1fr] items-center">
             <span data-hero-actions="">
               <ByteDots />
             </span>
