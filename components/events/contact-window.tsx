@@ -86,7 +86,11 @@ export function ContactWindow() {
           Partner with us on a hackathon, a workshop or a school program, anywhere in India.
         </p>
         <p className="mt-6 font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-cream">
-          Pan-India · <Clock /> IST
+          <span className="whitespace-nowrap">Pan-India ·</span>{" "}
+          <span className="whitespace-nowrap">20.5937° N, 78.9629° E ·</span>{" "}
+          <span className="whitespace-nowrap">
+            <Clock /> IST
+          </span>
         </p>
       </div>
 
