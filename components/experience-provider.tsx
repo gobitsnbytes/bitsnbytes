@@ -75,7 +75,7 @@ export function useExperience() {
   return value;
 }
 
-/** Like useExperience, but returns null outside the provider (e.g. /fork, /minecraft). */
+/** Like useExperience, but returns null outside the provider. */
 export function useOptionalExperience() {
   return useContext(ExperienceContext);
 }
