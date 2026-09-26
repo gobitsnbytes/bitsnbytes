@@ -145,7 +145,7 @@ export default async function Image() {
               }}
             >
               <div style={{ fontSize: '15px', fontWeight: 700, color: '#fda83d', letterSpacing: '2.5px', textTransform: 'uppercase' }}>
-                India&apos;s Teen-Led Builders Network
+                Teen-led builder network
               </div>
               <div style={{ fontSize: '42px', fontWeight: 900, lineHeight: 1.05, color: '#f7f1ec' }}>
                 bits&amp;bytes™
@@ -171,7 +171,7 @@ export default async function Image() {
                 color: '#ffffff',
               }}
             >
-              Building India&apos;s next generation of founders, engineers, and problem solvers.
+              A builder network run by teenagers across India. We ship real software.
             </div>
 
             <div
@@ -183,7 +183,7 @@ export default async function Image() {
                 fontWeight: 500,
               }}
             >
-              High-agency community. Real products. Real velocity. Real outcomes.
+              No uncs in the room. Just people who came to ship.
             </div>
           </div>
 
