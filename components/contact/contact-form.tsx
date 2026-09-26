@@ -205,16 +205,18 @@ export function ContactForm() {
               />
             </div>
 
-            {/* invisible widget: no box on the page, the challenge (if any) opens as hCaptcha's own overlay */}
+            {/* invisible widget: out of the grid flow (no empty row), the challenge opens as hCaptcha's own overlay */}
             {mounted && (
-              <HCaptcha
-                ref={captchaRef}
-                sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
-                size="invisible"
-                reCaptchaCompat={false}
-                theme={resolvedTheme === "dark" ? "dark" : "light"}
-                onLoad={() => setCaptchaReady(true)}
-              />
+              <div className="absolute">
+                <HCaptcha
+                  ref={captchaRef}
+                  sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+                  size="invisible"
+                  reCaptchaCompat={false}
+                  theme={resolvedTheme === "dark" ? "dark" : "light"}
+                  onLoad={() => setCaptchaReady(true)}
+                />
+              </div>
             )}
 
             {/* DPDP Act 2023 consent */}
