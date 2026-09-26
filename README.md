@@ -1,6 +1,6 @@
 # bits&bytes™
 
-official platform for bits&bytes™ — a fully student-led builder network based in Lucknow, serving ambitious teen builders across India.
+official platform for bits&bytes™: a fully student-led, pan-India builder network for ambitious teen builders.
 
 the platform handles public brand pages, event archives, membership applications, and an on-page AI assistant backed by a Supabase vector RAG index.
 
