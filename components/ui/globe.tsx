@@ -1,191 +1,193 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import createGlobe from "cobe"
-import { useSpring } from "react-spring"
-import { useTheme } from "next-themes"
+import { useEffect, useRef } from "react";
+import createGlobe, { type Arc, type Marker } from "cobe";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const GLOBE_CONFIG = {
-  width: 800,
-  height: 800,
-  onRender: () => {},
-  devicePixelRatio: 2,
-  phi: 0,
-  theta: 0.3,
-  dark: 0,
-  diffuse: 0.4,
-  mapSamples: 16000,
-  mapBrightness: 1.2,
-  baseColor: [1, 1, 1],
-  markerColor: [151 / 255, 25 / 255, 44 / 255], // Burgundy core #97192c
-  glowColor: [254 / 255, 211 / 255, 158 / 255], // Cream pop glow
-  markers: [
-    { location: [26.8467, 80.9462], size: 0.1 }, // Lucknow (Core Hub)
-    { location: [25.4358, 81.8463], size: 0.08 }, // Prayagraj
-    { location: [12.9716, 77.5946], size: 0.08 }, // Bangalore
-    { location: [28.6139, 77.2090], size: 0.08 }, // Delhi
-    { location: [22.5726, 88.3639], size: 0.08 }, // Kolkata
-    { location: [26.2345, 81.2329], size: 0.06 }, // Raebareli
-    { location: [21.1702, 72.8311], size: 0.06 }, // Surat
-    { location: [30.9010, 75.8573], size: 0.06 }, // Ludhiana
-    { location: [13.0827, 80.2707], size: 0.06 }, // Chennai
-    { location: [19.0760, 72.8777], size: 0.08 }, // Mumbai
-    { location: [26.9124, 75.7873], size: 0.06 }, // Jaipur
-    { location: [17.3850, 78.4867], size: 0.06 }, // Hyderabad
-  ],
-}
+export type LatLng = [number, number];
+type RGB = [number, number, number];
 
-export function Globe({
-  className,
-  config = GLOBE_CONFIG,
-}: {
-  className?: string
-  config?: any
-}) {
-  const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [width, setWidth] = useState<number>(0)
-  
-  const pointerInteracting = useRef<number | null>(null)
-  const pointerInteractionMovement = useRef<number>(0)
-  const phiRef = useRef(0)
+export type GlobeProps = {
+  markers: Marker[];
+  /** Drawn from → to (burgundy → orange) the first time the globe is on screen. */
+  arcs?: { from: LatLng; to: LatLng }[];
+  /** Point the globe turns to face (eased; snapped when animate is false). */
+  focus: LatLng;
+  /** false: no draw-in or easing, rendered straight in its final state (reduced motion / toggle off). */
+  animate?: boolean;
+  /** Accessible description of the picture. */
+  label: string;
+  className?: string;
+};
+
+const rgb = (hex: number): RGB => [((hex >> 16) & 255) / 255, ((hex >> 8) & 255) / 255, (hex & 255) / 255];
+const BURGUNDY = rgb(0x97192c);
+const ORANGE = rgb(0xfc920d);
+// Frame colour (burgundy depth #3c0a12): the halo is painted in it, so no glow shows.
+const PLUM = rgb(0x3c0a12);
+const DRAW_SECONDS = 1.4;
+
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+/** Wrap an angle to [-π, π] so the globe always turns the short way round. */
+const wrap = (a: number) => a - 2 * Math.PI * Math.round(a / (2 * Math.PI));
+/** cobe camera angles that put a lat/long in the middle of the disc. */
+const toAngles = ([lat, lng]: LatLng): [number, number] => [
+  Math.PI - ((lng * Math.PI) / 180 - Math.PI / 2),
+  (lat * Math.PI) / 180,
+];
+
+/**
+ * cobe v2 globe in print colours for a #3c0a12 frame: ink sphere, cream land dots, orange markers, arcs drawn out from their
+ * origin while shifting burgundy → orange. cobe v2 has no render loop of its own, so this owns one and
+ * only runs it while something moves (draw-in, easing to a new focus, dragging) and the globe is on
+ * screen. The WebGL context is created the first time it scrolls near the viewport.
+ */
+export function Globe({ markers, arcs = [], focus, animate = true, label, className }: GlobeProps) {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const target = useRef(toAngles(focus));
+  const refocus = useRef<() => void>(() => {});
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isDark = mounted && resolvedTheme === "dark"
-
-  const [{ r }, api] = useSpring<{ r: number }>(() => ({
-    r: 0,
-    config: {
-      mass: 1,
-      tension: 280,
-      friction: 40,
-      precision: 0.001,
-    },
-  }))
-
-  // Observe container size
-  useEffect(() => {
-    if (!containerRef.current) return
-
-    const observer = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const w = entry.contentRect.width
-        if (w > 0) {
-          setWidth(w)
-        }
-      }
-    })
-
-    observer.observe(containerRef.current)
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [])
+    target.current = toAngles(focus);
+    refocus.current();
+  }, [focus]);
 
   useEffect(() => {
-    if (width <= 0 || !canvasRef.current) return
+    const host = hostRef.current;
+    if (!host) return;
 
-    const activeConfig: any = {
-      ...config,
-      width: width * 2,
-      height: width * 2,
-      dark: isDark ? 1 : 0,
-      diffuse: isDark ? 2.0 : 0.4,
-      mapBrightness: isDark ? 1.8 : 1.2,
-      mapBaseBrightness: isDark ? 0.05 : 0.0,
-      baseColor: isDark 
-        ? [254 / 255, 233 / 255, 207 / 255]  // brand cream continents
-        : [255 / 255, 255 / 255, 255 / 255],  // #ffffff (white)
-      glowColor: isDark 
-        ? [151 / 255, 25 / 255, 44 / 255]     // #97192c (burgundy glow)
-        : [254 / 255, 211 / 255, 158 / 255], // #fed39e (cream/orange glow)
-      markerColor: isDark 
-        ? [252 / 255, 146 / 255, 13 / 255]     // #fc920d (orange markers)
-        : [151 / 255, 25 / 255, 44 / 255],    // #97192c (burgundy markers)
-      onRender: (state: any) => {
-        if (!pointerInteracting.current) {
-          phiRef.current += 0.005
-        }
-        state.phi = phiRef.current + r.get()
-        state.width = width * 2
-        state.height = width * 2
+    // Imperative canvas: cobe wraps it in its own div, so React never has to reconcile that subtree.
+    const canvas = document.createElement("canvas");
+    canvas.className = "block size-full cursor-grab touch-pan-y opacity-0 transition-opacity duration-700";
+    host.append(canvas);
+
+    let globe: ReturnType<typeof createGlobe> | null = null;
+    let raf = 0;
+    let last = 0;
+    let visible = false;
+    let [phi, theta] = target.current;
+    let drawn = animate ? 0 : 1;
+    let dragFrom: number | null = null;
+    let dragBase = 0;
+    let dragPhi = 0;
+
+    const arcsAt = (t: number): Arc[] => {
+      const p = Math.max(0.02, easeOut(t));
+      return arcs.map(({ from, to }) => ({
+        from,
+        to: [lerp(from[0], to[0], p), lerp(from[1], to[1], p)],
+        color: BURGUNDY.map((c, i) => lerp(c, ORANGE[i], p)) as RGB,
+      }));
+    };
+
+    const frame = (now: number) => {
+      raf = 0;
+      if (!globe) return;
+      const dt = last ? Math.min((now - last) / 1000, 0.05) : 1 / 60;
+      last = now;
+      const k = animate ? 1 - Math.exp(-dt * 5) : 1;
+      const dPhi = wrap(target.current[0] + dragPhi - phi);
+      const dTheta = target.current[1] - theta;
+      phi += dPhi * k;
+      theta += dTheta * k;
+      if (animate && drawn < 1) drawn = Math.min(1, drawn + dt / DRAW_SECONDS);
+      globe.update({ phi, theta, arcs: arcsAt(drawn) });
+
+      const moving = dragFrom !== null || Math.abs(dPhi) > 1e-4 || Math.abs(dTheta) > 1e-4 || drawn < 1;
+      if (animate && visible && moving) raf = requestAnimationFrame(frame);
+      else last = 0;
+    };
+    const kick = () => {
+      if (!raf) raf = requestAnimationFrame(frame);
+    };
+    refocus.current = () => {
+      dragPhi = 0;
+      kick();
+    };
+
+    const create = () => {
+      const size = host.clientWidth;
+      if (globe || !size) return;
+      globe = createGlobe(canvas, {
+        devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+        width: size,
+        height: size,
+        phi,
+        theta,
+        dark: 1,
+        diffuse: 1.4,
+        scale: 1.2,
+        mapSamples: 16000,
+        mapBrightness: 5,
+        mapBaseBrightness: 0,
+        // dark mode: ocean = base × .1 (≈ ink), lit dots ≈ base × 5 (≈ cream #fee9cf)
+        baseColor: [0.2, 0.18, 0.16],
+        markerColor: ORANGE,
+        glowColor: PLUM,
+        markers,
+        arcs: arcsAt(drawn),
+        arcColor: ORANGE,
+        arcWidth: 1.2,
+        arcHeight: 0.05,
+        markerElevation: 0.01,
+      });
+      requestAnimationFrame(() => {
+        canvas.style.opacity = "1";
+      });
+    };
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (!visible) return;
+        create();
+        kick();
       },
-    }
+      { rootMargin: "200px 0px" },
+    );
+    io.observe(host);
 
-    const globe = createGlobe(canvasRef.current, activeConfig)
+    const ro = new ResizeObserver(() => {
+      const size = host.clientWidth;
+      if (globe && size) globe.update({ width: size, height: size });
+    });
+    ro.observe(host);
 
-    // Fade in canvas
-    if (canvasRef.current) {
-      canvasRef.current.style.opacity = "1"
-    }
+    // Horizontal drag spins the globe; vertical movement stays page scroll (touch-action: pan-y).
+    const down = (event: PointerEvent) => {
+      dragFrom = event.clientX;
+      dragBase = dragPhi;
+      canvas.setPointerCapture(event.pointerId);
+      canvas.style.cursor = "grabbing";
+      kick();
+    };
+    const move = (event: PointerEvent) => {
+      if (dragFrom === null) return;
+      dragPhi = dragBase + (event.clientX - dragFrom) / 200;
+      kick();
+    };
+    const up = () => {
+      dragFrom = null;
+      canvas.style.cursor = "";
+    };
+    canvas.addEventListener("pointerdown", down);
+    canvas.addEventListener("pointermove", move);
+    canvas.addEventListener("pointerup", up);
+    canvas.addEventListener("pointercancel", up);
 
     return () => {
-      globe.destroy()
-    }
-  }, [config, isDark, width, r])
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      ro.disconnect();
+      globe?.destroy();
+      refocus.current = () => {};
+      host.replaceChildren();
+    };
+  }, [markers, arcs, animate]);
 
-  const handlePointerDown = (e: React.PointerEvent) => {
-    pointerInteracting.current = e.clientX - pointerInteractionMovement.current
-    if (canvasRef.current) canvasRef.current.style.cursor = "grabbing"
-  }
-
-  const handlePointerUp = () => {
-    pointerInteracting.current = null
-    if (canvasRef.current) canvasRef.current.style.cursor = "grab"
-  }
-
-  const handlePointerOut = () => {
-    pointerInteracting.current = null
-    if (canvasRef.current) canvasRef.current.style.cursor = "grab"
-  }
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (pointerInteracting.current !== null) {
-      const delta = e.clientX - pointerInteracting.current
-      pointerInteractionMovement.current = delta
-      api.start({
-        r: delta / 200,
-      })
-    }
-  }
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (pointerInteracting.current !== null && e.touches[0]) {
-      const delta = e.touches[0].clientX - pointerInteracting.current
-      pointerInteractionMovement.current = delta
-      api.start({
-        r: delta / 100,
-      })
-    }
-  }
-
-  return (
-    <div
-      ref={containerRef}
-      className={cn(
-        "relative mx-auto aspect-square w-full max-w-150 flex items-center justify-center",
-        className
-      )}
-    >
-      <canvas
-        ref={canvasRef}
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
-        onPointerOut={handlePointerOut}
-        onMouseMove={handleMouseMove}
-        onTouchMove={handleTouchMove}
-        className="w-full h-full opacity-0 transition-opacity duration-500 cursor-grab"
-      />
-    </div>
-  )
+  return <div ref={hostRef} role="img" aria-label={label} className={cn("relative aspect-square w-full", className)} />;
 }
 
-export default Globe
+export default Globe;

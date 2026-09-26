@@ -1,300 +1,87 @@
-"use client";
-
-import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
 import Link from "next/link";
-import { Users, Award, ShieldAlert, Sparkles, Globe, ArrowUpRight } from "lucide-react";
-import { LoadingInline } from "@/components/loading-wrapper";
+
+import { WIDE } from "@/components/chrome/wordmark";
+import { Breadcrumbs } from "@/components/breadcrumb";
+import { EDITION_GUTTER, EditionOpener, SerifStatement } from "@/components/edition";
+import { CHAPTERS, IMPACT_LEDE, IMPACT_TITLE, exploreLinks } from "@/components/impact/content";
+import { CultureChapter } from "@/components/impact/culture-chapter";
+import { GlobeChapter } from "@/components/impact/globe-chapter";
+import { ImpactRecord } from "@/components/impact/impact-record";
+import { SpotlightWall } from "@/components/impact/spotlight-wall";
+import { Chapter, TornEdge } from "@/components/riot";
 import { cn } from "@/lib/utils";
 
-// IMPECCABLE_PREFLIGHT: context=pass product=pass command_reference=pass shape=not_required image_gate=skipped:using_css_styling_no_new_image_assets_needed mutation=open
-
-// Starburst icon for Neobrutalist decoration
-const Starburst = ({ className = "text-[#97192c]", size = 32 }: { className?: string; size?: number }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 100 100"
-    fill="currentColor"
-    className={className}
-    aria-hidden="true"
-  >
-    <path d="M50 0 L58 28 L85 15 L70 39 L97 50 L70 61 L85 85 L58 72 L50 100 L42 72 L15 85 L30 61 L3 50 L30 39 L15 15 L42 28 Z" />
-  </svg>
-);
-
-// Lazy load heavy 3D globe component
-const TeamGlobe = dynamic(() => import("@/components/team-globe"), {
-  loading: () => <LoadingInline />,
-  ssr: false,
-});
-
-const highlightStats = [
-  {
-    value: "1,400+",
-    label: "Active Community Members",
-    description: "Teen builders active nationwide across India",
-    timeframe: "Scale",
-    bgColor: "bg-[#fee9cf]", // Orange light tint
-  },
-  {
-    value: "5+ Forks",
-    label: "Local Hubs",
-    description: (
-      <span>
-        City chapters under upstream governance —{" "}
-        <Link
-          href="/fork"
-          className="text-[#97192c] underline hover:text-[#fc920d] transition-colors font-bold"
-        >
-          gobitsnbytes.org/fork
-        </Link>
-      </span>
-    ),
-    timeframe: "Distribution",
-    bgColor: "bg-[#f4d9d1]", // Warm accent tint
-  },
-  {
-    value: "4+ Events",
-    label: "Nationwide Events",
-    description: "Hackathons, hardware meetups, and developer workshops",
-    timeframe: "Track Record",
-    bgColor: "bg-[#fee9cf]", // Orange light tint
-  },
-  {
-    value: "16.5 Years",
-    label: "Mean Team Age",
-    description: "100% youth-led engineering and operations team",
-    timeframe: "Mean Age",
-    bgColor: "bg-[#f4d9d1]", // Warm accent tint
-  },
-];
-
-const culturePillars = [
-  {
-    title: "Ship or dip",
-    copy: "Talking about your idea is easy. We'd rather have a working prototype by Sunday than a perfect slide deck by next month.",
-    bgColor: "bg-[#fee9cf]",
-  },
-  {
-    title: "Your squad keeps you honest",
-    copy: "Mentors, pods, and the kind of peer pressure that makes you actually finish things. Nobody ghosts a project when their team is waiting on their code.",
-    bgColor: "bg-[#f4d9d1]",
-  },
-  {
-    title: "Built for users, not grades",
-    copy: "School operations, civic tech, accessibility tools. The things we ship get used by real people, not just submitted for a rubric.",
-    bgColor: "bg-[#fee9cf]",
-  },
-];
-
-import { Breadcrumbs } from "@/components/breadcrumb";
+const pad = (n: number) => String(n).padStart(2, "0");
+const explore = CHAPTERS[4];
 
 export default function Impact() {
   return (
-    <div className="w-full min-h-screen bg-[#eae8e4] text-[#120f0a] pt-28 pb-20 relative z-10 font-sans selection:bg-[#fc920d] selection:text-[#120f0a]">
-      {/* Background stipple texture */}
-      <div className="absolute inset-0 bg-noise-texture opacity-[0.06] pointer-events-none z-0" />
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <Breadcrumbs items={[{ name: "Our Impact", href: "/impact" }]} />
-
-        {/* Hero Banner Header */}
-        <header
-          data-tour="page-hero"
-          data-cinematic-section
-          data-cinematic-title="the impact record"
-          className="mb-12 border-b-4 border-[#120f0a] pb-10 relative"
-        >
-          <div className="absolute -right-6 -top-6 hidden md:block animate-spin-slow">
-            <Starburst size={80} className="text-[#97192c]" />
-          </div>
-
-          <div className="flex items-center gap-2 mb-4">
-            <span className="inline-flex items-center gap-1.5 bg-[#97192c] text-white border-2 border-[#120f0a] px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_0px_#120f0a]">
-              <Sparkles className="h-3.5 w-3.5 text-[#fc920d]" />
-              Impact Record
-            </span>
-            <span className="text-xs font-mono text-[#413f3b] font-bold">
-              GOBITSNBYTES FOUNDATION
-            </span>
-          </div>
-
-          <h1 data-speakable="true" className="text-5xl md:text-7xl font-black uppercase tracking-tight text-[#120f0a] leading-none mb-6">
-            Beyond the <br />
-            <span className="bg-[#fc920d] px-2 py-0.5 border-[3px] border-[#120f0a] inline-block shadow-[4px_4px_0px_0px_#120f0a] -rotate-1">venue walls</span>
-          </h1>
-
-          <p data-speakable="true" data-citation="true" className="font-serif text-lg md:text-xl text-[#413f3b] max-w-[70ch] leading-relaxed">
-            From first-time hackathons to squads inside local schools, we build experiences that get teens building, and we ship the results publicly across India.
-          </p>
-        </header>
-
-        {/* Main Content Area */}
-        <div className="space-y-12">
-          
-          {/* Section 1: Outcomes and Globe */}
-          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
-            <div className="space-y-8">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#120f0a]/15 pb-6">
-                <div>
-                  <h2 className="text-2xl font-black text-[#120f0a] flex items-center gap-3 uppercase tracking-wider">
-                    <Globe className="h-6 w-6 text-[#97192c]" />
-                    Teen-led squads, shipped outcomes
-                  </h2>
-                  <p className="text-sm sm:text-base text-[#413f3b] font-bold mt-1">
-                    Workshops and hackathons that give you hands-on practice, access to mentors, and a chance to deploy things people actually use.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 items-center">
-                {/* 3D Globe Visual */}
-                <div className="w-full h-[300px] sm:h-[350px] lg:h-[400px] rounded-none overflow-hidden border-3 border-[#120f0a] bg-[#f4d9d1]/20 shadow-[4px_4px_0px_0px_#120f0a]">
-                  <Suspense fallback={<LoadingInline />}>
-                    <TeamGlobe />
-                  </Suspense>
-                </div>
-
-                {/* Highlight Stats Column */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {highlightStats.map((stat, index) => (
-                    <motion.div
-                      key={stat.label}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.08, type: "spring", stiffness: 100 }}
-                      className={cn(
-                        "flex flex-col border-3 border-[#120f0a] p-5 shadow-[3px_3px_0px_0px_#120f0a] rounded-none",
-                        stat.bgColor
-                      )}
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="text-3xl font-black text-[#120f0a] tracking-tighter">
-                          {stat.value}
-                        </span>
-                        <span className="inline-flex items-center border border-[#120f0a] bg-white px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-[#97192c]">
-                          {stat.timeframe}
-                        </span>
-                      </div>
-                      <p className="text-sm font-black text-[#120f0a] mt-3 uppercase tracking-tight leading-tight">
-                        {stat.label}
-                      </p>
-                      <p className="text-xs text-[#413f3b] font-medium mt-1 leading-snug">
-                        {stat.description}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Section 2: Culture & Core Principles */}
-          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
-            <div className="space-y-8">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#120f0a]/15 pb-6">
-                <div>
-                  <h2 className="text-2xl font-black text-[#120f0a] flex items-center gap-3 uppercase tracking-wider">
-                    <Award className="h-6 w-6 text-[#fc920d]" />
-                    Culture & Core Principles
-                  </h2>
-                  <p className="text-sm sm:text-base text-[#413f3b] font-bold mt-1">
-                    These aren't wall posters. This is how we actually operate every day.
-                  </p>
-                </div>
-              </div>
-
-              {/* Culture Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {culturePillars.map((pillar, idx) => (
-                  <div 
-                    key={pillar.title}
-                    className={cn(
-                      "border-3 border-[#120f0a] p-5 shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-150 rounded-none flex flex-col justify-between",
-                      pillar.bgColor
-                    )}
-                  >
-                    <div>
-                      <span className="inline-block border-2 border-[#120f0a] bg-white text-[#120f0a] font-mono font-black text-xs px-2.5 py-1 mb-4 shadow-[1.5px_1.5px_0px_0px_#120f0a]">
-                        0{idx + 1}
-                      </span>
-                      <h3 className="text-lg font-black uppercase tracking-tight text-[#120f0a] mb-2">
-                        {pillar.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm font-medium text-[#413f3b] leading-relaxed">
-                        {pillar.copy}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Section 3: Original Research & Benchmark Data */}
-          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
-            <div className="space-y-6">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#120f0a]/15 pb-6">
-                <div>
-                  <h2 className="text-2xl font-black text-[#120f0a] flex items-center gap-3 uppercase tracking-wider">
-                    <ShieldAlert className="h-6 w-6 text-[#97192c]" />
-                    India Youth Tech &amp; Builder Research (2026 Metrics)
-                  </h2>
-                  <p className="text-sm text-[#413f3b] font-bold mt-1">
-                    Public community metrics across 1,400+ teen builders, 2,700+ project evaluations, and 5+ regional chapters.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="border-3 border-[#120f0a] bg-[#fee9cf] p-4 shadow-[3px_3px_0px_0px_#120f0a]">
-                  <p className="text-3xl font-black text-[#97192c]">2,700+</p>
-                  <p className="text-xs font-black uppercase mt-1">Projects Evaluated</p>
-                  <p className="text-[11px] text-[#413f3b] mt-1 font-serif">Reviewed in 3-day hackathon sprints across civic tech, ML, and web apps.</p>
-                </div>
-                <div className="border-3 border-[#120f0a] bg-[#f4d9d1] p-4 shadow-[3px_3px_0px_0px_#120f0a]">
-                  <p className="text-3xl font-black text-[#fc920d]">84%</p>
-                  <p className="text-xs font-black uppercase mt-1">AI-Native Dev Tools</p>
-                  <p className="text-[11px] text-[#413f3b] mt-1 font-serif">Teen developers actively building with LLM agents, Copilot, and vector DBs.</p>
-                </div>
-                <div className="border-3 border-[#120f0a] bg-[#fee9cf] p-4 shadow-[3px_3px_0px_0px_#120f0a]">
-                  <p className="text-3xl font-black text-[#97192c]">38%</p>
-                  <p className="text-xs font-black uppercase mt-1">Female Builder Rate</p>
-                  <p className="text-[11px] text-[#413f3b] mt-1 font-serif">Active participation of female student coders across regional hackathon squads.</p>
-                </div>
-                <div className="border-3 border-[#120f0a] bg-[#f4d9d1] p-4 shadow-[3px_3px_0px_0px_#120f0a]">
-                  <p className="text-3xl font-black text-[#120f0a]">1.26 Cr+</p>
-                  <p className="text-xs font-black uppercase mt-1">Partner Reach</p>
-                  <p className="text-[11px] text-[#413f3b] mt-1 font-serif">Co-organized / executive partner reach in India Innovates 2026 civic tech hackathon.</p>
-                </div>
-              </div>
-
-              {/* Internal Navigation Box */}
-              <div className="border-3 border-[#120f0a] bg-[#faf8f5] p-5 mt-6 shadow-[4px_4px_0px_0px_#120f0a] flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div>
-                  <h3 className="font-black text-sm uppercase text-[#120f0a]">Explore the bits&amp;bytes™ Network</h3>
-                  <p className="text-xs text-[#413f3b] font-serif">Learn about our events, local chapters, and press guidelines.</p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <Link href="/events" className="border-2 border-[#120f0a] bg-white px-3 py-1.5 text-xs font-bold font-mono hover:bg-[#fc920d] shadow-[2px_2px_0px_0px_#120f0a] transition-all">
-                    Events →
-                  </Link>
-                  <Link href="/fork" className="border-2 border-[#120f0a] bg-white px-3 py-1.5 text-xs font-bold font-mono hover:bg-[#fc920d] shadow-[2px_2px_0px_0px_#120f0a] transition-all">
-                    Local Hubs →
-                  </Link>
-                  <Link href="/press" className="border-2 border-[#120f0a] bg-white px-3 py-1.5 text-xs font-bold font-mono hover:bg-[#fc920d] shadow-[2px_2px_0px_0px_#120f0a] transition-all">
-                    Press Kit →
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </section>
-
+    <>
+      <EditionOpener
+        title={IMPACT_TITLE}
+        kicker="Impact Record · GOBITSNBYTES FOUNDATION"
+        chapters={[...CHAPTERS]}
+        art={{ src: "/event_pictures/HEe923uagAATqvy.jpg", alt: "India Innovates 2026 archive" }}
+      />
+      <TornEdge from="ink" to="paper" />
+      <div data-tour="page-hero" data-surface="paper" className="tone-paper">
+        <div className={cn("px-4 pt-10 md:px-8 md:pt-14", EDITION_GUTTER)}>
+          <Breadcrumbs items={[{ name: "Our Impact", href: "/impact" }]} className="mb-0" />
         </div>
+        <SerifStatement className="pb-10 pt-12 md:pb-16 md:pt-20">
+          <span data-speakable="true" data-citation="true">
+            {IMPACT_LEDE}
+          </span>
+        </SerifStatement>
       </div>
+      <ImpactRecord />
+      <TornEdge from="paper" to="ink" />
+      <SpotlightWall />
+      <TornEdge from="ink" to="cream" />
+      <GlobeChapter />
+      <TornEdge from="cream" to="ink" />
+      <CultureChapter />
+      <TornEdge from="paper" to="orange" />
+
+      <Chapter id={explore.id} title={explore.title} number={5} tone="orange" className="py-20 md:py-32">
+        <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
+          <div className="grid gap-6 border-b-3 border-line pb-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end">
+            <div>
+              <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-signal">
+                §05 — [{pad(exploreLinks.length)}]
+              </p>
+              <h2 className={cn(WIDE, "mt-2 text-[clamp(40px,6.4vw,104px)] uppercase leading-[0.86] tracking-[-0.03em]")}>
+                {explore.title}
+              </h2>
+            </div>
+            <p className="max-w-[40ch] font-serif text-lg md:text-xl">
+              Learn about our events, local chapters, and press guidelines.
+            </p>
+          </div>
+          <ul>
+            {exploreLinks.map((link) => (
+              <li key={link.href} className="border-b-3 border-line">
+                <Link
+                  href={link.href}
+                  className="group relative flex items-center justify-between gap-6 overflow-hidden px-2 py-5 md:px-4 md:py-7"
+                >
+                  {/* buttermax fill wipe: ink panel drops in from the top on hover / keyboard focus */}
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 origin-top scale-y-0 bg-ink transition-transform duration-[450ms] ease-[cubic-bezier(.215,.61,.355,1)] group-hover:scale-y-100 group-focus-visible:scale-y-100 motion-reduce:transition-none"
+                  />
+                  <span className="relative font-display text-[clamp(44px,8vw,128px)] uppercase leading-[0.9] group-hover:text-orange group-focus-visible:text-orange">
+                    {`${link.label} →`}
+                  </span>
+                  <span className="relative font-mono text-xs font-bold uppercase tracking-[0.2em] group-hover:text-cream group-focus-visible:text-cream">
+                    {link.href}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Chapter>
 
       <script
         type="application/ld+json"
@@ -316,6 +103,6 @@ export default function Impact() {
           }),
         }}
       />
-    </div>
+    </>
   );
 }
