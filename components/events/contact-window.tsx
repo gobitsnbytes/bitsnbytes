@@ -81,12 +81,12 @@ export function ContactWindow() {
       <SectionHead label={<h2>Contact</h2>} section={4} className="text-paper" />
 
       <div className="max-w-[540px] self-end text-paper lg:mr-[180px]">
-        <p className={cn(WIDE, "text-[clamp(28px,2.8vw,40px)] uppercase leading-none")}>Let&apos;s build something together</p>
+        <p className={cn(WIDE, "text-[clamp(28px,2.8vw,40px)] uppercase leading-none")}>Run the next one with us</p>
         <p className="mt-5 font-serif text-lg leading-snug text-paper md:text-xl">
-          Partner with us on hackathons, workshops, or school programs across Lucknow.
+          Partner with us on a hackathon, a workshop or a school program, anywhere in India.
         </p>
         <p className="mt-6 font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-cream">
-          Lucknow, India · 26.8467° N, 80.9462° E · <Clock /> IST
+          Pan-India · <Clock /> IST
         </p>
       </div>
 
@@ -106,7 +106,7 @@ export function ContactWindow() {
           </span>
         </span>
         <span className="relative">
-          Contact Us
+          Contact us
           <span
             aria-hidden
             className="absolute -bottom-[0.06em] left-0 h-[0.07em] w-full origin-left scale-x-0 bg-orange transition-transform duration-300 ease-[cubic-bezier(.23,1,.32,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100 motion-reduce:transition-none motion-off:transition-none"

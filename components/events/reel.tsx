@@ -17,7 +17,7 @@ import { ReelPlayer } from "./player";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const HIGHLIGHTS = ["High Agency Shipping", "IIT Kanpur & Delhi Summits", "National Scale Partners"];
+const HIGHLIGHTS = ["Workshops inside hackathons", "Next finale: IIT Bombay", "Backing global online hacks"];
 /** S.01 "View trailer" (and anything else) opens the player with: detail { index, from, start? }. */
 export const WATCH_EVENT = "bnb:events-watch";
 export type WatchDetail = { index: number; from: HTMLElement | null; start?: number };
@@ -227,7 +227,7 @@ export function EventsReel() {
       id="event-log"
       data-tour="page-hero"
       data-cinematic-section=""
-      data-cinematic-title="the event log"
+      data-cinematic-title="The event log"
       data-surface="ink"
       className="tone-ink relative isolate flex min-h-[max(100svh,640px)] flex-col justify-between overflow-hidden"
     >
@@ -255,7 +255,7 @@ export function EventsReel() {
         <div className="lg:col-span-2">
           <Breadcrumbs items={[{ name: "Events", href: "/events" }]} className="relative z-10 mb-3" />
           <p className="font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-paper/85">
-            <span className="text-orange">Event Log</span> · GOBITSNBYTES FOUNDATION
+            <span className="text-orange">Event log</span> · bits&bytes™
           </p>
         </div>
 
@@ -321,7 +321,7 @@ export function EventsReel() {
             data-citation="true"
             className="max-w-[40ch] font-serif text-base leading-snug text-paper md:text-[17px]"
           >
-            Hackathons, summits, and workshops where teen builders actually ship things across India.
+            Hackathons across India where teenagers ship real things, with the workshops run inside them.
           </p>
           <ul className="mt-3 font-mono text-[11px] font-bold uppercase leading-[1.8] tracking-[0.08em] text-paper/85">
             {HIGHLIGHTS.map((highlight, i) => (
@@ -353,7 +353,7 @@ export function EventsReel() {
           data-speakable="true"
           className={cn(WIDE, "text-[clamp(32px,3.6vw,72px)] uppercase leading-[0.88] text-paper lg:pb-1")}
         >
-          Where code meets <span className="block text-orange">the real world</span>
+          Hackathons we run <span className="block text-orange">and the ones we back</span>
         </h1>
 
         <a

@@ -111,19 +111,19 @@ function Detail({
 const H4G_THEMES = [
   {
     t: "The Architect",
-    d: "Build tools for builders. Create agents that auto-fix bugs, refactor legacy code, or automate deployments. Ex: Auto-fix runtime errors & push hotfixes.",
+    d: "Tools for builders: agents that fix bugs, refactor legacy code or automate deployments. Example: an agent that catches runtime errors and pushes the hotfix.",
   },
   {
     t: "The Investigator",
-    d: "Process information at scale. Design agents that scrape complex web structures, analyze unstructured data, and generate actionable insights. Ex: Monitor crypto-sentiment on 50+ subreddits.",
+    d: "Information at scale: agents that scrape messy websites, read unstructured data and turn it into something you can act on. Example: tracking crypto sentiment across 50+ subreddits.",
   },
   {
     t: "The Artist",
-    d: "Automate art. Build agents that edit video, generate assets, and tell stories autonomously. Ex: Autonomous news anchor from RSS feeds.",
+    d: "Automated art: agents that edit video, generate assets and tell stories on their own. Example: a news anchor that runs itself from RSS feeds.",
   },
   {
     t: "The Liaison",
-    d: "Unify the fractured web. Connect the disconnected. Stitch together daily use applications into one seamless workflow. Ex: Sync calendar based on email priority.",
+    d: "Glue for the apps people already use, so they work as one flow. Example: a calendar that reorders itself by email priority.",
   },
 ];
 
@@ -150,7 +150,7 @@ const hack4good = (
   <Detail
     badge="Archived · Apr 2 – May 3, 2026"
     banner={<Banner src="/event_pictures/h4g/h4gbanner.jpg" alt="Hack4Good v0 Banner" />}
-    tagline="Architect Your Autonomy. Lucknow's first Agentic AI hackathon."
+    tagline="Architect Your Autonomy. Lucknow's first agentic AI hackathon."
     tags={["Archived Event", "Community Partner: bits&bytes™", "Agentic AI"]}
     aside={
       <>
@@ -221,19 +221,17 @@ const hack4good = (
     <Block title="Event Summary">
       <div className={PROSE}>
         <p>
-          Hack4Good v0 is a 24-hour Agentic AI hackathon created to kickstart and shape a stronger hackathon and builder
-          culture in Lucknow. At its core, the event is about moving beyond traditional coding and enabling students to build
-          intelligent AI agents capable of planning workflows, navigating systems, and executing tasks autonomously.
+          Hack4Good v0 was a 24-hour agentic AI hackathon, set up to get a real hackathon and builder culture going in
+          Lucknow. The brief went past ordinary coding: build AI agents that can plan a workflow, find their way through
+          other systems and finish tasks on their own.
         </p>
         <p>
-          Bringing together student developers, beginners, and curious builders, Hack4Good focuses on hands-on
-          experimentation, collaboration, and real-world problem solving. Participants explore diverse ideas, right from
-          automation tools to creative systems, all while learning how to design and build with emerging AI paradigms.
+          It put student developers, beginners and curious builders in one room. Teams tried things with their hands and
+          picked real problems, from automation tools to creative systems, while working out how to design for agents.
         </p>
         <p>
-          More than just a simple hackathon, Hack4Good is an effort to establish a sustainable, high-impact tech ecosystem in
-          the city. By creating a space for students to build, connect, and grow together, it aims to lay the foundation for a
-          thriving hackathon community in Lucknow!
+          The longer aim is a hackathon scene in Lucknow that outlasts one event: somewhere students build, meet each other
+          and come back for the next one.
         </p>
       </div>
     </Block>
@@ -251,7 +249,7 @@ const hack4good = (
     </Block>
     <Block title="Prizes">
       <p className="mb-4 font-mono text-xs opacity-80">
-        Compete for a ₹35K prize pool. Get a participation certificate on completion.
+        The prize pool was ₹35,000. Everyone who finished got a participation certificate.
       </p>
       <ul className="grid gap-4 sm:grid-cols-3">
         {H4G_PRIZES.map((prize) => (
@@ -305,17 +303,16 @@ const buildGuild = (
     <Block title="Event Summary">
       <div className={PROSE}>
         <p>
-          Lucknow Build Guild was a free hardware workshop and meetup on <strong>19 April</strong> at{" "}
-          <strong>SureStay by Best Western</strong>. People came to build hardware, meet other builders, and learn from each
-          other.
+          Lucknow Build Guild was a free hardware workshop and meetup on 19 April at SureStay by Best Western. People came
+          to build hardware, meet other builders and learn from each other.
         </p>
       </div>
     </Block>
     <Block title="What we worked on">
       <ul className={LIST}>
-        <li>Hands-on hardware building and practical workflows.</li>
-        <li>Meeting local tech people and fostering network connections.</li>
-        <li>Peer learning with a room full of active student builders.</li>
+        <li>Building hardware by hand, with practical workflows.</li>
+        <li>Meeting the people building tech in Lucknow.</li>
+        <li>Learning from each other in a room full of student builders.</li>
       </ul>
     </Block>
     <Block title="Host">
@@ -338,7 +335,7 @@ const copilotDevDays = (
   <Detail
     badge="Archived · Apr 19"
     banner={<Banner src="/images/copilot-dev-day.png" alt="GitHub Copilot Dev Days | Lucknow" />}
-    tagline="AI-assisted coding with GitHub Copilot, a community developer event."
+    tagline="A community developer event on AI-assisted coding with GitHub Copilot."
     tags={["Archived Event", "Hosted by bits&bytes™"]}
     aside={
       <>
@@ -372,24 +369,23 @@ const copilotDevDays = (
     <Block title="Event Summary">
       <div className={PROSE}>
         <p>
-          A community developer event in Lucknow where students and developers explored how AI-assisted development works in
-          real projects.
+          Students and developers in Lucknow looked at how AI-assisted development works once it is inside a real
+          project.
         </p>
       </div>
     </Block>
     <Block title="What we covered">
       <ul className={LIST}>
         <li>How GitHub Copilot works inside modern dev environments.</li>
-        <li>Integrating AI-assisted coding into real production workflows.</li>
-        <li>Prompting techniques for better, more accurate code suggestions.</li>
-        <li>Using AI responsibly in your daily development loops.</li>
+        <li>Fitting AI-assisted coding into real production work.</li>
+        <li>Prompting for better, more accurate code suggestions.</li>
+        <li>Using AI responsibly in day-to-day development.</li>
       </ul>
     </Block>
     <Block title="Partners & Details">
       <p className="font-mono text-xs leading-relaxed">
-        The event was hosted by <strong>bits&bytes™</strong>, with community partners including{" "}
-        <strong>Coding Connoisseurs</strong>, <strong>Aryan Singh</strong>, and <strong>Notion Lucknow</strong>. All
-        participants observed the official{" "}
+        We hosted it, with Coding Connoisseurs, Aryan Singh and Notion Lucknow as community partners. Everyone followed
+        the official{" "}
         <a
           href="https://www.microsoft.com/en-us/events/code-of-conduct"
           target="_blank"
@@ -407,8 +403,8 @@ const copilotDevDays = (
 const indiaInnovates = (
   <Detail
     badge="Archived · Mar 28, 2026"
-    banner={<Banner src="/images/banner.jpeg" alt="India Innovates 2026 — Bharat Mandapam, New Delhi" />}
-    tagline="World's Largest Civic Tech Hackathon."
+    banner={<Banner src="/images/banner.jpeg" alt="India Innovates 2026, Bharat Mandapam, New Delhi" />}
+    tagline="Billed as the world's largest civic tech hackathon."
     tags={["Archived Event", "Official Executive Partner: bits&bytes™"]}
     aside={
       <>
@@ -436,15 +432,14 @@ const indiaInnovates = (
     }
   >
     <p className="font-serif text-lg font-bold">
-      India Innovates 2026 is now archived. bits&bytes™ acted as the Official Executive Partner for the finale.
+      We were the official executive partner for the India Innovates 2026 finale.
     </p>
     <Block title="Event Summary">
       <div className={PROSE}>
         <p>
-          India Innovates 2026 was presented as the <strong>World&apos;s Largest Civic Tech Hackathon</strong>, held on{" "}
-          <strong>March 28, 2026</strong> at <strong>Bharat Mandapam, Pragati Maidan, New Delhi</strong> (9 AM - 7 PM).
-          Organizers included <strong>HN Group</strong> and <strong>MCD</strong>, with partner institutions such as{" "}
-          <strong>IIT Kharagpur, NSUT, GGSIPU, and DDU</strong>.
+          India Innovates 2026 was billed as the world&apos;s largest civic tech hackathon. The finale ran on March 28, 2026
+          at Bharat Mandapam, Pragati Maidan, New Delhi, from 9 AM to 7 PM. HN Group and MCD organised it, with partner
+          institutions including IIT Kharagpur, NSUT, GGSIPU and DDU.
         </p>
       </div>
     </Block>
@@ -467,8 +462,8 @@ const indiaInnovates = (
     <Block title="Finale Format">
       <div className={PROSE}>
         <p>
-          It was not a build-on-site round. Teams developed in advance, and the final day focused on{" "}
-          <strong>live product demonstrations</strong> reviewed by investors, officials, diplomats, and founders.
+          Nobody built on site. Teams built beforehand, and the final day was live product demos in front of investors,
+          officials, diplomats and founders.
         </p>
       </div>
     </Block>
@@ -501,7 +496,7 @@ const execron = (
         </div>
       </div>
     }
-    tagline="AI Hackathon & Workshop for Teens at IIT Kanpur."
+    tagline="An AI hackathon and workshop for teens at IIT Kanpur."
     tags={["Archived Event", "TechKriti '26 Collaboration", "IIT Kanpur"]}
     aside={
       <>
@@ -520,14 +515,14 @@ const execron = (
     <Block title="Event Summary">
       <div className={PROSE}>
         <p>
-          An AI Hackathon & Workshop for students in <strong>Classes 9–12</strong>. In collaboration with{" "}
-          <strong>TechKriti &apos;26, IIT Kanpur</strong>. A 4-hour workshop followed by a 24-hour hackathon sprint.
+          An AI hackathon and workshop for students in classes 9–12, run with TechKriti &apos;26 at IIT Kanpur: a 4-hour
+          workshop first, then a 24-hour hackathon sprint.
         </p>
       </div>
     </Block>
     <Block title="What happened">
       <ul className={LIST}>
-        <li>A 4-hour hands-on workshop on modern tech topics.</li>
+        <li>A 4-hour hands-on workshop.</li>
         <li>A 24-hour hackathon sprint with direct mentor support.</li>
         <li>Mentorship from IIT Kanpur alumni and industry experts.</li>
         <li>Full access to TechKriti &apos;26: mega hackathons, pro shows, and the robotics expo.</li>
