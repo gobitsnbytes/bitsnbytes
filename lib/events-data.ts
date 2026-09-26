@@ -164,9 +164,9 @@ export type EventPhoto = {
 
 /**
  * Every usable event photo, grouped by event (the gallery mixes them). Add new photos to their event's list.
- * Left out on purpose: the .HEIC originals (h4g1/h4g3 have JPEG copies), the banners, the two India Innovates
- * press photos carrying a Getty Images / Hindustan Times watermark (1ae8b918…, 3d53b490…), devday4 (almost all
- * black: its duotone prints as a solid ink block that reads as an empty cell), and h4g_hackers / h4g_hallway /
+ * The two India Innovates press photos (1ae8b918…, 3d53b490…) keep their Getty Images / Hindustan Times watermark
+ * on purpose (the user's call). Left out on purpose: the .HEIC originals (h4g1/h4g3 have JPEG copies), the banners,
+ * devday4 (almost all black: its duotone prints as a solid ink block that reads as an empty cell), and h4g_hackers / h4g_hallway /
  * h4g_standee, which are smaller copies of h4g0, h7g and h4g2.
  */
 export const eventPhotos: { event: string; photos: EventPhoto[] }[] = [
@@ -177,6 +177,8 @@ export const eventPhotos: { event: string; photos: EventPhoto[] }[] = [
       { src: "/event_pictures/HEe923ub0AE-92F.jpg", w: 1600, h: 1067, title: "Plenary session", alt: "A speaker at the podium addressing the hall at Bharat Mandapam" },
       { src: "/event_pictures/866d62697f3d42819e2007714047a3a80001af45.jpg", w: 801, h: 1200, title: "Jury interaction", alt: "Evaluators gathered round a student team's laptop for an on-floor demo" },
       { src: "/event_pictures/HEe93oOakAAi2Mi.jpg", w: 1600, h: 1067, title: "Participant teams", alt: "A student team seated at their table before the demonstrations" },
+      { src: "/event_pictures/1ae8b9183c456f721ab4a04a7cbd0268ce3b2e97.jpg", w: 1024, h: 687, alt: "A speaker pointing skyward at the Hamara Neta App podium, India Innovates 2026" },
+      { src: "/event_pictures/3d53b4900bb7c0176eadb242c495cbfb3634ffb3.jpg", w: 1024, h: 757, alt: "A speaker at the podium under the India Innovates 2026 screen, guests seated on stage" },
     ],
   },
   {
