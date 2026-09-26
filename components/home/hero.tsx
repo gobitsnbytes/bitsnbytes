@@ -244,7 +244,7 @@ export function HomeHero() {
 
           <p
             data-hero-caption=""
-            className="mt-[clamp(12px,min(1.6vw,2svh),24px)] pl-[0.4vw] sm:max-w-[48%] font-mono text-[11px] font-bold uppercase leading-[1.5] tracking-[0.16em] sm:text-xs"
+            className="mt-[clamp(12px,min(1.6vw,2svh),24px)] pl-[0.4vw] max-sm:mt-7 sm:max-w-[48%] font-mono text-[11px] font-bold uppercase leading-[1.5] tracking-[0.16em] sm:text-xs"
           >
             <span className="block">India&apos;s boldest builder network.</span>
             <span className="block">innovate &bull; collaborate &bull; hack</span>
