@@ -9,6 +9,7 @@ import {
   SerifStatement,
 } from "@/components/edition";
 import { Button, Chapter, ChapterHead, TornEdge } from "@/components/riot";
+import { FORKS } from "@/lib/forks";
 import { cn } from "@/lib/utils";
 
 // Copy verbatim from the previous /fork page.
@@ -27,20 +28,6 @@ const BENEFITS = [
   "council support",
   "launch kit",
   "templates + assets",
-];
-
-// Active forks. Leads only where we know them; the rest print the node alone.
-const FORKS: { city: string; lead?: string }[] = [
-  { city: "Bangalore", lead: "Sparsh Sharma" },
-  { city: "Kolkata", lead: "Shoryavardhaan Gupta" },
-  { city: "Chennai" },
-  { city: "Bhubaneswar" },
-  { city: "Nagpur" },
-  { city: "Mumbai" },
-  { city: "Delhi" },
-  { city: "Noida", lead: "Aryan Chauhan" },
-  { city: "Lucknow" },
-  { city: "Hyderabad", lead: "Shreethan Kagitha" },
 ];
 
 const COVENANT = [

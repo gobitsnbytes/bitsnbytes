@@ -1,5 +1,7 @@
 // /about copy and team data, moved verbatim from the old app/about/page.tsx.
 
+import { FORK_CITIES } from "@/lib/forks";
+
 export const aboutContent = {
   title: "About bits&bytes™",
   description:
@@ -19,7 +21,7 @@ export const aboutContent = {
     {
       title: "Distributed Forks",
       description:
-        "On GitHub, a fork is your own copy of an upstream repo that stays linked, so work flows back. A bits&bytes™ fork is the same thing for a city or school: a local chapter takes the playbook and brand from upstream, runs its own room, and ships back. Active forks: Bangalore, Kolkata, Chennai, Bhubaneswar, Nagpur, Mumbai, Delhi, Noida, Lucknow and Hyderabad. Start one at gobitsnbytes.org/fork.",
+        `On GitHub, a fork is your own copy of an upstream repo that stays linked, so work flows back. A bits&bytes™ fork is the same thing for a city or school: a local chapter takes the playbook and brand from upstream, runs its own room, and ships back. Active forks: ${FORK_CITIES}. Start one at gobitsnbytes.org/fork`,
     },
     {
       title: "Ship Real Products",
