@@ -9,7 +9,7 @@ const TONES = {
 } as const;
 
 export type StatProps = Omit<ComponentProps<"div">, "children"> & {
-  /** Big Anton figure, e.g. "1400+". Use existing numbers only. */
+  /** Big Anton figure, e.g. a per-event "₹35,000". Never an aggregate count (DESIGN.md). */
   value: ReactNode;
   label: ReactNode;
   detail?: ReactNode;

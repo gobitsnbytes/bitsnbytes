@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 const DIGITS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 export type OdometerProps = {
-  /** Existing figure, verbatim: "1400+", "₹35,000", "16.5". Digits roll, everything else is static. */
+  /** A per-event figure ("₹35,000") or a word ("Forks"). Digits roll, everything else is static. */
   value: string;
   label: ReactNode;
   detail?: ReactNode;
