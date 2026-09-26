@@ -19,6 +19,7 @@ import {
   TableHeader,
 } from "@/components/lab";
 import { Button } from "@/components/riot";
+import { Character } from "@/components/character/character";
 import { FORK_CITIES } from "@/lib/forks";
 import { cn } from "@/lib/utils";
 
@@ -154,7 +155,14 @@ export default function Join() {
           </LabTitle>
         </LabCell>
         <div className="col-span-full max-lg:hidden lg:col-[1/7]">
-          <FigWindow seed="Applications Open" fig={1} className={LAB_STICKY} />
+          <div className={LAB_STICKY}>
+            <FigWindow seed="Applications Open" fig={1} />
+            <Character
+              pose="door"
+              sizes="(min-width: 1024px) 140px, 0px"
+              className="mx-auto mt-8 w-[clamp(96px,9vw,140px)] [@media(max-height:760px)]:w-24"
+            />
+          </div>
         </div>
         <div className="col-span-full lg:col-[8/25]">
           <ConsoleWindow title="Join the crew" bodyClassName="px-4 md:px-6">
