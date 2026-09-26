@@ -183,7 +183,7 @@ const bell: Recipe = (ctx, dest, t, x) => {
 };
 
 const sweep = (up: boolean): Recipe => (ctx, dest, t) => {
-  const out = env(ctx, dest, t, 0.06, 0.02, 0.16);
+  const out = env(ctx, dest, t, 0.16, 0.02, 0.16);
   const bp = filter(ctx, "bandpass", 900, 1.5, out);
   const [a, b] = up ? [note(0), note(10)] : [note(10), note(0)];
   const o = osc(ctx, "triangle", a, bp, t, 0.18);
