@@ -51,7 +51,7 @@ const works: Work[] = [
     cursor: "JOIN",
     photo: { src: "/event_pictures/byteforge2.webp", alt: "Execron 1.0 participants gathered in a classroom" },
     glyph: <MessagesSquare aria-hidden className={ICON} />,
-    body: "A nationwide community of student builders, developers, roboticists, and designers.",
+    body: "Teen developers, designers and roboticists across India who show up to ship things.",
   },
   {
     ref: "[REF_WORKSHOPS_02]",
@@ -61,7 +61,7 @@ const works: Work[] = [
     cursor: "VIEW EVENTS",
     photo: { src: "/event_pictures/devday2.jpeg", alt: "A speaker with a microphone at GitHub Copilot Dev Days" },
     glyph: <Lightbulb aria-hidden className={ICON} />,
-    body: "Dev tools, hardware interfaces, and AI engineering. They run inside our hackathons, as part of the build.",
+    body: "Dev tools, hardware interfaces and AI engineering, taught inside our hackathons while you build.",
   },
   {
     ref: "[REF_FORKS_03]",
@@ -86,7 +86,7 @@ const works: Work[] = [
     cursor: "VIEW IMPACT",
     photo: { src: "/event_pictures/HEe923uagAATqvy.jpg", alt: "Two builders wiring a hardware prototype at India Innovates 2026" },
     glyph: <Rocket aria-hidden className={ICON} />,
-    body: "AI, distributed systems, and hardware. The actual products we ship, not just study.",
+    body: "AI, distributed systems and hardware. We learn them by shipping products that use them.",
     extra: <p className="mt-3 font-mono text-[10px] font-bold tracking-[0.12em] opacity-70">[SYS_PROJ_BUILD: SUCCESS]</p>,
   },
   {
@@ -96,7 +96,7 @@ const works: Work[] = [
     cursor: "VIEW TEAM",
     photo: { src: "/event_pictures/h4g/h4g3.jpg", alt: "The crew huddled around a laptop at Hack4Good v0" },
     glyph: <Users aria-hidden className={ICON} />,
-    body: "Work alongside active teen builders, roboticists, and C-level peers across India.",
+    body: "Build with teen builders across India. The people who run bits&bytes™ are teenagers too.",
     extra: (
       <ul className="mt-5 grid gap-3 border-t-2 border-line pt-4">
         {crew.map((person) => (
@@ -211,7 +211,7 @@ export function HomeWorks() {
   return (
     <Chapter id="what-we-do" title="what we do" number={2} tone="paper" className="pb-0 pt-0 md:pb-0 md:pt-0">
       <div className="px-[4vw]">
-        <ChapterHead number={2} label="What We Do" title="What we actually do" description="The stuff we run" />
+        <ChapterHead number={2} label="What We Do" title="What we actually do" description="What we run, and who runs it." />
       </div>
       <div className="grid gap-[2px] border-y-2 border-line bg-line md:grid-cols-2 lg:grid-cols-3">
         {works.map((work) => (

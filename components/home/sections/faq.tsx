@@ -11,8 +11,8 @@ export function HomeFaq({ faqs }: { faqs: HomeFaqItem[] }) {
         <ChapterHead
           number={4}
           label="FAQ"
-          title="Frequently Asked Questions"
-          description="Everything you need to know about joining India's boldest builder network."
+          title="Frequently asked questions"
+          description="What people usually ask us before they join, answered plainly."
         />
         <div className="lg:ml-[26%]">
           <p className="mb-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em]">
