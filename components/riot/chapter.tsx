@@ -17,8 +17,9 @@ export type ChapterProps = Omit<ComponentProps<"section">, "title" | "id"> & {
 
 /**
  * Numbered edition chapter. Renders <section data-cinematic-section data-cinematic-title> so
- * ExperienceProvider picks it up for the chapter index. The tone class re-scopes line/shadow/fg
- * tokens, so riot primitives inside an ink chapter flip automatically. Full-bleed: bring your own container.
+ * ExperienceProvider picks it up for the chapter index, and data-surface={tone} so the nav and
+ * index flip colour over it. The tone class re-scopes line/shadow/fg tokens, so riot primitives
+ * inside an ink chapter flip automatically. Full-bleed: bring your own container.
  */
 export function Chapter({ id, title, number, tone = "paper", className, children, ...props }: ChapterProps) {
   return (
@@ -27,6 +28,7 @@ export function Chapter({ id, title, number, tone = "paper", className, children
       data-cinematic-section=""
       data-cinematic-title={title}
       data-chapter-number={number === undefined ? undefined : pad(number)}
+      data-surface={tone}
       className={cn(`tone-${tone}`, "relative overflow-x-clip py-16 md:py-24", className)}
       {...props}
     >

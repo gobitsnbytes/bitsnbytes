@@ -17,12 +17,25 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import type { Driver, DriveStep } from "driver.js";
 
+import { ChapterIndex, type EditionChapter } from "@/components/edition/chapter-index";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const MOTION_STORAGE_KEY = "bnb-immersive-motion";
+/** Fixed nav clearance used when jumping to a chapter. */
+const NAV_OFFSET = 96;
+/** Viewport line (px from the top) whose section decides html[data-nav-surface]. */
+const SURFACE_LINE = 40;
 
 type ExperienceContextValue = {
+  /** false until the preference is resolved on the client, under reduced motion, or with the site toggle off. */
   motionEnabled: boolean;
   toggleMotion: () => void;
   startTour: () => void;
+  /** The one Lenis instance (null when motion is off, on /qna, or before mount). */
+  lenis: Lenis | null;
+  /** Chapters discovered on the current page ([data-cinematic-section], top level, in order). */
+  chapters: EditionChapter[];
 };
 
 const ExperienceContext = createContext<ExperienceContextValue | null>(null);
@@ -38,17 +51,17 @@ function getSectionLabel(section: HTMLElement, index: number) {
   return `chapter ${String(index + 1).padStart(2, "0")}`;
 }
 
-function getTopLevelSections() {
-  const allSections = Array.from(
-    document.querySelectorAll<HTMLElement>(
-      "main section, main [data-cinematic-section]",
-    ),
+function topLevel(selector: string) {
+  return Array.from(document.querySelectorAll<HTMLElement>(selector)).filter(
+    (section) => !section.parentElement?.closest("[data-cinematic-section]"),
   );
+}
 
-  return Array.from(new Set(allSections)).filter(
-    (section) =>
-      !section.parentElement?.closest("section, [data-cinematic-section]"),
-  );
+const getChapterSections = () => topLevel("main [data-cinematic-section]");
+
+function setRootAttr(key: "navSurface" | "scrolled" | "scrollDir", value: string) {
+  const root = document.documentElement;
+  if (root.dataset[key] !== value) root.dataset[key] = value;
 }
 
 export function useExperience() {
@@ -59,20 +72,37 @@ export function useExperience() {
   return value;
 }
 
+/** Like useExperience, but returns null outside the provider (e.g. /fork, /minecraft). */
+export function useOptionalExperience() {
+  return useContext(ExperienceContext);
+}
+
+/**
+ * Motion gate for page choreography. false outside the provider, before the preference resolves,
+ * under prefers-reduced-motion and with the site toggle off. Use it as a useGSAP dependency.
+ */
+export function useMotionEnabled() {
+  return useContext(ExperienceContext)?.motionEnabled ?? false;
+}
+
 export function ExperienceProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [settledPath, setSettledPath] = useState<string | null>(null);
-  const [motionEnabled, setMotionEnabled] = useState(true);
-  const [activeChapter, setActiveChapter] = useState({
-    index: 0,
-    total: 0,
-    label: "opening frame",
-  });
-  const progressRef = useRef<HTMLDivElement>(null);
+  // null = not resolved yet (server render / first client frame).
+  const [motionPref, setMotionPref] = useState<boolean | null>(null);
+  const motionEnabled = motionPref === true;
+  const [lenis, setLenis] = useState<Lenis | null>(null);
+  const [chapters, setChapters] = useState<EditionChapter[]>([]);
+  const [editionTitle, setEditionTitle] = useState<string | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const sectionsRef = useRef<HTMLElement[]>([]);
   const tourRef = useRef<Driver | null>(null);
 
   useEffect(() => {
     setSettledPath(null);
+    setEditionTitle(null);
+    setChapters([]);
+    sectionsRef.current = [];
     const settleTimer = window.setTimeout(() => setSettledPath(pathname), 480);
     return () => window.clearTimeout(settleTimer);
   }, [pathname]);
@@ -81,10 +111,10 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const stored = window.localStorage.getItem(MOTION_STORAGE_KEY);
     const enabled = stored === null ? !media.matches : stored === "on";
-    setMotionEnabled(enabled && !media.matches);
+    setMotionPref(enabled && !media.matches);
 
     const onPreferenceChange = (event: MediaQueryListEvent) => {
-      if (event.matches) setMotionEnabled(false);
+      if (event.matches) setMotionPref(false);
     };
 
     media.addEventListener("change", onPreferenceChange);
@@ -92,20 +122,19 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    document.documentElement.dataset.immersiveMotion = motionEnabled
-      ? "on"
-      : "off";
-  }, [motionEnabled]);
+    if (motionPref === null) return;
+    document.documentElement.dataset.immersiveMotion = motionPref ? "on" : "off";
+  }, [motionPref]);
 
   useEffect(() => {
     if (!motionEnabled || pathname === "/qna") return;
 
-    const lenis = new Lenis({
+    const instance = new Lenis({
       duration: 1.05,
       easing: (time) => Math.min(1, 1.001 - Math.pow(2, -10 * time)),
       smoothWheel: true,
       syncTouch: false,
-      anchors: { offset: -96 },
+      anchors: { offset: -NAV_OFFSET },
       stopInertiaOnNavigate: true,
       prevent: (node) =>
         node instanceof HTMLElement &&
@@ -113,95 +142,100 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
     });
 
     const updateScrollTrigger = () => ScrollTrigger.update();
-    const updateLenis = (time: number) => lenis.raf(time * 1000);
+    const updateLenis = (time: number) => instance.raf(time * 1000);
 
-    lenis.on("scroll", updateScrollTrigger);
+    instance.on("scroll", updateScrollTrigger);
     gsap.ticker.add(updateLenis);
     gsap.ticker.lagSmoothing(0);
+    setLenis(instance);
 
     return () => {
-      lenis.off("scroll", updateScrollTrigger);
+      setLenis(null);
+      instance.off("scroll", updateScrollTrigger);
       gsap.ticker.remove(updateLenis);
-      lenis.destroy();
+      instance.destroy();
     };
   }, [motionEnabled, pathname]);
 
+  // Chrome state on <html>: data-nav-surface / data-scrolled / data-scroll-dir. Runs immediately on
+  // every route so the nav is right on the first frame, and again once the route settles to pick up
+  // late-mounted sections; ScrollTrigger's own resize/load refreshes correct mid-transition positions.
+  useGSAP(
+    () => {
+      const surfaces = Array.from(document.querySelectorAll<HTMLElement>("[data-surface]"));
+
+      // Innermost / last [data-surface] crossing the line wins; nothing there = "paper".
+      const syncSurface = () => {
+        let surface = "paper";
+        for (const el of document.querySelectorAll<HTMLElement>("[data-surface]")) {
+          const { top, bottom } = el.getBoundingClientRect();
+          if (top <= SURFACE_LINE && bottom > SURFACE_LINE) surface = el.dataset.surface || surface;
+        }
+        setRootAttr("navSurface", surface);
+      };
+
+      setRootAttr("scrollDir", "up");
+      setRootAttr("scrolled", window.scrollY > 80 ? "true" : "false");
+      syncSurface();
+
+      surfaces.forEach((el) =>
+        ScrollTrigger.create({
+          trigger: el,
+          start: `top ${SURFACE_LINE}px`,
+          end: `bottom ${SURFACE_LINE}px`,
+          refreshPriority: -1,
+          onToggle: syncSurface,
+        }),
+      );
+
+      ScrollTrigger.create({
+        start: 0,
+        end: "max",
+        onUpdate: (self) => {
+          if (self.direction) setRootAttr("scrollDir", self.direction > 0 ? "down" : "up");
+          setRootAttr("scrolled", self.scroll() > 80 ? "true" : "false");
+        },
+      });
+
+      ScrollTrigger.addEventListener("refresh", syncSurface);
+      return () => ScrollTrigger.removeEventListener("refresh", syncSurface);
+    },
+    { dependencies: [pathname, settledPath], revertOnUpdate: true },
+  );
+
+  // Chapter discovery + active tracking for the chapter index (edition pages only).
   useGSAP(
     () => {
       if (settledPath !== pathname) return;
 
-      if (pathname === "/qna") {
-        setActiveChapter({ index: 0, total: 0, label: "live assistant" });
-        return;
-      }
+      const sections = getChapterSections();
+      const edition = document.querySelector<HTMLElement>("[data-edition]");
+      sectionsRef.current = sections;
 
-      gsap.registerPlugin(ScrollTrigger);
-      const sections = getTopLevelSections();
-      const labels = sections.map(getSectionLabel);
-      setActiveChapter({
-        index: 0,
-        total: sections.length,
-        label: labels[0] ?? "opening frame",
-      });
+      // Every chapter needs an anchor for the index links.
+      const named = sections.filter((section) => !section.id);
+      named.forEach((section) => (section.id = `chapter-${String(sections.indexOf(section) + 1).padStart(2, "0")}`));
+      setChapters(sections.map((section, index) => ({ id: section.id, title: getSectionLabel(section, index) })));
+      setEditionTitle(edition ? (edition.dataset.editionTitle ?? "") : null);
+      setActiveIndex(0);
 
-      sections.forEach((section, index) => {
-        section.classList.add("cinematic-section");
-        section.dataset.cinematicIndex = String(index + 1).padStart(2, "0");
+      // Native jumps (no Lenis) land below the fixed nav.
+      const margined = sections.filter((section) => !section.style.scrollMarginTop);
+      margined.forEach((section) => (section.style.scrollMarginTop = `${NAV_OFFSET}px`));
 
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top 58%",
-          end: "bottom 42%",
-          onToggle: ({ isActive }) => {
-            if (!isActive) return;
-
-            sections.forEach((item) =>
-              item.classList.toggle("is-cinematic-active", item === section),
-            );
-            setActiveChapter({
-              index,
-              total: sections.length,
-              label: labels[index],
-            });
-          },
-        });
-
-        if (!motionEnabled || index === 0) return;
-
-        gsap.fromTo(
-          section,
-          {
-            autoAlpha: 0.3,
-            transform: "translateY(28px)",
-            clipPath: "inset(0 0 7% 0)",
-          },
-          {
-            autoAlpha: 1,
-            transform: "translateY(0px)",
-            clipPath: "inset(0 0 0% 0)",
-            duration: 0.78,
-            ease: "power4.out",
-            clearProps: "transform,clipPath,opacity,visibility",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 88%",
-              once: true,
-              fastScrollEnd: true,
+      if (edition) {
+        sections.forEach((section, index) =>
+          ScrollTrigger.create({
+            trigger: section,
+            start: "top center",
+            end: "bottom center",
+            refreshPriority: -1,
+            onToggle: ({ isActive }) => {
+              if (isActive) setActiveIndex(index);
             },
-          },
+          }),
         );
-      });
-
-      const progressTrigger = ScrollTrigger.create({
-        start: 0,
-        end: "max",
-        onUpdate: ({ progress }) => {
-          if (!progressRef.current) return;
-          gsap.set(progressRef.current, {
-            transform: `scaleY(${Math.max(progress, 0.025)})`,
-          });
-        },
-      });
+      }
 
       const refreshTimers = [
         window.setTimeout(() => ScrollTrigger.refresh(), 160),
@@ -209,23 +243,43 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       ];
 
       return () => {
-        progressTrigger.kill();
         refreshTimers.forEach(window.clearTimeout);
-        sections.forEach((section) => {
-          section.classList.remove("cinematic-section", "is-cinematic-active");
-          delete section.dataset.cinematicIndex;
-        });
+        margined.forEach((section) => section.style.removeProperty("scroll-margin-top"));
+        named.forEach((section) => section.removeAttribute("id"));
       };
     },
     {
-      dependencies: [motionEnabled, pathname, settledPath],
+      dependencies: [pathname, settledPath],
       revertOnUpdate: true,
     },
+  );
+
+  const jumpToChapter = useCallback(
+    (index: number, viaKeyboard: boolean) => {
+      const section = sectionsRef.current[index];
+      if (!section) return;
+
+      const focusSection = () => {
+        if (!section.hasAttribute("tabindex")) section.setAttribute("tabindex", "-1");
+        section.focus({ preventScroll: true });
+      };
+
+      // Keyboard-initiated jumps don't animate.
+      if (lenis) {
+        lenis.scrollTo(section, { offset: -NAV_OFFSET, immediate: viaKeyboard, onComplete: focusSection });
+      } else {
+        section.scrollIntoView({ behavior: motionEnabled && !viaKeyboard ? "smooth" : "auto", block: "start" });
+        focusSection();
+      }
+    },
+    [lenis, motionEnabled],
   );
 
   const startTour = useCallback(async () => {
     const { driver } = await import("driver.js");
     tourRef.current?.destroy();
+
+    const topLevelSections = topLevel("main section, main [data-cinematic-section]");
 
     const candidateSteps: Array<{
       element: Element | null;
@@ -264,7 +318,7 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
         },
       },
       {
-        element: getTopLevelSections()[1] ?? getTopLevelSections()[0] ?? null,
+        element: topLevelSections[1] ?? topLevelSections[0] ?? null,
         popover: {
           title: "Scroll progress",
           description:
@@ -326,7 +380,7 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
   useEffect(() => () => tourRef.current?.destroy(), [pathname]);
 
   const toggleMotion = useCallback(() => {
-    setMotionEnabled((current) => {
+    setMotionPref((current) => {
       const next = !current;
       window.localStorage.setItem(MOTION_STORAGE_KEY, next ? "on" : "off");
       return next;
@@ -334,33 +388,20 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ motionEnabled, toggleMotion, startTour }),
-    [motionEnabled, startTour, toggleMotion],
+    () => ({ motionEnabled, toggleMotion, startTour, lenis, chapters }),
+    [motionEnabled, startTour, toggleMotion, lenis, chapters],
   );
 
   return (
     <ExperienceContext.Provider value={value}>
       {children}
-      {activeChapter.total > 0 && (
-        <aside
-          aria-hidden="true"
-          className="cinematic-scroll-rail pointer-events-none fixed right-3 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-end gap-3 lg:flex"
-        >
-          <div className="max-w-32 text-right font-mono text-[8px] font-bold uppercase tracking-[0.2em] text-foreground/55">
-            <span className="block text-primary dark:text-accent">
-              {String(activeChapter.index + 1).padStart(2, "0")} /{" "}
-              {String(activeChapter.total).padStart(2, "0")}
-            </span>
-            <span className="mt-1 block truncate">{activeChapter.label}</span>
-          </div>
-          <div className="relative h-24 w-[3px] overflow-hidden bg-foreground/15">
-            <div
-              ref={progressRef}
-              className="absolute inset-0 origin-top bg-primary dark:bg-accent"
-              style={{ transform: "scaleY(0.025)" }}
-            />
-          </div>
-        </aside>
+      {editionTitle !== null && chapters.length > 0 && (
+        <ChapterIndex
+          title={editionTitle}
+          chapters={chapters}
+          active={activeIndex}
+          onJump={jumpToChapter}
+        />
       )}
     </ExperienceContext.Provider>
   );
