@@ -18,6 +18,7 @@ import { CodeXml, Lightbulb, MessagesSquare, Rocket, Users } from "lucide-react"
 
 import { useMotionEnabled } from "@/components/experience-provider";
 import { DuotoneImage } from "@/components/edition/duotone-image";
+import { Character } from "@/components/character/character";
 import { Chapter, ChapterHead } from "@/components/riot/chapter";
 import { cn } from "@/lib/utils";
 
@@ -210,8 +211,20 @@ function WorkCell({ work }: { work: Work }) {
 export function HomeWorks() {
   return (
     <Chapter id="what-we-do" title="what we do" number={2} tone="paper" className="pb-0 pt-0 md:pb-0 md:pt-0">
-      <div className="px-[4vw]">
-        <ChapterHead number={2} label="What We Do" title="What we actually do" description="What we run, and who runs it." />
+      <div className="relative flow-root px-[4vw]">
+        {/* lg+: the head reserves a right gutter so the typing pose stands on its rule without covering the copy. */}
+        <ChapterHead
+          number={2}
+          label="What We Do"
+          title="What we actually do"
+          description="What we run, and who runs it."
+          className="lg:pr-[clamp(80px,7vw,112px)]"
+        />
+        <Character
+          pose="typing"
+          sizes="(min-width: 1024px) 96px, 0px"
+          className="absolute bottom-[calc(2.25rem+3px)] right-[4vw] hidden w-[clamp(64px,6vw,96px)] lg:block"
+        />
       </div>
       <div className="grid gap-[2px] border-y-2 border-line bg-line md:grid-cols-2 lg:grid-cols-3">
         {works.map((work) => (
