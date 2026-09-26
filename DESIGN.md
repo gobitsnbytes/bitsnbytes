@@ -128,6 +128,22 @@ LCP must be text (the wordmark), never the canvas. `next/image` with `sizes`; vi
 play only when in view; lazy-load below-fold heavy components with `next/dynamic`. No new dependencies unless unavoidable —
 gsap, @gsap/react, three, @react-three/fiber, @react-three/drei, lenis, framer-motion are already installed. Use `pnpm`.
 
+## Reference allocation (user, 2026-09-26 — overrides anything below that conflicts)
+
+> kprverse "i love the intro section" · stripe.dev "copy this 1:1" · buttermax "create this 1:1" ·
+> inkfish "omg wow copy this too" · shopify editions "copy this copy this 1:1" · revelatio, bfcm (liked)
+
+| Surface | 1:1 reference |
+|---|---|
+| Home — first-visit intro | **kprverse** preloader + logo assembly: paper panel, hairline progress rule, `LOADING - NN%` + file-path ticker, the logo's pieces assembling, cut to the hero. Skippable, no sound gate. |
+| Home — everything after the intro | **buttermax** (hero, 3D logo cube, curtain reel, statement, works grid, poster footer) |
+| /events | **inkfish** (black playlist reel hero with PiP "monitor", `[S.0N]`/`[NN]` bracket mono UI, barcode stripe rows, mixed-width event grid, contact "window" with fixed backdrop, custom fullscreen player) |
+| /about, /impact, legal docs | **Shopify Editions** (opening frame, chapter index, chapter heroes, torn paper, serif statements, card collages) |
+| /cloud, /join, /contact, /faq, /press, /qna | **stripe.dev** (24-col hairline grid with `+` registration marks, pixel-block glyph titles, `/ LABEL` table headers, seeded "Fig. N" generative windows, feed tables with mono dates, sticky router figure, get-help grid, endless outlined footer word) |
+| Site-wide chrome | buttermax nav fused with **stripe.dev** bracket hotkeys (`[E] EVENTS [A] ABOUT [J] JOIN [M] MENU`, `[C]` console = the AI assistant as a stripe.dev console window), **inkfish** pixel-mountain route transition, kprverse menu, buttermax/kprverse footer |
+
+Single-key shortcuts must be switchable off (WCAG 2.1.4), ignored while typing or with modifiers, and exposed via `aria-keyshortcuts`.
+
 ## Reference playbook → site spec
 
 Full teardowns (measurements, timings, mechanisms) live in `tmp/research-full.json` (one object per site). Decisions:
