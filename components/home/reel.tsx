@@ -9,14 +9,14 @@
  * slides over it. Needs no transform/filter on any ancestor (SiteChrome keeps none; the route transition is a
  * fixed sibling overlay, never a wrapper).
  *
- * Media: /movie/bnb-movie.mp4 once, muted/looping, preload="none", playing only while the window is on screen.
+ * Media: /movie/bnb-trailer.mp4 once, muted/looping, preload="none", playing only while the window is on screen.
  * Their darker full-bleed copy of the footage is our dither screen: each video frame is drawn into a 128×72 canvas,
  * ordered-dithered (4×4 Bayer) into ink / burgundy-dk / burgundy / orange and scaled up pixelated, so there is
  * one decode and one download. The same clip plays clean in an inset riot Window (≈75% wide) that scrubs
  * scale .92→1 as the curtain lifts, while the full-bleed copy counter-drifts (transform only).
  * "[ WATCH FILM ]" (the whole window is the hit area) opens the VideoModal with sound.
  *
- * Reduced motion / motion toggle off: no video, no scrubs; the frame shows a still (bnb-movie-poster.jpg) over a halftone field.
+ * Reduced motion / motion toggle off: no video, no scrubs; the frame shows a still (bnb-trailer-poster.jpg) over a halftone field.
  * Media only loads after the curtain starts to lift, so nothing here competes with the hero LCP.
  */
 
@@ -32,8 +32,8 @@ import { VideoModal } from "@/components/riot/video";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const FILM = "/movie/bnb-movie.mp4";
-const STILL = "/movie/bnb-movie-poster.jpg";
+const FILM = "/movie/bnb-trailer.mp4";
+const STILL = "/movie/bnb-trailer-poster.jpg";
 const TITLE = "bits&bytes™ movie";
 
 const W = 128;
@@ -202,7 +202,7 @@ export function HomeReel() {
         </div>
       </div>
 
-      <VideoModal src={FILM} title={TITLE}>
+      <VideoModal src={FILM} poster={STILL} title={TITLE}>
         <button
           type="button"
           aria-label="Watch film"

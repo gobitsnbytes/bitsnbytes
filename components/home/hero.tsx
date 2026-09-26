@@ -40,7 +40,8 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const LogoCubeScene = dynamic(() => import("./logo-cube-scene"), { ssr: false });
 
-const FILM = "/movie/bnb-movie.mp4";
+const FILM = "/movie/bnb-trailer.mp4";
+const FILM_POSTER = "/movie/bnb-trailer-poster.jpg";
 const noopSubscribe = () => () => {};
 
 /** Sync preference read for the first frame (the provider's motionEnabled is false until its effect resolves). */
@@ -284,7 +285,7 @@ export function HomeHero() {
                     <ArrowUpRight aria-hidden className="size-3.5" />
                   </Link>
                 </Button>
-                <VideoModal src={FILM} title="bits&bytes™ movie">
+                <VideoModal src={FILM} poster={FILM_POSTER} title="bits&bytes™ movie">
                   <Button variant="outline" size="sm" data-cursor-label="WATCH FILM">
                     <Play aria-hidden className="size-3 fill-current" />
                     Watch film
