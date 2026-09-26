@@ -58,8 +58,6 @@ export const metadata: Metadata = {
     "teen minecraft server",
     "minecraft server for students",
     "minecraft community server india",
-    "minecraft server lucknow",
-    "minecraft server uttar pradesh",
     "bits and bytes community",
     // Competitive / ranked searches
     "best minecraft server india",
@@ -286,7 +284,7 @@ const minecraftJsonLd = {
           name: "Is the server based in India?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes. The server is hosted on Microsoft Azure infrastructure in India, giving Indian players the best latency. It is student-run by the bits&bytes™ team, a Section 8 nonprofit based in Lucknow.",
+            text: "Yes. The server is hosted on Microsoft Azure infrastructure in India, giving Indian players the best latency. It is student-run by the bits&bytes™ team, a pan-India Section 8 nonprofit.",
           },
         },
         {
