@@ -12,6 +12,7 @@ import {
   regionalSeriesEvent as regional,
 } from "@/lib/events-data";
 import { cn } from "@/lib/utils";
+import { Character } from "@/components/character/character";
 
 import { ArchiveIndex, type ArchiveEvent } from "./archive-index";
 import { SectionHead } from "./shared";
@@ -624,6 +625,12 @@ export function EventArchive() {
       className="tone-paper relative overflow-x-clip px-4 pb-24 pt-20 md:px-5 md:pb-32 md:pt-28"
     >
       <SectionHead label={<p>The event archive</p>} section={2} className="mb-10" />
+      {/* Stands right of the giant "EVENTS", feet just above the list (height = giant line + its mt-16 gap). */}
+      <Character
+        pose="clapper"
+        sizes="(min-width: 1024px) 130px, 0px"
+        className="absolute right-[7vw] top-[calc(7rem+56px)] hidden w-[calc((min(11.2vw,160px)*0.85+56px)/1.5)] lg:block"
+      />
       <ArchiveIndex events={EVENTS} />
     </section>
   );
