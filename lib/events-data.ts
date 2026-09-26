@@ -119,6 +119,11 @@ export type ReelClip = {
   poster: string;
   /** Note under the fullscreen player. */
   note?: string;
+  /**
+   * Fullscreen look. "cover" (default): the clip fills the screen. "gradient": the clip sits framed at a sensible
+   * size on a drifting brand gradient and plays once through, then offers replay / close.
+   */
+  mode?: "cover" | "gradient";
 };
 
 export const eventsReel: ReelClip[] = [
@@ -141,5 +146,77 @@ export const eventsReel: ReelClip[] = [
     title: "Documentary Film",
     src: "/movie/bnb-movie.mp4",
     poster: "/movie/bnb-movie-poster.jpg",
+    mode: "gradient",
+  },
+];
+
+/** One photo in the /events "In Pictures" bento. w × h: displayed size after EXIF rotation. */
+export type EventPhoto = {
+  src: string;
+  w: number;
+  h: number;
+  alt: string;
+  /** Shown after the event name in the caption. */
+  title?: string;
+  /** Asks the bento for a big 2×2 tile. */
+  feature?: boolean;
+};
+
+/**
+ * Every usable event photo, grouped by event (the gallery mixes them). Add new photos to their event's list.
+ * Left out on purpose: the .HEIC originals (h4g1/h4g3 have JPEG copies), the banners, the two India Innovates
+ * press photos carrying a Getty Images / Hindustan Times watermark (1ae8b918…, 3d53b490…), devday4 (almost all
+ * black: its duotone prints as a solid ink block that reads as an empty cell), and h4g_hackers / h4g_hallway /
+ * h4g_standee, which are smaller copies of h4g0, h7g and h4g2.
+ */
+export const eventPhotos: { event: string; photos: EventPhoto[] }[] = [
+  {
+    event: "India Innovates 2026",
+    photos: [
+      { src: "/event_pictures/HEe923uagAATqvy.jpg", w: 1600, h: 1067, title: "Build table", feature: true, alt: "Two finalists wiring a hardware prototype at their table, India Innovates 2026" },
+      { src: "/event_pictures/HEe923ub0AE-92F.jpg", w: 1600, h: 1067, title: "Plenary session", alt: "A speaker at the podium addressing the hall at Bharat Mandapam" },
+      { src: "/event_pictures/866d62697f3d42819e2007714047a3a80001af45.jpg", w: 801, h: 1200, title: "Jury interaction", alt: "Evaluators gathered round a student team's laptop for an on-floor demo" },
+      { src: "/event_pictures/HEe93oOakAAi2Mi.jpg", w: 1600, h: 1067, title: "Participant teams", alt: "A student team seated at their table before the demonstrations" },
+    ],
+  },
+  {
+    event: "Hack4Good v0",
+    photos: [
+      { src: "/event_pictures/h4g/h4g0.jpg", w: 3072, h: 4096, title: "D-Day coding sprint", alt: "Hackers at their laptops during the Hack4Good coding round" },
+      { src: "/event_pictures/h4g/h4g1.jpg", w: 4032, h: 3024, title: "Pitching session", alt: "A team presenting its project to the room from a projector slide" },
+      { src: "/event_pictures/h4g/h4g3.jpg", w: 4032, h: 3024, title: "Project iteration", feature: true, alt: "A team crowded round one laptop, working through their agent with mentors" },
+      { src: "/event_pictures/h4g/h4g2.jpeg", w: 4284, h: 5712, alt: "The Hack4Good standee at Cubispace with a sculpture of energy-drink cans in front" },
+      { src: "/event_pictures/h4g/h7g.jpeg", w: 4284, h: 5712, alt: "A hacker in a helmet aiming a can contraption down the Cubispace corridor" },
+      { src: "/event_pictures/h4g/h4g.jpg", w: 4096, h: 3072, alt: "Round woven lamps glowing under the ceiling at the Hack4Good venue" },
+    ],
+  },
+  {
+    event: "Execron 1.0",
+    photos: [
+      { src: "/event_pictures/byteforge1.webp", w: 1080, h: 608, alt: "A packed lecture hall of students at Execron 1.0, IIT Kanpur" },
+      { src: "/event_pictures/byteforge4.webp", w: 1080, h: 720, alt: "Three participants working at one laptop in front of a chalkboard" },
+      { src: "/event_pictures/byteforge3.webp", w: 1080, h: 720, alt: "A laptop screen, close up, during the sprint" },
+      { src: "/event_pictures/byteforge2.webp", w: 1080, h: 720, feature: true, alt: "Participants talking in a circle in front of a chalkboard" },
+      { src: "/event_pictures/byteforge5.webp", w: 1080, h: 608, alt: "Execron 1.0 participants posing for a group photo in a classroom" },
+    ],
+  },
+  {
+    event: "Lucknow Build Guild",
+    photos: [
+      { src: "/event_pictures/bd1.jpg", w: 3072, h: 3072, alt: "A builder soldering wires beside a laptop" },
+      { src: "/event_pictures/bd4.jpg", w: 4080, h: 3072, feature: true, alt: "The full room building at round tables, Lucknow Build Guild" },
+      { src: "/event_pictures/bd5.jpg", w: 3072, h: 4080, alt: "A builder soldering components next to a laptop and a tool kit" },
+      { src: "/event_pictures/bd2.jpg", w: 3072, h: 3072, alt: "Two builders holding up a Blueprint card" },
+      { src: "/event_pictures/bd3.jpg", w: 4080, h: 3072, alt: "A builder at a laptop beside a hardware test board" },
+    ],
+  },
+  {
+    event: "GitHub Copilot Dev Days",
+    photos: [
+      { src: "/event_pictures/devday.jpeg", w: 1280, h: 960, alt: "A speaker presenting Agentic Coding with GitHub Copilot to the room" },
+      { src: "/event_pictures/devday2.jpeg", w: 960, h: 1280, alt: "A speaker with a microphone in front of the audience" },
+      { src: "/event_pictures/devday3.jpeg", w: 722, h: 1600, alt: "A table of stickers, swag and an Octocat plush" },
+      { src: "/event_pictures/founder-s.jpeg", w: 517, h: 720, alt: "An attendee grinning behind a printed sign" },
+    ],
   },
 ];
