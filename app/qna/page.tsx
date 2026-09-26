@@ -1,135 +1,121 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 import { QnAChatInterface } from "@/components/qna-chat-interface";
+import { Eyebrow } from "@/components/riot";
+import { dispatchPrompt } from "@/components/ui/booking-blocks";
 
+const VERIFY = ["Verified from public docs", "Built for sponsor diligence", "Join-ready handoff"];
+const HOW = [
+  "Ask about events, team, and partnerships.",
+  "Answers are grounded in public project sources.",
+  "Follow prompts to jump into join or sponsor steps.",
+];
+const ASKS = ["What makes bits&bytes™ different?", "Show me partner events and outcomes.", "How do sponsors get involved?"];
+
+const RULE_LABEL = "flex items-baseline justify-between border-b-2 border-line pb-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.16em]";
+const ROW_BTN =
+  "flex min-h-11 w-full items-center justify-between gap-3 border-2 border-line px-3 font-mono text-[11px] font-bold uppercase tracking-[0.1em] shadow-[3px_3px_0_0_var(--shadow-color)] transition-[transform,box-shadow,background-color,color] duration-100 ease-riot hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_var(--shadow-color)] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none motion-reduce:transition-none";
+
+/**
+ * /qna — a full-height stripe.dev console. The site chrome locks this route to the viewport (no
+ * footer, no Lenis), so the page scrolls itself below lg and the manual column scrolls on its own at lg+.
+ */
 export default function QnAPage() {
-    const sendSuggestedPrompt = (prompt: string) => {
-        if (typeof window === "undefined") return;
-        window.dispatchEvent(new CustomEvent("bb:qna-prompt", { detail: prompt }));
-    };
+  return (
+    <section
+      data-tour="page-hero"
+      aria-label="bits&bytes™ QnA Assistant"
+      className="tone-paper h-full overflow-y-auto pt-24 lg:overflow-hidden"
+    >
+      <div className="grid gap-8 px-4 pb-6 md:px-8 lg:h-full lg:grid-cols-[minmax(280px,360px)_minmax(0,1fr)] lg:gap-10 lg:pb-8">
+        <QnAChatInterface className="h-[calc(100svh-8.5rem)] min-h-[440px] lg:order-2 lg:h-full" />
 
-    return (
-        <section
-            data-tour="page-hero"
-            className="flex flex-col w-full px-0 pt-20 sm:pt-24 lg:pt-28 pb-4 bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] transition-colors duration-300 transform scale-110 origin-top-left min-h-screen lg:h-full lg:min-h-0 lg:overflow-hidden"
-            aria-label="bits&bytes™ QnA Assistant"
-        >
-            <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 h-full flex flex-col lg:min-h-0 lg:overflow-hidden pb-4">
-                <div className="grid gap-6 lg:grid-cols-[300px_1fr] xl:grid-cols-[340px_1fr] items-stretch h-full lg:min-h-0 lg:overflow-hidden pb-4">
-                    {/* LEFT COLUMN: Header, badges, flow cards (stacked order-2 on mobile, lg:order-1 on desktop) */}
-                    <div className="flex flex-col gap-4 lg:overflow-y-auto pr-0 lg:pr-2 lg:pb-6 custom-scrollbar order-2 lg:order-1">
-                        <div className="space-y-3">
-                            <div className="inline-flex items-center gap-2 border border-[#120f0a] dark:border-[#faf8f5] bg-[#faf8f5] dark:bg-[#120f0a] px-2.5 py-0.5 text-[9px] font-mono tracking-widest text-[#120f0a] dark:text-[#faf8f5] select-none rounded-none w-fit">
-                                <span className="h-1.5 w-1.5 bg-[#97192c] block animate-pulse" />
-                                QnA Assistant
-                            </div>
-                            <h1 className="text-xl sm:text-2xl font-normal font-accent-sans text-[#120f0a] dark:text-[#faf8f5] uppercase tracking-tight leading-[0.95]">
-                                Ask what matters, get the real bits&bytes™ answer.
-                            </h1>
-                            <p className="text-xs text-[#120f0a]/80 dark:text-[#faf8f5]/80 font-serif-brand leading-relaxed">
-                                This is the official QnA layer for sponsors, educators, and builders. We answer from
-                                public sources in this project, fast and without fluff.
-                            </p>
-                        </div>
+        <div className="flex flex-col gap-7 lg:order-1 lg:min-h-0 lg:overflow-y-auto lg:pb-2 lg:pr-3">
+          <header className="space-y-3">
+            <Eyebrow>QnA Assistant</Eyebrow>
+            <h1 className="font-[family-name:var(--font-archivo)] text-[clamp(30px,3vw,44px)] font-black uppercase leading-[0.9] tracking-[-0.035em] [font-stretch:112%]">
+              Ask what matters, get the real bits&bytes™ answer.
+            </h1>
+            <p className="max-w-[46ch] font-serif text-base leading-relaxed">
+              This is the official QnA layer for sponsors, educators, and builders. We answer from public sources in this
+              project, fast and without fluff.
+            </p>
+          </header>
 
-                        {/* Badges stacked */}
-                        <div className="grid gap-2 grid-cols-1 text-[9px] sm:text-[10px] text-[#120f0a] dark:text-[#faf8f5]">
-                            <div className="bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a]/15 dark:border-[#faf8f5]/15 px-3 py-1.5 font-mono uppercase tracking-wider rounded-none relative select-none">
-                                <span className="absolute top-1 right-2 text-[5px] font-mono text-[#120f0a]/30 dark:text-[#faf8f5]/30">[VERIFY_01]</span>
-                                Verified from public docs
-                            </div>
-                            <div className="bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a]/15 dark:border-[#faf8f5]/15 px-3 py-1.5 font-mono uppercase tracking-wider rounded-none relative select-none">
-                                <span className="absolute top-1 right-2 text-[5px] font-mono text-[#120f0a]/30 dark:text-[#faf8f5]/30">[VERIFY_02]</span>
-                                Built for sponsor diligence
-                            </div>
-                            <div className="bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a]/15 dark:border-[#faf8f5]/15 px-3 py-1.5 font-mono uppercase tracking-wider rounded-none relative select-none">
-                                <span className="absolute top-1 right-2 text-[5px] font-mono text-[#120f0a]/30 dark:text-[#faf8f5]/30">[VERIFY_03]</span>
-                                Join-ready handoff
-                            </div>
-                        </div>
+          <ul className="border-t-2 border-line">
+            {VERIFY.map((item, index) => (
+              <li
+                key={item}
+                className="flex items-baseline justify-between gap-3 border-b border-line/40 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.1em]"
+              >
+                {item}
+                <span aria-hidden className="text-signal">
+                  [VERIFY_0{index + 1}]
+                </span>
+              </li>
+            ))}
+          </ul>
 
-                        {/* Sponsor Flow Card */}
-                        <aside className="bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a]/15 dark:border-[#faf8f5]/15 p-3 rounded-none relative select-none">
-                            <span className="absolute top-2 right-3 text-[7px] font-mono text-[#120f0a]/30 dark:text-[#faf8f5]/30">[FLOW_01]</span>
-                            <div className="space-y-2">
-                                <div>
-                                    <p className="text-[9px] font-mono uppercase tracking-widest text-[#97192c] font-bold">
-                                        Sponsor Flow
-                                    </p>
-                                    <h2 className="mt-0.5 text-xs sm:text-sm font-normal font-accent-sans text-[#120f0a] dark:text-[#faf8f5] uppercase tracking-tight leading-none">
-                                        Want a direct convo?
-                                    </h2>
-                                    <p className="mt-1 text-[10px] text-[#120f0a]/75 dark:text-[#faf8f5]/75 font-serif-brand leading-relaxed">
-                                        Ask here, then jump to a sponsor-ready contact route with context.
-                                    </p>
-                                </div>
-                                <div className="flex flex-col gap-1">
-                                    <Link
-                                        href="/contact"
-                                        className="inline-flex items-center justify-between border border-[#120f0a] dark:border-[#faf8f5] bg-[#97192c] text-white px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider hover:bg-transparent hover:text-[#120f0a] dark:hover:text-[#faf8f5] hover:border-[#120f0a] dark:hover:border-[#faf8f5] transition-all duration-200 rounded-none cursor-pointer active:scale-[0.98]"
-                                    >
-                                        Contact the team
-                                        <ArrowRight className="h-3 w-3" />
-                                    </Link>
-                                    <Link
-                                        href="/join"
-                                        className="inline-flex items-center justify-between border border-[#120f0a] dark:border-[#faf8f5] bg-transparent text-[#120f0a] dark:text-[#faf8f5] px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider hover:bg-[#120f0a] dark:hover:bg-[#faf8f5] hover:text-[#faf8f5] dark:hover:text-[#120f0a] transition-all duration-200 rounded-none cursor-pointer active:scale-[0.98]"
-                                    >
-                                        Join the crew
-                                        <ArrowRight className="h-3 w-3" />
-                                    </Link>
-                                </div>
-                            </div>
-                        </aside>
-
-                        {/* How it works & Suggested Asks */}
-                        <aside className="bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a]/15 dark:border-[#faf8f5]/15 p-3 rounded-none text-[#120f0a] dark:text-[#faf8f5] relative select-none">
-                            <span className="absolute top-2 right-3 text-[7px] font-mono text-[#120f0a]/30 dark:text-[#faf8f5]/30">[INFO_02]</span>
-                            <div className="space-y-3">
-                                <div>
-                                    <p className="text-[9px] font-mono uppercase tracking-widest text-[#97192c] font-bold">
-                                        How it works
-                                    </p>
-                                    <ul className="mt-1 space-y-1 text-[10px] font-serif-brand text-[#120f0a]/85 dark:text-[#faf8f5]/85 leading-normal">
-                                        <li className="flex gap-1"><span>•</span> Ask about events, team, and partnerships.</li>
-                                        <li className="flex gap-1"><span>•</span> Answers are grounded in public project sources.</li>
-                                        <li className="flex gap-1"><span>•</span> Follow prompts to jump into join or sponsor steps.</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <p className="text-[9px] font-mono uppercase tracking-widest text-[#97192c] font-bold">
-                                        Suggested asks
-                                    </p>
-                                    <div className="mt-1 space-y-1">
-                                        {[
-                                            "What makes bits&bytes™ different?",
-                                            "Show me partner events and outcomes.",
-                                            "How do sponsors get involved?",
-                                        ].map((prompt) => (
-                                            <button
-                                                key={prompt}
-                                                type="button"
-                                                onClick={() => sendSuggestedPrompt(prompt)}
-                                                className="w-full text-left bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a]/15 dark:border-[#faf8f5]/15 px-2 py-0.5 text-[10px] text-[#120f0a] dark:text-[#faf8f5] font-mono font-bold uppercase tracking-tight hover:border-[#120f0a] dark:hover:border-[#faf8f5] transition-all rounded-none cursor-pointer"
-                                            >
-                                                {prompt}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </aside>
-                    </div>
-
-                    {/* RIGHT COLUMN: Chat box (order-1 on mobile, lg:order-2 on desktop) */}
-                    <div className="flex flex-col h-full lg:min-h-0 lg:overflow-hidden order-1 lg:order-2">
-                        <QnAChatInterface className="h-full lg:h-full lg:min-h-0" />
-                    </div>
-                </div>
+          <aside aria-labelledby="qna-sponsor-flow" className="space-y-3">
+            <p className={RULE_LABEL}>
+              <span className="text-signal">Sponsor Flow</span>
+              <span aria-hidden>[FLOW_01]</span>
+            </p>
+            <h2 id="qna-sponsor-flow" className="font-display text-3xl uppercase leading-[0.9] tracking-[0.01em]">
+              Want a direct convo?
+            </h2>
+            <p className="font-serif text-sm leading-relaxed">
+              Ask here, then jump to a sponsor-ready contact route with context.
+            </p>
+            <div className="flex flex-col gap-2.5 pt-1">
+              <Link href="/contact" className={`${ROW_BTN} bg-burgundy text-paper`}>
+                Contact the team <span aria-hidden>→</span>
+              </Link>
+              <Link href="/join" className={`${ROW_BTN} bg-card text-card-foreground`}>
+                Join the crew <span aria-hidden>→</span>
+              </Link>
             </div>
-        </section>
-    );
+          </aside>
+
+          <aside aria-label="How it works" className="space-y-5">
+            <div className="space-y-2">
+              <p className={RULE_LABEL}>
+                <span className="text-signal">How it works</span>
+                <span aria-hidden>[INFO_02]</span>
+              </p>
+              <ul className="space-y-1.5 font-serif text-sm leading-normal">
+                {HOW.map((line) => (
+                  <li key={line} className="flex gap-2">
+                    <span aria-hidden className="mt-[0.45em] size-1.5 shrink-0 bg-signal" />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="space-y-2">
+              <p className={RULE_LABEL}>
+                <span className="text-signal">Suggested asks</span>
+              </p>
+              <ul>
+                {ASKS.map((prompt) => (
+                  <li key={prompt} className="border-b border-line/40">
+                    <button
+                      type="button"
+                      onClick={() => dispatchPrompt(prompt)}
+                      className="flex w-full cursor-pointer items-baseline justify-between gap-3 px-1 py-2.5 text-left font-mono text-[11px] font-bold uppercase tracking-[0.04em] transition-colors hover:bg-fg hover:text-surface focus-visible:bg-fg focus-visible:text-surface"
+                    >
+                      {prompt}
+                      <span aria-hidden>↵</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  );
 }

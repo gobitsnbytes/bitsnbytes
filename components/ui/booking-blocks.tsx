@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { User, Calendar, Clock, CheckCircle2, XCircle, RotateCcw } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 
 /* ─── Types ──────────────────────────────────────────────── */
 export interface BookingHost {
@@ -15,18 +16,18 @@ export interface BookingHost {
 }
 
 export interface BookingSlotBlock {
-  date: string;           // YYYY-MM-DD
+  date: string; // YYYY-MM-DD
   host_name: string;
   booking_link: string;
   discord_id: string;
   duration: number;
-  slots: string[];        // ISO datetime strings
+  slots: string[]; // ISO datetime strings
 }
 
 export interface BookingConfirmBlock {
   host: string;
-  date_label: string;     // e.g. "Monday, July 20"
-  time_label: string;     // e.g. "10:30 AM IST"
+  date_label: string; // e.g. "Monday, July 20"
+  time_label: string; // e.g. "10:30 AM IST"
   duration: number;
   meeting_id?: string;
 }
@@ -40,31 +41,51 @@ export interface MeetingItem {
   host_name?: string;
 }
 
-/* ─── Shared button style ────────────────────────────────── */
+/*
+ * Booking blocks the assistant renders inside its console (a tone-ink scope), so colours come from
+ * the tone tokens: fg / line / signal / surface-2. Every action is a prompt sent back to the chat.
+ */
+const CARD = "whitespace-normal border-2 border-line bg-surface-2 font-sans text-fg shadow-[3px_3px_0_0_var(--shadow-color)]";
+const LABEL = "font-mono text-[10px] font-bold uppercase tracking-[0.14em]";
 const btnBase =
-  "border-2 border-[#120f0a] font-black uppercase text-[10px] tracking-wider transition-all shadow-[2px_2px_0px_0px_#120f0a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none";
+  "cursor-pointer border-2 border-line font-mono text-[10px] font-bold uppercase tracking-[0.12em] shadow-[2px_2px_0_0_var(--shadow-color)] transition-[transform,box-shadow,background-color,color] duration-100 ease-riot hover:-translate-x-px hover:-translate-y-px hover:shadow-[3px_3px_0_0_var(--shadow-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none motion-reduce:transition-none";
 
-function dispatchPrompt(text: string) {
+/** Sends a prompt to whichever assistant console is mounted (it fills the input and focuses it). */
+export function dispatchPrompt(text: string) {
   window.dispatchEvent(new CustomEvent("bb:qna-prompt", { detail: text }));
+}
+
+function ActionPair({ id, className }: { id: string; className?: string }) {
+  return (
+    <div className={cn("flex gap-2", className)}>
+      <button
+        type="button"
+        onClick={() => dispatchPrompt(`I want to reschedule meeting ${id}`)}
+        className={cn(btnBase, "flex-1 py-1.5 hover:bg-cream hover:text-ink")}
+      >
+        <span aria-hidden>↺ </span>Reschedule
+      </button>
+      <button
+        type="button"
+        onClick={() => dispatchPrompt(`I want to cancel meeting ${id}`)}
+        className={cn(btnBase, "flex-1 py-1.5 text-signal hover:bg-warm hover:text-paper")}
+      >
+        <span aria-hidden>✕ </span>Cancel
+      </button>
+    </div>
+  );
 }
 
 /* ─── Host Grid ──────────────────────────────────────────── */
 export function BookingHostGrid({ hosts }: { hosts: BookingHost[] }) {
   if (!hosts.length) {
-    return (
-      <p className="text-xs font-mono text-[#716f6c] bg-[#f4d9d1] border-2 border-[#97192c] p-3">
-        No team members have opened their calendar yet.
-      </p>
-    );
+    return <p className={cn(CARD, "p-3 font-mono text-xs")}>No team members have opened their calendar yet.</p>;
   }
   return (
-    <div className="flex flex-col gap-2 my-1">
+    <div className="my-1 flex flex-col gap-2">
       {hosts.map((h) => (
-        <div
-          key={h.booking_link}
-          className="flex items-center gap-3 bg-white border-2 border-[#120f0a] p-3 shadow-[3px_3px_0px_0px_#120f0a]"
-        >
-          <div className="relative w-9 h-9 rounded-full border-2 border-[#120f0a] overflow-hidden bg-neutral-100 shrink-0">
+        <div key={h.booking_link} className={cn(CARD, "flex items-center gap-3 p-3")}>
+          <div className="relative size-9 shrink-0 overflow-hidden border-2 border-line bg-paper-2">
             {h.avatar ? (
               <Image
                 src={
@@ -79,16 +100,17 @@ export function BookingHostGrid({ hosts }: { hosts: BookingHost[] }) {
                 unoptimized
               />
             ) : (
-              <User className="w-full h-full p-2 text-[#a09f9d]" />
+              <span aria-hidden className="halftone block size-full" />
             )}
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-black text-xs text-[#120f0a] truncate">{h.title ?? h.username}</p>
-            {h.title && <p className="text-[10px] font-mono text-[#a09f9d] truncate">@{h.username}</p>}
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-xs font-black uppercase">{h.title ?? h.username}</p>
+            {h.title && <p className="truncate font-mono text-[10px] opacity-75">@{h.username}</p>}
           </div>
           <button
+            type="button"
             onClick={() => dispatchPrompt(`Book a call with ${h.title ?? h.username}`)}
-            className={`${btnBase} px-3 py-1.5 bg-[#97192c] text-white text-[9px] hover:bg-[#791423]`}
+            className={cn(btnBase, "bg-orange px-3 py-1.5 text-ink")}
           >
             Book
           </button>
@@ -99,48 +121,42 @@ export function BookingHostGrid({ hosts }: { hosts: BookingHost[] }) {
 }
 
 /* ─── Slot Picker ────────────────────────────────────────── */
+function formatSlot(iso: string) {
+  return new Date(iso).toLocaleTimeString("en-IN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Asia/Kolkata",
+    hour12: true,
+  });
+}
+
 export function SlotPicker({ data }: { data: BookingSlotBlock }) {
   const [picked, setPicked] = useState<string | null>(null);
 
-  function formatSlot(iso: string) {
-    const d = new Date(iso);
-    return d.toLocaleTimeString("en-IN", {
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "Asia/Kolkata",
-      hour12: true,
-    });
-  }
-
   function handlePick(slot: string) {
     setPicked(slot);
-    const label = formatSlot(slot);
-    dispatchPrompt(`I'd like the ${label} IST slot`);
+    dispatchPrompt(`I'd like the ${formatSlot(slot)} IST slot`);
   }
 
   return (
-    <div className="my-1 bg-white border-2 border-[#120f0a] shadow-[3px_3px_0px_0px_#120f0a]">
-      <div className="flex items-center gap-2 border-b-2 border-[#120f0a] px-3 py-2 bg-[#eae8e4]">
-        <Calendar className="w-3.5 h-3.5 text-[#97192c]" />
-        <span className="text-[10px] font-black uppercase tracking-wider text-[#120f0a]">
-          {data.host_name} · {new Date(data.date + "T00:00:00").toLocaleDateString("en-IN", { weekday: "short", month: "short", day: "numeric" })} · {data.duration} min
-        </span>
-      </div>
-      <div className="p-3 grid grid-cols-3 gap-2">
+    <div className={cn(CARD, "my-1")}>
+      <p className={cn(LABEL, "border-b-2 border-line px-3 py-2 text-signal")}>
+        {data.host_name} ·{" "}
+        {new Date(data.date + "T00:00:00").toLocaleDateString("en-IN", { weekday: "short", month: "short", day: "numeric" })}{" "}
+        · {data.duration} min
+      </p>
+      <div className="grid grid-cols-3 gap-2 p-3">
         {data.slots.length === 0 && (
-          <p className="col-span-3 text-xs font-mono text-[#716f6c]">No slots available on this date.</p>
+          <p className="col-span-3 font-mono text-xs opacity-80">No slots available on this date.</p>
         )}
         {data.slots.map((slot) => (
           <button
             key={slot}
+            type="button"
+            aria-pressed={picked === slot}
             onClick={() => handlePick(slot)}
-            className={`${btnBase} py-1.5 text-[10px] ${
-              picked === slot
-                ? "bg-[#fc920d] border-[#fc920d] text-[#120f0a]"
-                : "bg-white text-[#413f3b] hover:bg-[#fee9cf]"
-            }`}
+            className={cn(btnBase, "py-1.5", picked === slot ? "bg-orange text-ink" : "hover:bg-cream hover:text-ink")}
           >
-            <Clock className="w-2.5 h-2.5 inline mr-1" />
             {formatSlot(slot)}
           </button>
         ))}
@@ -151,93 +167,57 @@ export function SlotPicker({ data }: { data: BookingSlotBlock }) {
 
 /* ─── Booking Confirmation Card ──────────────────────────── */
 export function BookingConfirmCard({ data }: { data: BookingConfirmBlock }) {
+  const rows = [
+    ["Host", data.host],
+    ["Date", data.date_label],
+    ["Time", data.time_label],
+    ["Duration", `${data.duration} minutes`],
+  ];
   return (
-    <div className="my-1 bg-white border-2 border-[#120f0a] shadow-[3px_3px_0px_0px_#120f0a]">
-      <div className="flex items-center gap-2 border-b-2 border-[#120f0a] px-3 py-2 bg-[#97192c]">
-        <CheckCircle2 className="w-3.5 h-3.5 text-white" />
-        <span className="text-[10px] font-black uppercase tracking-wider text-white">Session Confirmed</span>
-      </div>
-      <div className="p-3 space-y-1.5">
-        <div className="flex justify-between text-xs">
-          <span className="font-mono text-[#716f6c]">Host</span>
-          <span className="font-black text-[#120f0a]">{data.host}</span>
-        </div>
-        <div className="flex justify-between text-xs">
-          <span className="font-mono text-[#716f6c]">Date</span>
-          <span className="font-black text-[#120f0a]">{data.date_label}</span>
-        </div>
-        <div className="flex justify-between text-xs">
-          <span className="font-mono text-[#716f6c]">Time</span>
-          <span className="font-black text-[#120f0a]">{data.time_label}</span>
-        </div>
-        <div className="flex justify-between text-xs">
-          <span className="font-mono text-[#716f6c]">Duration</span>
-          <span className="font-black text-[#120f0a]">{data.duration} minutes</span>
-        </div>
-      </div>
-      {data.meeting_id && (
-        <div className="border-t-2 border-[#120f0a] px-3 py-2 flex gap-2">
-          <button
-            onClick={() => dispatchPrompt(`I want to reschedule meeting ${data.meeting_id}`)}
-            className={`${btnBase} flex-1 py-1.5 bg-[#eae8e4] text-[#120f0a] text-[9px] flex items-center justify-center gap-1`}
-          >
-            <RotateCcw className="w-2.5 h-2.5" /> Reschedule
-          </button>
-          <button
-            onClick={() => dispatchPrompt(`I want to cancel meeting ${data.meeting_id}`)}
-            className={`${btnBase} flex-1 py-1.5 bg-white text-[#97192c] text-[9px] flex items-center justify-center gap-1`}
-          >
-            <XCircle className="w-2.5 h-2.5" /> Cancel
-          </button>
-        </div>
-      )}
+    <div className={cn(CARD, "my-1")}>
+      <p className={cn(LABEL, "flex items-center gap-2 border-b-2 border-line bg-slime px-3 py-2 text-ink")}>
+        <span aria-hidden>✓</span> Session Confirmed
+      </p>
+      <dl className="space-y-1.5 p-3">
+        {rows.map(([term, value]) => (
+          <div key={term} className="flex justify-between gap-3 text-xs">
+            <dt className="font-mono opacity-75">{term}</dt>
+            <dd className="text-right font-black">{value}</dd>
+          </div>
+        ))}
+      </dl>
+      {data.meeting_id && <ActionPair id={data.meeting_id} className="border-t-2 border-line px-3 py-2" />}
     </div>
   );
 }
 
 /* ─── Meeting List ───────────────────────────────────────── */
+function fmtTime(ms: number) {
+  return new Date(ms).toLocaleString("en-IN", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Asia/Kolkata",
+    hour12: true,
+  });
+}
+
 export function MeetingList({ meetings }: { meetings: MeetingItem[] }) {
   if (!meetings.length) {
-    return (
-      <p className="text-xs font-mono text-[#716f6c] bg-[#eae8e4] border-2 border-[#120f0a] p-3">
-        No upcoming meetings found.
-      </p>
-    );
-  }
-
-  function fmtTime(ms: number) {
-    return new Date(ms).toLocaleString("en-IN", {
-      weekday: "short", month: "short", day: "numeric",
-      hour: "2-digit", minute: "2-digit",
-      timeZone: "Asia/Kolkata", hour12: true,
-    });
+    return <p className={cn(CARD, "p-3 font-mono text-xs")}>No upcoming meetings found.</p>;
   }
 
   return (
-    <div className="flex flex-col gap-2 my-1">
+    <div className="my-1 flex flex-col gap-2">
       {meetings.map((m) => (
-        <div
-          key={m.id}
-          className="bg-white border-2 border-[#120f0a] shadow-[3px_3px_0px_0px_#120f0a]"
-        >
-          <div className="px-3 py-2 border-b border-[#120f0a]/20">
-            <p className="font-black text-xs text-[#120f0a] truncate">{m.title}</p>
-            <p className="text-[10px] font-mono text-[#716f6c]">{fmtTime(m.scheduled_time)}</p>
+        <div key={m.id} className={CARD}>
+          <div className="border-b border-line/30 px-3 py-2">
+            <p className="truncate text-xs font-black">{m.title}</p>
+            <p className="font-mono text-[10px] opacity-75">{fmtTime(m.scheduled_time)}</p>
           </div>
-          <div className="flex gap-2 px-3 py-2">
-            <button
-              onClick={() => dispatchPrompt(`I want to reschedule meeting ${m.id}`)}
-              className={`${btnBase} flex-1 py-1 bg-[#eae8e4] text-[#120f0a] text-[9px] flex items-center justify-center gap-1`}
-            >
-              <RotateCcw className="w-2.5 h-2.5" /> Reschedule
-            </button>
-            <button
-              onClick={() => dispatchPrompt(`I want to cancel meeting ${m.id}`)}
-              className={`${btnBase} flex-1 py-1 bg-white text-[#97192c] text-[9px] flex items-center justify-center gap-1`}
-            >
-              <XCircle className="w-2.5 h-2.5" /> Cancel
-            </button>
-          </div>
+          <ActionPair id={m.id} className="px-3 py-2" />
         </div>
       ))}
     </div>

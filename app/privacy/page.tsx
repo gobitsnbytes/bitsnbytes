@@ -1,6 +1,3 @@
-"use client";
-
-import { Lock } from "lucide-react";
 import { LegalPolicyPage } from "@/components/legal-policy-page";
 
 const privacyMarkdown = `<aside>
@@ -119,7 +116,6 @@ export default function PrivacyPolicy() {
       title="Privacy Policy"
       summary="How GOBITSNBYTES FOUNDATION collects, protects, and handles personal data under the DPDP Act 2023, with stringent safeguards for minors and teen builders."
       updated="Last updated: 13 September 2026"
-      icon={Lock}
       sections={sections}
       markdown={privacyMarkdown}
       highlights={[

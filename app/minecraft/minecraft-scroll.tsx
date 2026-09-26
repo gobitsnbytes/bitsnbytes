@@ -142,10 +142,10 @@ function MinimalConnection({ serverIp }: { serverIp: string }) {
   return (
     <div className="flex flex-col items-center gap-6">
       {/* Live Status indicator (minimal, almost hidden) */}
-      <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[#fee9cf]/40 select-none">
+      <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-cream/80 select-none">
         <span className="relative flex h-1.5 w-1.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#fc920d] opacity-60"></span>
-          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#fc920d]"></span>
+          <span className="animate-ping absolute inline-flex h-full w-full bg-orange opacity-60 motion-reduce:animate-none"></span>
+          <span className="relative inline-flex h-1.5 w-1.5 bg-orange"></span>
         </span>
         {online !== null ? `${online} active now` : "server online"}
       </div>
@@ -155,20 +155,20 @@ function MinimalConnection({ serverIp }: { serverIp: string }) {
         type="button"
         onClick={copy}
         aria-label={`Copy server address ${serverIp}`}
-        className="group relative cursor-pointer font-mono text-base tracking-[0.25em] text-[#faf8f5] uppercase transition-all duration-200 focus-visible:outline-none"
+        className="group relative cursor-pointer font-mono text-base tracking-[0.25em] text-paper uppercase transition-all duration-200"
       >
         <span className="inline-flex items-center gap-2.5 transition-opacity duration-200 group-hover:opacity-80">
           {serverIp}
-          <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 text-xs text-[#fee9cf]/40">
+          <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 text-xs text-cream/80">
             →
           </span>
         </span>
         
         {/* Subtle hover underline */}
-        <span className="absolute left-0 right-0 -bottom-1.5 h-[1px] bg-gradient-to-r from-transparent via-[#fee9cf]/35 to-transparent scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+        <span className="absolute left-0 right-0 -bottom-1.5 h-[1px] bg-gradient-to-r from-transparent via-cream/35 to-transparent scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
 
         {/* Floating copied tooltip overlay */}
-        <span className={`absolute left-1/2 -top-8 -translate-x-1/2 font-mono text-[9px] uppercase tracking-widest text-[#fc920d] bg-[#0c0406]/90 px-2 py-1 rounded transition-all duration-200 pointer-events-none ${copied ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"}`}>
+        <span className={`absolute left-1/2 -top-8 -translate-x-1/2 font-mono text-[9px] uppercase tracking-widest text-orange bg-ink/90 px-2 py-1 transition-all duration-200 pointer-events-none ${copied ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"}`}>
           Copied to clipboard
         </span>
       </button>
@@ -229,13 +229,13 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
   return (
     <main
       ref={stageRef}
-      className="relative bg-[#0c0406] text-[#faf8f5]"
+      className="relative bg-ink text-paper [--focus-ring:var(--acid)]"
       style={{ minHeight: "1000svh" }}
     >
       {/* Skip link for keyboard / screen-reader users. */}
       <a
         href="#join"
-        className="fixed left-4 top-[-100px] z-[60] bg-[#fc920d] px-5 py-3 text-xs font-mono uppercase tracking-widest text-[#12070a] transition-[top] duration-150 focus:top-4"
+        className="fixed left-4 top-[-100px] z-[60] bg-orange px-5 py-3 text-xs font-mono uppercase tracking-widest text-ink transition-[top] duration-150 focus:top-4"
       >
         Skip to join
       </a>
@@ -244,7 +244,7 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
       <span id="top" className="pointer-events-none absolute top-0" aria-hidden />
       <span id="join" className="pointer-events-none absolute bottom-[6svh]" aria-hidden />
 
-      <section className="fixed inset-0 overflow-hidden bg-[#0c0406] [contain:layout_style_paint]">
+      <section className="fixed inset-0 overflow-hidden bg-ink [contain:layout_style_paint]">
         {/* Background video — the star. */}
         <div className="absolute inset-0 z-0" aria-hidden>
           <video
@@ -257,22 +257,22 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
             <source src="/movie/mc-server-bg.mp4" type="video/mp4" />
           </video>
           {/* Deep dark gradient overlay for maximum contrast and cinematic mystery. */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0305]/65 via-[#0a0305]/80 to-[#070103]/95" />
+          <div className="absolute inset-0 bg-linear-to-b from-[#120f0a]/65 via-[#120f0a]/80 to-[#120f0a]/95" />
         </div>
 
         {/* Minimal chrome. */}
-        <header className="absolute left-1/2 top-8 z-40 flex w-[min(92vw,1050px)] -translate-x-1/2 items-center justify-between text-xs font-mono uppercase tracking-[0.25em] mix-blend-difference">
-          <a href="#top" className="font-bold text-[#faf8f5] lowercase">
+        <header className="absolute left-1/2 top-8 z-40 flex w-[min(92vw,1050px)] -translate-x-1/2 items-center justify-between text-xs font-mono uppercase tracking-[0.25em]">
+          <a href="#top" className="font-bold text-paper lowercase">
             bits&amp;bytes<sup className="text-[0.45em]">™</sup>
           </a>
-          <a href="#join" className="opacity-60 transition-opacity hover:opacity-100">
+          <a href="#join" className="opacity-80 transition-opacity hover:opacity-100">
             [ CONNECT ]
           </a>
         </header>
 
         {/* Hairline scroll progress. */}
         <div className="absolute inset-x-0 bottom-0 z-40 h-[2px] origin-left">
-          <motion.i style={{ scaleX: scrollYProgress }} className="block h-full w-full origin-left bg-[#fee9cf]/25" />
+          <motion.i style={{ scaleX: scrollYProgress }} className="block h-full w-full origin-left bg-cream/25" />
         </div>
 
         {/* 1 — Hero: logo, 1 line, 1 phrase */}
@@ -280,23 +280,23 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
           <div className="flex flex-col items-center justify-center">
             <Image
               src="/logo.svg"
-              alt="bits&amp;bytesMonogram"
+              alt="bits&bytes™ logo"
               width={56}
               height={56}
               priority
-              className="opacity-90 brightness-110 drop-shadow-[0_0_24px_rgba(254,233,207,0.15)]"
+              className="opacity-90"
             />
-            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.3em] text-[#fee9cf]/60">
+            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.3em] text-cream/80">
               Built for builders. Java + Bedrock. 0 mods required.
             </p>
-            <h1 className="mt-6 font-accent-sans text-[clamp(3.5rem,10vw,8.5rem)] font-normal uppercase leading-[0.9] tracking-tighter text-[#faf8f5]">
+            <h1 className="mt-6 font-display text-[clamp(3.5rem,10vw,8.5rem)] uppercase leading-[0.9] tracking-[0.005em] text-paper">
               Build. Explore. Belong.
             </h1>
             <div className="mt-16 flex flex-col items-center gap-2">
-              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#fee9cf]/30 select-none">
+              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-cream/80 select-none">
                 Scroll to enter
               </span>
-              <span className="h-[24px] w-[1px] bg-gradient-to-b from-[#fee9cf]/30 to-transparent" />
+              <span className="h-[24px] w-[1px] bg-gradient-to-b from-cream/30 to-transparent" />
             </div>
           </div>
         </Scene>
@@ -304,10 +304,10 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
         {/* 2 — Telemetry 1: TPS */}
         <Scene progress={progress} start={0.22} end={0.30} ramp={0.06}>
           <div className="flex flex-col items-center justify-center font-mono">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-[#fee9cf]/40 mb-4">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-cream/80 mb-4">
               TPS
             </span>
-            <div className="text-[clamp(4.8rem,13vw,11.5rem)] font-normal text-[#faf8f5] tracking-tight leading-none">
+            <div className="text-[clamp(4.8rem,13vw,11.5rem)] font-normal text-paper tracking-tight leading-none">
               {stats.tps !== null ? `${Number(stats.tps).toFixed(2)}` : "20.00"}
             </div>
           </div>
@@ -316,10 +316,10 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
         {/* 3 — Telemetry 2: MSPT */}
         <Scene progress={progress} start={0.42} end={0.50} ramp={0.06}>
           <div className="flex flex-col items-center justify-center font-mono">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-[#fee9cf]/40 mb-4">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-cream/80 mb-4">
               MSPT
             </span>
-            <div className="text-[clamp(4.8rem,13vw,11.5rem)] font-normal text-[#faf8f5] tracking-tight leading-none">
+            <div className="text-[clamp(4.8rem,13vw,11.5rem)] font-normal text-paper tracking-tight leading-none">
               {stats.mspt !== null ? `${Number(stats.mspt).toFixed(1)}` : "8.4"}
             </div>
           </div>
@@ -328,12 +328,12 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
         {/* 4 — Telemetry 3: Active Nodes / Players */}
         <Scene progress={progress} start={0.62} end={0.70} ramp={0.06}>
           <div className="flex flex-col items-center justify-center font-mono">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-[#fee9cf]/40 mb-4">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-cream/80 mb-4">
               Players
             </span>
-            <div className="text-[clamp(4.8rem,13vw,11.5rem)] font-normal text-[#faf8f5] tracking-tight leading-none">
+            <div className="text-[clamp(4.8rem,13vw,11.5rem)] font-normal text-paper tracking-tight leading-none">
               {stats.players !== null ? `${stats.players}` : "12"}
-              <span className="text-[clamp(1.5rem,4vw,3.2rem)] text-[#fee9cf]/30 ml-2">
+              <span className="text-[clamp(1.5rem,4vw,3.2rem)] text-cream/80 ml-2">
                 / {stats.maxPlayers}
               </span>
             </div>
@@ -343,56 +343,56 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
         {/* 5 — Operations & Specifications */}
         <Scene progress={progress} start={0.82} end={0.90} ramp={0.06}>
           <div className="w-full max-w-5xl flex flex-col items-start px-4 text-left">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#fc920d]/80 mb-10">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-orange mb-10">
               Operations &amp; Specs
             </span>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-12 gap-y-10 font-mono text-left">
               
               {/* Col 1: Runtime */}
               <div className="flex flex-col gap-5">
-                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold border-b border-[#fee9cf]/10 pb-2">// Runtime</h3>
-                <div className="flex flex-col gap-3 text-[11px] text-[#fee9cf]/60">
-                  <div className="flex justify-between"><span>Core:</span><span className="text-[#faf8f5]">Purpur 1.21.1</span></div>
-                  <div className="flex justify-between"><span>Compiler:</span><span className="text-[#faf8f5]">Java 21</span></div>
-                  <div className="flex justify-between"><span>GC:</span><span className="text-[#faf8f5]">G1GC Tuned</span></div>
-                  <div className="flex justify-between"><span>Pre-Gen:</span><span className="text-[#faf8f5]">3000 radius</span></div>
-                  <div className="flex justify-between"><span>Mods:</span><span className="text-[#faf8f5]">0 required</span></div>
+                <h3 className="text-xs uppercase tracking-wider text-paper font-bold border-b border-cream/10 pb-2">// Runtime</h3>
+                <div className="flex flex-col gap-3 text-[11px] text-cream/80">
+                  <div className="flex justify-between"><span>Core:</span><span className="text-paper">Purpur 1.21.1</span></div>
+                  <div className="flex justify-between"><span>Compiler:</span><span className="text-paper">Java 21</span></div>
+                  <div className="flex justify-between"><span>GC:</span><span className="text-paper">G1GC Tuned</span></div>
+                  <div className="flex justify-between"><span>Pre-Gen:</span><span className="text-paper">3000 radius</span></div>
+                  <div className="flex justify-between"><span>Mods:</span><span className="text-paper">0 required</span></div>
                 </div>
               </div>
 
               {/* Col 2: Infrastructure */}
               <div className="flex flex-col gap-5">
-                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold border-b border-[#fee9cf]/10 pb-2">// Infrastructure</h3>
-                <div className="flex flex-col gap-3 text-[11px] text-[#fee9cf]/60">
-                  <div className="flex justify-between"><span>Host:</span><span className="text-[#faf8f5]">Azure B2s</span></div>
-                  <div className="flex justify-between"><span>Compute:</span><span className="text-[#faf8f5]">4 vCPU</span></div>
-                  <div className="flex justify-between"><span>Memory:</span><span className="text-[#faf8f5]">8 GB RAM</span></div>
-                  <div className="flex justify-between"><span>Backups:</span><span className="text-[#faf8f5]">Daily snapshot</span></div>
-                  <div className="flex justify-between"><span>Sponsor:</span><span className="text-[#faf8f5]"><a href="https://misbahkhursheed.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-[#fc920d] transition-colors">Misbah Khursheed</a></span></div>
+                <h3 className="text-xs uppercase tracking-wider text-paper font-bold border-b border-cream/10 pb-2">// Infrastructure</h3>
+                <div className="flex flex-col gap-3 text-[11px] text-cream/80">
+                  <div className="flex justify-between"><span>Host:</span><span className="text-paper">Azure B2s</span></div>
+                  <div className="flex justify-between"><span>Compute:</span><span className="text-paper">4 vCPU</span></div>
+                  <div className="flex justify-between"><span>Memory:</span><span className="text-paper">8 GB RAM</span></div>
+                  <div className="flex justify-between"><span>Backups:</span><span className="text-paper">Daily snapshot</span></div>
+                  <div className="flex justify-between"><span>Sponsor:</span><span className="text-paper"><a href="https://misbahkhursheed.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-orange transition-colors">Misbah Khursheed</a></span></div>
                 </div>
               </div>
 
               {/* Col 3: Protection */}
               <div className="flex flex-col gap-5">
-                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold border-b border-[#fee9cf]/10 pb-2">// Protection</h3>
-                <div className="flex flex-col gap-3 text-[11px] text-[#fee9cf]/60">
-                  <div className="flex justify-between"><span>Engine:</span><span className="text-[#faf8f5]">CoreProtect</span></div>
-                  <div className="flex justify-between"><span>History:</span><span className="text-[#faf8f5]">1.4M block logs</span></div>
-                  <div className="flex justify-between"><span>Rollback:</span><span className="text-[#faf8f5]">48-hour window</span></div>
-                  <div className="flex justify-between"><span>Chat bridge:</span><span className="text-[#faf8f5]">DiscordSRV</span></div>
-                  <div className="flex justify-between"><span>Audit:</span><span className="text-[#faf8f5]">Audit logs</span></div>
+                <h3 className="text-xs uppercase tracking-wider text-paper font-bold border-b border-cream/10 pb-2">// Protection</h3>
+                <div className="flex flex-col gap-3 text-[11px] text-cream/80">
+                  <div className="flex justify-between"><span>Engine:</span><span className="text-paper">CoreProtect</span></div>
+                  <div className="flex justify-between"><span>History:</span><span className="text-paper">1.4M block logs</span></div>
+                  <div className="flex justify-between"><span>Rollback:</span><span className="text-paper">48-hour window</span></div>
+                  <div className="flex justify-between"><span>Chat bridge:</span><span className="text-paper">DiscordSRV</span></div>
+                  <div className="flex justify-between"><span>Audit:</span><span className="text-paper">Audit logs</span></div>
                 </div>
               </div>
 
               {/* Col 4: Organization */}
               <div className="flex flex-col gap-5">
-                <h3 className="text-xs uppercase tracking-wider text-[#faf8f5] font-bold border-b border-[#fee9cf]/10 pb-2">// Organization</h3>
-                <div className="flex flex-col gap-3 text-[11px] text-[#fee9cf]/60">
-                  <div className="flex justify-between"><span>Legal:</span><span className="text-[#faf8f5]">Section 8 nonprofit</span></div>
-                  <div className="flex justify-between"><span>Founded:</span><span className="text-[#faf8f5]">2025</span></div>
-                  <div className="flex justify-between"><span>Management:</span><span className="text-[#faf8f5]">Student-run</span></div>
-                  <div className="flex justify-between"><span>Source:</span><span className="text-[#faf8f5]"><a href="https://github.com/gobitsnbytes/minecraft-server" target="_blank" rel="noopener noreferrer" className="hover:text-[#fc920d] transition-colors">Open Source</a></span></div>
-                  <div className="flex justify-between"><span>Region:</span><span className="text-[#faf8f5]">India</span></div>
+                <h3 className="text-xs uppercase tracking-wider text-paper font-bold border-b border-cream/10 pb-2">// Organization</h3>
+                <div className="flex flex-col gap-3 text-[11px] text-cream/80">
+                  <div className="flex justify-between"><span>Legal:</span><span className="text-paper">Section 8 nonprofit</span></div>
+                  <div className="flex justify-between"><span>Founded:</span><span className="text-paper">2025</span></div>
+                  <div className="flex justify-between"><span>Management:</span><span className="text-paper">Student-run</span></div>
+                  <div className="flex justify-between"><span>Source:</span><span className="text-paper"><a href="https://github.com/gobitsnbytes/minecraft-server" target="_blank" rel="noopener noreferrer" className="hover:text-orange transition-colors">Open Source</a></span></div>
+                  <div className="flex justify-between"><span>Region:</span><span className="text-paper">India</span></div>
                 </div>
               </div>
 
@@ -404,9 +404,9 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
         <Scene progress={progress} start={0.98} end={1.05} ramp={0.02}>
           <div className="flex flex-col items-center justify-center min-h-[60vh] py-12">
             <div className="flex flex-col items-center">
-              <h2 className="font-accent-sans text-[clamp(4rem,11vw,9.5rem)] font-normal uppercase leading-[0.8] tracking-tighter text-[#faf8f5] text-center">
+              <h2 className="font-display text-[clamp(4rem,11vw,9.5rem)] uppercase leading-[0.86] tracking-[0.005em] text-paper text-center">
                 See you<br />
-                <em className="not-italic text-[#fc920d]">in-game.</em>
+                <em className="not-italic text-orange">in-game.</em>
               </h2>
             </div>
 
@@ -414,14 +414,14 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
               <MinimalConnection serverIp={serverIp} />
               
               {/* Minimal platform ports */}
-              <div className="flex flex-col items-center gap-1.5 font-mono text-[10px] tracking-[0.15em] text-[#fee9cf]/40 uppercase mt-4 text-center">
+              <div className="flex flex-col items-center gap-1.5 font-mono text-[10px] tracking-[0.15em] text-cream/80 uppercase mt-4 text-center">
                 <span>Java: mc.gobitsnbytes.org (25565)</span>
                 <span>Bedrock: mc.gobitsnbytes.org (19132)</span>
               </div>
             </div>
 
             {/* Minimal footer */}
-            <div className="mt-24 flex flex-col items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.15em] text-[#fee9cf]/25 text-center">
+            <div className="mt-24 flex flex-col items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.15em] text-cream/80 text-center">
               <span className="normal-case">bits&amp;bytes™ by GOBITSNBYTES FOUNDATION</span>
               <span>© 2026 GOBITSNBYTES FOUNDATION. ALL RIGHTS RESERVED.</span>
               <span className="normal-case opacity-80 mt-1">
@@ -430,7 +430,7 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
                   href="https://misbahkhursheed.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#fc920d] transition-colors pointer-events-auto font-semibold"
+                  className="hover:text-orange transition-colors pointer-events-auto font-semibold"
                 >
                   Misbah Khursheed
                 </a>

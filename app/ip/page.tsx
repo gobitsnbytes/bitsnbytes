@@ -1,7 +1,3 @@
-"use client";
-
-import { Scale } from "lucide-react";
-
 import { LegalPolicyPage } from "@/components/legal-policy-page";
 
 const ipMarkdown = `<aside>
@@ -82,7 +78,6 @@ export default function IntellectualPropertyPolicy() {
       title="Intellectual Property"
       summary="The public policy for brand use, logo permissions, open-source defaults, contributor work, third-party rights, and infringement reports."
       updated="Last updated: 6 June 2026"
-      icon={Scale}
       sections={sections}
       markdown={ipMarkdown}
       highlights={["bits&bytes™ is the canonical name", "Brand permission is revocable", "Minor contributor terms require extra care"]}

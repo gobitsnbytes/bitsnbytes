@@ -1,6 +1,3 @@
-"use client";
-
-import { FileText } from "lucide-react";
 import { LegalPolicyPage } from "@/components/legal-policy-page";
 
 const termsMarkdown = `<aside>
@@ -109,7 +106,6 @@ export default function TermsOfService() {
       title="Terms of Service"
       summary="Official participation rules, Section 8 non-profit governance, financial anti-fraud controls, intellectual property, and safety across the bits&bytes™ network."
       updated="Last updated: 13 September 2026"
-      icon={FileText}
       sections={sections}
       markdown={termsMarkdown}
       highlights={[
