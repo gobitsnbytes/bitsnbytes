@@ -83,7 +83,7 @@ export function EventGallery() {
     >
       <SectionHead label={<p>Photos</p>} section={3} className="mb-10" />
       <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-6">
-        <GiantCount count={SHOTS.length}>In Pictures</GiantCount>
+        <GiantCount>In Pictures</GiantCount>
         <button
           type="button"
           aria-pressed={colour}
