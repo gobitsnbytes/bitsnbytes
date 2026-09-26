@@ -227,7 +227,7 @@ export function CloudApply() {
                       <ul className="mt-2 list-[square] space-y-1 pl-5 marker:text-signal">
                         <li>School / College ID card (with your name and photo)</li>
                         <li>
-                          <strong>Masked Aadhaar card</strong> (first 8 digits masked — your name and photo are sufficient)
+                          <strong>Masked Aadhaar card</strong> (first 8 digits masked; your name and photo are enough)
                         </li>
                         <li>Passport (bio-data page only)</li>
                         <li>Any other government or institution-issued photo ID</li>
@@ -258,7 +258,7 @@ export function CloudApply() {
                         ) : (
                           <>
                             <p className="font-bold">Click or drop your ID document here</p>
-                            <p className="opacity-80">JPG · PNG · WEBP · PDF — max 10 MB</p>
+                            <p className="opacity-80">JPG · PNG · WEBP · PDF · max 10 MB</p>
                           </>
                         )}
                       </div>

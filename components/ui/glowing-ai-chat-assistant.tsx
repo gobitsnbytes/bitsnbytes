@@ -37,7 +37,7 @@ const FEEDBACK_STORAGE_KEY = "bb-assistant-feedback-v1";
 const QUICK_PROMPTS = [
   "Who founded bits&bytes™ and what are they working on?",
   "What makes bits&bytes™ different from other student tech networks?",
-  "Tell me about India Innovates 2026 — what was it?",
+  "Tell me about India Innovates 2026. What was it?",
   "How can I join bits&bytes™ as a student developer?",
   "What kind of projects do members ship?",
   "Show me all the past events and hackathons.",
@@ -71,7 +71,7 @@ const SMART_FAQ: FaqEntry[] = [
       "membership",
     ],
     answer:
-      'To join bits&bytes™ **completely free**:\n\n1. **Apply** — Fill the form on our join page\n2. **Join Discord/WhatsApp** — Connect with student builders across India\n3. **Attend a hackathon** — Start building with mentors\n4. **Ship projects** — Get paired with accountability partners\n\n**Requirements:** Be a student (ages 13–19), commit 2–4 hours/week, and stay active.\n\n[Apply now](/join "cta")\n[Join WhatsApp Community](https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg "cta")',
+      'To join bits&bytes™ **completely free**:\n\n1. **Apply**: Fill the form on our join page\n2. **Join Discord/WhatsApp**: Connect with student builders across India\n3. **Attend a hackathon**: Start building with mentors\n4. **Ship projects**: Get paired with accountability partners\n\n**Requirements:** Be a student (ages 13–19), commit 2–4 hours/week, and stay active.\n\n[Apply now](/join "cta")\n[Join WhatsApp Community](https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg "cta")',
   },
   {
     patterns: [
@@ -131,7 +131,7 @@ const SMART_FAQ: FaqEntry[] = [
       "core team",
     ],
     answer:
-      '**bits&bytes™ Core Team:**\n\n- **Yash Singh** — Chief Executive Officer\n\n- **Akshat Kushwaha** — Chief Technology Officer\n\n- **Aadrika Maurya** — Chief Creative Officer & Chief Operating Officer\n\n- **Devaansh Pathak** — Chief Financial Officer\n\n- **Drishti Arora** — Chief Growth Officer\n\n- **Raghav** — Head of Operations\n\n- **Maryam Fatima** — Head of Brand & Media\n\n- **Srishti Singh** — Head of Partnerships & Institutional Relations\n\n- **Angel** — Head of Research & Strategy\n\n[Meet the team](/about "cta")',
+      '**bits&bytes™ Core Team:**\n\n- **Yash Singh**: Chief Executive Officer\n\n- **Akshat Kushwaha**: Chief Technology Officer\n\n- **Aadrika Maurya**: Chief Creative Officer & Chief Operating Officer\n\n- **Devaansh Pathak**: Chief Financial Officer\n\n- **Drishti Arora**: Chief Growth Officer\n\n- **Raghav**: Head of Operations\n\n- **Maryam Fatima**: Head of Brand & Media\n\n- **Srishti Singh**: Head of Partnerships & Institutional Relations\n\n- **Angel**: Head of Research & Strategy\n\n[Meet the team](/about "cta")',
   },
   {
     patterns: ["discord", "community link", "whatsapp group", "discord server"],
@@ -154,12 +154,12 @@ const SMART_FAQ: FaqEntry[] = [
       "why bits",
     ],
     answer:
-      'At bits&bytes™ we build for **high-agency teen builders** who want to ship real products:\n\n- **Hackathons** — Regional hackathons, builder sprints, and 48-hour prototype builds\n- **Workshops** (inside our hackathons): web dev, AI/ML, mobile apps, UI/UX, hardware building\n- **Build programs** — Portfolio-ready projects with mentorship at every stage\n- **Mentorship pods** — Pair programming, code reviews, and accountability partners\n\nWe treat participants like **ambitious builders**, not beginners. Every prompt becomes a prototype. You\'ll ship real impact.\n\n[View our projects](/projects "cta")',
+      'At bits&bytes™ we build for **high-agency teen builders** who want to ship real products:\n\n- **Hackathons**: Regional hackathons, builder sprints, and 48-hour prototype builds\n- **Workshops** (inside our hackathons): web dev, AI/ML, mobile apps, UI/UX, hardware building\n- **Build programs**: Portfolio-ready projects with mentorship at every stage\n- **Mentorship pods**: Pair programming, code reviews, and accountability partners\n\nWe treat participants like **ambitious builders**, not beginners. Every prompt becomes a prototype. You\'ll ship real impact.\n\n[View our projects](/projects "cta")',
   },
   {
     patterns: ["events", "upcoming event", "next event", "what events"],
     answer:
-      '**Events Snapshot:**\n\n1. **Lucknow Build Guild** — Archived\n2. **GitHub Copilot Dev Days | Lucknow** — Archived\n3. **Execron 1.0** — Archived\n4. **India Innovates 2026** — Archived\n\n[View all events](/events "cta")\n\n[Tell me about Lucknow Build Guild](# "follow-up")',
+      '**Events Snapshot:**\n\n1. **Lucknow Build Guild**: Archived\n2. **GitHub Copilot Dev Days | Lucknow**: Archived\n3. **Execron 1.0**: Archived\n4. **India Innovates 2026**: Archived\n\n[View all events](/events "cta")\n\n[Tell me about Lucknow Build Guild](# "follow-up")',
   },
   {
     patterns: [
