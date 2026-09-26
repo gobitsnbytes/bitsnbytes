@@ -123,9 +123,9 @@ export function Governance() {
             <div data-cell-in className="relative flex items-end justify-between gap-4">
               <CubeMark className="size-16 text-cream md:size-20" />
               <p className="text-right font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-cream/80">
-                26.8467° N,
+                20.5937° N,
                 <br />
-                80.9462° E
+                78.9629° E
               </p>
             </div>
           </div>

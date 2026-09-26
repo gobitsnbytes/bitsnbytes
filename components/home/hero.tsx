@@ -345,7 +345,7 @@ export function HomeHero() {
               data-hero-actions=""
               className="justify-self-end font-mono text-[10px] font-bold uppercase tracking-[0.16em] max-sm:hidden"
             >
-              26.8467° N, 80.9462° E
+              20.5937° N, 78.9629° E
             </span>
           </div>
         </div>

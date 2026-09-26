@@ -14,7 +14,8 @@ import { LOGO_HEX, LOGO_PIECES, LOGO_VIEWBOX } from "./intro/data";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const COORDS = "26.8467° N, 80.9462° E";
+// Geographic centre of India: we are pan-India, so no single city is "home".
+const COORDS = "20.5937° N, 78.9629° E";
 
 function ColumnHead({ children }: { children: ReactNode }) {
   return (
@@ -137,7 +138,7 @@ export function Footer() {
             trigger="inview"
             className="block text-[12px] font-bold uppercase tracking-[0.14em] text-orange"
           />
-          <p className="mt-2 text-[12px] uppercase tracking-[0.1em] text-paper/80">Pan-India · HQ: Lucknow, India</p>
+          <p className="mt-2 text-[12px] uppercase tracking-[0.1em] text-paper/80">Pan-India</p>
         </div>
 
         <nav aria-label="Footer" className="bg-ink px-5 pb-10 pt-8 md:px-8">
