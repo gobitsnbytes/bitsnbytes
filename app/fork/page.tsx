@@ -5,7 +5,7 @@ import { ForkEdition } from "./fork-edition";
 export const metadata: Metadata = {
   title: "Fork Network | Start a bits&bytes™ Hub in Your City",
   description:
-    "Apply to lead a bits&bytes™ Fork — a student-run local chapter in your city. 5+ active Forks operating across Jaipur, Hyderabad, Bengaluru, Kolkata, and Noida.",
+    "Lead a bits&bytes™ fork in your city. Active forks: Bangalore, Kolkata, Chennai, Bhubaneswar, Nagpur, Mumbai, Delhi, Noida, Lucknow and Hyderabad.",
   keywords: [
     "bits&bytes fork",
     "student tech hub india",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Fork Network | Start a bits&bytes™ Hub in Your City",
     description:
-      "Apply to lead a bits&bytes™ Fork — a student-run local chapter in your city. 5+ active Forks across India.",
+      "Apply to lead a bits&bytes™ fork: a student-run chapter in your city that takes the playbook and brand from upstream, runs its own room, and ships back.",
     url: "https://gobitsnbytes.org/fork",
     type: "website",
     images: [
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Fork Network | Start a bits&bytes™ Hub in Your City",
     description:
-      "5+ active Forks across India. Apply to lead one in your city.",
+      "Lead a student-run bits&bytes™ chapter in your city. Take the playbook from upstream, run your own room, ship back.",
   },
 };
 

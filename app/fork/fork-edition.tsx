@@ -29,12 +29,18 @@ const BENEFITS = [
   "templates + assets",
 ];
 
-const FORKS = [
-  { filename: "noida.json", city: "Noida", lead: "Aryan Chauhan" },
-  { filename: "bangalore.json", city: "Bangalore", lead: "Sparsh Sharma" },
-  { filename: "jaipur.json", city: "Jaipur", lead: "Shreyas Singh" },
-  { filename: "hyderabad.json", city: "Hyderabad", lead: "Shreethan Kagitha" },
-  { filename: "kolkata.json", city: "Kolkata", lead: "Shoryavardhaan Gupta" },
+// Active forks. Leads only where we know them; the rest print the node alone.
+const FORKS: { city: string; lead?: string }[] = [
+  { city: "Bangalore", lead: "Sparsh Sharma" },
+  { city: "Kolkata", lead: "Shoryavardhaan Gupta" },
+  { city: "Chennai" },
+  { city: "Bhubaneswar" },
+  { city: "Nagpur" },
+  { city: "Mumbai" },
+  { city: "Delhi" },
+  { city: "Noida", lead: "Aryan Chauhan" },
+  { city: "Lucknow" },
+  { city: "Hyderabad", lead: "Shreethan Kagitha" },
 ];
 
 const COVENANT = [
@@ -101,6 +107,13 @@ export function ForkEdition({ applyUrl }: { applyUrl: string }) {
           <br />
           Ship publicly.
         </p>
+        <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
+          <p className="mt-8 max-w-[52ch] font-serif text-lg leading-relaxed md:text-xl">
+            On GitHub, a fork is your own copy of an upstream repo: you change it, run it your way, and it stays linked
+            to the original so work flows back. A bits&amp;bytes™ fork is the same thing for a city or school: a local
+            chapter that takes the playbook and brand from upstream, runs its own room, and ships back.
+          </p>
+        </div>
       </div>
 
       <IndentStatement id={CHAPTERS[0].id} number={1} label={CHAPTERS[0].title} className="pt-12 md:pt-20">
@@ -150,16 +163,21 @@ export function ForkEdition({ applyUrl }: { applyUrl: string }) {
             </span>
           </p>
           <FeedList>
-            {FORKS.map((fork) => (
-              <FeedRow
-                key={fork.filename}
-                date={<span className="normal-case">{fork.filename}</span>}
-                title={fork.city}
-                meta={
-                  <span className="normal-case">{`"node": "bitsnbytes/${fork.city.toLowerCase()}", "lead": "${fork.lead}"`}</span>
-                }
-              />
-            ))}
+            {FORKS.map((fork) => {
+              const node = fork.city.toLowerCase();
+              return (
+                <FeedRow
+                  key={node}
+                  date={<span className="normal-case">{`${node}.json`}</span>}
+                  title={fork.city}
+                  meta={
+                    <span className="normal-case">
+                      {`"node": "bitsnbytes/${node}"${fork.lead ? `, "lead": "${fork.lead}"` : ""}`}
+                    </span>
+                  }
+                />
+              );
+            })}
           </FeedList>
         </div>
       </div>
