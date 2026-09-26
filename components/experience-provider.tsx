@@ -15,7 +15,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import type { Driver, DriveStep } from "driver.js";
 
 import { ChapterIndex, type EditionChapter } from "@/components/edition/chapter-index";
 
@@ -34,7 +33,6 @@ type ExperienceContextValue = {
   /** false until the preference is resolved on the client, under reduced motion, or with the site toggle off. */
   motionEnabled: boolean;
   toggleMotion: () => void;
-  startTour: () => void;
   /** The one Lenis instance (null when motion is off or before mount). */
   lenis: Lenis | null;
   /** Chapters discovered on the current page ([data-cinematic-section], top level, in order). */
@@ -99,7 +97,6 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
   const [editionTitle, setEditionTitle] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionsRef = useRef<HTMLElement[]>([]);
-  const tourRef = useRef<Driver | null>(null);
 
   useEffect(() => {
     setSettledPath(null);
@@ -290,110 +287,6 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
     [lenis, motionEnabled],
   );
 
-  const startTour = useCallback(async () => {
-    const { driver } = await import("driver.js");
-    tourRef.current?.destroy();
-
-    const topLevelSections = topLevel("main section, main [data-cinematic-section]");
-
-    const candidateSteps: Array<{
-      element: Element | null;
-      popover: DriveStep["popover"];
-    }> = [
-      {
-        element: document.querySelector('[data-tour="navigation"]'),
-        popover: {
-          title: "Site navigation",
-          description:
-            "Use these links to explore our events, programmes, impact, team, and press resources.",
-          side: "bottom",
-          align: "center",
-        },
-      },
-      {
-        element:
-          document.querySelector('[data-tour="page-hero"]') ??
-          document.querySelector("main h1"),
-        popover: {
-          title: "About this page",
-          description:
-            "This introduction gives you the key information first. Scroll down for details and supporting work.",
-          side: "bottom",
-          align: "start",
-        },
-      },
-      {
-        element: document.querySelector('[data-tour="prospectus"]'),
-        popover: {
-          title: "Partnership prospectus",
-          description:
-            "Download our 2026 prospectus for partnership opportunities, programmes, reach, and contact information.",
-          side: "bottom",
-          align: "start",
-        },
-      },
-      {
-        element: topLevelSections[1] ?? topLevelSections[0] ?? null,
-        popover: {
-          title: "Scroll progress",
-          description:
-            "The page marker shows which section you are reading and how far you have progressed.",
-          side: "top",
-          align: "start",
-        },
-      },
-      {
-        element: document.querySelector('[data-tour="footer-trust"]'),
-        popover: {
-          title: "Trust center",
-          description:
-            "Read our safety, privacy, conduct, and intellectual-property policies from the footer.",
-          side: "top",
-          align: "center",
-        },
-      },
-    ];
-
-    const steps: DriveStep[] = candidateSteps
-      .filter(
-        (step): step is { element: Element; popover: DriveStep["popover"] } =>
-          Boolean(step.element),
-      )
-      .map((step) => ({
-        element: step.element,
-        popover: step.popover,
-      }));
-
-    if (!steps.length) return;
-
-    const tour = driver({
-      animate: motionEnabled,
-      duration: motionEnabled ? 260 : 0,
-      smoothScroll: motionEnabled,
-      allowClose: true,
-      allowScroll: true,
-      overlayColor: "#120f0a",
-      overlayOpacity: 0.82,
-      stagePadding: 10,
-      stageRadius: 0,
-      popoverClass: "bnb-driver-popover",
-      showProgress: true,
-      progressText: "{{current}} / {{total}}",
-      nextBtnText: "Next",
-      prevBtnText: "Back",
-      doneBtnText: "Done",
-      steps,
-      onDestroyed: () => {
-        tourRef.current = null;
-      },
-    });
-
-    tourRef.current = tour;
-    tour.drive();
-  }, [motionEnabled]);
-
-  useEffect(() => () => tourRef.current?.destroy(), [pathname]);
-
   const toggleMotion = useCallback(() => {
     setMotionPref((current) => {
       const next = !current;
@@ -403,8 +296,8 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ motionEnabled, toggleMotion, startTour, lenis, chapters }),
-    [motionEnabled, startTour, toggleMotion, lenis, chapters],
+    () => ({ motionEnabled, toggleMotion, lenis, chapters }),
+    [motionEnabled, toggleMotion, lenis, chapters],
   );
 
   return (

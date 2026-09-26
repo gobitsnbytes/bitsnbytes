@@ -24,7 +24,7 @@ export default function Impact() {
         art={{ src: "/event_pictures/HEe923uagAATqvy.jpg", alt: "India Innovates 2026 archive" }}
       />
       <TornEdge from="ink" to="paper" />
-      <div data-tour="page-hero" data-surface="paper" className="tone-paper">
+      <div data-surface="paper" className="tone-paper">
         <div className={cn("px-4 pt-10 md:px-8 md:pt-14", EDITION_GUTTER)}>
           <Breadcrumbs items={[{ name: "Our Impact", href: "/impact" }]} className="mb-0" />
         </div>

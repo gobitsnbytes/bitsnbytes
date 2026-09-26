@@ -186,7 +186,6 @@ export default function PressKit() {
   return (
     <>
       <section
-        data-tour="page-hero"
         data-cinematic-section=""
         data-cinematic-title="Press kit & brand assets"
         data-surface="paper"

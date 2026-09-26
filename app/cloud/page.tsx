@@ -81,7 +81,7 @@ function RowLink({ href, label, index }: { href: string; label: string; index: n
 export default function CloudPage() {
   return (
     <>
-      <div data-tour="page-hero" className="[&_h1]:text-[clamp(28px,3.8vw,52px)]">
+      <div className="[&_h1]:text-[clamp(28px,3.8vw,52px)]">
         <EditionOpener
           variant="static"
           title="SparkCloud × bits&bytes™"

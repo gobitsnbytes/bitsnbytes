@@ -83,7 +83,6 @@ export function ForkEdition({ applyUrl }: { applyUrl: string }) {
       {/* Long title: smaller than the kit default so it keeps 3-4 lines inside the frame on 650px-tall screens. */}
       <EditionOpener
         variant="static"
-        data-tour="page-hero"
         title="no student tech scene in your city? fork one."
         kicker="[S.00] Fork Network"
         chapters={CHAPTERS}

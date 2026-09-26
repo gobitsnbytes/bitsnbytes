@@ -75,7 +75,6 @@ export default function Contact() {
   return (
     <>
       <section
-        data-tour="page-hero"
         data-cinematic-section=""
         data-cinematic-title="Let's build something together"
         data-surface="paper"

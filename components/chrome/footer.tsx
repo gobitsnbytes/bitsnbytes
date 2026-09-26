@@ -176,7 +176,7 @@ export function Footer() {
           </ul>
         </div>
 
-        <div data-tour="footer-trust" className="bg-ink px-5 pb-10 pt-8 md:px-8">
+        <div className="bg-ink px-5 pb-10 pt-8 md:px-8">
           <ColumnHead>Contact</ColumnHead>
           <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.25em] text-paper/70">Connect</p>
           <a

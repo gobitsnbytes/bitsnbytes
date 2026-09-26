@@ -381,7 +381,6 @@ export default function MinecraftPage() {
       />
 
       <section
-        data-tour="page-hero"
         data-cinematic-section=""
         data-cinematic-title="Build. Explore. Belong."
         data-surface="paper"

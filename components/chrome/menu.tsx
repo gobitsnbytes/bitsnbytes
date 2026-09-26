@@ -30,7 +30,6 @@ type MenuPanelProps = {
   /** Keyboard-opened, reduced motion or motion toggle off: no animation in or out. */
   instant: boolean;
   onNavigate: () => void;
-  onTour: () => void;
 };
 
 /**
@@ -38,7 +37,7 @@ type MenuPanelProps = {
  * (clip-path) with giant Archivo links for every public route. Rendered inside the nav's
  * Dialog.Root + AnimatePresence, so Radix gives focus trap, Esc, aria-expanded and focus return.
  */
-export function MenuPanel({ pathname, instant, onNavigate, onTour }: MenuPanelProps) {
+export function MenuPanel({ pathname, instant, onNavigate }: MenuPanelProps) {
   const { motionEnabled, toggleMotion, lenis } = useExperience();
   const { resolvedTheme, setTheme } = useTheme();
   const dark = resolvedTheme === "dark";
@@ -170,10 +169,7 @@ export function MenuPanel({ pathname, instant, onNavigate, onTour }: MenuPanelPr
             </nav>
 
             <div className="mt-auto [--wipe-fill:var(--paper)] [--wipe-ink:var(--ink)]">
-              <div
-                data-tour="experience-controls"
-                className="flex flex-wrap items-center gap-2 border-t border-paper/20 px-5 py-4 md:px-8"
-              >
+              <div className="flex flex-wrap items-center gap-2 border-t border-paper/20 px-5 py-4 md:px-8">
                 <span className="mr-2 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-orange">Settings</span>
                 <button
                   type="button"
@@ -200,9 +196,6 @@ export function MenuPanel({ pathname, instant, onNavigate, onTour }: MenuPanelPr
                   title={`Turn single-key keyboard shortcuts ${shortcuts ? "off" : "on"}`}
                 >
                   Shortcuts <Bracket>{shortcuts ? "On" : "Off"}</Bracket>
-                </button>
-                <button type="button" className="bnb-btn" onClick={onTour} aria-label="Start the site tour">
-                  Site tour
                 </button>
                 <button
                   type="button"

@@ -202,7 +202,7 @@ export function LegalPolicyPage({ badge, title, summary, updated, sections, mark
 
   return (
     <>
-      <div data-tour="page-hero" className="[&_h1]:text-[clamp(28px,3.8vw,52px)]">
+      <div className="[&_h1]:text-[clamp(28px,3.8vw,52px)]">
         <EditionOpener variant="static" title={title} kicker={`${badge} · ${updated}`} chapters={[]} />
       </div>
 

@@ -125,7 +125,7 @@ function Cta({ children }: { children: string }) {
 export default function Join() {
   return (
     <>
-      <section data-tour="page-hero" data-cinematic-section="" data-cinematic-title="Join the crew" data-surface="paper">
+      <section data-cinematic-section="" data-cinematic-title="Join the crew" data-surface="paper">
         <LabHero
           lines={["Join the ", "crew"]}
           glyph={<PixelGlyph text="JOIN" decorative />}

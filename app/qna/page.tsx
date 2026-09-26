@@ -32,7 +32,6 @@ export default function QnAPage() {
   return (
     <>
       <section
-        data-tour="page-hero"
         aria-label="bits&bytes™ QnA Assistant"
         data-cinematic-section=""
         data-cinematic-title="QnA Assistant"

@@ -67,7 +67,7 @@ export const FOOTER_COLUMNS: { title: string; links: ChromeLink[] }[] = [
   },
 ];
 
-/** Trust Center (data-tour="footer-trust"). */
+/** Trust Center (footer). */
 export const TRUST_LINKS: (ChromeLink & { note: string })[] = [
   { href: "/terms", label: "Terms", note: "Participation, Forks, money, and authority" },
   { href: "/privacy", label: "Privacy", note: "Data handling, minors, and guardian requests" },

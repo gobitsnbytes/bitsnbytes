@@ -151,7 +151,6 @@ export default function FAQ() {
   return (
     <>
       <section
-        data-tour="page-hero"
         data-cinematic-section=""
         data-cinematic-title="Frequently Asked Questions"
         data-surface="paper"

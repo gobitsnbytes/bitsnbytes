@@ -33,7 +33,7 @@ const Key = ({ k }: { k: string }) => (
 export function Nav() {
   const pathname = usePathname();
   const router = useRouter();
-  const { motionEnabled, startTour, lenis, chapters } = useExperience();
+  const { motionEnabled, lenis, chapters } = useExperience();
   const reduceMotion = useReducedMotion();
   const shortcuts = useShortcutsEnabled();
 
@@ -44,7 +44,6 @@ export function Nav() {
   if (openAt !== null && !open) setOpenAt(null);
   const [instant, setInstant] = useState(false);
   const viaKeyboard = useRef(false);
-  const tourPending = useRef(false);
 
   const onOpenChange = (next: boolean) => {
     if (next) setInstant(viaKeyboard.current || !motionEnabled || Boolean(reduceMotion));
@@ -87,7 +86,6 @@ export function Nav() {
   return (
     <>
       <header
-        data-tour="navigation"
         data-menu-open={open || undefined}
         className="bnb-nav pointer-events-none fixed inset-x-0 top-0 z-[70]"
       >
@@ -153,24 +151,13 @@ export function Nav() {
               </Dialog.Trigger>
             </nav>
 
-            <AnimatePresence
-              onExitComplete={() => {
-                // the tour highlights page elements: start it only once the menu is fully gone
-                if (!tourPending.current) return;
-                tourPending.current = false;
-                startTour();
-              }}
-            >
+            <AnimatePresence>
               {open ? (
                 <MenuPanel
                   key="menu"
                   pathname={pathname}
                   instant={instant}
                   onNavigate={() => setOpenAt(null)}
-                  onTour={() => {
-                    tourPending.current = true;
-                    setOpenAt(null);
-                  }}
                 />
               ) : null}
             </AnimatePresence>

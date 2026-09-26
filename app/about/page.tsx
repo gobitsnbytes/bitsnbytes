@@ -51,7 +51,7 @@ const aboutJsonLd = {
 export default function About() {
   return (
     <>
-      <div data-tour="page-hero">
+      <div>
         <EditionOpener
           variant="static"
           title={aboutContent.title}

@@ -236,7 +236,6 @@ export function HomeHero() {
   return (
     <section
       ref={heroRef}
-      data-tour="page-hero"
       data-surface="burgundy"
       data-cinematic-section=""
       data-cinematic-title="the byte"
@@ -310,7 +309,6 @@ export function HomeHero() {
               <Link
                 data-hero-actions=""
                 href="/prospectus?download=1"
-                data-tour="prospectus"
                 aria-label="Download the bits&bytes partnership prospectus"
                 className="group flex w-full max-w-xs items-center gap-3 border-l-3 border-ink py-1 pl-3 font-mono text-ink transition-colors duration-150 hover:bg-ink/5"
               >

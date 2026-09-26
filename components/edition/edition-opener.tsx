@@ -28,7 +28,7 @@ type BaseProps = {
   h1Props?: ComponentProps<"h1">;
 };
 
-/** Anything else (data-tour, aria-*, id…) lands on the root <section>. */
+/** Anything else (data-*, aria-*, id…) lands on the root <section>. */
 type RootProps = Omit<ComponentProps<"section">, "title" | "children" | "className" | "ref">;
 
 export type EditionOpenerProps = BaseProps &
