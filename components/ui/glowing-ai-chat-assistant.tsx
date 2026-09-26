@@ -9,6 +9,7 @@ import { ThumbsUp, ThumbsDown } from "lucide-react";
 
 import { useOptionalExperience } from "@/components/experience-provider";
 import { PromptBox, type PromptBoxRef } from "@/components/ui/chatgpt-prompt-input";
+import { FORK_CITIES } from "@/lib/forks";
 import {
   Caret,
   ConsoleBar,
@@ -56,7 +57,7 @@ const SMART_FAQ: FaqEntry[] = [
       "tell me about bits",
     ],
     answer:
-      '**bits&bytes™** is a teen-led builders network based in Lucknow, India. We run hackathons, workshops, and product-focused build programs led by students.\n\n[Learn more about us](/about "cta")\n\n[Who founded it?](# "follow-up")  \n[How can I join?](# "follow-up")',
+      '**bits&bytes™** is a pan-India, teen-led builders network. We run hackathons (workshops happen inside them) and product-focused build programs led by students.\n\n[Learn more about us](/about "cta")\n\n[Who founded it?](# "follow-up")  \n[How can I join?](# "follow-up")',
   },
   {
     patterns: [
@@ -69,7 +70,7 @@ const SMART_FAQ: FaqEntry[] = [
       "membership",
     ],
     answer:
-      'To join bits&bytes™ **completely free**:\n\n1. **Apply** — Fill the form on our join page\n2. **Join Discord/WhatsApp** — Connect with 1400+ student builders\n3. **Attend an event or workshop** — Start building with mentors\n4. **Ship projects** — Get paired with accountability partners\n\n**Requirements:** Be a student (ages 13–19), commit 2–4 hours/week, and stay active.\n\n[Apply now](/join "cta")\n[Join WhatsApp Community](https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg "cta")',
+      'To join bits&bytes™ **completely free**:\n\n1. **Apply** — Fill the form on our join page\n2. **Join Discord/WhatsApp** — Connect with student builders across India\n3. **Attend a hackathon** — Start building with mentors\n4. **Ship projects** — Get paired with accountability partners\n\n**Requirements:** Be a student (ages 13–19), commit 2–4 hours/week, and stay active.\n\n[Apply now](/join "cta")\n[Join WhatsApp Community](https://chat.whatsapp.com/DvAIRLgEEBxISR8bsb9kVg "cta")',
   },
   {
     patterns: [
@@ -139,7 +140,7 @@ const SMART_FAQ: FaqEntry[] = [
   {
     patterns: ["where are you", "location", "based in", "city", "lucknow"],
     answer:
-      'We are based in **Lucknow, India**, and we collaborate with students and partners across other cities as well.\n\n[See events](/events "cta")',
+      `We're **pan-India**. Our forks run in ${FORK_CITIES}, and most of the community meets online.\n\n[See forks](/fork "cta")`,
   },
   {
     patterns: [
@@ -152,7 +153,7 @@ const SMART_FAQ: FaqEntry[] = [
       "why bits",
     ],
     answer:
-      'At bits&bytes™ we build for **high-agency teen builders** who want to ship real products:\n\n- **Hackathons** — Regional hackathons, builder sprints, and 48-hour prototype builds\n- **Workshops** — Web dev, AI/ML, mobile apps, UI/UX, hardware building\n- **Build programs** — Portfolio-ready projects with mentorship at every stage\n- **Mentorship pods** — Pair programming, code reviews, and accountability partners\n\nWe treat participants like **ambitious builders**, not beginners. Every prompt becomes a prototype. You\'ll ship real impact.\n\n[View our projects](/projects "cta")',
+      'At bits&bytes™ we build for **high-agency teen builders** who want to ship real products:\n\n- **Hackathons** — Regional hackathons, builder sprints, and 48-hour prototype builds\n- **Workshops** (inside our hackathons): web dev, AI/ML, mobile apps, UI/UX, hardware building\n- **Build programs** — Portfolio-ready projects with mentorship at every stage\n- **Mentorship pods** — Pair programming, code reviews, and accountability partners\n\nWe treat participants like **ambitious builders**, not beginners. Every prompt becomes a prototype. You\'ll ship real impact.\n\n[View our projects](/projects "cta")',
   },
   {
     patterns: ["events", "upcoming event", "next event", "what events"],
