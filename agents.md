@@ -1,7 +1,7 @@
 # bits&bytes™ Team – Agents Handbook
 
 > **Mission:** Getting ambitious teenagers to ship meaningful tech through hackathons, design/dev squads, and product launches. Fully student-led.
-> **Org Type:** Nonprofit Section 8 Company (GOBITSNBYTES FOUNDATION) · Independent Teen-Led Builder Network · Based in Lucknow, India · Serving builders nationwide
+> **Org Type:** Nonprofit Section 8 Company (GOBITSNBYTES FOUNDATION) · Independent Teen-Led Builder Network · Pan-India, with local forks across the country
 
 This handbook describes the core bits&bytes™ "agents" (team members), what each person does, how we collaborate, and our legal governance framework.
 
@@ -106,6 +106,8 @@ Executive Officers are appointed by the Board under Article 28 of the e-Articles
 
 ### 3.3 Fork Network Model
 A **Fork** is a recognized local, institutional, or thematic operating unit of the bits&bytes™ Network recognized under authority of the Board.
+- **In one line:** On GitHub, a fork is your own copy of an upstream repo: you change it, run it your way, and it stays linked to the original so work flows back. A bits&bytes™ fork is the same thing for a city or school: a local chapter that takes the playbook and brand from upstream, runs its own room, and ships back. Start one at https://gobitsnbytes.org/fork.
+- **Active Forks:** Bangalore, Kolkata, Chennai, Bhubaneswar, Nagpur, Mumbai, Delhi, Noida, Lucknow and Hyderabad. Known leads: Bangalore (Sparsh Sharma), Kolkata (Shoryavardhaan Gupta), Noida (Aryan Chauhan), Hyderabad (Shreethan Kagitha). Lucknow is one fork, not a headquarters: bits&bytes™ is pan-India.
 - **Participation Only:** Fork Recognition is an operational, brand-use, and community permission only. 
 - **No Independent Agency:** A Fork does not constitute a separate legal entity, franchise, branch office, joint venture, partnership, or subsidiary. A Fork has no authority to bind, contract, represent, or collect funds on behalf of GOBITSNBYTES FOUNDATION. All local fundraising, sponsor deals, and venue contracts must be routed to Upstream for written legal execution.
 
@@ -201,8 +203,15 @@ Because many participants are minors, the Foundation enforces rigorous safety pr
 - **GitHub Copilot Dev Days:** Hosted community developer event focused on AI-assisted coding in Lucknow.
 - **Lucknow Build Guild:** Free hardware workshop and meetup for local tech people.
 - **Regional Space Apps Hackathon:** 300+ participants.
-- **Web Presence:** gobitsnbytes.org serves thousands of monthly visitors with 1,400+ active members.
-- **Evaluation Throughput:** 2,700+ project submissions reviewed in 3-day sprints.
+- **Regional Hackathon Series (upcoming):** City qualifiers across India, with the finale at IIT Bombay on Dec 17–18.
+
+### Community Partnerships
+bits&bytes™ was a community partner (the named organizer hosted each event):
+- **Infinity Hacks 2026** by HackerRank Campus Crew: Aug 15–16, 2026, online. 24-hour global hackathon with AI-first tracks (e.g. road safety, women safety, climate, wildlife protection), teams of 3–5. https://hrcc-infinityhacks.vercel.app/
+- **NexusHacks 2026** by Phaser: Jul 21–23, 2026, global online. 48 hours, AI × Robotics (Agentic AI and Embedded AI categories), ₹20,000 prize pool. https://phaser.in/nexushacks
+- **DoraHacks 2.0** by Dora DAO: 2026, global online. A 72-hour vibecoding sprint where builders from 15+ countries built AI products and launched them on Product Hunt and Peerlist. https://doradao.substack.com/p/dorahacks-20
+
+We don't publish aggregate numbers (member, fork, event or project counts, team age, visitor counts). Per-event facts stay inside that event's entry.
 
 ---
 
@@ -237,4 +246,4 @@ npx tsx scripts/embed-site.ts
 
 ---
 
-*Last updated: June 2026*
+*Last updated: September 2026*
