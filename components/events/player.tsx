@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 
 import { pad } from "@/components/edition/shared";
 import { useExperience } from "@/components/experience-provider";
+import { Button } from "@/components/riot";
 import type { ReelClip } from "@/lib/events-data";
 import { cn } from "@/lib/utils";
 
@@ -39,11 +40,21 @@ type Props = {
   onClose: (time?: number) => void;
 };
 
+// Burgundy → warm → orange stage for "gradient" clips: soft blooms over the brand ramp, oversized so it can drift.
+const GRADIENT = {
+  background:
+    "radial-gradient(40% 50% at 22% 30%, var(--warm), transparent 70%), radial-gradient(45% 55% at 78% 72%, var(--orange), transparent 70%), linear-gradient(135deg, var(--burgundy) 10%, var(--warm) 55%, var(--orange) 95%)",
+};
+
 /**
  * inkfish custom fullscreen player on a Radix Dialog (focus trap, Esc, aria-modal). The ink layer grows
  * from the trigger's rect with clip-path (≤ 600ms). Controls fade in on activity (.3s linear): dashed
  * 1px timeline (4px dash / 4px gap) + needle over a native range input (keyboard seek), mm:ss,
  * play/pause, mute, captions note, close. Motion off: opens and closes instantly.
+ * It always tries to start with sound. Without a user gesture on the page yet (autoplay policy: the idle auto-open),
+ * it plays muted behind a big "Tap for sound" control, and the visitor's next tap or key anywhere turns sound on.
+ * `clip.mode === "gradient"`: the clip plays framed (contain, 16:9, capped at 1024px) on a slowly drifting brand
+ * gradient with a halftone bite, once through, then offers replay / close.
  */
 export function ReelPlayer({ clip, number, open, from, start, onClose }: Props) {
   const requestClose = useRef<() => void>(onClose);
@@ -94,16 +105,30 @@ function Stage({
   const [time, setTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [idle, setIdle] = useState(false);
+  // Sound was blocked by the autoplay policy (not the visitor's choice): show "Tap for sound".
+  const [blocked, setBlocked] = useState(false);
+  const [ended, setEnded] = useState(false);
+  const gradient = clip.mode === "gradient";
 
   const { contextSafe } = useGSAP(
     () => {
-      if (motion) {
-        gsap.fromTo(
-          stageRef.current,
-          { clipPath: insetOf(from) },
-          { clipPath: "inset(0px 0px 0px 0px)", duration: 0.6, ease: "power4.out" },
-        );
-      }
+      if (!motion) return;
+      gsap.fromTo(
+        stageRef.current,
+        { clipPath: insetOf(from) },
+        { clipPath: "inset(0px 0px 0px 0px)", duration: 0.6, ease: "power4.out" },
+      );
+      // The gradient stage drifts slowly (transform only).
+      gsap.to("[data-drift]", {
+        xPercent: 6,
+        yPercent: -5,
+        rotate: 10,
+        scale: 1.1,
+        duration: 16,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
     },
     { scope: stageRef },
   );
@@ -120,24 +145,44 @@ function Stage({
     requestClose.current = close;
   });
 
-  // Scroll stays put underneath; start with sound (the opening click is the user activation), from `start`.
+  // Scroll stays put underneath; start with sound from `start` when the page has had a user gesture (a click
+  // to open always has), else muted with "Tap for sound".
   useEffect(() => {
     lenis?.stop();
     const video = videoRef.current;
     if (video) {
       if (start) video.currentTime = start;
-      video.muted = false;
-      video.play().catch(() => {
+      const quiet = () => {
         video.muted = true;
-        setMuted(true);
+        setBlocked(true);
         video.play().catch(() => {});
-      });
+      };
+      if (navigator.userActivation?.hasBeenActive === false) quiet();
+      else {
+        video.muted = false;
+        video.play().catch(quiet);
+      }
     }
     return () => {
       lenis?.start();
       window.clearTimeout(idleTimer.current);
     };
   }, [lenis, start]);
+
+  // While sound is blocked, the next tap or key anywhere turns it on (the sound controls handle their own click).
+  useEffect(() => {
+    if (!blocked) return;
+    const unmute = (event: Event) => {
+      if (event.target instanceof Element && event.target.closest("[data-sound]")) return;
+      if (videoRef.current) videoRef.current.muted = false;
+    };
+    window.addEventListener("pointerdown", unmute, true);
+    window.addEventListener("keydown", unmute, true);
+    return () => {
+      window.removeEventListener("pointerdown", unmute, true);
+      window.removeEventListener("keydown", unmute, true);
+    };
+  }, [blocked]);
 
   // Needle + fill follow playback (transform only), only while playing.
   useEffect(() => {
@@ -177,7 +222,14 @@ function Stage({
     if (needleRef.current) needleRef.current.style.translate = `${p * 100}% 0`;
   };
 
-  const hidden = idle && playing;
+  const replay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.currentTime = 0;
+    video.play().catch(() => {});
+  };
+
+  const hidden = idle && playing && !blocked;
   const fade = cn(
     "transition-opacity duration-300 ease-linear motion-reduce:transition-none motion-off:transition-none has-[:focus-visible]:opacity-100",
     hidden && "opacity-0",
@@ -189,23 +241,87 @@ function Stage({
       onPointerMove={poke}
       onPointerDown={poke}
       onKeyDown={poke}
+      data-mode={gradient ? "gradient" : "cover"}
       className={cn("tone-ink absolute inset-0 overflow-hidden bg-ink", hidden && "cursor-none")}
     >
-      <video
-        ref={videoRef}
-        src={clip.src}
-        poster={clip.poster}
-        playsInline
-        preload="auto"
-        onClick={toggle}
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-        onEnded={() => setPlaying(false)}
-        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
-        onTimeUpdate={(e) => setTime(e.currentTarget.currentTime)}
-        onVolumeChange={(e) => setMuted(e.currentTarget.muted)}
-        className="absolute inset-0 size-full bg-ink object-contain"
-      />
+      {gradient ? (
+        <div aria-hidden className="absolute inset-0 bg-burgundy">
+          <div data-drift className="absolute -inset-1/4" style={GRADIENT} />
+          <div className="halftone absolute inset-0 opacity-25 mix-blend-multiply" />
+          <div className="dither absolute inset-0 opacity-60" />
+        </div>
+      ) : null}
+
+      <div className={gradient ? "absolute inset-0 grid place-items-center px-4 pb-32 pt-24 md:px-10" : "contents"}>
+        <div
+          className={
+            gradient
+              ? "relative aspect-video w-[min(100%,calc((100svh_-_14rem)*16/9),1024px)] border-3 border-ink bg-ink shadow-[16px_16px_0_0_var(--ink)]"
+              : "contents"
+          }
+        >
+          <video
+            ref={videoRef}
+            src={clip.src}
+            poster={clip.poster}
+            playsInline
+            preload="auto"
+            onClick={toggle}
+            onPlay={() => {
+              setPlaying(true);
+              setEnded(false);
+            }}
+            onPause={() => setPlaying(false)}
+            onEnded={() => {
+              setPlaying(false);
+              setEnded(true);
+            }}
+            onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+            onTimeUpdate={(e) => setTime(e.currentTarget.currentTime)}
+            onVolumeChange={(e) => {
+              setMuted(e.currentTarget.muted);
+              if (!e.currentTarget.muted) setBlocked(false);
+            }}
+            className={cn("bg-ink object-contain", gradient ? "size-full" : "absolute inset-0 size-full")}
+          />
+          {gradient && ended ? (
+            <div className="absolute inset-0 grid place-items-center bg-ink/80 p-4">
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Button variant="orange" onClick={replay}>
+                  <svg viewBox="0 0 24 24" aria-hidden className="size-4 fill-none stroke-current stroke-[3]">
+                    <path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v5h5" />
+                  </svg>
+                  Replay
+                </Button>
+                <Button variant="outline" onClick={() => requestClose.current()}>
+                  Close
+                </Button>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </div>
+
+      {blocked ? (
+        <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center">
+          <Button
+            data-sound=""
+            variant="orange"
+            size="lg"
+            aria-label="Turn the sound on"
+            onClick={() => {
+              if (videoRef.current) videoRef.current.muted = false;
+            }}
+            className="pointer-events-auto"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden className="size-6 fill-current">
+              <path d="M3 9h4l5-4v14l-5-4H3z" />
+              <path d="M16 8l6 8M22 8l-6 8" className="fill-none stroke-current stroke-[2.5]" />
+            </svg>
+            Tap for sound
+          </Button>
+        </div>
+      ) : null}
 
       <div
         className={cn(
@@ -214,7 +330,7 @@ function Stage({
         )}
       >
         <Dialog.Title className="font-mono text-xs font-bold uppercase tracking-[0.12em] text-paper">
-          <span className="text-orange">[{pad(number)}]</span> {clip.event} — {clip.title}
+          <span className="text-orange">[{pad(number)}]</span> {clip.event} · {clip.title}
         </Dialog.Title>
         <button type="button" onClick={() => requestClose.current()} className={CTRL}>
           Close <span className="text-orange">[Esc]</span>
@@ -263,6 +379,7 @@ function Stage({
 
           <button
             type="button"
+            data-sound=""
             aria-pressed={muted}
             onClick={() => {
               const video = videoRef.current;

@@ -7,7 +7,7 @@ import { useGSAP } from "@gsap/react";
 
 import { Breadcrumbs } from "@/components/breadcrumb";
 import { WIDE } from "@/components/chrome/wordmark";
-import { pad } from "@/components/edition/shared";
+import { pad, whenReady } from "@/components/edition/shared";
 import { useExperience } from "@/components/experience-provider";
 import { eventsReel as CLIPS } from "@/lib/events-data";
 import { cn } from "@/lib/utils";
@@ -25,6 +25,26 @@ export type WatchDetail = { index: number; from: HTMLElement | null; start?: num
 const FRAME_MS = 1000 / 30;
 const DWELL_MS = 1000;
 const HOVER_MS = 600;
+/** No scroll input for this long while the reel is on screen: the preview opens into the player. */
+const IDLE_MS = 2000;
+const SCROLL_KEYS = new Set([" ", "ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End"]);
+
+// Clips whose player the visitor already closed this visit (tab session): they never auto-open again.
+const SEEN_KEY = "bnb-reel-seen";
+function seenClips(): string[] {
+  try {
+    return JSON.parse(sessionStorage.getItem(SEEN_KEY) ?? "[]");
+  } catch {
+    return [];
+  }
+}
+function markSeen(src: string) {
+  try {
+    sessionStorage.setItem(SEEN_KEY, JSON.stringify([...new Set([...seenClips(), src])]));
+  } catch {
+    // storage blocked: worst case the clip may open itself once more
+  }
+}
 
 /*
  * /events hero: inkfish "playlist reel" (tmp/research-full.json → inkfish "Home hero: playlist reel").
@@ -36,6 +56,10 @@ const HOVER_MS = 600;
  * the now-playing row's stripes fill with playback progress; a triangle collapses the list to it.
  * Text sits on explicit ink scrim bands. Motion off / reduced motion: posters only, no autoplay,
  * no parallax, no loop; click still plays.
+ * Idle auto-open: once the intro loader is done, if the visitor gives no scroll input (wheel, touch, scroll keys,
+ * any scroll incl. Lenis) for IDLE_MS while the reel fills most of the screen, the tab is visible and no dialog
+ * (console, menu, cookies) is open, the preview grows into the player and carries on from its time, with sound when
+ * the browser allows (else the player's "Tap for sound"). Once per clip per visit; closing marks it done.
  */
 export function EventsReel() {
   const { motionEnabled: motion } = useExperience();
@@ -43,6 +67,7 @@ export function EventsReel() {
   const mediaRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const listRef = useRef<HTMLOListElement>(null);
+  const playRef = useRef<HTMLButtonElement>(null);
   const inView = useRef(true);
   const armed = useRef(false);
   const listId = useId();
@@ -50,7 +75,44 @@ export function EventsReel() {
   const [collapsed, setCollapsed] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [player, setPlayer] = useState<WatchDetail | null>(null);
+  const [ready, setReady] = useState(false);
   const clip = CLIPS[index];
+
+  useEffect(() => whenReady(() => setReady(true)), []);
+
+  // Idle auto-open (see above). Every scroll input re-arms the timer; a failed check at fire time re-arms too.
+  useEffect(() => {
+    if (!motion || !ready || player || seenClips().includes(clip.src)) return;
+    let timer = 0;
+    const fire = () => {
+      const root = rootRef.current;
+      const button = playRef.current;
+      if (!root || !button) return;
+      const r = root.getBoundingClientRect();
+      const shown = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+      const covered = document.hidden || document.querySelector('[role="dialog"], [role="alertdialog"]');
+      if (covered || shown < Math.min(r.height, window.innerHeight) * 0.6) return arm();
+      setPlayer({ index, from: button, start: videoRef.current?.currentTime });
+    };
+    const arm = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(fire, IDLE_MS);
+    };
+    const key = (event: KeyboardEvent) => SCROLL_KEYS.has(event.key) && arm();
+    const opts = { passive: true, capture: true };
+    arm();
+    window.addEventListener("wheel", arm, opts);
+    window.addEventListener("touchmove", arm, opts);
+    window.addEventListener("scroll", arm, opts);
+    window.addEventListener("keydown", key, true);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("wheel", arm, opts);
+      window.removeEventListener("touchmove", arm, opts);
+      window.removeEventListener("scroll", arm, opts);
+      window.removeEventListener("keydown", key, true);
+    };
+  }, [motion, ready, player, index, clip.src]);
 
   // 0.5× parallax: the video drifts down half the scroll distance while the header leaves.
   useGSAP(
@@ -276,9 +338,10 @@ export function EventsReel() {
        * (positioned, so it stacks above them), under the z-10 controls. Clicks on the h1 / lede pass to it.
        */}
       <button
+        ref={playRef}
         type="button"
         aria-haspopup="dialog"
-        aria-label={`Play ${clip.event} — ${clip.title}`}
+        aria-label={`Play ${clip.event}: ${clip.title}`}
         data-cursor-label="[Play]"
         onClick={watch}
         className="absolute inset-0 cursor-pointer focus-visible:outline-offset-[-6px]"
@@ -313,6 +376,7 @@ export function EventsReel() {
         onClose={(time) => {
           // Back from fullscreen, the preview carries on from where the viewer stopped (same clip only).
           if (time !== undefined && player?.index === index && videoRef.current) videoRef.current.currentTime = time;
+          if (player) markSeen(CLIPS[player.index].src);
           setPlayer(null);
         }}
       />
