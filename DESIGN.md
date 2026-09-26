@@ -139,7 +139,8 @@ gsap, @gsap/react, three, @react-three/fiber, @react-three/drei, lenis, framer-m
 | Home — everything after the intro | **buttermax** (hero, 3D logo cube, curtain reel, statement, works grid, poster footer) |
 | /events | **inkfish** (black playlist reel hero with PiP "monitor", `[S.0N]`/`[NN]` bracket mono UI, barcode stripe rows, mixed-width event grid, contact "window" with fixed backdrop, custom fullscreen player) |
 | /about, /impact, legal docs | **Shopify Editions** (opening frame, chapter index, chapter heroes, torn paper, serif statements, card collages) |
-| /cloud, /join, /contact, /faq, /press, /qna | **stripe.dev** (24-col hairline grid with `+` registration marks, pixel-block glyph titles, `/ LABEL` table headers, seeded "Fig. N" generative windows, feed tables with mono dates, sticky router figure, get-help grid, endless outlined footer word) |
+| /press | **press.stripe.com** (warm near-black stage, a WebGL "shelf" of 3D volumes — our press-kit items / publications as books with brand covers — scroll-driven, left tick-mark index rail, elegant serif type, item detail with a rotatable 3D volume) |
+| /cloud, /join, /contact, /faq, /qna | **stripe.dev** (24-col hairline grid with `+` registration marks, pixel-block glyph titles, `/ LABEL` table headers, seeded "Fig. N" generative windows, feed tables with mono dates, sticky router figure, get-help grid, endless outlined footer word) |
 | Site-wide chrome | buttermax nav fused with **stripe.dev** bracket hotkeys (`[E] EVENTS [A] ABOUT [J] JOIN [M] MENU`, `[C]` console = the AI assistant as a stripe.dev console window), **inkfish** pixel-mountain route transition, kprverse menu, buttermax/kprverse footer |
 
 Single-key shortcuts must be switchable off (WCAG 2.1.4), ignored while typing or with modifiers, and exposed via `aria-keyshortcuts`.
