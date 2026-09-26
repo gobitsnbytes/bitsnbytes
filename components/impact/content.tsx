@@ -2,10 +2,11 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { regionalSeriesEvent } from "@/lib/events-data";
+import { FORK_CITIES } from "@/lib/forks";
 
-// /impact copy, verbatim from the previous page (highlightStats, culturePillars, research metrics)
-// plus the published track record (AGENTS.md §5 / public/llms.txt). Photos are the real event sets
-// the /events page already attributes to each item.
+// /impact copy from the previous page (highlightStats, culturePillars) plus the published track record
+// (AGENTS.md §5 / public/llms.txt). No aggregate numbers: per-event facts live in their own entry.
+// Photos are the real event sets the /events page already attributes to each item.
 
 export const IMPACT_TITLE = "Beyond the venue walls";
 
@@ -24,17 +25,17 @@ export type HighlightStat = { value: string; label: string; description: ReactNo
 
 export const highlightStats: HighlightStat[] = [
   {
-    value: "1,400+",
-    label: "Active Community Members",
-    description: "Teen builders active nationwide across India",
-    timeframe: "Scale",
+    value: "Community",
+    label: "Pan-India",
+    description: "Teen builders active across India",
+    timeframe: "Community",
   },
   {
-    value: "5+ Forks",
+    value: "Forks",
     label: "Local Hubs",
     description: (
       <>
-        City chapters under upstream governance —{" "}
+        City chapters under upstream governance in {FORK_CITIES}.{" "}
         <Link
           href="/fork"
           className="font-bold text-signal underline decoration-2 underline-offset-4 hover:decoration-orange"
@@ -46,16 +47,16 @@ export const highlightStats: HighlightStat[] = [
     timeframe: "Distribution",
   },
   {
-    value: "4+ Events",
-    label: "Nationwide Events",
+    value: "Events",
+    label: "Events across India",
     description: "Hackathons, hardware meetups, and developer workshops",
     timeframe: "Track Record",
   },
   {
-    value: "16.5 Years",
-    label: "Mean Team Age",
+    value: "Teen-led",
+    label: "Our team",
     description: "100% youth-led engineering and operations team",
-    timeframe: "Mean Age",
+    timeframe: "Team",
   },
 ];
 
@@ -73,34 +74,6 @@ export const culturePillars = [
     copy: "School operations, civic tech, accessibility tools. The things we ship get used by real people, not just submitted for a rubric.",
   },
 ];
-
-export const research = {
-  title: "India Youth Tech & Builder Research (2026 Metrics)",
-  summary:
-    "Public community metrics across 1,400+ teen builders, 2,700+ project evaluations, and 5+ regional chapters.",
-  metrics: [
-    {
-      value: "2,700+",
-      label: "Projects Evaluated",
-      copy: "Reviewed in 3-day hackathon sprints across civic tech, ML, and web apps.",
-    },
-    {
-      value: "84%",
-      label: "AI-Native Dev Tools",
-      copy: "Teen developers actively building with LLM agents, Copilot, and vector DBs.",
-    },
-    {
-      value: "38%",
-      label: "Female Builder Rate",
-      copy: "Active participation of female student coders across regional hackathon squads.",
-    },
-    {
-      value: "1.26 Cr+",
-      label: "Partner Reach",
-      copy: "Co-organized / executive partner reach in India Innovates 2026 civic tech hackathon.",
-    },
-  ],
-};
 
 const ev = (file: string) => `/event_pictures/${file}`;
 
@@ -140,19 +113,14 @@ export const trackRecord: TrackItem[] = [
     photos: [1, 2, 3, 4, 5].map((n) => ev(`bd${n}.jpg`)),
   },
   { name: "Regional Space Apps Hackathon", line: "300+ participants.", photos: [] },
-  {
-    name: "Web Presence",
-    line: "gobitsnbytes.org serves thousands of monthly visitors with 1,400+ active members.",
-    photos: [],
-  },
-  { name: "Evaluation Throughput", line: "2,700+ project submissions reviewed in 3-day sprints.", photos: [] },
 ];
 
 export type LatLng = [number, number];
 
-export const LUCKNOW: LatLng = [26.8467, 80.9462];
+/** Geographic centre of India: the globe's resting focus (we are pan-India, no home city). */
+export const INDIA: LatLng = [20.5937, 78.9629];
 
-/** Globe stops: Lucknow, then the three places the arcs run to. Copy from existing site content only. */
+/** Globe stops: the places our events ran. Copy from existing site content only. */
 export const places: {
   id: string;
   place: string;
@@ -164,7 +132,7 @@ export const places: {
   {
     id: "lucknow",
     place: "Lucknow",
-    at: LUCKNOW,
+    at: [26.8467, 80.9462],
     title: "Lucknow",
     lines: ["Hack4Good v0", "GitHub Copilot Dev Days", "Lucknow Build Guild"],
   },

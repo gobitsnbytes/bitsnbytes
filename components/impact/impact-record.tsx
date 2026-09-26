@@ -15,7 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-// Odometer's value size, shrunk below md so "16.5 YEARS" fits a 390px screen. Plates share it.
+// Odometer's value size, shrunk below md so "COMMUNITY" fits a 390px screen. Plates share it.
 const VALUE_SIZE = "text-[clamp(96px,12.5vw,200px)] max-md:text-[19vw]";
 const ODOMETER_SIZE = "max-md:[&>p:first-child]:text-[19vw]";
 

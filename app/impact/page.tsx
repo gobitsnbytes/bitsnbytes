@@ -82,27 +82,6 @@ export default function Impact() {
           </ul>
         </div>
       </Chapter>
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Dataset",
-            "name": "India Youth Tech & Builder Benchmarks 2026",
-            "description": "Original survey data and empirical metrics on high school and teen developer adoption of AI tools, hackathon completion rates, and regional hub distribution in India.",
-            "creator": {
-              "@type": "Organization",
-              "name": "bits&bytes™",
-              "legalName": "GOBITSNBYTES FOUNDATION",
-              "url": "https://gobitsnbytes.org",
-            },
-            "temporalCoverage": "2025-2026",
-            "spatialCoverage": "India",
-            "license": "https://gobitsnbytes.org/ip",
-          }),
-        }}
-      />
     </>
   );
 }
