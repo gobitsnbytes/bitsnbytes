@@ -1,6 +1,3 @@
-"use client";
-
-import { CreditCard } from "lucide-react";
 import { LegalPolicyPage } from "@/components/legal-policy-page";
 
 const refundMarkdown = `<aside>
@@ -81,7 +78,6 @@ export default function RefundPolicy() {
       title="Cancellation & Refund Policy"
       summary="Clear, transparent terms regarding free hackathons, non-profit charitable donations, ticket cancellations, and refund timelines under Indian law."
       updated="Last updated: 13 September 2026"
-      icon={CreditCard}
       sections={sections}
       markdown={refundMarkdown}
       highlights={[

@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "About bits&bytes™ | Teen-Led Builder Network, India",
+  title: "About bits&bytes™ | Teen-led builder network in India",
   description:
-    "Meet the student team behind India's boldest youth tech network. Learn about our origin story, founding mission, and the 9 core team members driving bits&bytes™ across India.",
+    "Who runs bits&bytes™, a teen-led builder network across India: how it started after a cancelled hackathon, what we believe and the people behind it.",
   keywords: [
     "about bits&bytes™",
     "teen builders network india",
-    "lucknow coding network",
+    "pan-india teen coding network",
     "student developers team",
     "youth tech organization india",
     "GOBITSNBYTES FOUNDATION",
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     canonical: "https://gobitsnbytes.org/about",
   },
   openGraph: {
-    title: "About bits&bytes™ | Teen-Led Builder Network, India",
+    title: "About bits&bytes™ | Teen-led builder network in India",
     description:
-      "Meet the student team behind India's boldest youth tech network. Learn about our origin story, founding mission, and the 9 core team members driving bits&bytes™ across India.",
+      "Who runs bits&bytes™, a teen-led builder network across India: how it started after a cancelled hackathon, what we believe and the people behind it.",
     url: "https://gobitsnbytes.org/about",
     type: "website",
     images: [
@@ -29,15 +29,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "bits&bytes™ Team — India's Youth-Led Builder Network",
+        alt: "The bits&bytes™ team, a teen-led builder network across India",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "About bits&bytes™ | Teen-Led Builder Network, India",
+    title: "About bits&bytes™ | Teen-led builder network in India",
     description:
-      "Meet the student team behind India's boldest youth tech network. Learn about our origin story, founding mission, and the 9 core team members driving bits&bytes™ across India.",
+      "Who runs bits&bytes™, a teen-led builder network across India: how it started after a cancelled hackathon, what we believe and the people behind it.",
   },
 };
 
@@ -48,7 +48,7 @@ const personSchemas = [
     name: "Yash Singh",
     jobTitle: "Chief Executive Officer",
     description:
-      "Math qualifier (IOQM) & AI prototyping dev. Creator of Codiva (5-star VS Code extension with thousands of users). Lead organizer for developer meetups and student hackathons.",
+      "National IOQM qualifier who prototypes with AI. Built Codiva, a 5-star VS Code extension with thousands of users. Lead organizer for developer meetups and student hackathons.",
     worksFor: { "@id": "https://gobitsnbytes.org/#organization" },
     url: "https://yashvibe.codes/",
     sameAs: [
@@ -63,7 +63,7 @@ const personSchemas = [
     name: "Aadrika Maurya",
     jobTitle: "Chief Creative Officer & Chief Operating Officer",
     description:
-      "RSI India Alumni. Conducted neuroscience research on EEG signals and attention modeling. Leads brand visual voice and creative strategies at bits&bytes™.",
+      "RSI India alumna who did neuroscience research on EEG signals and attention modeling. Leads the visual voice and creative strategy at bits&bytes™.",
     worksFor: { "@id": "https://gobitsnbytes.org/#organization" },
     url: "https://aadrikasportfolio.framer.website/",
     sameAs: [
@@ -78,7 +78,7 @@ const personSchemas = [
     name: "Akshat Kushwaha",
     jobTitle: "Chief Technology Officer",
     description:
-      "Systems architect and LLMOps engineer. Ex Jr. Research Engineer at jhana.ai. Builds high-performance retrieval pipelines and production infrastructure for bits&bytes™.",
+      "Systems and LLMOps engineer. Former Jr. Research Engineer at jhana.ai. Built and runs the bits&bytes™ stack, from retrieval pipelines to production infrastructure.",
     worksFor: { "@id": "https://gobitsnbytes.org/#organization" },
     url: "https://a3ro.dev",
     sameAs: [
@@ -94,7 +94,7 @@ const personSchemas = [
     name: "Devaansh Pathak",
     jobTitle: "Chief Financial Officer",
     description:
-      "Co-architected high-performance backend systems. Manages partner accounts, sponsor relationships, and budget logistics for bits&bytes™.",
+      "Co-architected the bits&bytes™ backend. Manages partner accounts, sponsors and the budget.",
     worksFor: { "@id": "https://gobitsnbytes.org/#organization" },
     sameAs: ["https://www.linkedin.com/in/devaanshpa/"],
     image: "https://gobitsnbytes.org/team/devansh.jpeg",
@@ -105,7 +105,7 @@ const personSchemas = [
     name: "Drishti Arora",
     jobTitle: "Chief Growth Officer",
     description:
-      "Leads audience campaigns, community growth, brand strategy, and coordination across regional cohorts for bits&bytes™.",
+      "Runs growth at bits&bytes™: audience campaigns, brand strategy and coordination across regional cohorts.",
     worksFor: { "@id": "https://gobitsnbytes.org/#organization" },
     sameAs: ["https://www.linkedin.com/in/drish-arora"],
     image: "https://gobitsnbytes.org/team/drishti.jpg",
@@ -116,7 +116,7 @@ const personSchemas = [
     name: "Raghwender Vasisth",
     jobTitle: "Head of Operations",
     description:
-      "Manages process automation, resource planning, logistical support, and team operations at scale across all bits&bytes™ events.",
+      "Keeps bits&bytes™ operations moving: process automation, resource planning and logistics for the team and its events.",
     worksFor: { "@id": "https://gobitsnbytes.org/#organization" },
     sameAs: ["https://www.linkedin.com/in/raghwender-vasisth/"],
     image: "https://gobitsnbytes.org/team/raghav.png",
@@ -127,7 +127,7 @@ const personSchemas = [
     name: "Maryam Fatima",
     jobTitle: "Head of Brand & Media",
     description:
-      "Oversees media assets, visual content, graphic identity, and social media campaigns for bits&bytes™.",
+      "Looks after media, visual content, graphic identity and social campaigns for bits&bytes™.",
     worksFor: { "@id": "https://gobitsnbytes.org/#organization" },
     sameAs: ["https://www.linkedin.com/in/maryam-fatima-9719aa377/"],
     image: "https://gobitsnbytes.org/team/maryam.jpeg",
@@ -138,7 +138,7 @@ const personSchemas = [
     name: "Srishti Singh",
     jobTitle: "Head of Partnerships & Institutional Relations",
     description:
-      "Coordinates institutional relations, sponsor liaisons, and communications across regional chapters of bits&bytes™.",
+      "Handles institutional relations, sponsor contacts and communication with the regional chapters of bits&bytes™.",
     worksFor: { "@id": "https://gobitsnbytes.org/#organization" },
     sameAs: ["https://www.linkedin.com/in/srishti-singh-ab6a1b391"],
     image: "https://gobitsnbytes.org/team/srishti.jpeg",
@@ -149,7 +149,7 @@ const personSchemas = [
     name: "Angel",
     jobTitle: "Head of Research & Strategy",
     description:
-      "Leads strategic research initiatives, community analysis, and organizational growth frameworks at bits&bytes™.",
+      "Leads research at bits&bytes™: studying the community and planning how the organization grows.",
     worksFor: { "@id": "https://gobitsnbytes.org/#organization" },
     sameAs: [
       "https://www.linkedin.com/in/angelp-online/",
@@ -166,9 +166,9 @@ const aboutPageJsonLd = {
       "@type": "AboutPage",
       "@id": "https://gobitsnbytes.org/about#webpage",
       url: "https://gobitsnbytes.org/about",
-      name: "About bits&bytes™ | Teen-Led Builder Network, India",
+      name: "About bits&bytes™ | Teen-led builder network in India",
       description:
-        "Meet the student team behind India's boldest youth tech network. Learn about our origin story and founding mission.",
+        "Who runs bits&bytes™, a teen-led builder network across India: how it started after a cancelled hackathon, what we believe and the people behind it.",
       isPartOf: { "@id": "https://gobitsnbytes.org/#website" },
       about: { "@id": "https://gobitsnbytes.org/#organization" },
       breadcrumb: {

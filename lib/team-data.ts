@@ -38,7 +38,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Three.js & Creative Coding",
     ],
     achievements: [
-      "Founder of bits&bytes™ (gobitsnbytes.org), leading 1,500+ active members in student-led tech culture",
+      "Founder of bits&bytes™ (gobitsnbytes.org), leading a pan-India, student-led builder community",
       "Created Codiva: A 5-star rated VS Code extension that gamifies coding for thousands of users",
       "National Qualifier for the Indian Mathematics Olympiad (IOQM)",
       "Built Alem (AI notes app <25MB) and MailAF (AI cold outreach automation)",
@@ -225,7 +225,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Internal Communication",
     ],
     achievements: [
-      "Engineered the internal communication workflows for our 100+ active members",
+      "Engineered the internal communication workflows for our community",
       "Coordinated logistics for regional hackathons and multiple city-wide transitions",
       "Optimized the project lifecycle from workshop to tangible product launch",
     ],

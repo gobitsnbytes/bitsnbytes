@@ -1,45 +1,35 @@
-"use client";
-
-import React, { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { toast } from "sonner";
-import {
-  Download,
-  Copy,
-  Check,
-  Image as ImageIcon,
-  Palette,
-  Type,
-  Users,
-  Mail,
-  ExternalLink,
-  FileText,
-  Info,
-  ShieldCheck,
-  Sparkles,
-} from "lucide-react";
+import type { ReactNode } from "react";
 
-import { TEAM_MEMBERS } from "@/lib/team-data";
 import logoSvg from "@public/logo.svg";
+import { Breadcrumbs } from "@/components/breadcrumb";
+import { WIDE } from "@/components/chrome/wordmark";
+import { ConsoleWindow } from "@/components/contact/console-window";
+import { LabIndexRow } from "@/components/faq/lab-row";
+import {
+  HollowWord,
+  LAB_MARKER,
+  LAB_STICKY,
+  LAB_TEXT,
+  LabCell,
+  LabFeed,
+  LabGlobe,
+  LabGrid,
+  LabHero,
+  LabLink,
+  LabTag,
+  LabTitle,
+  PixelGlyph,
+  TableHeader,
+} from "@/components/lab";
+import { Palette, type PaletteRow } from "@/components/press/palette";
+import { Button } from "@/components/riot";
+import { Character } from "@/components/character/character";
+import { FORK_CITIES } from "@/lib/forks";
+import { TEAM_MEMBERS } from "@/lib/team-data";
+import { cn } from "@/lib/utils";
 
-// IMPECCABLE_PREFLIGHT: context=pass product=pass command_reference=pass shape=not_required image_gate=skipped:using_css_styling_no_new_image_assets_needed mutation=open
-
-// Starburst icon for Neobrutalist design accent
-const Starburst = ({ className = "text-[#97192c]", size = 32 }: { className?: string; size?: number }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 100 100"
-    fill="currentColor"
-    className={className}
-    aria-hidden="true"
-  >
-    <path d="M50 0 L58 28 L85 15 L70 39 L97 50 L70 61 L85 85 L58 72 L50 100 L42 72 L15 85 L30 61 L3 50 L30 39 L15 15 L42 28 Z" />
-  </svg>
-);
-
-const colorPaletteRows = [
+const colorPaletteRows: PaletteRow[] = [
   {
     title: "Burgundy",
     description: "The core. Serious. Doesn't beg for attention.",
@@ -74,7 +64,7 @@ const colorPaletteRows = [
     ],
   },
   {
-    title: "Gradients / Warm Accents",
+    title: "Gradients / warm accents",
     description: "Movement. Nothing here is static.",
     colors: [
       { step: "Base", hex: "#C94218" },
@@ -86,404 +76,372 @@ const colorPaletteRows = [
   },
 ];
 
-const executiveLeadership = TEAM_MEMBERS.filter(
-  (member) => member.role.startsWith("Chief"),
-);
+const executiveLeadership = TEAM_MEMBERS.filter((member) => member.role.startsWith("Chief"));
+const departmentLeads = TEAM_MEMBERS.filter((member) => member.role.startsWith("Head"));
 
-const departmentLeads = TEAM_MEMBERS.filter(
-  (member) => member.role.startsWith("Head"),
-);
+const logos = [
+  {
+    title: "Vector logo (SVG)",
+    note: "Use this one on the web and anywhere it has to scale.",
+    src: logoSvg,
+    alt: "bits&bytes logo SVG",
+    href: "/logo.svg",
+    download: "bitsnbytes-logo.svg",
+    cta: "Download SVG",
+    plate: "bg-ink",
+    variant: "orange",
+  },
+  {
+    title: "Raster logo (PNG)",
+    note: "Transparent background, for places that won't take an SVG.",
+    src: "/logo.png",
+    alt: "bits&bytes logo PNG",
+    href: "/logo.png",
+    download: "bitsnbytes-logo.png",
+    cta: "Download PNG",
+    plate: "bg-burgundy",
+    variant: "outline",
+  },
+] as const;
 
-import { Breadcrumbs } from "@/components/breadcrumb";
+// Facts, not counts (no aggregate numbers anywhere).
+const stats = [
+  { value: "Pan-India", label: "Reach" },
+  { value: "Forks", label: "Chapters", href: "/fork" },
+  { value: "Nov 2025", label: "Founded" },
+  { value: "13–19", label: "Ages" },
+];
+
+const publicFacts = [
+  { key: "Public brand", value: "bits&bytes™" },
+  { key: "Operator", value: "GOBITSNBYTES FOUNDATION" },
+  { key: "Structure", value: "Section 8 non-profit company in India" },
+  { key: "Name usage", value: "bits&bytes™ in public copy. bitsnbytes where the & symbol isn't allowed." },
+];
+
+const usageRules = [
+  "Don't stretch, recolor, rotate, or add effects to the logo.",
+  "Don't use bits&bytes™ branding to raise money without our approval.",
+  "Don't publish participant data, private chats, or photos of minors without consent.",
+  "For anything safety-related, go by our Code of Conduct and Privacy Policy.",
+];
+
+const chapters = [
+  { id: "official-logos", title: "Official logos" },
+  { id: "color-palettes", title: "Color palettes" },
+  { id: "typography", title: "Typography specimens" },
+  { id: "about", title: "About bits&bytes™" },
+  { id: "usage-rules", title: "Usage rules" },
+  { id: "media-contact", title: "Media contact" },
+  { id: "citations", title: "Citations & digital PR" },
+] as const;
+
+const SECTION = "gap-y-10 pt-24 min-[760px]:pt-[136px]";
+const WRAP = "min-[760px]:whitespace-normal";
+const CODE =
+  "select-all overflow-x-auto border border-line bg-surface-2 p-3 font-mono text-[11px] leading-relaxed text-fg md:text-xs";
+/** A 12-column half (stripe.dev "Featured post / video"). */
+const HALF = "relative col-span-full grid grid-cols-subgrid content-start gap-y-6 min-[760px]:col-span-12";
+/** Dashed vertical rule on the second half (24px above → 70px below). */
+const DIVIDER =
+  "min-[760px]:before:absolute min-[760px]:before:-bottom-[70px] min-[760px]:before:-top-6 min-[760px]:before:left-[calc(var(--lab-gap)/-2)] min-[760px]:before:border-l min-[760px]:before:border-dashed min-[760px]:before:border-line";
+
+const pad = (n: number) => String(n).padStart(2, "0");
+
+/** Chapter section: a LabGrid carrying the data-* the nav and chapter list read. */
+function PressSection({ index, children }: { index: number; children: ReactNode }) {
+  const chapter = chapters[index];
+  return (
+    <LabGrid
+      as="section"
+      id={chapter.id}
+      data-cinematic-section=""
+      data-cinematic-title={chapter.title}
+      data-surface="paper"
+      aria-labelledby={`${chapter.id}-title`}
+      className={SECTION}
+    >
+      {children}
+    </LabGrid>
+  );
+}
+
+function PeopleTable({ title, people }: { title: string; people: typeof TEAM_MEMBERS }) {
+  return (
+    <div>
+      <TableHeader as="h3" label={title} count={people.length} />
+      <ul role="list">
+        {people.map((member) => (
+          <li
+            key={member.name}
+            className="grid gap-1 border-b border-line py-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:items-baseline sm:gap-6"
+          >
+            <span className={LAB_TEXT.md}>{member.name}</span>
+            <span className="font-mono text-[11px] uppercase leading-[1.3] text-fg/75">{member.role}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export default function PressKit() {
-  const [copiedColor, setCopiedColor] = useState<string | null>(null);
-
-  const copyToClipboard = (hex: string) => {
-    navigator.clipboard.writeText(hex);
-    setCopiedColor(hex);
-    toast.success(`Copied ${hex} to clipboard!`);
-    setTimeout(() => setCopiedColor(null), 2000);
-  };
-
   return (
-    <div className="w-full min-h-screen bg-[#eae8e4] text-[#120f0a] pt-28 pb-20 relative z-10 font-sans selection:bg-[#fc920d] selection:text-[#120f0a]">
-      {/* Background stipple texture */}
-      <div className="absolute inset-0 bg-noise-texture opacity-[0.06] pointer-events-none z-0" />
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <Breadcrumbs items={[{ name: "Press & Media Kit", href: "/press" }]} />
-
-        {/* Hero Banner Header */}
-        <header
-          data-tour="page-hero"
-          data-cinematic-section
-          data-cinematic-title="the official kit"
-          className="mb-12 border-b-4 border-[#120f0a] pb-10 relative"
+    <>
+      <section
+        data-cinematic-section=""
+        data-cinematic-title="Press kit & brand assets"
+        data-surface="paper"
+        className="relative"
+      >
+        <Character
+          pose="megaphone"
+          priority
+          sizes="(min-width: 1024px) 150px, 0px"
+          className="absolute bottom-16 right-[6vw] hidden w-[clamp(110px,10vw,150px)] lg:block"
+        />
+        <LabHero
+          lines={["Press kit & ", "brand assets"]}
+          glyph={<PixelGlyph text="PRESS" decorative />}
+          aside={<LabGlobe />}
+          subtitle={
+            <p data-speakable="true" data-citation="true">
+              What you need to write about bits&amp;bytes™: our logos, colors, type, public facts, and who to email.
+            </p>
+          }
         >
-          <div className="absolute -right-6 -top-6 hidden md:block animate-spin-slow">
-            <Starburst size={80} className="text-[#fc920d]" />
+          <div className="flex flex-col items-start gap-4">
+            <Breadcrumbs items={[{ name: "Press kit", href: "/press" }]} className="mb-0" />
+            <LabTag>Brand guidelines · GOBITSNBYTES FOUNDATION</LabTag>
           </div>
+        </LabHero>
+      </section>
 
-          <div className="flex items-center gap-2 mb-4">
-            <span className="inline-flex items-center gap-1.5 bg-[#97192c] text-white border-2 border-[#120f0a] px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_0px_#120f0a]">
-              <ImageIcon className="h-3.5 w-3.5 text-[#fc920d]" />
-              Brand Guidelines
-            </span>
-            <span className="text-xs font-mono text-[#716f6c] font-semibold">
-              GOBITSNBYTES FOUNDATION
-            </span>
-          </div>
+      {/* §01 logo downloads as the two stripe.dev featured halves (white mark on ink / burgundy plates) */}
+      <PressSection index={0}>
+        <LabCell>
+          <LabTitle id="official-logos-title" count={logos.length}>
+            Official logos
+          </LabTitle>
+        </LabCell>
+        <LabCell span="1/15">
+          <p className={LAB_TEXT.lg}>The official bits&amp;bytes™ cube mark. The SVG is white, so set it on dark, burgundy, or orange.</p>
+        </LabCell>
+        {logos.map((logo, index) => (
+          <article key={logo.href} className={cn(HALF, "gap-y-8", index > 0 && DIVIDER)}>
+            <TableHeader
+              label={logo.download.split(".").pop() ?? ""}
+              right={`[${pad(index + 1)}]`}
+              className="col-span-full"
+            />
+            <figure className="col-span-full bg-fg px-1 pb-1 text-surface min-[760px]:col-[1/7]">
+              <figcaption className="flex h-5 items-center gap-2 px-1 font-mono text-[10px] uppercase leading-none">
+                <span className="shrink-0">[ Fig. {index + 1} ]</span>
+                <span
+                  aria-hidden
+                  className="h-[7px] flex-1 bg-[repeating-linear-gradient(to_bottom,currentColor_0_1px,transparent_1px_3px)]"
+                />
+              </figcaption>
+              <div className={cn("relative grid place-items-center", logo.plate)} style={{ aspectRatio: "302 / 252" }}>
+                <span aria-hidden className="halftone absolute inset-0 opacity-10" />
+                <div className="relative size-[46%]">
+                  <Image src={logo.src} alt={logo.alt} fill sizes="(min-width: 760px) 12vw, 40vw" className="object-contain" />
+                </div>
+              </div>
+            </figure>
+            <div className="col-span-full flex flex-col items-start gap-4 min-[760px]:col-[7/13]">
+              <h3 className={LAB_TEXT.post}>{logo.title}</h3>
+              <p className={LAB_TEXT.sm}>{logo.note}</p>
+              <LabTag>{logo.download}</LabTag>
+              <Button asChild variant={logo.variant} size="sm" className="mt-2">
+                <a href={logo.href} download={logo.download} data-cursor-label="DOWNLOAD">
+                  {logo.cta} <span aria-hidden>↓</span>
+                </a>
+              </Button>
+            </div>
+          </article>
+        ))}
+      </PressSection>
 
-          <h1 data-speakable="true" className="text-5xl md:text-7xl font-black uppercase tracking-tight text-[#120f0a] leading-none mb-6">
-            Press kit &amp; <br />
-            <span className="bg-[#fc920d] px-2 py-0.5 border-[3px] border-[#120f0a] inline-block shadow-[4px_4px_0px_0px_#120f0a] -rotate-1">brand assets</span>
-          </h1>
-
-          <p data-speakable="true" data-citation="true" className="font-serif text-lg md:text-xl text-[#413f3b] max-w-[70ch] leading-relaxed">
-            Official logos, color palettes, typography specs, public facts, and media contact paths for bits&bytes™.
+      {/* §02 palette rows, click a swatch to copy (announced politely) */}
+      <PressSection index={1}>
+        <LabCell>
+          <LabTitle id="color-palettes-title" count={colorPaletteRows.length}>
+            Color palettes
+          </LabTitle>
+        </LabCell>
+        <LabCell span="1/15">
+          <p className={LAB_TEXT.lg}>
+            Click a swatch to copy its hex value. Burgundy and plum are the default. Orange is for emphasis.
           </p>
-        </header>
+        </LabCell>
+        <Palette rows={colorPaletteRows} />
+      </PressSection>
 
-        {/* Main Content Area */}
-        <div className="space-y-12">
-          
-          {/* Logo Downloads */}
-          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
-            <div className="space-y-8">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#120f0a]/15 pb-6">
-                <div>
-                  <h2 className="text-2xl font-black text-[#120f0a] flex items-center gap-3 uppercase tracking-wider">
-                    <ImageIcon className="h-6 w-6 text-[#97192c]" />
-                    Official Logos
-                  </h2>
-                  <p className="text-sm text-[#716f6c] font-medium mt-1">
-                    Download the official bits&bytes™ cube monogram and wordmark assets.
-                  </p>
-                </div>
-              </div>
+      {/* §03 type specimens as two halves */}
+      <PressSection index={2}>
+        <LabCell>
+          <LabTitle id="typography-title" className={WRAP}>
+            Typography specimens
+          </LabTitle>
+        </LabCell>
+        <LabCell span="1/15">
+          <p className={LAB_TEXT.lg}>
+            Headings are set in Helvetica Now. Body copy and long reads are set in Georgia Pro.
+          </p>
+        </LabCell>
+        <article className={HALF}>
+          <TableHeader as="h3" label="PRIMARY / DISPLAY FONT" right="HELVETICA NOW" className="col-span-full" />
+          <p className={cn(WIDE, "col-span-full text-[clamp(40px,5vw,84px)] uppercase leading-[0.88]")}>
+            HEADING DISPLAY SPECIMEN
+          </p>
+          <p className={cn(LAB_TEXT.sm, "col-span-full min-[760px]:col-[1/11]")}>
+            Use the heavier Helvetica Now weights for headings, event banner titles, and calls to action. Set it big and
+            let it be loud.
+          </p>
+        </article>
+        <article className={cn(HALF, DIVIDER)}>
+          <TableHeader as="h3" label="SECONDARY / BODY FONT" right="GEORGIA PRO" className="col-span-full" />
+          <p className="col-span-full font-serif text-[clamp(22px,2.2vw,32px)] italic leading-snug">
+            &quot;This is Georgia Pro. We use it for long-form reading, paragraphs, team profiles, and
+            documentation.&quot;
+          </p>
+          <p className="col-span-full font-serif text-base leading-relaxed min-[760px]:col-[1/11]">
+            It stays easy to read over long stretches, and it calms the loud headings down.
+          </p>
+        </article>
+      </PressSection>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* SVG Logo */}
-                <div className="border-3 border-[#120f0a] rounded-none p-6 bg-[#fee9cf]/20 flex flex-col items-center justify-between gap-6 shadow-[4px_4px_0px_0px_#120f0a]">
-                  <div className="relative flex h-32 w-32 items-center justify-center border-3 border-[#120f0a] bg-white shadow-inner rounded-none">
-                    <Image src={logoSvg} alt="bits&bytes logo SVG" fill className="p-4 object-contain -translate-y-[5px] invert dark:invert-0" />
-                  </div>
-                  <div className="text-center w-full relative">
-                    <h3 className="font-black text-[#120f0a] text-lg uppercase tracking-tight">Vector SVG Logo</h3>
-                    <p className="text-xs text-[#716f6c] font-semibold mt-1">Best for web layouts and high-resolution scaling.</p>
-                    <a
-                      href="/logo.svg"
-                      download="bitsnbytes-logo.svg"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 mt-4 border-2 border-[#120f0a] bg-[#fc920d] text-[#120f0a] font-bold text-sm hover:-translate-y-0.5 shadow-[2px_2px_0px_0px_#120f0a] active:translate-y-0.5 active:shadow-none transition-all rounded-none w-full"
-                    >
-                      <Download className="h-4 w-4" />
-                      Download SVG
-                    </a>
-                  </div>
-                </div>
-
-                {/* PNG Logo */}
-                <div className="border-3 border-[#120f0a] rounded-none p-6 bg-[#fee9cf]/20 flex flex-col items-center justify-between gap-6 shadow-[4px_4px_0px_0px_#120f0a]">
-                  <div className="relative flex h-32 w-32 items-center justify-center border-3 border-[#120f0a] bg-white shadow-inner rounded-none">
-                    <Image src="/logo.png" alt="bits&bytes logo PNG" fill className="p-4 object-contain -translate-y-[5px] invert dark:invert-0" />
-                  </div>
-                  <div className="text-center w-full relative">
-                    <h3 className="font-black text-[#120f0a] text-lg uppercase tracking-tight">Raster PNG Logo</h3>
-                    <p className="text-xs text-[#716f6c] font-semibold mt-1">Raster image file with transparent background.</p>
-                    <a
-                      href="/logo.png"
-                      download="bitsnbytes-logo.png"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 mt-4 border-2 border-[#120f0a] bg-white text-[#120f0a] font-bold text-sm hover:-translate-y-0.5 shadow-[2px_2px_0px_0px_#120f0a] active:translate-y-0.5 active:shadow-none transition-all rounded-none w-full"
-                    >
-                      <Download className="h-4 w-4" />
-                      Download PNG
-                    </a>
-                  </div>
-                </div>
-              </div>
+      {/* §04 about + facts */}
+      <PressSection index={3}>
+        <LabCell>
+          <LabTitle id="about-title">About bits&amp;bytes™</LabTitle>
+        </LabCell>
+        <LabCell span="1/18">
+          <p className={LAB_TEXT.md}>
+            bits&amp;bytes™ is an independent, teen-led builder network. We run hackathons, developer meetups,
+            open-source squads, and cohort programs. We started in November 2025, after a partner organization cancelled
+            a hackathon we were organizing. So we built our own home for it, run by students, where teenagers ship real
+            software, learn in public, and organize with serious safety standards.
+          </p>
+        </LabCell>
+        <ul role="list" className="col-span-full mt-6 grid grid-cols-subgrid gap-y-8">
+          {stats.map((stat) => (
+            <li key={stat.label} className="col-span-4 grid content-start gap-3 min-[760px]:col-span-6">
+              <TableHeader label={stat.label} />
+              <p className="whitespace-nowrap font-sans text-[clamp(36px,4.2vw,72px)] font-light leading-[0.9] tracking-[-0.06em]">
+                {stat.href ? (
+                  <LabLink href={stat.href} className="group/mark">
+                    <span className={LAB_MARKER}>{stat.value}</span>
+                  </LabLink>
+                ) : (
+                  stat.value
+                )}
+              </p>
+            </li>
+          ))}
+        </ul>
+        <TableHeader as="h3" label="Public Facts" count={publicFacts.length} className="col-span-full mt-10" />
+        <dl className="col-span-full grid grid-cols-subgrid">
+          {publicFacts.map((fact) => (
+            <div
+              key={fact.key}
+              className="col-span-full grid grid-cols-subgrid gap-y-1 border-b border-dotted border-line py-3"
+            >
+              <dt className="col-span-full font-mono text-[11px] uppercase leading-[1.4] min-[760px]:col-[1/7]">
+                {fact.key}
+              </dt>
+              <dd className={cn(LAB_TEXT.sm, "col-span-full min-[760px]:col-[7/-1]")}>{fact.value}</dd>
             </div>
-          </section>
+          ))}
+        </dl>
+      </PressSection>
 
-          {/* Brand Colors */}
-          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-2xl font-black text-[#120f0a] flex items-center gap-3 uppercase tracking-wider border-b border-[#120f0a]/15 pb-4">
-                  <Palette className="h-6 w-6 text-[#fc920d]" />
-                  Color Palettes
-                </h2>
-                <p className="text-sm text-[#716f6c] font-semibold mt-3">
-                  Click any color swatch to copy its HEX value. We default to Burgundy and Plum tones.
-                </p>
-              </div>
+      {/* §05 usage rules as a feed of static rows */}
+      <PressSection index={4}>
+        <LabCell>
+          <LabTitle id="usage-rules-title" count={usageRules.length}>
+            Usage rules
+          </LabTitle>
+        </LabCell>
+        <LabCell span="1/18">
+          <p className={LAB_TEXT.md}>
+            Press and partners can use these assets to cover bits&amp;bytes™ accurately. Co-branded material, merch,
+            sponsorship announcements, or anything that implies we endorse you needs our written approval first.
+          </p>
+        </LabCell>
+        <LabFeed labels={["No.", "Rule"]}>
+          {usageRules.map((rule, index) => (
+            <LabIndexRow key={rule} label={`R.${pad(index + 1)}`}>
+              {rule}
+            </LabIndexRow>
+          ))}
+        </LabFeed>
+      </PressSection>
 
-              <div className="space-y-8 divide-y-2 divide-[#120f0a]/10">
-                {colorPaletteRows.map((row, idx) => (
-                  <div key={row.title} className={`grid grid-cols-1 md:grid-cols-[16rem_1fr] gap-6 ${idx > 0 ? "pt-8" : ""}`}>
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-black text-[#120f0a] uppercase tracking-tight">
-                        {row.title}
-                      </h3>
-                      <p className="text-sm text-[#413f3b] leading-relaxed font-serif">
-                        {row.description}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col gap-2 md:grid md:grid-cols-5 md:gap-4">
-                      {row.colors.map((color) => (
-                        <button
-                          key={color.hex}
-                          onClick={() => copyToClipboard(color.hex)}
-                          className="group relative flex flex-row md:flex-col items-center md:items-stretch overflow-hidden border-2 border-[#120f0a] bg-white p-2.5 md:p-0 text-left transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none shadow-[2px_2px_0px_0px_#120f0a] rounded-none cursor-pointer"
-                        >
-                          <div 
-                            className="h-10 w-10 md:h-16 md:w-full border-r-2 md:border-r-0 md:border-b-2 border-[#120f0a] shrink-0" 
-                            style={{ backgroundColor: color.hex }} 
-                          />
-                          <div className="ml-3 md:ml-0 p-0 md:p-3 flex-1 flex flex-row md:flex-col justify-between items-center md:items-stretch">
-                            <div className="flex flex-col">
-                              <span className="text-[10px] uppercase font-mono font-bold text-[#716f6c]">{color.step}</span>
-                              <span className="text-sm md:text-xs font-mono font-black text-[#120f0a] mt-0.5">{color.hex}</span>
-                            </div>
-                            <div className="md:absolute md:right-2 md:top-2 border-2 border-[#120f0a] bg-[#fc920d] p-1 text-[#120f0a] rounded-none md:opacity-0 transition-opacity group-hover:opacity-100 ml-auto md:ml-0 shadow-[1px_1px_0px_0px_#120f0a]">
-                              {copiedColor === color.hex ? (
-                                <Check className="h-3.5 w-3.5 text-white" />
-                              ) : (
-                                <Copy className="h-3.5 w-3.5 text-white" />
-                              )}
-                            </div>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
+      {/* §06 directory + sticky contact console */}
+      <PressSection index={5}>
+        <LabCell>
+          <LabTitle id="media-contact-title">Media contact</LabTitle>
+        </LabCell>
+        <div className="col-span-full grid content-start gap-12 lg:col-[1/15]">
+          <PeopleTable title="Executive leadership" people={executiveLeadership} />
+          <PeopleTable title="Department leads" people={departmentLeads} />
+        </div>
+        <div className="col-span-full lg:col-[16/25]">
+          <ConsoleWindow title="Contact" className={LAB_STICKY} bodyClassName="p-5 md:p-7">
+            <p className={LAB_TEXT.sm}>
+              Write to us about press, brand permissions, partnerships, or using the logo:
+            </p>
+            <LabLink
+              href="mailto:hello@gobitsnbytes.org"
+              className={cn(LAB_TEXT.post, "group/mark mt-4 block break-all")}
+            >
+              <span className={LAB_MARKER}>hello@gobitsnbytes.org</span>
+            </LabLink>
+            <div className="mt-6">
+              <TableHeader as="h3" label="Boilerplate for journalists" />
+              <p className="mt-3 select-all font-serif text-base italic leading-relaxed">
+                &quot;bits&amp;bytes™ is an independent, teen-led builder network operated by GOBITSNBYTES FOUNDATION
+                (Section 8 non-profit). Founded in November 2025, it is a pan-India community of builders aged 13–19,
+                with forks in {FORK_CITIES}. Its builders ship real software and run their own hackathons.&quot;
+              </p>
             </div>
-          </section>
+          </ConsoleWindow>
+        </div>
+      </PressSection>
 
-          {/* Typography Specimen */}
-          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-2xl font-black text-[#120f0a] flex items-center gap-3 uppercase tracking-wider border-b border-[#120f0a]/15 pb-4">
-                  <Type className="h-6 w-6 text-[#97192c]" />
-                  Typography Specimens
-                </h2>
-                <p className="text-sm text-[#716f6c] font-semibold mt-3">
-                  Our identity uses robust Helvetica Now headings combined with traditional Georgia Pro body elements.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="border-3 border-[#120f0a] p-6 bg-[#fee9cf]/20 space-y-4 rounded-none shadow-[4px_4px_0px_0px_#120f0a]">
-                  <div className="flex justify-between items-center text-xs text-[#716f6c] font-mono font-bold border-b border-[#120f0a]/10 pb-2">
-                    <span>PRIMARY / DISPLAY FONT</span>
-                    <span>HELVETICA NOW</span>
-                  </div>
-                  <h3 className="font-sans font-black text-3xl sm:text-4xl text-[#120f0a] tracking-tight uppercase leading-none">
-                    HEADING DISPLAY SPECIMEN
-                  </h3>
-                  <p className="text-sm text-[#413f3b] font-medium leading-relaxed">
-                    Use heavier Helvetica Now weights for headings, events banner titles, and action items. Bold, striking, and confident.
-                  </p>
-                </div>
-
-                <div className="border-3 border-[#120f0a] p-6 bg-[#f4d9d1]/20 space-y-4 rounded-none shadow-[4px_4px_0px_0px_#120f0a]">
-                  <div className="flex justify-between items-center text-xs text-[#716f6c] font-mono font-bold border-b border-[#120f0a]/10 pb-2">
-                    <span>SECONDARY / BODY FONT</span>
-                    <span>GEORGIA PRO</span>
-                  </div>
-                  <p className="font-serif text-lg text-[#120f0a] leading-relaxed">
-                    "This is a specimen of Georgia Pro. We use it for long-form reading, paragraphs, team profiles, and descriptive documentation."
-                  </p>
-                  <p className="text-xs text-[#716f6c] font-semibold">
-                    Traditional, highly readable, and grounds the visual design in narrative clarity.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* About & Public Facts */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-            <div className="border-4 border-[#120f0a] bg-white p-6 shadow-[8px_8px_0px_0px_#120f0a] rounded-none md:col-span-2 flex flex-col justify-between">
-              <div className="space-y-4">
-                <h3 className="text-xl font-black text-[#120f0a] flex items-center gap-2 uppercase tracking-tight border-b border-[#120f0a]/10 pb-2">
-                  <FileText className="h-5 w-5 text-[#97192c]" />
-                  About bits&amp;bytes™
-                </h3>
-                <p className="text-sm text-[#413f3b] leading-relaxed font-serif">
-                  bits&bytes™ is an independent, youth-led builder network that runs hackathons, developer meetups, open-source squads, and cohort-based programs. Founded in November 2025 after a major partner hackathon was cancelled, the team built a durable student-led alternative where teenagers ship real software, learn in public, and organize with serious safety standards.
-                </p>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6">
-                <div className="border-2 border-[#120f0a] bg-[#fee9cf] p-3 text-center shadow-[2px_2px_0px_0px_#120f0a]">
-                  <p className="text-2xl font-black text-[#97192c] tracking-tight">1400+</p>
-                  <p className="text-[9px] text-[#716f6c] font-mono font-bold uppercase tracking-wider mt-0.5">Active Builders</p>
-                </div>
-                <div className="border-2 border-[#120f0a] bg-[#f4d9d1] p-3 text-center shadow-[2px_2px_0px_0px_#120f0a]">
-                  <p className="text-2xl font-black text-[#fc920d] tracking-tight">
-                    <Link href="/fork" className="hover:underline transition-colors">
-                      5+ Forks
-                    </Link>
-                  </p>
-                  <p className="text-[9px] text-[#716f6c] font-mono font-bold uppercase tracking-wider mt-0.5">Chapters</p>
-                </div>
-                <div className="border-2 border-[#120f0a] bg-[#fee9cf] p-3 text-center shadow-[2px_2px_0px_0px_#120f0a]">
-                  <p className="text-2xl font-black text-[#97192c] tracking-tight">4+</p>
-                  <p className="text-[9px] text-[#716f6c] font-mono font-bold uppercase tracking-wider mt-0.5">Events</p>
-                </div>
-                <div className="border-2 border-[#120f0a] bg-[#f4d9d1] p-3 text-center shadow-[2px_2px_0px_0px_#120f0a]">
-                  <p className="text-2xl font-black text-[#120f0a] tracking-tight">16.5 Yrs</p>
-                  <p className="text-[9px] text-[#716f6c] font-mono font-bold uppercase tracking-wider mt-0.5">Mean Age</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="border-4 border-[#120f0a] bg-white p-6 shadow-[8px_8px_0px_0px_#120f0a] rounded-none flex flex-col justify-between">
-              <div className="space-y-4">
-                <h3 className="text-lg font-black text-[#120f0a] flex items-center gap-2 uppercase tracking-tight border-b border-[#120f0a]/10 pb-2">
-                  <Info className="h-4 w-4 text-[#fc920d]" />
-                  Public Facts
-                </h3>
-                <div className="text-xs text-[#413f3b] space-y-3 font-mono font-semibold pt-2">
-                  <div>
-                    <span className="text-[#716f6c] block uppercase text-[9px] font-bold tracking-wider">Public Brand</span>
-                    <span className="font-black text-[#120f0a]">bits&amp;bytes™</span>
-                  </div>
-                  <div>
-                    <span className="text-[#716f6c] block uppercase text-[9px] font-bold tracking-wider">Operator</span>
-                    <span className="text-[#120f0a]">GOBITSNBYTES FOUNDATION</span>
-                  </div>
-                  <div>
-                    <span className="text-[#716f6c] block uppercase text-[9px] font-bold tracking-wider">Structure</span>
-                    <span className="text-[#120f0a]">Section 8 non-profit company in India</span>
-                  </div>
-                  <div>
-                    <span className="text-[#716f6c] block uppercase text-[9px] font-bold tracking-wider">Use This Name</span>
-                    <span className="leading-relaxed block text-[#120f0a]">bits&amp;bytes™ in public copy, bitsnbytes where symbols are restricted.</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Usage Rules */}
-          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
-            <div className="grid gap-6 md:grid-cols-[1fr_1.4fr] md:items-start">
-              <div>
-                <h2 className="text-2xl font-black text-[#120f0a] flex items-center gap-3 uppercase tracking-wider border-b border-[#120f0a]/15 pb-4">
-                  <ShieldCheck className="h-6 w-6 text-[#fc920d]" />
-                  Usage Rules
-                </h2>
-                <p className="text-sm text-[#413f3b] mt-4 font-serif leading-relaxed">
-                  Press and partners may use official assets for accurate coverage of bits&bytes™. Co-branded materials, merch, sponsorship announcements, and anything implying endorsement need written approval.
-                </p>
-              </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {[
-                  "Do not distort, recolor, rotate, or add effects to the logo.",
-                  "Do not use bits&bytes™ branding for fundraising without approval.",
-                  "Do not publish participant data, private chats, or minor photos without consent.",
-                  "Use the Code of Conduct and Privacy Policy for safety-sensitive questions.",
-                ].map((rule) => (
-                  <div key={rule} className="border-2 border-[#120f0a] bg-[#fee9cf] p-4 text-xs sm:text-sm font-bold leading-relaxed text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] rounded-none">
-                    {rule}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Leadership & Contacts */}
-          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-              <div className="space-y-8">
-                <div className="space-y-4">
-                  <h3 className="text-xl font-black text-[#120f0a] flex items-center gap-2 uppercase tracking-tight border-b border-[#120f0a]/10 pb-2">
-                    <Users className="h-5 w-5 text-[#97192c]" />
-                    Executive Leadership
-                  </h3>
-                  <ul className="space-y-3">
-                    {executiveLeadership.map((member) => (
-                      <li key={member.name} className="grid gap-1 border-b border-[#120f0a]/10 pb-3 text-sm sm:grid-cols-[10rem_1fr] sm:items-baseline">
-                        <span className="font-black text-[#120f0a]">{member.name}</span>
-                        <span className="text-xs font-semibold text-[#716f6c]">{member.role}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-black text-[#120f0a] flex items-center gap-2 uppercase tracking-tight border-b border-[#120f0a]/10 pb-2">
-                    <Users className="h-5 w-5 text-[#97192c]" />
-                    Department Leads
-                  </h3>
-                  <ul className="space-y-3">
-                    {departmentLeads.map((member) => (
-                      <li key={member.name} className="grid gap-1 border-b border-[#120f0a]/10 pb-3 text-sm sm:grid-cols-[10rem_1fr] sm:items-baseline">
-                        <span className="font-black text-[#120f0a]">{member.name}</span>
-                        <span className="text-xs font-semibold text-[#716f6c]">{member.role}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="border-3 border-[#120f0a] bg-white p-6 space-y-4 rounded-none shadow-[4px_4px_0px_0px_#120f0a]">
-                <h3 className="text-lg font-black text-[#120f0a] flex items-center gap-2 uppercase border-b border-[#120f0a]/10 pb-2">
-                  <Mail className="h-4 w-4 text-[#97192c]" />
-                  Media Contact
-                </h3>
-                <p className="text-sm text-[#413f3b] font-serif leading-relaxed">
-                  For press inquiries, brand permissions, partnership queries, or logo authorization:
-                </p>
-                <div className="pt-2">
-                  <a
-                    href="mailto:hello@gobitsnbytes.org"
-                    className="inline-flex items-center gap-2 font-mono text-[#97192c] font-black hover:underline hover:text-[#fc920d]"
-                  >
-                    hello@gobitsnbytes.org
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
-                </div>
-
-                <div className="pt-4 border-t border-[#120f0a]/10">
-                  <h4 className="text-xs font-black uppercase text-[#120f0a]">Boilerplate for Journalists</h4>
-                  <p className="text-xs text-[#413f3b] font-serif leading-relaxed mt-1 italic">
-                    "bits&amp;bytes™ is an independent, student-led youth builder network operated by GOBITSNBYTES FOUNDATION (Section 8 non-profit). Founded in Lucknow, India, it connects 1,400+ teenage developers to ship real-world software and run independent hackathons."
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Digital PR & Academic Citation Guide */}
-          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-black text-[#120f0a] flex items-center gap-3 uppercase tracking-wider border-b border-[#120f0a]/15 pb-4">
-                  <FileText className="h-6 w-6 text-[#fc920d]" />
-                  Citations &amp; Digital PR Guidelines
-                </h2>
-                <p className="text-sm text-[#716f6c] font-semibold mt-3">
-                  When citing bits&amp;bytes™ research, event metrics, or brand publications, please use the standard citations below:
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="border-2 border-[#120f0a] bg-[#fee9cf]/30 p-4 rounded-none shadow-[2px_2px_0px_0px_#120f0a]">
-                  <h3 className="text-xs font-mono font-black uppercase text-[#97192c]">APA Citation Format</h3>
-                  <p className="text-xs font-mono text-[#120f0a] mt-2 bg-white p-2.5 border border-[#120f0a] select-all">
-                    GOBITSNBYTES FOUNDATION. (2026). India Youth Tech &amp; Builder Research Metrics. bits&amp;bytes™. https://gobitsnbytes.org/impact
-                  </p>
-                </div>
-
-                <div className="border-2 border-[#120f0a] bg-[#f4d9d1]/30 p-4 rounded-none shadow-[2px_2px_0px_0px_#120f0a]">
-                  <h3 className="text-xs font-mono font-black uppercase text-[#97192c]">BibTeX Format</h3>
-                  <pre className="text-[10px] font-mono text-[#120f0a] mt-2 bg-white p-2.5 border border-[#120f0a] overflow-x-auto select-all">
+      {/* §07 citation + backlink snippets in console chrome, then the outlined closing word */}
+      <section
+        id={chapters[6].id}
+        data-cinematic-section=""
+        data-cinematic-title={chapters[6].title}
+        data-surface="paper"
+        aria-labelledby="citations-title"
+        className="pt-24 min-[760px]:pt-[136px]"
+      >
+        <LabGrid className="gap-y-10">
+          <LabCell>
+            <LabTitle id="citations-title" className={WRAP}>
+              Citations &amp; digital PR
+            </LabTitle>
+          </LabCell>
+          <LabCell span="1/15">
+            <p className={LAB_TEXT.lg}>
+              Citing our research, event metrics, or brand publications? Use one of the formats below.
+            </p>
+          </LabCell>
+          <LabCell span="1/13">
+            <ConsoleWindow title="APA Citation Format" bodyClassName="p-4">
+              <p className={CODE}>
+                GOBITSNBYTES FOUNDATION. (2026). India Youth Tech &amp; Builder Research Metrics. bits&amp;bytes™.
+                https://gobitsnbytes.org/impact
+              </p>
+            </ConsoleWindow>
+          </LabCell>
+          <LabCell span="13/-1">
+            <ConsoleWindow title="BibTeX Format" bodyClassName="p-4">
+              <pre className={CODE}>
 {`@misc{bitsnbytes2026,
   author = {GOBITSNBYTES FOUNDATION},
   title = {bits&bytes: India's Teen Builder Network},
@@ -491,47 +449,43 @@ export default function PressKit() {
   publisher = {GOBITSNBYTES FOUNDATION},
   url = {https://gobitsnbytes.org}
 }`}
-                  </pre>
-                </div>
-              </div>
-            </div>
-          </section>
+              </pre>
+            </ConsoleWindow>
+          </LabCell>
 
-          {/* Backlink Badge Magnet Kit for External Blogs, Repos & Partners */}
-          <section className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[8px_8px_0px_0px_#120f0a] rounded-none">
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-black text-[#120f0a] flex items-center gap-3 uppercase tracking-wider border-b border-[#120f0a]/15 pb-4">
-                  <ExternalLink className="h-6 w-6 text-[#97192c]" />
-                  Embed Badges &amp; Link to Us (Backlink Kit)
-                </h2>
-                <p className="text-sm text-[#716f6c] font-semibold mt-3">
-                  Are you a partner, student builder, event organizer, or tech blogger? Add our official badge to your GitHub README or site to link back to bits&amp;bytes™.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="border-3 border-[#120f0a] bg-[#faf8f5] p-5 shadow-[4px_4px_0px_0px_#120f0a]">
-                  <h3 className="text-xs font-mono font-black uppercase text-[#120f0a] mb-2">Markdown Logo Link (GitHub READMEs)</h3>
-                  <div className="bg-white border-2 border-[#120f0a] p-3 text-[11px] font-mono select-all overflow-x-auto text-[#120f0a]">
-                    {`[![bits&bytes™ logo](https://gobitsnbytes.org/logo)](https://gobitsnbytes.org)`}
-                  </div>
-                  <p className="text-[10px] text-[#716f6c] mt-2 font-serif">Copy and paste into your project README.md file to link to us.</p>
-                </div>
-
-                <div className="border-3 border-[#120f0a] bg-[#faf8f5] p-5 shadow-[4px_4px_0px_0px_#120f0a]">
-                  <h3 className="text-xs font-mono font-black uppercase text-[#120f0a] mb-2">HTML Logo Badge (Websites &amp; Blogs)</h3>
-                  <div className="bg-white border-2 border-[#120f0a] p-3 text-[11px] font-mono select-all overflow-x-auto text-[#120f0a]">
-                    {`<a href="https://gobitsnbytes.org" target="_blank" rel="noopener"><img src="https://gobitsnbytes.org/logo" alt="bits&bytes™ - India's Youth Builder Network" height="36" /></a>`}
-                  </div>
-                  <p className="text-[10px] text-[#716f6c] mt-2 font-serif">Copy and paste into your website footer or partner section.</p>
-                </div>
-              </div>
-            </div>
-          </section>
-          
-        </div>
-      </div>
+          <LabCell className="mt-16 min-[760px]:mt-24">
+            <TableHeader label="Digital PR" />
+          </LabCell>
+          <LabCell span="1/19">
+            <h2 className={LAB_TEXT.title}>Embed a badge and link to us</h2>
+          </LabCell>
+          <LabCell span="1/15">
+            <p className={LAB_TEXT.sm}>
+              Partner, student builder, event organizer, or tech blogger? Put our badge in your GitHub README or on
+              your site and link back to bits&amp;bytes™.
+            </p>
+          </LabCell>
+          <LabCell span="1/13">
+            <ConsoleWindow title="Markdown badge (GitHub READMEs)" bodyClassName="p-4">
+              <p className={CODE}>{`[![bits&bytes™ logo](https://gobitsnbytes.org/logo)](https://gobitsnbytes.org)`}</p>
+              <p className={cn(LAB_TEXT.xs, "mt-3 text-fg/80")}>
+                Paste this into your project&apos;s README.md.
+              </p>
+            </ConsoleWindow>
+          </LabCell>
+          <LabCell span="13/-1">
+            <ConsoleWindow title="HTML badge (websites & blogs)" bodyClassName="p-4">
+              <p className={CODE}>
+                {`<a href="https://gobitsnbytes.org" target="_blank" rel="noopener"><img src="https://gobitsnbytes.org/logo" alt="bits&bytes™ - India's Youth Builder Network" height="36" /></a>`}
+              </p>
+              <p className={cn(LAB_TEXT.xs, "mt-3 text-fg/80")}>
+                Paste this into your site footer or partner section.
+              </p>
+            </ConsoleWindow>
+          </LabCell>
+        </LabGrid>
+        <HollowWord text="Press kit" />
+      </section>
 
       <script
         type="application/ld+json"
@@ -552,6 +506,6 @@ export default function PressKit() {
           }),
         }}
       />
-    </div>
+    </>
   );
 }

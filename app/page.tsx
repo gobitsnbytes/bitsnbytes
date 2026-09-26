@@ -1,208 +1,71 @@
-"use client";
-
-import Link from "next/link";
 import {
-  ArrowRight,
-  CodeXml,
-  Users,
-  Rocket,
-  Lightbulb,
-  Trophy,
-  Sparkles,
-  ChevronDown,
-} from "lucide-react";
-import dynamic from "next/dynamic";
-import { Suspense, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
-
-import { HeroMovement } from "@/components/ui/hero-movement";
-import { PageSection } from "@/components/page-section";
-import { Features } from "@/components/ui/features-8";
-import { Button } from "@/components/ui/button";
-import { LoadingInline } from "@/components/loading-wrapper";
+  HomeFaq,
+  HomeHero,
+  HomeReel,
+  HomeVoices,
+  HomeWorks,
+  type HomeFaqItem,
+} from "@/components/home";
+import { IndentStatement } from "@/components/edition/indent-statement";
+import { Character } from "@/components/character/character";
+import { TornEdge } from "@/components/riot/chapter";
 import { Partners } from "@/components/partners";
 
-// Lazy load heavy components
-const Testimonial = dynamic(
-  () =>
-    import("@/components/ui/design-testimonial").then((mod) => ({
-      default: mod.Testimonial,
-    })),
-  {
-    loading: () => <LoadingInline />,
-    ssr: true,
-  },
-);
-
-// GlassIcons removed in favor of Features bento grid
-
-const stats = [
-  { value: "1400+", label: "Community Members", detail: "active builders nationwide" },
-  { 
-    value: "5+ Forks", 
-    label: "Local Hubs", 
-    detail: (
-      <span>
-        city chapters — view at{" "}
-        <a 
-          href="/fork" 
-          className="text-primary dark:text-accent underline hover:text-accent dark:hover:text-primary transition-colors font-bold"
-        >
-          gobitsnbytes.org/fork
-        </a>
-      </span>
-    )
-  },
-  { value: "4+ Events", label: "Nationwide Events", detail: "hackathons and workshops" },
-  { value: "16.5 Years", label: "Mean Team Age", detail: "average age of our team" },
-];
-
-interface HomeFAQItem {
-  question: string;
-  answer: string;
-}
-
-const homeFaqs: HomeFAQItem[] = [
+const homeFaqs: HomeFaqItem[] = [
   {
     question: "Who can join bits&bytes™?",
     answer:
-      "Any teenager aged 13-19 interested in coding, designing, or building products. Beginners are extremely welcome! No prior experience is required—you will learn by doing alongside other builders.",
+      "Any teenager aged 13–19 who wants to code, design or build products. Beginners are welcome and you don't need any prior experience. You learn by building next to people who are doing the same thing.",
   },
   {
     question: "Are the hackathons and workshops free?",
     answer:
-      "Yes, all bits&bytes™ events, cohorts, hackathons, and workshops are 100% free to attend, with meals, drinks, and stickers fully covered.",
+      "Yes. Every bits&bytes™ event, cohort, hackathon and workshop is free to attend, and we cover meals, drinks and stickers. Workshops run inside our hackathons, as part of the build.",
   },
   {
     question: "What makes bits&bytes™ different from other student groups?",
     answer:
-      "We are completely student-led, youth-led, and independent. We focus 100% on shipping real projects and developer agency. There are no passive lectures or boring slides—just pure coding and building.",
+      "Students run it, and we're independent: we aren't a branch of any outside group. Every event is built around shipping a real project. There are no passive lectures or slide decks, only people writing code and building things.",
   },
   {
-    question: "How do local hubs (Forks) work?",
+    question: "How do forks (local chapters) work?",
     answer:
-      "Forks are our local student-led chapters. Any teen builder can apply to start a Fork in their school or city to run events and workshops under our brand, with operational support and mentorship from Upstream.",
+      "Like a fork on GitHub: your own copy of upstream that stays linked to the original. Any teen builder can apply to start one in their school or city and run events under our brand, with operational support and mentorship from upstream. Apply at gobitsnbytes.org/fork.",
   },
 ];
 
+// buttermax 1:1 in brand (DESIGN.md "Homepage"): orange hero → curtain reel → one long paper panel
+// (statement, works grid) torn over the reel → partners → FAQ → voices.
+// No wrapper element: #film's fixed media needs ancestors without transform/filter.
 export default function Home() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
   return (
     <>
-      <div className="flex flex-col w-full max-w-full overflow-x-hidden bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] transition-colors duration-300">
-        <HeroMovement />
+      <HomeHero />
+      <HomeReel />
 
-        <PageSection
-          eyebrow="Impact"
-          title="Shipped, not just taught"
-          description="A teen-led builders network. Workshops and hackathons that end with something shipped, not just something learned."
-        >
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat, idx) => (
-              <div
-                key={stat.label}
-                className="bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a]/15 dark:border-[#faf8f5]/15 p-6 sm:p-8 relative flex flex-col justify-between hover:border-[#120f0a] dark:hover:border-[#faf8f5] transition-colors duration-200"
-              >
-                {/* Technical coordinate marker */}
-                <span className="absolute top-2 right-3 text-[7px] font-mono text-[#120f0a]/30 dark:text-[#faf8f5]/30">
-                  [METRIC_0{idx + 1}]
-                </span>
-                <div className="space-y-4">
-                  <p className="font-accent-sans text-4xl sm:text-5xl text-[#120f0a] dark:text-[#faf8f5] leading-none tracking-tight">
-                    {stat.value}
-                  </p>
-                  <div>
-                    <h3 className="font-mono text-[10px] uppercase tracking-wider text-[#120f0a] dark:text-[#faf8f5] font-bold">
-                      {stat.label}
-                    </h3>
-                    <div className="font-serif-brand text-xs sm:text-sm text-[#120f0a]/70 dark:text-[#faf8f5]/70 leading-relaxed mt-2">
-                      {stat.detail}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </PageSection>
+      <TornEdge from="ink" to="paper" flip />
+      <IndentStatement
+        label="WHO WE ARE"
+        number={1}
+        id="who-we-are"
+        className="[&>div]:px-[4vw]"
+        aside={
+          <Character
+            pose="wave"
+            sizes="(min-width: 768px) 100px, 0px"
+            className="absolute bottom-0 right-[4vw] hidden w-[clamp(80px,6.5vw,100px)] px-0! md:block"
+          />
+        }
+      >
+        We&apos;re a teen-led builder network across India, and our answer to rigid, beginner-locked tech events.
+        Teenagers run every part of it, and we built it from scratch.
+      </IndentStatement>
+      <HomeWorks />
 
-        <PageSection
-          eyebrow="What We Do"
-          title="What we actually do"
-          description="The stuff we run"
-          align="center"
-        >
-          <Features />
-        </PageSection>
+      <Partners />
+      <HomeFaq faqs={homeFaqs} />
+      <HomeVoices />
 
-        <Partners />
-
-        {/* Homepage FAQ Section */}
-        <PageSection
-          eyebrow="FAQ"
-          title="Frequently Asked Questions"
-          description="Everything you need to know about joining India's boldest builder network."
-          align="center"
-        >
-          <div className="mx-auto max-w-4xl space-y-3 text-left">
-            {homeFaqs.map((faq, index) => {
-              const isOpen = openFaq === index;
-
-              return (
-                <div
-                  key={index}
-                  className="bg-[#faf8f5] dark:bg-[#120f0a] border border-[#120f0a]/15 dark:border-[#faf8f5]/15 transition-all duration-200"
-                >
-                  <button
-                    onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="flex w-full items-center justify-between gap-4 p-5 sm:p-6 text-left transition-colors hover:bg-[#120f0a]/5 dark:hover:bg-[#faf8f5]/5"
-                  >
-                    <h3 className="font-accent-sans text-lg sm:text-xl font-normal text-[#120f0a] dark:text-[#faf8f5] pr-4 uppercase tracking-tight">
-                      {faq.question}
-                    </h3>
-                    <div
-                      className={cn(
-                        "flex h-7 w-7 shrink-0 items-center justify-center border border-[#120f0a] dark:border-[#faf8f5] bg-[#faf8f5] dark:bg-[#120f0a] text-[#120f0a] dark:text-[#faf8f5] transition-all duration-200",
-                        isOpen && "rotate-180 bg-[#120f0a] dark:bg-[#faf8f5] text-[#faf8f5] dark:text-[#120f0a]",
-                      )}
-                    >
-                      <ChevronDown className="h-4 w-4" />
-                    </div>
-                  </button>
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2, ease: "easeInOut" }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-5 sm:px-6 pb-5 sm:pb-6 border-t border-[#120f0a]/10 dark:border-[#faf8f5]/10 mt-1 pt-4">
-                          <p className="font-serif-brand text-sm sm:text-base text-[#120f0a]/80 dark:text-[#faf8f5]/80 leading-relaxed">
-                            {faq.answer}
-                          </p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              );
-            })}
-          </div>
-        </PageSection>
-
-        <PageSection
-          eyebrow="Stories"
-          title="Voices from the crew"
-          align="center"
-        >
-          <Suspense fallback={<LoadingInline />}>
-            <Testimonial />
-          </Suspense>
-        </PageSection>
-      </div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

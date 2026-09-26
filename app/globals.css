@@ -2,12 +2,34 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+/* Site motion toggle: ExperienceProvider sets html[data-immersive-motion="off"]. Usage: motion-off:animate-none */
+@custom-variant motion-off (&:where([data-immersive-motion="off"] *));
 
 :root {
-    --font-sans-brand: "Helvetica Now Display", "Helvetica Now Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --font-display-brand: "Helvetica Now Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-sans-brand: "Helvetica Now Display", "Helvetica Now Text", "Helvetica Neue", Helvetica, var(--font-archivo), Arial, sans-serif;
+    --font-display-brand: "Helvetica Now Display", "Helvetica Neue", Helvetica, var(--font-archivo), Arial, sans-serif;
     --font-serif-brand: "Georgia Pro", Georgia, "Times New Roman", serif;
-    --font-script-brand: "Palm Club", "Brush Script MT", "Segoe Script", cursive;
+    --font-script-brand: "Palm Club", var(--font-yellowtail), cursive;
+
+    /* ---- Print Riot palette (DESIGN.md; fixed across themes) ---- */
+    --paper: #faf8f5;
+    --paper-2: #eae8e4;
+    --cream: #fee9cf;
+    --ink: #120f0a;
+    --burgundy: #97192c;
+    --burgundy-dk: #791423;
+    --orange: #fc920d;
+    --orange-lt: #fda83d;
+    --warm: #c94218;
+    --cobalt: #2b39ff;
+    --marker: var(--bb-warm-60); /* #df8e74 coral, brand warm range */
+    --slime: #12e29b;
+
+    /* ---- Structure ---- */
+    --bw: 3px;
+    --bw-thick: 5px;
+    --radius: 0px;
+    --page: var(--paper);
 
     --bb-burgundy-100: #97192c;
     --bb-burgundy-80: #791423;
@@ -42,29 +64,6 @@
     --brand-midnight: var(--bb-burgundy-20);
     --brand-ink: var(--bb-neutral-100);
 
-    --background: #eae8e4;
-    --foreground: #120f0a;
-    --card: #ffffff;
-    --card-foreground: #120f0a;
-    --popover: #ffffff;
-    --popover-foreground: #120f0a;
-    --muted: #eae8e4;
-    --muted-foreground: #716f6c;
-    --border: #120f0a;
-    --input: #ffffff;
-
-    --primary: var(--bb-burgundy-100);
-    --primary-foreground: #fff9f4;
-    --secondary: #fee9cf;
-    --secondary-foreground: #120f0a;
-    --accent: var(--bb-orange-100);
-    --accent-foreground: #120f0a;
-    --destructive: #f04438;
-    --destructive-foreground: #ffffff;
-
-    --ring: rgba(252, 146, 13, 0.4);
-    --radius: 18px;
-
     --glow-strong: 0 20px 70px rgba(252, 146, 13, 0.24);
     --glow-soft: 0 10px 32px rgba(151, 25, 44, 0.28);
     --shadow-card: 0 20px 60px rgba(18, 15, 10, 0.5);
@@ -86,28 +85,86 @@
     --sidebar-ring: rgba(255, 122, 27, 0.38);
 }
 
-.dark {
-    --background: #120f0a;
-    --foreground: #fee9cf;
+/*
+ * Semantic colour set. Light = page default + light chapter tones; dark = .dark theme + ink
+ * poster chapters. Everything inside a .tone-* scope (Chapter, Stat, ...) re-resolves
+ * border / shadow / text colours automatically.
+ */
+:root,
+.tone-orange,
+.tone-cream {
+    --surface: var(--paper);
+    --surface-2: var(--paper-2);
+    --fg: var(--ink);
+    --line: var(--ink);
+    --shadow-color: var(--ink);
+    --signal: var(--burgundy);
+    --focus-ring: var(--cobalt);
+
+    --background: var(--paper);
+    --foreground: var(--ink);
+    --card: #ffffff;
+    --card-foreground: var(--ink);
+    --popover: #ffffff;
+    --popover-foreground: var(--ink);
+    --muted: var(--paper-2);
+    --muted-foreground: #716f6c;
+    --border: var(--ink);
+    --input: #ffffff;
+
+    --primary: var(--burgundy);
+    --primary-foreground: var(--paper);
+    --secondary: var(--cream);
+    --secondary-foreground: var(--ink);
+    --accent: var(--orange);
+    --accent-foreground: var(--ink);
+    --destructive: var(--warm);
+    --destructive-foreground: #ffffff;
+
+    --ring: var(--cobalt);
+}
+
+/* burgundy on orange is < 4.5:1 for small text */
+.tone-orange {
+    --signal: var(--ink);
+}
+
+.dark,
+.tone-ink {
+    --surface: var(--ink);
+    --surface-2: #1e0509;
+    --fg: var(--paper);
+    --line: var(--cream);
+    --shadow-color: var(--cream);
+    --signal: var(--orange);
+    /* cobalt on ink is < 3:1, so the focus ring flips to the coral marker on dark surfaces */
+    --focus-ring: var(--marker);
+
+    --background: var(--ink);
+    --foreground: var(--cream);
     --card: #1e0509;
-    --card-foreground: #fee9cf;
+    --card-foreground: var(--cream);
     --popover: #1e0509;
-    --popover-foreground: #fee9cf;
+    --popover-foreground: var(--cream);
     --muted: #1e0509;
     --muted-foreground: #a09f9d;
-    --border: #fee9cf;
+    --border: var(--cream);
     --input: #1e0509;
 
-    --primary: #fee9cf;
+    --primary: var(--cream);
     --primary-foreground: #2a0804;
-    --secondary: #97192c;
-    --secondary-foreground: #fee9cf;
-    --accent: var(--bb-orange-100);
+    --secondary: var(--burgundy);
+    --secondary-foreground: var(--cream);
+    --accent: var(--orange);
     --accent-foreground: #2a0804;
     --destructive: #f87171;
     --destructive-foreground: #1f0508;
 
-    --ring: rgba(255, 122, 27, 0.45);
+    --ring: var(--marker);
+}
+
+.dark {
+    --page: var(--ink);
 
     --glow-strong: 0 26px 92px rgba(252, 146, 13, 0.32);
     --glow-soft: 0 14px 42px rgba(151, 25, 44, 0.35);
@@ -148,10 +205,6 @@
     --color-chart-3: var(--chart-3);
     --color-chart-4: var(--chart-4);
     --color-chart-5: var(--chart-5);
-    --radius-sm: calc(var(--radius) - 6px);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) + 6px);
     --color-sidebar: var(--sidebar);
     --color-sidebar-foreground: var(--sidebar-foreground);
     --color-sidebar-primary: var(--sidebar-primary);
@@ -160,6 +213,70 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    /* Print Riot palette: bg-ink, text-burgundy, border-ink, bg-marker, ... */
+    --color-paper: var(--paper);
+    --color-paper-2: var(--paper-2);
+    --color-cream: var(--cream);
+    --color-ink: var(--ink);
+    --color-burgundy: var(--burgundy);
+    --color-burgundy-dk: var(--burgundy-dk);
+    --color-orange: var(--orange);
+    --color-orange-lt: var(--orange-lt);
+    --color-warm: var(--warm);
+    --color-cobalt: var(--cobalt);
+    --color-marker: var(--marker);
+    --color-slime: var(--slime);
+
+    /* Semantic: flip in .dark and inside .tone-* scopes */
+    --color-page: var(--page);
+    --color-surface: var(--surface);
+    --color-surface-2: var(--surface-2);
+    --color-fg: var(--fg);
+    --color-line: var(--line);
+    --color-signal: var(--signal);
+
+    /* font-sans: Helvetica Now -> Helvetica Neue -> Archivo; font-display: Anton;
+       font-serif: Georgia Pro; font-script: Palm Club -> Yellowtail;
+       font-mono: Space Mono (next/font writes --font-mono on <html>). */
+    --font-sans: var(--font-sans-brand);
+    --font-serif: var(--font-serif-brand);
+    --font-display: var(--font-accent-sans), "Arial Narrow", Impact, sans-serif;
+    --font-script: var(--font-script-brand);
+
+    /* Hard offset shadows, never blurred; colour follows --shadow-color */
+    --shadow-riot-sm: 3px 3px 0 0 var(--shadow-color);
+    --shadow-riot: 6px 6px 0 0 var(--shadow-color);
+    --shadow-riot-lg: 10px 10px 0 0 var(--shadow-color);
+    --shadow-riot-xl: 16px 16px 0 0 var(--shadow-color);
+    --shadow-riot-color: 6px 6px 0 0 var(--burgundy);
+
+    /* Square corners everywhere (rounded-full stays round) */
+    --radius-xs: var(--radius);
+    --radius-sm: var(--radius);
+    --radius-md: var(--radius);
+    --radius-lg: var(--radius);
+    --radius-xl: var(--radius);
+    --radius-2xl: var(--radius);
+    --radius-3xl: var(--radius);
+    --radius-4xl: var(--radius);
+
+    --ease-riot: cubic-bezier(0.23, 1, 0.32, 1);
+
+    --animate-riot-pulse: riot-pulse 1.4s steps(2) infinite;
+    --animate-riot-marquee: riot-marquee var(--marquee-duration, 30s) linear infinite;
+
+    @keyframes riot-pulse {
+        50% {
+            opacity: 0.35;
+        }
+    }
+
+    @keyframes riot-marquee {
+        to {
+            transform: translate3d(-50%, 0, 0);
+        }
+    }
 }
 
 @layer base {
@@ -168,9 +285,10 @@
         box-sizing: border-box;
     }
 
+    /* clip, not hidden: hidden makes html/body scroll containers and breaks sticky + ScrollTrigger pins */
     html,
     body {
-        @apply overflow-x-hidden;
+        overflow-x: clip;
         max-width: 100vw;
     }
 
@@ -189,15 +307,114 @@
         font-family: var(--font-display-brand);
     }
 
+    :focus-visible {
+        outline: 3px solid var(--focus-ring);
+        outline-offset: 3px;
+    }
+
     ::selection {
         background: color-mix(in srgb, var(--accent) 65%, transparent);
         color: var(--primary-foreground);
     }
 }
 
+/* ==========================================
+   PRINT RIOT: chapter tones + print textures (design/neobrutalism-design-system.html)
+   @layer components so utilities (absolute, bg-*, opacity-*) still override.
+   ========================================== */
+@layer components {
+    .tone-paper {
+        background-color: var(--page);
+        color: var(--fg);
+    }
+
+    .tone-ink {
+        background-color: var(--ink);
+        color: var(--paper);
+    }
+
+    .tone-orange {
+        background-color: var(--orange);
+        color: var(--ink);
+    }
+
+    .tone-cream {
+        background-color: var(--cream);
+        color: var(--ink);
+    }
+
+    .halftone {
+        background-image: radial-gradient(var(--ink) 1.5px, transparent 1.8px);
+        background-size: 7px 7px;
+    }
+
+    .halftone-orange {
+        background-image: radial-gradient(var(--orange) 1.6px, transparent 1.9px);
+        background-size: 7px 7px;
+    }
+
+    /* gradient-density risograph fade */
+    .halftone-fade {
+        background:
+            radial-gradient(var(--ink) 1.4px, transparent 1.7px) 0 0 / 6px 6px,
+            radial-gradient(var(--ink) 1.4px, transparent 1.7px) 3px 3px / 6px 6px;
+        -webkit-mask-image: linear-gradient(180deg, #000, transparent);
+        mask-image: linear-gradient(180deg, #000, transparent);
+    }
+
+    /* orange -> warm -> burgundy plate with halftone bite */
+    .riso {
+        background:
+            radial-gradient(circle at 1px 1px, rgba(18, 15, 10, 0.55) 1px, transparent 1.4px) 0 0 / 6px 6px,
+            linear-gradient(135deg, var(--orange) 0%, var(--warm) 45%, var(--burgundy) 100%);
+    }
+
+    .dither,
+    .noise {
+        position: relative;
+        isolation: isolate;
+    }
+
+    .dither::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        mix-blend-mode: multiply;
+        opacity: 0.5;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Cpath fill='%23120f0a' d='M0 0h1v1H0zM2 2h1v1H2z'/%3E%3C/svg%3E");
+        background-size: 4px 4px;
+    }
+
+    .noise::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        mix-blend-mode: overlay;
+        opacity: 0.5;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Faint page-wide halftone dot field (on <body>): paints behind in-flow content, shows through transparent areas */
+    .halftone-field::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background-image: radial-gradient(var(--fg) 1px, transparent 1.4px);
+        background-size: 22px 22px;
+        opacity: 0.05;
+    }
+}
+
 @layer utilities {
+    /* font-display now comes from @theme (Anton, single weight): never fake-bold it under font-black */
     .font-display {
-        font-family: var(--font-display-brand);
+        font-synthesis-weight: none;
     }
 
     .font-serif-brand {
@@ -287,7 +504,7 @@
     }
 
     .section-shell {
-        @apply relative mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16 overflow-x-hidden;
+        @apply relative mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16 overflow-x-clip;
         max-width: min(72rem, 100vw);
         /* Performance optimizations for off-screen rendering */
         content-visibility: auto;
@@ -964,142 +1181,4 @@
 /* Micro transition */
 .transition-movement {
     transition: all 200ms var(--ease-movement);
-}
-
-/* ==========================================
-   CINEMATIC EXPERIENCE LAYER
-   ========================================== */
-
-.cinematic-section {
-    position: relative;
-    scroll-margin-top: 7rem;
-}
-
-.cinematic-section::after {
-    content: attr(data-cinematic-index);
-    position: absolute;
-    top: clamp(0.75rem, 2vw, 1.5rem);
-    right: clamp(0.75rem, 2vw, 1.5rem);
-    z-index: 20;
-    color: color-mix(in oklch, var(--foreground) 48%, transparent);
-    font-family: var(--font-mono), monospace;
-    font-size: 0.5rem;
-    font-weight: 800;
-    letter-spacing: 0.24em;
-    line-height: 1;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(5px);
-    transition:
-        opacity 180ms cubic-bezier(0.23, 1, 0.32, 1),
-        transform 240ms cubic-bezier(0.23, 1, 0.32, 1),
-        color 180ms ease;
-}
-
-.cinematic-section.is-cinematic-active::after {
-    color: var(--primary);
-    opacity: 0.72;
-    transform: translateY(0);
-}
-
-.dark .cinematic-section.is-cinematic-active::after {
-    color: var(--accent);
-}
-
-.cinematic-scroll-rail {
-    filter: drop-shadow(0 1px 0 color-mix(in oklch, var(--background) 72%, transparent));
-}
-
-/* Driver.js is intentionally styled like a printed field note, not a modal card. */
-.driver-popover.bnb-driver-popover {
-    max-width: min(20rem, calc(100vw - 2rem));
-    border: 2px solid #120f0a;
-    border-radius: 0;
-    background: #faf8f5;
-    color: #120f0a;
-    box-shadow: 6px 6px 0 #120f0a;
-    padding: 1rem;
-}
-
-.dark .driver-popover.bnb-driver-popover {
-    border-color: #faf8f5;
-    background: #120f0a;
-    color: #faf8f5;
-    box-shadow: 6px 6px 0 #97192c;
-}
-
-.driver-popover.bnb-driver-popover .driver-popover-title {
-    font-family: var(--font-accent-sans), sans-serif;
-    font-size: 1.35rem;
-    font-weight: 400;
-    line-height: 0.95;
-    text-transform: uppercase;
-}
-
-.driver-popover.bnb-driver-popover .driver-popover-description {
-    margin-top: 0.65rem;
-    font-family: Georgia, serif;
-    font-size: 0.875rem;
-    line-height: 1.55;
-}
-
-.driver-popover.bnb-driver-popover .driver-popover-progress-text {
-    color: #716f6c;
-    font-family: var(--font-mono), monospace;
-    font-size: 0.6rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-}
-
-.driver-popover.bnb-driver-popover .driver-popover-footer button {
-    min-height: 2.25rem;
-    border: 2px solid #120f0a;
-    border-radius: 0;
-    background: transparent;
-    color: #120f0a;
-    font-family: var(--font-mono), monospace;
-    font-size: 0.625rem;
-    font-weight: 900;
-    letter-spacing: 0.12em;
-    text-shadow: none;
-    text-transform: uppercase;
-    transition:
-        transform 150ms cubic-bezier(0.23, 1, 0.32, 1),
-        box-shadow 150ms cubic-bezier(0.23, 1, 0.32, 1),
-        background-color 150ms ease,
-        color 150ms ease;
-}
-
-.driver-popover.bnb-driver-popover .driver-popover-footer button:hover,
-.driver-popover.bnb-driver-popover .driver-popover-footer button:focus-visible {
-    background: #fc920d;
-    box-shadow: 2px 2px 0 #120f0a;
-    color: #120f0a;
-    transform: translate(-1px, -1px);
-}
-
-.dark .driver-popover.bnb-driver-popover .driver-popover-footer button {
-    border-color: #faf8f5;
-    color: #faf8f5;
-}
-
-.dark .driver-popover.bnb-driver-popover .driver-popover-footer button:hover,
-.dark .driver-popover.bnb-driver-popover .driver-popover-footer button:focus-visible {
-    color: #120f0a;
-}
-
-.driver-popover.bnb-driver-popover .driver-popover-close-btn {
-    min-height: 2.25rem;
-    min-width: 2.25rem;
-    color: currentColor;
-}
-
-.driver-popover.bnb-driver-popover .driver-popover-arrow {
-    display: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .cinematic-section::after {
-        transform: none;
-    }
 }

@@ -1,8 +1,10 @@
 import { ImageResponse } from 'next/og'
 
+import { FORKS } from '@/lib/forks'
+
 export const runtime = 'edge'
 
-export const alt = 'bits&bytes™ - 1400+ Teen Builders | High-Impact Execution'
+export const alt = 'bits&bytes™: a pan-India builder network run by teenagers'
 export const size = {
   width: 1200,
   height: 630,
@@ -143,7 +145,7 @@ export default async function Image() {
               }}
             >
               <div style={{ fontSize: '15px', fontWeight: 700, color: '#fda83d', letterSpacing: '2.5px', textTransform: 'uppercase' }}>
-                India&apos;s Teen-Led Builders Network
+                Teen-led builder network
               </div>
               <div style={{ fontSize: '42px', fontWeight: 900, lineHeight: 1.05, color: '#f7f1ec' }}>
                 bits&amp;bytes™
@@ -169,7 +171,7 @@ export default async function Image() {
                 color: '#ffffff',
               }}
             >
-              Building India&apos;s next generation of founders, engineers, and problem solvers.
+              A builder network run by teenagers across India. We ship real software.
             </div>
 
             <div
@@ -181,7 +183,7 @@ export default async function Image() {
                 fontWeight: 500,
               }}
             >
-              High-agency community. Real products. Real velocity. Real outcomes.
+              No uncs in the room. Just people who came to ship.
             </div>
           </div>
 
@@ -194,9 +196,9 @@ export default async function Image() {
             }}
           >
             {[
-              { label: 'Community Size', value: '1400+', note: 'Teen builders active' },
-              { label: 'Local Hubs', value: '5+ Forks', note: 'gobitsnbytes.org/fork' },
-              { label: 'Nationwide', value: '4+ Events', note: 'Hackathons & workshops' },
+              { label: 'Community', value: 'Pan-India', note: 'Teen builders, ages 13–19' },
+              { label: 'Local Hubs', value: 'Forks', note: 'gobitsnbytes.org/fork' },
+              { label: 'Events', value: 'Hackathons', note: 'Workshops run inside them' },
             ].map((item) => (
               <div
                 key={item.label}
@@ -236,7 +238,7 @@ export default async function Image() {
               fontWeight: 500,
             }}
           >
-            <div>Impact Highlight: 1400+ members, 5+ forks, 4+ events. Mean team age: 16.5 years.</div>
+            <div style={{ fontSize: '15px' }}>{`Forks: ${FORKS.map((fork) => fork.city).join(' · ')}`}</div>
             <div style={{ color: '#ffffff', fontWeight: 700 }}>gobitsnbytes.org</div>
           </div>
         </div>

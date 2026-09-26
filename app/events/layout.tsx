@@ -1,9 +1,13 @@
 import { Metadata } from "next";
 
+import { communityPartnerEvents } from "@/lib/events-data";
+
+const TITLE = "Hackathons and events across India";
+const DESCRIPTION = "Hackathons across India we've run, co-hosted or backed, from Execron at IIT Kanpur to India Innovates, with the footage and photos from each.";
+
 export const metadata: Metadata = {
-  title: "Events | Hackathons & Workshops — bits&bytes™",
-  description:
-    "Explore bits&bytes™ events: Hack4Good v0 (425+ registrations, ₹35K prize pool), GitHub Copilot Dev Days, Execron 1.0 at IIT Kanpur, and India Innovates 2026 — pan-India youth hackathons.",
+  title: TITLE,
+  description: DESCRIPTION,
   keywords: [
     "India Innovates 2026",
     "hack4good lucknow",
@@ -15,23 +19,23 @@ export const metadata: Metadata = {
     "bits&bytes™ events",
     "student hackathons",
     "free youth workshops india",
+    "community partner hackathons",
+    ...communityPartnerEvents.map((ev) => ev.name),
   ],
   alternates: {
     canonical: "https://gobitsnbytes.org/events",
   },
   openGraph: {
-    title: "Events | Hackathons & Workshops — bits&bytes™",
-    description:
-      "Hack4Good v0 (425+ registrations, ₹35K prize pool), GitHub Copilot Dev Days, Execron 1.0 at IIT Kanpur, and India Innovates 2026. Free youth hackathons across India.",
+    title: `${TITLE} | bits&bytes™`,
+    description: DESCRIPTION,
     url: "https://gobitsnbytes.org/events",
     type: "website",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "bits&bytes™ Events — Hackathons & Workshops across India" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "bits&bytes™ events: hackathons across India" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Events | Hackathons & Workshops — bits&bytes™",
-    description:
-      "Hack4Good v0, GitHub Copilot Dev Days, Execron 1.0 at IIT Kanpur, and India Innovates 2026. Free youth hackathons across India.",
+    title: `${TITLE} | bits&bytes™`,
+    description: DESCRIPTION,
   },
 };
 
@@ -43,7 +47,7 @@ const eventsJsonLd = {
       "@type": "WebPage",
       "@id": "https://gobitsnbytes.org/events#webpage",
       url: "https://gobitsnbytes.org/events",
-      name: "Events | Hackathons & Workshops — bits&bytes™",
+      name: `${TITLE} | bits&bytes™`,
       isPartOf: { "@id": "https://gobitsnbytes.org/#website" },
       breadcrumb: {
         "@type": "BreadcrumbList",
@@ -91,7 +95,7 @@ const eventsJsonLd = {
     {
       "@type": "Event",
       "@id": "https://gobitsnbytes.org/events#github-copilot-dev-days",
-      name: "GitHub Copilot Dev Days — Lucknow",
+      name: "GitHub Copilot Dev Days | Lucknow",
       description: "Community developer event in Lucknow focused on AI-assisted coding with GitHub Copilot. Hosted by bits&bytes™.",
       startDate: "2026-04-19",
       eventStatus: "https://schema.org/EventScheduled",
@@ -122,6 +126,23 @@ const eventsJsonLd = {
       },
       organizer: { "@type": "Organization", name: "HN Group & MCD" },
     },
+    // Other teams' events, with bits&bytes™ as community partner (contributor, not organiser).
+    ...communityPartnerEvents
+      .filter((ev) => ev.startDate)
+      .map((ev) => ({
+        "@type": "Event",
+        "@id": `https://gobitsnbytes.org/events#${ev.id}`,
+        name: ev.name,
+        description: ev.description,
+        startDate: ev.startDate,
+        ...(ev.endDate ? { endDate: ev.endDate } : {}),
+        eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+        eventStatus: "https://schema.org/EventScheduled",
+        location: { "@type": "VirtualLocation", url: ev.url },
+        url: ev.url,
+        organizer: { "@type": "Organization", name: ev.host },
+        contributor: { "@id": "https://gobitsnbytes.org/#organization" },
+      })),
   ],
 };
 

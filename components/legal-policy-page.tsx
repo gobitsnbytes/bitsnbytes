@@ -1,49 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import type { LucideIcon } from "lucide-react";
-import { 
-  Search, 
-  ArrowUpRight, 
-  Mail, 
-  AlertTriangle, 
-  Check, 
-  ArrowUp, 
-  ChevronDown
-} from "lucide-react";
-import ReactMarkdown from "react-markdown";
+import { useMemo, useState, type ReactNode } from "react";
+import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-// IMPECCABLE_PREFLIGHT: context=pass product=pass command_reference=pass shape=not_required image_gate=skipped:using_css_styling_no_new_image_assets_needed mutation=open
-
-// Starburst component for branding/retro aesthetics
-const Starburst = ({ className = "text-[#97192c]", size = 32 }: { className?: string; size?: number }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 100 100"
-    fill="currentColor"
-    className={className}
-    aria-hidden="true"
-  >
-    <path d="M50 0 L58 28 L85 15 L70 39 L97 50 L70 61 L85 85 L58 72 L50 100 L42 72 L15 85 L30 61 L3 50 L30 39 L15 15 L42 28 Z" />
-  </svg>
-);
-
-// Four-pointed sparkle star
-const SparkleStar = ({ className = "text-[#fc920d]", size = 16 }: { className?: string; size?: number }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className}
-    aria-hidden="true"
-  >
-    <path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" />
-  </svg>
-);
+import { useOptionalExperience } from "@/components/experience-provider";
+import { EditionOpener, EDITION_GUTTER } from "@/components/edition";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Tag, TornEdge } from "@/components/riot";
+import { cn } from "@/lib/utils";
 
 export type LegalSection = {
   id: string;
@@ -55,465 +19,425 @@ type LegalPolicyPageProps = {
   title: string;
   summary: string;
   updated: string;
-  icon: LucideIcon;
   sections: LegalSection[];
   markdown: string;
   highlights?: string[];
 };
 
-function legalSlug(children: React.ReactNode) {
-  return React.Children.toArray(children)
-    .join("")
+const ENQUIRIES = [
+  {
+    q: "Who is responsible for the operations of the Foundation?",
+    a: "GOBITSNBYTES FOUNDATION is governed by its Board of Directors who hold ultimate fiduciary, financial, and legal authority. Operational leadership roles (CEO, CTO, COO, etc.) coordinate day-to-day work.",
+  },
+  {
+    q: "How can I exercise my data rights or verify parental consent?",
+    a: "Under the DPDP Act 2023, you or your guardian can request access, correction, or deletion of personal data by emailing hello@gobitsnbytes.org.",
+  },
+];
+
+const EMAIL = "hello@gobitsnbytes.org";
+const ASIDE = /<aside>([\s\S]*?)<\/aside>/g;
+const NUMBERED = /^(\d+(?:\.\d+)*\.?)\s+(.*)$/;
+const MONO_LABEL = "font-mono text-[11px] font-bold uppercase tracking-[0.18em]";
+
+function legalSlug(text: string) {
+  return text
     .toLowerCase()
     .replace(/[^\w\s-]/g, "")
     .trim()
     .replace(/\s+/g, "-");
 }
 
-export function LegalPolicyPage({
-  badge,
-  title,
-  summary,
-  updated,
-  icon: Icon,
-  sections,
-  markdown,
-  highlights = [],
-}: LegalPolicyPageProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeSection, setActiveSection] = useState(sections[0]?.id ?? "");
-  const [isCopied, setIsCopied] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+const plain = (children: ReactNode) => (Array.isArray(children) ? children.join("") : String(children ?? ""));
 
-  const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+/**
+ * "3.1 What We Expect" → mono clause number + title (same text, two styles). hideNumber keeps the
+ * number for screen readers only, where the sticky rail already prints it large.
+ */
+function Clause({ text, hideNumber = false }: { text: string; hideNumber?: boolean }) {
+  const match = NUMBERED.exec(text);
+  if (!match) return <>{text}</>;
+  return (
+    <>
+      <span className={hideNumber ? "sr-only" : "mr-1.5 font-mono text-[0.72em] font-bold tracking-normal text-signal"}>
+        {match[1]}
+      </span>{" "}
+      {match[2]}
+    </>
+  );
+}
 
-  // Monitor scroll for ScrollTop and ActiveSection tracking
-  useEffect(() => {
-    const handleScroll = () => {
-      // Show scroll to top button
-      setShowScrollTop(window.scrollY > 400);
+/**
+ * Splits the policy markdown into the intro <aside>, one entry per "## " section and the closing
+ * line after the final "---". Words are untouched; only the layout changes.
+ */
+function parseDocument(markdown: string) {
+  const [pre, ...chunks] = markdown.split(/^## /m);
+  const intro = [...pre.matchAll(ASIDE)].map((m) => m[1].trim());
+  const preRest = pre.replace(ASIDE, "").replace(/^\s*---\s*$/gm, "").trim();
+  let colophon = "";
 
-      // Scroll Spy logic
-      const scrollPosition = window.scrollY + 200;
-      let currentSection = sections[0]?.id ?? "";
-
-      for (const section of sections) {
-        const el = sectionRefs.current[section.id];
-        if (el && el.offsetTop <= scrollPosition) {
-          currentSection = section.id;
-        }
+  const sections = chunks.map((chunk, index) => {
+    const newline = chunk.indexOf("\n");
+    const heading = (newline === -1 ? chunk : chunk.slice(0, newline)).trim();
+    let body = newline === -1 ? "" : chunk.slice(newline + 1);
+    if (index === chunks.length - 1) {
+      const cut = body.lastIndexOf("\n---");
+      if (cut !== -1) {
+        colophon = body.slice(cut + 4).trim();
+        body = body.slice(0, cut);
       }
-      setActiveSection(currentSection);
-    };
+    }
+    return { heading, id: legalSlug(heading), body };
+  });
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [sections]);
+  return { intro, preRest, sections, colophon };
+}
+
+const BODY: Components = {
+  h3: ({ children }) => (
+    <h3 className="mt-10 font-sans text-lg font-black uppercase leading-tight tracking-[-0.005em] first:mt-0">
+      <Clause text={plain(children)} />
+    </h3>
+  ),
+  p: ({ children }) => <p className="mt-4 first:mt-0">{children}</p>,
+  ul: ({ children }) => <ul className="mt-4 space-y-2.5 pl-5 [list-style-type:square] marker:text-signal">{children}</ul>,
+  ol: ({ children }) => (
+    <ol className="mt-4 list-decimal space-y-2.5 pl-6 marker:font-mono marker:text-[0.85em] marker:font-bold marker:text-signal">
+      {children}
+    </ol>
+  ),
+  li: ({ children }) => <li className="pl-1">{children}</li>,
+  hr: () => <hr className="my-10 border-t-3 border-line" />,
+  strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+  a: ({ href, children }) => (
+    <a
+      href={href}
+      className="font-bold text-signal underline decoration-2 underline-offset-4 hover:decoration-4"
+      target={href?.startsWith("http") ? "_blank" : undefined}
+      rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+    >
+      {children}
+    </a>
+  ),
+};
+
+/** Renders markdown with <aside> call-outs; a leading "Warning:" becomes the call-out's label. */
+function Prose({ source }: { source: string }) {
+  const parts = source.split(ASIDE);
+  return (
+    <>
+      {parts.map((part, index) => {
+        if (!part.trim()) return null;
+        if (index % 2 === 0) {
+          return (
+            <ReactMarkdown key={index} remarkPlugins={[remarkGfm]} components={BODY}>
+              {part}
+            </ReactMarkdown>
+          );
+        }
+        const text = part.trim();
+        const warning = /^Warning:\s*/.exec(text);
+        return (
+          <div
+            key={index}
+            role="note"
+            className={cn(
+              "my-8 border-3 border-ink p-5 font-sans text-[15px] leading-relaxed text-ink shadow-[6px_6px_0_0_var(--ink)] dark:border-cream dark:shadow-[6px_6px_0_0_var(--cream)]",
+              warning ? "bg-orange-lt" : "bg-cream",
+            )}
+          >
+            {warning ? <p className={cn(MONO_LABEL, "mb-2")}>Warning</p> : null}
+            <p>{warning ? text.slice(warning[0].length) : text}</p>
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
+/**
+ * Editions "document": static opener (the h1), a paper preamble (summary, highlights, intro note,
+ * contents + search), then one chapter per policy section — mono clause numbers in a sticky rail,
+ * Georgia body at a reading measure. The fixed chapter index lists the sections at ≥1280px and the
+ * "CH 02/05" chip below that.
+ */
+export function LegalPolicyPage({ badge, title, summary, updated, sections, markdown, highlights = [] }: LegalPolicyPageProps) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
+  const lenis = useOptionalExperience()?.lenis ?? null;
+
+  const doc = useMemo(() => parseDocument(markdown), [markdown]);
+  const labels = useMemo(() => new Map(sections.map((s) => [s.id, s.label])), [sections]);
+  const query = searchQuery.toLowerCase().trim();
+  const visible = useMemo(
+    () =>
+      new Set(
+        doc.sections
+          .filter(
+            (s) =>
+              !query ||
+              (labels.get(s.id) ?? "").toLowerCase().includes(query) ||
+              `${s.heading}\n${s.body}`.toLowerCase().includes(query),
+          )
+          .map((s) => s.id),
+      ),
+    [doc.sections, labels, query],
+  );
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("hello@gobitsnbytes.org");
+    navigator.clipboard.writeText(EMAIL);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2000);
   };
 
-  const scrollTo = (id: string) => {
-    const element = sectionRefs.current[id];
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 110,
-        behavior: "smooth",
-      });
-    }
+  const toTop = () => {
+    if (lenis) lenis.scrollTo(0);
+    else document.getElementById("main-content")?.scrollIntoView({ block: "start" });
   };
 
-  // Split markdown into parts with and without <aside> tags
-  const parts = useMemo(
-    () => markdown.split(/<aside>([\s\S]*?)<\/aside>/g),
-    [markdown],
-  );
-
-  // Group text content by section for search filtering
-  // Each section starts with a heading line: ## Section Title
-  const sectionsContent = useMemo(() => {
-    // Standard markdown contains sections. We want to extract text between h2s.
-    const rawSections = markdown.split(/##\s+/);
-    const mapping: { [key: string]: string } = {};
-    
-    // First part is prefix/aside
-    mapping["introduction"] = rawSections[0] || "";
-
-    rawSections.slice(1).forEach(sec => {
-      const lines = sec.split("\n");
-      const titleLine = lines[0] || "";
-      const id = legalSlug(titleLine);
-      mapping[id] = sec;
-    });
-
-    return mapping;
-  }, [markdown]);
-
-  // Filter sections by search query
-  const filteredSections = useMemo(() => {
-    if (!searchQuery.trim()) return sections;
-    const query = searchQuery.toLowerCase().trim();
-    
-    return sections.filter(sec => {
-      const matchLabel = sec.label.toLowerCase().includes(query);
-      const matchContent = (sectionsContent[sec.id] || "").toLowerCase().includes(query);
-      return matchLabel || matchContent;
-    });
-  }, [searchQuery, sections, sectionsContent]);
+  const contents = sections.filter((s) => visible.has(s.id));
+  // Common Enquiries continues the clause numbering.
+  const nextClause = Math.max(0, ...doc.sections.map((s) => parseInt(NUMBERED.exec(s.heading)?.[1] ?? "0", 10))) + 1;
 
   return (
-    <div className="w-full min-h-screen bg-[#eae8e4] text-[#120f0a] pt-28 pb-20 relative z-10 font-sans selection:bg-[#fc920d] selection:text-[#120f0a]">
-      {/* Background stipple texture */}
-      <div className="absolute inset-0 bg-noise-texture opacity-[0.06] pointer-events-none z-0" />
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Banner with burst details */}
-        <header
-          data-tour="page-hero"
-          data-cinematic-section
-          data-cinematic-title={title.toLowerCase()}
-          className="mb-12 border-b-4 border-[#120f0a] pb-10 relative"
-        >
-          <div className="absolute -right-6 -top-6 hidden md:block animate-spin-slow">
-            <Starburst size={90} className="text-[#97192c]" />
-          </div>
-
-          <div className="flex items-center gap-2 mb-4">
-            <span className="inline-flex items-center gap-1.5 bg-[#fc920d] text-[#120f0a] border-2 border-[#120f0a] px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0px_0px_#120f0a]">
-              <Icon className="w-3.5 h-3.5" />
-              {badge}
-            </span>
-            <span className="text-xs font-mono text-[#716f6c] font-semibold">
-              {updated}
-            </span>
-          </div>
-
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight text-[#120f0a] leading-none mb-6">
-            {title.split(" ").slice(0, -1).join(" ")}{" "}
-            <span className="bg-[#fc920d] px-2 py-0.5 border-[3px] border-[#120f0a] inline-block shadow-[4px_4px_0px_0px_#120f0a] -rotate-1">
-              {title.split(" ").slice(-1)[0]}
-            </span>
-          </h1>
-
-          <p className="font-serif-brand text-lg md:text-xl text-[#413f3b] max-w-[70ch] leading-relaxed">
-            {summary}
-          </p>
-
-          {/* Quick Highlight Pills */}
-          {highlights.length > 0 && (
-            <div className="flex flex-wrap gap-2.5 mt-6">
-              {highlights.map((hl, idx) => (
-                <span key={idx} className="bg-white border-2 border-[#120f0a] px-3 py-1 text-xs font-mono font-bold shadow-[2px_2px_0px_0px_#120f0a] flex items-center gap-1">
-                  <SparkleStar size={10} className="text-[#97192c]" />
-                  {hl}
-                </span>
-              ))}
-            </div>
-          )}
-        </header>
-
-        {/* Search Input Card */}
-        <div className="mb-10 max-w-xl">
-          <div className="bg-white border-[3px] border-[#120f0a] p-3 shadow-[4px_4px_0px_0px_#120f0a] flex items-center gap-3">
-            <Search className="w-5 h-5 text-[#716f6c]" />
-            <input 
-              id="policy-search"
-              type="text" 
-              placeholder={`Search ${title} guidelines...`} 
-              aria-label={`Search ${title} guidelines`}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full focus:outline-none bg-transparent font-mono text-sm text-[#120f0a] placeholder-[#716f6c]"
-            />
-            {searchQuery && (
-              <button 
-                type="button"
-                onClick={() => setSearchQuery("")}
-                aria-label="Clear search input"
-                className="bg-[#eae8e4] border border-[#120f0a] text-xs font-mono font-bold px-2 py-0.5 hover:bg-neutral-200 cursor-pointer"
-              >
-                Clear
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Main Workspace Layout */}
-        <div
-          data-cinematic-section
-          data-cinematic-title="the public record"
-          className="grid gap-8 lg:grid-cols-[18rem_1fr] items-start"
-        >
-          
-          {/* Sidebar navigation */}
-          <aside className="sticky top-28 hidden lg:block space-y-4">
-            <div className="bg-white border-[3px] border-[#120f0a] p-4 shadow-[4px_4px_0px_0px_#120f0a]">
-              <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#716f6c] border-b border-[#120f0a]/15 pb-2 mb-3">
-                On This Page
-              </p>
-              <nav className="space-y-2.5">
-                {sections.map((section) => {
-                  const isActive = activeSection === section.id;
-                  const isVisible = filteredSections.some(s => s.id === section.id);
-                  if (!isVisible) return null;
-
-                  return (
-                    <button
-                      key={section.id}
-                      onClick={() => scrollTo(section.id)}
-                      className={`w-full text-left font-mono text-xs font-bold px-3 py-2 border-2 transition-all flex items-center justify-between group ${
-                        isActive 
-                          ? "bg-[#fc920d] border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] translate-x-[2px] translate-y-[2px]" 
-                          : "bg-white border-[#120f0a]/30 hover:border-[#120f0a] hover:bg-neutral-50 shadow-[2px_2px_0px_0px_transparent]"
-                      }`}
-                    >
-                      <span className="truncate">{section.label}</span>
-                      <ArrowUpRight className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-60"}`} />
-                    </button>
-                  );
-                })}
-              </nav>
-            </div>
-            
-            {/* Quick Contact Widget */}
-            <div className="bg-[#fee9cf] border-[3px] border-[#120f0a] p-4 shadow-[4px_4px_0px_0px_#120f0a] space-y-3">
-              <h4 className="font-bold text-xs uppercase font-mono tracking-wider">Need Policy Help?</h4>
-              <p className="text-xs text-[#413f3b] leading-normal">
-                Have questions or need to report a governance concern? Contact GOBITSNBYTES FOUNDATION directly.
-              </p>
-              <button 
-                onClick={copyEmail}
-                className="w-full bg-[#97192c] text-white border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] font-mono text-[10px] font-bold py-2 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
-              >
-                {isCopied ? "Email Copied!" : "Copy Inbox Address"}
-              </button>
-            </div>
-          </aside>
-
-          {/* Markdown Content */}
-          <div className="space-y-8 min-w-0">
-            <AnimatePresence mode="popLayout">
-              {filteredSections.length > 0 ? (
-                // Group by parts of markdown
-                <motion.div
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.25 }}
-                  className="bg-white border-4 border-[#120f0a] p-6 md:p-8 shadow-[6px_6px_0px_0px_#120f0a]"
-                >
-                  <div className="prose max-w-[72ch] font-serif-brand text-base leading-[1.75] text-[#413f3b]">
-                    {parts.map((part, index) => {
-                      if (!part.trim()) return null;
-                      
-                      // Handle <aside> parsing
-                      if (index % 2 === 1) {
-                        const isWarning = part.trim().startsWith("Warning:");
-                        const text = part.trim().replace(/^Warning:\s*/, "");
-
-                        return (
-                          <div
-                            key={index}
-                            className={`my-6 border-[3px] border-[#120f0a] p-4 shadow-[4px_4px_0px_0px_#120f0a] ${
-                              isWarning
-                                ? "bg-[#fda83d] text-[#120f0a]"
-                                : "bg-[#f4d9d1] text-[#120f0a]"
-                            }`}
-                          >
-                            <div className="flex gap-3 items-start">
-                              <AlertTriangle className="w-5 h-5 shrink-0 text-[#97192c]" />
-                              <p className="m-0 font-medium font-sans text-sm">
-                                {text}
-                              </p>
-                            </div>
-                          </div>
-                        );
-                      }
-
-                      // Check if part belongs to search filters
-                      // If query is set, we only show blocks containing the query or the corresponding titles.
-                      // Since parts is a large markdown block, we parse and render it.
-                      return (
-                        <ReactMarkdown
-                          key={index}
-                          remarkPlugins={[remarkGfm]}
-                          components={{
-                            h2: ({ children }) => {
-                              const slug = legalSlug(children);
-                              const isMatch = filteredSections.some(s => s.id === slug);
-                              if (searchQuery && !isMatch) return null;
-
-                              return (
-                                <h2
-                                  id={slug}
-                                  ref={(el) => {
-                                    sectionRefs.current[slug] = el;
-                                  }}
-                                  className="scroll-mt-28 pt-8 font-display text-2xl md:text-3xl font-black uppercase text-[#120f0a] mb-5 tracking-tight border-b-2 border-[#120f0a]/10 pb-2 flex items-center gap-2"
-                                >
-                                  {children}
-                                </h2>
-                              );
-                            },
-                            h3: ({ children }) => (
-                              <h3 className="mt-6 font-mono text-base font-black uppercase text-[#120f0a]">
-                                {children}
-                              </h3>
-                            ),
-                            p: ({ children }) => {
-                              // If children contains header tag, let parent handler hide/show it
-                              return (
-                                <p className="mt-4 text-[#413f3b] text-base leading-[1.75] font-serif-brand">
-                                  {children}
-                                </p>
-                              );
-                            },
-                            ul: ({ children }) => (
-                              <ul className="mt-4 space-y-2.5 pl-5 list-disc marker:text-[#97192c]">
-                                {children}
-                              </ul>
-                            ),
-                            ol: ({ children }) => (
-                              <ol className="mt-4 space-y-2.5 pl-5 list-decimal marker:text-[#97192c]">
-                                {children}
-                              </ol>
-                            ),
-                            li: ({ children }) => <li className="pl-1">{children}</li>,
-                            hr: () => <hr className="my-8 border-t-2 border-[#120f0a]" />,
-                            strong: ({ children }) => (
-                              <strong className="font-bold text-[#120f0a]">{children}</strong>
-                            ),
-                            a: ({ href, children }) => (
-                              <a
-                                href={href}
-                                className="font-bold text-[#97192c] underline decoration-2 underline-offset-4 transition-colors hover:text-[#fc920d]"
-                                target={href?.startsWith("http") ? "_blank" : undefined}
-                                rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
-                              >
-                                {children}
-                              </a>
-                            ),
-                          }}
-                        >
-                          {part}
-                        </ReactMarkdown>
-                      );
-                    })}
-                  </div>
-                </motion.div>
-              ) : (
-                /* Empty search state */
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className="bg-white border-4 border-[#120f0a] p-10 shadow-[6px_6px_0px_0px_#120f0a] text-center space-y-4"
-                >
-                  <div className="flex justify-center">
-                    <Starburst size={64} className="text-[#a09f9d]" />
-                  </div>
-                  <h3 className="text-xl font-black uppercase font-mono">No Matching Sections Found</h3>
-                  <p className="text-sm text-[#716f6c] max-w-[45ch] mx-auto">
-                    We couldn't find any sections matching "{searchQuery}". Try using simpler keywords.
-                  </p>
-                  <button
-                    onClick={() => setSearchQuery("")}
-                    className="bg-[#fc920d] text-[#120f0a] border-2 border-[#120f0a] shadow-[3px_3px_0px_0px_#120f0a] font-mono text-xs font-bold px-4 py-2 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_#120f0a] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
-                  >
-                    Reset Search
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Quick FAQ / Accordion Section for policy queries */}
-            <div className="bg-[#f7f1ec] border-4 border-[#120f0a] p-6 md:p-8 shadow-[6px_6px_0px_0px_#120f0a] space-y-6">
-              <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight border-b border-[#120f0a]/15 pb-3 flex items-center gap-2">
-                <Starburst size={20} className="text-[#97192c]" />
-                Common Enquiries
-              </h3>
-              
-              <div className="space-y-3">
-                {[
-                  {
-                    q: "Who is responsible for the operations of the Foundation?",
-                    a: "GOBITSNBYTES FOUNDATION is governed by its Board of Directors who hold ultimate fiduciary, financial, and legal authority. Operational leadership roles (CEO, CTO, COO, etc.) coordinate day-to-day work."
-                  },
-                  {
-                    q: "How can I exercise my data rights or verify parental consent?",
-                    a: "Under the DPDP Act 2023, you or your guardian can request access, correction, or deletion of personal data by emailing hello@gobitsnbytes.org."
-                  }
-                ].map((faq, idx) => {
-                  const isOpen = expandedFaq === idx;
-                  return (
-                    <div key={idx} className="bg-white border-2 border-[#120f0a] transition-all">
-                      <button
-                        onClick={() => setExpandedFaq(isOpen ? null : idx)}
-                        className="w-full flex items-center justify-between p-4 font-mono text-sm font-black text-left hover:bg-neutral-50"
-                      >
-                        <span>{faq.q}</span>
-                        <ChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
-                      </button>
-                      <AnimatePresence initial={false}>
-                        {isOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="overflow-hidden border-t-2 border-[#120f0a]"
-                          >
-                            <p className="p-4 text-sm font-serif-brand leading-relaxed text-[#413f3b] bg-[#f7f1ec]">
-                              {faq.a}
-                            </p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Bottom Contact Info Card */}
-            <div className="bg-[#97192c] text-white border-4 border-[#120f0a] p-6 shadow-[6px_6px_0px_0px_#120f0a] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <div>
-                <p className="text-xs uppercase font-mono tracking-wider opacity-80">Official Policy Inbox</p>
-                <p className="text-sm font-semibold mt-1">Send questions, suggestions, or formal notifications to the Foundation.</p>
-              </div>
-              <a 
-                href="mailto:hello@gobitsnbytes.org"
-                className="bg-[#fc920d] text-[#120f0a] border-2 border-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a] font-mono text-xs font-bold px-4 py-2 shrink-0 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex items-center gap-1.5"
-              >
-                Send Email <Mail className="w-3.5 h-3.5" />
-              </a>
-            </div>
-
-          </div>
-        </div>
-
+    <>
+      <div className="[&_h1]:text-[clamp(28px,3.8vw,52px)]">
+        <EditionOpener variant="static" title={title} kicker={`${badge} · ${updated}`} chapters={[]} />
       </div>
 
-      {/* Floating Scroll Top Button */}
-      <AnimatePresence>
-        {showScrollTop && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="fixed bottom-6 right-6 bg-[#fc920d] text-[#120f0a] border-[3px] border-[#120f0a] p-3 shadow-[3px_3px_0px_0px_#120f0a] hover:translate-x-[0.5px] hover:translate-y-[0.5px] hover:shadow-[2px_2px_0px_0px_#120f0a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all z-50"
-            aria-label="Scroll to top"
+      {/* Preamble (not a chapter): summary, highlights, the intro note, contents + search. */}
+      <section data-surface="paper" className="tone-paper relative overflow-x-clip py-14 md:py-20">
+        <div className={cn("grid gap-12 px-4 md:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-16", EDITION_GUTTER)}>
+          <div className="min-w-0">
+            <p className={cn(MONO_LABEL, "text-signal")}>§00 — {badge}</p>
+            <p className="mt-5 max-w-[34ch] font-serif text-[clamp(22px,2.3vw,32px)] leading-[1.3]">{summary}</p>
+            {highlights.length > 0 && (
+              <ul className="mt-7 flex flex-wrap gap-2.5">
+                {highlights.map((hl) => (
+                  <li key={hl}>
+                    <Tag tone="cream">{hl}</Tag>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="max-w-[68ch] font-serif text-[17px] leading-[1.7]">
+              {doc.intro.map((text) => (
+                <div
+                  key={text}
+                  role="note"
+                  className="mt-10 border-l-[6px] border-signal bg-surface-2 py-4 pl-5 pr-4 font-sans text-[15px] leading-relaxed"
+                >
+                  {text}
+                </div>
+              ))}
+              {doc.preRest ? <Prose source={doc.preRest} /> : null}
+            </div>
+          </div>
+
+          <div className="min-w-0 space-y-5">
+            <div className="border-3 border-line bg-card text-card-foreground shadow-[6px_6px_0_0_var(--shadow-color)]">
+              <label htmlFor="policy-search" className={cn(MONO_LABEL, "flex items-center justify-between border-b-3 border-line px-3 py-2")}>
+                <span>Search</span>
+                <span aria-hidden className="text-signal">
+                  [{String(visible.size).padStart(2, "0")}/{String(doc.sections.length).padStart(2, "0")}]
+                </span>
+              </label>
+              <div className="flex items-center gap-2 p-2">
+                <span aria-hidden className="pl-1 font-mono text-sm font-bold text-signal">
+                  ›
+                </span>
+                <input
+                  id="policy-search"
+                  type="text"
+                  placeholder={`Search ${title} guidelines...`}
+                  aria-label={`Search ${title} guidelines`}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="min-w-0 flex-1 bg-transparent py-1.5 font-mono text-sm placeholder:text-fg/60 focus:outline-none"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery("")}
+                    aria-label="Clear search input"
+                    className="cursor-pointer border-2 border-line px-2 py-0.5 font-mono text-[11px] font-bold uppercase hover:bg-fg hover:text-surface"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <nav aria-label="On This Page">
+              <p className={cn(MONO_LABEL, "border-b-2 border-line pb-2")}>On This Page</p>
+              <ol>
+                {contents.map((section) => (
+                  <li key={section.id} className="border-b border-line/30">
+                    <a
+                      href={`#${section.id}`}
+                      className="group flex items-baseline gap-3 py-2 font-sans text-sm font-extrabold uppercase tracking-[0.01em] hover:text-signal"
+                    >
+                      <span aria-hidden className="w-7 shrink-0 font-mono text-[11px] font-bold text-signal">
+                        {String(doc.sections.findIndex((s) => s.id === section.id) + 1).padStart(2, "0")}
+                      </span>
+                      <span className="group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4">
+                        {section.label}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </section>
+
+      {visible.size === 0 && (
+        <section data-surface="paper" aria-live="polite" className="tone-paper border-t-3 border-line py-16">
+          <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
+            <div className="max-w-xl border-3 border-line bg-card p-8 text-card-foreground shadow-[6px_6px_0_0_var(--shadow-color)]">
+              <p className="font-display text-4xl uppercase leading-[0.9]">No Matching Sections Found</p>
+              <p className="mt-4 font-serif text-base leading-relaxed">
+                We couldn&apos;t find any sections matching &quot;{searchQuery}&quot;. Try using simpler keywords.
+              </p>
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="mt-6 cursor-pointer border-2 border-line bg-orange px-4 py-2 font-mono text-xs font-bold uppercase tracking-[0.1em] text-ink shadow-[3px_3px_0_0_var(--shadow-color)] transition-[transform,box-shadow] duration-100 ease-riot hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
+              >
+                Reset Search
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {doc.sections.map((section, index) => {
+        const label = labels.get(section.id) ?? section.heading;
+        const number = NUMBERED.exec(section.heading)?.[1].replace(/\.$/, "");
+        const isLast = index === doc.sections.length - 1;
+        return (
+          <section
+            key={section.id}
+            id={section.id}
+            data-cinematic-section=""
+            data-cinematic-title={label}
+            data-chapter-number={String(index + 1).padStart(2, "0")}
+            data-surface="paper"
+            hidden={!visible.has(section.id)}
+            className="tone-paper relative overflow-x-clip border-t-3 border-line py-14 md:py-20"
           >
-            <ArrowUp className="w-5 h-5" />
-          </motion.button>
-        )}
-      </AnimatePresence>
-    </div>
+            <div
+              className={cn(
+                "grid gap-6 px-4 md:px-8 lg:grid-cols-[11rem_minmax(0,68ch)] lg:gap-14",
+                EDITION_GUTTER,
+              )}
+            >
+              <div className="self-start lg:sticky lg:top-28">
+                {number ? (
+                  <p aria-hidden className="mb-3 font-mono text-[clamp(40px,4.5vw,64px)] font-bold leading-none tracking-[-0.04em] text-signal">
+                    §{number.padStart(2, "0")}
+                  </p>
+                ) : null}
+                <p className={MONO_LABEL}>{label}</p>
+              </div>
+              <div className="min-w-0">
+                <h2 className="font-[family-name:var(--font-archivo)] text-[clamp(28px,3.4vw,48px)] font-black uppercase leading-[0.95] tracking-[-0.03em] [font-stretch:112%]">
+                  <Clause text={section.heading} hideNumber />
+                </h2>
+                <div className="mt-8 font-serif text-[17px] leading-[1.7]">
+                  <Prose source={section.body} />
+                </div>
+                {isLast && doc.colophon ? (
+                  <div className="mt-12 border-t-3 border-line pt-5 font-mono text-xs font-bold uppercase leading-relaxed tracking-[0.08em]">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} components={BODY}>
+                      {doc.colophon}
+                    </ReactMarkdown>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </section>
+        );
+      })}
+
+      <section
+        id="common-enquiries"
+        data-cinematic-section=""
+        data-cinematic-title="Common Enquiries"
+        data-surface="cream"
+        className="tone-cream relative overflow-x-clip border-t-3 border-ink py-16 md:py-24"
+      >
+        <div className={cn("grid gap-8 px-4 md:px-8 lg:grid-cols-[11rem_minmax(0,68ch)] lg:gap-14", EDITION_GUTTER)}>
+          <p aria-hidden className="font-mono text-[clamp(40px,4.5vw,64px)] font-bold leading-none tracking-[-0.04em] text-signal">
+            §{String(nextClause).padStart(2, "0")}
+          </p>
+          <div className="min-w-0">
+            <h2 className="font-display text-[clamp(40px,6vw,88px)] uppercase leading-[0.86] tracking-[0.005em]">
+              Common Enquiries
+            </h2>
+            <Accordion type="single" collapsible className="mt-8">
+              {ENQUIRIES.map((faq, idx) => (
+                <AccordionItem key={faq.q} value={`q${idx}`}>
+                  <AccordionTrigger className="font-mono text-sm normal-case tracking-normal">{faq.q}</AccordionTrigger>
+                  <AccordionContent>{faq.a}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
+      <TornEdge from="cream" to="ink" />
+
+      {/* Contact poster: the policy inbox. */}
+      <section data-surface="ink" className="tone-ink relative overflow-x-clip py-16 md:py-24">
+        <div className={cn("grid gap-10 px-4 md:px-8 lg:grid-cols-2 lg:gap-16", EDITION_GUTTER)}>
+          <div className="space-y-4">
+            <p className={cn(MONO_LABEL, "text-signal")}>Official Policy Inbox</p>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="block break-all font-[family-name:var(--font-archivo)] text-[clamp(26px,3.6vw,52px)] font-black leading-[0.95] tracking-[-0.03em] underline decoration-orange decoration-4 underline-offset-8 hover:text-orange"
+            >
+              {EMAIL}
+            </a>
+            <p className="max-w-[46ch] font-serif text-lg leading-relaxed">
+              Send questions, suggestions, or formal notifications to the Foundation.
+            </p>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="inline-flex items-center gap-2 border-3 border-cream bg-orange px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink shadow-[5px_5px_0_0_var(--cream)] transition-[transform,box-shadow] duration-100 ease-riot hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--cream)] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none motion-reduce:transition-none"
+            >
+              Send Email <span aria-hidden>↗</span>
+            </a>
+          </div>
+
+          <div className="space-y-4 border-t-2 border-cream/40 pt-8 lg:border-l-2 lg:border-t-0 lg:pl-10 lg:pt-0">
+            <h2 className={cn(MONO_LABEL, "text-signal")}>Need Policy Help?</h2>
+            <p className="max-w-[46ch] font-serif text-lg leading-relaxed">
+              Have questions or need to report a governance concern? Contact GOBITSNBYTES FOUNDATION directly.
+            </p>
+            <button
+              type="button"
+              onClick={copyEmail}
+              aria-live="polite"
+              className="cursor-pointer border-3 border-cream px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.12em] transition-colors hover:bg-cream hover:text-ink"
+            >
+              {isCopied ? "Email Copied!" : "Copy Inbox Address"}
+            </button>
+            <p className="pt-6">
+              <button
+                type="button"
+                onClick={toTop}
+                className="cursor-pointer font-mono text-[11px] font-bold uppercase tracking-[0.18em] underline decoration-2 underline-offset-4 hover:text-orange"
+              >
+                <span aria-hidden>↑ </span>Back to top
+              </button>
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

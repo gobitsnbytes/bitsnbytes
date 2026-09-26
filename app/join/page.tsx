@@ -1,347 +1,340 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { PageSection } from "@/components/page-section";
-import { Button } from "@/components/ui/button";
+import { ConsoleWindow } from "@/components/contact/console-window";
+import { LabIndexRow, LabRow } from "@/components/faq/lab-row";
 import {
-  ArrowRight,
-  CheckCircle2,
-  Users,
-  Rocket,
-  Heart,
-  Zap,
-  GitFork,
-} from "lucide-react";
-import Link from "next/link";
+  FigWindow,
+  HollowWord,
+  LAB_HOVER,
+  LAB_STICKY,
+  LAB_TEXT,
+  LabCell,
+  LabFeed,
+  LabFooterRows,
+  LabGlobe,
+  LabGrid,
+  LabHero,
+  LabLink,
+  LabTag,
+  LabTitle,
+  PixelGlyph,
+  TableHeader,
+} from "@/components/lab";
+import { Button } from "@/components/riot";
+import { Character } from "@/components/character/character";
+import { FORK_CITIES } from "@/lib/forks";
+import { cn } from "@/lib/utils";
 
 const NOTION_JOIN_FORM_URL =
   "https://perfect-dinghy-781.notion.site/33949ed2fc338035bd3bef46155035f5?pvs=105";
 const DISCORD_INVITE_URL = "https://discord.gg/rjqPfwKKTE";
 
+const pad = (n: number) => String(n).padStart(2, "0");
+
+const paths = [
+  {
+    title: "Join the community",
+    description:
+      "Get on our Discord. Talk to teen builders from across India, find people to team up with, and sit in on online study sessions.",
+    cta: "Join Discord",
+    href: DISCORD_INVITE_URL,
+    variant: "outline",
+  },
+  {
+    title: "Become a contributor",
+    description:
+      "Apply to work on our open-source projects, run developer cohorts, or help with outreach.",
+    cta: "Apply now",
+    href: NOTION_JOIN_FORM_URL,
+    variant: "burgundy",
+  },
+  {
+    title: "Launch a fork",
+    description:
+      "Bring bits&bytes™ to your city. It works like a fork on GitHub: take the playbook from upstream, run your own room, ship back.",
+    cta: "Explore forks",
+    href: "/fork",
+    variant: "outline",
+  },
+] as const;
+
 const benefits = [
   {
-    icon: Users,
-    title: "Join a tight-knit crew",
-    description:
-      "Work alongside 1400+ teen builders across India who are actually building things.",
+    title: "A small crew that builds",
+    description: "You work next to teen builders from across India who are in the middle of making something.",
   },
   {
-    icon: Rocket,
     title: "Ship real projects",
-    description:
-      "Build projects with mentorship at every step, from idea to deployment.",
+    description: "Take a project from idea to deployment, with a mentor checking in at every step.",
   },
   {
-    icon: Zap,
-    title: "Attend exclusive events",
+    title: "First access to our events",
     description:
-      "Get priority access to hackathons, workshops, and events with people who actually work in the industry.",
+      "Priority access to our hackathons and the workshops that run inside them, with people who work in the industry.",
   },
   {
-    icon: Heart,
-    title: "Grow together",
-    description:
-      "Pair programming, code reviews, and study groups help everyone level up faster.",
+    title: "Get better faster",
+    description: "Pair programming, code reviews, and study groups. You learn quicker when the work is shared.",
   },
 ];
 
 const expectations = [
-  "Be a student (ages 13-19) who cares about tech",
-  "Commit 2-4 hours per week for activities",
-  "Join our Discord and stay active in discussions",
-  "Participate in at least one project or event per quarter",
-  "Support fellow members and don't be a jerk",
+  "You're a student aged 13–19 who cares about tech",
+  "You can give 2–4 hours a week",
+  "You're on our Discord and you show up in the conversations",
+  "You take part in at least one project or event each quarter",
+  "You look out for the people around you, and you're not a jerk",
 ];
 
 const faqs = [
   {
     question: "Do I need coding experience to join?",
     answer:
-      "No. We welcome beginners and pair them with mentors. What matters is that you actually want to build things.",
+      "No. Beginners are welcome, and we pair them with mentors. What we care about is whether you want to build.",
   },
   {
     question: "How much time do I need to commit?",
     answer:
-      "We recommend 2-4 hours per week, but it's flexible. Some weeks you might attend a workshop, others you might work on a project async.",
+      "We suggest 2–4 hours a week, and it bends. Some weeks you're at a hackathon. Other weeks you chip away at a project async.",
   },
   {
     question: "Is there a membership fee?",
-    answer: "No. bits&bytes™ is free. Tech education shouldn't cost money.",
+    answer: "No. bits&bytes™ is free. Learning to build shouldn't cost money.",
   },
   {
-    question: "I'm not from Lucknow. Can I still join?",
-    answer:
-      "Absolutely! While we started in Lucknow, we now have members across India. Most activities happen online via Discord.",
+    question: "Do I need to live in a particular city?",
+    answer: `No. We're pan-India, with forks in ${FORK_CITIES}. Most of what we do happens online, on Discord.`,
   },
 ];
 
-const DiscordIcon = ({ className, ...props }: React.ComponentProps<"svg">) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className}
-    {...props}
-  >
-    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.894.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.92 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.009c.12.099.246.197.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z" />
-  </svg>
-);
+const SECTION = "gap-y-10 pt-24 min-[760px]:pt-[136px]";
+const WRAP = "min-[760px]:whitespace-normal";
+
+/** Label + arrow that nudges on hover/focus (the Button asChild link carries `group`). */
+function Cta({ children }: { children: string }) {
+  return (
+    <>
+      {children}
+      <span
+        aria-hidden
+        className="transition-transform duration-200 ease-riot group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transition-none"
+      >
+        →
+      </span>
+    </>
+  );
+}
 
 export default function Join() {
   return (
     <>
-      {/* Hero Section */}
-      <section
-        className="relative flex items-center justify-center overflow-hidden text-[#120f0a] pt-24 md:pt-32"
-        aria-labelledby="join-hero-title"
-      >
-        <div className="relative z-10 w-full mx-auto max-w-5xl px-4 sm:px-6 py-8 sm:py-12 md:py-16">
-          <div className="px-6 py-8 text-center">
-            <div className="flex flex-col items-center gap-6">
-              <span className="inline-flex items-center gap-2 border-2 border-[#120f0a] bg-[#fc920d] px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[3px_3px_0px_0px_#120f0a]">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#97192c] opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#97192c]" />
-                </span>
-                Applications Open
-              </span>
-              <h1
-                id="join-hero-title"
-                className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#120f0a] uppercase tracking-tight leading-none"
-              >
-                Join the crew
-              </h1>
-              <p className="text-base sm:text-lg md:text-xl text-[#413f3b] max-w-2xl mx-auto leading-relaxed font-semibold">
-                Tell us how you want to build with us. We'll connect you with
-                squads, mentors, and real projects.
-              </p>
-            </div>
-          </div>
-        </div>
+      <section data-cinematic-section="" data-cinematic-title="Join the crew" data-surface="paper">
+        <LabHero
+          lines={["Join the ", "crew"]}
+          glyph={<PixelGlyph text="JOIN" decorative />}
+          aside={<LabGlobe />}
+          subtitle={
+            <p>Pick how you want to build with us. We&apos;ll match you with a squad and a mentor, on a project that ships.</p>
+          }
+        >
+          <LabTag>Applications open</LabTag>
+        </LabHero>
       </section>
 
-      <main className="relative z-10 bg-transparent pb-16">
-        {/* Main CTA Section */}
-        <PageSection align="center">
-          <div className="mx-auto w-full max-w-5xl space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Option 1: Discord Community */}
-              <div className="bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-6 md:p-8 flex flex-col justify-between h-full text-center md:text-left">
-                <div className="space-y-4">
-                  <div className="flex h-12 w-12 mx-auto md:mx-0 items-center justify-center border-2 border-[#120f0a] bg-[#fee9cf] text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]">
-                    <DiscordIcon className="h-6 w-6" />
+      {/* the three ways in, inside console chrome, beside the seeded Fig. 1 */}
+      <LabGrid
+        as="section"
+        id="applications"
+        data-cinematic-section=""
+        data-cinematic-title="Applications open"
+        data-surface="paper"
+        aria-labelledby="applications-title"
+        className={SECTION}
+      >
+        <LabCell>
+          <LabTitle id="applications-title" count={paths.length}>
+            Applications open
+          </LabTitle>
+        </LabCell>
+        <div className="col-span-full max-lg:hidden lg:col-[1/7]">
+          <div className={LAB_STICKY}>
+            <FigWindow seed="Applications Open" fig={1} />
+            <Character
+              pose="door"
+              sizes="(min-width: 1024px) 140px, 0px"
+              className="mx-auto mt-8 w-[clamp(96px,9vw,140px)] [@media(max-height:760px)]:w-24"
+            />
+          </div>
+        </div>
+        <div className="col-span-full lg:col-[8/25]">
+          <ConsoleWindow title="Join the crew" bodyClassName="px-4 md:px-6">
+            <ol role="list">
+              {paths.map((path, index) => (
+                <li
+                  key={path.title}
+                  className="grid gap-4 border-b border-line py-6 last:border-b-0 md:grid-cols-[3rem_minmax(0,1fr)_auto] md:items-start md:gap-6 md:py-8"
+                >
+                  <span className="font-mono text-[12px] uppercase leading-[1.6]">[{pad(index + 1)}]</span>
+                  <div className="grid gap-3">
+                    <h3 className={LAB_TEXT.post}>{path.title}</h3>
+                    <p className={cn(LAB_TEXT.sm, "max-w-[46ch] text-fg/80")}>{path.description}</p>
                   </div>
-                  <div>
-                    <h3 className="font-display text-xl font-black text-[#120f0a] uppercase tracking-tight">Join Community</h3>
-                    <p className="mt-2 text-sm text-[#413f3b] leading-relaxed font-semibold">
-                      Hop onto our Discord server. Chat with 1400+ student builders, find project teams, and attend online study sessions.
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-6 pt-4">
-                  <Button
-                    asChild
-                    className="group w-full rounded-none bg-white text-sm font-black uppercase tracking-wider text-[#120f0a] border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer py-3 h-auto"
-                  >
-                    <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">
-                      Join Discord
-                      <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
-                    </a>
+                  <Button asChild variant={path.variant} size="sm" className="justify-self-start">
+                    <LabLink href={path.href} className="group">
+                      <Cta>{path.cta}</Cta>
+                    </LabLink>
                   </Button>
-                </div>
-              </div>
+                </li>
+              ))}
+            </ol>
+          </ConsoleWindow>
+          <p className="mt-4 font-mono text-[11px] uppercase leading-[1.4] text-fg/70">
+            We read contributor and fork applications every week • Expect a reply within 7 days
+          </p>
+        </div>
+      </LabGrid>
 
-              {/* Option 2: Contributor Application */}
-              <div className="bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-6 md:p-8 flex flex-col justify-between h-full text-center md:text-left">
-                <div className="space-y-4">
-                  <div className="flex h-12 w-12 mx-auto md:mx-0 items-center justify-center border-2 border-[#120f0a] bg-[#fc920d] text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]">
-                    <Rocket className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-display text-xl font-black text-[#120f0a] uppercase tracking-tight">Become a Contributor</h3>
-                    <p className="mt-2 text-sm text-[#413f3b] leading-relaxed font-semibold">
-                      Apply to build our core open-source software projects, organize developer cohorts, or manage outreach.
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-6 pt-4">
-                  <Button
-                    asChild
-                    className="group w-full rounded-none bg-[#97192c] text-sm font-black uppercase tracking-wider text-white border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer py-3 h-auto"
-                  >
-                    <a href={NOTION_JOIN_FORM_URL} target="_blank" rel="noopener noreferrer">
-                      Apply Now
-                      <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
-                    </a>
-                  </Button>
-                </div>
-              </div>
-
-              {/* Option 3: Fork Lead Application */}
-              <div className="bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-6 md:p-8 flex flex-col justify-between h-full text-center md:text-left">
-                <div className="space-y-4">
-                  <div className="flex h-12 w-12 mx-auto md:mx-0 items-center justify-center border-2 border-[#120f0a] bg-[#fee9cf] text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]">
-                    <GitFork className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-display text-xl font-black text-[#120f0a] uppercase tracking-tight">Launch a Fork</h3>
-                    <p className="mt-2 text-sm text-[#413f3b] leading-relaxed font-semibold">
-                      Bring bits&bytes to your city. Gather local builders, host workshops/hacknights, and run your city's tech scene.
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-6 pt-4">
-                  <Button
-                    asChild
-                    className="group w-full rounded-none bg-white text-sm font-black uppercase tracking-wider text-[#120f0a] border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer py-3 h-auto"
-                  >
-                    <Link href="/fork">
-                      Explore Forks
-                      <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
-            
-            <p className="text-center text-xs text-[#716f6c] font-mono mt-4">
-              We review contributor and fork applications weekly • Expected response time: 7 days
-            </p>
-          </div>
-        </PageSection>
-
-        {/* Benefits Section */}
-        <PageSection
-          align="center"
-          eyebrow="Why Join"
-          title="What you'll get as a member"
-          description="Being part of bits&bytes™ is more than a Discord invite."
+      {/* member benefits as a feed (sticky Fig. 2 beside it) */}
+      <LabGrid
+        as="section"
+        id="why-join"
+        data-cinematic-section=""
+        data-cinematic-title="Why join"
+        data-surface="paper"
+        aria-labelledby="why-join-title"
+        className={SECTION}
+      >
+        <TableHeader label="Why join" className="col-span-full" />
+        <LabCell>
+          <LabTitle id="why-join-title" count={benefits.length} className={WRAP}>
+            What you get when you join
+          </LabTitle>
+        </LabCell>
+        <LabCell span="1/15">
+          <p className={LAB_TEXT.lg}>The Discord invite is where it starts. This is what comes after.</p>
+        </LabCell>
+        <LabFeed
+          labels={["No.", "Benefit"]}
+          aside={<FigWindow seed="What you'll get as a member" fig={2} className={cn(LAB_STICKY, "max-lg:hidden")} />}
         >
-          <div className="grid gap-6 md:grid-cols-2">
-            {benefits.map((benefit, index) => (
-              <div
-                key={benefit.title}
-                className="bg-white border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] p-6 md:p-8"
-              >
-                <div className="flex items-start gap-4 md:gap-6">
-                  <div className="flex h-12 w-12 md:h-14 md:w-14 shrink-0 items-center justify-center border-2 border-[#120f0a] bg-[#fee9cf] text-[#120f0a] shadow-[2px_2px_0px_0px_#120f0a]">
-                    <benefit.icon className="h-6 w-6 md:h-7 md:w-7" />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="font-display text-xl md:text-2xl font-black text-[#120f0a] uppercase">
-                      {benefit.title}
-                    </h3>
-                    <p className="mt-2 text-base text-[#413f3b] font-semibold leading-relaxed">
-                      {benefit.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </PageSection>
+          {benefits.map((benefit, index) => (
+            <LabRow key={benefit.title} label={`B.${pad(index + 1)}`} title={benefit.title} defaultOpen>
+              <p>{benefit.description}</p>
+            </LabRow>
+          ))}
+        </LabFeed>
+      </LabGrid>
 
-        {/* Expectations Section */}
-        <PageSection
-          align="center"
-          eyebrow="Expectations"
-          title="What we look for"
-          description="We want to make sure bits&bytes™ is the right fit for you."
-        >
-          <div className="mx-auto max-w-2xl">
-            <div className="bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-8 md:p-10">
-              <ul className="space-y-4 md:space-y-6">
-                {expectations.map((expectation, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-4 text-base md:text-lg text-[#120f0a] font-semibold"
-                  >
-                    <CheckCircle2 className="h-6 w-6 shrink-0 text-[#97192c] mt-0.5" />
-                    <span>{expectation}</span>
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </PageSection>
+      <LabGrid
+        as="section"
+        id="expectations"
+        data-cinematic-section=""
+        data-cinematic-title="What we look for"
+        data-surface="paper"
+        aria-labelledby="expectations-title"
+        className={SECTION}
+      >
+        <TableHeader label="Expectations" className="col-span-full" />
+        <LabCell>
+          <LabTitle id="expectations-title" count={expectations.length}>
+            What we look for
+          </LabTitle>
+        </LabCell>
+        <LabCell span="1/15">
+          <p className={LAB_TEXT.lg}>Read this before you apply. It saves both of us time.</p>
+        </LabCell>
+        <LabFeed labels={["No.", "Expectation"]}>
+          {expectations.map((expectation, index) => (
+            <LabIndexRow key={expectation} label={`E.${pad(index + 1)}`}>
+              {expectation}
+            </LabIndexRow>
+          ))}
+        </LabFeed>
+      </LabGrid>
 
-        {/* FAQ Section */}
-        <PageSection
-          align="center"
-          eyebrow="FAQ"
-          title="Common questions"
-          description="Things people ask before applying."
-        >
-          <div className="mx-auto max-w-3xl space-y-4 md:space-y-6">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className="bg-white border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] p-6 md:p-8"
-              >
-                <h3 className="font-display text-lg md:text-xl font-black text-[#120f0a] uppercase">
-                  {faq.question}
-                </h3>
-                <p className="mt-3 text-base text-[#413f3b] font-semibold leading-relaxed">
-                  {faq.answer}
-                </p>
-              </div>
-            ))}
-          </div>
-        </PageSection>
+      <LabGrid
+        as="section"
+        id="join-faq"
+        data-cinematic-section=""
+        data-cinematic-title="Common questions"
+        data-surface="paper"
+        aria-labelledby="join-faq-title"
+        className={SECTION}
+      >
+        <TableHeader label="FAQ" className="col-span-full" />
+        <LabCell>
+          <LabTitle id="join-faq-title" count={faqs.length}>
+            Common questions
+          </LabTitle>
+        </LabCell>
+        <LabCell span="1/15">
+          <p className={LAB_TEXT.lg}>What people usually ask before they apply.</p>
+        </LabCell>
+        <LabFeed labels={["No.", "Question"]}>
+          {faqs.map((faq, index) => (
+            <LabRow key={faq.question} label={`Q.${pad(index + 1)}`} title={faq.question}>
+              <p>{faq.answer}</p>
+            </LabRow>
+          ))}
+        </LabFeed>
+      </LabGrid>
 
-        {/* Final CTA */}
-        <PageSection align="center">
-          <div className="mx-auto max-w-4xl text-center space-y-4 sm:space-y-6 bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-8 md:p-16">
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#120f0a] uppercase tracking-tight leading-none">
-              Ready to start building?
-            </h2>
-            <p className="text-base text-[#413f3b] px-4 sm:px-0 font-semibold leading-relaxed">
-              Join 1400+ teen builders who ship real projects.
-            </p>
-            <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <Button
-                asChild
-                className="w-full sm:w-auto h-14 rounded-none bg-white text-sm font-black uppercase tracking-wider text-[#120f0a] border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer px-8"
-              >
-                <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer">
-                  Join Discord
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </a>
-              </Button>
-              <Button
-                asChild
-                className="w-full sm:w-auto h-14 rounded-none bg-[#97192c] text-sm font-black uppercase tracking-wider text-white border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer px-8"
-              >
-                <a href={NOTION_JOIN_FORM_URL} target="_blank" rel="noopener noreferrer">
-                  Become a Contributor
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </a>
-              </Button>
-              <Button
-                asChild
-                className="w-full sm:w-auto h-14 rounded-none bg-[#fc920d] text-sm font-black uppercase tracking-wider text-[#120f0a] border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer px-8"
-              >
-                <Link href="/fork">
-                  Launch a Fork
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-            </div>
-            <p className="text-sm text-[#413f3b] font-semibold pt-4">
-              Questions? Reach us at{" "}
-              <a
-                href="mailto:hello@gobitsnbytes.org"
-                className="font-black text-[#97192c] hover:underline"
-              >
-                hello@gobitsnbytes.org
-              </a>
-            </p>
-          </div>
-        </PageSection>
-      </main>
+      {/* stripe.dev footer rows (auto / 164 / auto / 164 / auto) + the outlined closing word */}
+      <section
+        id="start-building"
+        data-cinematic-section=""
+        data-cinematic-title="Ready to start building?"
+        data-surface="paper"
+        aria-labelledby="start-building-title"
+        className="pt-24 min-[760px]:pt-[160px]"
+      >
+        <LabGrid>
+          <LabFooterRows>
+            <>
+              <LabCell span="1/19">
+                <LabTitle id="start-building-title" className={WRAP}>
+                  Ready to start building?
+                </LabTitle>
+              </LabCell>
+              <LabCell span="21/-1" className="justify-self-end self-start max-[759px]:hidden">
+                <LabGlobe />
+              </LabCell>
+            </>
+            <>
+              <LabCell span="1/9">
+                <p className={LAB_TEXT.lg}>Come ship real projects with teen builders from across India.</p>
+              </LabCell>
+              <LabCell span="11/-1" className="flex flex-col gap-4 sm:flex-row sm:flex-wrap min-[760px]:justify-end">
+                <Button asChild variant="outline">
+                  <LabLink href={DISCORD_INVITE_URL} className="group">
+                    <Cta>Join Discord</Cta>
+                  </LabLink>
+                </Button>
+                <Button asChild variant="burgundy">
+                  <LabLink href={NOTION_JOIN_FORM_URL} className="group">
+                    <Cta>Become a contributor</Cta>
+                  </LabLink>
+                </Button>
+                <Button asChild variant="outline">
+                  <LabLink href="/fork" className="group">
+                    <Cta>Launch a fork</Cta>
+                  </LabLink>
+                </Button>
+              </LabCell>
+            </>
+            <LabCell>
+              <p className="font-mono text-[12px] uppercase leading-[1.4]">
+                Questions? Write to us at{" "}
+                <LabLink
+                  href="mailto:hello@gobitsnbytes.org"
+                  className={cn("normal-case underline decoration-1 underline-offset-4", LAB_HOVER)}
+                >
+                  hello@gobitsnbytes.org
+                </LabLink>
+              </p>
+            </LabCell>
+          </LabFooterRows>
+        </LabGrid>
+        <HollowWord text="Join the crew" />
+      </section>
     </>
   );
 }

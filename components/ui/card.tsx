@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
+/** Print Riot container: 3px line border, 6px hard shadow, header/footer split by rules. */
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -8,7 +9,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "border-4 border-[#120f0a] bg-white text-[#120f0a] shadow-[6px_6px_0px_0px_#120f0a] transition-all rounded-none",
+      "rounded-none border-3 border-line bg-card text-card-foreground shadow-[6px_6px_0_0_var(--shadow-color)] transition-[transform,box-shadow] duration-150 ease-riot",
       className
     )}
     {...props}
@@ -22,7 +23,7 @@ const CardHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6 border-b-4 border-[#120f0a]", className)}
+    className={cn("flex flex-col gap-1.5 border-b-3 border-line p-6", className)}
     {...props}
   />
 ));
@@ -34,7 +35,7 @@ const CardTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h3
     ref={ref}
-    className={cn("text-2xl font-black uppercase tracking-tight font-sans leading-none", className)}
+    className={cn("font-sans text-2xl font-black uppercase leading-none tracking-tight", className)}
     {...props}
   />
 ));
@@ -46,7 +47,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-xs font-mono font-bold uppercase tracking-wider text-[#716f6c]", className)}
+    className={cn("font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground", className)}
     {...props}
   />
 ));
@@ -66,7 +67,7 @@ const CardFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex items-center p-6 pt-0 border-t-2 border-[#120f0a]/10", className)}
+    className={cn("flex items-center gap-3 border-t-3 border-line p-6", className)}
     {...props}
   />
 ));

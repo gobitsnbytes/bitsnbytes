@@ -1,6 +1,3 @@
-"use client";
-
-import { Cookie } from "lucide-react";
 import { LegalPolicyPage } from "@/components/legal-policy-page";
 
 const cookieMarkdown = `<aside>
@@ -91,7 +88,6 @@ export default function CookiePolicy() {
       title="Cookie Policy"
       summary="How bits&bytes™ utilizes essential cookies, local storage, and privacy-first telemetry with strict protections for minors under DPDP Act 2023."
       updated="Last updated: 13 September 2026"
-      icon={Cookie}
       sections={sections}
       markdown={cookieMarkdown}
       highlights={[

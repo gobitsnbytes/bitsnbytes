@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
-import { ForkScroll } from "./fork-scroll";
+import { ForkEdition } from "./fork-edition";
 
 export const metadata: Metadata = {
-  title: "Fork Network | Start a bits&bytes™ Hub in Your City",
+  title: "Fork network: start a fork in your city",
   description:
-    "Apply to lead a bits&bytes™ Fork — a student-run local chapter in your city. 5+ active Forks operating across Jaipur, Hyderabad, Bengaluru, Kolkata, and Noida.",
+    "Lead a bits&bytes™ fork in your city. Active forks: Bangalore, Kolkata, Chennai, Bhubaneswar, Nagpur, Mumbai, Delhi, Noida, Lucknow and Hyderabad.",
   keywords: [
     "bits&bytes fork",
     "student tech hub india",
@@ -18,9 +18,9 @@ export const metadata: Metadata = {
     canonical: "https://gobitsnbytes.org/fork",
   },
   openGraph: {
-    title: "Fork Network | Start a bits&bytes™ Hub in Your City",
+    title: "Fork network: start a bits&bytes™ fork in your city",
     description:
-      "Apply to lead a bits&bytes™ Fork — a student-run local chapter in your city. 5+ active Forks across India.",
+      "Apply to lead a bits&bytes™ fork: your city's own copy of upstream. Take the playbook and brand, run your own room, ship the work back.",
     url: "https://gobitsnbytes.org/fork",
     type: "website",
     images: [
@@ -28,15 +28,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "bits&bytes™ Fork Network — Local Student-Led Chapters across India",
+        alt: "bits&bytes™ fork network: student-run forks across India",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fork Network | Start a bits&bytes™ Hub in Your City",
+    title: "Fork network: start a bits&bytes™ fork in your city",
     description:
-      "5+ active Forks across India. Apply to lead one in your city.",
+      "Lead a student-run bits&bytes™ fork in your city. Take the playbook from upstream, run your own room, ship the work back.",
   },
 };
 
@@ -50,64 +50,43 @@ const forkJsonLd = {
       "@type": "WebPage",
       "@id": "https://gobitsnbytes.org/fork#webpage",
       url: "https://gobitsnbytes.org/fork",
-      name: "Fork Network | Start a bits&bytes™ Hub in Your City",
-      description: "Student-run local chapters of the bits&bytes™ network across India.",
+      name: "Fork network: start a bits&bytes™ fork in your city",
+      description: "Student-run bits&bytes™ forks in cities and schools across India.",
       isPartOf: { "@id": "https://gobitsnbytes.org/#website" },
       breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: "https://gobitsnbytes.org" },
-          { "@type": "ListItem", position: 2, name: "Fork Network", item: "https://gobitsnbytes.org/fork" },
+          { "@type": "ListItem", position: 2, name: "Fork network", item: "https://gobitsnbytes.org/fork" },
         ],
       },
     },
     {
       "@type": "HowTo",
       "@id": "https://gobitsnbytes.org/fork#howto-start-a-fork",
-      name: "How to Launch a bits&bytes™ Regional Fork Chapter",
-      description: "Instructions for high school and teenage builders to start a local hackathon and builder squad in their city.",
+      name: "How to start a bits&bytes™ fork",
+      description: "How teenage builders start a bits&bytes™ fork: a local hackathon and builder crew in their city or school.",
       totalTime: "P14D",
       step: [
         {
           "@type": "HowToStep",
-          name: "Submit Fork Application",
-          text: "Apply online at https://gobitsnbytes.org/fork with your city, team members, and proposed events.",
+          name: "Apply",
+          text: "Apply online at https://gobitsnbytes.org/fork with your city, your team and the events you want to run.",
           url: "https://gobitsnbytes.org/fork",
         },
         {
           "@type": "HowToStep",
-          name: "Complete Interview & Board Review",
-          text: "Align with Upstream leadership on safety policies, brand standards, and community guidelines.",
+          name: "Interview and board review",
+          text: "Align with upstream on safety policies, brand standards and community guidelines.",
         },
         {
           "@type": "HowToStep",
-          name: "Receive Operational Kit & Host Kickoff",
-          text: "Get access to graphics, venue playbooks, sponsor introductions, and run your first local meetup.",
+          name: "Get the kit, host a kickoff",
+          text: "Get graphics, venue playbooks and sponsor introductions, then run your first local meetup.",
         },
       ],
     },
-    {
-      "@type": "FAQPage",
-      "@id": "https://gobitsnbytes.org/fork#faq",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What is a bits&bytes™ Fork?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "A Fork is a recognized local or institutional chapter of the bits&bytes™ network where students run hackathons, workshops, and build squads under our non-profit governance.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Can a Fork raise its own funds or sign contracts?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "No. Fork recognition is an operational and brand-use license. All legal agreements, sponsorship contracts, and fundraising must be executed through Upstream at GOBITSNBYTES FOUNDATION.",
-          },
-        },
-      ],
-    },
+    // No FAQPage here: /fork has no visible FAQ, and FAQ markup must match what the page shows.
   ],
 };
 
@@ -118,7 +97,7 @@ export default function ForkPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(forkJsonLd) }}
       />
-      <ForkScroll applyUrl={applyUrl} />
+      <ForkEdition applyUrl={applyUrl} />
     </>
   );
 }

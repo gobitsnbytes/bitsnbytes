@@ -1,7 +1,3 @@
-"use client";
-
-import { Shield } from "lucide-react";
-
 import { LegalPolicyPage } from "@/components/legal-policy-page";
 
 const cocMarkdown = `<aside>
@@ -216,7 +212,6 @@ export default function CodeOfConduct() {
       title="Code of Conduct"
       summary="The standard for safe, high-agency participation across bits&bytes™ events, projects, Forks, the Minecraft server, and SparkCloud."
       updated="Last updated: 4 June 2026 · Version 1.0"
-      icon={Shield}
       sections={sections}
       markdown={cocMarkdown}
       highlights={["Applies to every role", "3-strike graduated enforcement", "Minecraft & SparkCloud covered"]}

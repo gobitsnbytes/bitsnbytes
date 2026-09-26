@@ -1,25 +1,19 @@
 "use client";
-import React from "react";
-import dynamic from "next/dynamic";
 
-const Globe = dynamic(
-  () => import("@/components/ui/globe").then((m) => m.Globe),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex items-center justify-center h-full w-full">
-        <div className="animate-pulse text-[#716f6c] font-mono text-xs uppercase tracking-widest">
-          Initializing Globe...
-        </div>
-      </div>
-    ),
-  }
-);
+import type { Marker } from "cobe";
 
-export default function TeamGlobe() {
-  return (
-    <div className="relative h-full w-full flex items-center justify-center overflow-hidden">
-      <Globe className="w-full h-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px]" />
-    </div>
-  );
+import { INDIA, places, type LatLng } from "@/components/impact/content";
+import { Globe } from "@/components/ui/globe";
+import { FORKS } from "@/lib/forks";
+
+// The active forks (pan-India, no hub), then the event venues that are not fork cities.
+const MARKERS: Marker[] = [
+  ...FORKS.map((fork) => ({ location: fork.at, size: 0.08 })),
+  ...places.slice(2).map((place) => ({ location: place.at, size: 0.06 })), // IIT Kanpur, IIT Bombay
+];
+
+const LABEL = `Globe: bits&bytes™ forks in ${FORKS.map((fork) => fork.city).join(", ")}`;
+
+export default function TeamGlobe({ focus = INDIA, animate = true }: { focus?: LatLng; animate?: boolean }) {
+  return <Globe markers={MARKERS} focus={focus} animate={animate} label={LABEL} />;
 }

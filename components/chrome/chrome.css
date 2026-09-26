@@ -1,0 +1,230 @@
+/*
+ * Global chrome (nav, menu, route transition; the intro's CSS is intro/intro.css). Plain CSS because
+ * these rules key off attributes ExperienceProvider writes on <html>:
+ *   data-nav-surface = paper|ink|orange|cream|burgundy   data-scrolled = true   data-scroll-dir = up|down
+ */
+
+/* In the components layer so Tailwind utilities (hidden, h-*, px-*) still override. */
+@layer components {
+    /* ---------- Nav: colour follows the surface under it ---------- */
+    .bnb-nav {
+        --nav-fg: var(--fg);
+        --nav-bg: var(--page);
+        --wipe-fill: var(--nav-fg);
+        --wipe-ink: var(--nav-bg);
+        --wipe-bg: var(--nav-bg);
+        color: var(--nav-fg);
+        transition:
+            transform 0.75s cubic-bezier(0.215, 0.61, 0.355, 1),
+            color 0.3s ease;
+    }
+
+    html[data-nav-surface="orange"] .bnb-nav {
+        --nav-fg: var(--ink);
+        --nav-bg: var(--orange);
+        --focus-ring: var(--cobalt);
+    }
+
+    html[data-nav-surface="cream"] .bnb-nav {
+        --nav-fg: var(--ink);
+        --nav-bg: var(--cream);
+        --focus-ring: var(--cobalt);
+    }
+
+    html[data-nav-surface="burgundy"] .bnb-nav {
+        --nav-fg: var(--cream);
+        --nav-bg: var(--burgundy);
+        /* cobalt on burgundy is < 3:1 */
+        --focus-ring: var(--marker);
+    }
+
+    html[data-nav-surface="ink"] .bnb-nav {
+        --nav-fg: var(--paper);
+        --nav-bg: var(--ink);
+        /* cobalt on ink is < 3:1 */
+        --focus-ring: var(--marker);
+    }
+
+    /* Hide on scroll down, back on scroll up; pinned while hovered, focused or the menu is open. */
+    html[data-scrolled="true"][data-scroll-dir="down"] .bnb-nav:not(:hover):not(:focus-within):not([data-menu-open]) {
+        transform: translate3d(0, -110%, 0);
+    }
+
+    /* ---------- Square outline button with a top-down fill wipe (buttermax pill, squared) ---------- */
+    .bnb-btn {
+        position: relative;
+        isolation: isolate;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        height: 36px;
+        padding: 0 12px;
+        border: 2px solid var(--wipe-fill, var(--fg));
+        background: var(--wipe-bg, transparent);
+        color: var(--wipe-fill, var(--fg));
+        font-family: var(--font-mono), ui-monospace, monospace;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        cursor: pointer;
+        transition:
+            color 0.45s cubic-bezier(0.215, 0.61, 0.355, 1),
+            border-color 0.3s ease,
+            background-color 0.3s ease;
+    }
+
+    .bnb-btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: var(--wipe-fill, var(--fg));
+        transform: scaleY(0);
+        transform-origin: 50% 100%;
+        transition: transform 0.45s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    /* Oversized invisible hit area in the nav (buttermax: ~150% x 300% of the pill). */
+    .bnb-nav .bnb-btn::after {
+        content: "";
+        position: absolute;
+        inset: -14px -3px;
+    }
+
+    @media (hover: hover) {
+        .bnb-btn:hover {
+            color: var(--wipe-ink, var(--page));
+        }
+
+        .bnb-btn:hover::before {
+            transform: scaleY(1);
+            transform-origin: 50% 0%;
+        }
+    }
+
+    .bnb-btn:focus-visible {
+        color: var(--wipe-ink, var(--page));
+    }
+
+    .bnb-btn:focus-visible::before {
+        transform: scaleY(1);
+        transform-origin: 50% 0%;
+    }
+
+    /* ---------- Pass-through block wipe for big menu links (kprverse) ---------- */
+    .bnb-pass {
+        position: relative;
+        isolation: isolate;
+        transition: color 0.35s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    .bnb-pass::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: var(--paper);
+        transform: scaleX(0);
+        transform-origin: 100% 50%;
+        transition: transform 0.35s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    @media (hover: hover) {
+        .bnb-pass:hover {
+            color: var(--ink);
+        }
+
+        .bnb-pass:hover::before {
+            transform: scaleX(1);
+            transform-origin: 0% 50%;
+        }
+    }
+
+    .bnb-pass:focus-visible {
+        color: var(--ink);
+    }
+
+    .bnb-pass:focus-visible::before {
+        transform: scaleX(1);
+        transform-origin: 0% 50%;
+    }
+
+    /* Cube mark in currentColor (public/logo.svg is a single-colour mark with cut-outs). */
+    .bnb-cube {
+        display: inline-block;
+        background: currentColor;
+        -webkit-mask: url("/logo.svg") center / contain no-repeat;
+        mask: url("/logo.svg") center / contain no-repeat;
+    }
+
+    /* Paper halftone underlay behind the menu (no glass, no blur). */
+    .bnb-menu-underlay {
+        background-color: color-mix(in srgb, var(--page) 86%, transparent);
+        background-image: radial-gradient(color-mix(in srgb, var(--fg) 26%, transparent) 1.2px, transparent 1.6px);
+        background-size: 7px 7px;
+    }
+
+    /* Wordmark knockout (components/chrome/wordmark.tsx) = the surface behind the mark. */
+    .bnb-nav {
+        --wm-knockout: var(--nav-bg);
+    }
+
+    .bnb-intro {
+        --wm-knockout: var(--paper);
+    }
+
+    /* ---------- Route transition (inkfish pixel mountain; GSAP drives scaleY) ---------- */
+    .bnb-route {
+        pointer-events: none;
+    }
+
+    .bnb-route[data-state="idle"] {
+        visibility: hidden;
+    }
+
+    /* Swallows clicks only while rising / covered. */
+    .bnb-route[data-state="cover"] {
+        pointer-events: auto;
+        cursor: progress;
+    }
+
+    /* 100%+2px with -1px margins: no hairline seams between scaled tiles. */
+    .bnb-route-tile {
+        margin: -1px;
+        transform: scaleY(0);
+    }
+
+    /* ---------- stripe.dev bracket hotkeys: active route chip is inverted ---------- */
+    .bnb-btn[aria-current="page"] {
+        background: var(--wipe-fill, var(--fg));
+        color: var(--wipe-ink, var(--page));
+    }
+
+    /* ---------- Reduced motion + site motion toggle ---------- */
+    @media (prefers-reduced-motion: reduce) {
+        .bnb-nav,
+        .bnb-btn,
+        .bnb-btn::before,
+        .bnb-pass,
+        .bnb-pass::before {
+            transition: none;
+        }
+    }
+
+    html[data-immersive-motion="off"] .bnb-nav,
+    html[data-immersive-motion="off"] .bnb-btn,
+    html[data-immersive-motion="off"] .bnb-btn::before,
+    html[data-immersive-motion="off"] .bnb-pass,
+    html[data-immersive-motion="off"] .bnb-pass::before {
+        transition: none;
+    }
+}
+
+/* The layout's skip link must sit above the fixed chrome. */
+a[href="#main-content"]:focus {
+    z-index: 1300;
+}
