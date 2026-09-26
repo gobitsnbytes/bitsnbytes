@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { PageSection } from "@/components/page-section";
-import { Sparkles, Cpu, Zap, Globe, GitBranch, Cloud } from "lucide-react";
+import { Cpu, Zap, Globe, GitBranch, Cloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const strategicPartners = [
@@ -35,19 +35,6 @@ const strategicPartners = [
     icon: <Cpu className="w-4 h-4 text-current" />,
     logoWrapClass: "w-36",
     logoImageClass: "scale-[0.98]",
-  },
-  {
-    name: "YRI Fellowship",
-    logo: "/partners/yri.png",
-    url: "https://www.yriscience.com/",
-    role: "Knowledge Partner",
-    description:
-      "Supporting scientific research and early-career researchers through fellowships.",
-    features: ["Research Hub", "Fellowships", "Open Science"],
-    color: "purple",
-    icon: <Sparkles className="w-4 h-4 text-current" />,
-    logoWrapClass: "w-32",
-    logoImageClass: "scale-105",
   },
   {
     name: "z.ai",
