@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { WIDE } from "@/components/chrome/wordmark";
 import { cn } from "@/lib/utils";
+import { Character } from "@/components/character/character";
 
 export const metadata = {
   title: "404: page not found | bits&bytes™",
@@ -47,6 +48,11 @@ export default function NotFound() {
               <span aria-hidden>←</span> Back to home
             </Link>
           </Button>
+          <Character
+            pose="idle"
+            sizes="(min-width: 1024px) 130px, 0px"
+            className="mt-10 hidden w-[clamp(96px,8vw,130px)] lg:block"
+          />
         </div>
 
         <nav aria-labelledby="not-found-destinations">
