@@ -166,9 +166,24 @@ export function RouteTransition() {
         popped.current = window.location.pathname !== lastPath.current;
       };
 
+      // Once the intro is gone, warm every menu route on idle so route changes rarely hit a fallback at all.
+      // Production only (dev prefetch compiles each route) and never on Save-Data.
+      let idle = 0;
+      const prefetchRoutes = () => {
+        const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+        if (process.env.NODE_ENV !== "production" || saveData) return;
+        const run = () => ROUTES.forEach((route) => !route.handler && live.current.router.prefetch(route.href));
+        idle = typeof requestIdleCallback === "function" ? requestIdleCallback(run, { timeout: 3000 }) : window.setTimeout(run, 1500);
+      };
+      if (document.documentElement.dataset.loaded === "true") prefetchRoutes();
+      else window.addEventListener("bnb:ready", prefetchRoutes, { once: true });
+
       window.addEventListener("click", onClick, true);
       window.addEventListener("popstate", onPopState);
       return () => {
+        window.removeEventListener("bnb:ready", prefetchRoutes);
+        if (typeof cancelIdleCallback === "function") cancelIdleCallback(idle);
+        else window.clearTimeout(idle);
         window.clearTimeout(failsafe.current);
         window.removeEventListener("click", onClick, true);
         window.removeEventListener("popstate", onPopState);
