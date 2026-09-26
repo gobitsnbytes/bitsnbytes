@@ -198,7 +198,7 @@ export default function PressKit() {
           pose="megaphone"
           priority
           sizes="(min-width: 1024px) 150px, 0px"
-          className="absolute bottom-10 right-[6vw] hidden w-[clamp(110px,10vw,150px)] lg:block"
+          className="absolute bottom-16 right-[6vw] hidden w-[clamp(110px,10vw,150px)] lg:block"
         />
         <LabHero
           lines={["Press kit & ", "brand assets"]}
