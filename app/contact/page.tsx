@@ -64,7 +64,7 @@ const channels: HelpTopic[] = [
   },
   {
     title: "Follow the Builds",
-    body: <p>Connect on our channels</p>,
+    body: <p>See what we&apos;re shipping</p>,
     examples: socials,
   },
 ];
@@ -83,7 +83,7 @@ export default function Contact() {
           lines={["Let's build ", "something ", "together"]}
           glyph={<PixelGlyph text="CONTACT" decorative />}
           aside={<LabGlobe />}
-          subtitle={<p>Partner with us on hackathons, workshops, or school programs across India.</p>}
+          subtitle={<p>Run a hackathon with us, sponsor one, or bring one to your school, anywhere in India.</p>}
         >
           <p aria-hidden className="font-mono text-[11px] uppercase leading-none">
             20.5937° N, 78.9629° E
@@ -91,7 +91,7 @@ export default function Contact() {
         </LabHero>
       </section>
 
-      {/* the form, unchanged, inside console chrome beside the seeded Fig. 1 */}
+      {/* the form inside console chrome beside the seeded Fig. 1 */}
       <LabGrid
         as="section"
         id="send-message"
@@ -122,8 +122,8 @@ export default function Contact() {
         <TableHeader as="h2" label="bits&bytes™" className="col-span-full" />
         <LabCell span="1/20">
           <p className={LAB_TEXT.lg}>
-            bits&amp;bytes™ is an independent, student-led network helping ambitious teenagers build products and get
-            their ideas out into the world. Taste, engineering standards, and high agency guide everything we ship.
+            bits&amp;bytes™ is an independent, teen-led builder network. We help teenagers across India turn ideas into
+            things people can use, and we hold what we ship to real engineering standards.
           </p>
         </LabCell>
       </LabGrid>

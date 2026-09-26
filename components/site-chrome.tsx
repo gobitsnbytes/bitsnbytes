@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Footer } from "@/components/chrome/footer";
 import { Loader } from "@/components/chrome/loader";
 import { Nav } from "@/components/chrome/nav";
+import { SoundProvider } from "@/components/chrome/sound/provider";
 import { FloatingAiAssistant } from "@/components/client-only-components";
 import { ExperienceProvider } from "@/components/experience-provider";
 import { CookieConsentBanner } from "@/components/cookie-consent-banner";
@@ -31,6 +32,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
           <CookieConsentBanner />
         </div>
         <CursorLabel />
+        <SoundProvider />
       </ExperienceProvider>
     </>
   );

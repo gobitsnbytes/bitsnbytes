@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -23,6 +23,8 @@ export type IndentStatementProps = {
   /** false drops EDITION_GUTTER (pages without the chapter index, e.g. the homepage). */
   gutter?: boolean;
   className?: string;
+  /** Decorative extra placed inside the section (e.g. the character, absolutely positioned in the padding). */
+  aside?: ReactNode;
 };
 
 /**
@@ -38,6 +40,7 @@ export function IndentStatement({
   surface = "paper",
   gutter = true,
   className,
+  aside,
 }: IndentStatementProps) {
   const root = useRef<HTMLElement>(null);
   const motion = useMotionEnabled();
@@ -87,6 +90,7 @@ export function IndentStatement({
           </p>
         </div>
       </div>
+      {aside}
     </section>
   );
 }

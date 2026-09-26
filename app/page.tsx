@@ -7,6 +7,7 @@ import {
   type HomeFaqItem,
 } from "@/components/home";
 import { IndentStatement } from "@/components/edition/indent-statement";
+import { Character } from "@/components/character/character";
 import { TornEdge } from "@/components/riot/chapter";
 import { Partners } from "@/components/partners";
 
@@ -43,7 +44,19 @@ export default function Home() {
       <HomeReel />
 
       <TornEdge from="ink" to="paper" flip />
-      <IndentStatement label="WHO WE ARE" number={1} id="who-we-are" className="[&>div]:px-[4vw]">
+      <IndentStatement
+        label="WHO WE ARE"
+        number={1}
+        id="who-we-are"
+        className="[&>div]:px-[4vw]"
+        aside={
+          <Character
+            pose="wave"
+            sizes="(min-width: 768px) 100px, 0px"
+            className="absolute bottom-0 right-[4vw] hidden w-[clamp(80px,6.5vw,100px)] px-0! md:block"
+          />
+        }
+      >
         We&apos;re a teen-led builder network across India, and our answer to rigid, beginner-locked tech events.
         Teenagers run every part of it, and we built it from scratch.
       </IndentStatement>

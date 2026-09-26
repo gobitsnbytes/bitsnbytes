@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact bits&bytes™ | Partnerships, Press & Inquiries",
+  title: "Contact bits&bytes™ | Partnerships, press and sponsors",
   description:
-    "Reach the bits&bytes™ team, pan-India. For partnerships, press inquiries, sponsorships, or general questions, we respond within 48 hours.",
+    "Email the bits&bytes™ team about partnerships, sponsorships, press or anything else. We are a teen-led network across India and reply within 48 hours.",
   keywords: [
     "contact bits&bytes™",
     "teen builders network contact",
@@ -15,17 +15,17 @@ export const metadata: Metadata = {
     canonical: "https://gobitsnbytes.org/contact",
   },
   openGraph: {
-    title: "Contact bits&bytes™ | Partnerships, Press & Inquiries",
+    title: "Contact bits&bytes™ | Partnerships, press and sponsors",
     description:
-      "Reach the bits&bytes™ team, pan-India. For partnerships, press inquiries, sponsorships, or general questions, we respond within 48 hours.",
+      "Email the bits&bytes™ team about partnerships, sponsorships, press or anything else. We are a teen-led network across India and reply within 48 hours.",
     url: "https://gobitsnbytes.org/contact",
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Contact bits&bytes™" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact bits&bytes™ | Partnerships, Press & Inquiries",
-    description: "Reach the bits&bytes™ team for partnerships, press, or sponsorships. We work pan-India.",
+    title: "Contact bits&bytes™ | Partnerships, press and sponsors",
+    description: "Partnerships, sponsorships, press or a question: email the bits&bytes™ team. We reply within 48 hours.",
   },
 };
 
@@ -37,7 +37,7 @@ const contactPageJsonLd = {
       "@id": "https://gobitsnbytes.org/contact#webpage",
       url: "https://gobitsnbytes.org/contact",
       name: "Contact bits&bytes™",
-      description: "Get in touch with the bits&bytes™ team for partnerships, press, or community inquiries.",
+      description: "Contact the bits&bytes™ team about partnerships, sponsorships, press or community questions.",
       isPartOf: { "@id": "https://gobitsnbytes.org/#website" },
       breadcrumb: {
         "@type": "BreadcrumbList",
