@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion, type Transition } from "framer-motion";
@@ -8,7 +8,7 @@ import { useTheme } from "next-themes";
 import { useExperience } from "@/components/experience-provider";
 import { ScrambleText } from "@/components/riot/scramble-text";
 import { cn } from "@/lib/utils";
-import { setShortcutsEnabled, useShortcutsEnabled } from "./hotkeys/shortcuts";
+import { openConsole, setShortcutsEnabled, useShortcutsEnabled } from "./hotkeys/shortcuts";
 import { ROUTES, SOCIALS, isActive, pad } from "./links";
 import { CubeMark } from "./wordmark";
 
@@ -43,6 +43,7 @@ export function MenuPanel({ pathname, instant, onNavigate, onTour }: MenuPanelPr
   const { resolvedTheme, setTheme } = useTheme();
   const dark = resolvedTheme === "dark";
   const shortcuts = useShortcutsEnabled();
+  const toConsole = useRef(false);
 
   // Freeze the page behind the menu (Radix locks native scroll; Lenis needs its own stop).
   useEffect(() => {
@@ -69,7 +70,16 @@ export function MenuPanel({ pathname, instant, onNavigate, onTour }: MenuPanelPr
         />
       </Dialog.Overlay>
 
-      <Dialog.Content forceMount asChild aria-describedby={undefined}>
+      <Dialog.Content
+        forceMount
+        asChild
+        aria-describedby={undefined}
+        // Console entry: open it only once the menu is gone and Radix has handed focus back to MENU, so
+        // the console's prompt keeps focus and Esc there returns to MENU.
+        onCloseAutoFocus={() => {
+          if (toConsole.current) setTimeout(openConsole);
+        }}
+      >
         <div
           data-lenis-prevent
           className="fixed inset-y-0 right-0 z-[81] flex w-full flex-row-reverse outline-none md:w-[min(100vw,68rem)]"
@@ -134,7 +144,7 @@ export function MenuPanel({ pathname, instant, onNavigate, onTour }: MenuPanelPr
                     </>
                   );
                   const className = cn(
-                    "flex items-start gap-3 px-3 py-1.5 font-[family-name:var(--font-archivo)] text-[clamp(30px,4.2vw,58px)] font-black uppercase leading-[0.9] tracking-[-0.03em] [font-stretch:112%]",
+                    "flex items-start gap-3 px-3 py-1.5 font-[family-name:var(--font-archivo)] text-[clamp(26px,min(4.2vw,6svh),58px)] font-black uppercase leading-[0.9] tracking-[-0.03em] [font-stretch:112%]",
                     active ? "bg-marker text-ink" : "bnb-pass group",
                   );
                   return (
@@ -193,6 +203,18 @@ export function MenuPanel({ pathname, instant, onNavigate, onTour }: MenuPanelPr
                 </button>
                 <button type="button" className="bnb-btn" onClick={onTour} aria-label="Start the site tour">
                   Site tour
+                </button>
+                <button
+                  type="button"
+                  className="bnb-btn"
+                  aria-keyshortcuts={shortcuts ? "C" : undefined}
+                  title="Open the AI assistant console"
+                  onClick={() => {
+                    toConsole.current = true;
+                    onNavigate();
+                  }}
+                >
+                  Console
                 </button>
               </div>
 

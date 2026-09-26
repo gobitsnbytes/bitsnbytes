@@ -7,15 +7,12 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, useReducedMotion } from "framer-motion";
 import { useExperience } from "@/components/experience-provider";
 import { ScrambleText } from "@/components/riot/scramble-text";
-import { isShortcut, useShortcutsEnabled } from "./hotkeys/shortcuts";
+import { isShortcut, openConsole, useShortcutsEnabled } from "./hotkeys/shortcuts";
 import { PRIMARY, isActive } from "./links";
 import { MenuPanel } from "./menu";
 import { RouteTransition } from "./transition/route-transition";
 import { CubeMark, Wordmark } from "./wordmark";
 import "./chrome.css";
-
-/** The AI assistant listens; nothing happens (and focus stays put) if it isn't mounted. */
-const openConsole = () => window.dispatchEvent(new CustomEvent("bnb:console-open"));
 
 /** stripe.dev bracket key. Decorative (aria-keyshortcuts carries it). Shown from xl, where five keyed chips
  * still leave the wordmark centred; hidden on touch widths. */
@@ -70,7 +67,7 @@ export function Nav() {
         viaKeyboard.current = true;
         onOpenChange(true);
       } else if (key === "C") {
-        openConsole();
+        openConsole(true);
       } else if (section) {
         // Keyboard-initiated: jump without animation, then move focus. Nav clearance comes from the
         // scroll-margin-top ExperienceProvider puts on chapters (Lenis and scrollIntoView both honour it).
@@ -129,12 +126,14 @@ export function Nav() {
                   </Link>
                 );
               })}
+              {/* Toggles the console (exempt from its click-outside). Below lg the menu's Console entry and the C key cover it. */}
               <button
                 type="button"
+                data-console-toggle
                 className="bnb-btn hidden lg:inline-flex"
                 aria-keyshortcuts={shortcuts ? "C" : undefined}
-                title="Open the AI assistant console"
-                onClick={openConsole}
+                title="Open or close the AI assistant console"
+                onClick={() => openConsole(true)}
               >
                 <Key k="C" />
                 <ScrambleText text="Console" trigger="hover" />

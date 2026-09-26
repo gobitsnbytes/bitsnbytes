@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback, useId, type ChangeEvent, type MouseEvent as ReactMouseEvent } from "react";
+import { useState, useRef, useEffect, useCallback, useId, type ChangeEvent } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ThumbsUp, ThumbsDown } from "lucide-react";
 
 import { useOptionalExperience } from "@/components/experience-provider";
-import { CubeMark } from "@/components/chrome/wordmark";
 import { PromptBox, type PromptBoxRef } from "@/components/ui/chatgpt-prompt-input";
 import {
   Caret,
@@ -28,7 +27,6 @@ import {
   streamAssistant,
   type ChatMessage,
 } from "@/components/ui/chat-console";
-import { cn } from "@/lib/utils";
 
 type FeedbackValue = "up" | "down" | null;
 
@@ -195,9 +193,10 @@ const HIGHLIGHT_STYLE =
   "background:var(--marker);color:#120f0a;outline:2px solid #120f0a;padding:0 2px;transition:background 0.4s,outline 0.4s;";
 
 /**
- * Floating assistant on every route except /qna: a square window-chrome launcher bottom-right that
- * opens a stripe.dev-style console. Hidden while the cookie banner (also bottom-right) is open; the
- * mobile chapter chip lives bottom-left, so the two never meet.
+ * The [C] console on every route except /qna: a stripe.dev-style window, bottom-right on sm+ (a sheet
+ * under the nav below that), above the cookie banner. Quiet by design: it never opens or speaks on its
+ * own. It opens only on bnb:console-open (nav [C] chip, C key, menu entry; the chip and key toggle) or
+ * bb:qna-prompt (prompt CTAs); Esc, ✕ or a click outside closes it. Only the transcript and draft persist.
  */
 const FloatingAiAssistant = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -216,17 +215,14 @@ const FloatingAiAssistant = () => {
     window.sessionStorage.setItem("bb-session-id", newId);
     return newId;
   });
-  const [showProactive, setShowProactive] = useState(false);
-  const ctaClickedRef = useRef(false);
 
   const experience = useOptionalExperience();
   const motionOn = experience?.motionEnabled ?? false;
   const lenis = experience?.lenis ?? null;
-  const panelId = useId();
   const titleId = useId();
 
   const chatRef = useRef<HTMLDivElement | null>(null);
-  const launcherRef = useRef<HTMLButtonElement | null>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
   const promptBoxRef = useRef<PromptBoxRef | null>(null);
   const logRef = useRef<HTMLDivElement | null>(null);
   const nextIdRef = useRef(1);
@@ -250,29 +246,10 @@ const FloatingAiAssistant = () => {
   }, [messages, isLoading, isChatOpen, motionOn]);
 
   useEffect(() => {
-    if (!hasHydrated) return;
-    if (isChatOpen) {
-      setShowProactive(false);
-      return;
-    }
-
-    const proactiveKey = "bb-proactive-shown";
-    if (sessionStorage.getItem(proactiveKey)) return;
-
-    const timer = setTimeout(() => {
-      setShowProactive(true);
-      sessionStorage.setItem(proactiveKey, "true");
-    }, 15000);
-
-    return () => clearTimeout(timer);
-  }, [isChatOpen, hasHydrated, pathname]);
-
-  useEffect(() => {
     try {
       const stored = loadChat(MAX_HISTORY);
       setMessages(stored.messages);
       nextIdRef.current = Math.max(stored.nextId, nextIdRef.current);
-      if (stored.isChatOpen !== null) setIsChatOpen(stored.isChatOpen);
       if (stored.draft !== null) setMessage(stored.draft);
     } catch (err) {
       console.error("Failed to restore assistant history:", err);
@@ -281,45 +258,78 @@ const FloatingAiAssistant = () => {
     }
   }, []);
 
+  // Open/closed is deliberately not persisted: the console never reopens itself on a later page load.
   useEffect(() => {
-    if (hasHydrated) saveChat({ messages, isChatOpen, draft: message }, true);
-  }, [messages, isChatOpen, message, hasHydrated]);
+    if (hasHydrated) saveChat({ messages, draft: message }, true);
+  }, [messages, message, hasHydrated]);
 
   useEffect(() => () => streamControllerRef.current?.abort(), []);
 
+  // Remembers who opened it so closing can hand focus back; focus goes to the prompt.
+  const openConsole = useCallback(() => {
+    const active = document.activeElement;
+    if (active instanceof HTMLElement && !chatRef.current?.contains(active)) openerRef.current = active;
+    setIsChatOpen(true);
+    promptBoxRef.current?.focus(); // already open; a freshly mounted panel is focused by the effect below
+  }, []);
+
+  useEffect(() => {
+    if (isChatOpen) promptBoxRef.current?.focus();
+  }, [isChatOpen]);
+
+  const close = useCallback(() => {
+    streamControllerRef.current?.abort();
+    setIsChatOpen(false);
+    if (openerRef.current?.isConnected) openerRef.current.focus();
+  }, []);
+
+  // Nav [C] chip / C key / menu entry. The chip and key send { toggle: true }, so a second press closes.
+  useEffect(() => {
+    const onOpen = (event: Event) => {
+      if (isChatOpen && (event as CustomEvent<{ toggle?: boolean } | null>).detail?.toggle) close();
+      else openConsole();
+    };
+    window.addEventListener("bnb:console-open", onOpen);
+    return () => window.removeEventListener("bnb:console-open", onOpen);
+  }, [isChatOpen, openConsole, close]);
+
+  // While open: Esc closes from anywhere, a click outside closes. Radix dialogs above it (the menu) mark
+  // their Esc handled; the image lightbox handles its own. The nav toggle and the lightbox are exempt
+  // from click-outside (the toggle would otherwise close then reopen it).
   useEffect(() => {
     if (!isChatOpen) return;
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement | null;
-      if (!target) return;
-      if (chatRef.current && !chatRef.current.contains(target)) {
-        // The launcher toggles itself; the image lightbox is portalled outside the panel.
-        if (!target.closest(".floating-ai-button, [data-chat-overlay]")) {
-          setIsChatOpen(false);
-        }
-      }
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || event.defaultPrevented) return;
+      if (event.target instanceof Element && event.target.closest("[data-chat-overlay]")) return;
+      close();
     };
-
-    document.addEventListener("mousedown", handleClickOutside);
+    const onMouseDown = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element) || chatRef.current?.contains(target)) return;
+      if (!target.closest("[data-console-toggle], [data-chat-overlay]")) setIsChatOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("mousedown", onMouseDown);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("mousedown", onMouseDown);
     };
-  }, [isChatOpen]);
+  }, [isChatOpen, close]);
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length > MAX_CHARS) return;
     setMessage(e.target.value);
   };
 
-  const handleQuickPrompt = useCallback((prompt: string) => {
-    setIsChatOpen(true);
-    setMessage(prompt);
-    setTimeout(() => {
-      promptBoxRef.current?.focus();
-    }, 0);
-  }, []);
+  const handleQuickPrompt = useCallback(
+    (prompt: string) => {
+      setMessage(prompt);
+      openConsole();
+    },
+    [openConsole],
+  );
 
-  // Follow-up links and booking blocks inside replies send their prompt through this event.
+  // User-clicked prompt CTAs (follow-up links, booking blocks) send their prompt through this event.
   useEffect(() => {
     const onPrompt = (event: Event) => {
       const detail = (event as CustomEvent<string>).detail;
@@ -523,98 +533,6 @@ const FloatingAiAssistant = () => {
     }
   };
 
-  const sendMessage = (text: string) => {
-    setIsChatOpen(true);
-    void handleSend(text);
-  };
-
-  useEffect(() => {
-    const nudges: Record<string, { delayMs: number; text: string }> = {
-      "/join": {
-        delayMs: 45_000,
-        text: "need help figuring out which role fits you?",
-      },
-      "/events": {
-        delayMs: 30_000,
-        text: "want me to walk you through the upcoming events?",
-      },
-      "/contact": {
-        delayMs: 20_000,
-        text: "want me to help you send a message to the team directly?",
-      },
-    };
-
-    const config = nudges[pathname];
-    if (!config) return;
-
-    const shownKey = `bb-proactive-nudge-${pathname}`;
-    if (typeof window !== "undefined" && window.sessionStorage.getItem(shownKey)) return;
-
-    let timer: number | null = null;
-
-    const schedule = () => {
-      if (timer) window.clearTimeout(timer);
-      if (ctaClickedRef.current || isLoading) return;
-      timer = window.setTimeout(() => {
-        if (ctaClickedRef.current) return;
-        if (typeof window !== "undefined") {
-          window.sessionStorage.setItem(shownKey, "true");
-        }
-        sendMessage(config.text);
-      }, config.delayMs);
-    };
-
-    const interactionHandler = () => schedule();
-    const clickHandler = (event: MouseEvent) => {
-      const target = event.target as HTMLElement | null;
-      if (!target) return;
-      if (target.closest("a[href], button, [role='button'], [data-tally-open]")) {
-        ctaClickedRef.current = true;
-        if (timer) window.clearTimeout(timer);
-        return;
-      }
-      schedule();
-    };
-
-    schedule();
-    window.addEventListener("mousemove", interactionHandler);
-    window.addEventListener("keydown", interactionHandler);
-    window.addEventListener("scroll", interactionHandler, { passive: true });
-    window.addEventListener("touchstart", interactionHandler, { passive: true });
-    window.addEventListener("click", clickHandler);
-
-    return () => {
-      if (timer) window.clearTimeout(timer);
-      window.removeEventListener("mousemove", interactionHandler);
-      window.removeEventListener("keydown", interactionHandler);
-      window.removeEventListener("scroll", interactionHandler);
-      window.removeEventListener("touchstart", interactionHandler);
-      window.removeEventListener("click", clickHandler);
-      ctaClickedRef.current = false;
-    };
-  }, [pathname, isLoading]);
-
-  const close = () => {
-    streamControllerRef.current?.abort();
-    setIsChatOpen(false);
-    launcherRef.current?.focus();
-  };
-
-  const handleToggle = (e: ReactMouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    setIsChatOpen((open) => {
-      const next = !open;
-      if (next) {
-        setTimeout(() => {
-          promptBoxRef.current?.focus();
-        }, 0);
-      } else {
-        streamControllerRef.current?.abort();
-      }
-      return next;
-    });
-  };
-
   const clear = () => {
     setMessages([]);
     setMessage("");
@@ -624,186 +542,111 @@ const FloatingAiAssistant = () => {
   const last = messages[messages.length - 1];
   const enter = motionOn ? { duration: 0.22, ease: EASE_OUT } : { duration: 0 };
 
+  // z-60: above the cookie banner (z-50), below the nav (z-70) and the image lightbox (z-80).
   return (
-    <div className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6 [body:has(aside[aria-label^=Cookie])_&]:hidden">
-      <div className="relative">
-        {/* Proactive note */}
-        <AnimatePresence initial={false}>
-          {showProactive && !isChatOpen && (
-            <motion.div
-              role="status"
-              initial={{ opacity: 0, y: motionOn ? 8 : 0 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: motionOn ? 6 : 0 }}
-              transition={enter}
-              className="absolute bottom-full right-0 mb-3 w-[224px] border-3 border-ink bg-paper text-ink shadow-[4px_4px_0_0_var(--ink)] [--focus-ring:var(--cobalt)]"
-            >
-              <div className="flex items-center justify-between gap-2 border-b-2 border-ink bg-orange py-1 pl-2.5 pr-1">
-                <span className="truncate font-mono text-[10px] font-bold uppercase tracking-[0.14em]">
-                  bits&bytes™ Assistant
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setShowProactive(false)}
-                  aria-label="Dismiss"
-                  className="grid size-6 shrink-0 cursor-pointer place-items-center font-mono text-xs font-bold hover:bg-ink hover:text-paper"
-                >
-                  ✕
-                </button>
-              </div>
-              <p className="px-3 py-2.5 text-[13px] font-semibold leading-snug">
-                {pathname === "/events"
-                  ? "Want help registering for an event? 🎟️"
-                  : pathname === "/join"
-                    ? "I can help you join the club! 💡"
-                    : pathname === "/contact"
-                      ? "Need to reach someone specific? Ask me! 👋"
-                      : "Hey! Want to know what we do? 🚀"}
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Launcher: a tiny window — orange title bar with three lights over an ink body with the cube mark. */}
-        <button
-          ref={launcherRef}
-          type="button"
-          onClick={handleToggle}
-          aria-expanded={isChatOpen}
-          aria-controls={isChatOpen ? panelId : undefined}
-          aria-label={isChatOpen ? "Close bits&bytes™ assistant" : "Open bits&bytes™ assistant"}
-          data-cursor-label={isChatOpen ? "CLOSE" : "OPEN CONSOLE"}
-          className="floating-ai-button ml-auto flex cursor-pointer flex-col border-3 border-ink bg-ink text-cream shadow-[4px_4px_0_0_var(--orange)] transition-[transform,box-shadow] duration-100 ease-riot hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_var(--orange)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none motion-reduce:transition-none dark:border-cream"
+    <AnimatePresence initial={false}>
+      {isChatOpen && (
+        <motion.div
+          ref={chatRef}
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby={titleId}
+          data-lenis-prevent=""
+          initial={{ opacity: 0, y: motionOn ? 12 : 0, scale: motionOn ? 0.97 : 1 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: motionOn ? 8 : 0, scale: motionOn ? 0.98 : 1 }}
+          transition={enter}
+          className="tone-ink fixed inset-x-3 bottom-3 top-20 z-[60] flex origin-bottom-right flex-col border-3 border-line shadow-[8px_8px_0_0_var(--orange)] sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(560px,calc(100svh-7rem))] sm:w-[min(420px,calc(100vw-2rem))]"
         >
-          <span aria-hidden className="flex h-3.5 w-full items-center gap-[3px] border-b-2 border-ink bg-orange px-1">
-            <span className="size-1.5 bg-burgundy" />
-            <span className="size-1.5 bg-marker" />
-            <span className="size-1.5 bg-slime" />
-          </span>
-          <span aria-hidden className="flex h-11 min-w-11 items-center justify-center gap-2 px-2.5">
-            {isChatOpen ? (
-              <span className="grid size-6 place-items-center font-mono text-base font-bold">✕</span>
-            ) : (
-              <CubeMark className="size-6" />
+          <ConsoleBar title="bits&bytes™ Assistant" titleId={titleId}>
+            {messages.length > 0 && (
+              <ConsoleButton onClick={clear} aria-label="Clear chat" title="Clear chat">
+                Clear
+              </ConsoleButton>
             )}
-            <span className="hidden font-mono text-[11px] font-bold uppercase tracking-[0.14em] sm:inline">
-              {isChatOpen ? "Esc" : "Ask"}
-            </span>
-          </span>
-        </button>
+            <ConsoleButton onClick={close} aria-label="Close assistant" title="Close assistant">
+              ✕
+            </ConsoleButton>
+          </ConsoleBar>
 
-        {/* Console */}
-        <AnimatePresence initial={false}>
-          {isChatOpen && (
-            <motion.div
-              ref={chatRef}
-              id={panelId}
-              role="dialog"
-              aria-modal="false"
-              aria-labelledby={titleId}
-              data-lenis-prevent=""
-              initial={{ opacity: 0, y: motionOn ? 12 : 0, scale: motionOn ? 0.97 : 1 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: motionOn ? 8 : 0, scale: motionOn ? 0.98 : 1 }}
-              transition={enter}
-              onKeyDown={(event) => {
-                if (event.key !== "Escape") return;
-                event.stopPropagation();
-                close();
-              }}
-              className="tone-ink fixed inset-x-3 bottom-[5.5rem] top-24 flex origin-bottom-right flex-col border-3 border-line shadow-[8px_8px_0_0_var(--orange)] sm:absolute sm:inset-auto sm:bottom-[calc(100%+14px)] sm:right-0 sm:h-[min(560px,calc(100svh-200px))] sm:w-[400px]"
-            >
-              <ConsoleBar title="bits&bytes™ Assistant" titleId={titleId}>
-                {messages.length > 0 && (
-                  <ConsoleButton onClick={clear} aria-label="Clear chat" title="Clear chat">
-                    Clear
-                  </ConsoleButton>
-                )}
-                <ConsoleButton onClick={close} aria-label="Close assistant" title="Close assistant">
-                  ✕
-                </ConsoleButton>
-              </ConsoleBar>
-
-              <div
-                ref={logRef}
-                className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3.5 py-2 font-mono text-[12.5px] leading-relaxed"
-                aria-live="polite"
-                aria-relevant="additions text"
-              >
-                {messages.length === 0 && (
-                  <div className="flex flex-col gap-3 py-2">
-                    <p className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] opacity-85">
-                      Ask about our team, hackathons, or how to get involved.
-                    </p>
-                    <PromptList prompts={QUICK_PROMPTS} onPick={handleQuickPrompt} />
-                  </div>
-                )}
-
-                <ol>
-                  {messages.map((m, index) => {
-                    const feedback = feedbackMap[m.id];
-                    return (
-                      <LogEntry
-                        key={m.id}
-                        role={m.role}
-                        index={index}
-                        footer={
-                          m.role === "assistant" && m.content && m.content.length > 0 && !isLoading ? (
-                            <div className="mt-2 flex items-center gap-1.5">
-                              {(["up", "down"] as const).map((value) => (
-                                <button
-                                  key={value}
-                                  type="button"
-                                  onClick={() => handleFeedback(m.id, value, m.content)}
-                                  aria-pressed={feedback === value}
-                                  aria-label={value === "up" ? "Good response" : "Bad response"}
-                                  title={value === "up" ? "Good response" : "Bad response"}
-                                  className="grid size-7 cursor-pointer place-items-center border-2 border-line/50 transition-colors hover:bg-cream hover:text-ink aria-pressed:border-line aria-pressed:bg-orange aria-pressed:text-ink"
-                                >
-                                  {value === "up" ? <ThumbsUp className="size-3" /> : <ThumbsDown className="size-3" />}
-                                </button>
-                              ))}
-                              {feedback && (
-                                <span className="ml-1.5 font-mono text-[10px] font-bold text-signal">
-                                  {feedback === "up" ? "Thanks!" : "Noted, we'll improve"}
-                                </span>
-                              )}
-                            </div>
-                          ) : null
-                        }
-                      >
-                        {m.role === "user" ? (
-                          m.content
-                        ) : (
-                          <>
-                            <ReactMarkdown remarkPlugins={[remarkGfm]} urlTransform={keepUrl} components={MARKDOWN}>
-                              {m.content || "..."}
-                            </ReactMarkdown>
-                            {isLoading && m.id === last?.id ? <Caret /> : null}
-                          </>
-                        )}
-                      </LogEntry>
-                    );
-                  })}
-                </ol>
-                {isLoading && <StatusLine>Thinking...</StatusLine>}
-                {error && <ErrorLine>{error}</ErrorLine>}
+          <div
+            ref={logRef}
+            className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3.5 py-2 font-mono text-[12.5px] leading-relaxed [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            aria-live="polite"
+            aria-relevant="additions text"
+          >
+            {messages.length === 0 && (
+              <div className="flex flex-col gap-3 py-2">
+                <p className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] opacity-85">
+                  Ask about our team, hackathons, or how to get involved.
+                </p>
+                <PromptList prompts={QUICK_PROMPTS} onPick={handleQuickPrompt} />
               </div>
+            )}
 
-              <div className="shrink-0 border-t-3 border-line p-3">
-                <PromptBox
-                  ref={promptBoxRef}
-                  value={message}
-                  onChange={handleInputChange}
-                  onSubmitMessage={(msg: string) => void handleSend(msg)}
-                  maxChars={MAX_CHARS}
-                />
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
+            <ol>
+              {messages.map((m, index) => {
+                const feedback = feedbackMap[m.id];
+                return (
+                  <LogEntry
+                    key={m.id}
+                    role={m.role}
+                    index={index}
+                    footer={
+                      m.role === "assistant" && m.content && m.content.length > 0 && !isLoading ? (
+                        <div className="mt-2 flex items-center gap-1.5">
+                          {(["up", "down"] as const).map((value) => (
+                            <button
+                              key={value}
+                              type="button"
+                              onClick={() => handleFeedback(m.id, value, m.content)}
+                              aria-pressed={feedback === value}
+                              aria-label={value === "up" ? "Good response" : "Bad response"}
+                              title={value === "up" ? "Good response" : "Bad response"}
+                              className="grid size-7 cursor-pointer place-items-center border-2 border-line/50 transition-colors hover:bg-cream hover:text-ink aria-pressed:border-line aria-pressed:bg-orange aria-pressed:text-ink"
+                            >
+                              {value === "up" ? <ThumbsUp className="size-3" /> : <ThumbsDown className="size-3" />}
+                            </button>
+                          ))}
+                          {feedback && (
+                            <span className="ml-1.5 font-mono text-[10px] font-bold text-signal">
+                              {feedback === "up" ? "Thanks!" : "Noted, we'll improve"}
+                            </span>
+                          )}
+                        </div>
+                      ) : null
+                    }
+                  >
+                    {m.role === "user" ? (
+                      m.content
+                    ) : (
+                      <>
+                        <ReactMarkdown remarkPlugins={[remarkGfm]} urlTransform={keepUrl} components={MARKDOWN}>
+                          {m.content || "..."}
+                        </ReactMarkdown>
+                        {isLoading && m.id === last?.id ? <Caret /> : null}
+                      </>
+                    )}
+                  </LogEntry>
+                );
+              })}
+            </ol>
+            {isLoading && <StatusLine>Thinking...</StatusLine>}
+            {error && <ErrorLine>{error}</ErrorLine>}
+          </div>
+
+          <div className="shrink-0 border-t-3 border-line p-3">
+            <PromptBox
+              ref={promptBoxRef}
+              value={message}
+              onChange={handleInputChange}
+              onSubmitMessage={(msg: string) => void handleSend(msg)}
+              maxChars={MAX_CHARS}
+            />
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

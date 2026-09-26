@@ -1,18 +1,9 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { usePathname } from "next/navigation";
 
-// Client-side only components (no SSR)
-const InternalFloatingAiAssistant = dynamic(
-  () => import("@/components/ui/glowing-ai-chat-assistant").then(mod => ({ default: mod.FloatingAiAssistant })),
-  { ssr: false }
+// Client-only (reads localStorage on first render). SiteChrome leaves it out on /qna, which has its own console.
+export const FloatingAiAssistant = dynamic(
+  () => import("@/components/ui/glowing-ai-chat-assistant").then((mod) => ({ default: mod.FloatingAiAssistant })),
+  { ssr: false },
 );
-
-export function FloatingAiAssistant() {
-  const pathname = usePathname();
-  if (pathname === "/qna") {
-    return null;
-  }
-  return <InternalFloatingAiAssistant />;
-}

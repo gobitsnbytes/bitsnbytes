@@ -46,6 +46,13 @@ export function setShortcutsEnabled(next: boolean) {
   window.dispatchEvent(new Event(CHANGE_EVENT));
 }
 
+/**
+ * [C] console: the floating assistant opens (with toggle, closes if already open); /qna focuses its
+ * prompt. Nothing happens, and focus stays put, when neither is mounted.
+ */
+export const openConsole = (toggle = false) =>
+  window.dispatchEvent(new CustomEvent("bnb:console-open", { detail: { toggle } }));
+
 const TYPING = "input, textarea, select, [contenteditable]:not([contenteditable='false'])";
 /** Radix dialogs (menu, video, booking), the assistant console and native dialogs. Not the cookie banner. */
 const OPEN_DIALOG = "[role='dialog'][data-state='open'], [aria-modal='true'], dialog[open]";

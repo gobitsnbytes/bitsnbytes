@@ -21,7 +21,7 @@ import {
 import { cn } from "@/lib/utils";
 
 /*
- * Shared pieces of the two assistant consoles (floating launcher + /qna): session storage, the SSE
+ * Shared pieces of the two assistant consoles (the floating [C] console + /qna): session storage, the SSE
  * reader, the image action, the markdown block renderers and the stripe.dev-style console chrome.
  * The consoles render inside a `tone-ink` scope, so everything here uses the tone tokens
  * (fg / line / signal / surface-2) instead of fixed colours.
@@ -49,7 +49,8 @@ type StreamPayload =
   | { type: "done"; action?: AssistantAction | null }
   | { type: "error"; message?: string };
 
-type StoredChat = { messages?: ChatMessage[]; isChatOpen?: boolean; draft?: string };
+/** Transcript and draft only. Open/closed is never stored (an old isChatOpen key is simply ignored). */
+type StoredChat = { messages?: ChatMessage[]; draft?: string };
 
 /** One key for both consoles (they are never mounted together: /qna drops the floating one). */
 export const STORAGE_KEY = "bb-floating-assistant-state-v1";
@@ -70,7 +71,6 @@ export function loadChat(maxHistory: number) {
     messages: sanitized.slice(-maxHistory),
     nextId: sanitized.reduce((max, m) => Math.max(max, m.id), 0) + 1,
     draft: typeof parsed.draft === "string" ? parsed.draft : null,
-    isChatOpen: typeof parsed.isChatOpen === "boolean" ? parsed.isChatOpen : null,
   };
 }
 
