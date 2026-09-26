@@ -1,8 +1,8 @@
-// Page metadata and JSON-LD point their share image at /og-image.png: serve the generated card there.
-import OgImage from "../opengraph-image";
+// Page metadata, JSON-LD and old shares point at /og-image.png: serve the home card there, built once at build time.
+import { ogCard } from "@/lib/og/card";
 
-export const runtime = "edge";
+export const dynamic = "force-static";
 
 export function GET() {
-  return OgImage();
+  return ogCard({ pose: "wave" });
 }
