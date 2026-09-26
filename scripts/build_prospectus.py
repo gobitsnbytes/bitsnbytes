@@ -823,7 +823,7 @@ def page_collabs(c, page):
          "phaser.in/nexushacks", "https://phaser.in/nexushacks"),
         ("DoraHacks 2.0", "Dora DAO", "2026 / global, online / 72 hours",
          "A vibecoding sprint: build an AI product, then launch it on Product Hunt and Peerlist. Builders from 15+ countries.",
-         "dorahacks.io", "https://dorahacks.io/"),
+         "doradao.substack.com/p/dorahacks-20", "https://doradao.substack.com/p/dorahacks-20"),
     ]
     label(c, "community partner", M, y - 6, ORANGE, 7)
     y -= 20
