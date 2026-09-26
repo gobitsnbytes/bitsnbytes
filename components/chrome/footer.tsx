@@ -11,6 +11,9 @@ import { ScrambleText } from "@/components/riot/scramble-text";
 import { FOOTER_COLUMNS, ROUTES, SOCIALS, TRUST_LINKS, pad } from "./links";
 import { Wordmark } from "./wordmark";
 import { LOGO_HEX, LOGO_PIECES, LOGO_VIEWBOX } from "./intro/data";
+import { play } from "./sound/engine";
+
+let lastTick = 0;
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -82,7 +85,22 @@ export function Footer() {
         .fromTo(
           "[data-cube-piece]",
           { opacity: 0, x: (i: number) => LOGO_PIECES[i].from.x * 3, y: (i: number) => LOGO_PIECES[i].from.y * 3 },
-          { opacity: 1, x: 0, y: 0, stagger: 0.08, ease: "power3.out" },
+          {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            ease: "power3.out",
+            // A soft tick as each piece lands; throttled so a fast scrub doesn't machine-gun.
+            stagger: {
+              each: 0.08,
+              onComplete: () => {
+                const now = performance.now();
+                if (now - lastTick < 90) return;
+                lastTick = now;
+                play("tick");
+              },
+            },
+          },
           0.35,
         );
     },
