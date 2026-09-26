@@ -1,0 +1,47 @@
+/*
+ * First-visit intro (kprverse preloader + logo assembly). Shown only while html[data-loader="on"],
+ * which the inline script in <Loader> sets during HTML parse, so the page never flashes first.
+ */
+@layer components {
+    .bnb-intro {
+        display: none;
+    }
+
+    html[data-loader="on"] .bnb-intro {
+        display: grid;
+        /* CSS failsafe: drops the panel just after the 3.5s JS hard cap if JS is late or broken. */
+        animation: bnb-intro-failsafe 0s linear 3.7s forwards;
+    }
+
+    /* Everything sits in one centred cell; the loading block and the mark swap in place. */
+    .bnb-intro > * {
+        grid-area: 1 / 1;
+    }
+
+    /* Revealed by the assembly timeline (never visible before hydration). */
+    .bnb-intro-mark {
+        opacity: 0;
+    }
+
+    /* Cursor ring: parked 2.5rem above the bottom edge (below the mark on every
+       viewport); with a fine pointer JS then lerps it onto the cursor, which the panel hides. */
+    .bnb-intro-ring {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate3d(50vw, calc(100dvh - 2.5rem), 0) translate(-50%, -100%);
+    }
+
+    @media (pointer: fine) {
+        .bnb-intro {
+            cursor: none;
+        }
+    }
+
+    @keyframes bnb-intro-failsafe {
+        to {
+            visibility: hidden;
+            pointer-events: none;
+        }
+    }
+}
