@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
@@ -11,6 +10,7 @@ import { useExperience } from "@/components/experience-provider";
 import { ScrambleText } from "@/components/riot/scramble-text";
 import { FOOTER_COLUMNS, ROUTES, SOCIALS, TRUST_LINKS, pad } from "./links";
 import { Wordmark } from "./wordmark";
+import { LOGO_HEX, LOGO_PIECES, LOGO_VIEWBOX } from "./intro/data";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -31,7 +31,8 @@ const linkClass =
 /**
  * Ink poster footer (buttermax + kprverse): a 4-column top row split by 2px paper rules, then a
  * full-bleed bits&bytes™ wordmark uncovered from a slot by a counter-translated mask scrub, with the
- * cube mark tucked between a back and a front copy of the type, then the legal entity row.
+ * cube mark (public/logo.svg geometry, inline and opaque) locked into the "s" behind an ink knockout ring;
+ * its pieces snap into register during the same scrub. Then the legal entity row.
  */
 export function Footer() {
   const pathname = usePathname();
@@ -73,7 +74,16 @@ export function Footer() {
           scrollTrigger: { trigger: slotRef.current, start: "top bottom", end: "bottom bottom", scrub: true },
         })
         .fromTo(outerRef.current, { yPercent: 100 }, { yPercent: 0, ease: "none" }, 0)
-        .fromTo(innerRef.current, { yPercent: -100 }, { yPercent: 0, ease: "none" }, 0);
+        .fromTo(innerRef.current, { yPercent: -100 }, { yPercent: 0, ease: "none" }, 0)
+        // Cube: the hexagon turns in from a tilted, slightly smaller print, then each cut-out piece snaps back
+        // into register from its misregistered offset (the loader's assembly, scrubbed).
+        .fromTo("[data-cube]", { rotate: -18, scale: 0.9 }, { rotate: 0, scale: 1, ease: "power2.out" }, 0.1)
+        .fromTo(
+          "[data-cube-piece]",
+          { opacity: 0, x: (i: number) => LOGO_PIECES[i].from.x * 3, y: (i: number) => LOGO_PIECES[i].from.y * 3 },
+          { opacity: 1, x: 0, y: 0, stagger: 0.08, ease: "power3.out" },
+          0.35,
+        );
     },
     { scope: rootRef, dependencies: [motionEnabled, pathname], revertOnUpdate: true },
   );
@@ -202,19 +212,28 @@ export function Footer() {
       {/* Wordmark slot: the clip box (slot) stays put, the window (outer) rises, the type (inner) counter-moves. */}
       <div ref={slotRef} className="overflow-clip">
         <div ref={outerRef} className="overflow-hidden">
-          <div ref={innerRef} className="flex justify-center px-[1.5vw] pb-[5vw] pt-[5vw]">
-            {/* Two-colour poster: orange type, so the white cube mark reads against the letters; ink knockout. */}
+          <div ref={innerRef} className="flex justify-center px-[1.5vw] pb-[8vw] pt-[5vw]">
+            {/* Two-colour poster: orange type, ink knockout. The cube takes the place of the "s" (centred on its glyph:
+                1.91em of the 4.12em lockup, x-height middle) and is opaque (paper body, ink cut-outs), so no letter
+                shows through it; its ink ring traps it between "t" and "&" the same way the script is trapped. */}
             <div ref={markRef} className="relative flex text-[19vw] leading-none text-orange [--wm-knockout:var(--ink)]">
               <Wordmark />
-              <Image
-                src="/logo.svg"
-                alt=""
-                width={512}
-                height={512}
-                className="pointer-events-none absolute left-[46%] top-1/2 size-[1.05em] -translate-x-1/2 -translate-y-1/2"
-              />
-              {/* Front copy: only its lower band paints over the cube, so the mark sits inside the type. */}
-              <Wordmark aria-hidden className="absolute inset-0 [clip-path:inset(60%_0_0_0)]" />
+              <svg
+                data-cube=""
+                aria-hidden
+                viewBox={LOGO_VIEWBOX}
+                className="pointer-events-none absolute left-[46.4%] top-[56%] size-[0.9em] -translate-x-1/2 -translate-y-1/2 overflow-visible"
+              >
+                <path
+                  d={LOGO_HEX}
+                  className="fill-paper stroke-ink [paint-order:stroke_fill] [stroke-linejoin:round] [stroke-width:9]"
+                />
+                <g className="fill-ink">
+                  {LOGO_PIECES.map((piece) => (
+                    <path key={piece.d} data-cube-piece="" d={piece.d} />
+                  ))}
+                </g>
+              </svg>
             </div>
           </div>
         </div>
