@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Check, Loader2 } from "lucide-react";
+import { useTheme } from "next-themes";
 
 import { useMotionEnabled } from "@/components/experience-provider";
 import { LAB_TEXT } from "@/components/lab";
@@ -17,6 +18,16 @@ import { cn } from "@/lib/utils";
 const EMAIL = "hello@gobitsnbytes.org";
 const STATUS_ID = "contact-form-status";
 const EASE = [0.23, 1, 0.32, 1] as const;
+const DISCLOSURE_LINK = "font-bold text-signal underline underline-offset-2";
+
+/** hCaptcha execute() rejects with an error code; map the common ones to plain words. */
+const CAPTCHA_ERRORS: Record<string, string> = {
+  "challenge-closed": "The spam check closed before it finished. Hit send again when you're ready.",
+  "challenge-expired": "The spam check timed out. Hit send again for a fresh one.",
+  "network-error": "We couldn't reach hCaptcha. Check your connection and hit send again.",
+  "rate-limited": "Too many tries in a row. Give it a minute, then hit send again.",
+};
+const CAPTCHA_FALLBACK = `The spam check didn't load. Try again, or email us at ${EMAIL}.`;
 
 /** "Copy Link" for the direct email row. Same clipboard behaviour as before, label swaps for 2s. */
 export function CopyEmailButton({ className }: { className?: string }) {
@@ -40,21 +51,23 @@ export function CopyEmailButton({ className }: { className?: string }) {
 }
 
 /**
- * The /contact form: name, email, subject, message, hCaptcha, DPDP consent, POST /api/contact.
- * Validation, payload and states are unchanged; only the presentation moved to Print Riot fields.
+ * The /contact form: name, email, subject, message, DPDP consent, invisible hCaptcha (executed on submit),
+ * POST /api/contact. The payload to /api/contact is unchanged.
  */
 export function ContactForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [phase, setPhase] = useState<"idle" | "verifying" | "sending">("idle");
+  const isSubmitting = phase !== "idle";
   const [isSuccess, setIsSuccess] = useState(false);
   const [status, setStatus] = useState<null | {
     type: "success" | "error";
     message: string;
   }>(null);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaReady, setCaptchaReady] = useState(false);
   const [hasConsented, setHasConsented] = useState(false);
   const [mounted, setMounted] = useState(false);
   const captchaRef = useRef<HCaptcha>(null);
   const motionOn = useMotionEnabled();
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -63,7 +76,6 @@ export function ContactForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus(null);
-    setIsSubmitting(true);
 
     const form = e.currentTarget;
     const formData = new FormData(form);
@@ -76,18 +88,28 @@ export function ContactForm() {
     if (!hasConsented) {
       setStatus({
         type: "error",
-        message: "Please agree to the Terms of Service & Privacy Policy to send your message.",
+        message: "Tick the box to agree to the Terms of Service and Privacy Policy, then send.",
       });
-      setIsSubmitting(false);
       return;
     }
 
-    if (!captchaToken) {
-      setStatus({ type: "error", message: "Please complete the CAPTCHA." });
-      setIsSubmitting(false);
+    // invisible hCaptcha: runs on submit, only shows a challenge when it isn't sure
+    const captcha = captchaRef.current;
+    if (!captchaReady || !captcha) {
+      setStatus({ type: "error", message: CAPTCHA_FALLBACK });
+      return;
+    }
+    setPhase("verifying");
+    try {
+      await captcha.execute({ async: true });
+    } catch (err: unknown) {
+      captcha.resetCaptcha();
+      setStatus({ type: "error", message: (typeof err === "string" && CAPTCHA_ERRORS[err]) || CAPTCHA_FALLBACK });
+      setPhase("idle");
       return;
     }
 
+    setPhase("sending");
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -111,21 +133,20 @@ export function ContactForm() {
       setIsSuccess(true);
       setStatus({
         type: "success",
-        message: "Message sent successfully. We'll get back to you soon.",
+        message: "Sent. We'll get back to you soon.",
       });
       form.reset();
-      setCaptchaToken(null);
-      captchaRef.current?.resetCaptcha();
     } catch (err: unknown) {
       console.error(err);
       setStatus({
         type: "error",
         message:
           (err instanceof Error && err.message) ||
-          "Something went wrong while sending your message. Please try again in a moment.",
+          "Something broke while sending your message. Give it a moment and try again.",
       });
     } finally {
-      setIsSubmitting(false);
+      captcha.resetCaptcha();
+      setPhase("idle");
     }
   };
 
@@ -153,6 +174,7 @@ export function ContactForm() {
             onSubmit={handleSubmit}
             id="contact-us-form"
             aria-describedby={error ? STATUS_ID : undefined}
+            aria-busy={isSubmitting}
             className="mt-6 grid gap-5"
           >
             <div className="grid gap-5 sm:grid-cols-2">
@@ -177,26 +199,23 @@ export function ContactForm() {
                 id="message"
                 name="message"
                 rows={4}
-                placeholder="Tell us what's on your mind..."
+                placeholder="What are you building, and how can we help?"
                 className="min-h-[130px]"
                 required
               />
             </div>
 
-            {/* fixed-height slot so the widget never shifts the layout */}
-            <div className="flex min-h-[82px] items-center overflow-hidden">
-              <div className="origin-left scale-[0.88] sm:scale-100">
-                {mounted && (
-                  <HCaptcha
-                    ref={captchaRef}
-                    sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
-                    reCaptchaCompat={false}
-                    theme="light"
-                    onVerify={setCaptchaToken}
-                  />
-                )}
-              </div>
-            </div>
+            {/* invisible widget: no box on the page, the challenge (if any) opens as hCaptcha's own overlay */}
+            {mounted && (
+              <HCaptcha
+                ref={captchaRef}
+                sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+                size="invisible"
+                reCaptchaCompat={false}
+                theme={resolvedTheme === "dark" ? "dark" : "light"}
+                onLoad={() => setCaptchaReady(true)}
+              />
+            )}
 
             {/* DPDP Act 2023 consent */}
             <div className="flex items-start gap-3 border-2 border-line bg-surface-2 p-4">
@@ -227,7 +246,7 @@ export function ContactForm() {
               {isSubmitting ? (
                 <>
                   <Loader2 aria-hidden className="size-5 animate-spin motion-reduce:animate-none" />
-                  Sending...
+                  {phase === "verifying" ? "Checking you're human..." : "Sending..."}
                 </>
               ) : (
                 <>
@@ -242,10 +261,26 @@ export function ContactForm() {
               )}
             </Button>
 
+            <p className="font-mono text-[11px] leading-relaxed text-fg/70">
+              This site is protected by hCaptcha and its{" "}
+              <a href="https://www.hcaptcha.com/privacy" target="_blank" rel="noopener noreferrer" className={DISCLOSURE_LINK}>
+                Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a href="https://www.hcaptcha.com/terms" target="_blank" rel="noopener noreferrer" className={DISCLOSURE_LINK}>
+                Terms of Service
+              </a>{" "}
+              apply.
+            </p>
+
+            {/* progress for screen readers; the button label shows the same thing visually */}
+            <p role="status" className="sr-only">
+              {phase === "verifying" ? "Running the spam check." : phase === "sending" ? "Sending your message." : ""}
+            </p>
+
             <p
               id={STATUS_ID}
               role="alert"
-              aria-live="polite"
               className={cn(
                 "border-3 border-line bg-warm p-3.5 text-center font-mono text-xs font-bold uppercase tracking-[0.08em] text-white",
                 !error && "sr-only",
@@ -278,11 +313,11 @@ export function ContactForm() {
             Transmission Dispatched
           </h2>
           <p className="max-w-[44ch] font-serif text-lg leading-relaxed">
-            Your message has been beamed to the bits&amp;bytes™ crew. We&apos;ve logged the request, and we&apos;ll get back
-            to you within 24-48 hours.
+            Your message is with the bits&amp;bytes™ crew now. We&apos;ve logged it, and we&apos;ll get back to you
+            within 24–48 hours.
           </p>
           <Button type="button" variant="outline" size="sm" onClick={handleResetForm}>
-            Send another transmission
+            Send another message
           </Button>
         </motion.div>
       )}
