@@ -121,7 +121,7 @@ export function EventGallery() {
                       colour && "opacity-100",
                     )}
                   />
-                  <figcaption className="absolute bottom-0 left-0 max-w-full bg-ink px-2 py-1.5 font-mono text-[10px] font-bold uppercase leading-tight tracking-[0.08em] text-paper md:text-[11px]">
+                  <figcaption className="absolute bottom-0 left-0 max-w-full bg-ink px-2 py-1.5 font-mono text-[10px] font-bold uppercase leading-tight tracking-[0.08em] text-paper lg:text-[11px]">
                     {shot.event}
                     {shot.title ? <span className="text-orange"> · {shot.title}</span> : null}
                   </figcaption>

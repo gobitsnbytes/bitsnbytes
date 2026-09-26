@@ -36,7 +36,8 @@ export function spansFor(ratio: number, cell: number, feature = false): Span[] {
  * (row-major) always takes one of the next `window` unplaced tiles, in one of its spans; a tile can wait a step or
  * two when it doesn't fit, but never drifts more than `window - 1` places from its turn (reading order holds).
  * Depth-first branch and bound over those choices keeps the hole-free tiling with the lowest total crop cost found
- * within a fixed step budget. Pure and deterministic (same input, same layout), so server and client agree.
+ * within a small step budget once a first tiling exists (it runs on page load; more search barely helps), or a
+ * large one while none does. Pure and deterministic (same input, same layout), so server and client agree.
  * Returns each tile's cell (same index as `options`), or null if none found.
  */
 export function packBento(options: Span[][], cols: number, window = 3): Cell[] | null {
@@ -52,7 +53,8 @@ export function packBento(options: Span[][], cols: number, window = 3): Cell[] |
   let rest = floor.reduce((sum, c) => sum + c, 0);
   let best: Cell[] | null = null;
   let bestCost = Infinity;
-  let budget = 60_000;
+  // Steps left to improve on the first tiling; the search for a first one may go 200k steps past zero.
+  let budget = 4_000;
 
   const fits = (x: number, y: number, s: Span) => {
     if (x + s.w > cols) return false;
@@ -72,7 +74,7 @@ export function packBento(options: Span[][], cols: number, window = 3): Cell[] |
       }
       return;
     }
-    if (--budget < 0 || cost + rest >= bestCost || bottom * cols - filled > reach) return;
+    if ((--budget < 0 && (best || budget < -200_000)) || cost + rest >= bestCost || bottom * cols - filled > reach) return;
     const x = first % cols;
     const y = Math.floor(first / cols);
     // Candidates: the next `window` unplaced tiles; a tile already `window - 1` places late must go now.
