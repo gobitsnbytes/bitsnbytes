@@ -446,7 +446,6 @@ export function EventsReel() {
         <button
           type="button"
           aria-pressed={listening}
-          aria-label={listening ? "Sound on. Turn it off" : "Turn the sound on"}
           onClick={() => (listening ? hush(FADE_OUT_MS, "muted") : listen())}
           className={cn(
             "absolute bottom-20 right-4 z-10 inline-flex h-10 cursor-pointer items-center gap-2 border-2 border-paper bg-ink px-3 font-mono text-xs font-bold uppercase tracking-[0.12em] text-paper transition-[opacity,visibility,background-color,color] duration-500 hover:bg-paper hover:text-ink focus-visible:bg-paper focus-visible:text-ink aria-pressed:bg-orange aria-pressed:text-ink md:right-5 md:bottom-[88px] motion-reduce:transition-none motion-off:transition-none",
