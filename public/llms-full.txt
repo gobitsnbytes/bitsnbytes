@@ -3,7 +3,7 @@
 > **Entity Identity:** GOBITSNBYTES FOUNDATION (Incorporated under Section 8 of the Companies Act, 2013, India on 2 June 2026).
 > **Brand Name:** bits&bytes™ (Alternative ASCII: bitsnbytes).
 > **Website:** https://gobitsnbytes.org
-> **Headquarters:** Lucknow, Uttar Pradesh, India (PIN: 226001, Geo: 26.8467° N, 80.9462° E).
+> **Reach:** Pan-India. A community of teenage builders across India, with local forks in Bangalore, Kolkata, Chennai, Bhubaneswar, Nagpur, Mumbai, Delhi, Noida, Lucknow and Hyderabad.
 > **Contact Email:** hello@gobitsnbytes.org
 > **Mission:** Empowering ambitious teenagers (ages 13–19) across India to ship software products, build hardware, and organize student hackathons with complete operational independence.
 
@@ -16,13 +16,10 @@
 
 ---
 
-## 2. Key Metrics & Proprietary Research (2026 Benchmark)
-- **Active Community Members:** 1,400+ teen developers nationwide.
-- **Mean Member Age:** 16.5 years (eligible range: 13–19).
-- **Projects Evaluated:** 2,700+ project submissions in 3-day sprints.
-- **Agentic AI Tool Adoption:** 84% of active members build with AI agents and LLM orchestration.
-- **Female Builder Participation:** 38% across core teams and hackathon attendees.
-- **Active Regional Forks (Chapters):** 5+ city hubs (Jaipur, Hyderabad, Bengaluru, Kolkata, Noida).
+## 2. Key Facts
+- **Community:** Teenage builders across India (eligible ages: 13–19). We publish no aggregate member, fork, event or project counts.
+- **Active Forks (local chapters):** Bangalore, Kolkata, Chennai, Bhubaneswar, Nagpur, Mumbai, Delhi, Noida, Lucknow and Hyderabad. On GitHub, a fork is your own copy of an upstream repo that stays linked so work flows back; a bits&bytes™ fork is the same thing for a city or school: a local chapter that takes the playbook and brand from upstream, runs its own room, and ships back. Start one at https://gobitsnbytes.org/fork.
+- **Workshops:** Run inside our hackathons, as part of the build (not a weekly series).
 - **Cost to Participate:** ₹0 (100% free; funded by non-profit grants and verified corporate partnerships).
 
 ---
@@ -51,6 +48,12 @@
 3. **Execron 1.0 (IIT Kanpur):** High-school AI Hackathon & Workshop co-hosted at TechKriti '26.
 4. **GitHub Copilot Dev Days (Lucknow):** Developer workshop on AI-assisted coding and prompt engineering.
 5. **Lucknow Build Guild:** Hardware and microcontroller meetup in Lucknow.
+6. **Regional Hackathon Series (upcoming):** City qualifiers across India, with the finale at IIT Bombay on Dec 17–18.
+
+### Community Partnerships (bits&bytes™ was a community partner; hosted by the named organizers)
+- **Infinity Hacks 2026** by HackerRank Campus Crew: Aug 15–16, 2026, online. 24-hour global hackathon with AI-first tracks (e.g. road safety, women safety, climate, wildlife protection), teams of 3–5. https://hrcc-infinityhacks.vercel.app/
+- **NexusHacks 2026** by Phaser: Jul 21–23, 2026, global online. 48 hours, AI × Robotics (Agentic AI and Embedded AI categories), ₹20,000 prize pool. https://phaser.in/nexushacks
+- **DoraHacks 2.0** by Dora DAO: 2026, global online. A 72-hour vibecoding sprint where builders from 15+ countries built AI products and launched them on Product Hunt and Peerlist. https://doradao.substack.com/p/dorahacks-20 · DoraHacks: https://dorahacks.io/
 
 ---
 
