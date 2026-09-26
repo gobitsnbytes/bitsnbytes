@@ -41,7 +41,7 @@ type Props = {
 };
 
 // Burgundy → warm → orange stage for "gradient" clips: soft blooms over the brand ramp, oversized so it can drift.
-const GRADIENT = {
+export const GRADIENT = {
   background:
     "radial-gradient(40% 50% at 22% 30%, var(--warm), transparent 70%), radial-gradient(45% 55% at 78% 72%, var(--orange), transparent 70%), linear-gradient(135deg, var(--burgundy) 10%, var(--warm) 55%, var(--orange) 95%)",
 };
@@ -51,8 +51,8 @@ const GRADIENT = {
  * from the trigger's rect with clip-path (≤ 600ms). Controls fade in on activity (.3s linear): dashed
  * 1px timeline (4px dash / 4px gap) + needle over a native range input (keyboard seek), mm:ss,
  * play/pause, mute, captions note, close. Motion off: opens and closes instantly.
- * It always tries to start with sound. Without a user gesture on the page yet (autoplay policy: the idle auto-open),
- * it plays muted behind a big "Tap for sound" control, and the visitor's next tap or key anywhere turns sound on.
+ * It always tries to start with sound. Without a user gesture on the page yet (autoplay policy), it plays muted
+ * behind a big "Tap for sound" control, and the visitor's next tap or key anywhere turns sound on.
  * `clip.mode === "gradient"`: the clip plays framed (contain, 16:9, capped at 1024px) on a slowly drifting brand
  * gradient with a halftone bite, once through, then offers replay / close.
  */

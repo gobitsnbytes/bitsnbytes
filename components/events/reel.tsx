@@ -13,7 +13,7 @@ import { eventsReel as CLIPS } from "@/lib/events-data";
 import { cn } from "@/lib/utils";
 
 import { Barcode, WipeArrow, WipeCell, wipe } from "./barcode";
-import { ReelPlayer } from "./player";
+import { GRADIENT, ReelPlayer } from "./player";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -25,26 +25,16 @@ export type WatchDetail = { index: number; from: HTMLElement | null; start?: num
 const FRAME_MS = 1000 / 30;
 const DWELL_MS = 1000;
 const HOVER_MS = 600;
-/** No scroll input for this long while the reel is on screen: the preview opens into the player. */
+/** No scroll input for this long while the reel is on screen: the preview's sound fades in, in place. */
 const IDLE_MS = 2000;
+const FADE_IN_MS = 1500;
+const FADE_OUT_MS = 400;
 const SCROLL_KEYS = new Set([" ", "ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End"]);
-
-// Clips whose player the visitor already closed this visit (tab session): they never auto-open again.
-const SEEN_KEY = "bnb-reel-seen";
-function seenClips(): string[] {
-  try {
-    return JSON.parse(sessionStorage.getItem(SEEN_KEY) ?? "[]");
-  } catch {
-    return [];
-  }
-}
-function markSeen(src: string) {
-  try {
-    sessionStorage.setItem(SEEN_KEY, JSON.stringify([...new Set([...seenClips(), src])]));
-  } catch {
-    // storage blocked: worst case the clip may open itself once more
-  }
-}
+/** off: muted preview · hint: sound needs a gesture ("Tap for sound") · on: listening · muted: the visitor said no. */
+type Sound = "off" | "hint" | "on" | "muted";
+/** Chrome dims / returns gently. */
+const EASE = "transition-opacity duration-700 ease-in-out motion-reduce:transition-none motion-off:transition-none";
+const easeInOut = (p: number) => (p < 0.5 ? 2 * p * p : 1 - (-2 * p + 2) ** 2 / 2);
 
 /*
  * /events hero: inkfish "playlist reel" (tmp/research-full.json → inkfish "Home hero: playlist reel").
@@ -56,10 +46,12 @@ function markSeen(src: string) {
  * the now-playing row's stripes fill with playback progress; a triangle collapses the list to it.
  * Text sits on explicit ink scrim bands. Motion off / reduced motion: posters only, no autoplay,
  * no parallax, no loop; click still plays.
- * Idle auto-open: once the intro loader is done, if the visitor gives no scroll input (wheel, touch, scroll keys,
- * any scroll incl. Lenis) for IDLE_MS while the reel fills most of the screen, the tab is visible and no dialog
- * (console, menu, cookies) is open, the preview grows into the player and carries on from its time, with sound when
- * the browser allows (else the player's "Tap for sound"). Once per clip per visit; closing marks it done.
+ * Listening (Netflix billboard): once the intro loader is done, if the visitor gives no scroll input (wheel, touch,
+ * scroll keys, any scroll incl. Lenis) for IDLE_MS while the reel fills most of the screen, the tab is visible and no
+ * dialog is open, the SAME preview keeps playing and its sound fades in (volume 0 → 1, rAF), the chrome dims and a
+ * speaker toggle appears. Any scroll input fades it back out (never blocking the scroll); still again re-arms, unless
+ * the toggle muted it. No gesture on the page yet: the toggle shows "Tap for sound" and the first tap/key enters.
+ * Gradient clips (the documentary) morph in place into a framed video on the brand gradient while listening.
  */
 export function EventsReel() {
   const { motionEnabled: motion } = useExperience();
@@ -76,43 +68,108 @@ export function EventsReel() {
   const [playing, setPlaying] = useState(false);
   const [player, setPlayer] = useState<WatchDetail | null>(null);
   const [ready, setReady] = useState(false);
+  const [sound, setSoundState] = useState<Sound>("off");
+  const soundRef = useRef<Sound>("off");
+  const ramp = useRef(0);
   const clip = CLIPS[index];
 
   useEffect(() => whenReady(() => setReady(true)), []);
 
-  // Idle auto-open (see above). Every scroll input re-arms the timer; a failed check at fire time re-arms too.
+  const setSound = (next: Sound) => {
+    soundRef.current = next;
+    setSoundState(next);
+  };
+  // Eases video.volume to `to` over `ms` (rAF), then runs `done`. A newer ramp cancels the old one.
+  const fade = (video: HTMLVideoElement, to: number, ms: number, done?: () => void) => {
+    cancelAnimationFrame(ramp.current);
+    const from = video.volume;
+    const t0 = performance.now();
+    const step = (now: number) => {
+      const p = Math.min((now - t0) / ms, 1);
+      video.volume = from + (to - from) * easeInOut(p);
+      if (p < 1) ramp.current = requestAnimationFrame(step);
+      else done?.();
+    };
+    ramp.current = requestAnimationFrame(step);
+  };
+  // Sound in, in place: volume 0 before unmuting so nothing pops. iOS ignores volume: plain unmute there.
+  const listen = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    setSound("on");
+    if (video.muted) {
+      video.volume = 0;
+      video.muted = false;
+      if (video.volume !== 0) return;
+    }
+    fade(video, 1, FADE_IN_MS);
+  };
+  // Back to the muted preview. A visitor's own mute ("muted") survives scrolls and re-arms.
+  const hush = (ms: number, next: Sound = "off") => {
+    const video = videoRef.current;
+    setSound(soundRef.current === "muted" && next === "off" ? "muted" : next);
+    cancelAnimationFrame(ramp.current);
+    if (!video || video.muted) return;
+    if (!ms) video.muted = true;
+    else fade(video, 0, ms, () => (video.muted = true));
+  };
+
+  // Listening (see above). Every scroll input fades out and re-arms the timer; a failed check at fire time re-arms.
   useEffect(() => {
-    if (!motion || !ready || player || seenClips().includes(clip.src)) return;
+    if (!motion || !ready || player) return;
     let timer = 0;
     const fire = () => {
       const root = rootRef.current;
-      const button = playRef.current;
-      if (!root || !button) return;
+      const video = videoRef.current;
+      if (!root || !video) return;
       const r = root.getBoundingClientRect();
       const shown = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
       const covered = document.hidden || document.querySelector('[role="dialog"], [role="alertdialog"]');
-      if (covered || shown < Math.min(r.height, window.innerHeight) * 0.6) return arm();
-      setPlayer({ index, from: button, start: videoRef.current?.currentTime });
+      if (covered || video.paused || shown < Math.min(r.height, window.innerHeight) * 0.6) return arm();
+      if (soundRef.current === "muted") return;
+      if (navigator.userActivation?.hasBeenActive === false) setSound("hint");
+      else listen();
     };
     const arm = () => {
       window.clearTimeout(timer);
       timer = window.setTimeout(fire, IDLE_MS);
     };
-    const key = (event: KeyboardEvent) => SCROLL_KEYS.has(event.key) && arm();
+    const stir = () => {
+      arm();
+      if (soundRef.current === "on" || soundRef.current === "hint") hush(FADE_OUT_MS);
+    };
+    // "Tap for sound": the first tap or key that isn't another control (or a scroll key) turns it on.
+    const poke = (event: Event) => {
+      if (soundRef.current !== "hint") return;
+      if (event.target instanceof Element && event.target.closest("a, button, input, select, textarea, [role='dialog']")) return;
+      listen();
+    };
+    const key = (event: KeyboardEvent) => {
+      if (SCROLL_KEYS.has(event.key)) stir();
+      else if (event.key !== "Escape" && event.key !== "Tab") poke(event);
+    };
+    const visible = () => (document.hidden ? hush(0) : arm());
     const opts = { passive: true, capture: true };
     arm();
-    window.addEventListener("wheel", arm, opts);
-    window.addEventListener("touchmove", arm, opts);
-    window.addEventListener("scroll", arm, opts);
+    window.addEventListener("wheel", stir, opts);
+    window.addEventListener("touchmove", stir, opts);
+    window.addEventListener("scroll", stir, opts);
     window.addEventListener("keydown", key, true);
+    window.addEventListener("pointerdown", poke, true);
+    document.addEventListener("visibilitychange", visible);
     return () => {
       window.clearTimeout(timer);
-      window.removeEventListener("wheel", arm, opts);
-      window.removeEventListener("touchmove", arm, opts);
-      window.removeEventListener("scroll", arm, opts);
+      window.removeEventListener("wheel", stir, opts);
+      window.removeEventListener("touchmove", stir, opts);
+      window.removeEventListener("scroll", stir, opts);
       window.removeEventListener("keydown", key, true);
+      window.removeEventListener("pointerdown", poke, true);
+      document.removeEventListener("visibilitychange", visible);
+      // Player opening, clip change, motion off: straight back to the muted preview.
+      hush(0);
     };
-  }, [motion, ready, player, index, clip.src]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- listen/hush only touch refs and state setters
+  }, [motion, ready, player, index]);
 
   // 0.5× parallax: the video drifts down half the scroll distance while the header leaves.
   useGSAP(
@@ -221,6 +278,10 @@ export function EventsReel() {
   const watch = (event: MouseEvent<HTMLElement>) =>
     setPlayer({ index, from: event.currentTarget, start: videoRef.current?.currentTime });
 
+  const listening = sound === "on";
+  const framed = listening && clip.mode === "gradient";
+  const dim = listening && "opacity-50";
+
   return (
     <section
       ref={rootRef}
@@ -232,6 +293,19 @@ export function EventsReel() {
       className="tone-ink relative isolate flex min-h-[max(100svh,640px)] flex-col justify-between overflow-hidden"
     >
       <div ref={mediaRef} aria-hidden className="absolute inset-0 -z-10">
+        {clip.mode === "gradient" ? (
+          <div className={cn("absolute inset-0 overflow-hidden bg-burgundy opacity-0", EASE, framed && "opacity-100")}>
+            <div className="absolute -inset-1/4" style={GRADIENT} />
+            <div className="halftone absolute inset-0 opacity-25 mix-blend-multiply" />
+            <div className="dither absolute inset-0 opacity-60" />
+          </div>
+        ) : null}
+        <div
+          className={cn(
+            "absolute inset-0 transition-[scale,box-shadow] duration-900 ease-[cubic-bezier(.65,0,.35,1)] motion-reduce:transition-none motion-off:transition-none",
+            framed && "scale-[0.62] shadow-[16px_16px_0_0_var(--ink)]",
+          )}
+        >
         <video
           ref={videoRef}
           src={clip.src}
@@ -248,18 +322,34 @@ export function EventsReel() {
           }}
           className="size-full bg-ink object-cover"
         />
+        </div>
       </div>
 
-      {/* Top scrim band: nav clearance, path + kicker | playlist | lede. Controls sit above the play layer. */}
-      <div className="grid gap-x-5 gap-y-5 bg-[linear-gradient(to_bottom,rgb(18_15_10/0.92),rgb(18_15_10/0.82)_calc(100%-var(--fade)),transparent)] px-4 pb-(--fade) pt-24 [--fade:40px] md:px-5 md:pt-[clamp(88px,13svh,112px)] lg:grid-cols-8 lg:[--fade:72px]">
+      {/* Top scrim band: nav clearance, path + kicker | playlist | lede. Controls sit above the play layer.
+          While listening the band (its own layer, so the z-10 controls stay above the play button) and text dim. */}
+      <div className="relative grid gap-x-5 gap-y-5 px-4 pb-(--fade) pt-24 [--fade:40px] md:px-5 md:pt-[clamp(88px,13svh,112px)] lg:grid-cols-8 lg:[--fade:72px]">
+        <div
+          aria-hidden
+          className={cn(
+            "absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgb(18_15_10/0.92),rgb(18_15_10/0.82)_calc(100%-var(--fade)),transparent)]",
+            EASE,
+            listening && "opacity-30",
+          )}
+        />
         <div className="lg:col-span-2">
           <Breadcrumbs items={[{ name: "Events", href: "/events" }]} className="relative z-10 mb-3" />
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-paper/85">
+          <p className={cn("font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-paper/85", EASE, dim)}>
             <span className="text-orange">Event log</span> · bits&bytes™
           </p>
         </div>
 
-        <div className="relative z-10 hidden lg:col-span-4 lg:col-start-3 lg:block">
+        <div
+          className={cn(
+            "relative z-10 hidden lg:col-span-4 lg:col-start-3 lg:block",
+            EASE,
+            listening && "opacity-50 focus-within:opacity-100 hover:opacity-100",
+          )}
+        >
           <button
             type="button"
             aria-expanded={!collapsed}
@@ -315,7 +405,7 @@ export function EventsReel() {
           </ol>
         </div>
 
-        <div className="lg:col-span-2 lg:col-start-7">
+        <div className={cn("lg:col-span-2 lg:col-start-7", EASE, dim)}>
           <p
             data-speakable="true"
             data-citation="true"
@@ -347,11 +437,36 @@ export function EventsReel() {
         className="absolute inset-0 cursor-pointer focus-visible:outline-offset-[-6px]"
       />
 
-      {/* Bottom scrim band: h1 | Scroll. */}
-      <div className="grid items-end gap-5 bg-linear-to-t from-ink via-ink/90 to-transparent px-4 pb-5 pt-16 md:px-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:pt-[clamp(40px,12svh,112px)]">
+      {/* Bottom scrim band: h1 | Scroll (the sound toggle sits just above Scroll). */}
+      <div className="relative grid items-end gap-5 px-4 pb-5 pt-16 md:px-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:pt-[clamp(40px,12svh,112px)]">
+        <div
+          aria-hidden
+          className={cn("absolute inset-0 -z-10 bg-linear-to-t from-ink via-ink/90 to-transparent", EASE, listening && "opacity-40")}
+        />
+        <button
+          type="button"
+          aria-pressed={listening}
+          aria-label={listening ? "Sound on. Turn it off" : "Turn the sound on"}
+          onClick={() => (listening ? hush(FADE_OUT_MS, "muted") : listen())}
+          className={cn(
+            "absolute bottom-20 right-4 z-10 inline-flex h-10 cursor-pointer items-center gap-2 border-2 border-paper bg-ink px-3 font-mono text-xs font-bold uppercase tracking-[0.12em] text-paper transition-[opacity,visibility,background-color,color] duration-500 hover:bg-paper hover:text-ink focus-visible:bg-paper focus-visible:text-ink aria-pressed:bg-orange aria-pressed:text-ink md:right-5 md:bottom-[88px] motion-reduce:transition-none motion-off:transition-none",
+            sound === "off" && "invisible opacity-0",
+            sound === "hint" && "opacity-80",
+          )}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden className="size-4 fill-current">
+            <path d="M3 9h4l5-4v14l-5-4H3z" />
+            {listening ? (
+              <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" className="fill-none stroke-current stroke-2" />
+            ) : (
+              <path d="M16 9l6 6M22 9l-6 6" className="fill-none stroke-current stroke-2" />
+            )}
+          </svg>
+          {sound === "hint" ? "Tap for sound" : listening ? "Sound on" : "Sound off"}
+        </button>
         <h1
           data-speakable="true"
-          className={cn(WIDE, "text-[clamp(32px,3.6vw,72px)] uppercase leading-[0.88] text-paper lg:pb-1")}
+          className={cn(WIDE, "text-[clamp(32px,3.6vw,72px)] uppercase leading-[0.88] text-paper lg:pb-1", EASE, dim)}
         >
           Hackathons we run <span className="block text-orange">and the ones we back</span>
         </h1>
@@ -376,7 +491,6 @@ export function EventsReel() {
         onClose={(time) => {
           // Back from fullscreen, the preview carries on from where the viewer stopped (same clip only).
           if (time !== undefined && player?.index === index && videoRef.current) videoRef.current.currentTime = time;
-          if (player) markSeen(CLIPS[player.index].src);
           setPlayer(null);
         }}
       />
