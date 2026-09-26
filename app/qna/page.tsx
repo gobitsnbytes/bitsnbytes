@@ -1,12 +1,23 @@
 "use client";
 
-import Link from "next/link";
-
 import { QnAChatInterface } from "@/components/qna-chat-interface";
-import { Eyebrow } from "@/components/riot";
+import {
+  LAB_HOVER,
+  LAB_TEXT,
+  LabGlobe,
+  LabGrid,
+  LabHero,
+  LabLink,
+  LabTag,
+  PixelGlyph,
+  TableHeader,
+} from "@/components/lab";
 import { dispatchPrompt } from "@/components/ui/booking-blocks";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const VERIFY = ["Verified from public docs", "Built for sponsor diligence", "Join-ready handoff"];
+// "Verified from public docs" is dropped: the console bar already carries "Verified from public project sources".
+const TAGS = ["QnA Assistant", "Built for sponsor diligence", "Join-ready handoff"];
 const HOW = [
   "Ask about events, team, and partnerships.",
   "Answers are grounded in public project sources.",
@@ -14,108 +25,98 @@ const HOW = [
 ];
 const ASKS = ["What makes bits&bytes™ different?", "Show me partner events and outcomes.", "How do sponsors get involved?"];
 
-const RULE_LABEL = "flex items-baseline justify-between border-b-2 border-line pb-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.16em]";
-const ROW_BTN =
-  "flex min-h-11 w-full items-center justify-between gap-3 border-2 border-line px-3 font-mono text-[11px] font-bold uppercase tracking-[0.1em] shadow-[3px_3px_0_0_var(--shadow-color)] transition-[transform,box-shadow,background-color,color] duration-100 ease-riot hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_var(--shadow-color)] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none motion-reduce:transition-none";
+const CELL = "col-span-full flex flex-col items-start gap-5 lg:col-span-8";
 
-/**
- * /qna — a full-height stripe.dev console. The site chrome locks this route to the viewport (no
- * footer, no Lenis), so the page scrolls itself below lg and the manual column scrolls on its own at lg+.
- */
+/** /qna — stripe.dev register: LabHero, the console at viewport height, then one row of sponsor / how / asks. */
 export default function QnAPage() {
   return (
-    <section
-      data-tour="page-hero"
-      aria-label="bits&bytes™ QnA Assistant"
-      className="tone-paper h-full overflow-y-auto pt-24 lg:overflow-hidden"
-    >
-      <div className="grid gap-8 px-4 pb-6 md:px-8 lg:h-full lg:grid-cols-[minmax(280px,360px)_minmax(0,1fr)] lg:gap-10 lg:pb-8">
-        <QnAChatInterface className="h-[calc(100svh-8.5rem)] min-h-[440px] lg:order-2 lg:h-full" />
-
-        <div className="flex flex-col gap-7 lg:order-1 lg:min-h-0 lg:overflow-y-auto lg:pb-2 lg:pr-3">
-          <header className="space-y-3">
-            <Eyebrow>QnA Assistant</Eyebrow>
-            <h1 className="font-[family-name:var(--font-archivo)] text-[clamp(30px,3vw,44px)] font-black uppercase leading-[0.9] tracking-[-0.035em] [font-stretch:112%]">
-              Ask what matters, get the real bits&bytes™ answer.
-            </h1>
-            <p className="max-w-[46ch] font-serif text-base leading-relaxed">
+    <>
+      <section
+        data-tour="page-hero"
+        aria-label="bits&bytes™ QnA Assistant"
+        data-cinematic-section=""
+        data-cinematic-title="QnA Assistant"
+        data-surface="paper"
+      >
+        <LabHero
+          lines={["Ask what matters, ", "get the real ", "bits&bytes™ answer."]}
+          glyph={<PixelGlyph text="QNA" decorative />}
+          aside={<LabGlobe />}
+          subtitle={
+            <p>
               This is the official QnA layer for sponsors, educators, and builders. We answer from public sources in this
               project, fast and without fluff.
             </p>
-          </header>
+          }
+          // the h1 is a sentence, not a two-word title: height-aware so it never fills a short laptop screen
+          className="[&_h1]:text-[length:clamp(44px,min(7vw,12svh),120px)]"
+        >
+          <div className="flex flex-wrap gap-1">
+            {TAGS.map((tag) => (
+              <LabTag key={tag}>{tag}</LabTag>
+            ))}
+          </div>
+        </LabHero>
+      </section>
 
-          <ul className="border-t-2 border-line">
-            {VERIFY.map((item, index) => (
-              <li
-                key={item}
-                className="flex items-baseline justify-between gap-3 border-b border-line/40 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.1em]"
-              >
-                {item}
-                <span aria-hidden className="text-signal">
-                  [VERIFY_0{index + 1}]
-                </span>
+      <LabGrid data-surface="paper" className="pb-6">
+        <QnAChatInterface className="col-span-full h-[clamp(440px,calc(100svh-9rem),760px)]" />
+      </LabGrid>
+
+      <LabGrid
+        as="section"
+        data-cinematic-section=""
+        data-cinematic-title="Sponsor Flow"
+        data-surface="paper"
+        className="gap-y-14 pb-24 pt-16 min-[760px]:pt-24"
+      >
+        <div className={CELL}>
+          <TableHeader label="Sponsor Flow" className="self-stretch" />
+          <h2 className={LAB_TEXT.post}>Want a direct convo?</h2>
+          <p className={LAB_TEXT.sm}>Ask here, then jump to a sponsor-ready contact route with context.</p>
+          <div className="flex flex-wrap gap-3 pt-1">
+            <Button asChild size="sm">
+              <LabLink href="/contact">Contact the team</LabLink>
+            </Button>
+            <Button asChild size="sm" variant="outline">
+              <LabLink href="/join">Join the crew</LabLink>
+            </Button>
+          </div>
+        </div>
+
+        <div className={CELL}>
+          <TableHeader as="h2" label="How it works" className="self-stretch" />
+          <ul role="list" className="self-stretch">
+            {HOW.map((line) => (
+              <li key={line} className={cn(LAB_TEXT.sm, "flex gap-3 border-b border-dotted border-line py-3")}>
+                <span aria-hidden className="mt-[0.35em] size-2 shrink-0 bg-signal" />
+                {line}
               </li>
             ))}
           </ul>
-
-          <aside aria-labelledby="qna-sponsor-flow" className="space-y-3">
-            <p className={RULE_LABEL}>
-              <span className="text-signal">Sponsor Flow</span>
-              <span aria-hidden>[FLOW_01]</span>
-            </p>
-            <h2 id="qna-sponsor-flow" className="font-display text-3xl uppercase leading-[0.9] tracking-[0.01em]">
-              Want a direct convo?
-            </h2>
-            <p className="font-serif text-sm leading-relaxed">
-              Ask here, then jump to a sponsor-ready contact route with context.
-            </p>
-            <div className="flex flex-col gap-2.5 pt-1">
-              <Link href="/contact" className={`${ROW_BTN} bg-burgundy text-paper`}>
-                Contact the team <span aria-hidden>→</span>
-              </Link>
-              <Link href="/join" className={`${ROW_BTN} bg-card text-card-foreground`}>
-                Join the crew <span aria-hidden>→</span>
-              </Link>
-            </div>
-          </aside>
-
-          <aside aria-label="How it works" className="space-y-5">
-            <div className="space-y-2">
-              <p className={RULE_LABEL}>
-                <span className="text-signal">How it works</span>
-                <span aria-hidden>[INFO_02]</span>
-              </p>
-              <ul className="space-y-1.5 font-serif text-sm leading-normal">
-                {HOW.map((line) => (
-                  <li key={line} className="flex gap-2">
-                    <span aria-hidden className="mt-[0.45em] size-1.5 shrink-0 bg-signal" />
-                    {line}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="space-y-2">
-              <p className={RULE_LABEL}>
-                <span className="text-signal">Suggested asks</span>
-              </p>
-              <ul>
-                {ASKS.map((prompt) => (
-                  <li key={prompt} className="border-b border-line/40">
-                    <button
-                      type="button"
-                      onClick={() => dispatchPrompt(prompt)}
-                      className="flex w-full cursor-pointer items-baseline justify-between gap-3 px-1 py-2.5 text-left font-mono text-[11px] font-bold uppercase tracking-[0.04em] transition-colors hover:bg-fg hover:text-surface focus-visible:bg-fg focus-visible:text-surface"
-                    >
-                      {prompt}
-                      <span aria-hidden>↵</span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </aside>
         </div>
-      </div>
-    </section>
+
+        <div className={CELL}>
+          <TableHeader as="h2" label="Suggested asks" count={ASKS.length} className="self-stretch" />
+          <ul role="list" className="self-stretch">
+            {ASKS.map((prompt) => (
+              <li key={prompt} className="border-b border-dotted border-line">
+                <button
+                  type="button"
+                  onClick={() => dispatchPrompt(prompt)}
+                  className={cn(
+                    "flex w-full cursor-pointer items-center justify-between gap-3 px-1 py-3 text-left font-mono text-[12px] uppercase leading-[1.2]",
+                    LAB_HOVER,
+                  )}
+                >
+                  {prompt}
+                  <span aria-hidden>↵</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </LabGrid>
+    </>
   );
 }
