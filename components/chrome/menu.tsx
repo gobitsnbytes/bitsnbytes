@@ -78,7 +78,7 @@ export function MenuPanel({ pathname, instant, onNavigate, onTour }: MenuPanelPr
 
           {/* Rail: leads the open, trails the close. First in DOM so Close gets initial focus. */}
           <motion.div
-            className="relative z-10 flex w-16 shrink-0 flex-col items-center justify-between bg-burgundy py-4 text-paper [--focus-ring:var(--acid)] md:w-[88px] md:py-5"
+            className="relative z-10 flex w-16 shrink-0 flex-col items-center justify-between bg-burgundy py-4 text-paper [--focus-ring:var(--marker)] md:w-[88px] md:py-5"
             initial={instant ? false : { x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%", transition: pick({ ...SPRING, delay: 0.12 }) }}
@@ -135,7 +135,7 @@ export function MenuPanel({ pathname, instant, onNavigate, onTour }: MenuPanelPr
                   );
                   const className = cn(
                     "flex items-start gap-3 px-3 py-1.5 font-[family-name:var(--font-archivo)] text-[clamp(30px,4.2vw,58px)] font-black uppercase leading-[0.9] tracking-[-0.03em] [font-stretch:112%]",
-                    active ? "bg-acid text-ink" : "bnb-pass group",
+                    active ? "bg-marker text-ink" : "bnb-pass group",
                   );
                   return (
                     <motion.li key={route.href} variants={item} className="border-b border-paper/15">

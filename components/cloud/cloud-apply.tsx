@@ -169,7 +169,7 @@ export function CloudApply() {
         {showForm && (
           <motion.div key="form" {...enter} className="mt-14">
             {submitted ? (
-              <Window title="Status: Pending Manual Review" bar="acid" bodyClassName="p-6 md:p-10">
+              <Window title="Status: Pending Manual Review" bar="marker" bodyClassName="p-6 md:p-10">
                 <h3 className="font-[family-name:var(--font-archivo)] text-[clamp(28px,4vw,52px)] font-black uppercase leading-[0.95] tracking-[-0.03em]">
                   Application Submitted ✓
                 </h3>

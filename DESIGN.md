@@ -12,7 +12,7 @@ colors:
   orange-lt: "#fda83d"
   warm: "#c94218"
   cobalt: "#2b39ff"
-  acid: "#ffe600"
+  marker: "#df8e74"  # brand warm-60 coral; replaced acid #ffe600 (user, 2026-09-26: "I don't like the yellow")
   slime: "#12e29b"
 typography:
   display: "Anton (next/font) — uppercase, line-height .82–.9"
@@ -59,7 +59,7 @@ Reference sites (copy mechanics + layout ideas, never their images, 3D models, f
 4. **Brand-safe finish.** Square corners by default (a reference may justify pills/rounded shapes for a specific control).
    No generic SaaS glass cards or purple AI gradients; if a reference uses blur/glow, translate it into print texture instead.
 5. **Accessibility.** One `h1` per page; semantic landmarks; visible focus (`3px cobalt` outline, 3px offset);
-   text contrast ≥ 4.5:1 (ink on orange/acid/cream OK; **never white text on orange or acid**); dialogs trap focus and close on Esc;
+   text contrast ≥ 4.5:1 (ink on orange/marker/cream OK; **never white text on orange or marker**); dialogs trap focus and close on Esc;
    every animation honours `prefers-reduced-motion` and the site's motion toggle (`html[data-immersive-motion="off"]`).
 6. **Dark mode keeps working** (next-themes, `.dark` class): paper ↔ ink swap; borders/shadows flip to cream/paper.
 
@@ -68,7 +68,7 @@ Reference sites (copy mechanics + layout ideas, never their images, 3D models, f
 Surfaces: `paper #faf8f5` (default page), `paper-2 #eae8e4` (muted panel), `cream #fee9cf` (warm fill), `ink #120f0a`.
 Brand core: `burgundy #97192c` (serious core, primary buttons), `burgundy-dk #791423`, `orange #fc920d` (controlled heat,
 campaign surfaces, secondary buttons), `orange-lt #fda83d`, `warm #c94218`.
-Electric pops, **one per view, never wallpaper**: `cobalt #2b39ff` (focus, links, jolt), `acid #ffe600` (marker highlight),
+Electric pops, **one per view, never wallpaper**: `cobalt #2b39ff` (focus, links, jolt), `marker #df8e74` (brand warm-60 coral highlight; no yellow anywhere),
 `slime #12e29b` (rare success).
 Structure: `--bw 3px`, `--bw-thick 5px`; shadows `--sh-sm 3px 3px 0 ink`, `--sh 6px 6px 0 ink`, `--sh-lg 10px 10px 0 ink`,
 `--sh-xl 16px 16px 0 ink`, `--sh-color 6px 6px 0 burgundy`.
@@ -88,7 +88,7 @@ Color roles: paper sections are the default rhythm; **ink "poster" sections** pu
 
 ## Components (build once in `components/riot/`, reuse everywhere)
 
-Button (burgundy / orange / outline / cobalt / acid / ghost; sm / md / lg): 3px ink border, hard shadow; hover lifts
+Button (burgundy / orange / outline / cobalt / marker / ghost; sm / md / lg): 3px ink border, hard shadow; hover lifts
 (−2px,−2px & larger shadow), active slams flush (3px,3px & no shadow), spring-driven. Tag, Eyebrow (ink bar + pulsing orange
 square), Burst / Star / Plus / Flower stickers (one per view), Window chrome (title bar with 3 square lights), Stat,
 Accordion, Chapter (numbered section wrapper that registers with the chapter index), TornEdge (SVG jagged paper edge),
@@ -166,7 +166,7 @@ Full teardowns (measurements, timings, mechanisms) live in `tmp/research-full.js
   faces, duotones). Paper/cream sections for reading.
 - **Edition pages**: ink opening frame → full-bleed **duotone chapter art** (our "paintings": real photos from
   `public/event_pictures`, `public/images` in grayscale → burgundy/orange duotone + halftone) → torn paper → paper/cream reading chapters.
-- Electric pops (cobalt/acid/slime): one per view, max.
+- Electric pops (cobalt/marker/slime): one per view, max.
 
 ### Global chrome
 - **Loader** (buttermax + inkfish): first visit per session only, ink screen, brand four-point star glyph breathing (scale .94↔1),
@@ -178,7 +178,7 @@ Full teardowns (measurements, timings, mechanisms) live in `tmp/research-full.js
   `data-surface="ink|paper|orange"`; a ScrollTrigger flips `html[data-nav-surface]` so the nav reads ink on paper/orange and
   paper on ink (no blend-mode over burgundy). Hide on scroll down / show on scroll up.
 - **Menu** (kprverse): burgundy rail slides first, then an ink panel wipes out with giant Archivo links (every route), active
-  route marked with an acid block; paper halftone underlay; focus-trapped, Esc closes, springs.
+  route marked with a coral marker block; paper halftone underlay; focus-trapped, Esc closes, springs.
 - **Chapter index** (Editions): ≥1280px on edition pages, sticky LEFT column: page title (from the opening frame) + chapter list
   `01 Title` with CSS counters, active row marked (3px rule revealed by clip-path), click scrolls via Lenis. Below 1280px a
   compact "CH 02/05 ▾" jump menu. Replaces the old right-hand progress rail in `ExperienceProvider`.

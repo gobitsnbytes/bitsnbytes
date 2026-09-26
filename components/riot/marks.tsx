@@ -15,7 +15,7 @@ const TAG_TONES = {
   burgundy: "bg-burgundy text-paper",
   orange: "bg-orange text-ink",
   cobalt: "bg-cobalt text-white",
-  acid: "bg-acid text-ink",
+  marker: "bg-marker text-ink",
   ink: "bg-ink text-paper",
 } as const;
 
@@ -52,7 +52,7 @@ export function Eyebrow({ className, children, ...props }: ComponentProps<"span"
 }
 
 const BURST_TONES = {
-  acid: "bg-acid text-ink",
+  marker: "bg-marker text-ink",
   burgundy: "bg-burgundy text-white",
   orange: "bg-orange text-ink",
   cobalt: "bg-cobalt text-white",
@@ -61,7 +61,7 @@ const BURST_TONES = {
 export type BurstProps = ComponentProps<"span"> & { tone?: keyof typeof BURST_TONES };
 
 /** Starburst sticker (one per view). Hidden from assistive tech unless it has text children. Size via className (default 96px). */
-export function Burst({ tone = "acid", className, style, children, ...props }: BurstProps) {
+export function Burst({ tone = "marker", className, style, children, ...props }: BurstProps) {
   return (
     <span
       aria-hidden={children ? undefined : true}

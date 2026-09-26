@@ -166,7 +166,7 @@ const TAG =
   "inline-flex items-center whitespace-nowrap border border-dotted border-current px-[5px] py-[2px] font-mono text-[12px] uppercase leading-[1.2] tracking-[-0.02em]";
 
 export function LabTag({ children, href, active, className }: LabTagProps) {
-  const cls = cn(TAG, active && "bg-[var(--lab-hi,var(--acid))] text-ink", href && LAB_HOVER, className);
+  const cls = cn(TAG, active && "bg-[var(--lab-hi,var(--marker))] text-ink", href && LAB_HOVER, className);
   return href ? (
     <LabLink href={href} className={cls}>
       {children}

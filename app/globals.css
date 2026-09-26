@@ -22,7 +22,7 @@
     --orange-lt: #fda83d;
     --warm: #c94218;
     --cobalt: #2b39ff;
-    --acid: #ffe600;
+    --marker: var(--bb-warm-60); /* #df8e74 coral, brand warm range */
     --slime: #12e29b;
 
     /* ---- Structure ---- */
@@ -137,8 +137,8 @@
     --line: var(--cream);
     --shadow-color: var(--cream);
     --signal: var(--orange);
-    /* cobalt on ink is < 3:1, so the focus ring flips to acid on dark surfaces */
-    --focus-ring: var(--acid);
+    /* cobalt on ink is < 3:1, so the focus ring flips to the coral marker on dark surfaces */
+    --focus-ring: var(--marker);
 
     --background: var(--ink);
     --foreground: var(--cream);
@@ -160,7 +160,7 @@
     --destructive: #f87171;
     --destructive-foreground: #1f0508;
 
-    --ring: var(--acid);
+    --ring: var(--marker);
 }
 
 .dark {
@@ -214,7 +214,7 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
 
-    /* Print Riot palette: bg-ink, text-burgundy, border-ink, bg-acid, ... */
+    /* Print Riot palette: bg-ink, text-burgundy, border-ink, bg-marker, ... */
     --color-paper: var(--paper);
     --color-paper-2: var(--paper-2);
     --color-cream: var(--cream);
@@ -225,7 +225,7 @@
     --color-orange-lt: var(--orange-lt);
     --color-warm: var(--warm);
     --color-cobalt: var(--cobalt);
-    --color-acid: var(--acid);
+    --color-marker: var(--marker);
     --color-slime: var(--slime);
 
     /* Semantic: flip in .dark and inside .tone-* scopes */

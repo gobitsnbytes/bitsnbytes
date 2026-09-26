@@ -36,7 +36,7 @@ export type PixelGlyphProps = {
   className?: string;
   /** Intrinsic px per pixel (default 16). The 2-unit gap is relative to this. */
   cell?: number;
-  /** Hover paint (default var(--lab-hi, var(--acid))). */
+  /** Hover paint (default var(--lab-hi, var(--marker))). */
   paintColor?: string;
   /** Hide from assistive tech when the same word is already in the text next to it. */
   decorative?: boolean;
@@ -80,7 +80,7 @@ export function PixelGlyph({ text, className, cell = 16, paintColor, decorative 
       width={width}
       height={height}
       className={cn("inline-block h-[0.72em] w-auto overflow-hidden align-baseline", className)}
-      style={{ "--lab-paint": paintColor ?? "var(--lab-hi, var(--acid))" } as CSSProperties}
+      style={{ "--lab-paint": paintColor ?? "var(--lab-hi, var(--marker))" } as CSSProperties}
     >
       {blocks.map(([x, y, w, h]) => (
         <rect

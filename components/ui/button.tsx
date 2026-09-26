@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 // Solid variants carry the hard shadow; ghost/link stay flat.
-const SOLID = ["default", "burgundy", "secondary", "orange", "outline", "cobalt", "acid", "destructive"] as const;
+const SOLID = ["default", "burgundy", "secondary", "orange", "outline", "cobalt", "marker", "destructive"] as const;
 
 // Shadows are written as arbitrary values (not shadow-riot*) so tailwind-merge dedupes them
 // against call-site overrides like `shadow-none` or `shadow-[4px_4px_0px_0px_#120f0a]`.
@@ -20,7 +20,7 @@ const buttonVariants = cva(
         orange: "bg-orange text-ink",
         outline: "bg-card text-card-foreground",
         cobalt: "bg-cobalt text-white",
-        acid: "bg-acid text-ink",
+        marker: "bg-marker text-ink",
         destructive: "bg-destructive text-destructive-foreground",
         ghost:
           "border-transparent bg-transparent text-fg hover:translate-x-0 hover:translate-y-0 hover:bg-cream hover:text-ink active:translate-x-0 active:translate-y-0",
@@ -59,7 +59,7 @@ const buttonVariants = cva(
 );
 
 /**
- * Print Riot button. Variants: default|burgundy, orange|secondary, outline, cobalt, acid, ghost,
+ * Print Riot button. Variants: default|burgundy, orange|secondary, outline, cobalt, marker, ghost,
  * plus legacy destructive/link. Sizes: sm, md|default, lg, icon. Hover lifts, active slams flush.
  * `asChild` renders the child (e.g. next/link) with the button styles.
  */

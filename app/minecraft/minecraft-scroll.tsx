@@ -229,7 +229,7 @@ export function MinecraftScroll({ serverIp }: { serverIp: string }) {
   return (
     <main
       ref={stageRef}
-      className="relative bg-ink text-paper [--focus-ring:var(--acid)]"
+      className="relative bg-ink text-paper [--focus-ring:var(--marker)]"
       style={{ minHeight: "1000svh" }}
     >
       {/* Skip link for keyboard / screen-reader users. */}

@@ -20,7 +20,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
 // Colours follow html[data-nav-surface] like the nav: ink on paper/orange/cream, paper on ink
 // (text-fg covers paper in both themes).
 const SURFACE_TEXT =
-  "text-fg [[data-nav-surface=ink]_&]:text-paper [[data-nav-surface=orange]_&]:text-ink [[data-nav-surface=cream]_&]:text-ink [[data-nav-surface=ink]_&]:[--focus-ring:var(--acid)]";
+  "text-fg [[data-nav-surface=ink]_&]:text-paper [[data-nav-surface=orange]_&]:text-ink [[data-nav-surface=cream]_&]:text-ink [[data-nav-surface=ink]_&]:[--focus-ring:var(--marker)]";
 
 /** "01 Title" row: CSS-counter numeral, Archivo title, 3px rule revealed by clip-path when active. */
 function Rows({

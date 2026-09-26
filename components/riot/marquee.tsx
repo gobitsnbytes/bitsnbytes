@@ -5,7 +5,7 @@ const TONES = {
   ink: { band: "bg-ink text-paper", sep: "bg-orange" },
   burgundy: { band: "bg-burgundy text-paper", sep: "bg-orange" },
   orange: { band: "bg-orange text-ink", sep: "bg-ink" },
-  acid: { band: "bg-acid text-ink", sep: "bg-burgundy" },
+  marker: { band: "bg-marker text-ink", sep: "bg-burgundy" },
 } as const;
 
 const FONTS = {

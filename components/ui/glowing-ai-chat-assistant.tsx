@@ -189,10 +189,10 @@ function matchFaq(input: string): string | null {
 
 const MARKDOWN = consoleMarkdown(false);
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
-// Acid marker highlight (DESIGN.md: acid = marker), removed after 5s.
+// Marker highlight (DESIGN.md: coral marker), removed after 5s.
 const HIGHLIGHT_CLASS = "bb-ai-highlight";
 const HIGHLIGHT_STYLE =
-  "background:#ffe600;color:#120f0a;outline:2px solid #120f0a;padding:0 2px;transition:background 0.4s,outline 0.4s;";
+  "background:var(--marker);color:#120f0a;outline:2px solid #120f0a;padding:0 2px;transition:background 0.4s,outline 0.4s;";
 
 /**
  * Floating assistant on every route except /qna: a square window-chrome launcher bottom-right that
@@ -677,7 +677,7 @@ const FloatingAiAssistant = () => {
         >
           <span aria-hidden className="flex h-3.5 w-full items-center gap-[3px] border-b-2 border-ink bg-orange px-1">
             <span className="size-1.5 bg-burgundy" />
-            <span className="size-1.5 bg-acid" />
+            <span className="size-1.5 bg-marker" />
             <span className="size-1.5 bg-slime" />
           </span>
           <span aria-hidden className="flex h-11 min-w-11 items-center justify-center gap-2 px-2.5">

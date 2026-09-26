@@ -68,7 +68,7 @@ export function Palette({ rows }: { rows: PaletteRow[] }) {
                           {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
                         </span>
                       </span>
-                      <span className="mt-1 flex flex-col gap-1 border-b border-dotted border-line px-1 py-1.5 font-mono uppercase leading-none pointer-fine:group-hover/sw:bg-[var(--lab-hi,var(--acid))] pointer-fine:group-hover/sw:text-ink group-focus-visible/sw:bg-[var(--lab-hi,var(--acid))] group-focus-visible/sw:text-ink">
+                      <span className="mt-1 flex flex-col gap-1 border-b border-dotted border-line px-1 py-1.5 font-mono uppercase leading-none pointer-fine:group-hover/sw:bg-[var(--lab-hi,var(--marker))] pointer-fine:group-hover/sw:text-ink group-focus-visible/sw:bg-[var(--lab-hi,var(--marker))] group-focus-visible/sw:text-ink">
                         <span className="text-[10px] opacity-70">{color.step}</span>
                         <span className="truncate text-[11px] md:text-[12px]">{color.hex}</span>
                       </span>

@@ -121,7 +121,7 @@ export function LabFeature({
           {tags.map((tag, i) => (
             <LabTag
               key={i}
-              className="group-hover/mark:bg-[var(--lab-hi,var(--acid))] group-hover/mark:text-ink group-focus-visible/mark:bg-[var(--lab-hi,var(--acid))] group-focus-visible/mark:text-ink"
+              className="group-hover/mark:bg-[var(--lab-hi,var(--marker))] group-hover/mark:text-ink group-focus-visible/mark:bg-[var(--lab-hi,var(--marker))] group-focus-visible/mark:text-ink"
             >
               {tag}
             </LabTag>

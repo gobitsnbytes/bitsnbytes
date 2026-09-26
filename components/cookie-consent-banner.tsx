@@ -79,7 +79,7 @@ export function CookieConsentBanner() {
             <button
               type="button"
               onClick={() => handleChoice("essential")}
-              className="grid size-7 cursor-pointer place-items-center border-2 border-paper font-mono text-xs font-bold text-paper transition-colors hover:bg-paper hover:text-ink [--focus-ring:var(--acid)]"
+              className="grid size-7 cursor-pointer place-items-center border-2 border-paper font-mono text-xs font-bold text-paper transition-colors hover:bg-paper hover:text-ink [--focus-ring:var(--marker)]"
               aria-label="Close and continue with essential cookies only"
             >
               <span aria-hidden>✕</span>

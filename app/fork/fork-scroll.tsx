@@ -241,7 +241,7 @@ function CodeEditor({ activeFork, setActiveFork }: { activeFork: keyof typeof fo
       <div className="flex items-center gap-2 px-3.5 py-2.5 bg-orange border-b-2 border-ink">
         <div className="flex gap-1.5">
           <span className="block h-2.5 w-2.5 border border-ink bg-burgundy" />
-          <span className="block h-2.5 w-2.5 border border-ink bg-acid" />
+          <span className="block h-2.5 w-2.5 border border-ink bg-marker" />
           <span className="block h-2.5 w-2.5 border border-ink bg-slime" />
         </div>
         <p className="ml-2 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-ink">fork-manifest</p>
@@ -334,7 +334,7 @@ export function ForkScroll({ applyUrl }: { applyUrl: string }) {
   const finalY = useTransform(smoothProgress, [0.82, 1], ["14vh", "0vh"]);
 
   return (
-    <main className="relative overflow-x-hidden bg-burgundy text-paper-2 [--focus-ring:var(--acid)]" style={{ minHeight: "780svh" }}>
+    <main className="relative overflow-x-hidden bg-burgundy text-paper-2 [--focus-ring:var(--marker)]" style={{ minHeight: "780svh" }}>
       <section className="fixed inset-0 h-[100svh] overflow-hidden bg-burgundy">
         <Texture />
         <PosterWord progress={smoothProgress} />

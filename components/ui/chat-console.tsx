@@ -387,7 +387,7 @@ function Lightbox({ src, onClose }: { src: string; onClose: () => void }) {
           autoFocus
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 grid size-10 cursor-pointer place-items-center border-2 border-ink bg-orange font-mono font-bold text-ink [--focus-ring:var(--acid)]"
+          className="absolute right-4 top-4 grid size-10 cursor-pointer place-items-center border-2 border-ink bg-orange font-mono font-bold text-ink [--focus-ring:var(--marker)]"
         >
           ✕
         </button>
@@ -639,7 +639,7 @@ export function ConsoleBar({
   return (
     <div className="flex shrink-0 items-center gap-2 border-b-3 border-line bg-orange px-2.5 py-2 text-ink [--focus-ring:var(--ink)]">
       <span aria-hidden className="size-3 shrink-0 border-2 border-ink bg-burgundy" />
-      <span aria-hidden className="size-3 shrink-0 border-2 border-ink bg-acid" />
+      <span aria-hidden className="size-3 shrink-0 border-2 border-ink bg-marker" />
       <span aria-hidden className="size-3 shrink-0 border-2 border-ink bg-slime" />
       <Title
         id={titleId}

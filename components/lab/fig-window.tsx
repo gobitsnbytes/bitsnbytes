@@ -169,7 +169,7 @@ export function FigWindow({ seed, fig, preset, className, aspect = "302 / 252", 
           className="h-[7px] flex-1 bg-[repeating-linear-gradient(to_bottom,currentColor_0_1px,transparent_1px_3px)] transition-opacity duration-200 group-hover/fig:opacity-40 group-focus-within/fig:opacity-40"
         />
         {held ? (
-          <span aria-hidden className="shrink-0 bg-acid px-1 py-0.5 text-ink animate-[lab-blink_1s_steps(1)_infinite]">
+          <span aria-hidden className="shrink-0 bg-marker px-1 py-0.5 text-ink animate-[lab-blink_1s_steps(1)_infinite]">
             10x
           </span>
         ) : null}

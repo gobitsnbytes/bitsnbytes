@@ -260,7 +260,7 @@ function FilterGroup({
                   className={cn(
                     LAB_TEXT.xs,
                     "flex cursor-pointer items-center gap-2 whitespace-nowrap px-1.5 py-1 capitalize text-fg/70",
-                    "has-checked:bg-[var(--lab-hi,var(--acid))] has-checked:text-ink pointer-fine:hover:text-fg",
+                    "has-checked:bg-[var(--lab-hi,var(--marker))] has-checked:text-ink pointer-fine:hover:text-fg",
                     "has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-[var(--focus-ring)]",
                   )}
                 >

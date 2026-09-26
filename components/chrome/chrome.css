@@ -35,7 +35,7 @@
         --nav-fg: var(--paper);
         --nav-bg: var(--ink);
         /* cobalt on ink is < 3:1 */
-        --focus-ring: var(--acid);
+        --focus-ring: var(--marker);
     }
 
     /* Hide on scroll down, back on scroll up; pinned while hovered, focused or the menu is open. */

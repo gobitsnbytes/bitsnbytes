@@ -4,7 +4,7 @@
  * Grid: 24 columns ≥760px, 8 below; 12px outer padding (LabGrid only); --lab-gap column gap
  * (8px → 12px) redefined on every lab grid so nested grids line up exactly.
  * Rules: 1px `border-line` hairlines and 1px dotted separators inside lab components — not the 3px riot bones.
- * Highlight: every hover/active fill reads `var(--lab-hi, var(--acid))` with ink text. Set `--lab-hi`
+ * Highlight: every hover/active fill reads `var(--lab-hi, var(--marker))` with ink text. Set `--lab-hi`
  * on any ancestor (e.g. `[--lab-hi:var(--orange)]`) to change the pop for a whole view.
  */
 
@@ -37,14 +37,14 @@ export const LAB_TEXT = {
 
 /** Hover + keyboard-focus highlight fill (mirrored). Only for fine pointers on hover. */
 export const LAB_HOVER =
-  "pointer-fine:hover:bg-[var(--lab-hi,var(--acid))] pointer-fine:hover:text-ink focus-visible:bg-[var(--lab-hi,var(--acid))] focus-visible:text-ink";
+  "pointer-fine:hover:bg-[var(--lab-hi,var(--marker))] pointer-fine:hover:text-ink focus-visible:bg-[var(--lab-hi,var(--marker))] focus-visible:text-ink";
 
 /**
  * stripe.dev marker highlight for multi-line titles: an inline background that starts just below
  * the top of each line box and wraps line by line. Put `group/mark` on the link that owns it.
  */
 export const LAB_MARKER =
-  "[--ov:calc(3px+0.3vw)] bg-[linear-gradient(transparent_var(--ov),var(--lab-mark,transparent)_var(--ov))] [box-decoration-break:clone] [-webkit-box-decoration-break:clone] group-hover/mark:[--lab-mark:var(--lab-hi,var(--acid))] group-hover/mark:text-ink group-focus-visible/mark:[--lab-mark:var(--lab-hi,var(--acid))] group-focus-visible/mark:text-ink";
+  "[--ov:calc(3px+0.3vw)] bg-[linear-gradient(transparent_var(--ov),var(--lab-mark,transparent)_var(--ov))] [box-decoration-break:clone] [-webkit-box-decoration-break:clone] group-hover/mark:[--lab-mark:var(--lab-hi,var(--marker))] group-hover/mark:text-ink group-focus-visible/mark:[--lab-mark:var(--lab-hi,var(--marker))] group-focus-visible/mark:text-ink";
 
 /** "2026-12-17" | Date → "2026.12.17" (string dates are not re-parsed, so no timezone shift). */
 export function labDate(input: string | Date) {

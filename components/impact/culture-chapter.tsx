@@ -60,7 +60,7 @@ export function CultureChapter() {
     <div className="grid gap-4 sm:grid-cols-2 lg:relative lg:block lg:h-full">
       <div className="sm:col-span-2 lg:absolute lg:inset-x-[12%] lg:top-[34%] lg:z-10">
         <div data-depth={0.3}>
-          <Window title="2026 Metrics" bar="acid">
+          <Window title="2026 Metrics" bar="marker">
             <h3 className={cn(WIDE, "text-[clamp(20px,1.8vw,28px)] uppercase leading-[0.95] tracking-[-0.01em] [font-stretch:115%]")}>
               {research.title}
             </h3>
