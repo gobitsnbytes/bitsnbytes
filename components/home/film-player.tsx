@@ -24,6 +24,7 @@ import { useExperience } from "@/components/experience-provider";
 import { Window } from "@/components/riot/window";
 import { LOGO_HEX, LOGO_PIECES } from "@/components/chrome/intro/data";
 import { GROUPS } from "@/components/edition/edition-opener";
+import { play } from "@/components/chrome/sound/engine";
 
 gsap.registerPlugin(useGSAP);
 
@@ -134,6 +135,7 @@ function FilmStage({ src, poster, title, onHandoff, onDone }: FilmStageProps) {
       // 1. blow-open: scale the window about the video's centre until the video fills the screen.
       const blowOpen = contextSafe(() => {
         phase = "open";
+        play("sweepUp");
         video.controls = false;
         const v = video.getBoundingClientRect();
         const w = win.getBoundingClientRect();
@@ -160,6 +162,7 @@ function FilmStage({ src, poster, title, onHandoff, onDone }: FilmStageProps) {
       // 2-4. swap onto the SVG logo at the cut, then blueprint → iris → landing.
       const handoff = contextSafe(() => {
         phase = "handoff";
+        play("thock");
         onHandoff();
         video.controls = false;
         opening?.progress(1); // measure the settled, full-screen video (also covers a seek past the cue)
@@ -237,6 +240,7 @@ function FilmStage({ src, poster, title, onHandoff, onDone }: FilmStageProps) {
             });
           }, 0.95);
           tl.set(logo, { opacity: 0 }, 1.55)
+            .call(() => play("pluck"), undefined, 1.55)
             .fromTo(mark, { opacity: 1, scale: 1.4 }, { scale: 1, duration: 0.45, ease: "back.out(3)" }, 1.55)
             .set(mark, { clearProps: "opacity,scale,transform" }, 2.0);
         } else {
