@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { ForkScroll } from "./fork-scroll";
+import { ForkEdition } from "./fork-edition";
 
 export const metadata: Metadata = {
   title: "Fork Network | Start a bits&bytes™ Hub in Your City",
@@ -118,7 +118,7 @@ export default function ForkPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(forkJsonLd) }}
       />
-      <ForkScroll applyUrl={applyUrl} />
+      <ForkEdition applyUrl={applyUrl} />
     </>
   );
 }
