@@ -71,8 +71,8 @@ const pageJsonLd = {
 
 /**
  * /events — inkfishnyc.com 1:1 in the bits&bytes™ brand (DESIGN.md reference allocation): playlist-reel
- * hero with PiP monitor + fullscreen player, [S.01] series statement, [S.02] events index (grid / list),
- * [S.03] photos, [S.04] contact window. No EditionOpener: inkfish pages bring their own hero.
+ * hero (click the reel = fullscreen player), [S.01] series statement, [S.02] events index (list),
+ * [S.03] photo masonry, [S.04] contact window. No EditionOpener: inkfish pages bring their own hero.
  */
 export default function EventsPage() {
   return (

@@ -552,8 +552,6 @@ const EVENTS: ArchiveEvent[] = [
     date: regional.finaleDateLabel,
     venue: regional.finaleVenueLabel,
     status: regional.statusLabel,
-    image: regional.posterSrc,
-    video: regional.trailerSrc,
     href: `#${regional.id}`,
   },
   {
@@ -563,8 +561,6 @@ const EVENTS: ArchiveEvent[] = [
     date: "2026.04.02 → 05.03",
     venue: h4g.venueLabel,
     status: h4g.statusLabel,
-    image: "/event_pictures/h4g/h4g.jpg",
-    video: "/event_pictures/h4g/h4g.mp4",
     detail: hack4good,
   },
   {
@@ -574,7 +570,6 @@ const EVENTS: ArchiveEvent[] = [
     date: "2026.04.19",
     venue: guild.venueLabel,
     status: guild.statusLabel,
-    image: "/event_pictures/bd1.jpg",
     detail: buildGuild,
   },
   {
@@ -584,7 +579,6 @@ const EVENTS: ArchiveEvent[] = [
     date: "2026.04.19",
     venue: copilot.venueLabel,
     status: copilot.statusLabel,
-    image: "/images/github-copilot-hero-desktop.png",
     detail: copilotDevDays,
   },
   {
@@ -594,8 +588,6 @@ const EVENTS: ArchiveEvent[] = [
     date: "2026.03.28",
     venue: "Bharat Mandapam, New Delhi",
     status: "Concluded",
-    image: "/event_pictures/HEe923ub0AE-92F.jpg",
-    video: "/event_pictures/india-innovates-2026-stage-address.mp4",
     detail: indiaInnovates,
   },
   {
@@ -605,15 +597,14 @@ const EVENTS: ArchiveEvent[] = [
     date: "2026.03.19 → 22",
     venue: "IIT Kanpur",
     status: "Archived",
-    image: "/event_pictures/byteforge1.webp",
     detail: execron,
   },
 ];
 
 /**
- * /events [S.02]: inkfish /work index. Giant "EVENTS [N]" + grid/list toggle; grid = mixed-width
- * hover-to-play cards, list = barcode stripe-wipe rows with a sticky preview. Every archived event
- * expands in place into its full file (all existing details); the series card links to [S.01].
+ * /events [S.02]: inkfish /work index as a list. Giant "EVENTS [N]" + barcode stripe-wipe rows. Every
+ * archived event expands in place into its full file (all existing details, real footage included);
+ * the series row links to [S.01].
  */
 export function EventArchive() {
   return (

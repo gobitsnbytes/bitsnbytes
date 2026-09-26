@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -10,7 +9,6 @@ import { Breadcrumbs } from "@/components/breadcrumb";
 import { WIDE } from "@/components/chrome/wordmark";
 import { pad } from "@/components/edition/shared";
 import { useExperience } from "@/components/experience-provider";
-import { Window } from "@/components/riot";
 import { eventsReel as CLIPS } from "@/lib/events-data";
 import { cn } from "@/lib/utils";
 
@@ -20,31 +18,33 @@ import { ReelPlayer } from "./player";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const HIGHLIGHTS = ["High Agency Shipping", "IIT Kanpur & Delhi Summits", "National Scale Partners"];
-/** S.01 "View trailer" (and anything else) opens the player with: detail { index, from }. */
+/** S.01 "View trailer" (and anything else) opens the player with: detail { index, from, start? }. */
 export const WATCH_EVENT = "bnb:events-watch";
-export type WatchDetail = { index: number; from: HTMLElement | null };
+export type WatchDetail = { index: number; from: HTMLElement | null; start?: number };
 
-const PIP_DPR = 1.75;
 const FRAME_MS = 1000 / 30;
+const DWELL_MS = 1000;
+const HOVER_MS = 600;
 
 /*
  * /events hero: inkfish "playlist reel" (tmp/research-full.json → inkfish "Home hero: playlist reel").
- * 100svh ink header; the current clip plays full-bleed in a plain <video> (muted, playsInline, preload
- * metadata for the current item only) with a transform-only 0.5× scroll parallax, and auto-advances on
- * ended. Top: the mono playlist (cols 3–6) — event | 12-stripe barcode | [0N] title →; the now-playing
- * row's stripes fill with playback progress (scale per stripe); a triangle collapses the list to it.
- * Bottom-left: the PiP "monitor", a 340×191 canvas fed by the same <video> (one decode, dpr ≤ 1.75,
- * ≤ 30fps, only while playing), which opens the fullscreen player. Text sits on explicit ink scrim bands.
- * Motion off / reduced motion: posters only, no autoplay, no parallax, no loop.
+ * 100svh ink header; the current clip sits full-bleed in a plain <video> (muted, playsInline, preload
+ * metadata for the current item only, poster first) with a transform-only 0.5× scroll parallax, and
+ * auto-advances on ended. The muted preview starts once the visitor stays: ~1s in view or ~600ms of
+ * mouse hover. The whole reel is the play button: it opens the fullscreen player with sound, from the
+ * preview's current time. Top: the mono playlist (cols 3–6) — event | 12-stripe barcode | [0N] title →;
+ * the now-playing row's stripes fill with playback progress; a triangle collapses the list to it.
+ * Text sits on explicit ink scrim bands. Motion off / reduced motion: posters only, no autoplay,
+ * no parallax, no loop; click still plays.
  */
 export function EventsReel() {
   const { motionEnabled: motion } = useExperience();
   const rootRef = useRef<HTMLElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const listRef = useRef<HTMLOListElement>(null);
   const inView = useRef(true);
+  const armed = useRef(false);
   const listId = useId();
   const [index, setIndex] = useState(0);
   const [collapsed, setCollapsed] = useState(false);
@@ -66,35 +66,61 @@ export function EventsReel() {
     { scope: rootRef, dependencies: [motion], revertOnUpdate: true },
   );
 
-  // Muted reel plays only with motion on, in view, tab visible and the player closed.
+  // Muted preview plays only with motion on, once armed (the visitor stayed), in view, tab visible and
+  // the player closed. Armed after DWELL_MS in view (reset on leaving) or HOVER_MS of mouse hover.
   useEffect(() => {
     const video = videoRef.current;
     const root = rootRef.current;
     if (!video || !root) return;
+    let dwell = 0;
+    let hover = 0;
     const sync = () => {
-      if (motion && inView.current && !document.hidden && !player) video.play().catch(() => {});
+      if (motion && armed.current && inView.current && !document.hidden && !player) video.play().catch(() => {});
       else video.pause();
+    };
+    const arm = () => {
+      armed.current = true;
+      sync();
     };
     const io = new IntersectionObserver(([entry]) => {
       inView.current = entry.isIntersecting;
+      window.clearTimeout(dwell);
+      if (!entry.isIntersecting) armed.current = false;
+      else if (!armed.current) dwell = window.setTimeout(arm, DWELL_MS);
       sync();
     });
+    const enter = (event: PointerEvent) => {
+      if (event.pointerType === "mouse" && !armed.current) hover = window.setTimeout(arm, HOVER_MS);
+    };
+    const leave = () => window.clearTimeout(hover);
     io.observe(root);
+    root.addEventListener("pointerenter", enter);
+    root.addEventListener("pointerleave", leave);
     document.addEventListener("visibilitychange", sync);
     sync();
     return () => {
       io.disconnect();
+      window.clearTimeout(dwell);
+      window.clearTimeout(hover);
+      root.removeEventListener("pointerenter", enter);
+      root.removeEventListener("pointerleave", leave);
       document.removeEventListener("visibilitychange", sync);
     };
   }, [motion, player, index]);
 
-  // One loop while playing: the now-playing barcode fills with progress, the PiP canvas mirrors the frame.
+  // Page-wide: one <video> at a time. Any play (reel, player, archive files) pauses every other video.
+  useEffect(() => {
+    const solo = (event: Event) =>
+      document.querySelectorAll("video").forEach((video) => video !== event.target && video.pause());
+    document.addEventListener("play", solo, true);
+    return () => document.removeEventListener("play", solo, true);
+  }, []);
+
+  // While playing, the now-playing barcode fills with progress.
   useEffect(() => {
     const video = videoRef.current;
-    const canvas = canvasRef.current;
     if (!playing || !video) return;
     const stripes = Array.from(listRef.current?.querySelectorAll<HTMLElement>(`[data-row="${index}"] [data-stripe]`) ?? []);
-    const ctx = canvas?.getContext("2d");
     let raf = 0;
     let last = 0;
     const tick = (now: number) => {
@@ -103,18 +129,6 @@ export function EventsReel() {
       last = now;
       const p = video.duration ? (video.currentTime / video.duration) * stripes.length : 0;
       stripes.forEach((el, k) => (el.style.scale = `${Math.min(Math.max(p - k, 0), 1)} 1`));
-      // The PiP is display:none below lg; skip drawing there.
-      if (canvas && ctx && canvas.offsetParent && video.readyState >= 2) {
-        const dpr = Math.min(window.devicePixelRatio || 1, PIP_DPR);
-        const w = Math.round(canvas.clientWidth * dpr);
-        const h = Math.round(canvas.clientHeight * dpr);
-        if (canvas.width !== w || canvas.height !== h) {
-          canvas.width = w;
-          canvas.height = h;
-        }
-        ctx.drawImage(video, 0, 0, w, h);
-        canvas.style.opacity = "1";
-      }
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
@@ -130,13 +144,20 @@ export function EventsReel() {
     return () => window.removeEventListener(WATCH_EVENT, onWatch);
   }, []);
 
+  // Picking a playlist row is intent: the preview starts at once (motion on).
   const select = (i: number) => {
-    if (canvasRef.current) canvasRef.current.style.opacity = "0";
-    if (i === index && videoRef.current) videoRef.current.currentTime = 0;
+    armed.current = true;
+    const video = videoRef.current;
+    if (i === index && video) {
+      video.currentTime = 0;
+      if (motion) video.play().catch(() => {});
+    }
     setIndex(i);
   };
 
-  const watch = (event: MouseEvent<HTMLElement>) => setPlayer({ index, from: event.currentTarget });
+  // Full-screen with sound, continuing from where the preview is.
+  const watch = (event: MouseEvent<HTMLElement>) =>
+    setPlayer({ index, from: event.currentTarget, start: videoRef.current?.currentTime });
 
   return (
     <section
@@ -167,16 +188,16 @@ export function EventsReel() {
         />
       </div>
 
-      {/* Top scrim band: nav clearance, path + kicker | playlist | lede. */}
-      <div className="grid gap-x-5 gap-y-5 bg-[linear-gradient(to_bottom,rgb(18_15_10/0.92),rgb(18_15_10/0.82)_calc(100%-var(--fade)),transparent)] px-4 pb-(--fade) pt-24 [--fade:40px] md:px-5 md:pt-28 lg:grid-cols-8 lg:[--fade:72px]">
+      {/* Top scrim band: nav clearance, path + kicker | playlist | lede. Controls sit above the play layer. */}
+      <div className="grid gap-x-5 gap-y-5 bg-[linear-gradient(to_bottom,rgb(18_15_10/0.92),rgb(18_15_10/0.82)_calc(100%-var(--fade)),transparent)] px-4 pb-(--fade) pt-24 [--fade:40px] md:px-5 md:pt-[clamp(88px,13svh,112px)] lg:grid-cols-8 lg:[--fade:72px]">
         <div className="lg:col-span-2">
-          <Breadcrumbs items={[{ name: "Events", href: "/events" }]} className="mb-3" />
+          <Breadcrumbs items={[{ name: "Events", href: "/events" }]} className="relative z-10 mb-3" />
           <p className="font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-paper/85">
             <span className="text-orange">Event Log</span> · GOBITSNBYTES FOUNDATION
           </p>
         </div>
 
-        <div className="relative hidden lg:col-span-4 lg:col-start-3 lg:block">
+        <div className="relative z-10 hidden lg:col-span-4 lg:col-start-3 lg:block">
           <button
             type="button"
             aria-expanded={!collapsed}
@@ -250,36 +271,21 @@ export function EventsReel() {
         </div>
       </div>
 
-      {/* Bottom scrim band: PiP monitor | h1 | Scroll. */}
-      <div className="grid items-end gap-5 bg-linear-to-t from-ink via-ink/90 to-transparent px-4 pb-5 pt-16 md:px-5 lg:grid-cols-[340px_minmax(0,1fr)_auto] lg:pt-28">
-        <Window
-          title={
-            <>
-              [{pad(index + 1)}] {clip.event}
-            </>
-          }
-          bar="orange"
-          bodyClassName="p-0"
-          className="hidden w-[340px] shadow-[6px_6px_0_0_var(--shadow-color)] lg:block"
-        >
-          <button
-            type="button"
-            aria-haspopup="dialog"
-            onClick={watch}
-            data-cursor-label={clip.cta}
-            className="group relative block aspect-video w-full cursor-pointer overflow-hidden bg-ink"
-          >
-            <Image key={clip.poster} src={clip.poster} alt="" fill sizes="340px" loading="eager" className="object-cover" />
-            <canvas ref={canvasRef} aria-hidden className="absolute inset-0 size-full opacity-0" />
-            <span className="absolute bottom-2 left-2 inline-flex items-center gap-1.5 border-2 border-paper bg-ink px-2 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-paper transition-colors duration-150 group-hover:bg-paper group-hover:text-ink group-focus-visible:bg-paper group-focus-visible:text-ink">
-              <span aria-hidden>▶</span> {clip.cta}
-              <span className="sr-only">
-                : {clip.event} — {clip.title}
-              </span>
-            </span>
-          </button>
-        </Window>
+      {/*
+       * The reel itself is the play target: a transparent full-area button painted over the scrim bands
+       * (positioned, so it stacks above them), under the z-10 controls. Clicks on the h1 / lede pass to it.
+       */}
+      <button
+        type="button"
+        aria-haspopup="dialog"
+        aria-label={`Play ${clip.event} — ${clip.title}`}
+        data-cursor-label="[Play]"
+        onClick={watch}
+        className="absolute inset-0 cursor-pointer focus-visible:outline-offset-[-6px]"
+      />
 
+      {/* Bottom scrim band: h1 | Scroll. */}
+      <div className="grid items-end gap-5 bg-linear-to-t from-ink via-ink/90 to-transparent px-4 pb-5 pt-16 md:px-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:pt-[clamp(40px,12svh,112px)]">
         <h1
           data-speakable="true"
           className={cn(WIDE, "text-[clamp(32px,3.6vw,72px)] uppercase leading-[0.88] text-paper lg:pb-1")}
@@ -287,29 +293,16 @@ export function EventsReel() {
           Where code meets <span className="block text-orange">the real world</span>
         </h1>
 
-        <div className="flex items-end justify-between gap-6 lg:justify-end">
-          <button
-            type="button"
-            aria-haspopup="dialog"
-            onClick={watch}
-            className="inline-flex min-h-10 max-w-[70%] cursor-pointer items-center gap-2 border-2 border-paper bg-ink px-3 py-2 text-left font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-paper lg:hidden"
-          >
-            <span aria-hidden>▶</span>
-            <span>
-              {clip.cta}
-              <span className="block text-paper/80">
-                [{pad(index + 1)}] {clip.event}
-              </span>
-            </span>
-          </button>
-          {/* Raised clear of the site-wide Ask button (fixed bottom-right). */}
-          <a href="#regional-series" className="group mb-[76px] inline-flex items-end gap-3 text-paper sm:mb-[84px] md:gap-4">
-            <span className={cn(WIDE, "text-[28px] leading-none md:text-[40px]")}>Scroll</span>
-            <svg viewBox="0 0 12 28" aria-hidden className="h-7 w-3 fill-none stroke-current stroke-2">
-              <path d="M6 0v26M1 21l5 5 5-5" />
-            </svg>
-          </a>
-        </div>
+        {/* Raised clear of the site-wide Ask button (fixed bottom-right). */}
+        <a
+          href="#regional-series"
+          className="group relative z-10 mb-[76px] inline-flex items-end gap-3 justify-self-end text-paper sm:mb-[84px] md:gap-4"
+        >
+          <span className={cn(WIDE, "text-[28px] leading-none md:text-[40px]")}>Scroll</span>
+          <svg viewBox="0 0 12 28" aria-hidden className="h-7 w-3 fill-none stroke-current stroke-2">
+            <path d="M6 0v26M1 21l5 5 5-5" />
+          </svg>
+        </a>
       </div>
 
       <ReelPlayer
@@ -317,7 +310,12 @@ export function EventsReel() {
         number={(player?.index ?? index) + 1}
         open={player !== null}
         from={player?.from ?? null}
-        onClose={() => setPlayer(null)}
+        start={player?.start}
+        onClose={(time) => {
+          // Back from fullscreen, the preview carries on from where the viewer stopped (same clip only).
+          if (time !== undefined && player?.index === index && videoRef.current) videoRef.current.currentTime = time;
+          setPlayer(null);
+        }}
       />
     </section>
   );

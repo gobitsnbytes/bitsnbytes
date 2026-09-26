@@ -117,8 +117,6 @@ export type ReelClip = {
   title: string;
   src: string;
   poster: string;
-  /** PiP label (tiny UI verb). */
-  cta: string;
   /** Note under the fullscreen player. */
   note?: string;
 };
@@ -129,7 +127,6 @@ export const eventsReel: ReelClip[] = [
     title: "Trailer",
     src: regionalSeriesEvent.trailerSrc,
     poster: regionalSeriesEvent.posterSrc,
-    cta: "View trailer",
     note: "Captions burned in",
   },
   {
@@ -137,7 +134,6 @@ export const eventsReel: ReelClip[] = [
     title: "Event Video",
     src: "/event_pictures/india-innovates-2026-stage-address.mp4",
     poster: "/event_pictures/HEe923ub0AE-92F.jpg",
-    cta: "Watch",
     note: "Stage highlights and on-floor moments from the finale.",
   },
   {
@@ -145,6 +141,5 @@ export const eventsReel: ReelClip[] = [
     title: "Documentary Film",
     src: "/movie/bnb-movie.mp4",
     poster: "/movie/bnb-movie-poster.jpg",
-    cta: "Watch",
   },
 ];

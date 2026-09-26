@@ -33,7 +33,10 @@ type Props = {
   open: boolean;
   /** Element the player grows out of (and hands focus back to). */
   from: HTMLElement | null;
-  onClose: () => void;
+  /** Seconds to start from (continues the reel preview). */
+  start?: number;
+  /** Called with the playback time, so the reel preview can carry on from there. */
+  onClose: (time?: number) => void;
 };
 
 /**
@@ -42,7 +45,7 @@ type Props = {
  * 1px timeline (4px dash / 4px gap) + needle over a native range input (keyboard seek), mm:ss,
  * play/pause, mute, captions note, close. Motion off: opens and closes instantly.
  */
-export function ReelPlayer({ clip, number, open, from, onClose }: Props) {
+export function ReelPlayer({ clip, number, open, from, start, onClose }: Props) {
   const requestClose = useRef<() => void>(onClose);
   // `from` is cleared with the open state; keep the last trigger to hand focus back to.
   const lastFrom = useRef<HTMLElement | null>(null);
@@ -65,7 +68,7 @@ export function ReelPlayer({ clip, number, open, from, onClose }: Props) {
           }}
           className="fixed inset-0 z-[300] outline-none"
         >
-          <Stage clip={clip} number={number} from={from} onClose={onClose} requestClose={requestClose} />
+          <Stage clip={clip} number={number} from={from} start={start} onClose={onClose} requestClose={requestClose} />
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
@@ -76,6 +79,7 @@ function Stage({
   clip,
   number,
   from,
+  start,
   onClose,
   requestClose,
 }: Omit<Props, "open"> & { requestClose: MutableRefObject<() => void> }) {
@@ -106,19 +110,22 @@ function Stage({
 
   // Close reverses the expansion back into the trigger, then unmounts.
   const close = contextSafe(() => {
-    videoRef.current?.pause();
-    if (!motion) return onClose();
-    gsap.to(stageRef.current, { clipPath: insetOf(from), duration: 0.5, ease: "power3.inOut", onComplete: onClose });
+    const video = videoRef.current;
+    video?.pause();
+    const done = () => onClose(video?.currentTime);
+    if (!motion) return done();
+    gsap.to(stageRef.current, { clipPath: insetOf(from), duration: 0.5, ease: "power3.inOut", onComplete: done });
   });
   useEffect(() => {
     requestClose.current = close;
   });
 
-  // Scroll stays put underneath; start with sound (the opening click is the user activation).
+  // Scroll stays put underneath; start with sound (the opening click is the user activation), from `start`.
   useEffect(() => {
     lenis?.stop();
     const video = videoRef.current;
     if (video) {
+      if (start) video.currentTime = start;
       video.muted = false;
       video.play().catch(() => {
         video.muted = true;
@@ -130,7 +137,7 @@ function Stage({
       lenis?.start();
       window.clearTimeout(idleTimer.current);
     };
-  }, [lenis]);
+  }, [lenis, start]);
 
   // Needle + fill follow playback (transform only), only while playing.
   useEffect(() => {
