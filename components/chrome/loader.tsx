@@ -132,6 +132,12 @@ export function Loader() {
       const onLoad = stage(35);
       const afterLoad = () => {
         onLoad();
+        // The page is covered for the rest of the intro: warm the homepage's late assets (3D cube chunk, film
+        // still) now, after window load so they never hold it back, instead of letting them pop in after the cut.
+        if (window.location.pathname === "/") {
+          import("@/components/home/logo-cube-scene").catch(() => {});
+          new Image().src = "/movie/bnb-trailer-poster.jpg";
+        }
         if ("requestIdleCallback" in window) requestIdleCallback(onIdle, { timeout: 300 });
         else setTimeout(onIdle, 100);
       };
