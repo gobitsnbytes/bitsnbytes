@@ -76,7 +76,9 @@ Texture primitives (CSS utilities): `.halftone`, `.halftone-orange`, `.halftone-
 halftone bite), `.dither`, `.noise`, plus a faint page-wide halftone dot field (opacity ≈ .05).
 
 Color roles: paper sections are the default rhythm; **ink "poster" sections** punctuate (reel, statements, footer);
-**orange is the campaign/hero surface**; burgundy carries primary actions and the core voice.
+**the homepage hero is a burgundy → warm → orange brand ramp** (AGENTS.md: "gradients from burgundy/plum into orange warmth for
+hero and campaign surfaces"; user, 2026-09-26: hero in brand colours, no yellow); orange stays the campaign surface elsewhere;
+burgundy carries primary actions and the core voice.
 
 ## Typography scale
 
@@ -137,10 +139,10 @@ gsap, @gsap/react, three, @react-three/fiber, @react-three/drei, lenis, framer-m
 |---|---|
 | Home — first-visit intro | **kprverse** preloader + logo assembly: paper panel, hairline progress rule, `LOADING - NN%` + file-path ticker, the logo's pieces assembling, cut to the hero. Skippable, no sound gate. |
 | Home — everything after the intro | **buttermax** (hero, 3D logo cube, curtain reel, statement, works grid, poster footer) |
-| /events | **inkfish** (black playlist reel hero with PiP "monitor", `[S.0N]`/`[NN]` bracket mono UI, barcode stripe rows, mixed-width event grid, contact "window" with fixed backdrop, custom fullscreen player) |
-| /about, /impact, legal docs | **Shopify Editions** (opening frame, chapter index, chapter heroes, torn paper, serif statements, card collages) |
-| /press | **press.stripe.com** (warm near-black stage, a WebGL "shelf" of 3D volumes — our press-kit items / publications as books with brand covers — scroll-driven, left tick-mark index rail, elegant serif type, item detail with a rotatable 3D volume) |
-| /cloud, /join, /contact, /faq, /qna | **stripe.dev** (24-col hairline grid with `+` registration marks, pixel-block glyph titles, `/ LABEL` table headers, seeded "Fig. N" generative windows, feed tables with mono dates, sticky router figure, get-help grid, endless outlined footer word) |
+| /events | **inkfish** (black playlist reel hero — the reel itself is the play target, one video at a time, no PiP; `[S.0N]`/`[NN]` bracket mono UI, barcode stripe rows, event archive as a list only, self-arranging uncropped photo masonry, contact "window" with fixed backdrop, custom fullscreen player) |
+| /about, /impact, /fork, legal docs | **Shopify Editions** (opening frame, chapter index, chapter heroes, torn paper, serif statements, card collages) |
+| /press | stripe.dev (kept: the user signed it off on 2026-09-26 — "it's very good"; the press.stripe.com WebGL shelf is shelved) |
+| /cloud, /join, /contact, /faq, /qna, /minecraft | **stripe.dev** (24-col hairline grid with `+` registration marks, pixel-block glyph titles, `/ LABEL` table headers, seeded "Fig. N" generative windows, feed tables with mono dates, sticky router figure, get-help grid, endless outlined footer word) |
 | Site-wide chrome | buttermax nav fused with **stripe.dev** bracket hotkeys (`[E] EVENTS [A] ABOUT [J] JOIN [M] MENU`, `[C]` console = the AI assistant as a stripe.dev console window), **inkfish** pixel-mountain route transition, kprverse menu, buttermax/kprverse footer |
 
 Single-key shortcuts must be switchable off (WCAG 2.1.4), ignored while typing or with modifiers, and exposed via `aria-keyshortcuts`.
@@ -162,7 +164,7 @@ Full teardowns (measurements, timings, mechanisms) live in `tmp/research-full.js
   `[S.01]`, `EVENTS [06]` (counts computed from data, never invented).
 
 ### Color systems
-- **Homepage = two-colour poster** like buttermax: orange `#fc920d` + ink `#120f0a`, burgundy as the depth colour (3D cube
+- **Homepage = brand poster** like buttermax: burgundy `#97192c` hero ramping into orange `#fc920d`, ink `#120f0a` type on orange, cream on burgundy (3D cube
   faces, duotones). Paper/cream sections for reading.
 - **Edition pages**: ink opening frame → full-bleed **duotone chapter art** (our "paintings": real photos from
   `public/event_pictures`, `public/images` in grayscale → burgundy/orange duotone + halftone) → torn paper → paper/cream reading chapters.
@@ -191,11 +193,12 @@ Full teardowns (measurements, timings, mechanisms) live in `tmp/research-full.js
   hover, coordinates, bracket counters); charset `01&#*+=/<>`; real text stays in the DOM (animate an aria-hidden mirror).
 - **Footer** (buttermax + kprverse): ink poster. Top row of 4 columns split by 2px paper rules (console column with routes +
   `26.8467° N, 80.9462° E`, nav, socials, contact incl. legal/trust links with `data-tour="footer-trust"`), then a full-bleed
-  giant `bits&bytes™` wordmark uncovered from a slot (counter-translated mask scrub), with the cube mark tucked between a back
-  and a front copy of the type. All existing footer links/text preserved.
+  giant `bits&bytes™` wordmark uncovered from a slot (counter-translated mask scrub), with the cube mark (inline logo.svg
+  geometry, opaque paper body + ink cut-outs, ink knockout ring) locked into the "s"; its pieces snap into register in the same scrub. All existing footer links/text preserved.
 
 ### Homepage (buttermax 1:1, in brand)
-1. **Hero** — full-bleed orange, wordmark centred edge-to-edge, tiny uppercase caption line under its left side
+1. **Hero** — full-bleed burgundy (cream wordmark) ramping through warm to orange behind the cube slot, copy + CTAs on the
+   orange band; every size height-aware so the whole first screen fits 1280×650; wordmark centred edge-to-edge, tiny uppercase caption line under its left side
    (existing tagline: "India's boldest builder network" + "innovate • collaborate • hack"), a **3D "byte"** floating in front:
    a 2×2×2 cluster of 8 "bit" cubes (8 bits = 1 byte) with flat/toon burgundy/ink/cream faces and ink `<Edges>`, one face
    carrying the B letterform, a four-point star on top. It idles (slow spin, pointer spring tilt), every ~8s does a
@@ -203,15 +206,18 @@ Full teardowns (measurements, timings, mechanisms) live in `tmp/research-full.js
    scroll speed, rotates, bits drift apart) so it's gone by ~40% of the first viewport. Hero footer row: mono dots glyph left,
    down-arrow centre. Riso misregistration: burgundy + orange copies of the wordmark slip ±10px with scroll velocity and snap back.
    Primary CTAs (existing: "Join the crew" → /join, "Watch film" → film modal) sit small and precise, not as a hero button block.
-2. **Curtain reel** — a fixed full-bleed reel of the existing film (`/movie/bnb-movie.mp4`, low-res → full-bleed copy under a
-   halftone/dither screen, plus a sharp inset window playing it clean) uncovered as the orange hero scrolls up, then covered by
-   the next paper panel (TornEdge top). `[ WATCH FILM ]` opens the VideoModal with sound. Plays only in view; none under reduced motion.
+2. **Curtain reel** — a fixed full-bleed reel of the film (`/movie/bnb-trailer.mp4`, the character trailer; its
+   `FilmPlayer` rides the thrown cube's end card into the site: window blows open, a pixel-aligned SVG logo replaces the
+   video logo on the cut frame, unassembles into construction lines, a hexagonal iris opens onto the hero whose wordmark
+   rises again, and the logo flies into the nav cube mark; plain player under reduced motion), low-res → full-bleed copy under a
+   halftone/dither screen, plus a sharp inset window playing it clean) uncovered as the hero scrolls up, then covered by
+   the next paper panel (TornEdge top). `[ WATCH FILM ]` opens the FilmPlayer with sound. Plays only in view; none under reduced motion.
 3. **Statement** — "who we are" indented mega statement from existing mission copy; words fade 0.15→1 as you scroll.
 4. **Numbers** — Anton odometer stats (existing: 1400+ members, 5+ forks, 4+ events, 16.5 mean age), drawn 3px rules.
 5. **Works grid** — buttermax hairline grid → our "What we do" programs + events: 3 columns, 2px ink dividers, each cell a
    halftone-duotone photo "object" at 75%, label bottom-left in mono, small glyph bottom-right, cursor **lens** (circle
    clip-path reveals the full-colour photo under the pointer; keyboard focus shows it too).
-6. **Now showing** — the Regional Hackathon Series teaser: poster frame + `IIT BOMBAY · DEC 17–18` + link to /events.
+6. ~~Now showing~~ — removed at the user's request (2026-09-26); the Regional Hackathon Series lives on /events only.
 7. **Partners** — draggable ink marquee band.
 8. **FAQ** + **Voices** (existing content) in the kit's accordion / a horizontal quote rail.
 9. **Footer** (global).
