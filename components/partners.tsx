@@ -17,7 +17,7 @@ const strategicPartners = [
     learnMoreLabel: "Explore SparkCloud",
     role: "Cloud Partner",
     description:
-      "Free cloud development spaces for teen builders — code, build, and host applications from any browser with zero setup.",
+      "Free cloud development spaces for teen builders. Code, build and host apps from any browser, with nothing to set up.",
     features: ["Cloud IDE", "Browser Hosting", "Spark Account"],
     icon: <Cloud aria-hidden className={ICON} />,
   },
@@ -76,7 +76,7 @@ export function Partners() {
           number={3}
           label="Ecosystem"
           title="Our partners"
-          description="We work with these companies to give teen builders more to work with."
+          description="These companies give our builders the tools they ship with."
         />
       </div>
 
