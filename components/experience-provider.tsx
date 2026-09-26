@@ -227,16 +227,28 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       margined.forEach((section) => (section.style.scrollMarginTop = `${NAV_OFFSET}px`));
 
       if (edition) {
-        sections.forEach((section, index) =>
-          ScrollTrigger.create({
-            trigger: section,
-            start: "top center",
-            end: "bottom center",
-            refreshPriority: -1,
-            onToggle: ({ isActive }) => {
-              if (isActive) setActiveIndex(index);
-            },
-          }),
+        // Resolve from every trigger on each toggle, not just the one that fired: early toggles (before fonts and
+        // images settle the layout) used to leave a later chapter lit while the reader was still in the opener.
+        const triggers: ScrollTrigger[] = [];
+        const sync = () => {
+          let index = -1;
+          triggers.forEach((trigger, i) => {
+            if (trigger.isActive) index = i;
+          });
+          if (index >= 0) setActiveIndex(index);
+          else if (triggers[0] && triggers[0].scroll() < triggers[0].start) setActiveIndex(0);
+        };
+        sections.forEach((section) =>
+          triggers.push(
+            ScrollTrigger.create({
+              trigger: section,
+              start: "top center",
+              end: "bottom center",
+              refreshPriority: -1,
+              onToggle: sync,
+              onRefresh: sync,
+            }),
+          ),
         );
       }
 
