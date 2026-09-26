@@ -11,12 +11,12 @@ import { FORK_CITIES } from "@/lib/forks";
 export const IMPACT_TITLE = "Beyond the venue walls";
 
 export const IMPACT_LEDE =
-  "From first-time hackathons to squads inside local schools, we build experiences that get teens building, and we ship the results publicly across India.";
+  "We run hackathons for first-timers and squads inside local schools. Whatever gets built there ships in public, in cities across India.";
 
 export const CHAPTERS = [
   { id: "impact-record", title: "Impact Record" },
   { id: "track-record", title: "Track Record" },
-  { id: "shipped-outcomes", title: "Teen-led squads, shipped outcomes" },
+  { id: "shipped-outcomes", title: "Forks and venues across India" },
   { id: "culture", title: "Culture & Core Principles" },
   { id: "explore", title: "Explore the bits&bytes™ Network" },
 ] as const;
@@ -27,7 +27,7 @@ export const highlightStats: HighlightStat[] = [
   {
     value: "Community",
     label: "Pan-India",
-    description: "Teen builders active across India",
+    description: "Teenage builders in cities across India, with no single home base.",
     timeframe: "Community",
   },
   {
@@ -35,7 +35,7 @@ export const highlightStats: HighlightStat[] = [
     label: "Local Hubs",
     description: (
       <>
-        City chapters under upstream governance in {FORK_CITIES}.{" "}
+        Local chapters in {FORK_CITIES}. Each takes the playbook from upstream and runs its own room.{" "}
         <Link
           href="/fork"
           className="font-bold text-signal underline decoration-2 underline-offset-4 hover:decoration-orange"
@@ -49,13 +49,13 @@ export const highlightStats: HighlightStat[] = [
   {
     value: "Events",
     label: "Events across India",
-    description: "Hackathons, hardware meetups, and developer workshops",
+    description: "Hackathons with the workshops built in, plus meetups like Lucknow Build Guild.",
     timeframe: "Track Record",
   },
   {
     value: "Teen-led",
     label: "Our team",
-    description: "100% youth-led engineering and operations team",
+    description: "Teenagers write the code and run the events, start to finish.",
     timeframe: "Team",
   },
 ];
@@ -63,15 +63,15 @@ export const highlightStats: HighlightStat[] = [
 export const culturePillars = [
   {
     title: "Ship or dip",
-    copy: "Talking about your idea is easy. We'd rather have a working prototype by Sunday than a perfect slide deck by next month.",
+    copy: "Pitching an idea is easy. We'd rather see a rough prototype running by the end of the hackathon than a perfect deck next month.",
   },
   {
     title: "Your squad keeps you honest",
-    copy: "Mentors, pods, and the kind of peer pressure that makes you actually finish things. Nobody ghosts a project when their team is waiting on their code.",
+    copy: "Mentors and teammates are the peer pressure that gets things finished. It's hard to ghost a project when your team is waiting on your code.",
   },
   {
     title: "Built for users, not grades",
-    copy: "School operations, civic tech, accessibility tools. The things we ship get used by real people, not just submitted for a rubric.",
+    copy: "School operations, civic tech, accessibility tools. We want what we ship to get used by someone, and a rubric score doesn't count.",
   },
 ];
 
@@ -82,7 +82,7 @@ export type TrackItem = { name: string; line: string; photos: string[] };
 export const trackRecord: TrackItem[] = [
   {
     name: "India Innovates 2026",
-    line: "Official Executive Partner for the World's Largest Civic Tech Hackathon with 1.26 crore+ applicants.",
+    line: "We were Official Executive Partner for the world's largest civic tech hackathon, with 1.26 crore+ applicants.",
     photos: [
       ev("HEe93oOakAAi2Mi.jpg"),
       ev("HEe923ub0AE-92F.jpg"),
@@ -94,22 +94,22 @@ export const trackRecord: TrackItem[] = [
   },
   {
     name: "Hack4Good v0",
-    line: "Archived 24-hour Agentic AI hackathon in Lucknow with 425 registrations, 110 on-ground attendees, and a ₹35,000 prize pool.",
+    line: "Our 24-hour agentic AI hackathon in Lucknow (now archived): 425 registrations, 110 on the ground, a ₹35,000 prize pool.",
     photos: [ev("h4g/h4g1.jpg"), ev("h4g/h4g0.jpg"), ev("h4g/h4g3.jpg"), ev("h4g/h4g2.jpeg"), ev("h4g/h4g.jpg")],
   },
   {
     name: "Execron 1.0",
-    line: "Co-hosted AI Hackathon & Workshop at IIT Kanpur for students in Classes 9–12.",
+    line: "We co-hosted an AI hackathon and workshop at IIT Kanpur for students in Classes 9–12.",
     photos: [1, 2, 3, 4, 5].map((n) => ev(`byteforge${n}.webp`)),
   },
   {
     name: "GitHub Copilot Dev Days",
-    line: "Hosted community developer event focused on AI-assisted coding in Lucknow.",
+    line: "We hosted an in-person community event in Lucknow on coding with AI assistants.",
     photos: [ev("devday.jpeg"), ev("devday2.jpeg"), ev("devday3.jpeg"), ev("devday4.jpeg")],
   },
   {
     name: "Lucknow Build Guild",
-    line: "Free hardware workshop and meetup for local tech people.",
+    line: "A free hardware workshop and meetup for tech people in Lucknow.",
     photos: [1, 2, 3, 4, 5].map((n) => ev(`bd${n}.jpg`)),
   },
   { name: "Regional Space Apps Hackathon", line: "300+ participants.", photos: [] },
@@ -165,7 +165,7 @@ export const places: {
 
 export const exploreLinks = [
   { label: "Events", href: "/events" },
-  { label: "Local Hubs", href: "/fork" },
+  { label: "Forks", href: "/fork" },
   { label: "Press Kit", href: "/press" },
 ];
 
