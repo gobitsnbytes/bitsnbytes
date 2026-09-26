@@ -132,7 +132,7 @@ export function ForkEdition({ applyUrl }: { applyUrl: string }) {
         id={CHAPTERS[2].id}
         number={3}
         title={CHAPTERS[2].title}
-        kicker={`Forks [${pad(FORKS.length)}]`}
+        kicker="Forks [live]"
         art={{ src: "/event_pictures/bd1.jpg", alt: "Lucknow Build Guild hardware workshop and meetup" }}
       />
       <TornEdge from="ink" to="paper" />
@@ -145,9 +145,8 @@ export function ForkEdition({ applyUrl }: { applyUrl: string }) {
         <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
           <p className="flex justify-between gap-4 pb-3 font-mono text-[11px] font-bold uppercase tracking-[0.2em]">
             <span className="text-signal">fork-manifest</span>
-            <span>
-              json [{pad(FORKS.length)}]
-            </span>
+            {/* Forks are named, never counted. */}
+            <span>json [live]</span>
           </p>
           <FeedList>
             {FORKS.map((fork) => {
