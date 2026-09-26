@@ -1,7 +1,7 @@
 {
   "name": "bits&bytes™ - India's Teen-Led Builders Club",
   "short_name": "bits&bytes™",
-  "description": "Join India's boldest teen-led builders club. Build real projects, attend hackathons, and grow as a developer. 1500+ active members, 130+ shipped projects.",
+  "description": "Join India's boldest teen-led builders club. Build real projects, attend hackathons, and grow as a developer.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
