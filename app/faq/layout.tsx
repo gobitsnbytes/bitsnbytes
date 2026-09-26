@@ -71,7 +71,7 @@ const faqJsonLd = {
       name: "How much time do I need to commit to bits&bytes™?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "We recommend 2-4 hours per week, but it's flexible. Some weeks you might attend a workshop, others you might work on a project async.",
+        text: "We recommend 2-4 hours per week, but it's flexible. Some weeks you might be at a hackathon, others you might work on a project async.",
       },
     },
     {
