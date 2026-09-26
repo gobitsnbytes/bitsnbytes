@@ -251,7 +251,7 @@ export function HomeHero() {
           {/* Wordmark: the h1 is the text alone (sr-only); the visual is three aria-hidden sibling copies, two riso
               plates behind the cream copy, so the h1's text reads the name once. Knockout = the burgundy surface. */}
           <div className="relative text-[clamp(64px,min(22vw,36svh),340px)] [--wm-knockout:var(--burgundy)]">
-            <h1 className="sr-only">bits&amp;bytes™ — India&apos;s boldest builder network</h1>
+            <h1 className="sr-only">bits&amp;bytes™, a teen-led builder network across India</h1>
             <Wordmark plate data-plate="" className="absolute inset-0 text-ink" />
             <Wordmark plate data-plate="" className="absolute inset-0 text-orange" />
             <Wordmark className="relative" />
@@ -261,8 +261,8 @@ export function HomeHero() {
             data-hero-caption=""
             className="mt-[clamp(12px,min(1.6vw,2svh),24px)] pl-[0.4vw] max-sm:mt-7 sm:max-w-[48%] font-mono text-[11px] font-bold uppercase leading-[1.5] tracking-[0.16em] sm:text-xs"
           >
-            <span className="block">India&apos;s boldest builder network.</span>
-            <span className="block">innovate &bull; collaborate &bull; hack</span>
+            <span className="block">A teen-led builder network across India.</span>
+            <span className="block">run by teenagers, built to ship</span>
           </p>
         </div>
 
@@ -286,8 +286,8 @@ export function HomeHero() {
           {/* The band's orange paints under the cube canvas (z-10); only its content rises above it. */}
           <div className="relative z-20 flex flex-col gap-[clamp(12px,2.4svh,24px)] md:flex-row md:items-end md:justify-between">
             <div data-hero-caption="" className="max-w-[34ch] font-serif text-[clamp(16px,1.3vw,19px)] leading-snug">
-              <p>Hackathons, build guilds, launches, and communities.</p>
-              <p>Fully student-led. Fully independent.</p>
+              <p>We run hackathons, build guilds and launches.</p>
+              <p>Student-led, and independent on purpose.</p>
               <p className="mt-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em]">No uncs in the room.</p>
             </div>
 
@@ -309,7 +309,7 @@ export function HomeHero() {
               <Link
                 data-hero-actions=""
                 href="/prospectus?download=1"
-                aria-label="Download the bits&bytes partnership prospectus"
+                aria-label="Download the bits&bytes™ partnership prospectus"
                 className="group flex w-full max-w-xs items-center gap-3 border-l-3 border-ink py-1 pl-3 font-mono text-ink transition-colors duration-150 hover:bg-ink/5"
               >
                 <FileDown
