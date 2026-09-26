@@ -21,27 +21,27 @@ const LINKS = [
 
 const QUICK = [
   {
-    label: "SparkCloud Environments",
-    desc: "Free cloud spaces — code, test, build, and host containers and databases from any browser.",
+    label: "SparkCloud environments",
+    desc: "Free cloud spaces you open in any browser to write code, test it, and host containers and databases.",
   },
   {
-    label: "One Verified Account",
-    desc: "A single Spark Account signs you into every Sparkden service, workspace, and tool.",
+    label: "One verified account",
+    desc: "One Spark Account signs you into every Sparkden service, workspace and tool.",
   },
 ];
 
 const PROVIDES = [
   {
-    label: "Container Hosting",
-    desc: "Deploy containerised apps, Node/Python backends, REST APIs, and bots with instant public URLs.",
+    label: "Container hosting",
+    desc: "Deploy containerised apps, Node or Python backends, REST APIs and bots, each with its own public URL.",
   },
   {
-    label: "Managed Databases",
-    desc: "Provision high-performance PostgreSQL and data store instances for full-stack hackathon projects.",
+    label: "Managed databases",
+    desc: "Spin up PostgreSQL and other data stores for the full-stack projects you build at hackathons.",
   },
   {
-    label: "Tokens & Vouchers",
-    desc: "Transparent token-based billing via student grants. Free tier stays real — tokens never expire.",
+    label: "Tokens & vouchers",
+    desc: "Billing runs on tokens from student grants, so you can see what you spend. The free tier is real, and tokens never expire.",
   },
 ];
 
@@ -95,7 +95,7 @@ export default function CloudPage() {
         />
       </div>
 
-      {/* §01 — the offer */}
+      {/* §01: the offer */}
       <Chapter id="cloud-for-builders" title="cloud for builders" number={1} tone="paper">
         <div className={COL}>
           <Breadcrumbs items={[{ name: "SparkCloud", href: "/cloud" }]} />
@@ -122,8 +122,8 @@ export default function CloudPage() {
               data-citation="true"
               className="max-w-[30ch] font-serif text-[clamp(24px,2.8vw,40px)] leading-[1.2]"
             >
-              Free, high-performance cloud development spaces for ambitious teen builders. Code, deploy, and host full-stack
-              applications from your browser — no credit card, no corporate account, no gatekeeping.
+              Free cloud development spaces for teen builders. Write, deploy and host full-stack apps from your browser,
+              without a credit card or a corporate account.
             </p>
 
             {/* Partner lockup: bits&bytes™ + Sparkden + SparkCloud */}
@@ -190,13 +190,13 @@ export default function CloudPage() {
         </div>
       </Chapter>
 
-      {/* §02 — what you get */}
+      {/* §02: what you get */}
       <Chapter id="what-you-get" title="what you get" number={2} tone="cream">
         <div className={COL}>
           <ChapterHead
             number={2}
             label="what you get"
-            title="What SparkCloud Provides"
+            title="What SparkCloud gives you"
             description={
               <>
                 Sparkden and SparkCloud are educational programmes operated by{" "}
@@ -221,8 +221,8 @@ export default function CloudPage() {
 
           <Window title="Zero Billing Friction" bar="orange" className="mt-12 max-w-3xl" bodyClassName="p-5 md:p-7">
             <p className="font-mono text-sm leading-relaxed">
-              Unlike AWS, GCP, or Azure — no credit cards, no complex IAM, no corporate billing. SparkCloud gives student
-              builders the agility of Render, Railway, and Vercel while keeping access and education front and centre.
+              AWS, GCP and Azure want a credit card, IAM setup and a billing account before you ship anything. SparkCloud
+              skips that. It feels closer to Render, Railway or Vercel, but access and learning come first.
             </p>
           </Window>
         </div>
@@ -230,16 +230,16 @@ export default function CloudPage() {
 
       <TornEdge from="cream" to="ink" />
 
-      {/* §03 — the hard limits */}
+      {/* §03: the hard limits */}
       <Chapter id="the-hard-limits" title="the hard limits" number={3} tone="ink">
         <div className={COL}>
           <Tag tone="orange" className="mb-6">
             Mandatory Notice
           </Tag>
-          <ChapterHead number={3} label="the hard limits" title="Strict Eligibility & Anti-Abuse" />
+          <ChapterHead number={3} label="the hard limits" title="Strict eligibility & anti-abuse" />
           <p className="indent-[26%] font-sans text-[clamp(24px,3.6vw,52px)] font-extrabold uppercase leading-[1.02] tracking-[-0.03em]">
-            This complimentary cloud access is strictly reserved for Indian teenagers between{" "}
-            <strong className="text-orange">ages 13 and 19</strong> who are active members of bits&bytes™.
+            This free cloud access is only for Indian teenagers{" "}
+            <strong className="text-orange">aged 13 to 19</strong> who are active in the bits&bytes™ community.
           </p>
 
           <div className="mt-14 max-w-4xl border-3 border-orange p-5 font-mono shadow-[8px_8px_0_0_var(--orange)] md:p-8">
@@ -258,14 +258,14 @@ export default function CloudPage() {
 
       <TornEdge from="ink" to="paper" flip />
 
-      {/* §04 — verify and apply */}
+      {/* §04: verify and apply */}
       <Chapter id="verify-and-apply" title="verify and apply" number={4} tone="paper">
         <div className={COL}>
           <ChapterHead
             number={4}
             label="verify and apply"
-            title="Policy Agreement & Verification"
-            description="Before applying, review Sparkden's legal documents and explicitly accept the governing terms."
+            title="Policy agreement & verification"
+            description="Read Sparkden's legal documents before you apply. You'll have to accept their terms explicitly."
           />
           <div className="max-w-4xl">
             <nav aria-label="Sparkden legal documents" className="border-t-3 border-line">
