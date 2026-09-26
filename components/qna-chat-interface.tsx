@@ -25,6 +25,7 @@ import {
   type ChatMessage,
 } from "@/components/ui/chat-console";
 import { cn } from "@/lib/utils";
+import { play } from "@/components/chrome/sound/engine";
 
 const MAX_HISTORY = 20;
 const QUICK_PROMPTS = [
@@ -62,6 +63,7 @@ export function QnAChatInterface({ className }: { className?: string }) {
   const promptBoxRef = useRef<PromptBoxRef | null>(null);
   const logRef = useRef<HTMLDivElement | null>(null);
   const nextIdRef = useRef(1);
+  const lastTickRef = useRef(0);
   const streamControllerRef = useRef<AbortController | null>(null);
 
   const appendMessage = useCallback((newMessage: ChatMessage) => {
@@ -150,7 +152,14 @@ export function QnAChatInterface({ className }: { className?: string }) {
     try {
       await streamAssistant({ messages: payloadMessages }, controller.signal, {
         model: setModelName,
-        token: (chunk) => update((prev) => prev + chunk),
+        token: (chunk) => {
+          const now = performance.now();
+          if (now - lastTickRef.current >= 60) {
+            lastTickRef.current = now;
+            play("key");
+          }
+          update((prev) => prev + chunk);
+        },
         error: setError,
         done: (action) => {
           if (action?.type === "navigate" && typeof action.path === "string") navigatePath = action.path;
