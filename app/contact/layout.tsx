@@ -3,11 +3,11 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact bits&bytes™ | Partnerships, Press & Inquiries",
   description:
-    "Reach the bits&bytes™ team in Lucknow, India. For partnerships, press inquiries, sponsorships, or general questions — we respond within 48 hours.",
+    "Reach the bits&bytes™ team, pan-India. For partnerships, press inquiries, sponsorships, or general questions, we respond within 48 hours.",
   keywords: [
     "contact bits&bytes™",
     "teen builders network contact",
-    "lucknow coding network email",
+    "pan-india teen coding network email",
     "bits&bytes™ partnerships",
     "bits&bytes™ sponsorship",
   ],
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Contact bits&bytes™ | Partnerships, Press & Inquiries",
     description:
-      "Reach the bits&bytes™ team in Lucknow, India. For partnerships, press inquiries, sponsorships, or general questions — we respond within 48 hours.",
+      "Reach the bits&bytes™ team, pan-India. For partnerships, press inquiries, sponsorships, or general questions, we respond within 48 hours.",
     url: "https://gobitsnbytes.org/contact",
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Contact bits&bytes™" }],
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Contact bits&bytes™ | Partnerships, Press & Inquiries",
-    description: "Reach the bits&bytes™ team for partnerships, press, or sponsorships. Based in Lucknow, India.",
+    description: "Reach the bits&bytes™ team for partnerships, press, or sponsorships. We work pan-India.",
   },
 };
 

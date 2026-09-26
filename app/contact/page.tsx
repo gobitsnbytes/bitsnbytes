@@ -41,12 +41,12 @@ const channels: HelpTopic[] = [
     cta: <CopyEmailButton />,
   },
   {
-    title: "HQ Location",
+    title: "Location",
     body: (
       <p>
-        <b>Lucknow, India</b>
+        <b>Pan-India</b>
         <br />
-        Fiduciary &amp; operational base in UP
+        Forks in cities across India
       </p>
     ),
     examples: [],
@@ -83,10 +83,10 @@ export default function Contact() {
           lines={["Let's build ", "something ", "together"]}
           glyph={<PixelGlyph text="CONTACT" decorative />}
           aside={<LabGlobe />}
-          subtitle={<p>Partner with us on hackathons, workshops, or school programs across Lucknow.</p>}
+          subtitle={<p>Partner with us on hackathons, workshops, or school programs across India.</p>}
         >
           <p aria-hidden className="font-mono text-[11px] uppercase leading-none">
-            26.8467° N, 80.9462° E
+            20.5937° N, 78.9629° E
           </p>
         </LabHero>
       </section>
