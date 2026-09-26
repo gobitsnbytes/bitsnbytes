@@ -293,10 +293,9 @@ export function EventsReel() {
           Where code meets <span className="block text-orange">the real world</span>
         </h1>
 
-        {/* Raised clear of the site-wide Ask button (fixed bottom-right). */}
         <a
           href="#regional-series"
-          className="group relative z-10 mb-[76px] inline-flex items-end gap-3 justify-self-end text-paper sm:mb-[84px] md:gap-4"
+          className="group relative z-10 inline-flex items-end gap-3 justify-self-end text-paper md:gap-4"
         >
           <span className={cn(WIDE, "text-[28px] leading-none md:text-[40px]")}>Scroll</span>
           <svg viewBox="0 0 12 28" aria-hidden className="h-7 w-3 fill-none stroke-current stroke-2">
