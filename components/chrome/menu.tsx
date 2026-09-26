@@ -9,6 +9,7 @@ import { useExperience } from "@/components/experience-provider";
 import { ScrambleText } from "@/components/riot/scramble-text";
 import { cn } from "@/lib/utils";
 import { openConsole, setShortcutsEnabled, useShortcutsEnabled } from "./hotkeys/shortcuts";
+import { setSoundEnabled, useSoundEnabled } from "./sound/engine";
 import { ROUTES, SOCIALS, isActive, pad } from "./links";
 import { CubeMark } from "./wordmark";
 
@@ -42,6 +43,7 @@ export function MenuPanel({ pathname, instant, onNavigate }: MenuPanelProps) {
   const { resolvedTheme, setTheme } = useTheme();
   const dark = resolvedTheme === "dark";
   const shortcuts = useShortcutsEnabled();
+  const sound = useSoundEnabled();
   const toConsole = useRef(false);
 
   // Freeze the page behind the menu (Radix locks native scroll; Lenis needs its own stop).
@@ -187,6 +189,16 @@ export function MenuPanel({ pathname, instant, onNavigate }: MenuPanelProps) {
                   title={`${motionEnabled ? "Pause" : "Play"} immersive motion`}
                 >
                   Motion <Bracket>{motionEnabled ? "On" : "Off"}</Bracket>
+                </button>
+                <button
+                  type="button"
+                  className="bnb-btn"
+                  onClick={() => setSoundEnabled(!sound)}
+                  aria-pressed={sound}
+                  aria-keyshortcuts={shortcuts ? "S" : undefined}
+                  title={`Turn interface sound ${sound ? "off" : "on"}`}
+                >
+                  Sound <Bracket>{sound ? "On" : "Off"}</Bracket>
                 </button>
                 <button
                   type="button"

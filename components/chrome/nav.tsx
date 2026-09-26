@@ -9,6 +9,7 @@ import { useExperience } from "@/components/experience-provider";
 import { ScrambleText } from "@/components/riot/scramble-text";
 import { isShortcut, openConsole, useShortcutsEnabled } from "./hotkeys/shortcuts";
 import { PRIMARY, isActive } from "./links";
+import { isSoundEnabled, setSoundEnabled, useSoundEnabled } from "./sound/engine";
 import { MenuPanel } from "./menu";
 import { RouteTransition } from "./transition/route-transition";
 import { CubeMark, Wordmark } from "./wordmark";
@@ -36,6 +37,7 @@ export function Nav() {
   const { motionEnabled, lenis, chapters } = useExperience();
   const reduceMotion = useReducedMotion();
   const shortcuts = useShortcutsEnabled();
+  const sound = useSoundEnabled();
 
   // Open state is tied to the path it was opened on, so any route change closes it without an effect.
   const [openAt, setOpenAt] = useState<string | null>(null);
@@ -67,6 +69,8 @@ export function Nav() {
         onOpenChange(true);
       } else if (key === "C") {
         openConsole(true);
+      } else if (key === "S") {
+        setSoundEnabled(!isSoundEnabled());
       } else if (section) {
         // Keyboard-initiated: jump without animation, then move focus. Nav clearance comes from the
         // scroll-margin-top ExperienceProvider puts on chapters (Lenis and scrollIntoView both honour it).
@@ -135,6 +139,18 @@ export function Nav() {
               >
                 <Key k="C" />
                 <ScrambleText text="Console" trigger="hover" />
+              </button>
+              {/* Interface sound, off by default. Below lg the menu's Settings row and the S key cover it. */}
+              <button
+                type="button"
+                className="bnb-btn hidden lg:inline-flex"
+                aria-pressed={sound}
+                aria-keyshortcuts={shortcuts ? "S" : undefined}
+                title={`Turn interface sound ${sound ? "off" : "on"}`}
+                onClick={() => setSoundEnabled(!sound)}
+              >
+                <Key k="S" />
+                <ScrambleText text={sound ? "Sound on" : "Sound"} trigger="hover" />
               </button>
               <Dialog.Trigger
                 className="bnb-btn"
