@@ -1,8 +1,10 @@
 import { ImageResponse } from 'next/og'
 
+import { FORKS } from '@/lib/forks'
+
 export const runtime = 'edge'
 
-export const alt = 'bits&bytes™ - 1400+ Teen Builders | High-Impact Execution'
+export const alt = 'bits&bytes™: a pan-India builder network run by teenagers'
 export const size = {
   width: 1200,
   height: 630,
@@ -194,9 +196,9 @@ export default async function Image() {
             }}
           >
             {[
-              { label: 'Community Size', value: '1400+', note: 'Teen builders active' },
-              { label: 'Local Hubs', value: '5+ Forks', note: 'gobitsnbytes.org/fork' },
-              { label: 'Nationwide', value: '4+ Events', note: 'Hackathons & workshops' },
+              { label: 'Community', value: 'Pan-India', note: 'Teen builders, ages 13–19' },
+              { label: 'Local Hubs', value: 'Forks', note: 'gobitsnbytes.org/fork' },
+              { label: 'Events', value: 'Hackathons', note: 'Workshops run inside them' },
             ].map((item) => (
               <div
                 key={item.label}
@@ -236,7 +238,7 @@ export default async function Image() {
               fontWeight: 500,
             }}
           >
-            <div>Impact Highlight: 1400+ members, 5+ forks, 4+ events. Mean team age: 16.5 years.</div>
+            <div style={{ fontSize: '15px' }}>{`Forks: ${FORKS.map((fork) => fork.city).join(' · ')}`}</div>
             <div style={{ color: '#ffffff', fontWeight: 700 }}>gobitsnbytes.org</div>
           </div>
         </div>
