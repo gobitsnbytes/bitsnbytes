@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Join bits&bytes™ | Free Teen Builder Network India",
+  title: "Join bits&bytes™ | Free teen builder network in India",
   description:
-    "Join a free, pan-India network of teen developers. Real hackathons and a crew that actually ships. Ages 13–19 welcome.",
+    "Join a free, pan-India community of teen builders aged 13–19. Real hackathons, real projects, and a crew that ships.",
   keywords: [
     "join bits&bytes™",
     "teen coding network membership",
@@ -17,17 +17,17 @@ export const metadata: Metadata = {
     canonical: "https://gobitsnbytes.org/join",
   },
   openGraph: {
-    title: "Join bits&bytes™ | Free Teen Builder Network India",
+    title: "Join bits&bytes™ | Free teen builder network in India",
     description:
-      "Join a free, pan-India network of teen developers. Real hackathons and a crew that actually ships. Ages 13–19 welcome.",
+      "Join a free, pan-India community of teen builders aged 13–19. Real hackathons, real projects, and a crew that ships.",
     url: "https://gobitsnbytes.org/join",
     type: "website",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Join bits&bytes™ — Free Teen Builder Network" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Join bits&bytes™, a free teen builder network" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Join bits&bytes™ | Free Teen Builder Network India",
-    description: "Join teen developers across India. Free membership, real hackathons, and a crew that ships.",
+    title: "Join bits&bytes™ | Free teen builder network in India",
+    description: "Free for teen builders aged 13–19 across India. Real hackathons and a crew that ships.",
   },
 };
 
@@ -37,7 +37,7 @@ const joinPageJsonLd = {
   "@id": "https://gobitsnbytes.org/join#webpage",
   url: "https://gobitsnbytes.org/join",
   name: "Join bits&bytes™",
-  description: "Free membership for teen builders aged 13–19, across India.",
+  description: "Free to join for teen builders aged 13–19 across India.",
   isPartOf: { "@id": "https://gobitsnbytes.org/#website" },
   breadcrumb: {
     "@type": "BreadcrumbList",

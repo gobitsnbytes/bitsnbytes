@@ -30,26 +30,26 @@ const pad = (n: number) => String(n).padStart(2, "0");
 
 const paths = [
   {
-    title: "Join Community",
+    title: "Join the community",
     description:
-      "Hop onto our Discord server. Chat with student builders across India, find project teams, and attend online study sessions.",
+      "Get on our Discord. Talk to teen builders from across India, find people to team up with, and sit in on online study sessions.",
     cta: "Join Discord",
     href: DISCORD_INVITE_URL,
     variant: "outline",
   },
   {
-    title: "Become a Contributor",
+    title: "Become a contributor",
     description:
-      "Apply to build our core open-source software projects, organize developer cohorts, or manage outreach.",
-    cta: "Apply Now",
+      "Apply to work on our open-source projects, run developer cohorts, or help with outreach.",
+    cta: "Apply now",
     href: NOTION_JOIN_FORM_URL,
     variant: "burgundy",
   },
   {
-    title: "Launch a Fork",
+    title: "Launch a fork",
     description:
-      "Bring bits&bytes™ to your city. Like a fork on GitHub: take the playbook from upstream, run your own room, and ship back.",
-    cta: "Explore Forks",
+      "Bring bits&bytes™ to your city. It works like a fork on GitHub: take the playbook from upstream, run your own room, ship back.",
+    cta: "Explore forks",
     href: "/fork",
     variant: "outline",
   },
@@ -57,50 +57,50 @@ const paths = [
 
 const benefits = [
   {
-    title: "Join a tight-knit crew",
-    description: "Work alongside teen builders across India who are actually building things.",
+    title: "A small crew that builds",
+    description: "You work next to teen builders from across India who are in the middle of making something.",
   },
   {
     title: "Ship real projects",
-    description: "Build projects with mentorship at every step, from idea to deployment.",
+    description: "Take a project from idea to deployment, with a mentor checking in at every step.",
   },
   {
-    title: "Attend exclusive events",
+    title: "First access to our events",
     description:
-      "Get priority access to hackathons, workshops, and events with people who actually work in the industry.",
+      "Priority access to our hackathons and the workshops that run inside them, with people who work in the industry.",
   },
   {
-    title: "Grow together",
-    description: "Pair programming, code reviews, and study groups help everyone level up faster.",
+    title: "Get better faster",
+    description: "Pair programming, code reviews, and study groups. You learn quicker when the work is shared.",
   },
 ];
 
 const expectations = [
-  "Be a student (ages 13-19) who cares about tech",
-  "Commit 2-4 hours per week for activities",
-  "Join our Discord and stay active in discussions",
-  "Participate in at least one project or event per quarter",
-  "Support fellow members and don't be a jerk",
+  "You're a student aged 13–19 who cares about tech",
+  "You can give 2–4 hours a week",
+  "You're on our Discord and you show up in the conversations",
+  "You take part in at least one project or event each quarter",
+  "You look out for the people around you, and you're not a jerk",
 ];
 
 const faqs = [
   {
     question: "Do I need coding experience to join?",
     answer:
-      "No. We welcome beginners and pair them with mentors. What matters is that you actually want to build things.",
+      "No. Beginners are welcome, and we pair them with mentors. What we care about is whether you want to build.",
   },
   {
     question: "How much time do I need to commit?",
     answer:
-      "We recommend 2-4 hours per week, but it's flexible. Some weeks you might be at a hackathon, others you might work on a project async.",
+      "We suggest 2–4 hours a week, and it bends. Some weeks you're at a hackathon. Other weeks you chip away at a project async.",
   },
   {
     question: "Is there a membership fee?",
-    answer: "No. bits&bytes™ is free. Tech education shouldn't cost money.",
+    answer: "No. bits&bytes™ is free. Learning to build shouldn't cost money.",
   },
   {
     question: "Do I need to live in a particular city?",
-    answer: `No. We're pan-India, with forks in ${FORK_CITIES}. Most activities happen online via Discord.`,
+    answer: `No. We're pan-India, with forks in ${FORK_CITIES}. Most of what we do happens online, on Discord.`,
   },
 ];
 
@@ -131,10 +131,10 @@ export default function Join() {
           glyph={<PixelGlyph text="JOIN" decorative />}
           aside={<LabGlobe />}
           subtitle={
-            <p>Tell us how you want to build with us. We&apos;ll connect you with squads, mentors, and real projects.</p>
+            <p>Pick how you want to build with us. We&apos;ll match you with a squad and a mentor, on a project that ships.</p>
           }
         >
-          <LabTag>Applications Open</LabTag>
+          <LabTag>Applications open</LabTag>
         </LabHero>
       </section>
 
@@ -143,14 +143,14 @@ export default function Join() {
         as="section"
         id="applications"
         data-cinematic-section=""
-        data-cinematic-title="Applications Open"
+        data-cinematic-title="Applications open"
         data-surface="paper"
         aria-labelledby="applications-title"
         className={SECTION}
       >
         <LabCell>
           <LabTitle id="applications-title" count={paths.length}>
-            Applications Open
+            Applications open
           </LabTitle>
         </LabCell>
         <div className="col-span-full max-lg:hidden lg:col-[1/7]">
@@ -179,7 +179,7 @@ export default function Join() {
             </ol>
           </ConsoleWindow>
           <p className="mt-4 font-mono text-[11px] uppercase leading-[1.4] text-fg/70">
-            We review contributor and fork applications weekly • Expected response time: 7 days
+            We read contributor and fork applications every week • Expect a reply within 7 days
           </p>
         </div>
       </LabGrid>
@@ -189,19 +189,19 @@ export default function Join() {
         as="section"
         id="why-join"
         data-cinematic-section=""
-        data-cinematic-title="Why Join"
+        data-cinematic-title="Why join"
         data-surface="paper"
         aria-labelledby="why-join-title"
         className={SECTION}
       >
-        <TableHeader label="Why Join" className="col-span-full" />
+        <TableHeader label="Why join" className="col-span-full" />
         <LabCell>
           <LabTitle id="why-join-title" count={benefits.length} className={WRAP}>
-            What you&apos;ll get as a member
+            What you get when you join
           </LabTitle>
         </LabCell>
         <LabCell span="1/15">
-          <p className={LAB_TEXT.lg}>Being part of bits&amp;bytes™ is more than a Discord invite.</p>
+          <p className={LAB_TEXT.lg}>The Discord invite is where it starts. This is what comes after.</p>
         </LabCell>
         <LabFeed
           labels={["No.", "Benefit"]}
@@ -231,7 +231,7 @@ export default function Join() {
           </LabTitle>
         </LabCell>
         <LabCell span="1/15">
-          <p className={LAB_TEXT.lg}>We want to make sure bits&amp;bytes™ is the right fit for you.</p>
+          <p className={LAB_TEXT.lg}>Read this before you apply. It saves both of us time.</p>
         </LabCell>
         <LabFeed labels={["No.", "Expectation"]}>
           {expectations.map((expectation, index) => (
@@ -258,7 +258,7 @@ export default function Join() {
           </LabTitle>
         </LabCell>
         <LabCell span="1/15">
-          <p className={LAB_TEXT.lg}>Things people ask before applying.</p>
+          <p className={LAB_TEXT.lg}>What people usually ask before they apply.</p>
         </LabCell>
         <LabFeed labels={["No.", "Question"]}>
           {faqs.map((faq, index) => (
@@ -292,7 +292,7 @@ export default function Join() {
             </>
             <>
               <LabCell span="1/9">
-                <p className={LAB_TEXT.lg}>Join teen builders across India who ship real projects.</p>
+                <p className={LAB_TEXT.lg}>Come ship real projects with teen builders from across India.</p>
               </LabCell>
               <LabCell span="11/-1" className="flex flex-col gap-4 sm:flex-row sm:flex-wrap min-[760px]:justify-end">
                 <Button asChild variant="outline">
@@ -302,19 +302,19 @@ export default function Join() {
                 </Button>
                 <Button asChild variant="burgundy">
                   <LabLink href={NOTION_JOIN_FORM_URL} className="group">
-                    <Cta>Become a Contributor</Cta>
+                    <Cta>Become a contributor</Cta>
                   </LabLink>
                 </Button>
                 <Button asChild variant="outline">
                   <LabLink href="/fork" className="group">
-                    <Cta>Launch a Fork</Cta>
+                    <Cta>Launch a fork</Cta>
                   </LabLink>
                 </Button>
               </LabCell>
             </>
             <LabCell>
               <p className="font-mono text-[12px] uppercase leading-[1.4]">
-                Questions? Reach us at{" "}
+                Questions? Write to us at{" "}
                 <LabLink
                   href="mailto:hello@gobitsnbytes.org"
                   className={cn("normal-case underline decoration-1 underline-offset-4", LAB_HOVER)}
