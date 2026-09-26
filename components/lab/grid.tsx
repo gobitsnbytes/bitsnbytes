@@ -137,9 +137,12 @@ export function LabTitle({ children, count, as: Tag = "h2", id, className }: Lab
     <Tag id={id} className={cn(LAB_TEXT.title, "min-[760px]:whitespace-nowrap", className)}>
       {children}
       {count !== undefined ? (
-        <sup className="ml-[0.08em] align-top font-mono text-[0.18em] font-normal leading-none tracking-normal">
-          ({count})
-        </sup>
+        <>
+          <sup aria-hidden className="ml-[0.08em] align-top font-mono text-[0.18em] font-normal leading-none tracking-normal">
+            ({count})
+          </sup>
+          <span className="sr-only"> ({count})</span>
+        </>
       ) : null}
     </Tag>
   );

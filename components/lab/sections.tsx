@@ -48,12 +48,16 @@ export function LabHero({ lines, glyph, subtitle, aside, marks = [1, 16, 22, 25]
       <RegMarks columns={marks} />
       <h1 className={cn(LAB_TEXT.hero, "col-span-full min-[760px]:col-[1/15] min-[760px]:row-start-2")}>
         {lines.map((line, i) => (
-          <span key={i} className={cn("block", i === 1 && "max-[759px]:text-right")}>
-            {line}
-            {glyph && i === lines.length - 1 ? (
-              <span className="max-[759px]:mt-3 max-[759px]:block min-[760px]:ml-[0.2em]">{glyph}</span>
-            ) : null}
-          </span>
+          <Fragment key={i}>
+            {/* Collapsed between blocks, but keeps the h1's accessible name "Join the crew", not "Join thecrew". */}
+            {i > 0 ? " " : null}
+            <span className={cn("block", i === 1 && "max-[759px]:text-right")}>
+              {line}
+              {glyph && i === lines.length - 1 ? (
+                <span className="max-[759px]:mt-3 max-[759px]:block min-[760px]:ml-[0.2em]">{glyph}</span>
+              ) : null}
+            </span>
+          </Fragment>
         ))}
       </h1>
       {aside ? (
