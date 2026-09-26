@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description: "Our approach to cookies, telemetry, and local storage: privacy-first, zero third-party advertising, and child-safe.",
     url: "https://gobitsnbytes.org/cookies",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "bits&bytes™: a teen-led builder network across India" }],
   },
   robots: {
     index: true,

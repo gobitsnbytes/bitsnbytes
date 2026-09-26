@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description: "Official legal terms governing the bits&bytes™ network, Forks, and participants.",
     url: "https://gobitsnbytes.org/terms",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "bits&bytes™: a teen-led builder network across India" }],
   },
   robots: {
     index: true,

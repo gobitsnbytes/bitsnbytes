@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description: "Clear, transparent rules regarding event participation, sponsorships, donations, and refunds under Indian consumer regulations.",
     url: "https://gobitsnbytes.org/refund",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "bits&bytes™: a teen-led builder network across India" }],
   },
   robots: {
     index: true,

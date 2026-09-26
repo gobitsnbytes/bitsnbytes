@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description: "Our community guidelines for creating a safe, welcoming environment for all teen developers.",
     url: "https://gobitsnbytes.org/coc",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "bits&bytes™: a teen-led builder network across India" }],
   },
   robots: {
     index: true,

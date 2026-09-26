@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description: "Legal policies governing brand kit compliance, open-source software defaults, and copyright protection.",
     url: "https://gobitsnbytes.org/ip",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "bits&bytes™: a teen-led builder network across India" }],
   },
   robots: {
     index: true,

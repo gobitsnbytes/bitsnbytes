@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description: "Our commitment to user privacy, DPDPA 2023 compliance, and safeguarding participant data.",
     url: "https://gobitsnbytes.org/privacy",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "bits&bytes™: a teen-led builder network across India" }],
   },
   robots: {
     index: true,
