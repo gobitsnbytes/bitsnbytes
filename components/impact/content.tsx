@@ -16,7 +16,7 @@ export const IMPACT_LEDE =
 export const CHAPTERS = [
   { id: "impact-record", title: "Impact Record" },
   { id: "track-record", title: "Track Record" },
-  { id: "shipped-outcomes", title: "Forks and venues across India" },
+  { id: "shipped-outcomes", title: "Forks and venues" },
   { id: "culture", title: "Culture & Core Principles" },
   { id: "explore", title: "Explore the bits&bytes™ Network" },
 ] as const;
