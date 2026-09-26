@@ -126,7 +126,7 @@ export function OriginTimeline() {
             >
               <div className="flex h-full w-[min(88vw,760px)] shrink-0 flex-col justify-between gap-6 pb-6 pr-8 md:pr-16 motion-reduce:h-auto motion-reduce:w-full motion-off:h-auto motion-off:w-full">
                 <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-signal">
-                  §01 — Timeline [{pad(STOPS.length)}]
+                  §01 · Timeline [{pad(STOPS.length)}]
                 </p>
                 <div>
                   <h2 className={cn(WIDE, "text-[clamp(40px,min(6vw,11svh),96px)] uppercase leading-[0.86]")}>{origin.title}</h2>

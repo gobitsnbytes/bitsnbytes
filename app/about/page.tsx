@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 
 const CHAPTERS = [
   { id: "origin", title: aboutContent.sections[0].title },
-  { id: "beliefs", title: "Core Beliefs" },
-  { id: "team", title: "Meet The Agents" },
+  { id: "beliefs", title: "Core beliefs" },
+  { id: "team", title: "Meet the agents" },
   { id: "governance", title: "Governance" },
 ];
 
@@ -55,7 +55,7 @@ export default function About() {
         <EditionOpener
           variant="static"
           title={aboutContent.title}
-          kicker="[S.00] Builder Network"
+          kicker="[S.00] Builder network"
           chapters={CHAPTERS}
         />
       </div>
@@ -86,7 +86,7 @@ export default function About() {
       <ChapterHero
         id="beliefs"
         number={2}
-        title="Core Beliefs"
+        title="Core beliefs"
         kicker={`Principles [${pad(principles.length)}]`}
         art={{ src: "/event_pictures/HEe923uagAATqvy.jpg", alt: "Two builders wiring a hardware prototype at a bits&bytes™ hackathon" }}
       />

@@ -25,91 +25,100 @@ const faqs: FAQItem[] = [
   {
     question: "Can I come with a pre-formed team? Do I need to?",
     answer:
-      "Either way works. You can show up with a team already, or you can form one at the event. At the start, everyone pitches ideas for apps or games they want to build, and you can join any idea that interests you. Your team doesn't have to be from your school or your grade.",
+      "Either works. Bring a team, or find one at the event. At the start, everyone pitches ideas for apps or games they want to build, and you can join whichever one pulls you in. Your team doesn't have to be from your school or your grade.",
   },
   {
     question: "What if I want to come with a pre-formed team?",
     answer:
-      "Totally fine. We do suggest staying open to adding new teammates though. More people often means better ideas, and it's usually more fun.",
+      "That's fine. We'd still say stay open to adding a teammate. New people bring ideas your group wouldn't have had, and it's usually more fun.",
   },
   {
     question: "What if I decide not to work with a team at all?",
     answer:
-      "Also fine. Plenty of people work solo. That said, most people end up having more fun on a team.",
+      "Also fine. Plenty of people build solo. Most do end up having more fun on a team, though.",
   },
   {
     question: "What is bits&bytes™?",
     answer:
-      "A student-led, youth-led builder network that runs hackathons and events. Our hackathons are loosely inspired by Hack Club's format but we do our own thing. We care about creativity, and a lot of attendees are new to coding. If that sounds fun, come through.",
+      "A teen-led builder network that runs hackathons and events across India. The format borrows loosely from Hack Club, but we run it our own way. We care more about what you make than how long you've been coding, and a lot of the people in the room are new to it.",
+  },
+  {
+    question: "Does it cost anything to join?",
+    answer: "No. bits&bytes™ is free to join.",
+  },
+  {
+    question: "Do I need coding experience?",
+    answer:
+      "No. Beginners are welcome, and we pair them with mentors. What matters is that you actually want to build something.",
   },
   {
     question: "Can I volunteer for bits&bytes™?",
     answer:
-      "Yes. We're almost always looking for organizers, day-of volunteers, workshop leads, and mentors. Reach out through our contact page.",
+      "Yes. We almost always need organizers, day-of volunteers, workshop leads and mentors. Reach out through our contact page.",
   },
   {
     question: "What kind of things can be made at our hackathons?",
     answer:
-      "Anything you want. Well, almost anything. You can't make something that violates our Code of Conduct. It's a bit less strict than 'school appropriate,' but no offensive language targeting people's gender, race, sexual orientation, religion, or disabilities. No sexualized content, no harassment, nothing unsafe or illegal.",
+      "Almost anything. The limit is our Code of Conduct. It's a bit looser than 'school appropriate', but it's firm: no offensive language targeting people's gender, race, sexual orientation, religion or disabilities, no sexualized content, no harassment, and nothing unsafe or illegal.",
   },
   {
     question: "What do most people make?",
     answer:
-      "Most people make games. A good chunk make mobile apps. A smaller number build websites or hardware projects. You can even make non-coding things: people have presented paintings and recorded albums. If you don't know what to make, you can always join an existing team.",
+      "Games, mostly. A good chunk make mobile apps, and a smaller group builds websites or hardware. Some projects have no code at all: people have presented paintings and recorded albums. If you don't know what to make, join a team that does.",
   },
   {
     question: "Can I show existing projects at bits&bytes™?",
-    answer: "No. All projects have to be built during the event.",
+    answer: "No. Everything you present has to be built during the event.",
   },
   {
     question: "Can parents attend bits&bytes™?",
     answer:
-      "Not on the main floor, for security reasons. They can come to the kickoff and the awards ceremony. Parents can also attend if they volunteer and pass a background check, or if they're chaperoning a school group.",
+      "Not on the main floor, for security reasons. They're welcome at the kickoff and the awards ceremony. A parent can also stay if they volunteer and pass a background check, or if they're chaperoning a school group.",
   },
   {
     question: "Should we bring anything to the hackathon?",
     answer:
-      "Bring a laptop. That's the main thing. You can bring whatever else you want on your device.",
+      "A laptop. That's the main thing. Anything else you want to bring can live on your device.",
   },
   {
     question: "For students staying overnight, what should they bring?",
     answer:
-      "Toothbrush, toothpaste, a sleeping bag, a pillow, and a camping pad if you have one.",
+      "A toothbrush, toothpaste, a sleeping bag, a pillow, and a camping pad if you have one.",
   },
   {
     question: "For students with desktop computers, what should they bring?",
     answer:
-      "We'd rather you bring a laptop. If you bring a desktop, you need to bring everything: keyboard, mouse, monitor, headphones (no speakers), a wifi adapter (venues don't let you plug into ethernet), and all your cables.",
+      "Honestly, a laptop is much easier. If you bring a desktop, you bring all of it: keyboard, mouse, monitor, headphones (no speakers), a wifi adapter (venues won't let you plug into ethernet) and every cable.",
   },
   {
     question: "Can students leave the hackathon and then come back?",
     answer:
-      "Yes, but minors need a parent to pick them up or a signed note to leave on their own. You might not be able to come back at any hour. Venues lock down overnight, and security may not let you back in until morning.",
+      "Yes, but minors need a parent to pick them up or a signed note to leave on their own. Coming back isn't possible at every hour. Venues lock down overnight, and security may not let you in again until morning.",
   },
   {
     question: "Is bits&bytes™ a legally registered organization?",
     answer:
-      "Yes. To establish a permanent and independent home for the network, GOBITSNBYTES FOUNDATION was legally incorporated as a Section 8 non-profit company in India on 2 June 2026. The Foundation is governed by its Board of Directors.",
+      "Yes. GOBITSNBYTES FOUNDATION was incorporated as a Section 8 non-profit company in India on 2 June 2026, so the network has a permanent, independent legal home. The Foundation is governed by its Board of Directors.",
   },
   {
     question: "What is a Fork? How can I run one?",
     answer:
-      "A Fork is a recognized local, institutional, or thematic operating node of the bits&bytes™ Network recognized under authority of GOBITSNBYTES FOUNDATION. Local student-led teams can apply to run their own events and dev squads under our brand. All local operations are supported and governed by our Upstream teams.",
+      "On GitHub, a fork is your own copy of a repo: you change it and run it your way, and it stays linked to the original so work flows back. A bits&bytes™ fork is the same idea for a city or school. A local team takes the playbook and brand from upstream, runs its own room and ships back. Forks are recognized under the authority of GOBITSNBYTES FOUNDATION. Apply at gobitsnbytes.org/fork.",
   },
   {
     question: "Do I own what I build at hackathons?",
     answer:
-      "Yes, you retain full ownership of the intellectual property (projects, code, designs, presentations) you create. By submitting your project on our platforms or showcasing it, you grant GOBITSNBYTES FOUNDATION a perpetual, royalty-free, non-exclusive license to share it for our non-profit educational and community-showcasing purposes.",
+      "Yes. You keep full ownership of the intellectual property (projects, code, designs, presentations) you create. By submitting your project on our platforms or showcasing it, you grant GOBITSNBYTES FOUNDATION a perpetual, royalty-free, non-exclusive license to share it for our non-profit educational and community-showcasing purposes.",
   },
   {
     question: "What happens if someone breaks the rules?",
     answer:
-      "We enforce our Code of Conduct strictly to keep the community safe. Depending on the violation, actions range from warnings and role removal to suspension from events and permanent ban. Serious violations may be escalated to legal authorities. Anyone disciplined has 14 days to appeal the decision in writing to the Board of Directors.",
+      "We enforce our Code of Conduct strictly, because it's what keeps the room safe. Depending on the violation, that can mean a warning, role removal, suspension from events or a permanent ban. Serious violations may be escalated to legal authorities. Anyone disciplined has 14 days to appeal the decision in writing to the Board of Directors.",
   },
   {
     question: "How is my data handled?",
     answer:
-      "We act as a Data Fiduciary under the Digital Personal Data Protection Act, 2023 (DPDP Act). We only collect what is needed for event logistics, safety, and consent. We never sell your data, and minor data is protected with extra safeguarding measures under POCSO and the DPDP Act.",
+      "We act as a Data Fiduciary under the Digital Personal Data Protection Act, 2023 (DPDP Act). We only collect what we need for event logistics, safety and consent. We never sell your data, and data about minors gets extra safeguards under POCSO and the DPDP Act.",
   },
   {
     question: "Can I use the bits&bytes™ brand?",
@@ -125,7 +134,7 @@ const QUESTIONS_TITLE = `Questions [${pad(faqs.length)}]`;
 const moreLinks = [
   { href: "/events", label: "Pan-India Hackathons" },
   { href: "/fork", label: "Student Chapter Hubs (Forks)" },
-  { href: "/impact", label: "Community Metrics" },
+  { href: "/impact", label: "What We've Shipped" },
   { href: "/press", label: "Press & Media Kit" },
   { href: "/coc", label: "Code of Conduct" },
 ];
@@ -203,7 +212,7 @@ export default function FAQ() {
             </LabTitle>
           </LabCell>
           <LabCell span="1/15">
-            <p className={LAB_TEXT.lg}>Can&apos;t find what you need? Reach out and we&apos;ll get back to you.</p>
+            <p className={LAB_TEXT.lg}>Didn&apos;t see your question here? Write to us and we&apos;ll get back to you.</p>
           </LabCell>
           <LabCell className="flex flex-col gap-4 sm:flex-row">
             <Button asChild variant="orange">

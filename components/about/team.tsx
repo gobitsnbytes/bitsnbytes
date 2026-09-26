@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { coreTeam, getTeamEmail, volunteers, type CoreTeamMember } from "./data";
 
 const TABS = [
-  { id: "all", label: "All Squads" },
+  { id: "all", label: "All squads" },
   { id: "founders", label: "Founders" },
   { id: "leadership", label: "Leads" },
   { id: "volunteers", label: "Contributors" },
@@ -19,7 +19,6 @@ const TABS = [
 type TabId = (typeof TABS)[number]["id"];
 
 const TRACKS = ["Operations", "Outreach", "Creative", "Tech"] as const;
-const pad = (n: number) => String(n).padStart(2, "0");
 
 const founders = coreTeam.filter((m) => m.isFounder);
 const leadership = coreTeam.filter((m) => !m.isFounder);
@@ -28,13 +27,11 @@ const leadership = coreTeam.filter((m) => !m.isFounder);
 const REVEAL =
   "[clip-path:inset(100%_0_0_0)] transition-[clip-path] duration-300 ease-riot group-hover:[clip-path:inset(0)] group-focus-within:[clip-path:inset(0)] motion-reduce:transition-none motion-off:transition-none";
 
-function GroupLabel({ tone, children, count }: { tone: "orange" | "burgundy" | "ink"; children: string; count: number }) {
+// No headcounts on the page (round 3): group labels carry names only.
+function GroupLabel({ tone, children }: { tone: "orange" | "burgundy" | "ink"; children: string }) {
   return (
     <h3 className="mb-6 flex items-center gap-3">
       <Tag tone={tone}>{children}</Tag>
-      <span aria-hidden className="font-mono text-[11px] font-bold tracking-[0.14em] text-fg/70">
-        [{pad(count)}]
-      </span>
     </h3>
   );
 }
@@ -128,13 +125,13 @@ export function Team() {
   const show = (tab: TabId) => activeTab === "all" || activeTab === tab;
 
   return (
-    <Chapter id="team" title="Meet The Agents" number={3} tone="paper">
+    <Chapter id="team" title="Meet the agents" number={3} tone="paper">
       <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
         <ChapterHead
           number={3}
           label="Agents"
-          title="Meet The Agents"
-          description="Designers, systems engineers, logistics managers, and contributors shipping this platform."
+          title="Meet the agents"
+          description="The teenagers who run bits&bytes™, and the contributors who ship with them."
         />
 
         {/* Filtering Tabs */}
@@ -154,8 +151,8 @@ export function Team() {
 
         {show("founders") && (
           <div className="mb-16">
-            <GroupLabel tone="orange" count={founders.length}>
-              Co-Founders
+            <GroupLabel tone="orange">
+              Co-founders
             </GroupLabel>
             <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {founders.map((member) => (
@@ -167,8 +164,8 @@ export function Team() {
 
         {show("leadership") && (
           <div className="mb-16">
-            <GroupLabel tone="burgundy" count={leadership.length}>
-              Executive & Track Leads
+            <GroupLabel tone="burgundy">
+              Executive & track leads
             </GroupLabel>
             <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {leadership.map((member) => (
@@ -180,7 +177,7 @@ export function Team() {
 
         {show("volunteers") && (
           <div className="mb-16">
-            <GroupLabel tone="ink" count={volunteers.length}>
+            <GroupLabel tone="ink">
               Contributors
             </GroupLabel>
             {/* names grid: 2px rules, one cell per contributor, grouped by track */}
@@ -189,10 +186,9 @@ export function Team() {
                 const trackVolunteers = volunteers.filter((v) => v.section === trackName);
                 if (trackVolunteers.length === 0) return null;
                 return (
-                  <section key={trackName} aria-label={`${trackName} Track`} className="border-b-2 border-r-2 border-line">
+                  <section key={trackName} aria-label={`${trackName} track`} className="border-b-2 border-r-2 border-line">
                     <h4 className="flex items-baseline justify-between border-b-2 border-line px-4 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-signal">
-                      <span>{trackName} Track</span>
-                      <span aria-hidden>[{pad(trackVolunteers.length)}]</span>
+                      <span>{trackName} track</span>
                     </h4>
                     <ul className="grid grid-cols-2">
                       {trackVolunteers.map((v, i) => {
@@ -230,13 +226,13 @@ export function Team() {
 
         {/* Early Contributors Note */}
         <div className="grid gap-4 border-y-3 border-line py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
-          <h3 className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-signal">Early Contributors</h3>
+          <h3 className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-signal">Early contributors</h3>
           <p className="max-w-[60ch] font-serif text-lg leading-relaxed">
-            We are grateful to our early team members and contributors who helped build and shape the network during its initial sprints before moving on to new chapters: <strong className={cn(WIDE, "uppercase")}>Saksham, Kaustubh, Oviya</strong>.
+            Thanks to the early team members and contributors who helped build and shape the network in its first sprints, then moved on to new things: <strong className={cn(WIDE, "uppercase")}>Saksham, Kaustubh, Oviya</strong>.
           </p>
         </div>
 
-        <p className="mt-8 font-mono text-xs text-fg/70">*Roles stay flexible as our team and network grow.</p>
+        <p className="mt-8 font-mono text-xs text-fg/70">*Roles change as the team and the network grow.</p>
       </div>
     </Chapter>
   );

@@ -1,6 +1,7 @@
 import { CubeMark, WIDE } from "@/components/chrome/wordmark";
 import {
   ChapterHero,
+  DuotoneImage,
   EDITION_GUTTER,
   EditionOpener,
   FeedList,
@@ -12,13 +13,22 @@ import { Button, Chapter, ChapterHead, TornEdge } from "@/components/riot";
 import { FORKS } from "@/lib/forks";
 import { cn } from "@/lib/utils";
 
-// Copy verbatim from the previous /fork page.
+// Real photos of the crew and community building together, never generic art. One list: [0] opener, [1] "own the
+// room" hero, the rest print as the strip under the git one-liner.
+const PHOTOS = [
+  { src: "/event_pictures/h4g/h4g3.jpg", alt: "The crew huddled around a laptop at Hack4Good v0" },
+  { src: "/event_pictures/bd4.jpg", alt: "The full room building at round tables, Lucknow Build Guild" },
+  { src: "/event_pictures/HEe923uagAATqvy.jpg", alt: "Two builders wiring a hardware prototype at India Innovates 2026" },
+  { src: "/event_pictures/byteforge4.webp", alt: "Three participants working at one laptop in front of a chalkboard, Execron 1.0" },
+  { src: "/event_pictures/byteforge5.webp", alt: "Execron 1.0 participants posing for a group photo in a classroom" },
+];
+
 const HOW_IT_WORKS = [
-  ["01", "one city", "one fork"],
-  ["02", "student-led", "always"],
-  ["03", "local identity", "shared mission"],
-  ["04", "ship publicly", "within 90 days"],
-  ["05", "core support", "without hand-holding"],
+  ["01", "one city", "One fork per city."],
+  ["02", "student-led", "Students run it, always."],
+  ["03", "local identity", "Your city's name, the same mission."],
+  ["04", "ship publicly", "Something public within 90 days."],
+  ["05", "core support", "Help from upstream, no hand-holding."],
 ];
 
 const BENEFITS = [
@@ -80,6 +90,7 @@ export function ForkEdition({ applyUrl }: { applyUrl: string }) {
         kicker="[S.00] Fork Network"
         chapters={CHAPTERS}
         h1Props={{ style: { fontSize: "min(56px, 9.5cqi, 6svh)" } }}
+        art={PHOTOS[0]}
       />
 
       <TornEdge from="ink" to="paper" />
@@ -97,14 +108,21 @@ export function ForkEdition({ applyUrl }: { applyUrl: string }) {
         <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
           <p className="mt-8 max-w-[52ch] font-serif text-lg leading-relaxed md:text-xl">
             On GitHub, a fork is your own copy of an upstream repo: you change it, run it your way, and it stays linked
-            to the original so work flows back. A bits&amp;bytes™ fork is the same thing for a city or school: a local
-            chapter that takes the playbook and brand from upstream, runs its own room, and ships back.
+            to the original so work flows back. A bits&amp;bytes™ fork is the same thing for a city or school. You take
+            the playbook and brand from upstream, run your own room, and ship the work back.
           </p>
+          <ul className="mt-12 grid gap-2 sm:grid-cols-3">
+            {PHOTOS.slice(2).map((photo) => (
+              <li key={photo.src}>
+                <DuotoneImage {...photo} sizes="(min-width: 640px) 33vw, 100vw" className="aspect-[4/3]" />
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
       <IndentStatement id={CHAPTERS[0].id} number={1} label={CHAPTERS[0].title} className="pt-12 md:pt-20">
-        Not a chapter. Not a franchise. A fork: same mission, different build.
+        Not a franchise. Not a branch office. A fork: your copy of upstream, and the work flows back.
       </IndentStatement>
 
       <Chapter id={CHAPTERS[1].id} title={CHAPTERS[1].title} number={2} tone="paper" className="pt-0 md:pt-0">
@@ -133,13 +151,13 @@ export function ForkEdition({ applyUrl }: { applyUrl: string }) {
         number={3}
         title={CHAPTERS[2].title}
         kicker="Forks [live]"
-        art={{ src: "/event_pictures/bd1.jpg", alt: "Lucknow Build Guild hardware workshop and meetup" }}
+        art={PHOTOS[1]}
       />
       <TornEdge from="ink" to="paper" />
 
       <div data-surface="paper" className="tone-paper pb-20 md:pb-28">
         <SerifStatement>
-          A fork gives your city a flag, a reason to gather, and a public record of people building for real.
+          A fork gives your city a reason to gather, and a public record of the people who built something there.
         </SerifStatement>
         {/* The old fork-manifest editor, printed as a spec sheet: one row per manifest. */}
         <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
@@ -195,7 +213,7 @@ export function ForkEdition({ applyUrl }: { applyUrl: string }) {
             number={5}
             label="Apply"
             title={CHAPTERS[4].title}
-            description="Apply if you can gather people, make noise, and ship in public."
+            description="Apply if you can get people into one room and ship something in public."
           />
 
           {/* The covenant as a construction grid (the /about governance grid, static hairlines). */}
