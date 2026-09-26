@@ -11,6 +11,25 @@ export type HeroEventSlide = {
   href: string;
 };
 
+// Copy is verbatim from the trailer's captions; nothing beyond it is announced yet.
+export const regionalSeriesEvent = {
+  id: "regional-series",
+  title: "Regional Hackathon Series",
+  statusLabel: "Upcoming",
+  finaleVenueLabel: "IIT Bombay",
+  finaleDateLabel: "Dec 17–18",
+  trailerSrc: "/movie/regional-series-trailer.mp4",
+  posterSrc: "/movie/regional-series-trailer-poster.jpg",
+  href: "/events#regional-series",
+  trailerLines: [
+    "High schoolers, your city's got competition.",
+    "bits&bytes™ is launching a regional hackathon series across India.",
+    "Win your qualifier — here's where you're headed: IIT Bombay.",
+    "December 17th and 18th, qualifier winners compete here for the title.",
+    "So who's carrying your city?",
+  ],
+} as const;
+
 export const githubDevDayEvent = {
   title: "GitHub Copilot Dev Days",
   city: "Lucknow",
