@@ -5,7 +5,7 @@ import { FORK_CITIES } from "@/lib/forks";
 export const aboutContent = {
   title: "About bits&bytes™",
   description:
-    "We're a teen-led builder network across India, run entirely by teenagers. We built it from scratch as the alternative to rigid tech events pitched only at beginners.",
+    "We're a builder network across India, run entirely by teenagers. We built it from scratch as the alternative to rigid tech events pitched only at beginners.",
   highlights: ["100% teen-led", "High-agency builder squads", "Local forks, one upstream"],
   sections: [
     {
