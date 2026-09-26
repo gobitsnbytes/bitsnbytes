@@ -19,6 +19,7 @@ import {
   TableHeader,
 } from "@/components/lab";
 import { Button } from "@/components/riot";
+import { FORK_CITIES } from "@/lib/forks";
 import { cn } from "@/lib/utils";
 
 const NOTION_JOIN_FORM_URL =
@@ -31,7 +32,7 @@ const paths = [
   {
     title: "Join Community",
     description:
-      "Hop onto our Discord server. Chat with 1400+ student builders, find project teams, and attend online study sessions.",
+      "Hop onto our Discord server. Chat with student builders across India, find project teams, and attend online study sessions.",
     cta: "Join Discord",
     href: DISCORD_INVITE_URL,
     variant: "outline",
@@ -47,7 +48,7 @@ const paths = [
   {
     title: "Launch a Fork",
     description:
-      "Bring bits&bytes to your city. Gather local builders, host workshops/hacknights, and run your city's tech scene.",
+      "Bring bits&bytes™ to your city. Like a fork on GitHub: take the playbook from upstream, run your own room, and ship back.",
     cta: "Explore Forks",
     href: "/fork",
     variant: "outline",
@@ -57,7 +58,7 @@ const paths = [
 const benefits = [
   {
     title: "Join a tight-knit crew",
-    description: "Work alongside 1400+ teen builders across India who are actually building things.",
+    description: "Work alongside teen builders across India who are actually building things.",
   },
   {
     title: "Ship real projects",
@@ -91,16 +92,15 @@ const faqs = [
   {
     question: "How much time do I need to commit?",
     answer:
-      "We recommend 2-4 hours per week, but it's flexible. Some weeks you might attend a workshop, others you might work on a project async.",
+      "We recommend 2-4 hours per week, but it's flexible. Some weeks you might be at a hackathon, others you might work on a project async.",
   },
   {
     question: "Is there a membership fee?",
     answer: "No. bits&bytes™ is free. Tech education shouldn't cost money.",
   },
   {
-    question: "I'm not from Lucknow. Can I still join?",
-    answer:
-      "Absolutely! While we started in Lucknow, we now have members across India. Most activities happen online via Discord.",
+    question: "Do I need to live in a particular city?",
+    answer: `No. We're pan-India, with forks in ${FORK_CITIES}. Most activities happen online via Discord.`,
   },
 ];
 
@@ -292,7 +292,7 @@ export default function Join() {
             </>
             <>
               <LabCell span="1/9">
-                <p className={LAB_TEXT.lg}>Join 1400+ teen builders who ship real projects.</p>
+                <p className={LAB_TEXT.lg}>Join teen builders across India who ship real projects.</p>
               </LabCell>
               <LabCell span="11/-1" className="flex flex-col gap-4 sm:flex-row sm:flex-wrap min-[760px]:justify-end">
                 <Button asChild variant="outline">

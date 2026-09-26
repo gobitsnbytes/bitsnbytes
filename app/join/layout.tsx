@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Join bits&bytes™ | Free Teen Builder Network India",
   description:
-    "Join 1400+ teen developers in India's boldest youth builder network. Free membership, real hackathons, and a crew that actually ships. Ages 13-19 welcome.",
+    "Join a free, pan-India network of teen developers. Real hackathons and a crew that actually ships. Ages 13–19 welcome.",
   keywords: [
     "join bits&bytes™",
     "teen coding network membership",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Join bits&bytes™ | Free Teen Builder Network India",
     description:
-      "Join 1400+ teen developers in India's boldest youth builder network. Free membership, real hackathons, and a crew that actually ships. Ages 13-19 welcome.",
+      "Join a free, pan-India network of teen developers. Real hackathons and a crew that actually ships. Ages 13–19 welcome.",
     url: "https://gobitsnbytes.org/join",
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Join bits&bytes™ — Free Teen Builder Network" }],
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Join bits&bytes™ | Free Teen Builder Network India",
-    description: "Join 1400+ teen developers. Free membership, real hackathons, and a crew that ships.",
+    description: "Join teen developers across India. Free membership, real hackathons, and a crew that ships.",
   },
 };
 
@@ -37,7 +37,7 @@ const joinPageJsonLd = {
   "@id": "https://gobitsnbytes.org/join#webpage",
   url: "https://gobitsnbytes.org/join",
   name: "Join bits&bytes™",
-  description: "Free membership for teen builders aged 13-19. Join 1400+ developers across India.",
+  description: "Free membership for teen builders aged 13–19, across India.",
   isPartOf: { "@id": "https://gobitsnbytes.org/#website" },
   breadcrumb: {
     "@type": "BreadcrumbList",
