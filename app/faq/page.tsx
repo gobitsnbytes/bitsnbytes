@@ -1,12 +1,9 @@
-"use client";
-
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ChevronDown, ArrowRight } from "lucide-react";
 
-import { PageSection } from "@/components/page-section";
-import { Button } from "@/components/ui/button";
+import { Breadcrumbs } from "@/components/breadcrumb";
+import { EditionOpener, EDITION_GUTTER, FeedList, FeedRow, SerifStatement } from "@/components/edition";
+import { Staircase } from "@/components/join/staircase";
+import { Button, Chapter, TornEdge } from "@/components/riot";
 import { cn } from "@/lib/utils";
 
 interface FAQItem {
@@ -111,135 +108,112 @@ const faqs: FAQItem[] = [
   },
 ];
 
-import { Breadcrumbs } from "@/components/breadcrumb";
+const pad = (n: number) => String(n).padStart(2, "0");
+
+const QUESTIONS_TITLE = `Questions [${pad(faqs.length)}]`;
+
+const chapters = [
+  { id: "questions", title: QUESTIONS_TITLE },
+  { id: "still-have-questions", title: "Still have questions?" },
+];
+
+const moreLinks = [
+  { href: "/events", label: "Pan-India Hackathons" },
+  { href: "/fork", label: "Student Chapter Hubs (Forks)" },
+  { href: "/impact", label: "Community Metrics" },
+  { href: "/press", label: "Press & Media Kit" },
+  { href: "/coc", label: "Code of Conduct" },
+];
+
+const GUTTER = cn("px-4 md:px-8", EDITION_GUTTER);
 
 export default function FAQ() {
-  const [openItems, setOpenItems] = useState<Set<number>>(new Set([0, 1, 2]));
-
-  const toggleItem = (index: number) => {
-    const newOpenItems = new Set(openItems);
-    if (newOpenItems.has(index)) {
-      newOpenItems.delete(index);
-    } else {
-      newOpenItems.add(index);
-    }
-    setOpenItems(newOpenItems);
-  };
-
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative flex items-center justify-center overflow-hidden text-[#120f0a] pt-24 md:pt-32">
-        <div className="relative z-10 w-full mx-auto max-w-5xl px-4 sm:px-6 py-8 sm:py-12 md:py-16">
+      <div data-tour="page-hero">
+        <EditionOpener
+          variant="static"
+          title="Frequently Asked Questions"
+          kicker="FAQ"
+          chapters={chapters}
+          art={{ src: "/event_pictures/h4g/h4g_standee.jpg", alt: "Hack4Good event standee at the venue" }}
+        />
+      </div>
+      <TornEdge from="ink" to="paper" />
+
+      {/* §01: the full list as a stripe.dev table-list (mono index, barcode hover, expo-out disclosure) */}
+      <Chapter id="questions" title={QUESTIONS_TITLE} number={1} className="md:pt-20">
+        <div className={GUTTER}>
           <Breadcrumbs items={[{ name: "FAQ", href: "/faq" }]} />
-          <div className="px-6 py-8 text-center">
-            <div className="flex flex-col items-center gap-6">
-              <span className="inline-flex items-center gap-2 border-2 border-[#120f0a] bg-[#fc920d] px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] shadow-[3px_3px_0px_0px_#120f0a]">
-                FAQ
-              </span>
-              <h1 data-speakable="true" className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#120f0a] uppercase tracking-tight leading-none">
-                Frequently Asked <br className="hidden sm:block" /> Questions
-              </h1>
-              <p data-speakable="true" data-citation="true" className="text-base sm:text-lg md:text-xl text-[#413f3b] max-w-2xl mx-auto leading-relaxed font-semibold">
-                Questions people actually ask us about bits&bytes™.
-              </p>
-            </div>
-          </div>
         </div>
-      </section>
-
-      <main className="relative z-10 bg-transparent pb-16">
-        {/* FAQ Accordion */}
-        <PageSection>
-          <div className="mx-auto max-w-4xl space-y-4">
-            {faqs.map((faq, index) => {
-              const isOpen = openItems.has(index);
-
-              return (
-                <div
-                  key={index}
-                  className="bg-white border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a]"
-                >
-                  <button
-                    onClick={() => toggleItem(index)}
-                    className="flex w-full items-center justify-between gap-4 p-6 md:p-8 text-left transition-colors bg-white hover:bg-[#fee9cf]"
-                  >
-                    <h3 className="font-display text-lg md:text-xl font-black text-[#120f0a] pr-4 leading-tight uppercase">
-                      {faq.question}
-                    </h3>
-                    <div
-                      className={cn(
-                        "flex h-10 w-10 shrink-0 items-center justify-center border-2 border-[#120f0a] bg-white text-[#120f0a] transition-all duration-200 shadow-[2px_2px_0px_0px_#120f0a]",
-                        isOpen && "rotate-180 bg-[#fc920d] shadow-none translate-x-[2px] translate-y-[2px]",
-                      )}
-                    >
-                      <ChevronDown className="h-6 w-6" />
-                    </div>
-                  </button>
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2, ease: "easeInOut" }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-6 md:px-8 pb-6 md:pb-8 border-t-2 border-[#120f0a] mt-2 pt-6 bg-white">
-                          <p className="text-base md:text-lg text-[#413f3b] font-semibold leading-relaxed">
-                            {faq.answer}
-                          </p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              );
-            })}
+        <SerifStatement className="py-0 pb-12 md:py-0 md:pb-20">
+          <span data-speakable="true" data-citation="true">
+            Questions people actually ask us about bits&amp;bytes™.
+          </span>
+        </SerifStatement>
+        <div className={GUTTER}>
+          <div className="mb-3 flex items-baseline justify-between font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-signal">
+            <span>§01 — FAQ</span>
+            <span aria-hidden>[{pad(faqs.length)}]</span>
           </div>
-        </PageSection>
+          <FeedList>
+            {faqs.map((faq, index) => (
+              <FeedRow key={faq.question} date={`Q.${pad(index + 1)}`} title={faq.question}>
+                <p className="max-w-[65ch] font-serif text-lg leading-relaxed">{faq.answer}</p>
+              </FeedRow>
+            ))}
+          </FeedList>
+        </div>
+      </Chapter>
 
-        {/* Still have questions CTA */}
-        <PageSection align="center">
-          <div className="bg-white border-4 border-[#120f0a] shadow-[8px_8px_0px_0px_#120f0a] p-8 md:p-16 text-center max-w-4xl mx-auto">
-            <h2 className="font-display text-3xl md:text-5xl font-black text-[#120f0a] uppercase tracking-tight leading-none">
-              Still have questions?
-            </h2>
-            <p className="mt-4 text-base md:text-lg text-[#413f3b] max-w-2xl mx-auto font-semibold leading-relaxed">
+      <TornEdge from="paper" to="ink" />
+
+      {/* §02: ink close, kprverse staircase headline */}
+      <Chapter id="still-have-questions" title="Still have questions?" number={2} tone="ink" className="md:py-32">
+        <div className={GUTTER}>
+          <p className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-signal">§02</p>
+          <Staircase lines={["Still have", "questions?"]} />
+          <div className="mt-12 grid gap-8 md:mt-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+            <p className="max-w-[40ch] font-serif text-xl leading-snug md:text-2xl">
               Can&apos;t find what you need? Reach out and we&apos;ll get back to you.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button
-                asChild
-                className="w-full sm:w-auto h-14 rounded-none bg-[#97192c] text-sm font-black uppercase tracking-wider text-white border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer px-8"
-              >
-                <Link href="/contact">
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Button asChild variant="orange" size="lg">
+                <Link href="/contact" className="group">
                   Contact Us
-                  <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
+                  <span
+                    aria-hidden
+                    className="transition-transform duration-200 ease-riot group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transition-none"
+                  >
+                    →
+                  </span>
                 </Link>
               </Button>
-              <Button
-                asChild
-                className="w-full sm:w-auto h-14 rounded-none bg-white text-sm font-black uppercase tracking-wider text-[#120f0a] border-3 border-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer px-8"
-              >
+              <Button asChild variant="outline" size="lg">
                 <Link href="/join">Apply to Join</Link>
               </Button>
             </div>
-
-            <div className="mt-8 pt-6 border-t-2 border-[#120f0a]/15 flex flex-wrap justify-center gap-3 text-xs font-mono">
-              <Link href="/events" className="text-[#97192c] underline font-bold hover:text-[#fc920d]">Pan-India Hackathons</Link>
-              <span className="text-[#120f0a]/30">•</span>
-              <Link href="/fork" className="text-[#97192c] underline font-bold hover:text-[#fc920d]">Student Chapter Hubs (Forks)</Link>
-              <span className="text-[#120f0a]/30">•</span>
-              <Link href="/impact" className="text-[#97192c] underline font-bold hover:text-[#fc920d]">Community Metrics</Link>
-              <span className="text-[#120f0a]/30">•</span>
-              <Link href="/press" className="text-[#97192c] underline font-bold hover:text-[#fc920d]">Press &amp; Media Kit</Link>
-              <span className="text-[#120f0a]/30">•</span>
-              <Link href="/coc" className="text-[#97192c] underline font-bold hover:text-[#fc920d]">Code of Conduct</Link>
-            </div>
           </div>
-        </PageSection>
-      </main>
+
+          <div className="mt-14 border-t-3 border-line pt-5">
+            <ul className="flex flex-wrap gap-x-6 gap-y-3 font-mono text-xs font-bold uppercase tracking-[0.12em]">
+              {moreLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="underline decoration-2 underline-offset-4 transition-colors hover:text-orange"
+                  >
+                    <span aria-hidden>[</span>
+                    {link.label}
+                    <span aria-hidden>]</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Chapter>
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
