@@ -26,11 +26,11 @@ export const ROUTES: ChromeLink[] = [
   { href: "/coc", label: "Code of Conduct" },
 ];
 
-/** Nav right zone (desktop). */
-export const PRIMARY: ChromeLink[] = [
-  { href: "/events", label: "Events" },
-  { href: "/about", label: "About" },
-  { href: "/join", label: "Join" },
+/** Nav right zone (desktop), each with its single-key shortcut (stripe.dev [K] chip). */
+export const PRIMARY: (ChromeLink & { key: string })[] = [
+  { href: "/events", label: "Events", key: "E" },
+  { href: "/about", label: "About", key: "A" },
+  { href: "/join", label: "Join", key: "J" },
 ];
 
 export const SOCIALS: ChromeLink[] = [

@@ -1,5 +1,5 @@
 /*
- * Global chrome (nav, menu, loader, tile wipe). Plain CSS because these rules key off
+ * Global chrome (nav, menu, loader, route transition). Plain CSS because these rules key off
  * attributes ExperienceProvider / the loader write on <html>:
  *   data-nav-surface = paper|ink|orange|cream   data-scrolled = true   data-scroll-dir = up|down
  *   data-loader = on (first visit, set by the inline script in <Loader>)
@@ -208,21 +208,31 @@
         }
     }
 
-    /* ---------- Route tile wipe (reveal only; tiles retract upward) ---------- */
-    .bnb-tile {
-        margin: -1px;
-        transform-origin: 50% 0%;
-        animation: bnb-tile-out 380ms cubic-bezier(0.165, 0.84, 0.44, 1) both;
+    /* ---------- Route transition (inkfish pixel mountain; GSAP drives scaleY) ---------- */
+    .bnb-route {
+        pointer-events: none;
     }
 
-    @keyframes bnb-tile-out {
-        from {
-            transform: scaleY(1);
-        }
+    .bnb-route[data-state="idle"] {
+        visibility: hidden;
+    }
 
-        to {
-            transform: scaleY(0);
-        }
+    /* Swallows clicks only while rising / covered. */
+    .bnb-route[data-state="cover"] {
+        pointer-events: auto;
+        cursor: progress;
+    }
+
+    /* 100%+2px with -1px margins: no hairline seams between scaled tiles. */
+    .bnb-route-tile {
+        margin: -1px;
+        transform: scaleY(0);
+    }
+
+    /* ---------- stripe.dev bracket hotkeys: active route chip is inverted ---------- */
+    .bnb-btn[aria-current="page"] {
+        background: var(--wipe-fill, var(--fg));
+        color: var(--wipe-ink, var(--page));
     }
 
     /* ---------- Reduced motion + site motion toggle ---------- */

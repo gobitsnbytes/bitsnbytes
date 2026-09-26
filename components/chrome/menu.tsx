@@ -8,6 +8,7 @@ import { useTheme } from "next-themes";
 import { useExperience } from "@/components/experience-provider";
 import { ScrambleText } from "@/components/riot/scramble-text";
 import { cn } from "@/lib/utils";
+import { setShortcutsEnabled, useShortcutsEnabled } from "./hotkeys/shortcuts";
 import { ROUTES, SOCIALS, isActive, pad } from "./links";
 import { CubeMark } from "./wordmark";
 
@@ -41,6 +42,7 @@ export function MenuPanel({ pathname, instant, onNavigate, onTour }: MenuPanelPr
   const { motionEnabled, toggleMotion, lenis } = useExperience();
   const { resolvedTheme, setTheme } = useTheme();
   const dark = resolvedTheme === "dark";
+  const shortcuts = useShortcutsEnabled();
 
   // Freeze the page behind the menu (Radix locks native scroll; Lenis needs its own stop).
   useEffect(() => {
@@ -179,6 +181,15 @@ export function MenuPanel({ pathname, instant, onNavigate, onTour }: MenuPanelPr
                   title={`${motionEnabled ? "Pause" : "Play"} immersive motion`}
                 >
                   Motion <Bracket>{motionEnabled ? "On" : "Off"}</Bracket>
+                </button>
+                <button
+                  type="button"
+                  className="bnb-btn"
+                  onClick={() => setShortcutsEnabled(!shortcuts)}
+                  aria-pressed={shortcuts}
+                  title={`Turn single-key keyboard shortcuts ${shortcuts ? "off" : "on"}`}
+                >
+                  Shortcuts <Bracket>{shortcuts ? "On" : "Off"}</Bracket>
                 </button>
                 <button type="button" className="bnb-btn" onClick={onTour} aria-label="Start the site tour">
                   Site tour
