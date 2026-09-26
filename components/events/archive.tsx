@@ -609,7 +609,7 @@ const EVENTS: ArchiveEvent[] = [
 ];
 
 /**
- * /events [S.02]: inkfish /work index as a list. Giant "EVENTS [N]" + barcode stripe-wipe rows. Every
+ * /events [S.02]: inkfish /work index as a list. Giant "EVENTS" + barcode stripe-wipe rows. Every
  * archived event expands in place into its full file (all existing details, real footage included);
  * the series row links to [S.01].
  */

@@ -18,16 +18,18 @@ export function SectionHead({ label, section, className }: { label: ReactNode; s
   );
 }
 
-/** Giant display word with an inkfish superscript bracket count (computed by the caller). */
-export function GiantCount({ children, count, className }: { children: ReactNode; count: number; className?: string }) {
+/** Giant display word, with an inkfish superscript bracket count when the caller passes one. */
+export function GiantCount({ children, count, className }: { children: ReactNode; count?: number; className?: string }) {
   return (
     <h2 className={cn(WIDE, "text-[clamp(44px,11.2vw,160px)] uppercase leading-[0.85]", className)}>
       {children}
-      <sup className="ml-[0.12em] inline-block align-top font-mono text-[0.25em] font-bold leading-none tracking-normal">
-        <span aria-hidden>[</span>
-        {pad(count)}
-        <span aria-hidden>]</span>
-      </sup>
+      {count === undefined ? null : (
+        <sup className="ml-[0.12em] inline-block align-top font-mono text-[0.25em] font-bold leading-none tracking-normal">
+          <span aria-hidden>[</span>
+          {pad(count)}
+          <span aria-hidden>]</span>
+        </sup>
+      )}
     </h2>
   );
 }

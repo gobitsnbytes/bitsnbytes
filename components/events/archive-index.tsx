@@ -79,7 +79,7 @@ export function ArchiveIndex({ events }: { events: ArchiveEvent[] }) {
 
   return (
     <>
-      <GiantCount count={events.length}>Events</GiantCount>
+      <GiantCount>Events</GiantCount>
 
       <ol className="mt-12 border-t-2 border-line md:mt-16">
         {events.map((ev, i) => {
