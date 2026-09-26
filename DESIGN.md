@@ -49,13 +49,17 @@ Reference sites (copy mechanics + layout ideas, never their images, 3D models, f
 
 ## Non-negotiables
 
-1. **Content freeze.** Do not rewrite copy. Reuse existing strings verbatim: headings, paragraphs, stats, FAQs, bios,
-   partner names, legal text. You MAY reorder, split into chapters, pull a sentence out as a big statement, and add
-   structural labels (`§01`, `CH.02`, `26.8467° N, 80.9462° E`, `SYS_REF`, `EST. 2025`) or tiny UI verbs (Play, Close,
-   Scroll, Next). Never invent facts, numbers, dates, names, quotes, partners, or claims.
+1. **House voice, true facts** (round 3, 2026-09-26; replaces the old content freeze). Marketing copy on every page
+   and the prospectus is rewritten with the humanizer skill (`D:/YSP/SKILL.md`) and `a3roxyz-voice`, in normal case:
+   candid, specific, "we", no hype, no em dashes, no AI vocabulary. Left verbatim: legal pages (terms, privacy, cookies,
+   refund, IP, CoC), quotes attributed to real people, partner names, trailer captions. **No aggregate numbers**
+   (member, fork, event or project counts, team age, visitor counts); per-event facts may stay inside that event's
+   entry. bits&bytes™ is **pan-India** (Lucknow is one fork, not a base). Never invent facts, numbers, dates, names,
+   quotes, partners, or claims.
 2. **Brand spelling** per AGENTS.md: `bits&bytes™` (or `bitsnbytes` where `&` is impossible). Legal entity name only in legal contexts.
-3. **Preserve behaviour.** Forms, API calls, booking dialogs, hCaptcha, consent checkboxes, cookie consent, AI assistant,
-   analytics, JSON-LD, metadata exports, `data-tour` hooks, and links must keep working exactly as before.
+3. **Preserve behaviour.** Forms, API calls, hCaptcha, consent checkboxes, cookie consent, AI assistant, analytics,
+   JSON-LD, metadata exports, and links must keep working exactly as before. (Round 3 removed the driver.js site tour
+   and the About "Book a Call" button on request.)
 4. **Brand-safe finish.** Square corners by default (a reference may justify pills/rounded shapes for a specific control).
    No generic SaaS glass cards or purple AI gradients; if a reference uses blur/glow, translate it into print texture instead.
 5. **Accessibility.** One `h1` per page; semantic landmarks; visible focus (`3px cobalt` outline, 3px offset);
@@ -192,7 +196,7 @@ Full teardowns (measurements, timings, mechanisms) live in `tmp/research-full.js
 - **Scramble labels** (revelatio/kprverse): `<ScrambleText>` for Space Mono labels only (eyebrows, chapter numbers, nav
   hover, coordinates, bracket counters); charset `01&#*+=/<>`; real text stays in the DOM (animate an aria-hidden mirror).
 - **Footer** (buttermax + kprverse): ink poster. Top row of 4 columns split by 2px paper rules (console column with routes +
-  `26.8467° N, 80.9462° E`, nav, socials, contact incl. legal/trust links with `data-tour="footer-trust"`), then a full-bleed
+  `26.8467° N, 80.9462° E`, nav, socials, contact incl. legal/trust links), then a full-bleed
   giant `bits&bytes™` wordmark uncovered from a slot (counter-translated mask scrub), with the cube mark (inline logo.svg
   geometry, opaque paper body + ink cut-outs, ink knockout ring) locked into the "s"; its pieces snap into register in the same scrub. All existing footer links/text preserved.
 
