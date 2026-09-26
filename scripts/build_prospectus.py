@@ -612,7 +612,7 @@ def page_timeline(c, page):
         ("NOW", "the system", "forks, cohorts, squads, partnerships, and a legal foundation are being built to make the work repeatable."),
     ]
     lx, hx, bx = M + 86, M + 108, M + 250
-    body = st(BODY, fontSize=10.8, leading=15.4)
+    body = st(BODY, fontSize=11.6, leading=16.4)
     y -= 10
     hs = [max(para_h(b, PAGE_W - M - bx, body), 20) for _, _, b in events]
     pitch = (y - FLOOR - 10 - hs[-1]) / (len(events) - 1)  # spread the rows over the page
@@ -627,7 +627,7 @@ def page_timeline(c, page):
         c.setStrokeColor(INK)
         c.setLineWidth(2)
         c.rect(lx - 7, y - 15, 14, 14, fill=1, stroke=1)
-        draw(c, caps(h), hx, y - 12, "Heavy", 11, INK, max_w=bx - hx - 12)
+        draw(c, caps(h), hx, y - 13, "Heavy", 13.5, INK, max_w=bx - hx - 12)
         para(c, b, bx, y - 1, PAGE_W - M - bx, body)
         y -= gaps[i]
     need(y + gaps[-1] - hs[-1])
@@ -638,14 +638,14 @@ def page_numbers(c, page):
     surface(c, "ink")
     bookmark(c, "the proof in numbers")
     y = head(c, page, "the proof", "the proof is not a pitch deck.\nit is a trail of work.", "numbers matter here because they are traces of people doing the work: joining, reviewing, hosting, building, and returning for the next room.", kind="ink", sub_w=440)
-    draw(c, "2,700+", M, y - 84, "Display", 100, ORANGE)
-    draw(c, "projects reviewed", M, y - 108, "Heavy", 13, PAPER)
-    label(c, "three-day evaluation sprints", M, y - 124, FOG, bold=False)
-    x2 = M + W * 0.56
-    draw(c, "1,400+", x2, y - 84, "Display", 64, PAPER)
-    draw(c, "active members", x2, y - 108, "Heavy", 13, PAPER)
-    label(c, "free, teen-led network", x2, y - 124, FOG, bold=False)
-    y -= 146
+    x2 = M + W * 0.62
+    draw(c, "2,700+", M, y - 110, "Display", 124, ORANGE, max_w=x2 - M - 20)
+    draw(c, "projects reviewed", M, y - 136, "Heavy", 14, PAPER)
+    label(c, "three-day evaluation sprints", M, y - 153, FOG, bold=False)
+    draw(c, "1,400+", x2, y - 110, "Display", 72, PAPER, max_w=PAGE_W - M - x2)
+    draw(c, "active members", x2, y - 136, "Heavy", 14, PAPER)
+    label(c, "free, teen-led network", x2, y - 153, FOG, bold=False)
+    y -= 176
     rule(c, M, y, W, PAPER, 3)
     facts = [
         ("2,000+", "people reached across WhatsApp, Instagram, Discord, and LinkedIn"),
@@ -657,11 +657,11 @@ def page_numbers(c, page):
     fact = st(SMALL, textColor=FOG, fontSize=9.8, leading=13.4)
     for i, (n, text) in enumerate(facts):
         x = M + (i % 2) * (cw + 30)
-        yy = y - 22 - (i // 2) * 84
+        yy = y - 22 - (i // 2) * 92
         draw(c, n, x, yy - 42, "Display", 44, ORANGE if i % 3 == 0 else CREAM, max_w=92)
         para(c, text, x + 104, yy - 8, cw - 104, fact, h_limit=42)
         rule(c, x, yy - 64, cw, MID, 1)
-    y -= 22 + 2 * 84
+    y -= 22 + 2 * 92
     reading = "the network is not measured by audience alone. the stronger signal is repeat participation: people come back to make, review, host, mentor, and carry context forward."
     s = st(SMALL, textColor=INK, fontSize=10.4, leading=14.6)
     ph = 46 + para_h(reading, W - 50, s) + 24
@@ -955,7 +955,7 @@ def page_benefits(c, page):
     ph = 26 + 30 + 16 + para_h(pull, W - 50, s) + 24
     top = FLOOR + 12 + ph  # the pull panel closes the page; a photo takes the space above it
     assert y - 10 >= top, "benefits grid runs into the pull panel"
-    band(c, "public/event_pictures/byteforge5.webp", y - 10, top + 24)
+    band(c, "public/event_pictures/byteforge2.webp", y - 10, top + 24)
     panel(c, M, top, W - 6, ph, ORANGE)
     b = display(c, ["visibility is the by-product of useful work"], M + 22, top - 26, W - 50, 34, [INK])
     para(c, pull, M + 22, b - 16, W - 50, s)
@@ -1034,9 +1034,9 @@ def page_next_steps(c, page):
     for i, line in enumerate(["1. tell us what you want to make possible.", "2. tell us what cannot be compromised.", "3. we will sketch the smallest working partnership."]):
         draw(c, line, M + 22, y - 70 - i * 21, "Serif", 12, INK, max_w=W - 50)
     y -= ph + 36
-    email_size = display(c, ["hello@gobitsnbytes.org"], M, y, W, 40, [PAPER], upper=False)
-    c.linkURL("mailto:hello@gobitsnbytes.org", (M, email_size - 4, M + W, y), relative=0, thickness=0)
-    y = email_size - 24
+    email_base = display(c, ["hello@gobitsnbytes.org"], M, y, W, 50, [PAPER], upper=False)
+    c.linkURL("mailto:hello@gobitsnbytes.org", (M, email_base - 4, M + W, y), relative=0, thickness=0)
+    y = email_base - 24
     draw(c, "gobitsnbytes.org  /  gobitsnbytes.org/contact", M, y, "Heavy", 11.5, PAPER, max_w=W)
     c.linkURL("https://gobitsnbytes.org/contact", (M, y - 4, M + W, y + 12), relative=0, thickness=0)
     for i, link in enumerate(["linkedin.com/company/gobitsbytes", "github.com/gobitsnbytes", "instagram.com/gobitsnbytes"]):
@@ -1071,7 +1071,7 @@ def page_closing(c, page):
     c.linkURL("mailto:hello@gobitsnbytes.org", (M + 150, y - 70, M + 280, y - 56), relative=0, thickness=0)
     # the giant wordmark signs off; its script tail stays above the footer
     size = wordmark_size(W, 200)
-    base = FLOOR + 0.36 * size
+    base = FLOOR + 0.44 * size
     assert y - 66 - 20 > base + CAP["Heavy"] * size, "closing: wordmark collides with the contacts"
     wordmark(c, M, base, size, ORANGE)
     footer(c, page, "closing", "ink")
@@ -1138,7 +1138,7 @@ def check() -> None:
                     if "Script" not in span["font"] and "Yellowtail" not in span["font"]:
                         # glyph body only: baseline up to ~70% of the size (ascender boxes overlap by design)
                         oy = span["origin"][1]
-                        boxes.append((x0 + 0.5, oy - span["size"] * 0.7, x1 - 0.5, oy, span["text"], id(line)))
+                        boxes.append((x0 - 2, oy - span["size"] * 0.7, x1 + 2, oy, span["text"], id(line)))  # 2pt: touching counts
         for i, a in enumerate(boxes):
             for b in boxes[i + 1:]:
                 if a[5] != b[5] and a[0] < b[2] and b[0] < a[2] and a[1] < b[3] and b[1] < a[3]:
