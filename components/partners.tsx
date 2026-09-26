@@ -61,7 +61,7 @@ const LOGO_SIZES = "(min-width: 1024px) 18vw, (min-width: 768px) 40vw, 80vw";
  */
 export function Partners() {
   return (
-    <Chapter id="partners" title="partners" number={4} tone="paper" className="pt-0 md:pt-0">
+    <Chapter id="partners" title="partners" number={3} tone="paper" className="pt-0 md:pt-0">
       <DragMarquee
         items={strategicPartners.map((partner) => (
           <span key={partner.name} className="flex items-baseline gap-4">
@@ -73,7 +73,7 @@ export function Partners() {
 
       <div className="mt-16 px-[4vw] md:mt-24">
         <ChapterHead
-          number={4}
+          number={3}
           label="Ecosystem"
           title="Our partners"
           description="We work with these companies to give teen builders more to work with."

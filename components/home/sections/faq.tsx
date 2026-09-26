@@ -6,10 +6,10 @@ export type HomeFaqItem = { question: string; answer: string };
 /** FAQ chapter: riot accordion, indented like the statement (the FAQPage JSON-LD stays in app/page.tsx). */
 export function HomeFaq({ faqs }: { faqs: HomeFaqItem[] }) {
   return (
-    <Chapter id="faq" title="faq" number={5} tone="cream">
+    <Chapter id="faq" title="faq" number={4} tone="cream">
       <div className="px-[4vw]">
         <ChapterHead
-          number={5}
+          number={4}
           label="FAQ"
           title="Frequently Asked Questions"
           description="Everything you need to know about joining India's boldest builder network."

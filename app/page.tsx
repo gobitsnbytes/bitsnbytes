@@ -1,7 +1,6 @@
 import {
   HomeFaq,
   HomeHero,
-  HomeNumbers,
   HomeReel,
   HomeVoices,
   HomeWorks,
@@ -35,7 +34,7 @@ const homeFaqs: HomeFaqItem[] = [
 ];
 
 // buttermax 1:1 in brand (DESIGN.md "Homepage"): orange hero → curtain reel → one long paper panel
-// (statement, numbers, works grid) torn over the reel → partners → FAQ → voices.
+// (statement, works grid) torn over the reel → partners → FAQ → voices.
 // No wrapper element: #film's fixed media needs ancestors without transform/filter.
 export default function Home() {
   return (
@@ -48,7 +47,6 @@ export default function Home() {
         We are a youth-led builder network building the alternative to rigid, beginner-locked tech events. Run
         entirely by teenagers, built from scratch.
       </IndentStatement>
-      <HomeNumbers />
       <HomeWorks />
 
       <Partners />

@@ -14,7 +14,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useMotionTemplate, useMotionValue, useSpring, type MotionValue } from "framer-motion";
-import { CodeXml, Lightbulb, Rocket, Users } from "lucide-react";
+import { CodeXml, Lightbulb, MessagesSquare, Rocket, Users } from "lucide-react";
 
 import { useMotionEnabled } from "@/components/experience-provider";
 import { DuotoneImage } from "@/components/edition/duotone-image";
@@ -44,28 +44,28 @@ const crew = [
 
 const works: Work[] = [
   {
-    ref: "[REF_MEMBERS_01]",
-    title: "Members",
+    ref: "[REF_COMMUNITY_01]",
+    title: "Community",
     tag: "LIVE",
     href: "/join",
     cursor: "JOIN",
     photo: { src: "/event_pictures/byteforge2.webp", alt: "Execron 1.0 participants gathered in a classroom" },
-    glyph: <span className="font-display text-2xl leading-none">1400+</span>,
+    glyph: <MessagesSquare aria-hidden className={ICON} />,
     body: "A nationwide community of student builders, developers, roboticists, and designers.",
   },
   {
     ref: "[REF_WORKSHOPS_02]",
     title: "Workshops",
-    tag: "WEEKLY",
+    tag: "IN HACKATHONS",
     href: "/events",
     cursor: "VIEW EVENTS",
     photo: { src: "/event_pictures/devday2.jpeg", alt: "A speaker with a microphone at GitHub Copilot Dev Days" },
     glyph: <Lightbulb aria-hidden className={ICON} />,
-    body: "Dev tools, hardware interfaces, and AI engineering, one weekend at a time.",
+    body: "Dev tools, hardware interfaces, and AI engineering. They run inside our hackathons, as part of the build.",
   },
   {
     ref: "[REF_FORKS_03]",
-    title: "5+ Forks",
+    title: "Forks",
     tag: "CITY",
     href: "/fork",
     cursor: "VIEW FORKS",
@@ -73,7 +73,8 @@ const works: Work[] = [
     glyph: <CodeXml aria-hidden className={ICON} />,
     body: (
       <>
-        Active city chapters — request brand use and support at{" "}
+        Like a fork on GitHub: a city or school chapter takes the playbook from upstream, runs its own room, and
+        ships back. Start one at{" "}
         <span className="font-bold underline decoration-2 underline-offset-2">gobitsnbytes.org/fork</span>
       </>
     ),
@@ -208,9 +209,9 @@ function WorkCell({ work }: { work: Work }) {
 
 export function HomeWorks() {
   return (
-    <Chapter id="what-we-do" title="what we do" number={3} tone="paper" className="pb-0 md:pb-0">
+    <Chapter id="what-we-do" title="what we do" number={2} tone="paper" className="pb-0 pt-0 md:pb-0 md:pt-0">
       <div className="px-[4vw]">
-        <ChapterHead number={3} label="What We Do" title="What we actually do" description="The stuff we run" />
+        <ChapterHead number={2} label="What We Do" title="What we actually do" description="The stuff we run" />
       </div>
       <div className="grid gap-[2px] border-y-2 border-line bg-line md:grid-cols-2 lg:grid-cols-3">
         {works.map((work) => (
