@@ -45,11 +45,11 @@ export const FOOTER_COLUMNS: { title: string; links: ChromeLink[] }[] = [
     title: "Explore",
     links: [
       { href: "/about", label: "About" },
-      { href: "/impact", label: "Impact & Research" },
-      { href: "/events", label: "Events & Hackathons" },
-      { href: "/fork", label: "Local Hubs (Forks)" },
-      { href: "/join", label: "Join Network" },
-      { href: "/press", label: "Press Kit & Media" },
+      { href: "/impact", label: "Impact & research" },
+      { href: "/events", label: "Events & hackathons" },
+      { href: "/fork", label: "Local hubs (forks)" },
+      { href: "/join", label: "Join the network" },
+      { href: "/press", label: "Press kit & media" },
     ],
   },
   {
@@ -69,13 +69,13 @@ export const FOOTER_COLUMNS: { title: string; links: ChromeLink[] }[] = [
 
 /** Trust Center (footer). */
 export const TRUST_LINKS: (ChromeLink & { note: string })[] = [
-  { href: "/terms", label: "Terms", note: "Participation, Forks, money, and authority" },
+  { href: "/terms", label: "Terms", note: "Taking part, forks, money, and who can sign" },
   { href: "/privacy", label: "Privacy", note: "Data handling, minors, and guardian requests" },
   { href: "/cookies", label: "Cookies", note: "Essential storage, analytics, and telemetry" },
   { href: "/refund", label: "Refunds", note: "Free events, donations, and billing rules" },
   { href: "/coc", label: "Code of Conduct", note: "Safety, reporting, enforcement, and standards" },
   { href: "/ip", label: "IP Policy", note: "Brand use, logos, open-source, and claims" },
-  { href: "/press", label: "Press Kit", note: "Official logos, facts, colors, and media contact" },
+  { href: "/press", label: "Press Kit", note: "Logos, facts, colours, and who to email" },
 ];
 
 export const isActive = (pathname: string | null, href: string) =>

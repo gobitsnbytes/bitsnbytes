@@ -104,8 +104,8 @@ export function Footer() {
             bits&amp;bytes™ <span className="text-orange">· Teen-led</span>
           </p>
           <p className="mb-8 max-w-sm font-serif text-[15px] leading-relaxed text-paper/80">
-            India&apos;s independent, teen-led builder network. Connecting the country&apos;s most ambitious teenage
-            developers and designers to ship software from scratch.
+            An independent builder network run by teenagers across India. We get young developers and designers into
+            one room and ship software from scratch.
           </p>
           <ul className="mb-8 grid grid-cols-2 gap-x-4 gap-y-1 text-[12px] leading-snug text-paper/70">
             {ROUTES.map((route, i) => {
@@ -188,7 +188,7 @@ export function Footer() {
           </a>
           <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.25em] text-paper/70">Trust Center</p>
           <p className="mb-4 max-w-sm font-serif text-[15px] leading-relaxed text-paper/80">
-            The public rules for a teen-led network: safety, privacy, brand stewardship, and participation standards.
+            The rules we run by, written down in public. Many of us are under 18, so safety and privacy come first.
           </p>
           <ul className="border-t border-paper/20">
             {TRUST_LINKS.map((link) => (
@@ -286,7 +286,7 @@ export function Footer() {
               onClick={() => window.dispatchEvent(new CustomEvent("bnb-reopen-cookie-consent"))}
               className="cursor-pointer uppercase tracking-[0.1em] text-orange underline"
             >
-              Cookie Preferences
+              Cookie preferences
             </button>
           </p>
         </div>
