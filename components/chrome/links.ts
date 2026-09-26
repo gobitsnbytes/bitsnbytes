@@ -14,7 +14,6 @@ export const ROUTES: ChromeLink[] = [
   { href: "/events", label: "Events" },
   { href: "/impact", label: "Impact" },
   { href: "/join", label: "Join" },
-  { href: "/join-cohort", label: "Join Cohort", handler: true },
   { href: "/fork", label: "Fork" },
   { href: "/press", label: "Press" },
   { href: "/faq", label: "FAQ" },
