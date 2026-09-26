@@ -4,25 +4,53 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
+// Solid variants carry the hard shadow; ghost/link stay flat.
+const SOLID = ["default", "burgundy", "secondary", "orange", "outline", "cobalt", "acid", "destructive"] as const;
+
+// Shadows are written as arbitrary values (not shadow-riot*) so tailwind-merge dedupes them
+// against call-site overrides like `shadow-none` or `shadow-[4px_4px_0px_0px_#120f0a]`.
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-none text-sm font-black uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-3 border-[#120f0a] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none cursor-pointer",
+  "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-none border-3 border-line font-sans font-black uppercase leading-none tracking-[0.04em] transition-[transform,box-shadow,background-color,color] duration-100 ease-riot hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none disabled:pointer-events-none disabled:opacity-45 motion-reduce:transition-none",
   {
     variants: {
       variant: {
-        default: "bg-[#97192c] text-white shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a]",
-        destructive: "bg-destructive text-destructive-foreground shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a]",
-        outline: "bg-white text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a]",
-        secondary: "bg-[#fc920d] text-[#120f0a] shadow-[4px_4px_0px_0px_#120f0a] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#120f0a]",
-        ghost: "border-transparent bg-transparent hover:bg-accent hover:text-accent-foreground active:translate-x-0 active:translate-y-0 active:shadow-none shadow-none",
-        link: "border-transparent bg-transparent text-[#97192c] underline-offset-4 hover:underline active:translate-x-0 active:translate-y-0 active:shadow-none shadow-none",
+        default: "bg-burgundy text-paper",
+        burgundy: "bg-burgundy text-paper",
+        secondary: "bg-orange text-ink",
+        orange: "bg-orange text-ink",
+        outline: "bg-card text-card-foreground",
+        cobalt: "bg-cobalt text-white",
+        acid: "bg-acid text-ink",
+        destructive: "bg-destructive text-destructive-foreground",
+        ghost:
+          "border-transparent bg-transparent text-fg hover:translate-x-0 hover:translate-y-0 hover:bg-cream hover:text-ink active:translate-x-0 active:translate-y-0",
+        link: "border-transparent bg-transparent text-burgundy underline-offset-4 hover:translate-x-0 hover:translate-y-0 hover:underline active:translate-x-0 active:translate-y-0 dark:text-orange",
       },
       size: {
-        default: "h-12 px-6 py-3",
-        sm: "h-9 px-3 text-xs border-2 shadow-[2px_2px_0px_0px_#120f0a] hover:shadow-[3px_3px_0px_0px_#120f0a]",
-        lg: "h-14 px-8 text-base shadow-[6px_6px_0px_0px_#120f0a] hover:shadow-[8px_8px_0px_0px_#120f0a]",
-        icon: "h-10 w-10 border-2 shadow-[2px_2px_0px_0px_#120f0a] hover:shadow-[3px_3px_0px_0px_#120f0a]",
+        default: "h-12 px-6 text-sm",
+        md: "h-12 px-6 text-sm",
+        sm: "h-9 px-3.5 text-[11px]",
+        lg: "h-14 px-8 text-[17px]",
+        icon: "size-10 p-0",
       },
     },
+    compoundVariants: [
+      {
+        variant: [...SOLID],
+        size: ["default", "md"],
+        class: "shadow-[6px_6px_0_0_var(--shadow-color)] hover:shadow-[8px_8px_0_0_var(--shadow-color)]",
+      },
+      {
+        variant: [...SOLID],
+        size: ["sm", "icon"],
+        class: "shadow-[3px_3px_0_0_var(--shadow-color)] hover:shadow-[5px_5px_0_0_var(--shadow-color)]",
+      },
+      {
+        variant: [...SOLID],
+        size: "lg",
+        class: "shadow-[10px_10px_0_0_var(--shadow-color)] hover:shadow-[12px_12px_0_0_var(--shadow-color)]",
+      },
+    ],
     defaultVariants: {
       variant: "default",
       size: "default",
@@ -30,6 +58,11 @@ const buttonVariants = cva(
   },
 );
 
+/**
+ * Print Riot button. Variants: default|burgundy, orange|secondary, outline, cobalt, acid, ghost,
+ * plus legacy destructive/link. Sizes: sm, md|default, lg, icon. Hover lifts, active slams flush.
+ * `asChild` renders the child (e.g. next/link) with the button styles.
+ */
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {

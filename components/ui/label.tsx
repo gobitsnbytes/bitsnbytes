@@ -6,8 +6,9 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
+// Print Riot field label: Space Mono 11px, 700, uppercase, .12em tracking.
 const labelVariants = cva(
-  "text-xs font-mono font-bold uppercase tracking-wider text-[#120f0a] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+  "font-mono text-[11px] font-bold uppercase leading-none tracking-[0.12em] text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
 );
 
 const Label = React.forwardRef<

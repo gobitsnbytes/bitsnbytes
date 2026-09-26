@@ -1,6 +1,6 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
-import { Anton, JetBrains_Mono } from "next/font/google";
+import { Anton, Archivo, Space_Mono, Yellowtail } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -10,6 +10,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteChrome } from "@/components/site-chrome";
 
+// Display (font-display / font-accent-sans)
 const anton = Anton({
   subsets: ["latin"],
   variable: "--font-accent-sans",
@@ -17,10 +18,29 @@ const anton = Anton({
   display: "swap",
 });
 
-const jetBrainsMono = JetBrains_Mono({
+// Sans fallback after Helvetica Now / Helvetica Neue (font-sans)
+const archivo = Archivo({
+  subsets: ["latin"],
+  variable: "--font-archivo",
+  weight: ["400", "600", "800", "900"],
+  display: "swap",
+});
+
+// Labels, eyebrows, receipts (font-mono)
+const spaceMono = Space_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  weight: ["400", "700"],
   display: "swap",
+});
+
+// Palm Club stand-in (font-script); decorative, so never preloaded
+const yellowtail = Yellowtail({
+  subsets: ["latin"],
+  variable: "--font-yellowtail",
+  weight: "400",
+  display: "swap",
+  preload: false,
 });
 
 // SEO-optimized viewport configuration
@@ -406,7 +426,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-IN"
-      className={`${anton.variable} ${jetBrainsMono.variable}`}
+      className={`${anton.variable} ${archivo.variable} ${spaceMono.variable} ${yellowtail.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -416,7 +436,7 @@ export default function RootLayout({
         <link rel="alternate" type="application/rss+xml" title="bits&bytes™ RSS Feed" href="https://gobitsnbytes.org/rss.xml" />
         <link rel="alternate" type="application/atom+xml" title="bits&bytes™ Atom Feed" href="https://gobitsnbytes.org/feed.xml" />
       </head>
-      <body className="font-sans antialiased bg-background text-foreground selection:bg-accent/30 selection:text-primary overflow-x-hidden">
+      <body className="halftone-field font-sans antialiased bg-background text-foreground selection:bg-accent/30 selection:text-primary overflow-x-clip">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:font-bold focus:shadow-[4px_4px_0px_0px_var(--border)] focus:outline-none"
