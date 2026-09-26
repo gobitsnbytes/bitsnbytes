@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "AI Assistant | Ask bits&bytes™ Anything",
+  title: "Ask the bits&bytes™ AI assistant",
   description:
-    "Chat live with the bits&bytes™ AI assistant. Ask about joining the network, upcoming events, Forks, how bits&bytes™ works, or anything else about our community.",
+    "Ask the bits&bytes™ assistant about joining, events, forks and how we work. It answers from our published docs and the page you are on.",
   robots: {
     index: false,
     follow: false,
@@ -14,9 +14,9 @@ export const metadata: Metadata = {
     canonical: "https://gobitsnbytes.org/qna",
   },
   openGraph: {
-    title: "QnA Assistant | bits&bytes™ AI Bot",
+    title: "Ask the bits&bytes™ AI assistant",
     description:
-      "Chat with the official bits&bytes™ AI assistant. Ask anything about our network, events, and tech community.",
+      "Ask our assistant about joining, events and forks. It answers from what we have published.",
     url: "https://gobitsnbytes.org/qna",
     type: "website",
     images: [
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "QnA Assistant | bits&bytes™ AI",
+    title: "Ask the bits&bytes™ AI assistant",
     description:
-      "Chat with the official bits&bytes™ AI assistant. Ask about our network, events, and community.",
+      "Ask our assistant about joining, events and forks. It answers from what we have published.",
     images: ["/og-image.png"],
     creator: "@gobitsnbytes",
   },

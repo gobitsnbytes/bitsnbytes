@@ -17,11 +17,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 // "Verified from public docs" is dropped: the console bar already carries "Verified from public project sources".
-const TAGS = ["QnA Assistant", "Built for sponsor diligence", "Join-ready handoff"];
+const TAGS = ["QnA assistant", "Handy for sponsor checks", "Points you to join"];
 const HOW = [
-  "Ask about events, team, and partnerships.",
-  "Answers are grounded in public project sources.",
-  "Follow prompts to jump into join or sponsor steps.",
+  "Ask about our events, the team or partnerships.",
+  "Answers come from our published docs and the page you are on.",
+  "When you are ready, it points you to the join or sponsor steps.",
 ];
 const ASKS = ["What makes bits&bytes™ different?", "Show me partner events and outcomes.", "How do sponsors get involved?"];
 
@@ -38,13 +38,13 @@ export default function QnAPage() {
         data-surface="paper"
       >
         <LabHero
-          lines={["Ask what matters, ", "get the real ", "bits&bytes™ answer."]}
+          lines={["Ask us anything, ", "get a straight ", "bits&bytes™ answer."]}
           glyph={<PixelGlyph text="QNA" decorative />}
           aside={<LabGlobe />}
           subtitle={
             <p>
-              This is the official QnA layer for sponsors, educators, and builders. We answer from public sources in this
-              project, fast and without fluff.
+              Sponsors, educators and builders can ask here first. The answers come from our public docs, so they stay
+              close to what we have actually published.
             </p>
           }
           // the h1 is a sentence, not a two-word title: height-aware so it never fills a short laptop screen
@@ -71,8 +71,8 @@ export default function QnAPage() {
       >
         <div className={CELL}>
           <TableHeader label="Sponsor Flow" className="self-stretch" />
-          <h2 className={LAB_TEXT.post}>Want a direct convo?</h2>
-          <p className={LAB_TEXT.sm}>Ask here, then jump to a sponsor-ready contact route with context.</p>
+          <h2 className={LAB_TEXT.post}>Rather talk to a person?</h2>
+          <p className={LAB_TEXT.sm}>Ask here first, then use the contact page to reach the team directly.</p>
           <div className="flex flex-wrap gap-3 pt-1">
             <Button asChild size="sm">
               <LabLink href="/contact">Contact the team</LabLink>
