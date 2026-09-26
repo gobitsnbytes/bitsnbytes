@@ -1,10 +1,20 @@
 import Link from "next/link";
 
 import { Breadcrumbs } from "@/components/breadcrumb";
-import { EditionOpener, EDITION_GUTTER, FeedList, FeedRow, SerifStatement } from "@/components/edition";
-import { Staircase } from "@/components/join/staircase";
-import { Button, Chapter, TornEdge } from "@/components/riot";
-import { cn } from "@/lib/utils";
+import { FaqFeed } from "@/components/faq/faq-feed";
+import {
+  HollowWord,
+  LAB_TEXT,
+  LabCell,
+  LabGlobe,
+  LabGrid,
+  LabHero,
+  LabTitle,
+  PixelGlyph,
+  RouterFigure,
+  TableHeader,
+} from "@/components/lab";
+import { Button } from "@/components/riot";
 
 interface FAQItem {
   question: string;
@@ -112,11 +122,6 @@ const pad = (n: number) => String(n).padStart(2, "0");
 
 const QUESTIONS_TITLE = `Questions [${pad(faqs.length)}]`;
 
-const chapters = [
-  { id: "questions", title: QUESTIONS_TITLE },
-  { id: "still-have-questions", title: "Still have questions?" },
-];
-
 const moreLinks = [
   { href: "/events", label: "Pan-India Hackathons" },
   { href: "/fork", label: "Student Chapter Hubs (Forks)" },
@@ -125,94 +130,100 @@ const moreLinks = [
   { href: "/coc", label: "Code of Conduct" },
 ];
 
-const GUTTER = cn("px-4 md:px-8", EDITION_GUTTER);
+const SECTION = "gap-y-10 pt-24 min-[760px]:pt-[136px]";
+
+/** Label + arrow that nudges on hover/focus (the Button asChild link carries `group`). */
+function Cta({ children }: { children: string }) {
+  return (
+    <>
+      {children}
+      <span
+        aria-hidden
+        className="transition-transform duration-200 ease-riot group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transition-none"
+      >
+        →
+      </span>
+    </>
+  );
+}
 
 export default function FAQ() {
   return (
     <>
-      <div data-tour="page-hero">
-        <EditionOpener
-          variant="static"
-          title="Frequently Asked Questions"
-          kicker="FAQ"
-          chapters={chapters}
-          art={{ src: "/event_pictures/h4g/h4g_standee.jpg", alt: "Hack4Good event standee at the venue" }}
-        />
-      </div>
-      <TornEdge from="ink" to="paper" />
-
-      {/* §01: the full list as a stripe.dev table-list (mono index, barcode hover, expo-out disclosure) */}
-      <Chapter id="questions" title={QUESTIONS_TITLE} number={1} className="md:pt-20">
-        <div className={GUTTER}>
-          <Breadcrumbs items={[{ name: "FAQ", href: "/faq" }]} />
-        </div>
-        <SerifStatement className="py-0 pb-12 md:py-0 md:pb-20">
-          <span data-speakable="true" data-citation="true">
-            Questions people actually ask us about bits&amp;bytes™.
-          </span>
-        </SerifStatement>
-        <div className={GUTTER}>
-          <div className="mb-3 flex items-baseline justify-between font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-signal">
-            <span>§01 — FAQ</span>
-            <span aria-hidden>[{pad(faqs.length)}]</span>
-          </div>
-          <FeedList>
-            {faqs.map((faq, index) => (
-              <FeedRow key={faq.question} date={`Q.${pad(index + 1)}`} title={faq.question}>
-                <p className="max-w-[65ch] font-serif text-lg leading-relaxed">{faq.answer}</p>
-              </FeedRow>
-            ))}
-          </FeedList>
-        </div>
-      </Chapter>
-
-      <TornEdge from="paper" to="ink" />
-
-      {/* §02: ink close, kprverse staircase headline */}
-      <Chapter id="still-have-questions" title="Still have questions?" number={2} tone="ink" className="md:py-32">
-        <div className={GUTTER}>
-          <p className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-signal">§02</p>
-          <Staircase lines={["Still have", "questions?"]} />
-          <div className="mt-12 grid gap-8 md:mt-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-            <p className="max-w-[40ch] font-serif text-xl leading-snug md:text-2xl">
-              Can&apos;t find what you need? Reach out and we&apos;ll get back to you.
+      <section
+        data-tour="page-hero"
+        data-cinematic-section=""
+        data-cinematic-title="Frequently Asked Questions"
+        data-surface="paper"
+      >
+        <LabHero
+          lines={["Frequently ", "Asked ", "Questions"]}
+          glyph={<PixelGlyph text="FAQ" decorative />}
+          aside={<LabGlobe />}
+          subtitle={
+            <p data-speakable="true" data-citation="true">
+              Questions people actually ask us about bits&amp;bytes™.
             </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Button asChild variant="orange" size="lg">
-                <Link href="/contact" className="group">
-                  Contact Us
-                  <span
-                    aria-hidden
-                    className="transition-transform duration-200 ease-riot group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transition-none"
-                  >
-                    →
-                  </span>
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/join">Apply to Join</Link>
-              </Button>
-            </div>
-          </div>
+          }
+        >
+          <Breadcrumbs items={[{ name: "FAQ", href: "/faq" }]} className="mb-0" />
+        </LabHero>
+      </section>
 
-          <div className="mt-14 border-t-3 border-line pt-5">
-            <ul className="flex flex-wrap gap-x-6 gap-y-3 font-mono text-xs font-bold uppercase tracking-[0.12em]">
-              {moreLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="underline decoration-2 underline-offset-4 transition-colors hover:text-orange"
-                  >
-                    <span aria-hidden>[</span>
-                    {link.label}
-                    <span aria-hidden>]</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </Chapter>
+      {/* stripe.dev "Featured" feed: sticky directory + Fig. 1, disclosure rows with mono indices */}
+      <LabGrid
+        as="section"
+        id="questions"
+        data-cinematic-section=""
+        data-cinematic-title={QUESTIONS_TITLE}
+        data-surface="paper"
+        aria-labelledby="questions-title"
+        className={SECTION}
+      >
+        <LabCell>
+          <LabTitle id="questions-title" count={faqs.length}>
+            Questions
+          </LabTitle>
+        </LabCell>
+        <FaqFeed faqs={faqs} seed="Frequently Asked Questions" />
+      </LabGrid>
+
+      {/* close: title + actions, then the router (sticky Fig. 2 re-seeds on link hover), outlined word */}
+      <section
+        id="still-have-questions"
+        data-cinematic-section=""
+        data-cinematic-title="Still have questions?"
+        data-surface="paper"
+        aria-labelledby="still-title"
+        className="pt-24 min-[760px]:pt-[160px]"
+      >
+        <LabGrid className="gap-y-10">
+          <LabCell>
+            <LabTitle id="still-title" className="min-[760px]:whitespace-normal">
+              Still have questions?
+            </LabTitle>
+          </LabCell>
+          <LabCell span="1/15">
+            <p className={LAB_TEXT.lg}>Can&apos;t find what you need? Reach out and we&apos;ll get back to you.</p>
+          </LabCell>
+          <LabCell className="flex flex-col gap-4 sm:flex-row">
+            <Button asChild variant="orange">
+              <Link href="/contact" className="group">
+                <Cta>Contact Us</Cta>
+              </Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/join">Apply to Join</Link>
+            </Button>
+          </LabCell>
+          <TableHeader label="Links" count={moreLinks.length} className="col-span-full mt-14" />
+          <RouterFigure
+            fig={2}
+            items={moreLinks.map((link) => ({ title: link.label, type: link.href, href: link.href }))}
+          />
+        </LabGrid>
+        <HollowWord text="Questions" />
+      </section>
 
       <script
         type="application/ld+json"

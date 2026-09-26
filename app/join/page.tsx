@@ -1,9 +1,24 @@
-import Link from "next/link";
-
-import { WIDE } from "@/components/chrome/wordmark";
-import { ChapterHero, EditionOpener, EDITION_GUTTER, FeedList, FeedRow, SerifStatement } from "@/components/edition";
-import { Staircase } from "@/components/join/staircase";
-import { Button, Chapter, ChapterHead, ScrambleText, TornEdge } from "@/components/riot";
+import { ConsoleWindow } from "@/components/contact/console-window";
+import { LabIndexRow, LabRow } from "@/components/faq/lab-row";
+import {
+  FigWindow,
+  HollowWord,
+  LAB_HOVER,
+  LAB_STICKY,
+  LAB_TEXT,
+  LabCell,
+  LabFeed,
+  LabFooterRows,
+  LabGlobe,
+  LabGrid,
+  LabHero,
+  LabLink,
+  LabTag,
+  LabTitle,
+  PixelGlyph,
+  TableHeader,
+} from "@/components/lab";
+import { Button } from "@/components/riot";
 import { cn } from "@/lib/utils";
 
 const NOTION_JOIN_FORM_URL =
@@ -19,7 +34,6 @@ const paths = [
       "Hop onto our Discord server. Chat with 1400+ student builders, find project teams, and attend online study sessions.",
     cta: "Join Discord",
     href: DISCORD_INVITE_URL,
-    external: true,
     variant: "outline",
   },
   {
@@ -28,7 +42,6 @@ const paths = [
       "Apply to build our core open-source software projects, organize developer cohorts, or manage outreach.",
     cta: "Apply Now",
     href: NOTION_JOIN_FORM_URL,
-    external: true,
     variant: "burgundy",
   },
   {
@@ -37,7 +50,6 @@ const paths = [
       "Bring bits&bytes to your city. Gather local builders, host workshops/hacknights, and run your city's tech scene.",
     cta: "Explore Forks",
     href: "/fork",
-    external: false,
     variant: "outline",
   },
 ] as const;
@@ -92,17 +104,10 @@ const faqs = [
   },
 ];
 
-const chapters = [
-  { id: "applications", title: "Applications Open" },
-  { id: "why-join", title: "Why Join" },
-  { id: "expectations", title: "What we look for" },
-  { id: "join-faq", title: "Common questions" },
-  { id: "start-building", title: "Ready to start building?" },
-];
+const SECTION = "gap-y-10 pt-24 min-[760px]:pt-[136px]";
+const WRAP = "min-[760px]:whitespace-normal";
 
-const GUTTER = cn("px-4 md:px-8", EDITION_GUTTER);
-
-/** Button contents shared by every CTA: label + arrow that nudges on hover/focus. */
+/** Label + arrow that nudges on hover/focus (the Button asChild link carries `group`). */
 function Cta({ children }: { children: string }) {
   return (
     <>
@@ -117,193 +122,211 @@ function Cta({ children }: { children: string }) {
   );
 }
 
-/** Anchor for Button asChild: forwards the Slot's className so the button styles land on the link. */
-function CtaLink({
-  href,
-  external,
-  children,
-  className,
-}: {
-  href: string;
-  external: boolean;
-  children: string;
-  className?: string;
-}) {
-  return external ? (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={cn("group", className)}>
-      <Cta>{children}</Cta>
-    </a>
-  ) : (
-    <Link href={href} className={cn("group", className)}>
-      <Cta>{children}</Cta>
-    </Link>
-  );
-}
-
 export default function Join() {
   return (
     <>
-      <div data-tour="page-hero">
-        <EditionOpener
-          variant="static"
-          title="Join the crew"
-          kicker="Applications Open"
-          chapters={chapters}
-          art={{ src: "/event_pictures/h4g/h4g_hackers.jpg", alt: "Builders at their laptops during a bits&bytes™ hackathon" }}
-        />
-      </div>
-      <TornEdge from="ink" to="paper" />
+      <section data-tour="page-hero" data-cinematic-section="" data-cinematic-title="Join the crew" data-surface="paper">
+        <LabHero
+          lines={["Join the ", "crew"]}
+          glyph={<PixelGlyph text="JOIN" decorative />}
+          aside={<LabGlobe />}
+          subtitle={
+            <p>Tell us how you want to build with us. We&apos;ll connect you with squads, mentors, and real projects.</p>
+          }
+        >
+          <LabTag>Applications Open</LabTag>
+        </LabHero>
+      </section>
 
-      {/* §01: three ways in, as an inkfish table-list */}
-      <Chapter id="applications" title="Applications Open" number={1} className="md:pt-20">
-        <div className={GUTTER}>
-          <ScrambleText
-            as="p"
-            text={`§01 — Applications Open [${pad(paths.length)}]`}
-            className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-signal"
-          />
+      {/* the three ways in, inside console chrome, beside the seeded Fig. 1 */}
+      <LabGrid
+        as="section"
+        id="applications"
+        data-cinematic-section=""
+        data-cinematic-title="Applications Open"
+        data-surface="paper"
+        aria-labelledby="applications-title"
+        className={SECTION}
+      >
+        <LabCell>
+          <LabTitle id="applications-title" count={paths.length}>
+            Applications Open
+          </LabTitle>
+        </LabCell>
+        <div className="col-span-full max-lg:hidden lg:col-[1/7]">
+          <FigWindow seed="Applications Open" fig={1} className={LAB_STICKY} />
         </div>
-        <SerifStatement as="h2" className="py-0 md:py-0">
-          Tell us how you want to build with us. We&apos;ll connect you with squads, mentors, and real projects.
-        </SerifStatement>
-        <div className={GUTTER}>
-          <ol className="mt-12 border-t-3 border-line md:mt-16">
-            {paths.map((path, index) => (
-              <li
-                key={path.title}
-                className="group/path relative isolate grid gap-4 border-b-3 border-line py-7 md:grid-cols-[5rem_minmax(0,1.1fr)_minmax(0,1.3fr)_auto] md:items-center md:gap-8 md:py-9"
-              >
-                {/* row fill wipes in on hover / keyboard focus (transform only) */}
-                <span
-                  aria-hidden
-                  className="absolute inset-0 -z-10 origin-left scale-x-0 bg-surface-2 transition-transform duration-500 ease-[cubic-bezier(.25,1,.5,1)] group-focus-within/path:scale-x-100 group-hover/path:scale-x-100 motion-reduce:transition-none motion-off:transition-none"
-                />
-                <span className="font-mono text-xs font-bold tracking-[0.1em] text-signal">[{pad(index + 1)}]</span>
-                <h3 className={cn(WIDE, "text-[clamp(28px,3.4vw,52px)] uppercase leading-[0.9]")}>{path.title}</h3>
-                <p className="max-w-[46ch] font-serif text-base leading-relaxed text-fg/80 md:text-lg">{path.description}</p>
-                <Button asChild variant={path.variant} className="justify-self-start">
-                  <CtaLink href={path.href} external={path.external}>
-                    {path.cta}
-                  </CtaLink>
-                </Button>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-6 font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-fg/70">
+        <div className="col-span-full lg:col-[8/25]">
+          <ConsoleWindow title="Join the crew" bodyClassName="px-4 md:px-6">
+            <ol role="list">
+              {paths.map((path, index) => (
+                <li
+                  key={path.title}
+                  className="grid gap-4 border-b border-line py-6 last:border-b-0 md:grid-cols-[3rem_minmax(0,1fr)_auto] md:items-start md:gap-6 md:py-8"
+                >
+                  <span className="font-mono text-[12px] uppercase leading-[1.6]">[{pad(index + 1)}]</span>
+                  <div className="grid gap-3">
+                    <h3 className={LAB_TEXT.post}>{path.title}</h3>
+                    <p className={cn(LAB_TEXT.sm, "max-w-[46ch] text-fg/80")}>{path.description}</p>
+                  </div>
+                  <Button asChild variant={path.variant} size="sm" className="justify-self-start">
+                    <LabLink href={path.href} className="group">
+                      <Cta>{path.cta}</Cta>
+                    </LabLink>
+                  </Button>
+                </li>
+              ))}
+            </ol>
+          </ConsoleWindow>
+          <p className="mt-4 font-mono text-[11px] uppercase leading-[1.4] text-fg/70">
             We review contributor and fork applications weekly • Expected response time: 7 days
           </p>
         </div>
-      </Chapter>
+      </LabGrid>
 
-      {/* §02: Editions chapter hero, then the member benefits as a hairline works-grid */}
-      <ChapterHero
+      {/* member benefits as a feed (sticky Fig. 2 beside it) */}
+      <LabGrid
+        as="section"
         id="why-join"
-        number={2}
-        title="Why Join"
-        art={{ src: "/event_pictures/devday2.jpeg", alt: "A builder takes the mic during a bits&bytes™ session" }}
+        data-cinematic-section=""
+        data-cinematic-title="Why Join"
+        data-surface="paper"
+        aria-labelledby="why-join-title"
+        className={SECTION}
       >
-        Being part of bits&bytes™ is more than a Discord invite.
-      </ChapterHero>
-      <TornEdge from="ink" to="paper" />
-      <div data-surface="paper" className="tone-paper py-16 md:py-24">
-        <div className={GUTTER}>
-          <h3 className="border-b-3 border-line pb-4 font-display text-[clamp(40px,7vw,112px)] uppercase leading-[0.86]">
+        <TableHeader label="Why Join" className="col-span-full" />
+        <LabCell>
+          <LabTitle id="why-join-title" count={benefits.length} className={WRAP}>
             What you&apos;ll get as a member
-          </h3>
-          <ul className="grid md:grid-cols-2">
-            {benefits.map((benefit, index) => (
-              <li
-                key={benefit.title}
-                className="flex flex-col gap-4 border-b-2 border-line py-8 md:min-h-64 md:p-10 md:odd:border-r-2 md:odd:pl-0"
-              >
-                <span className="font-mono text-xs font-bold tracking-[0.1em] text-signal">[{pad(index + 1)}]</span>
-                <h4 className={cn(WIDE, "text-[clamp(26px,2.8vw,44px)] uppercase leading-[0.92]")}>{benefit.title}</h4>
-                <p className="mt-auto max-w-[40ch] font-serif text-base leading-relaxed text-fg/80 md:text-lg">
-                  {benefit.description}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+          </LabTitle>
+        </LabCell>
+        <LabCell span="1/15">
+          <p className={LAB_TEXT.lg}>Being part of bits&amp;bytes™ is more than a Discord invite.</p>
+        </LabCell>
+        <LabFeed
+          labels={["No.", "Benefit"]}
+          aside={<FigWindow seed="What you'll get as a member" fig={2} className={cn(LAB_STICKY, "max-lg:hidden")} />}
+        >
+          {benefits.map((benefit, index) => (
+            <LabRow key={benefit.title} label={`B.${pad(index + 1)}`} title={benefit.title} defaultOpen>
+              <p>{benefit.description}</p>
+            </LabRow>
+          ))}
+        </LabFeed>
+      </LabGrid>
 
-      {/* §03: expectations checklist */}
-      <Chapter id="expectations" title="What we look for" number={3} tone="cream">
-        <div className={GUTTER}>
-          <ChapterHead
-            number={3}
-            label="Expectations"
-            title="What we look for"
-            description="We want to make sure bits&bytes™ is the right fit for you."
-          />
-          <ol className="max-w-5xl">
-            {expectations.map((expectation, index) => (
-              <li
-                key={expectation}
-                className="grid grid-cols-[3.5rem_minmax(0,1fr)] items-baseline gap-4 border-b-2 border-line py-5 md:grid-cols-[5rem_minmax(0,1fr)] md:py-6"
-              >
-                <span className="font-mono text-xs font-bold tracking-[0.1em] text-signal">[{pad(index + 1)}]</span>
-                <span className="font-sans text-[clamp(20px,2.4vw,34px)] font-extrabold uppercase leading-[1.02] tracking-[-0.01em]">
-                  {expectation}
-                </span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </Chapter>
+      <LabGrid
+        as="section"
+        id="expectations"
+        data-cinematic-section=""
+        data-cinematic-title="What we look for"
+        data-surface="paper"
+        aria-labelledby="expectations-title"
+        className={SECTION}
+      >
+        <TableHeader label="Expectations" className="col-span-full" />
+        <LabCell>
+          <LabTitle id="expectations-title" count={expectations.length}>
+            What we look for
+          </LabTitle>
+        </LabCell>
+        <LabCell span="1/15">
+          <p className={LAB_TEXT.lg}>We want to make sure bits&amp;bytes™ is the right fit for you.</p>
+        </LabCell>
+        <LabFeed labels={["No.", "Expectation"]}>
+          {expectations.map((expectation, index) => (
+            <LabIndexRow key={expectation} label={`E.${pad(index + 1)}`}>
+              {expectation}
+            </LabIndexRow>
+          ))}
+        </LabFeed>
+      </LabGrid>
 
-      {/* §04: stripe.dev table-list FAQ */}
-      <Chapter id="join-faq" title="Common questions" number={4}>
-        <div className={GUTTER}>
-          <ChapterHead number={4} label="FAQ" title="Common questions" description="Things people ask before applying." />
-          <FeedList>
-            {faqs.map((faq, index) => (
-              <FeedRow key={faq.question} date={`Q.${pad(index + 1)}`} title={faq.question}>
-                <p className="max-w-[65ch] font-serif text-lg leading-relaxed">{faq.answer}</p>
-              </FeedRow>
-            ))}
-          </FeedList>
-        </div>
-      </Chapter>
+      <LabGrid
+        as="section"
+        id="join-faq"
+        data-cinematic-section=""
+        data-cinematic-title="Common questions"
+        data-surface="paper"
+        aria-labelledby="join-faq-title"
+        className={SECTION}
+      >
+        <TableHeader label="FAQ" className="col-span-full" />
+        <LabCell>
+          <LabTitle id="join-faq-title" count={faqs.length}>
+            Common questions
+          </LabTitle>
+        </LabCell>
+        <LabCell span="1/15">
+          <p className={LAB_TEXT.lg}>Things people ask before applying.</p>
+        </LabCell>
+        <LabFeed labels={["No.", "Question"]}>
+          {faqs.map((faq, index) => (
+            <LabRow key={faq.question} label={`Q.${pad(index + 1)}`} title={faq.question}>
+              <p>{faq.answer}</p>
+            </LabRow>
+          ))}
+        </LabFeed>
+      </LabGrid>
 
-      {/* §05: orange campaign close with the staircase headline */}
-      <Chapter id="start-building" title="Ready to start building?" number={5} tone="orange" className="md:py-32">
-        <div className={GUTTER}>
-          <p className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em]">§05</p>
-          <Staircase lines={["Ready to", "start", "building?"]} />
-          <div className="mt-12 grid gap-8 md:mt-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-            <p className="max-w-[36ch] font-serif text-xl leading-snug md:text-2xl">
-              Join 1400+ teen builders who ship real projects.
-            </p>
-            <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-              <Button asChild variant="outline" size="lg">
-                <CtaLink href={DISCORD_INVITE_URL} external>
-                  Join Discord
-                </CtaLink>
-              </Button>
-              <Button asChild variant="burgundy" size="lg">
-                <CtaLink href={NOTION_JOIN_FORM_URL} external>
-                  Become a Contributor
-                </CtaLink>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <CtaLink href="/fork" external={false}>
-                  Launch a Fork
-                </CtaLink>
-              </Button>
-            </div>
-          </div>
-          <p className="mt-12 border-t-3 border-line pt-5 font-mono text-xs font-bold uppercase tracking-[0.12em]">
-            Questions? Reach us at{" "}
-            <a
-              href="mailto:hello@gobitsnbytes.org"
-              className="normal-case underline decoration-2 underline-offset-4 hover:decoration-4"
-            >
-              hello@gobitsnbytes.org
-            </a>
-          </p>
-        </div>
-      </Chapter>
+      {/* stripe.dev footer rows (auto / 164 / auto / 164 / auto) + the outlined closing word */}
+      <section
+        id="start-building"
+        data-cinematic-section=""
+        data-cinematic-title="Ready to start building?"
+        data-surface="paper"
+        aria-labelledby="start-building-title"
+        className="pt-24 min-[760px]:pt-[160px]"
+      >
+        <LabGrid>
+          <LabFooterRows>
+            <>
+              <LabCell span="1/19">
+                <LabTitle id="start-building-title" className={WRAP}>
+                  Ready to start building?
+                </LabTitle>
+              </LabCell>
+              <LabCell span="21/-1" className="justify-self-end self-start max-[759px]:hidden">
+                <LabGlobe />
+              </LabCell>
+            </>
+            <>
+              <LabCell span="1/9">
+                <p className={LAB_TEXT.lg}>Join 1400+ teen builders who ship real projects.</p>
+              </LabCell>
+              <LabCell span="11/-1" className="flex flex-col gap-4 sm:flex-row sm:flex-wrap min-[760px]:justify-end">
+                <Button asChild variant="outline">
+                  <LabLink href={DISCORD_INVITE_URL} className="group">
+                    <Cta>Join Discord</Cta>
+                  </LabLink>
+                </Button>
+                <Button asChild variant="burgundy">
+                  <LabLink href={NOTION_JOIN_FORM_URL} className="group">
+                    <Cta>Become a Contributor</Cta>
+                  </LabLink>
+                </Button>
+                <Button asChild variant="outline">
+                  <LabLink href="/fork" className="group">
+                    <Cta>Launch a Fork</Cta>
+                  </LabLink>
+                </Button>
+              </LabCell>
+            </>
+            <LabCell>
+              <p className="font-mono text-[12px] uppercase leading-[1.4]">
+                Questions? Reach us at{" "}
+                <LabLink
+                  href="mailto:hello@gobitsnbytes.org"
+                  className={cn("normal-case underline decoration-1 underline-offset-4", LAB_HOVER)}
+                >
+                  hello@gobitsnbytes.org
+                </LabLink>
+              </p>
+            </LabCell>
+          </LabFooterRows>
+        </LabGrid>
+        <HollowWord text="Join the crew" />
+      </section>
     </>
   );
 }

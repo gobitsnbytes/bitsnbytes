@@ -6,8 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Check, Loader2 } from "lucide-react";
 
-import { WIDE } from "@/components/chrome/wordmark";
 import { useMotionEnabled } from "@/components/experience-provider";
+import { LAB_TEXT } from "@/components/lab";
 import { Button } from "@/components/riot";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -147,7 +147,7 @@ export function ContactForm() {
           exit={{ opacity: 0, y: -8 }}
           transition={transition}
         >
-          <h2 className="font-display text-[clamp(36px,4vw,56px)] uppercase leading-[0.9]">Send Message</h2>
+          <h2 className={LAB_TEXT.title}>Send Message</h2>
 
           <form
             onSubmit={handleSubmit}
@@ -273,7 +273,7 @@ export function ContactForm() {
           <h2
             tabIndex={-1}
             ref={(node) => node?.focus({ preventScroll: true })}
-            className={cn(WIDE, "text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] outline-none")}
+            className={cn(LAB_TEXT.title, "outline-none")}
           >
             Transmission Dispatched
           </h2>
