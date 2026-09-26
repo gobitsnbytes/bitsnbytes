@@ -118,14 +118,18 @@ export function EventsReel() {
   useEffect(() => {
     if (!motion || !ready || player) return;
     let timer = 0;
-    const fire = () => {
+    // Not a moment for sound: tab hidden, a dialog (console, menu, cookies) open, preview paused, reel mostly gone.
+    const away = () => {
       const root = rootRef.current;
       const video = videoRef.current;
-      if (!root || !video) return;
+      if (!root || !video) return true;
       const r = root.getBoundingClientRect();
       const shown = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
       const covered = document.hidden || document.querySelector('[role="dialog"], [role="alertdialog"]');
-      if (covered || video.paused || shown < Math.min(r.height, window.innerHeight) * 0.6) return arm();
+      return Boolean(covered || video.paused || shown < Math.min(r.height, window.innerHeight) * 0.6);
+    };
+    const fire = () => {
+      if (away()) return arm();
       if (soundRef.current === "muted") return;
       if (navigator.userActivation?.hasBeenActive === false) setSound("hint");
       else listen();
@@ -151,6 +155,8 @@ export function EventsReel() {
     const visible = () => (document.hidden ? hush(0) : arm());
     const opts = { passive: true, capture: true };
     arm();
+    // Listening watchdog: a dialog opening (or anything in away()) without scroll input also ends it.
+    const watchdog = window.setInterval(() => soundRef.current === "on" && away() && stir(), 500);
     window.addEventListener("wheel", stir, opts);
     window.addEventListener("touchmove", stir, opts);
     window.addEventListener("scroll", stir, opts);
@@ -159,6 +165,7 @@ export function EventsReel() {
     document.addEventListener("visibilitychange", visible);
     return () => {
       window.clearTimeout(timer);
+      window.clearInterval(watchdog);
       window.removeEventListener("wheel", stir, opts);
       window.removeEventListener("touchmove", stir, opts);
       window.removeEventListener("scroll", stir, opts);
