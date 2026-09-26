@@ -59,11 +59,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://gobitsnbytes.org"),
   manifest: "/manifest.webmanifest",
   title: {
-    default: "bits&bytes™ | India's Boldest Youth Builder Network & Hackathons",
+    default: "bits&bytes™ | Teen-led builder network and hackathons",
     template: "%s | bits&bytes™",
   },
   description:
-    "A pan-India builder network run by teenagers. Hackathons, forks in cities across India, and real software shipped in public.",
+    "A builder network run by teenagers across India. We run hackathons where you ship real software, and local forks bring the format to your city.",
   keywords: [
     "bits&bytes™",
     "bits&bytes",
@@ -120,24 +120,24 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://gobitsnbytes.org",
     siteName: "bits&bytes™",
-    title: "bits&bytes™ | Pan-India Youth-Led Builder Network & Hackathons",
+    title: "bits&bytes™ | Teen-led builder network and hackathons",
     description:
-      "A pan-India builder network run by teenagers. Hackathons, forks in cities across India, and real software shipped in public.",
+      "A builder network run by teenagers across India. We run hackathons where you ship real software, and local forks bring the format to your city.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "bits&bytes™ - Pan-India Youth-Led Builder Network",
+        alt: "bits&bytes™: a teen-led builder network across India",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "bits&bytes™ | Pan-India Youth-Led Builder Network & Hackathons",
+    title: "bits&bytes™ | Teen-led builder network and hackathons",
     description:
-      "A pan-India builder network run by teenagers. Hackathons, forks in cities across India, and real software shipped in public.",
+      "A builder network run by teenagers across India. We run hackathons where you ship real software, and local forks bring the format to your city.",
     images: ["/og-image.png"],
     creator: "@gobitsnbytes",
     site: "@gobitsnbytes",
@@ -150,7 +150,7 @@ export const metadata: Metadata = {
     },
   },
   category: "education",
-  classification: "Nonprofit Pan-India Youth Builder Network",
+  classification: "Non-profit, teen-led builder network across India",
   other: {
     "msapplication-TileColor": "#97192C",
     "apple-mobile-web-app-capable": "yes",
@@ -199,7 +199,7 @@ export default function RootLayout({
         },
         image: "https://gobitsnbytes.org/og-image.png",
         description:
-          "India's premier pan-India youth-led builder network operated by GOBITSNBYTES FOUNDATION (Section 8 non-profit). Organizing student hackathons, hardware meetups, AI sprints, and local builder hubs across India.",
+          "A teen-led builder network across India, run by GOBITSNBYTES FOUNDATION (Section 8 non-profit). We organise student hackathons, hardware meetups and AI sprints, and local forks run chapters in cities across India.",
         disambiguatingDescription:
           "Pan-India youth builder network and Section 8 non-profit organisation (GOBITSNBYTES FOUNDATION). Not affiliated with the PyTorch Python library bitsandbytes, BNB cryptocurrency/Binance, or Airbnb.",
         foundingDate: "2025-11-01",
@@ -243,27 +243,27 @@ export default function RootLayout({
       {
         "@type": "HowTo",
         "@id": "https://gobitsnbytes.org/#howto-join",
-        name: "How to Join the bits&bytes™ Youth Builder Network",
-        description: "Step-by-step guide for teenagers aged 13-19 to join India's boldest developer community for free.",
+        name: "How to join bits&bytes™",
+        description: "How teenagers aged 13–19 join the bits&bytes™ community. It takes about five minutes and costs nothing.",
         totalTime: "PT5M",
         estimatedCost: { "@type": "MonetaryAmount", currency: "INR", value: "0" },
         step: [
           {
             "@type": "HowToStep",
-            name: "Apply Online",
-            text: "Fill out the free membership form at https://gobitsnbytes.org/join with your interests and GitHub/portfolio details.",
+            name: "Apply online",
+            text: "Fill in the free form at https://gobitsnbytes.org/join with what you like building and a GitHub or portfolio link.",
             url: "https://gobitsnbytes.org/join",
           },
           {
             "@type": "HowToStep",
-            name: "Join the Discord & WhatsApp Community",
-            text: "Get onboarded into your regional pod, introduce yourself, and meet fellow teen builders.",
+            name: "Join the Discord and WhatsApp community",
+            text: "Say hi in the server and meet the other teen builders.",
             url: "https://discord.gg/rjqPfwKKTE",
           },
           {
             "@type": "HowToStep",
-            name: "Attend Hackathons & Ship Real Software",
-            text: "Participate in weekend sprints, deploy on SparkCloud, or compete in city hackathons.",
+            name: "Come to a hackathon and ship something",
+            text: "Build at our hackathons (the workshops run inside them) and deploy what you make on SparkCloud.",
             url: "https://gobitsnbytes.org/events",
           },
         ],
@@ -279,7 +279,7 @@ export default function RootLayout({
     url: "https://gobitsnbytes.org",
     name: "bits&bytes™",
     description:
-      "India's youth-led builder network for hackathons, workshops, and building real projects",
+      "A teen-led builder network across India. We run hackathons and ship real projects.",
     publisher: {
       "@id": "https://gobitsnbytes.org/#organization",
     },
@@ -322,13 +322,13 @@ export default function RootLayout({
       {
         "@type": "WebPage",
         name: "About Us",
-        description: "Learn about bits&bytes™ - India's youth-led builder network",
+        description: "Who we are and how bits&bytes™ is run",
         url: "https://gobitsnbytes.org/about",
       },
       {
         "@type": "WebPage",
         name: "Events",
-        description: "Hackathons, workshops, and tech events for students",
+        description: "Hackathons we run and the ones we partner on",
         url: "https://gobitsnbytes.org/events",
       },
       {
@@ -339,20 +339,20 @@ export default function RootLayout({
       },
       {
         "@type": "WebPage",
-        name: "Fork Network",
-        description: "Local chapters and builder hubs across India",
+        name: "Fork network",
+        description: "Local chapters of bits&bytes™ in cities across India",
         url: "https://gobitsnbytes.org/fork",
       },
       {
         "@type": "WebPage",
-        name: "Press & Media Kit",
-        description: "Official logos, brand kit, facts, and press releases",
+        name: "Press and media kit",
+        description: "Logos, the brand kit, facts, and press releases",
         url: "https://gobitsnbytes.org/press",
       },
       {
         "@type": "WebPage",
         name: "Join Us",
-        description: "Join India's boldest youth-led builder network - free membership",
+        description: "Join the network. It is free for teenagers aged 13–19.",
         url: "https://gobitsnbytes.org/join",
       },
       {
