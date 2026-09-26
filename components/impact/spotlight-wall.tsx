@@ -16,7 +16,6 @@ import { CHAPTERS, trackRecord } from "./content";
 gsap.registerPlugin(ScrollTrigger);
 
 const pad = (n: number) => String(n).padStart(2, "0");
-const COUNT = pad(trackRecord.length);
 const POOL = 6;
 /** Pointer travel (px) between two trail cards. */
 const STEP = 120;
@@ -134,7 +133,7 @@ export function SpotlightWall() {
                 {CHAPTERS[1].title}
               </h2>
               <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-signal">
-                §02 — [{COUNT}]
+                §02 — What we ran
               </p>
             </header>
 
@@ -174,7 +173,7 @@ export function SpotlightWall() {
             >
               <div className="min-w-0">
                 <p className="font-mono text-xs font-bold tracking-[0.2em] text-signal">
-                  [{pad(active + 1)}/{COUNT}]
+                  [E.{pad(active + 1)}]
                 </p>
                 <p className="mt-2 max-w-[52ch] font-serif text-base leading-snug text-cream md:text-xl">{current.line}</p>
               </div>

@@ -24,7 +24,7 @@ export function CultureChapter() {
   const items = culturePillars.map((pillar, index) => (
     <article key={pillar.title}>
       <p className="font-mono text-[11px] font-bold tracking-[0.14em] text-signal">
-        [{pad(index + 1)}/{pad(culturePillars.length)}]
+        [P.{pad(index + 1)}]
       </p>
       <h3 className={cn(WIDE, "mt-3 text-[clamp(30px,3.4vw,52px)] uppercase leading-[0.9] tracking-[-0.02em]")}>
         {pillar.title}
@@ -39,11 +39,11 @@ export function CultureChapter() {
         id={CHAPTERS[3].id}
         number={4}
         title={CHAPTERS[3].title}
-        kicker={`[${pad(culturePillars.length)}]`}
+        kicker="Principles"
         art={{ src: "/event_pictures/h4g/h4g1.jpg", alt: "Hack4Good v0" }}
         className="max-md:[&_h2]:text-[13.5vw]"
       >
-        These aren&apos;t wall posters. This is how we actually operate every day.
+        The rules we fall back on when a build runs late and something has to give.
       </ChapterHero>
       <TornEdge from="ink" to="paper" />
       {/* Chapter body: not a chapter of its own, so the index keeps §04 lit while you read it. */}

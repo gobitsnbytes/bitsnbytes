@@ -11,7 +11,6 @@ import { SpotlightWall } from "@/components/impact/spotlight-wall";
 import { Chapter, TornEdge } from "@/components/riot";
 import { cn } from "@/lib/utils";
 
-const pad = (n: number) => String(n).padStart(2, "0");
 const explore = CHAPTERS[4];
 
 export default function Impact() {
@@ -19,7 +18,7 @@ export default function Impact() {
     <>
       <EditionOpener
         title={IMPACT_TITLE}
-        kicker="Impact Record · GOBITSNBYTES FOUNDATION"
+        kicker="[S.00] Our Impact"
         chapters={[...CHAPTERS]}
         art={{ src: "/event_pictures/HEe923uagAATqvy.jpg", alt: "India Innovates 2026 archive" }}
       />
@@ -48,14 +47,14 @@ export default function Impact() {
           <div className="grid gap-6 border-b-3 border-line pb-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end">
             <div>
               <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-signal">
-                §05 — [{pad(exploreLinks.length)}]
+                §05 — Next
               </p>
               <h2 className={cn(WIDE, "mt-2 text-[clamp(40px,6.4vw,104px)] uppercase leading-[0.86] tracking-[-0.03em]")}>
                 {explore.title}
               </h2>
             </div>
             <p className="max-w-[40ch] font-serif text-lg md:text-xl">
-              Learn about our events, local chapters, and press guidelines.
+              See what we&apos;ve run, how a fork works, or grab the press kit.
             </p>
           </div>
           <ul>

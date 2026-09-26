@@ -26,7 +26,6 @@ const TeamGlobe = dynamic(() => import("@/components/team-globe"), {
 });
 
 const pad = (n: number) => String(n).padStart(2, "0");
-const COUNT = pad(places.length);
 
 /**
  * ch.03 — the network globe pinned beside a sticky stack of the places the arcs run to. Whichever card
@@ -62,9 +61,7 @@ export function GlobeChapter() {
         <span className="truncate">
           <span className="text-orange">{current.place}</span> · {coords(current.at)}
         </span>
-        <span className="shrink-0">
-          [{pad(active + 1)}/{COUNT}]
-        </span>
+        <span className="shrink-0">[P.{pad(active + 1)}]</span>
       </div>
     </div>
   );
@@ -114,9 +111,9 @@ export function GlobeChapter() {
       <div className={cn("px-4 md:px-8", EDITION_GUTTER)}>
         <ChapterHead
           number={3}
-          label={`[${COUNT}]`}
+          label="On the map"
           title={CHAPTERS[2].title}
-          description="Workshops and hackathons that give you hands-on practice, access to mentors, and a chance to deploy things people actually use."
+          description="The globe marks every fork city, from Bangalore to Lucknow. The stops below are the venues where our events ran."
         />
         <StickyStack media={media} items={items} />
       </div>

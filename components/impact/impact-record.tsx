@@ -81,7 +81,7 @@ export function ImpactRecord() {
         <header className="flex flex-wrap items-end justify-between gap-x-8 gap-y-2 border-b-3 border-line pb-6">
           <h2 className="font-display text-[clamp(56px,9vw,144px)] uppercase leading-[0.86]">{CHAPTERS[0].title}</h2>
           <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-signal">
-            §01 — [{pad(highlightStats.length)}]
+            §01 — In words, not counts
           </p>
         </header>
 
