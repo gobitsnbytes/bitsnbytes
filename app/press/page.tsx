@@ -102,11 +102,12 @@ const logos = [
   },
 ] as const;
 
+// Facts, not counts (no aggregate numbers anywhere).
 const stats = [
-  { value: "1400+", label: "Active Builders" },
-  { value: "5+ Forks", label: "Chapters", href: "/fork" },
-  { value: "4+", label: "Events" },
-  { value: "16.5 Yrs", label: "Mean Age" },
+  { value: "Pan-India", label: "Reach" },
+  { value: "Forks", label: "Chapters", href: "/fork" },
+  { value: "Nov 2025", label: "Founded" },
+  { value: "13–19", label: "Ages" },
 ];
 
 const publicFacts = [
@@ -302,7 +303,7 @@ export default function PressKit() {
         </article>
       </PressSection>
 
-      {/* §04 about + numbers + public facts */}
+      {/* §04 about + facts */}
       <PressSection index={3}>
         <LabCell>
           <LabTitle id="about-title">About bits&amp;bytes™</LabTitle>
@@ -393,8 +394,8 @@ export default function PressKit() {
               <TableHeader as="h3" label="Boilerplate for Journalists" />
               <p className="mt-3 select-all font-serif text-base italic leading-relaxed">
                 &quot;bits&amp;bytes™ is an independent, student-led youth builder network operated by GOBITSNBYTES
-                FOUNDATION (Section 8 non-profit). Founded in Lucknow, India, it connects 1,400+ teenage developers to ship
-                real-world software and run independent hackathons.&quot;
+                FOUNDATION (Section 8 non-profit). Founded in November 2025, it is a pan-India community of teenage
+                developers who ship real-world software and run independent hackathons.&quot;
               </p>
             </div>
           </ConsoleWindow>
