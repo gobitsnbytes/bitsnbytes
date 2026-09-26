@@ -14,22 +14,22 @@ const homeFaqs: HomeFaqItem[] = [
   {
     question: "Who can join bits&bytes™?",
     answer:
-      "Any teenager aged 13-19 interested in coding, designing, or building products. Beginners are extremely welcome! No prior experience is required—you will learn by doing alongside other builders.",
+      "Any teenager aged 13–19 who wants to code, design or build products. Beginners are welcome and you don't need any prior experience. You learn by building next to people who are doing the same thing.",
   },
   {
     question: "Are the hackathons and workshops free?",
     answer:
-      "Yes, all bits&bytes™ events, cohorts, hackathons, and workshops are 100% free to attend, with meals, drinks, and stickers fully covered.",
+      "Yes. Every bits&bytes™ event, cohort, hackathon and workshop is free to attend, and we cover meals, drinks and stickers. Workshops run inside our hackathons, as part of the build.",
   },
   {
     question: "What makes bits&bytes™ different from other student groups?",
     answer:
-      "We are completely student-led, youth-led, and independent. We focus 100% on shipping real projects and developer agency. There are no passive lectures or boring slides—just pure coding and building.",
+      "Students run it, and we're independent: we aren't a branch of any outside group. Every event is built around shipping a real project. There are no passive lectures or slide decks, only people writing code and building things.",
   },
   {
-    question: "How do local hubs (Forks) work?",
+    question: "How do forks (local chapters) work?",
     answer:
-      "Forks are our local student-led chapters. Any teen builder can apply to start a Fork in their school or city to run events and workshops under our brand, with operational support and mentorship from Upstream.",
+      "Like a fork on GitHub: your own copy of upstream that stays linked to the original. Any teen builder can apply to start one in their school or city and run events under our brand, with operational support and mentorship from upstream. Apply at gobitsnbytes.org/fork.",
   },
 ];
 
@@ -44,8 +44,8 @@ export default function Home() {
 
       <TornEdge from="ink" to="paper" flip />
       <IndentStatement label="WHO WE ARE" number={1} id="who-we-are" className="[&>div]:px-[4vw]">
-        We are a youth-led builder network building the alternative to rigid, beginner-locked tech events. Run
-        entirely by teenagers, built from scratch.
+        We&apos;re a teen-led builder network across India, and our answer to rigid, beginner-locked tech events.
+        Teenagers run every part of it, and we built it from scratch.
       </IndentStatement>
       <HomeWorks />
 
