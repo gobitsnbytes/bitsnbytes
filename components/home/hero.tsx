@@ -11,10 +11,12 @@
  *    with a 1200ms safety fallback. Skipped when the wordmark is already on screen, so it never flashes.
  *  - Scroll-velocity RGB split → riso misregistration: burgundy + orange-lt plates slip up to ±10px with scroll
  *    velocity (gsap.quickTo) and snap back into register at rest.
- *  - Object that outruns the scroll + timed swap → ByteScene (R3F), mounted after requestIdleCallback.
+ *  - Object that outruns the scroll + timed swap → LogoCubeScene (R3F): the cube mark (public/logo.svg) as a real
+ *    3D cube, mounted after requestIdleCallback.
  *  - Hero footer row: dots glyph left, down-arrow centre (Lenis scroll to the reel).
  *
- * Reduced motion / motion toggle off: no intro, no plates, no WebGL; a static SVG byte sits in the object slot.
+ * Reduced motion / motion toggle off: no intro, no plates, no WebGL; the logo mark on a burgundy tile sits in the
+ * object slot.
  */
 
 import { useEffect, useRef, useState, useSyncExternalStore, type MouseEvent } from "react";
@@ -29,11 +31,12 @@ import { Button } from "@/components/ui/button";
 import { VideoModal } from "@/components/riot/video";
 import { useExperience } from "@/components/experience-provider";
 import { cn } from "@/lib/utils";
+import { CubeMark } from "@/components/chrome/wordmark";
 import { Wordmark } from "./wordmark";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const ByteScene = dynamic(() => import("./byte-scene"), { ssr: false });
+const LogoCubeScene = dynamic(() => import("./logo-cube-scene"), { ssr: false });
 
 const FILM = "/movie/bnb-movie.mp4";
 const noopSubscribe = () => () => {};
@@ -57,41 +60,15 @@ function hasWebGL() {
   }
 }
 
-/** Static byte for reduced motion / no WebGL: the same 2×2×2 cluster, drawn isometric with ink key lines. */
-function StaticByte({ className }: { className?: string }) {
+/** Static cube for reduced motion / no WebGL: the real mark (public/logo.svg) in paper on a burgundy tile. */
+function StaticCube({ className }: { className?: string }) {
   return (
-    <svg viewBox="-96 -172 192 278" aria-hidden className={className}>
-      <g stroke="var(--ink)" strokeWidth="3" strokeLinejoin="miter">
-        <path d="M0 -100 86.6 -50 0 0 -86.6 -50Z" fill="var(--cream)" />
-        <path d="M-86.6 -50 0 0 0 100 -86.6 50Z" fill="var(--burgundy-dk)" />
-        <path d="M0 0 86.6 -50 86.6 50 0 100Z" fill="var(--burgundy)" />
-        <path
-          d="M43.3 -75 -43.3 -25M-43.3 -75 43.3 -25M-43.3 -25V75M-86.6 0 0 50M43.3 -25V75M0 50 86.6 0"
-          fill="none"
-        />
-        <path
-          d="M50 0C53 31 69 47 100 50C69 53 53 69 50 100C47 69 31 53 0 50C31 47 47 31 50 0Z"
-          transform="translate(-27 -167) scale(0.54)"
-          vectorEffect="non-scaling-stroke"
-          fill="var(--cream)"
-        />
-      </g>
-      <text
-        transform="matrix(0.866 0.5 0 1 -86.6 -50)"
-        x="50"
-        y="80"
-        textAnchor="middle"
-        fontSize="78"
-        fontWeight="900"
-        fill="var(--cream)"
-        stroke="var(--ink)"
-        strokeWidth="3"
-        paintOrder="stroke"
-        style={{ fontFamily: "var(--font-archivo), Arial, sans-serif", fontStretch: "125%" }}
-      >
-        B
-      </text>
-    </svg>
+    <span
+      aria-hidden
+      className={cn("aspect-square place-items-center border-2 border-ink bg-burgundy shadow-riot", className)}
+    >
+      <CubeMark className="size-[70%] text-paper" />
+    </span>
   );
 }
 
@@ -188,7 +165,7 @@ export function HomeHero() {
     { scope: heroRef },
   );
 
-  // Scroll: progress for the byte + riso plates driven by scroll velocity.
+  // Scroll: progress for the cube + riso plates driven by scroll velocity.
   useGSAP(
     () => {
       const hero = heroRef.current;
@@ -225,7 +202,7 @@ export function HomeHero() {
     { scope: heroRef, dependencies: [motionOn], revertOnUpdate: true },
   );
 
-  // Mount the 3D byte at its beat, once the main thread is idle (never competes with the LCP).
+  // Mount the 3D cube at its beat, once the main thread is idle (never competes with the LCP).
   useEffect(() => {
     if (!motionOn || !objectCue || sceneOn) return;
     if (!hasWebGL()) {
@@ -258,7 +235,7 @@ export function HomeHero() {
       data-cinematic-title="the byte"
       className="tone-orange relative isolate flex min-h-[100svh] flex-col"
     >
-      {motionOn && sceneOn ? <ByteScene progress={progress} anchor={slotRef} /> : null}
+      {motionOn && sceneOn ? <LogoCubeScene progress={progress} anchor={slotRef} /> : null}
 
       <div className="relative flex flex-1 flex-col px-[4vw] pb-[clamp(18px,3vw,44px)] pt-[clamp(84px,9vw,132px)]">
         {/* Wordmark: ink copy in the h1 on top, two riso plates behind it. */}
@@ -279,12 +256,12 @@ export function HomeHero() {
           <span className="block">innovate &bull; collaborate &bull; hack</span>
         </p>
 
-        {/* Object slot: the byte (or its static print) centres here and overlaps the type a little. */}
+        {/* Object slot: the cube (or its static mark) centres here and overlaps the type a little. */}
         <div ref={slotRef} className="relative my-[clamp(12px,2vw,28px)] min-h-[28svh] flex-1">
-          <StaticByte
+          <StaticCube
             className={cn(
-              "absolute left-1/2 top-1/2 hidden h-[118%] max-w-[80vw] -translate-x-1/2 -translate-y-1/2 motion-reduce:block motion-off:block",
-              webgl === false && "block",
+              "absolute left-1/2 top-1/2 hidden h-[92%] max-h-[320px] -translate-x-1/2 -translate-y-1/2 motion-reduce:grid motion-off:grid",
+              webgl === false && "grid",
             )}
           />
         </div>
