@@ -35,7 +35,7 @@ type ExperienceContextValue = {
   motionEnabled: boolean;
   toggleMotion: () => void;
   startTour: () => void;
-  /** The one Lenis instance (null when motion is off, on /qna, or before mount). */
+  /** The one Lenis instance (null when motion is off or before mount). */
   lenis: Lenis | null;
   /** Chapters discovered on the current page ([data-cinematic-section], top level, in order). */
   chapters: EditionChapter[];
@@ -130,7 +130,7 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
   }, [motionPref]);
 
   useEffect(() => {
-    if (!motionEnabled || pathname === "/qna") return;
+    if (!motionEnabled) return;
 
     const instance = new Lenis({
       duration: 1.05,

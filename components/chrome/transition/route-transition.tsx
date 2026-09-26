@@ -23,8 +23,8 @@ const EASE = "power3.out";
 /** A push that never commits (redirect back to this path, error) must not leave the page covered. */
 const FAILSAFE_MS = 8000;
 
-/** Pinned full-viewport stages keep their opt-out; route handlers need a real document load. */
-const SKIP = new Set(["/fork", "/minecraft", "/logo", ...ROUTES.filter((route) => route.handler).map((route) => route.href)]);
+/** Route handlers (and /logo) need a real document load. */
+const SKIP = new Set(["/logo", ...ROUTES.filter((route) => route.handler).map((route) => route.href)]);
 
 // Deterministic hash in [0, 1) (murmur3 finaliser): server and client render the same grid, no
 // Math.random at render.
