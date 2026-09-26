@@ -23,9 +23,9 @@ import { cn } from "@/lib/utils";
 import { ConnectAddress, LiveStats, ServerReel } from "./minecraft-live";
 
 export const metadata: Metadata = {
-  title: "Free Minecraft Survival Server India | Java + Bedrock | mc.gobitsnbytes.org",
+  title: "Free Minecraft survival server, Java + Bedrock",
   description:
-    "India's best free Minecraft survival server — Java & Bedrock crossplay, 1.21.1 Purpur, zero mods, 20 TPS, CoreProtect anti-grief, daily backups. Connect now: mc.gobitsnbytes.org · Student-run by bits&bytes™.",
+    "Free Minecraft 1.21.1 survival on Java and Bedrock, no mods, no pay-to-win. Student-run by bits&bytes™. Connect at mc.gobitsnbytes.org",
   keywords: [
     // Server type & version
     "minecraft survival server india",
@@ -90,9 +90,9 @@ export const metadata: Metadata = {
     canonical: "https://gobitsnbytes.org/minecraft",
   },
   openGraph: {
-    title: "Free Minecraft Server India 🎮 Java + Bedrock | mc.gobitsnbytes.org",
+    title: "Free Minecraft survival server, Java + Bedrock | bits&bytes™",
     description:
-      "No pay-to-win. No mods needed. Zero lag. India's student-run Minecraft survival server — Java & Bedrock crossplay on 1.21.1. Connect: mc.gobitsnbytes.org",
+      "Free Minecraft 1.21.1 survival on Java and Bedrock, no mods, no pay-to-win. Student-run by bits&bytes™. Connect at mc.gobitsnbytes.org",
     url: "https://gobitsnbytes.org/minecraft",
     type: "website",
     siteName: "bits&bytes™",
@@ -101,15 +101,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "bits&bytes™ Minecraft Server — Free Java & Bedrock Crossplay, India",
+        alt: "bits&bytes™ Minecraft server: free Java and Bedrock crossplay",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Minecraft Server India 🎮 Java + Bedrock Crossplay",
+    title: "Free Minecraft survival server, Java + Bedrock | bits&bytes™",
     description:
-      "Zero mods. Zero pay-to-win. 20 TPS. CoreProtect anti-grief. Connect on Java or Bedrock: mc.gobitsnbytes.org — India's student-run survival SMP.",
+      "Free Minecraft 1.21.1 survival on Java and Bedrock, no mods, no pay-to-win. Student-run by bits&bytes™. Connect at mc.gobitsnbytes.org",
     images: ["/og-image.png"],
     creator: "@gobitsnbytes",
   },
@@ -134,9 +134,9 @@ const minecraftJsonLd = {
       "@type": "WebPage",
       "@id": "https://gobitsnbytes.org/minecraft#webpage",
       url: "https://gobitsnbytes.org/minecraft",
-      name: "Free Minecraft Survival Server India | Java + Bedrock | mc.gobitsnbytes.org",
+      name: "Free Minecraft survival server, Java + Bedrock | bits&bytes™",
       description:
-        "India's best free Minecraft survival server — Java & Bedrock crossplay, 1.21.1 Purpur, zero mods, 20 TPS, CoreProtect anti-grief.",
+        "Free Minecraft 1.21.1 survival on Java and Bedrock, no mods, no pay-to-win. Student-run by bits&bytes™. Connect at mc.gobitsnbytes.org",
       isPartOf: { "@id": "https://gobitsnbytes.org/#website" },
       breadcrumb: {
         "@type": "BreadcrumbList",
@@ -170,14 +170,14 @@ const minecraftJsonLd = {
       applicationSubCategory: "Multiplayer Game Server",
       operatingSystem: ["Windows", "macOS", "Linux", "Android", "iOS"],
       description:
-        "India's free student-run Minecraft 1.21.1 survival server with Java and Bedrock crossplay. No mods required. CoreProtect anti-grief. 20 TPS on Azure. Open to all players.",
+        "A free, student-run Minecraft 1.21.1 survival server hosted on Azure in India. Java and Bedrock crossplay, no mods required, CoreProtect rollbacks. Open to all players.",
       url: "https://gobitsnbytes.org/minecraft",
       sameAs: ["https://github.com/gobitsnbytes/minecraft-server"],
       offers: {
         "@type": "Offer",
         price: "0",
         priceCurrency: "INR",
-        description: "Free to join — no subscription, no pay-to-win",
+        description: "Free to join. No subscription, no pay-to-win.",
         availability: "https://schema.org/InStock",
       },
       provider: {
@@ -188,16 +188,14 @@ const minecraftJsonLd = {
         "Bedrock Edition support (port 19132)",
         "Java and Bedrock crossplay",
         "Minecraft 1.21.1 Purpur server core",
-        "Zero mods required — vanilla experience",
-        "20 TPS lag-free gameplay",
+        "No mods required",
         "G1GC tuned Java 21 runtime",
         "3000 chunk pre-generated radius",
-        "CoreProtect anti-grief with 1.4M+ block logs",
+        "CoreProtect block change logs",
         "48-hour block rollback window",
         "Daily world snapshots",
         "DiscordSRV in-game chat bridge",
         "Azure-hosted 4 vCPU 8 GB RAM",
-        "99.98% uptime",
         "Student-run and community-moderated",
         "Open-source server config on GitHub",
       ],
@@ -210,20 +208,13 @@ const minecraftJsonLd = {
           name: "India",
         },
       },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "5",
-        bestRating: "5",
-        worstRating: "1",
-        ratingCount: "1",
-      },
       screenshot: "/og-image.png",
     },
     {
       "@type": "HowTo",
       "@id": "https://gobitsnbytes.org/minecraft#howto-connect",
-      name: "How to Join the bits&bytes™ Minecraft Server",
-      description: "Quick setup instructions to connect on PC (Java) or Mobile/Console (Bedrock) using IP mc.gobitsnbytes.org.",
+      name: "How to join the bits&bytes™ Minecraft server",
+      description: "Connect on PC (Java) or on mobile and console (Bedrock) with the address mc.gobitsnbytes.org.",
       totalTime: "PT2M",
       step: [
         {
@@ -233,75 +224,13 @@ const minecraftJsonLd = {
         },
         {
           "@type": "HowToStep",
-          name: "Add Server",
-          text: "Click Multiplayer -> Add Server. Set Server Address to mc.gobitsnbytes.org (Port 25565 for Java, 19132 for Bedrock).",
+          name: "Add the server",
+          text: "Go to Multiplayer, then Add Server. Set the server address to mc.gobitsnbytes.org (port 25565 on Java, 19132 on Bedrock).",
         },
         {
           "@type": "HowToStep",
-          name: "Connect & Play",
-          text: "Double-click the server to join immediately with zero mods required.",
-        },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://gobitsnbytes.org/minecraft#faq",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What is the IP address for the bits&bytes™ Minecraft server?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "The server IP is mc.gobitsnbytes.org. Java Edition: port 25565 (default). Bedrock Edition: port 19132.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Is the bits&bytes™ Minecraft server free to join?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes, it is completely free. There is no subscription, no pay-to-win, and no premium required. Just connect using the server IP mc.gobitsnbytes.org.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Does the Minecraft server support Bedrock and Java crossplay?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes! The server fully supports Java and Bedrock crossplay. Java players connect on port 25565, Bedrock and Pocket Edition players connect on port 19132 — both using the IP mc.gobitsnbytes.org.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What Minecraft version does the server run?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "The server runs Minecraft 1.21.1 on a Purpur server core with Java 21 and G1GC tuning for maximum performance. No mods or texture packs are required.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Is the server based in India?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes. The server is hosted on Microsoft Azure infrastructure in India, giving Indian players the best latency. It is student-run by the bits&bytes™ team, a pan-India Section 8 nonprofit.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Is there protection against griefing on the server?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes. The server uses CoreProtect with over 1.4 million block change logs and a 48-hour rollback window. Any grief can be undone. Audit logs and active moderation keep the server safe.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Can Pocket Edition (MCPE) players join?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes! Pocket Edition and Bedrock players on mobile, console, and Windows can join using the IP mc.gobitsnbytes.org on port 19132.",
-          },
+          name: "Connect and play",
+          text: "Double-click the server to join. You don't need any mods.",
         },
       ],
     },
@@ -317,7 +246,7 @@ const specs: { title: string; rows: [key: string, value: ReactNode][] }[] = [
     rows: [
       ["Core:", "Purpur 1.21.1"],
       ["Compiler:", "Java 21"],
-      ["GC:", "G1GC Tuned"],
+      ["GC:", "G1GC, tuned"],
       ["Pre-Gen:", "3000 radius"],
       ["Mods:", "0 required"],
     ],
@@ -341,7 +270,7 @@ const specs: { title: string; rows: [key: string, value: ReactNode][] }[] = [
     title: "Protection",
     rows: [
       ["Engine:", "CoreProtect"],
-      ["History:", "1.4M block logs"],
+      ["History:", "Block change logs"],
       ["Rollback:", "48-hour window"],
       ["Chat bridge:", "DiscordSRV"],
       ["Audit:", "Audit logs"],
@@ -380,14 +309,14 @@ export default function MinecraftPage() {
 
       <section
         data-cinematic-section=""
-        data-cinematic-title="Build. Explore. Belong."
+        data-cinematic-title="Survival, run by students."
         data-surface="paper"
       >
         <LabHero
-          lines={["Build.", "Explore.", "Belong."]}
+          lines={["Survival,", "run by", "students."]}
           glyph={<PixelGlyph text="MC" decorative />}
           aside={<LabGlobe />}
-          subtitle={<p>Built for builders. Java + Bedrock. 0 mods required.</p>}
+          subtitle={<p>Java and Bedrock in one world. No mods needed.</p>}
           className={HERO_FIT}
         >
           <div className="flex flex-wrap items-center gap-3">
@@ -417,14 +346,14 @@ export default function MinecraftPage() {
         as="section"
         id="specs"
         data-cinematic-section=""
-        data-cinematic-title="Operations & Specs"
+        data-cinematic-title="Operations & specs"
         data-surface="paper"
         aria-labelledby="specs-title"
         className={cn(SECTION, "gap-y-14")}
       >
         <LabCell>
           <LabTitle id="specs-title" count={specs.length}>
-            Operations &amp; Specs
+            Operations &amp; specs
           </LabTitle>
         </LabCell>
         {specs.map((group) => (
