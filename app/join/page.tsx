@@ -11,15 +11,13 @@ import {
   LabFooterRows,
   LabGlobe,
   LabGrid,
-  LabHero,
   LabLink,
-  LabTag,
   LabTitle,
-  PixelGlyph,
   TableHeader,
 } from "@/components/lab";
-import { Button } from "@/components/riot";
+import { Button, TornEdge } from "@/components/riot";
 import { Character } from "@/components/character/character";
+import { JoinBillboard } from "@/components/join/billboard";
 import { FORK_CITIES } from "@/lib/forks";
 import { cn } from "@/lib/utils";
 
@@ -126,18 +124,9 @@ function Cta({ children }: { children: string }) {
 export default function Join() {
   return (
     <>
-      <section data-cinematic-section="" data-cinematic-title="Join the crew" data-surface="paper">
-        <LabHero
-          lines={["Join the ", "crew"]}
-          glyph={<PixelGlyph text="JOIN" decorative />}
-          aside={<LabGlobe />}
-          subtitle={
-            <p>Pick how you want to build with us. We&apos;ll match you with a squad and a mentor, on a project that ships.</p>
-          }
-        >
-          <LabTag>Applications open</LabTag>
-        </LabHero>
-      </section>
+      {/* Netflix title page for Episode 1; its film ends on black and morphs into this hero. */}
+      <JoinBillboard applyHref={NOTION_JOIN_FORM_URL} discordHref={DISCORD_INVITE_URL} />
+      <TornEdge from="ink" to="paper" />
 
       {/* the three ways in, inside console chrome, beside the seeded Fig. 1 */}
       <LabGrid
