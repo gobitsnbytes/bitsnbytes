@@ -229,6 +229,29 @@ export const RECIPES = {
   rustle,
   glitch,
   chord,
+  // TODO(sound pass): the cinematic / mindful vocabulary, aliased until re-voiced
+  hover: tick,
+  press: thock,
+  release: tick,
+  focus: tick,
+  toggleOn: tick,
+  toggleOff: tick,
+  open: sweep(true),
+  close: sweep(false),
+  section: bell,
+  copy: pluck,
+  success: chord,
+  error: glitch,
+  nav: sweep(true),
+  ready: chord,
+  sting: chord,
+  riser: sweep(true),
+  impact: thock,
+  whoosh: rustle,
+  shimmer: bell,
+  scramble: glitch,
+  land: pluck,
+  resolve: chord,
 } satisfies Record<string, Recipe>;
 export type SoundName = keyof typeof RECIPES;
 
@@ -256,6 +279,13 @@ export function setVolume(v: number) {
     window.localStorage.setItem(VOLUME_KEY, String(next));
   } catch {}
   if (master) master.gain.value = next;
+}
+
+let ducked = false;
+/** While a film plays with sound, UI cues sit well under it. */
+export function duck(on: boolean) {
+  ducked = on;
+  if (master) master.gain.value = getVolume() * (ducked ? 0.3 : 1);
 }
 
 /** Create (or resume) the context. Call only from a trusted user gesture, and only while sound is on. */

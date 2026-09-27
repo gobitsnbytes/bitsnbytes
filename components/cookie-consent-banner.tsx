@@ -53,6 +53,8 @@ export function CookieConsentBanner() {
       {visible && (
         <motion.aside
           role="dialog"
+          data-ambient=""
+          data-theatre-hide=""
           aria-label="Cookie and Privacy Choices"
           aria-live="polite"
           initial={{ y: offset, opacity: 0 }}
