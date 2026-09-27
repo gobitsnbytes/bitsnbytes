@@ -16,8 +16,15 @@
  * scale .92→1 as the curtain lifts, while the full-bleed copy counter-drifts (transform only).
  * "[ WATCH FILM ]" (the whole window is the hit area) opens the FilmPlayer with sound (its end card hands off to the hero).
  *
- * Reduced motion / motion toggle off: no video, no scrubs; the frame shows a still (bnb-trailer-poster.jpg) over a halftone field.
- * Media only loads after the curtain starts to lift, so nothing here competes with the hero LCP.
+ * Netflix billboard (components/cinema/theatre.ts useDwell): once the visitor stops scrolling with the reel filling
+ * most of the screen, the ring in [ WATCH FILM ] fills over 2 s (data-dwell="arming" on the section), then the
+ * FilmPlayer opens in theatre mode: it grows out of this window to full screen, plays the ident and the trailer from
+ * the start with sound, and at the end card lands back here (not on the hero). Any scroll hands it back to this
+ * muted reel first. Once per session (hasSeen), and not once the film was watched from a button.
+ *
+ * Reduced motion / motion toggle off: no video, no scrubs, no dwell; the frame shows a still (bnb-trailer-poster.jpg)
+ * over a halftone field, and [ WATCH FILM ] still plays it. Media only loads after the curtain starts to lift, so
+ * nothing here competes with the hero LCP.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -26,6 +33,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
+import { hasSeen, useDwell } from "@/components/cinema/theatre";
 import { useMotionEnabled } from "@/components/experience-provider";
 import { Window } from "@/components/riot/window";
 import { FilmPlayer } from "./film-player";
@@ -71,7 +79,19 @@ export function HomeReel() {
   const frameRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const screenRef = useRef<HTMLDivElement>(null);
   const [lifted, setLifted] = useState(false);
+  const [film, setFilm] = useState<{ open: boolean; mode: "window" | "theatre" }>({ open: false, mode: "window" });
+  // Auto-plays once per session; watching it from a button counts.
+  const [seen, setSeen] = useState(false);
+
+  useDwell(sectionRef, {
+    enabled: motionOn && lifted && !film.open && !seen,
+    onDwell: () => {
+      setSeen(true);
+      if (!hasSeen(FILM)) setFilm({ open: true, mode: "theatre" }); // (the hero's player may have shown it since)
+    },
+  });
 
   // Load media once the curtain has started to lift (i.e. after the first scroll, when LCP is already final).
   useEffect(() => {
@@ -81,6 +101,7 @@ export function HomeReel() {
       ([entry]) => {
         if (!entry.isIntersecting) return;
         setLifted(true);
+        setSeen(hasSeen(FILM));
         io.disconnect();
       },
       { rootMargin: "0px 0px -8% 0px" },
@@ -158,7 +179,7 @@ export function HomeReel() {
       data-surface="ink"
       data-cinematic-section=""
       data-cinematic-title="the film"
-      className="tone-ink relative h-[100svh] [clip-path:inset(0)]"
+      className="group/reel tone-ink relative h-[100svh] [clip-path:inset(0)]"
     >
       {/* The fixed picture this section windows onto. */}
       <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -181,7 +202,7 @@ export function HomeReel() {
             className="w-[min(88vw,calc((100svh-9rem)*16/9))] md:w-[min(75vw,calc((100svh-12rem)*16/9))]"
           >
             <Window title={TITLE} bar="orange" bodyClassName="p-0">
-              <div className="relative aspect-video bg-ink">
+              <div ref={screenRef} className="relative aspect-video bg-ink">
                 {lifted ? (
                   <Image src={STILL} alt="" fill sizes="(min-width: 768px) 75vw, 88vw" className="object-cover" />
                 ) : null}
@@ -202,14 +223,43 @@ export function HomeReel() {
         </div>
       </div>
 
-      <FilmPlayer src={FILM} poster={STILL} title={TITLE}>
+      <FilmPlayer
+        src={FILM}
+        poster={STILL}
+        title={TITLE}
+        open={film.open}
+        mode={film.mode}
+        from={screenRef}
+        onOpenChange={(open) => {
+          if (open) setSeen(true);
+          setFilm((prev) => ({ open, mode: open ? "window" : prev.mode }));
+        }}
+      >
         <button
           type="button"
           aria-label="Watch film"
           data-cursor-label="WATCH FILM"
           className="group absolute inset-0 z-10 flex cursor-pointer items-end justify-center pb-[clamp(20px,5svh,56px)] outline-none"
         >
-          <span className="border-2 border-line bg-ink px-4 py-2.5 font-mono text-xs font-bold uppercase tracking-[0.2em] text-paper shadow-[3px_3px_0_0_var(--orange)] transition-[transform,box-shadow] duration-150 ease-riot group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-[5px_5px_0_0_var(--orange)] group-focus-visible:outline-3 group-focus-visible:outline-solid group-focus-visible:outline-offset-3 group-focus-visible:outline-(color:--focus-ring) motion-reduce:transition-none">
+          <span className="flex items-center gap-2.5 border-2 border-line bg-ink px-4 py-2.5 font-mono text-xs font-bold uppercase tracking-[0.2em] text-paper shadow-[3px_3px_0_0_var(--orange)] transition-[transform,box-shadow] duration-150 ease-riot group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-[5px_5px_0_0_var(--orange)] group-focus-visible:outline-3 group-focus-visible:outline-solid group-focus-visible:outline-offset-3 group-focus-visible:outline-(color:--focus-ring) motion-reduce:transition-none">
+            {/* Play mark in a ring that fills while the dwell counts down to the theatre. */}
+            <svg viewBox="0 0 20 20" aria-hidden className="size-4 shrink-0">
+              <circle cx="10" cy="10" r="8.5" fill="none" stroke="currentColor" strokeOpacity={0.3} strokeWidth={2} />
+              <circle
+                cx="10"
+                cy="10"
+                r="8.5"
+                transform="rotate(-90 10 10)"
+                fill="none"
+                stroke="var(--orange)"
+                strokeWidth={2}
+                pathLength={1}
+                strokeDasharray={1}
+                strokeDashoffset={1}
+                className="group-data-[dwell=arming]/reel:animate-dwell"
+              />
+              <path d="M8 6.2v7.6l6-3.8z" fill="currentColor" />
+            </svg>
             [ WATCH FILM ]
           </span>
         </button>
