@@ -277,6 +277,19 @@
             transform: translate3d(-50%, 0, 0);
         }
     }
+
+    /* Film dwell countdown (components/cinema/theatre.ts useDwell): an SVG stroke with pathLength="1" fills over the
+       2s stillness. Usage: stroke-dasharray-1 + group-data-[dwell=arming]:animate-dwell */
+    --animate-dwell: dwell 2s linear forwards;
+
+    @keyframes dwell {
+        from {
+            stroke-dashoffset: 1;
+        }
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
 }
 
 @layer base {
