@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ComponentProps, type CSSProperties } from "react";
+import { useRef, type ComponentProps, type CSSProperties, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -26,6 +26,9 @@ type BaseProps = {
   className?: string;
   /** Extra attributes for the h1 (data-speakable, id…). */
   h1Props?: ComponentProps<"h1">;
+  /** Extra layers inside the sticky stage, painted above the art and below the construction lines, frame and
+   *  content (e.g. /impact's film, components/impact/film.tsx). */
+  children?: ReactNode;
 };
 
 /** Anything else (data-*, aria-*, id…) lands on the root <section>. */
@@ -132,6 +135,7 @@ export function EditionOpener({
   tone,
   className,
   h1Props,
+  children,
   ...rest
 }: EditionOpenerProps) {
   const root = useRef<HTMLElement>(null);
@@ -222,6 +226,8 @@ export function EditionOpener({
             <div data-scrim aria-hidden className="absolute inset-0 bg-ink opacity-55" />
           </div>
         ) : null}
+
+        {children}
 
         <ConstructionLines />
 

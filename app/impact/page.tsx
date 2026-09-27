@@ -5,6 +5,7 @@ import { Breadcrumbs } from "@/components/breadcrumb";
 import { EDITION_GUTTER, EditionOpener, SerifStatement } from "@/components/edition";
 import { CHAPTERS, IMPACT_LEDE, IMPACT_TITLE, exploreLinks } from "@/components/impact/content";
 import { CultureChapter } from "@/components/impact/culture-chapter";
+import { ImpactFilm } from "@/components/impact/film";
 import { GlobeChapter } from "@/components/impact/globe-chapter";
 import { ImpactRecord } from "@/components/impact/impact-record";
 import { SpotlightWall } from "@/components/impact/spotlight-wall";
@@ -21,7 +22,9 @@ export default function Impact() {
         kicker="[S.00] Our Impact"
         chapters={[...CHAPTERS]}
         art={{ src: "/event_pictures/HEe923uagAATqvy.jpg", alt: "India Innovates 2026 archive" }}
-      />
+      >
+        <ImpactFilm />
+      </EditionOpener>
       <TornEdge from="ink" to="paper" />
       <div data-surface="paper" className="tone-paper">
         <div className={cn("px-4 pt-10 md:px-8 md:pt-14", EDITION_GUTTER)}>
