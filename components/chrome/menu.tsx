@@ -9,7 +9,7 @@ import { useExperience } from "@/components/experience-provider";
 import { ScrambleText } from "@/components/riot/scramble-text";
 import { cn } from "@/lib/utils";
 import { openConsole, setShortcutsEnabled, useShortcutsEnabled } from "./hotkeys/shortcuts";
-import { getVolume, setSoundEnabled, setVolume, useSoundEnabled } from "./sound/engine";
+import { getVolume, play, setSoundEnabled, setVolume, useSoundEnabled } from "./sound/engine";
 import { ROUTES, SOCIALS, isActive, pad } from "./links";
 import { CubeMark } from "./wordmark";
 
@@ -209,7 +209,11 @@ export function MenuPanel({ pathname, instant, onNavigate }: MenuPanelProps) {
                       max={100}
                       step={5}
                       defaultValue={Math.round(getVolume() * 100)}
-                      onChange={(e) => setVolume(Number(e.currentTarget.value) / 100)}
+                      onChange={(e) => {
+                        const v = Number(e.currentTarget.value) / 100;
+                        setVolume(v);
+                        play("focus", Math.round(v * 6)); // hear the new level; the note climbs with it
+                      }}
                       style={{ accentColor: "currentColor", width: "6em", borderRadius: 0 }}
                     />
                   </label>

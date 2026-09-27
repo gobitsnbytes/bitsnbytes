@@ -13,8 +13,6 @@ import { Wordmark } from "./wordmark";
 import { LOGO_HEX, LOGO_PIECES, LOGO_VIEWBOX } from "./intro/data";
 import { play } from "./sound/engine";
 
-let lastTick = 0;
-
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 // Geographic centre of India: we are pan-India, so no single city is "home".
@@ -90,14 +88,13 @@ export function Footer() {
             x: 0,
             y: 0,
             ease: "power3.out",
-            // A soft tick as each piece lands; throttled so a fast scrub doesn't machine-gun.
+            // A soft felt tap as each piece lands, walking up the scale and panned left to right across the four
+            // pieces (the engine's per-cue gap keeps a fast scrub from machine-gunning).
             stagger: {
               each: 0.08,
-              onComplete: () => {
-                const now = performance.now();
-                if (now - lastTick < 90) return;
-                lastTick = now;
-                play("tick");
+              onComplete(this: gsap.core.Tween) {
+                const i = Math.max(0, LOGO_PIECES.findIndex((p) => p.d === this.targets<Element>()[0]?.getAttribute("d")));
+                play("hover", i, { pan: -0.45 + i * 0.3 });
               },
             },
           },

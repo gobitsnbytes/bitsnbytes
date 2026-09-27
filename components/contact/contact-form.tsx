@@ -132,7 +132,7 @@ export function ContactForm() {
       }
 
       setIsSuccess(true);
-      play("chord");
+      play("success");
       setStatus({
         type: "success",
         message: "Sent. We'll get back to you soon.",
@@ -140,7 +140,7 @@ export function ContactForm() {
       form.reset();
     } catch (err: unknown) {
       console.error(err);
-      play("glitch");
+      play("error");
       setStatus({
         type: "error",
         message:

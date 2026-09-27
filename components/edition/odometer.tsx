@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
-import { play } from "@/components/chrome/sound/engine";
+import { panOf, play } from "@/components/chrome/sound/engine";
 import { useMotionEnabled } from "@/components/experience-provider";
 import { cn } from "@/lib/utils";
 
@@ -45,8 +45,11 @@ export function Odometer({ value, label, detail, className }: OdometerProps) {
       if (!motion || !armed || !root.current) return;
       const q = gsap.utils.selector(root);
       const tl = gsap.timeline({ scrollTrigger: { trigger: root.current, start: "top 85%", once: true } });
-      // A quiet tick per digit as it starts rolling, spaced >= 90 ms so long figures don't machine-gun.
-      q("[data-strip]").forEach((_, i) => tl.call(() => play("tick"), [], i * 0.09));
+      // Each digit sings a rising degree as it starts rolling, placed where it sits (>= 90 ms apart, so long figures
+      // never machine-gun); the figure clicks home as the rolls settle.
+      const box = root.current;
+      const strips = q("[data-strip]");
+      strips.forEach((strip, i) => tl.call(() => play("focus", i, { pan: panOf(strip) }), [], i * 0.09));
       tl.fromTo(
           q("[data-strip]"),
           { y: 0, yPercent: 0 },
@@ -58,6 +61,10 @@ export function Odometer({ value, label, detail, className }: OdometerProps) {
           },
         )
         .fromTo(q("[data-rule]"), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "expo.out" }, 0.1);
+      // expo.out has visibly settled ~0.75 s into the roll (which starts after the last digit's cue)
+      if (strips.length) {
+        tl.call(() => play("land", strips.length, { gain: 0.6, pan: panOf(box) }), [], (strips.length - 1) * 0.09 + 0.75);
+      }
     },
     { scope: root, dependencies: [motion, armed], revertOnUpdate: true },
   );

@@ -156,7 +156,7 @@ export function QnAChatInterface({ className }: { className?: string }) {
           const now = performance.now();
           if (now - lastTickRef.current >= 60) {
             lastTickRef.current = now;
-            play("key");
+            play("key", 0, { gain: 0.35 }); // streaming text types softly under the reader
           }
           update((prev) => prev + chunk);
         },

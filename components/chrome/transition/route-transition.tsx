@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useExperience } from "@/components/experience-provider";
+import { play } from "../sound/engine";
 import { cn } from "@/lib/utils";
 import { ROUTES } from "../links";
 
@@ -133,6 +134,9 @@ export function RouteTransition() {
     router.prefetch(href);
     toTop.current = !href.includes("#");
     setPhase("cover");
+    // The tiles rise on a gust (at half level: -28 dBFS like the "nav" cue that lands the new page as they retract,
+    // not a film-sized -22 on every click).
+    play("whoosh", 0, { gain: 0.5 });
     gsap.set(tiles, { transformOrigin: "50% 100%" });
     gsap.to(tiles, {
       scaleY: 1,
