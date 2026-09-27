@@ -50,17 +50,6 @@
         transform: translate3d(0, -110%, 0);
     }
 
-    /* A film is playing full screen (components/cinema/theatre.ts): the nav and floating chrome step aside. */
-    html[data-theatre] .bnb-nav {
-        transform: translate3d(0, -110%, 0);
-    }
-
-    html[data-theatre] [data-theatre-hide] {
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.5s ease;
-    }
-
     /* ---------- Square outline button with a top-down fill wipe (buttermax pill, squared) ---------- */
     .bnb-btn {
         position: relative;
@@ -238,4 +227,16 @@
 /* The layout's skip link must sit above the fixed chrome. */
 a[href="#main-content"]:focus {
     z-index: 1300;
+}
+
+/* A film is playing full screen (components/cinema/theatre.ts): the nav and floating chrome step aside. Unlayered
+   (and !important for the hide) so utility opacity classes and inline animation styles can't keep them on screen. */
+html[data-theatre] .bnb-nav {
+    transform: translate3d(0, -110%, 0);
+}
+
+html[data-theatre] [data-theatre-hide] {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.5s ease !important;
 }

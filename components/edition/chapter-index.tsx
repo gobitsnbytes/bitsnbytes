@@ -93,6 +93,7 @@ export function ChapterIndex({ title, chapters, active, onJump }: ChapterIndexPr
     <>
       <nav
         aria-label="Chapters"
+        data-theatre-hide=""
         className={cn(
           "pointer-events-none fixed bottom-8 left-6 top-[104px] z-30 hidden w-[220px] flex-col justify-between xl:flex",
           "invisible -translate-x-2 opacity-0 transition-[opacity,translate,visibility,color] duration-300 ease-riot motion-reduce:transition-none motion-off:transition-none",
@@ -108,6 +109,7 @@ export function ChapterIndex({ title, chapters, active, onJump }: ChapterIndexPr
 
       <div
         ref={menuRef}
+        data-theatre-hide=""
         className="fixed bottom-4 left-4 z-40 xl:hidden"
         onKeyDown={(event) => {
           if (event.key !== "Escape" || !open) return;
