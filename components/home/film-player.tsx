@@ -55,10 +55,10 @@ import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(useGSAP);
 
-// /movie/bnb-trailer.mp4 cue points (the team's captioned cut, 30fps), measured from its frames. Re-measure if the
-// edit changes timing.
-const OPEN_AT = 6.9; // the cube rushes the lens
-const CUT = 216 / 30; // first frame of the black end card (7.200s)
+// /movie/bnb-trailer.mp4 cue points (the Techfest IITB teaser, 24fps, 24.75s), measured from its frames. Re-measure if
+// the edit changes timing. This cut ends on "COMING SOON" with no logo card, so the handoff rides its last frames.
+const OPEN_AT = 24.25; // half a second before the end
+const CUT = 592 / 24; // second-to-last frame (24.667s): the logo card replaces "COMING SOON"
 // End-card logo hexagon inside the frame: centre and height as fractions of the frame.
 const CARD = { cx: 0.4995, cy: 0.5097, h: 0.8583 };
 // logo.svg hexagon bounding box (its viewBox is 28 54 146 146); pointy-top, so circumradius = height / 2.

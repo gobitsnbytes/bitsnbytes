@@ -210,9 +210,9 @@ Full teardowns (measurements, timings, mechanisms) live in `tmp/research-full.js
    scroll speed, rotates, bits drift apart) so it's gone by ~40% of the first viewport. Hero footer row: mono dots glyph left,
    down-arrow centre. Riso misregistration: burgundy + orange copies of the wordmark slip ±10px with scroll velocity and snap back.
    Primary CTAs (existing: "Join the crew" → /join, "Watch film" → film modal) sit small and precise, not as a hero button block.
-2. **Curtain reel** — a fixed full-bleed reel of the film (`/movie/bnb-trailer.mp4`, the character trailer; its
-   `FilmPlayer` rides the thrown cube's end card into the site: window blows open, a pixel-aligned SVG logo replaces the
-   video logo on the cut frame, unassembles into construction lines, a hexagonal iris opens onto the hero whose wordmark
+2. **Curtain reel** — a fixed full-bleed reel of the film (`/movie/bnb-trailer.mp4`, the Techfest IITB teaser; its
+   `FilmPlayer` rides the film's last frames into the site: window blows open, an SVG logo card replaces "COMING SOON"
+   on the cut frame, unassembles into construction lines, a hexagonal iris opens onto the hero whose wordmark
    rises again, and the logo flies into the nav cube mark; plain player under reduced motion), low-res → full-bleed copy under a
    halftone/dither screen, plus a sharp inset window playing it clean) uncovered as the hero scrolls up, then covered by
    the next paper panel (TornEdge top). `[ WATCH FILM ]` opens the FilmPlayer with sound. Plays only in view; none under reduced motion.
