@@ -49,35 +49,41 @@ const RULES = [
   <>no aggregate numbers (members, forks, events). per-event facts stay with the event.</>,
 ];
 
+// page palette as CSS vars: globals.css repaints the hex classes (text-[#120f0a] etc.) under .dark
+const PALETTE = {
+  "--ink": "#120f0a", "--ink-2": "#413f3b", "--mute": "#716f6c", "--paper": "#faf8f5", "--paper-2": "#f1eee9",
+  "--cream": "#fee9cf", "--orange": "#fc920d", "--burgundy": "#97192c", "--warm": "#c94218", "--red": "#ff2b2b",
+} as React.CSSProperties;
+
 const shadow = "shadow-[4px_4px_0_#120f0a]";
 const anton = "font-[family-name:var(--font-accent-sans)] uppercase";
 
 function Tile({ a, wide }: { a: Asset; wide?: boolean }) {
   const ground =
     a.tile === "dark"
-      ? "bg-[#120f0a]"
-      : "bg-[#f1eee9] [background-image:radial-gradient(circle,rgba(18,15,10,.1)_1px,transparent_1.4px)] [background-size:7px_7px]";
+      ? "bg-[var(--ink)]"
+      : "bg-[var(--paper-2)] [background-image:radial-gradient(circle,rgba(18,15,10,.1)_1px,transparent_1.4px)] [background-size:7px_7px]";
   return (
-    <figure className={`flex flex-col border-2 border-[#120f0a] bg-[#faf8f5] ${shadow} ${wide ? "sm:col-span-2" : ""}`}>
-      <div className={`flex flex-1 items-center justify-center border-b-2 border-[#120f0a] p-4 ${ground}`}>
+    <figure className={`flex flex-col border-2 border-[var(--ink)] bg-[var(--paper)] ${shadow} ${wide ? "sm:col-span-2" : ""}`}>
+      <div className={`flex flex-1 items-center justify-center border-b-2 border-[var(--ink)] p-3 sm:p-4 ${ground}`}>
         <Image
           src={`/overclock-assets/${a.slug}.png`}
           alt={a.title}
           width={a.w}
           height={a.h}
-          className="h-auto max-h-[420px] w-auto max-w-full"
+          className="h-auto max-h-[240px] w-auto max-w-full sm:max-h-[420px]"
         />
       </div>
-      <figcaption className="flex items-end justify-between gap-3 p-3">
+      <figcaption className="flex flex-col items-start gap-2 p-3 sm:flex-row sm:items-end sm:justify-between sm:gap-3">
         <div className="min-w-0">
           <div className={`${anton} text-lg leading-none`}>{a.title}</div>
-          {a.hex && <div className="mt-1 font-mono text-xs font-bold text-[#97192c]">{a.hex}</div>}
-          {a.note && <p className="mt-1 font-serif text-xs text-[#413f3b]">{a.note}</p>}
+          {a.hex && <div className="mt-1 font-mono text-xs font-bold text-[var(--burgundy)]">{a.hex}</div>}
+          {a.note && <p className="mt-1 font-serif text-xs text-[var(--ink-2)]">{a.note}</p>}
         </div>
         <a
           href={`/overclock-assets/${a.slug}.png`}
           download
-          className="shrink-0 border-2 border-[#120f0a] bg-[#fc920d] px-2 py-1 font-mono text-[11px] font-bold uppercase tracking-widest text-[#120f0a] hover:bg-[#120f0a] hover:text-[#fee9cf]"
+          className="shrink-0 border-2 border-[var(--ink)] bg-[var(--orange)] px-2 py-1 font-mono text-[11px] font-bold uppercase tracking-widest text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--cream)]"
         >
           download .png
         </a>
@@ -86,9 +92,9 @@ function Tile({ a, wide }: { a: Asset; wide?: boolean }) {
   );
 }
 
-function Grid({ items, cols = "sm:grid-cols-2 lg:grid-cols-3" }: { items: Asset[]; cols?: string }) {
+function Grid({ items, cols = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" }: { items: Asset[]; cols?: string }) {
   return (
-    <div className={`grid grid-cols-1 gap-6 ${cols}`}>
+    <div className={`grid gap-4 sm:gap-6 ${cols}`}>
       {items.map((a) => (
         <Tile key={a.slug} a={a} wide={a.w > 700 && !a.slug.startsWith("layout")} />
       ))}
@@ -99,9 +105,9 @@ function Grid({ items, cols = "sm:grid-cols-2 lg:grid-cols-3" }: { items: Asset[
 function Section({ id, children, lede }: { id: string; children: React.ReactNode; lede?: React.ReactNode }) {
   const s = SECTIONS.find((x) => x.id === id)!;
   return (
-    <section id={id} className="scroll-mt-6 border-t-2 border-[#120f0a] py-10">
+    <section id={id} className="scroll-mt-6 border-t-2 border-[var(--ink)] py-10">
       <div className="mb-6 flex items-baseline gap-3">
-        <span className="font-mono text-sm font-bold tracking-widest text-[#c94218]">{s.n}</span>
+        <span className="font-mono text-sm font-bold tracking-widest text-[var(--warm)]">{s.n}</span>
         <h2 className={`${anton} text-4xl leading-none sm:text-5xl`}>{s.title}</h2>
       </div>
       {lede && <p className="mb-6 max-w-3xl font-serif text-lg leading-relaxed">{lede}</p>}
@@ -116,14 +122,14 @@ export default function OverclockAssets() {
   const colourGroups = [...new Set(of("colour").map((a) => a.group ?? ""))];
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] text-[#120f0a]">
-      <header className="relative overflow-hidden bg-[linear-gradient(118deg,#1e0509_0%,#3c0a12_18%,#97192c_48%,#c94218_78%,#fc920d_100%)] text-[#fee9cf]">
+    <div className="min-h-screen bg-[var(--paper)] text-[var(--ink)]" style={PALETTE}>
+      <header className="relative overflow-hidden bg-[linear-gradient(118deg,#1e0509_0%,#3c0a12_18%,#97192c_48%,#c94218_78%,#fc920d_100%)] text-[var(--cream)]">
         <div className="absolute inset-0 [background-image:radial-gradient(circle,rgba(254,233,207,.13)_1.1px,transparent_1.5px)] [background-size:9px_9px]" />
         <div className="relative mx-auto max-w-6xl px-6 py-12">
           <div className="font-mono text-xs font-bold uppercase tracking-[.16em]">bits&amp;bytes™ · for designers · not public</div>
           <h1 className={`${anton} mt-4 text-7xl leading-[.84] [text-shadow:6px_6px_0_#120f0a] sm:text-9xl`}>overclock</h1>
           <div className="mt-4 flex items-center gap-3">
-            <span className="h-[3px] w-24 bg-[#ff2b2b] shadow-[0_0_10px_rgba(255,43,43,.8)]" />
+            <span className="h-[3px] w-24 bg-[var(--red)] shadow-[0_0_10px_rgba(255,43,43,.8)]" />
             <span className="font-[family-name:var(--font-yellowtail)] text-4xl">past the redline.</span>
           </div>
           <p className="mt-5 max-w-2xl font-serif text-lg">
@@ -132,7 +138,7 @@ export default function OverclockAssets() {
           <a
             href="/overclock-assets/overclock-brandkit.zip"
             download
-            className="mt-6 inline-block border-2 border-[#120f0a] bg-[#fee9cf] px-4 py-2 font-mono text-sm font-bold uppercase tracking-widest text-[#120f0a] shadow-[4px_4px_0_#120f0a] hover:bg-[#fc920d]"
+            className="mt-6 inline-block border-2 border-[var(--ink)] bg-[var(--cream)] px-4 py-2 font-mono text-sm font-bold uppercase tracking-widest text-[var(--ink)] shadow-[4px_4px_0_#120f0a] hover:bg-[var(--orange)]"
           >
             download everything (.zip)
           </a>
@@ -142,8 +148,8 @@ export default function OverclockAssets() {
       <main className="mx-auto max-w-6xl px-6 pb-20">
         <nav className="grid grid-cols-2 gap-2 py-8 sm:grid-cols-4 lg:grid-cols-8">
           {SECTIONS.map((s) => (
-            <a key={s.id} href={`#${s.id}`} className={`border-2 border-[#120f0a] bg-[#faf8f5] px-3 py-2 ${shadow} hover:bg-[#fee9cf]`}>
-              <span className="block font-mono text-[11px] font-bold text-[#c94218]">{s.n}</span>
+            <a key={s.id} href={`#${s.id}`} className={`border-2 border-[var(--ink)] bg-[var(--paper)] px-3 py-2 ${shadow} hover:bg-[var(--cream)]`}>
+              <span className="block font-mono text-[11px] font-bold text-[var(--warm)]">{s.n}</span>
               <span className={`${anton} text-lg leading-none`}>{s.title}</span>
             </a>
           ))}
@@ -156,18 +162,18 @@ export default function OverclockAssets() {
         <Section id="colour" lede="burgundy is the core voice, orange the pop, red the redline. hex values come straight from the doc's style.css.">
           {colourGroups.map((g) => (
             <div key={g} className="mb-10">
-              <h3 className="mb-4 font-mono text-sm font-bold uppercase tracking-[.16em] text-[#c94218]">{g}</h3>
-              <Grid items={of("colour").filter((a) => a.group === g)} cols="sm:grid-cols-2 lg:grid-cols-4" />
+              <h3 className="mb-4 font-mono text-sm font-bold uppercase tracking-[.16em] text-[var(--warm)]">{g}</h3>
+              <Grid items={of("colour").filter((a) => a.group === g)} cols="grid-cols-2 lg:grid-cols-4" />
             </div>
           ))}
         </Section>
 
         <Section id="type" lede="Anton for display and headings, Georgia for reading, Space Mono Bold for labels and data, Yellowtail for the tagline only, Archivo Black for the bits&bytes™ wordmark. Font files live in scripts/fonts.">
-          <Grid items={of("type")} cols="sm:grid-cols-2" />
+          <Grid items={of("type")} cols="grid-cols-1 sm:grid-cols-2" />
         </Section>
 
         <Section id="motif" lede={<>overclocking is running a chip past the clock it was rated for. <b>you bring the push, we bring the cooling.</b> everything visual comes from chip-tuning tools: clock dials, sliders, hardware monitors. never a car tachometer.</>}>
-          <Grid items={of("motif")} cols="sm:grid-cols-1" />
+          <Grid items={of("motif")} cols="grid-cols-1" />
         </Section>
 
         <Section id="elements" lede="the building blocks, lifted from the doc. dials, wordmarks and chips export with a transparent background.">
@@ -175,33 +181,33 @@ export default function OverclockAssets() {
         </Section>
 
         <Section id="layouts" lede="three real pages of the A–Z doc at 2x: the cover, the contents, and a chapter page with its rail and meter.">
-          <Grid items={of("layouts")} cols="sm:grid-cols-2 lg:grid-cols-3" />
+          <Grid items={of("layouts")} cols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" />
         </Section>
 
         <Section id="rules">
           <ul className="max-w-3xl space-y-3 font-serif text-lg">
             {RULES.map((r, i) => (
               <li key={i} className="flex gap-3">
-                <span className="mt-2 h-2 w-2 shrink-0 rotate-45 border border-[#120f0a] bg-[#fc920d]" />
+                <span className="mt-2 h-2 w-2 shrink-0 rotate-45 border border-[var(--ink)] bg-[var(--orange)]" />
                 <span>{r}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-6 font-mono text-xs font-bold uppercase tracking-widest text-[#716f6c]">
+          <p className="mt-6 font-mono text-xs font-bold uppercase tracking-widest text-[var(--mute)]">
             the rest of the brand rules live in AGENTS.md
           </p>
         </Section>
 
         <Section id="ai" lede={<>for ChatGPT, Higgsfield, Claude, Nano Banana and friends. paste the <b>style block</b> first, then one prompt. never let the model draw words or logos: generate the art, then put the wordmark, tagline and lockups on top from the PNGs above. check every output against the usage rules before it ships.</>}>
-          <div className={`border-2 border-[#120f0a] bg-[#120f0a] p-5 text-[#fee9cf] ${shadow}`}>
-            <div className="font-mono text-xs font-bold uppercase tracking-[.16em] text-[#ff2b2b]">style block · paste this first</div>
-            <pre className="mt-3 whitespace-pre-wrap font-mono text-sm leading-relaxed">{STYLE}</pre>
+          <div className={`border-2 border-[var(--ink)] bg-[var(--ink)] p-5 text-[var(--cream)] ${shadow}`}>
+            <div className="font-mono text-xs font-bold uppercase tracking-[.16em] text-[var(--red)]">style block · paste this first</div>
+            <pre className="mt-3 whitespace-pre-wrap break-words font-mono text-xs sm:text-sm leading-relaxed">{STYLE}</pre>
           </div>
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
             {PROMPTS.map((p) => (
-              <div key={p.title} className={`border-2 border-[#120f0a] bg-[#faf8f5] p-5 ${shadow}`}>
+              <div key={p.title} className={`border-2 border-[var(--ink)] bg-[var(--paper)] p-5 ${shadow}`}>
                 <div className={`${anton} text-xl leading-none`}>{p.title}</div>
-                <div className="mt-1 font-mono text-[11px] font-bold uppercase tracking-widest text-[#c94218]">{p.tools}</div>
+                <div className="mt-1 font-mono text-[11px] font-bold uppercase tracking-widest text-[var(--warm)]">{p.tools}</div>
                 <pre className="mt-3 whitespace-pre-wrap font-serif text-sm leading-relaxed">{p.text}</pre>
               </div>
             ))}
