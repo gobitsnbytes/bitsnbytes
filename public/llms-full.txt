@@ -47,8 +47,7 @@
 2. **Hack4Good v0 (Lucknow):** 24-hour Agentic AI hackathon. 425+ registrations, 110 in-person attendees, ₹35,000 prize pool at Cubispace Lucknow.
 3. **Execron 1.0 (IIT Kanpur):** High-school AI Hackathon & Workshop co-hosted at TechKriti '26.
 4. **GitHub Copilot Dev Days (Lucknow):** Developer workshop on AI-assisted coding and prompt engineering.
-5. **Lucknow Build Guild:** Hardware and microcontroller meetup in Lucknow.
-6. **Regional Hackathon Series (upcoming):** City qualifiers across India, with the finale at IIT Bombay on Dec 17–18.
+5. **Regional Hackathon Series (upcoming):** City qualifiers across India, with the finale at IIT Bombay on Dec 17–18.
 
 ### Community Partnerships (bits&bytes™ was a community partner; hosted by the named organizers)
 - **Infinity Hacks 2026** by HackerRank Campus Crew: Aug 15–16, 2026, online. 24-hour global hackathon with AI-first tracks (e.g. road safety, women safety, climate, wildlife protection), teams of 3–5. https://hrcc-infinityhacks.vercel.app/

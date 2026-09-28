@@ -50,9 +50,7 @@ bits&bytes™ is a teen-led builders network founded in November 2025. GOBITSNBY
 
 - **GitHub Copilot Dev Days | Lucknow** [ARCHIVED] — Community developer event on April 19, 2026 at Cubispace, Jankipuram, Lucknow. Hosted by bits&bytes™ with community partners Coding Connoisseurs, Aryan Singh, and Notion Lucknow. Topics: how GitHub Copilot works, integrating AI into dev workflows, prompt techniques, and using AI responsibly. Archive link: https://luma.com/xtxua1jl.
 
-- **Lucknow Build Guild** [ARCHIVED] — Free hardware workshop and meetup held on April 19, 2026 at SureStay by Best Western, Lucknow. Hosted by Shaurya. Event site: https://www.lucknow-build-guild.xyz/, Host: https://linktr.ee/shauryaashu and https://github.com/Shaurya-Ashu.
 
-- **Regional Space Apps Hackathon** [ARCHIVED] — Regional hackathon with 300+ participants.
 
 ## Governance & Executive Team
 
