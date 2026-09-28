@@ -9,18 +9,18 @@ export default function robots(): MetadataRoute.Robots {
         // Default rules for general crawlers
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/private/', '/_next/', '/admin/'],
+        disallow: ['/api/', '/private/', '/_next/', '/admin/', '/overclock-assets'],
       },
       {
         // Search Engines
         userAgent: ['Googlebot', 'Googlebot-Image', 'Googlebot-News', 'Googlebot-Video'],
         allow: '/',
-        disallow: ['/api/', '/private/'],
+        disallow: ['/api/', '/private/', '/overclock-assets'],
       },
       {
         userAgent: ['Bingbot', 'msnbot', 'Applebot', 'DuckDuckBot', 'Yandex', 'Baiduspider'],
         allow: '/',
-        disallow: ['/api/', '/private/'],
+        disallow: ['/api/', '/private/', '/overclock-assets'],
       },
       {
         // Modern AI & LLM Search Crawlers (2026-specific)
@@ -42,7 +42,7 @@ export default function robots(): MetadataRoute.Robots {
           'omgili',
         ],
         allow: ['/', '/llms.txt', '/llms-full.txt', '/rss.xml', '/feed.xml'],
-        disallow: ['/api/', '/private/'],
+        disallow: ['/api/', '/private/', '/overclock-assets'],
       },
       {
         // Disallow spam/scraper bots
