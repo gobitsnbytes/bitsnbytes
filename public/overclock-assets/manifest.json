@@ -1,0 +1,859 @@
+[
+ {
+  "slug": "wordmark-overclock-burgundy",
+  "title": "overclock, burgundy",
+  "section": "name",
+  "tile": "light",
+  "note": "Anton, uppercase, 6px ink offset shadow",
+  "w": 572,
+  "h": 153
+ },
+ {
+  "slug": "wordmark-overclock-cream",
+  "title": "overclock, cream",
+  "section": "name",
+  "tile": "dark",
+  "note": "for dark and gradient grounds",
+  "w": 572,
+  "h": 153
+ },
+ {
+  "slug": "wordmark-overclock-on-burn",
+  "title": "overclock on the burn",
+  "section": "name",
+  "tile": "light",
+  "note": "the cover lockup: wordmark, redbar, tagline",
+  "w": 693,
+  "h": 312
+ },
+ {
+  "slug": "tagline-ink",
+  "title": "past the redline., ink",
+  "section": "name",
+  "tile": "light",
+  "note": "Yellowtail script with the glowing red bar",
+  "w": 422,
+  "h": 95
+ },
+ {
+  "slug": "tagline-cream",
+  "title": "past the redline., cream",
+  "section": "name",
+  "tile": "dark",
+  "note": "",
+  "w": 422,
+  "h": 95
+ },
+ {
+  "slug": "lockup-bitsnbytes-overclock",
+  "title": "bits&bytes™ + overclock",
+  "section": "name",
+  "tile": "dark",
+  "note": "white cube, so dark grounds only",
+  "w": 489,
+  "h": 95
+ },
+ {
+  "slug": "lockup-bitsnbytes-overclock-burgundy",
+  "title": "bits&bytes™ + overclock, on burgundy",
+  "section": "name",
+  "tile": "light",
+  "note": "",
+  "w": 572,
+  "h": 163
+ },
+ {
+  "slug": "lockup-techfest",
+  "title": "part of Techfest, IIT Bombay",
+  "section": "name",
+  "tile": "light",
+  "note": "the only other logo we ever show",
+  "w": 221,
+  "h": 121
+ },
+ {
+  "slug": "lockup-techfest-clear",
+  "title": "part of Techfest, clear",
+  "section": "name",
+  "tile": "dark",
+  "note": "",
+  "w": 191,
+  "h": 94
+ },
+ {
+  "slug": "logo-bitsnbytes-cube",
+  "title": "bits&bytes™ cube",
+  "section": "name",
+  "tile": "dark",
+  "note": "",
+  "w": 272,
+  "h": 272
+ },
+ {
+  "slug": "logo-techfest",
+  "title": "Techfest logo",
+  "section": "name",
+  "tile": "dark",
+  "note": "",
+  "w": 263,
+  "h": 197
+ },
+ {
+  "slug": "swatch-burgundy",
+  "title": "burgundy",
+  "section": "colour",
+  "tile": "light",
+  "note": "the core voice: rails, cards, headings accents",
+  "group": "core burgundy",
+  "hex": "#97192C",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-burgundy-1",
+  "title": "burgundy 1",
+  "section": "colour",
+  "tile": "light",
+  "note": "gradient step, pressed states",
+  "group": "core burgundy",
+  "hex": "#791423",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-burgundy-2",
+  "title": "burgundy 2",
+  "section": "colour",
+  "tile": "light",
+  "note": "labels on orange",
+  "group": "core burgundy",
+  "hex": "#5B0F1A",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-burgundy-3",
+  "title": "burgundy 3",
+  "section": "colour",
+  "tile": "light",
+  "note": "deep rail, dial rim, gradient start",
+  "group": "core burgundy",
+  "hex": "#3C0A12",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-burgundy-4",
+  "title": "burgundy 4",
+  "section": "colour",
+  "tile": "light",
+  "note": "darkest step, cover gradient start",
+  "group": "core burgundy",
+  "hex": "#1E0509",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-orange",
+  "title": "orange",
+  "section": "colour",
+  "tile": "light",
+  "note": "the pop: accents, stat numbers on dark, slider start",
+  "group": "orange pop",
+  "hex": "#FC920D",
+  "w": 272,
+  "h": 248
+ },
+ {
+  "slug": "swatch-orange-2",
+  "title": "orange 2",
+  "section": "colour",
+  "tile": "light",
+  "note": "labels on dark, dial lit arc",
+  "group": "orange pop",
+  "hex": "#FDA83D",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-orange-3",
+  "title": "orange 3",
+  "section": "colour",
+  "tile": "light",
+  "note": "rubric step, emphasis on burgundy",
+  "group": "orange pop",
+  "hex": "#FDBE6E",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-orange-4",
+  "title": "orange 4",
+  "section": "colour",
+  "tile": "light",
+  "note": "highlighter marks, rubric step",
+  "group": "orange pop",
+  "hex": "#FED39E",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-cream",
+  "title": "cream",
+  "section": "colour",
+  "tile": "light",
+  "note": "text on dark, cream cards",
+  "group": "orange pop",
+  "hex": "#FEE9CF",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-warm",
+  "title": "warm",
+  "section": "colour",
+  "tile": "light",
+  "note": "labels on paper, dark-card shadow",
+  "group": "warm",
+  "hex": "#C94218",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-warm-2",
+  "title": "warm 2",
+  "section": "colour",
+  "tile": "light",
+  "note": "secondary warm accent",
+  "group": "warm",
+  "hex": "#D46846",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-ink",
+  "title": "ink",
+  "section": "colour",
+  "tile": "light",
+  "note": "text, borders, hard offset shadows",
+  "group": "neutrals",
+  "hex": "#120F0A",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-ink-2",
+  "title": "ink 2",
+  "section": "colour",
+  "tile": "light",
+  "note": "spec-table keys",
+  "group": "neutrals",
+  "hex": "#413F3B",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-mute",
+  "title": "mute",
+  "section": "colour",
+  "tile": "light",
+  "note": "muted copy, meter labels",
+  "group": "neutrals",
+  "hex": "#716F6C",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-mute-2",
+  "title": "mute 2",
+  "section": "colour",
+  "tile": "light",
+  "note": "inactive meter letters, panel keys",
+  "group": "neutrals",
+  "hex": "#A09F9D",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-line",
+  "title": "line",
+  "section": "colour",
+  "tile": "light",
+  "note": "hairlines and table rules",
+  "group": "neutrals",
+  "hex": "#D0CFCE",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-paper",
+  "title": "paper",
+  "section": "colour",
+  "tile": "light",
+  "note": "the page",
+  "group": "neutrals",
+  "hex": "#FAF8F5",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-paper-2",
+  "title": "paper 2",
+  "section": "colour",
+  "tile": "light",
+  "note": "zebra rows, code",
+  "group": "neutrals",
+  "hex": "#F1EEE9",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "swatch-red",
+  "title": "redline",
+  "section": "colour",
+  "tile": "light",
+  "note": "the redline: glow bars, needles, limits. use sparingly",
+  "group": "redline red",
+  "hex": "#FF2B2B",
+  "w": 272,
+  "h": 248
+ },
+ {
+  "slug": "swatch-red-ink",
+  "title": "red ink",
+  "section": "colour",
+  "tile": "light",
+  "note": "red text on paper, tbd chips",
+  "group": "redline red",
+  "hex": "#D81F1F",
+  "w": 272,
+  "h": 235
+ },
+ {
+  "slug": "grad-cover",
+  "title": "the burn",
+  "section": "colour",
+  "tile": "light",
+  "note": "cover and hero surfaces",
+  "group": "gradients",
+  "w": 612,
+  "h": 218
+ },
+ {
+  "slug": "grad-rail",
+  "title": "the climb",
+  "section": "colour",
+  "tile": "light",
+  "note": "the grad rail, vertical surfaces",
+  "group": "gradients",
+  "w": 612,
+  "h": 218
+ },
+ {
+  "slug": "grad-heat",
+  "title": "the heat",
+  "section": "colour",
+  "tile": "light",
+  "note": "OC slider fill, anything approaching the redline",
+  "group": "gradients",
+  "w": 612,
+  "h": 218
+ },
+ {
+  "slug": "grad-burgundy",
+  "title": "burgundy scale",
+  "section": "colour",
+  "tile": "light",
+  "note": "the core scale as one ramp",
+  "group": "gradients",
+  "w": 612,
+  "h": 218
+ },
+ {
+  "slug": "grad-orange",
+  "title": "orange scale",
+  "section": "colour",
+  "tile": "light",
+  "note": "the pop scale as one ramp",
+  "group": "gradients",
+  "w": 612,
+  "h": 218
+ },
+ {
+  "slug": "type-display",
+  "title": "display",
+  "section": "type",
+  "tile": "light",
+  "note": "Anton · 124pt cover / 168pt rail letter · uppercase, .84 leading",
+  "w": 612,
+  "h": 150
+ },
+ {
+  "slug": "type-quote",
+  "title": "quote",
+  "section": "type",
+  "tile": "light",
+  "note": "Anton · 20pt · uppercase, burgundy em",
+  "w": 612,
+  "h": 96
+ },
+ {
+  "slug": "type-h2",
+  "title": "h2",
+  "section": "type",
+  "tile": "light",
+  "note": "Anton · 17pt · uppercase, mono number",
+  "w": 612,
+  "h": 100
+ },
+ {
+  "slug": "type-h3",
+  "title": "h3",
+  "section": "type",
+  "tile": "light",
+  "note": "Anton · 12.5pt · uppercase",
+  "w": 612,
+  "h": 86
+ },
+ {
+  "slug": "type-label",
+  "title": "label",
+  "section": "type",
+  "tile": "light",
+  "note": "Space Mono Bold · 6.4pt · +.16em, uppercase, warm",
+  "w": 612,
+  "h": 81
+ },
+ {
+  "slug": "type-lead",
+  "title": "lead",
+  "section": "type",
+  "tile": "light",
+  "note": "Georgia · 12.2pt · 1.4 leading, burgundy bold",
+  "w": 612,
+  "h": 115
+ },
+ {
+  "slug": "type-body",
+  "title": "body",
+  "section": "type",
+  "tile": "light",
+  "note": "Georgia · 9.4pt · 1.45 leading",
+  "w": 612,
+  "h": 105
+ },
+ {
+  "slug": "type-small",
+  "title": "small",
+  "section": "type",
+  "tile": "light",
+  "note": "Georgia · 8.2pt (tiny 7pt) · 1.4 leading",
+  "w": 612,
+  "h": 103
+ },
+ {
+  "slug": "type-mono",
+  "title": "mono",
+  "section": "type",
+  "tile": "light",
+  "note": "Space Mono Bold · 5.8–7.4pt · +.14em, uppercase",
+  "w": 612,
+  "h": 83
+ },
+ {
+  "slug": "type-script",
+  "title": "script",
+  "section": "type",
+  "tile": "light",
+  "note": "Yellowtail · 34pt · the tagline only",
+  "w": 612,
+  "h": 135
+ },
+ {
+  "slug": "type-wordmark",
+  "title": "wordmark",
+  "section": "type",
+  "tile": "light",
+  "note": "Archivo Black + Yellowtail · the bits&bytes™ wordmark",
+  "w": 612,
+  "h": 96
+ },
+ {
+  "slug": "type-scale",
+  "title": "the size scale",
+  "section": "type",
+  "tile": "light",
+  "note": "A4 landscape print sizes; scale proportionally for screens",
+  "w": 612,
+  "h": 384
+ },
+ {
+  "slug": "motif",
+  "title": "the motif",
+  "section": "motif",
+  "tile": "light",
+  "note": "",
+  "w": 801,
+  "h": 174
+ },
+ {
+  "slug": "dial-stock",
+  "title": "clock dial · stock",
+  "section": "elements",
+  "tile": "light",
+  "note": "needle at the rated clock",
+  "w": 393,
+  "h": 393
+ },
+ {
+  "slug": "dial-boost",
+  "title": "clock dial · boost",
+  "section": "elements",
+  "tile": "light",
+  "note": "pushed, still under the redline",
+  "w": 393,
+  "h": 393
+ },
+ {
+  "slug": "dial-redline",
+  "title": "clock dial · redline",
+  "section": "elements",
+  "tile": "light",
+  "note": "in the red",
+  "w": 393,
+  "h": 393
+ },
+ {
+  "slug": "dial-past",
+  "title": "clock dial · past the redline",
+  "section": "elements",
+  "tile": "light",
+  "note": "the cover state: needle past the scale",
+  "w": 393,
+  "h": 393
+ },
+ {
+  "slug": "oc-panel",
+  "title": "OC slider panel",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 499,
+  "h": 238
+ },
+ {
+  "slug": "monitor",
+  "title": "monitor graph",
+  "section": "elements",
+  "tile": "light",
+  "note": "dashed red line = the redline, the rated limit",
+  "w": 499,
+  "h": 206
+ },
+ {
+  "slug": "readout",
+  "title": "digital readout",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 244,
+  "h": 79
+ },
+ {
+  "slug": "az-meter",
+  "title": "A–Z redline meter",
+  "section": "elements",
+  "tile": "light",
+  "note": "the folio: done in ink, current letter in red, W–Z in the red zone",
+  "w": 990,
+  "h": 61
+ },
+ {
+  "slug": "rail-burgundy",
+  "title": "rail · burgundy",
+  "section": "elements",
+  "tile": "light",
+  "note": "70mm wide, full page height in the doc",
+  "w": 310,
+  "h": 612
+ },
+ {
+  "slug": "rail-ink",
+  "title": "rail · ink",
+  "section": "elements",
+  "tile": "light",
+  "note": "70mm wide, full page height in the doc",
+  "w": 310,
+  "h": 612
+ },
+ {
+  "slug": "rail-orange",
+  "title": "rail · orange",
+  "section": "elements",
+  "tile": "light",
+  "note": "70mm wide, full page height in the doc",
+  "w": 310,
+  "h": 612
+ },
+ {
+  "slug": "rail-grad",
+  "title": "rail · grad",
+  "section": "elements",
+  "tile": "light",
+  "note": "70mm wide, full page height in the doc",
+  "w": 310,
+  "h": 612
+ },
+ {
+  "slug": "rail-deep",
+  "title": "rail · deep",
+  "section": "elements",
+  "tile": "light",
+  "note": "70mm wide, full page height in the doc",
+  "w": 310,
+  "h": 612
+ },
+ {
+  "slug": "tbd-chip",
+  "title": "tbd chip",
+  "section": "elements",
+  "tile": "light",
+  "note": "dashed red: anything not yet locked",
+  "w": 338,
+  "h": 70
+ },
+ {
+  "slug": "chips",
+  "title": "chips",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 405,
+  "h": 75
+ },
+ {
+  "slug": "stamp",
+  "title": "stamp",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 327,
+  "h": 80
+ },
+ {
+  "slug": "callout",
+  "title": "callout",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 499,
+  "h": 131
+ },
+ {
+  "slug": "callout-light",
+  "title": "callout · light",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 499,
+  "h": 111
+ },
+ {
+  "slug": "card-paper",
+  "title": "card · paper",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 340,
+  "h": 144
+ },
+ {
+  "slug": "card-dark",
+  "title": "card · dark",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 340,
+  "h": 159
+ },
+ {
+  "slug": "card-cream",
+  "title": "card · cream",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 340,
+  "h": 159
+ },
+ {
+  "slug": "card-burg",
+  "title": "card · burg",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 340,
+  "h": 144
+ },
+ {
+  "slug": "card-orange",
+  "title": "card · orange",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 340,
+  "h": 159
+ },
+ {
+  "slug": "card-dash",
+  "title": "card · dash",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 340,
+  "h": 144
+ },
+ {
+  "slug": "stat-tiles",
+  "title": "stat tiles",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 726,
+  "h": 121
+ },
+ {
+  "slug": "flow",
+  "title": "flow",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 915,
+  "h": 136
+ },
+ {
+  "slug": "rubric",
+  "title": "rubric bar",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 801,
+  "h": 112
+ },
+ {
+  "slug": "table-run",
+  "title": "run-of-show table",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 537,
+  "h": 196
+ },
+ {
+  "slug": "table-spec",
+  "title": "spec table",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 537,
+  "h": 150
+ },
+ {
+  "slug": "table-grid",
+  "title": "grid table",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 537,
+  "h": 174
+ },
+ {
+  "slug": "checklist",
+  "title": "checklist",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 386,
+  "h": 141
+ },
+ {
+  "slug": "lists",
+  "title": "lists",
+  "section": "elements",
+  "tile": "light",
+  "note": "diamond list, × list, numbered steps",
+  "w": 801,
+  "h": 87
+ },
+ {
+  "slug": "texture-halftone",
+  "title": "halftone",
+  "section": "elements",
+  "tile": "light",
+  "note": "7px ink dots on paper",
+  "w": 348,
+  "h": 234
+ },
+ {
+  "slug": "texture-dots",
+  "title": "rail dots",
+  "section": "elements",
+  "tile": "light",
+  "note": "8px cream dots on burgundy",
+  "w": 348,
+  "h": 234
+ },
+ {
+  "slug": "texture-photo",
+  "title": "photo halftone",
+  "section": "elements",
+  "tile": "light",
+  "note": "5px multiply dots over photos",
+  "w": 348,
+  "h": 234
+ },
+ {
+  "slug": "star",
+  "title": "star",
+  "section": "elements",
+  "tile": "light",
+  "note": "",
+  "w": 197,
+  "h": 197
+ },
+ {
+  "slug": "redbar",
+  "title": "redbar",
+  "section": "elements",
+  "tile": "light",
+  "note": "3px red with a 10px glow",
+  "w": 499,
+  "h": 48
+ },
+ {
+  "slug": "layout-cover",
+  "title": "the cover",
+  "section": "layouts",
+  "tile": "light",
+  "note": "A4 landscape, 297 × 210 mm",
+  "w": 1123,
+  "h": 794
+ },
+ {
+  "slug": "layout-contents",
+  "title": "the contents",
+  "section": "layouts",
+  "tile": "light",
+  "note": "A4 landscape, 297 × 210 mm",
+  "w": 1123,
+  "h": 794
+ },
+ {
+  "slug": "layout-chapter",
+  "title": "a chapter page (A)",
+  "section": "layouts",
+  "tile": "light",
+  "note": "A4 landscape, 297 × 210 mm",
+  "w": 1123,
+  "h": 794
+ }
+]
