@@ -42,18 +42,6 @@ export const githubDevDayEvent = {
   lumaEventId: "evt-utBD3JUI1ENZoyn",
 } as const;
 
-export const lucknowBuildGuildEvent = {
-  title: "Lucknow Build Guild",
-  dateLabel: "Apr 19, 2026",
-  venueLabel: "SureStay by Best Western, Lucknow",
-  formatLabel: "Free Hardware Workshop & Meetup",
-  statusLabel: "Archived",
-  hostName: "Shaurya",
-  eventSite: "https://www.lucknow-build-guild.xyz/",
-  hostLinktree: "https://linktr.ee/shauryaashu",
-  hostGithub: "https://github.com/Shaurya-Ashu",
-} as const;
-
 export const hack4goodEvent = {
   title: "Hack4Good",
   subtitle: "Architect Your Autonomy",
@@ -77,16 +65,6 @@ export const heroEvents: HeroEventSlide[] = [
     status: "archived",
     title: "Hack4Good v0",
     subtitle: "2 May 2026 · Lucknow",
-    href: "/events",
-  },
-  {
-    image: "/event_pictures/bd1.jpg",
-    imageMobile: "/event_pictures/bd1.jpg",
-    alt: "Lucknow Build Guild",
-    badge: "Archived Event",
-    status: "archived",
-    title: "Lucknow Build Guild",
-    subtitle: "19 Apr 2026 · Lucknow",
     href: "/events",
   },
   {
@@ -200,16 +178,6 @@ export const eventPhotos: { event: string; photos: EventPhoto[] }[] = [
       { src: "/event_pictures/byteforge3.webp", w: 1080, h: 720, alt: "A laptop screen, close up, during the sprint" },
       { src: "/event_pictures/byteforge2.webp", w: 1080, h: 720, feature: true, alt: "Participants talking in a circle in front of a chalkboard" },
       { src: "/event_pictures/byteforge5.webp", w: 1080, h: 608, alt: "Execron 1.0 participants posing for a group photo in a classroom" },
-    ],
-  },
-  {
-    event: "Lucknow Build Guild",
-    photos: [
-      { src: "/event_pictures/bd1.jpg", w: 3072, h: 3072, alt: "A builder soldering wires beside a laptop" },
-      { src: "/event_pictures/bd4.jpg", w: 4080, h: 3072, feature: true, alt: "The full room building at round tables, Lucknow Build Guild" },
-      { src: "/event_pictures/bd5.jpg", w: 3072, h: 4080, alt: "A builder soldering components next to a laptop and a tool kit" },
-      { src: "/event_pictures/bd2.jpg", w: 3072, h: 3072, alt: "Two builders holding up a Blueprint card" },
-      { src: "/event_pictures/bd3.jpg", w: 4080, h: 3072, alt: "A builder at a laptop beside a hardware test board" },
     ],
   },
   {

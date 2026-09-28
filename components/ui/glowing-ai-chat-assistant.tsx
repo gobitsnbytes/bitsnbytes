@@ -98,16 +98,6 @@ const SMART_FAQ: FaqEntry[] = [
   },
   {
     patterns: [
-      "lucknow build guild",
-      "build guild",
-      "hardware workshop",
-      "shaurya",
-    ],
-    answer:
-      '**Lucknow Build Guild (Archive)**\n\n- **Date:** April 19, 2026\n- **Venue:** SureStay by Best Western, Lucknow\n- **Format:** Free hardware workshop and meetup\n- **Host:** Shaurya\n\n[Visit Event Website](https://www.lucknow-build-guild.xyz/ "cta")\n[Host Linktree](https://linktr.ee/shauryaashu "cta")\n[Host GitHub](https://github.com/Shaurya-Ashu "cta")',
-  },
-  {
-    patterns: [
       "india innovates",
       "hackathon 2026",
       "ii 2026",
@@ -160,7 +150,7 @@ const SMART_FAQ: FaqEntry[] = [
   {
     patterns: ["events", "upcoming event", "next event", "what events"],
     answer:
-      '**Events Snapshot:**\n\n1. **Lucknow Build Guild**: Archived\n2. **GitHub Copilot Dev Days | Lucknow**: Archived\n3. **Execron 1.0**: Archived\n4. **India Innovates 2026**: Archived\n\n[View all events](/events "cta")\n\n[Tell me about Lucknow Build Guild](# "follow-up")',
+      '**Events Snapshot:**\n\n1. **GitHub Copilot Dev Days | Lucknow**: Archived\n2. **Execron 1.0**: Archived\n3. **India Innovates 2026**: Archived\n\n[View all events](/events "cta")\n\n[Tell me about India Innovates 2026](# "follow-up")',
   },
   {
     patterns: [

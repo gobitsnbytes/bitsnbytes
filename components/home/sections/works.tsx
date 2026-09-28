@@ -70,7 +70,7 @@ const works: Work[] = [
     tag: "CITY",
     href: "/fork",
     cursor: "VIEW FORKS",
-    photo: { src: "/event_pictures/bd1.jpg", alt: "Lucknow Build Guild hardware workshop and meetup" },
+    photo: { src: "/event_pictures/h4g/h4g0.jpg", alt: "Builders at Hack4Good v0" },
     glyph: <CodeXml aria-hidden className={ICON} />,
     body: (
       <>

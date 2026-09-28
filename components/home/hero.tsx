@@ -287,7 +287,7 @@ export function HomeHero() {
           {/* The band's orange paints under the cube canvas (z-10); only its content rises above it. */}
           <div className="relative z-20 flex flex-col gap-[clamp(12px,2.4svh,24px)] md:flex-row md:items-end md:justify-between">
             <div data-hero-caption="" className="max-w-[34ch] font-serif text-[clamp(16px,1.3vw,19px)] leading-snug">
-              <p>We run hackathons, build guilds and launches.</p>
+              <p>We run hackathons, workshops and launches.</p>
               <p>Student-led, and independent on purpose.</p>
               <p className="mt-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em]">No uncs in the room.</p>
             </div>

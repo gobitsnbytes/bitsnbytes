@@ -49,7 +49,7 @@ export const highlightStats: HighlightStat[] = [
   {
     value: "Events",
     label: "Events across India",
-    description: "Hackathons with the workshops built in, plus meetups like Lucknow Build Guild.",
+    description: "Hackathons with the workshops built in, plus community meetups.",
     timeframe: "Track Record",
   },
   {
@@ -107,12 +107,6 @@ export const trackRecord: TrackItem[] = [
     line: "We hosted an in-person community event in Lucknow on coding with AI assistants.",
     photos: [ev("devday.jpeg"), ev("devday2.jpeg"), ev("devday3.jpeg"), ev("devday4.jpeg")],
   },
-  {
-    name: "Lucknow Build Guild",
-    line: "A free hardware workshop and meetup for tech people in Lucknow.",
-    photos: [1, 2, 3, 4, 5].map((n) => ev(`bd${n}.jpg`)),
-  },
-  { name: "Regional Space Apps Hackathon", line: "300+ participants.", photos: [] },
 ];
 
 export type LatLng = [number, number];
@@ -134,7 +128,7 @@ export const places: {
     place: "Lucknow",
     at: [26.8467, 80.9462],
     title: "Lucknow",
-    lines: ["Hack4Good v0", "GitHub Copilot Dev Days", "Lucknow Build Guild"],
+    lines: ["Hack4Good v0", "GitHub Copilot Dev Days"],
   },
   {
     id: "new-delhi",

@@ -8,7 +8,6 @@ import {
   communityPartnerEvents,
   githubDevDayEvent as copilot,
   hack4goodEvent as h4g,
-  lucknowBuildGuildEvent as guild,
   regionalSeriesEvent as regional,
 } from "@/lib/events-data";
 import { cn } from "@/lib/utils";
@@ -281,57 +280,6 @@ const hack4good = (
   </Detail>
 );
 
-const buildGuild = (
-  <Detail
-    badge="Archived · Apr 19, 2026"
-    banner={<Banner src="/images/lko-build-guild.jpg" alt="Lucknow Build Guild" />}
-    tagline="Free hardware workshop and meetup in Lucknow."
-    tags={["Archived Event", "Sponsored* by bits&bytes™"]}
-    aside={
-      <>
-        <Receipt
-          rows={[
-            ["Date", guild.dateLabel],
-            ["Venue", guild.venueLabel],
-            ["Format", guild.formatLabel],
-            ["Status", guild.statusLabel],
-          ]}
-        />
-        <Out href={guild.eventSite}>Visit Website</Out>
-      </>
-    }
-  >
-    <Block title="Event Summary">
-      <div className={PROSE}>
-        <p>
-          Lucknow Build Guild was a free hardware workshop and meetup on 19 April at SureStay by Best Western. People came
-          to build hardware, meet other builders and learn from each other.
-        </p>
-      </div>
-    </Block>
-    <Block title="What we worked on">
-      <ul className={LIST}>
-        <li>Building hardware by hand, with practical workflows.</li>
-        <li>Meeting the people building tech in Lucknow.</li>
-        <li>Learning from each other in a room full of student builders.</li>
-      </ul>
-    </Block>
-    <Block title="Host">
-      <p className="font-mono text-xs leading-relaxed">
-        Event host: <strong>{guild.hostName}</strong>. Explore:{" "}
-        <a href={guild.hostLinktree} target="_blank" rel="noopener noreferrer" className={LINK}>
-          Linktree
-        </a>{" "}
-        and{" "}
-        <a href={guild.hostGithub} target="_blank" rel="noopener noreferrer" className={LINK}>
-          GitHub
-        </a>
-        .
-      </p>
-    </Block>
-  </Detail>
-);
-
 const copilotDevDays = (
   <Detail
     badge="Archived · Apr 19"
@@ -570,15 +518,6 @@ const EVENTS: ArchiveEvent[] = [
     venue: h4g.venueLabel,
     status: h4g.statusLabel,
     detail: hack4good,
-  },
-  {
-    id: "lucknow-build-guild",
-    name: "Lucknow Build Guild",
-    format: guild.formatLabel,
-    date: "2026.04.19",
-    venue: guild.venueLabel,
-    status: guild.statusLabel,
-    detail: buildGuild,
   },
   {
     id: "github-copilot-dev-days",

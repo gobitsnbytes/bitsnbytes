@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 // room" hero, the rest print as the strip under the git one-liner.
 const PHOTOS = [
   { src: "/event_pictures/h4g/h4g3.jpg", alt: "The crew huddled around a laptop at Hack4Good v0" },
-  { src: "/event_pictures/bd4.jpg", alt: "The full room building at round tables, Lucknow Build Guild" },
+  { src: "/event_pictures/h4g/h7g.jpeg", alt: "The room building together at Hack4Good v0" },
   { src: "/event_pictures/HEe923uagAATqvy.jpg", alt: "Two builders wiring a hardware prototype at India Innovates 2026" },
   { src: "/event_pictures/byteforge4.webp", alt: "Three participants working at one laptop in front of a chalkboard, Execron 1.0" },
   { src: "/event_pictures/byteforge5.webp", alt: "Execron 1.0 participants posing for a group photo in a classroom" },
