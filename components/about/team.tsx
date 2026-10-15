@@ -167,7 +167,7 @@ export function Team() {
             <GroupLabel tone="burgundy">
               Executive & track leads
             </GroupLabel>
-            <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:[&>article:last-child:nth-child(3n+1)]:col-start-2">
               {leadership.map((member) => (
                 <TeamCard member={member} key={member.id} />
               ))}

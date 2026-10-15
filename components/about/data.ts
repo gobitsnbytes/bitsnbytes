@@ -165,18 +165,20 @@ export const coreTeam: CoreTeamMember[] = [
       instagram: "https://www.instagram.com/rightangeled/",
     },
   },
+  {
+    id: 21,
+    name: "Shantanu Joshi",
+    role: "Head of Ground Operations",
+    image: "/team/shantanu.jpeg",
+    bio: "Big fan of clear documentation, proven processes that actually work, and building alongside people smarter than me.",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/theshantanujoshi/",
+    },
+  },
 ];
 
 export const volunteers: Volunteer[] = [
   // Operations Track
-  {
-    id: 21,
-    name: "Shantanu Joshi",
-    role: "Ground Operations",
-    image: "/team/shantanu.jpeg",
-    linkedin: "https://www.linkedin.com/in/theshantanujoshi/",
-    section: "Operations",
-  },
   {
     id: 8,
     name: "Atharva",
