@@ -7,6 +7,7 @@ Disallow: /api/
 Disallow: /private/
 Disallow: /admin/
 Disallow: /overclock-assets
+Disallow: /lear-case-study
 
 # AI and LLM Crawlers
 User-agent: GPTBot
