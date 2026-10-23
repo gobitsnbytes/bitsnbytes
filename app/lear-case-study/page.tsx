@@ -272,9 +272,9 @@ export default function LearCaseStudy() {
 
         <Chapter n="04" label="the record" title="twelve of the hardest">
           <p className="max-w-[62ch] font-serif text-lg leading-relaxed">
-            From the Discord bot&apos;s early days to this month, these are the failures that hurt most. Each one names the
-            real commit or log line it came from. Lear owned all of them: diagnosis, the fix, the deploy and the check
-            afterwards.
+            During the pilot Lear took on the failures on motherboard&apos;s record, from the Discord bot&apos;s first crashes to
+            the latest deploys. These are the twelve that hurt most. Each one names the real commit or log line it came from,
+            and Lear owned all of them: diagnosis, the fix, the deploy and the check afterwards.
           </p>
           <ol className="mt-12 grid gap-8 md:grid-cols-2">
             {INCIDENTS.map((inc, i) => (

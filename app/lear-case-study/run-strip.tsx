@@ -6,10 +6,7 @@ import runs from "./runs.json";
 
 type Run = [date: string, failed: 0 | 1, title: string];
 
-const fmt = (d: string) =>
-  new Date(`${d}T00:00:00Z`).toLocaleDateString("en-IN", { day: "numeric", month: "short", timeZone: "UTC" });
-
-// Every completed motherboard CI/CD run, oldest first. One bar per run; orange bars failed.
+// Every completed motherboard CI/CD run, in order. One bar per run; orange bars failed.
 export function RunStrip() {
   const all = runs as Run[];
   const failed = all.filter((r) => r[1]).length;
@@ -22,7 +19,7 @@ export function RunStrip() {
         className="flex h-24 items-end gap-px sm:h-32 lg:h-28 lg:gap-[2px]"
         onPointerLeave={() => setActive(null)}
         role="img"
-        aria-label={`${all.length} CI runs from ${fmt(all[0][0])} to ${fmt(all[all.length - 1][0])}, ${failed} of them failed`}
+        aria-label={`${all.length} CI runs, ${failed} of them failed`}
       >
         {all.map((r, i) => (
           <span
@@ -39,13 +36,12 @@ export function RunStrip() {
         {run ? (
           <>
             <span className="text-[var(--orange)]">[{String(active! + 1).padStart(3, "0")}]</span>
-            <span>{fmt(run[0])}</span>
             <span className={run[1] ? "bg-[var(--orange)] px-1 text-[var(--ink)]" : "opacity-70"}>{run[1] ? "failed" : "passed"}</span>
             <span className="min-w-0 normal-case tracking-normal opacity-90">{run[2]}</span>
           </>
         ) : (
           <>
-            <span>every CI/CD run motherboard has had · {fmt(all[0][0])} → {fmt(all[all.length - 1][0])} 2026</span>
+            <span>every CI/CD run on motherboard&apos;s record</span>
             <span className="text-[var(--orange)]">■ {failed} failed</span>
             <span className="opacity-70">■ {all.length - failed} passed</span>
           </>
