@@ -5,6 +5,7 @@ import { aboutContent, coreTeam } from "@/components/about/data";
 import { OriginTimeline } from "@/components/about/origin-timeline";
 import { Team } from "@/components/about/team";
 import { Governance } from "@/components/about/governance";
+import { AboutFilm } from "@/components/about/film";
 import { cn } from "@/lib/utils";
 
 const CHAPTERS = [
@@ -83,6 +84,7 @@ export default function About() {
       <OriginTimeline />
 
       <TornEdge from="paper" to="ink" />
+      <AboutFilm />
       <ChapterHero
         id="beliefs"
         number={2}
