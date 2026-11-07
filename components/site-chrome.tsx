@@ -16,7 +16,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   // hidden standalone pages render bare: no nav, footer, loader or assistant
-  if (pathname === "/overclock-assets" || pathname === "/lear-case-study") return <>{children}</>;
+  if (pathname === "/overclock-assets") return <>{children}</>;
 
   // overflow-x-clip (not hidden) on the wrappers: hidden would make them scroll containers and break
   // sticky + ScrollTrigger pins. The page background is the body's halftone-field.
